@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ property.title }} | Radar Hurlingham{% endblock %}
+{% block body %}
+<header class="app-header">
+  <a class="back-link" href="{{ return_to }}"><i data-lucide="arrow-left"></i> {{ return_label|default:"Resultados" }}</a>
+  <div class="detail-nav">
+    {% if previous_url %}
+      <a class="icon-button" href="{{ previous_url }}" title="Anterior" aria-label="Anterior"><i data-lucide="chevron-left"></i></a>
+    {% endif %}
+    {% if next_url %}
+      <a class="icon-button" href="{{ next_url }}" title="Siguiente" aria-label="Siguiente"><i data-lucide="chevron-right"></i></a>
+    {% endif %}
+  </div>
+  <span class="precision-pill {% if property.location.is_exact %}exact{% else %}approximate{% endif %}">
+    <i data-lucide="map-pin"></i>{{ property.location.get_precision_display|default:"Sin ubicación" }}
+  </span>
+</header>
+<main class="detail-layout">
+  <section class="detail-main">
+    {% with listing=property.primary_listing %}
+      {% if listing.images.all %}
+      <div class="gallery">
+        {% for image in listing.images.all|slice:":4" %}
+          <img src="{{ image.url }}" alt="" loading="lazy">
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="detail-heading">
+      <div>
+        <p class="eyebrow">{{ property.get_property_type_display }} en venta</p>
+        <h1>{{ property.title }}</h1>
+        <p class="detail-address">{{ property.address }}, {{ property.locality }}</p>
+      </div>
+      <div class="detail-price">
+        {% if property.price %}{{ property.currency }} {{ property.price|floatformat:0 }}{% else %}Consultar{% endif %}
+      </div>
+    </div>
+    <div class="original-links">
+      {% for listing in property.listings.all %}
+        <a class="source-button" href="{{ listing.url }}" target="_blank" rel="noopener">
+          <i data-lucide="external-link"></i>
+          {{ listing.source.name }}{% if listing.agency %} · {{ listing.agency.name }}{% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="analysis-actions" data-property-id="{{ property.pk }}">
+      <button class="secondary-button property-action {% if property.is_favorite %}active{% endif %}" type="button" data-action="favorite" data-value="{% if property.is_favorite %}0{% else %}1{% endif %}">
+        <i data-lucide="star"></i> Favorita
+      </button>
+      <button class="secondary-button property-action {% if property.reviewed_at %}active{% endif %}" type="button" data-action="reviewed" data-value="{% if property.reviewed_at %}0{% else %}1{% endif %}">
+        <i data-lucide="check-circle"></i> Revisada
+      </button>
+      <button class="secondary-button property-action {% if property.is_hidden %}active danger{% endif %}" type="button" data-action="hidden" data-value="{% if property.is_hidden %}0{% else %}1{% endif %}">
+        <i data-lucide="eye-off"></i> Ocultar
+      </button>
+    </div>
+
+    <dl class="metrics">
+      <div><dt>Dormitorios</dt><dd>{{ property.bedrooms|default:"-" }}</dd></div>
+      <div><dt>Baños</dt><dd>{{ property.bathrooms|floatformat:-1|default:"-" }}</dd></div>
+      <div><dt>Cubierta</dt><dd>{% if property.covered_area %}{{ property.covered_area|floatformat:0 }} m²{% else %}-{% endif %}</dd></div>
+      <div><dt>Terreno</dt><dd>{% if property.land_area %}{{ property.land_area|floatformat:0 }} m²{% else %}-{% endif %}</dd></div>
+      <div><dt>Cocheras</dt><dd>{{ property.garages|default:"-" }}</dd></div>
+      <div><dt>Antigüedad</dt><dd>{% if property.age_years %}{{ property.age_years }} años{% else %}-{% endif %}</dd></div>
+    </dl>
+
+    {% if property.description %}
+    <section class="detail-section">
+      <h2>Descripción</h2>
+      <p>{{ property.description }}</p>
+    </section>
+    {% endif %}
+
+    {% if property.features %}
+    <section class="detail-section">
+      <h2>Características</h2>
+      <div class="feature-list">
+        {% for feature in property.features %}<span>{{ feature }}</span>{% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="detail-section">
+      <h2>Notas personales</h2>
+      <div class="notes-panel" data-property-id="{{ property.pk }}">
+        <textarea id="personal-notes" rows="5" placeholder="Notas, dudas, observaciones de visita o comparaciones...">{{ property.personal_notes }}</textarea>
+        <button class="primary-button" id="save-notes" type="button">
+          <i data-lucide="save"></i> Guardar notas
+        </button>
+        <span class="note-status" id="note-status"></span>
+      </div>
+    </section>
+
+    <section class="detail-section">
+      <h2>Ubicacion detectada</h2>
+      <dl class="location-audit">
+        <div><dt>Localidad</dt><dd>{{ property.detected_locality|default:"-" }}</dd></div>
+        <div><dt>Barrio/Zona</dt><dd>{{ property.detected_neighborhood|default:"-" }}</dd></div>
+        <div><dt>Direccion</dt><dd>{{ property.detected_address|default:"-" }}</dd></div>
+        <div><dt>Fuente</dt><dd>{{ property.get_location_source_display }}</dd></div>
+        <div><dt>Confianza</dt><dd>{{ property.get_location_confidence_display }}</dd></div>
+      </dl>
+      {% if property.location_notes %}
+        <p class="audit-note">{{ property.location_notes }}</p>
+      {% endif %}
+    </section>
+
+    <section class="detail-section">
+      <h2>Publicaciones</h2>
+      <div class="source-list">
+        {% for listing in property.listings.all %}
+          <a href="{{ listing.url }}" target="_blank" rel="noopener">
+            <span>{{ listing.source.name }}{% if listing.agency %} · {{ listing.agency.name }}{% endif %}</span>
+            <i data-lucide="external-link"></i>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="detail-section">
+      <h2>Historial de precio</h2>
+      <div class="history-list">
+        {% for listing in property.listings.all %}
+          {% for snapshot in listing.snapshots.all %}
+            <div><time>{{ snapshot.observed_at|date:"d/m/Y" }}</time><strong>{{ snapshot.currency }} {{ snapshot.price|floatformat:0|default:"Consultar" }}</strong></div>
+          {% empty %}
+            <p>Sin cambios registrados.</p>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </section>
+  </section>
+
+  <aside class="detail-map-panel">
+    <div class="sticky-map">
+      <div id="detail-map"></div>
+      {% if property.location %}
+      <div class="map-editor-bar">
+        <div>
+          <strong id="location-label">{{ property.location.get_precision_display }}</strong>
+          <span>{% if property.location.outside_target %}Fuera del área objetivo{% else %}Partido de Hurlingham{% endif %}</span>
+        </div>
+        <button class="secondary-button" id="edit-location" type="button">
+          <i data-lucide="move"></i> Corregir pin
+        </button>
+        <button class="primary-button" id="save-location" type="button" hidden>
+          <i data-lucide="check"></i> Guardar
+        </button>
+      </div>
+      {% endif %}
+    </div>
+  </aside>
+</main>
+{% endblock %}
+{% block scripts %}
+{{ map_config|json_script:"map-config" }}
+{{ property_location|json_script:"property-location" }}
+<script src="{% static 'js/detail-map.js' %}"></script>
+<script src="{% static 'js/property-actions.js' %}"></script>
+<script>
+  window.RADAR_PREVIOUS_URL = "{{ previous_url|escapejs }}";
+  window.RADAR_NEXT_URL = "{{ next_url|escapejs }}";
+</script>
+<script src="{% static 'js/detail-nav.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+db.sqlite3
+*.log
+.env
+.pytest_cache/
+staticfiles/
+.tools/
+.scrape.lock

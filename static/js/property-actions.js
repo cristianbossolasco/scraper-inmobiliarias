@@ -1,0 +1,107 @@
+(() => {
+  function csrf() {
+    const item = document.cookie.split(";").map((part) => part.trim())
+      .find((part) => part.startsWith("csrftoken="));
+    return item ? decodeURIComponent(item.split("=")[1]) : "";
+  }
+
+  function propertyId(element) {
+    const container = element.closest("[data-property-id]");
+    return container ? container.dataset.propertyId : "";
+  }
+
+  function bindActions(root = document) {
+    root.querySelectorAll(".property-action:not([data-bound])").forEach((button) => {
+      button.dataset.bound = "1";
+      button.addEventListener("click", () => {
+        const id = propertyId(button);
+        const action = button.dataset.action;
+        const value = button.dataset.value === "1";
+        const payload = {};
+        if (action === "favorite") payload.is_favorite = value;
+        if (action === "hidden") payload.is_hidden = value;
+        if (action === "reviewed") payload.reviewed = value;
+        fetch(`/api/propiedad/${id}/estado/`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+          body: JSON.stringify(payload)
+        }).then((response) => {
+          if (!response.ok) throw new Error("No se pudo guardar");
+          return response.json();
+        }).then((data) => {
+          if (action === "favorite") setToggle(button, data.is_favorite);
+          if (action === "hidden") setToggle(button, data.is_hidden);
+          if (action === "reviewed") setToggle(button, data.reviewed);
+          if (action === "hidden") {
+            const row = button.closest("[data-property-id]");
+            if (row) row.classList.toggle("is-hidden", data.is_hidden);
+          }
+        }).catch((error) => alert(error.message));
+      });
+    });
+
+    const notes = root.querySelector("#personal-notes");
+    const save = root.querySelector("#save-notes");
+    const status = root.querySelector("#note-status");
+    if (notes && save && !save.dataset.bound) {
+      save.dataset.bound = "1";
+      save.addEventListener("click", () => {
+        const id = propertyId(save);
+        fetch(`/api/propiedad/${id}/nota/`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+          body: JSON.stringify({ personal_notes: notes.value })
+        }).then((response) => {
+          if (!response.ok) throw new Error("No se pudo guardar la nota");
+          return response.json();
+        }).then(() => {
+          if (status) status.textContent = "Guardado";
+          setTimeout(() => { if (status) status.textContent = ""; }, 1800);
+        }).catch((error) => {
+          if (status) status.textContent = error.message;
+        });
+      });
+    }
+  }
+
+  function setToggle(button, enabled) {
+    button.classList.toggle("active", enabled);
+    button.dataset.value = enabled ? "0" : "1";
+  }
+
+  document.addEventListener("htmx:afterSwap", (event) => bindActions(event.target));
+  bindActions();
+
+  function selectableItems() {
+    return Array.from(document.querySelectorAll(".property-card, .property-table tbody tr[data-property-id]"));
+  }
+
+  function selectItem(item) {
+    selectableItems().forEach((candidate) => candidate.classList.remove("is-selected"));
+    if (!item) return;
+    item.classList.add("is-selected");
+    item.scrollIntoView({ block: "nearest" });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+    const items = selectableItems();
+    if (!items.length) return;
+    const current = document.querySelector(".property-card.is-selected, .property-table tbody tr.is-selected");
+    let index = current ? items.indexOf(current) : 0;
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      selectItem(items[Math.min(index + 1, items.length - 1)]);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      selectItem(items[Math.max(index - 1, 0)]);
+    } else if (event.key === "Enter" && current) {
+      const link = current.querySelector(".card-link, .table-title");
+      if (link) window.location.href = link.href;
+    } else if (["f", "F", "v", "V", "h", "H"].includes(event.key) && current) {
+      const action = event.key.toLowerCase() === "f" ? "favorite" : event.key.toLowerCase() === "v" ? "reviewed" : "hidden";
+      const button = current.querySelector(`.property-action[data-action="${action}"]`);
+      if (button) button.click();
+    }
+  });
+})();

@@ -1,0 +1,432 @@
+import builtins
+from decimal import Decimal
+
+from django.db import models
+
+
+class Agency(models.Model):
+    name = models.CharField(max_length=180, unique=True)
+    website = models.URLField(blank=True)
+    phone = models.CharField(max_length=80, blank=True)
+    email = models.EmailField(blank=True)
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = "agencies"
+
+    def __str__(self):
+        return self.name
+
+
+class Source(models.Model):
+    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=120)
+    base_url = models.URLField()
+    enabled = models.BooleanField(default=True)
+    crawl_delay_seconds = models.PositiveSmallIntegerField(default=2)
+    notes = models.TextField(blank=True)
+    last_audited_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class Property(models.Model):
+    class Type(models.TextChoices):
+        HOUSE = "house", "Casa"
+        PH = "ph", "PH"
+        DUPLEX = "duplex", "Dúplex"
+        APARTMENT = "apartment", "Departamento"
+        COUNTRY_HOUSE = "country_house", "Quinta"
+        LAND = "land", "Terreno"
+        OTHER = "other", "Otro"
+
+    class Status(models.TextChoices):
+        ACTIVE = "active", "Activa"
+        RESERVED = "reserved", "Reservada"
+        SOLD = "sold", "Vendida"
+        REMOVED = "removed", "Retirada"
+
+    class LocationSource(models.TextChoices):
+        LISTING = "listing", "Listado"
+        DETAIL = "detail", "Detalle"
+        DESCRIPTION = "description", "Descripcion"
+        MAP = "map", "Mapa"
+        INFERRED = "inferred", "Inferida"
+        UNKNOWN = "unknown", "Desconocida"
+
+    class LocationConfidence(models.TextChoices):
+        HIGH = "high", "Alta"
+        MEDIUM = "medium", "Media"
+        LOW = "low", "Baja"
+        UNKNOWN = "unknown", "Desconocida"
+
+    fingerprint = models.CharField(max_length=64, unique=True)
+    property_type = models.CharField(
+        max_length=30, choices=Type.choices, default=Type.OTHER
+    )
+    operation = models.CharField(max_length=20, default="sale", db_index=True)
+    title = models.CharField(max_length=300)
+    description = models.TextField(blank=True)
+    address = models.CharField(max_length=300, blank=True)
+    normalized_address = models.CharField(max_length=300, blank=True, db_index=True)
+    locality = models.CharField(max_length=100, blank=True, db_index=True)
+    neighborhood = models.CharField(max_length=120, blank=True, db_index=True)
+    currency = models.CharField(max_length=8, blank=True, db_index=True)
+    price = models.DecimalField(
+        max_digits=16, decimal_places=2, null=True, blank=True, db_index=True
+    )
+    rooms = models.PositiveSmallIntegerField(null=True, blank=True)
+    bedrooms = models.PositiveSmallIntegerField(null=True, blank=True, db_index=True)
+    bathrooms = models.DecimalField(
+        max_digits=4, decimal_places=1, null=True, blank=True, db_index=True
+    )
+    garages = models.PositiveSmallIntegerField(null=True, blank=True, db_index=True)
+    toilets = models.PositiveSmallIntegerField(null=True, blank=True)
+    covered_area = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True, db_index=True
+    )
+    total_area = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
+    land_area = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True, db_index=True
+    )
+    uncovered_area = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
+    semicovered_area = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
+    front_width = models.DecimalField(
+        max_digits=8, decimal_places=2, null=True, blank=True
+    )
+    lot_depth = models.DecimalField(
+        max_digits=8, decimal_places=2, null=True, blank=True
+    )
+    building_floors = models.PositiveSmallIntegerField(null=True, blank=True)
+    age_years = models.PositiveSmallIntegerField(null=True, blank=True)
+    features = models.JSONField(default=list, blank=True)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.ACTIVE, db_index=True
+    )
+    detected_locality = models.CharField(max_length=100, blank=True, db_index=True)
+    detected_neighborhood = models.CharField(max_length=120, blank=True, db_index=True)
+    detected_address = models.CharField(max_length=300, blank=True)
+    detected_latitude = models.FloatField(null=True, blank=True)
+    detected_longitude = models.FloatField(null=True, blank=True)
+    location_source = models.CharField(
+        max_length=20, choices=LocationSource.choices, default=LocationSource.UNKNOWN
+    )
+    location_confidence = models.CharField(
+        max_length=20,
+        choices=LocationConfidence.choices,
+        default=LocationConfidence.UNKNOWN,
+        db_index=True,
+    )
+    location_notes = models.TextField(blank=True)
+    location_evidence = models.JSONField(default=dict, blank=True)
+    is_favorite = models.BooleanField(default=False, db_index=True)
+    is_hidden = models.BooleanField(default=False, db_index=True)
+    reviewed_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    personal_notes = models.TextField(blank=True)
+    first_seen_at = models.DateTimeField(auto_now_add=True)
+    last_seen_at = models.DateTimeField(auto_now=True, db_index=True)
+
+    class Meta:
+        ordering = ["-last_seen_at"]
+        indexes = [
+            models.Index(fields=["currency", "price"]),
+            models.Index(fields=["property_type", "status"]),
+            models.Index(fields=["locality", "neighborhood"]),
+            models.Index(fields=["detected_locality", "detected_neighborhood"]),
+            models.Index(fields=["is_hidden", "is_favorite", "reviewed_at"]),
+            models.Index(
+                fields=["operation", "is_hidden", "last_seen_at"],
+                name="properties__operat_47d71a_idx",
+            ),
+            models.Index(
+                fields=["operation", "price"],
+                name="properties__operat_976d5e_idx",
+            ),
+            models.Index(
+                fields=["operation", "land_area"],
+                name="properties__operat_224f57_idx",
+            ),
+            models.Index(
+                fields=["operation", "covered_area"],
+                name="properties__operat_86aa71_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def price_per_m2(self):
+        area = self.covered_area or self.total_area or self.land_area
+        if self.price is None or not area:
+            return None
+        return (self.price / Decimal(area)).quantize(Decimal("0.01"))
+
+    @property
+    def primary_listing(self):
+        return self.listings.filter(active=True).order_by("-last_seen_at").first()
+
+    @property
+    def data_quality_score(self):
+        checks = [
+            self.price is not None,
+            bool(self.covered_area or self.total_area or self.land_area),
+            hasattr(self, "location"),
+            self.listings.filter(images__isnull=False).exists(),
+            self.listings.exists(),
+            self.listings.filter(agency__isnull=False).exists(),
+        ]
+        return round(sum(1 for check in checks if check) / len(checks) * 100)
+
+
+class PropertyLocation(models.Model):
+    class Precision(models.TextChoices):
+        EXACT = "exact", "Exacta"
+        INTERSECTION = "intersection", "Intersección"
+        STREET = "street", "Calle"
+        NEIGHBORHOOD = "neighborhood", "Barrio"
+        MANUAL = "manual", "Confirmada manualmente"
+
+    property = models.OneToOneField(
+        Property, related_name="location", on_delete=models.CASCADE
+    )
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    precision = models.CharField(max_length=20, choices=Precision.choices)
+    query = models.CharField(max_length=400, blank=True)
+    provider = models.CharField(max_length=60, default="source")
+    confidence = models.FloatField(default=0)
+    manually_corrected = models.BooleanField(default=False)
+    outside_target = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.latitude:.5f}, {self.longitude:.5f}"
+
+    @builtins.property
+    def is_exact(self):
+        return self.precision in {self.Precision.EXACT, self.Precision.MANUAL}
+
+
+class LocationHistory(models.Model):
+    property = models.ForeignKey(
+        Property, related_name="location_history", on_delete=models.CASCADE
+    )
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    precision = models.CharField(max_length=20)
+    provider = models.CharField(max_length=60)
+    changed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-changed_at"]
+
+
+class Listing(models.Model):
+    source = models.ForeignKey(Source, related_name="listings", on_delete=models.PROTECT)
+    agency = models.ForeignKey(
+        Agency, related_name="listings", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    property = models.ForeignKey(
+        Property, related_name="listings", on_delete=models.CASCADE
+    )
+    external_id = models.CharField(max_length=160)
+    url = models.URLField(max_length=800)
+    source_status = models.CharField(max_length=50, blank=True)
+    active = models.BooleanField(default=True, db_index=True)
+    missing_runs = models.PositiveSmallIntegerField(default=0)
+    first_seen_at = models.DateTimeField(auto_now_add=True)
+    last_seen_at = models.DateTimeField(auto_now=True)
+    raw_data = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source", "external_id"], name="unique_source_listing"
+            )
+        ]
+        ordering = ["-last_seen_at"]
+        indexes = [
+            models.Index(
+                fields=["property", "active"],
+                name="properties__propert_c585c9_idx",
+            ),
+            models.Index(
+                fields=["agency", "active"],
+                name="properties__agency__9a4f75_idx",
+            ),
+            models.Index(
+                fields=["source", "active"],
+                name="properties__source__e7ad06_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.source}: {self.external_id}"
+
+
+class ListingImage(models.Model):
+    listing = models.ForeignKey(
+        Listing, related_name="images", on_delete=models.CASCADE
+    )
+    url = models.URLField(max_length=1000)
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["position"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["listing", "url"], name="unique_listing_image"
+            )
+        ]
+
+
+class ListingSnapshot(models.Model):
+    listing = models.ForeignKey(
+        Listing, related_name="snapshots", on_delete=models.CASCADE
+    )
+    observed_at = models.DateTimeField(auto_now_add=True)
+    content_hash = models.CharField(max_length=64)
+    price = models.DecimalField(max_digits=16, decimal_places=2, null=True, blank=True)
+    currency = models.CharField(max_length=8, blank=True)
+    status = models.CharField(max_length=30, blank=True)
+    payload = models.JSONField(default=dict)
+
+    class Meta:
+        ordering = ["-observed_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["listing", "content_hash"], name="unique_listing_snapshot"
+            )
+        ]
+
+
+class ScrapeRun(models.Model):
+    class Status(models.TextChoices):
+        RUNNING = "running", "En curso"
+        SUCCESS = "success", "Correcta"
+        PARTIAL = "partial", "Parcial"
+        FAILED = "failed", "Fallida"
+
+    source = models.ForeignKey(
+        Source, related_name="runs", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    status = models.CharField(max_length=20, choices=Status.choices)
+    started_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    discovered = models.PositiveIntegerField(default=0)
+    created = models.PositiveIntegerField(default=0)
+    updated = models.PositiveIntegerField(default=0)
+    errors = models.PositiveIntegerField(default=0)
+    error_log = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-started_at"]
+
+
+class ScrapeJob(models.Model):
+    class Runner(models.TextChoices):
+        WEB = "web", "Web"
+        COMMAND = "command", "Consola"
+
+    class Mode(models.TextChoices):
+        TRIAL = "trial", "Prueba"
+        COMPLETE = "complete", "Completo"
+
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pendiente"
+        RUNNING = "running", "En curso"
+        SUCCESS = "success", "Correcta"
+        PARTIAL = "partial", "Parcial"
+        FAILED = "failed", "Fallida"
+        CANCELLED = "cancelled", "Cancelada"
+        INTERRUPTED = "interrupted", "Interrumpida"
+
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.PENDING, db_index=True
+    )
+    selected_sources = models.JSONField(default=list)
+    worker_config = models.JSONField(default=dict)
+    runner = models.CharField(max_length=16, choices=Runner.choices, default=Runner.WEB)
+    scrape_mode = models.CharField(
+        max_length=16, choices=Mode.choices, default=Mode.COMPLETE
+    )
+    max_pages = models.PositiveIntegerField(null=True, blank=True)
+    start_page = models.PositiveIntegerField(null=True, blank=True)
+    max_listings = models.PositiveIntegerField(null=True, blank=True)
+    geocode_limit = models.PositiveIntegerField(null=True, blank=True)
+    request_timeout_seconds = models.PositiveIntegerField(null=True, blank=True)
+    max_errors_per_source = models.PositiveIntegerField(null=True, blank=True)
+    cancel_requested = models.BooleanField(default=False)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    error_log = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
+class ScrapeJobSource(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pendiente"
+        DISCOVERING = "discovering", "Descubriendo"
+        RUNNING = "running", "En curso"
+        SUCCESS = "success", "Correcta"
+        PARTIAL = "partial", "Parcial"
+        FAILED = "failed", "Fallida"
+        CANCELLED = "cancelled", "Cancelada"
+        INTERRUPTED = "interrupted", "Interrumpida"
+
+    job = models.ForeignKey(
+        ScrapeJob, related_name="sources", on_delete=models.CASCADE
+    )
+    source = models.ForeignKey(Source, related_name="job_sources", on_delete=models.PROTECT)
+    slug = models.SlugField()
+    name = models.CharField(max_length=120)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.PENDING, db_index=True
+    )
+    workers = models.PositiveIntegerField(default=1)
+    total_discovered = models.PositiveIntegerField(default=0)
+    total_to_process = models.PositiveIntegerField(default=0)
+    processed = models.PositiveIntegerField(default=0)
+    created = models.PositiveIntegerField(default=0)
+    updated = models.PositiveIntegerField(default=0)
+    skipped = models.PositiveIntegerField(default=0)
+    errors = models.PositiveIntegerField(default=0)
+    geocode_pending = models.PositiveIntegerField(default=0)
+    geocoded = models.PositiveIntegerField(default=0)
+    geocode_failed = models.PositiveIntegerField(default=0)
+    current_url = models.URLField(max_length=1000, blank=True)
+    logs = models.TextField(blank=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["job_id", "name"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["job", "slug"], name="unique_job_source"
+            )
+        ]
+
+
+class GeocodeCache(models.Model):
+    query = models.CharField(max_length=400, unique=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    precision = models.CharField(max_length=20, blank=True)
+    confidence = models.FloatField(default=0)
+    provider_payload = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

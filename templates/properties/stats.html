@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Estadisticas | Radar Hurlingham{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+{% endblock %}
+{% block body %}
+<header class="app-header">
+  <div>
+    <a class="brand" href="/">Radar Hurlingham</a>
+    <span class="count">Dashboard de mercado</span>
+  </div>
+  <div class="header-actions">
+    <a class="icon-button" href="/?{{ request.GET.urlencode }}" title="Volver a resultados" aria-label="Volver a resultados">
+      <i data-lucide="list"></i>
+    </a>
+    <a class="icon-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}" title="Exportar CSV" aria-label="Exportar CSV">
+      <i data-lucide="file-down"></i>
+    </a>
+  </div>
+</header>
+
+<main class="stats-page">
+  <section class="stats-filter-shell">
+    <div class="stats-filter-bar">
+      <div>
+        <strong>{{ total }} publicaciones filtradas</strong>
+        <span>Metricas y graficos usan estos filtros.</span>
+      </div>
+      <div class="stats-filter-actions">
+        <button class="secondary-button" type="button" id="stats-filter-toggle" aria-expanded="true">
+          <i data-lucide="sliders-horizontal"></i> Filtros
+        </button>
+        <a class="secondary-button" href="/?{{ request.GET.urlencode }}">
+          <i data-lucide="list"></i> Resultados
+        </a>
+        <a class="primary-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}">
+          <i data-lucide="file-down"></i> CSV
+        </a>
+      </div>
+    </div>
+
+    <form class="stats-filter-form" id="stats-filter-form" method="get" action="{% url 'properties:stats' %}">
+      <div class="stats-filter-field wide">
+        <label for="stats-q">Buscar</label>
+        <input id="stats-q" type="search" name="q" value="{{ query_params.q }}" placeholder="Direccion, barrio o caracteristica">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-property-type">Tipo <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-property-type" name="property_type" multiple size="3">
+          <option value="">Todos</option>
+          {% for value, label in property_types %}
+            <option value="{{ value }}" {% if value in selected_filters.property_type %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-price-min">Precio desde</label>
+        <input id="stats-price-min" name="price_min" inputmode="numeric" value="{{ query_params.price_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-price-max">Precio hasta</label>
+        <input id="stats-price-max" name="price_max" inputmode="numeric" value="{{ query_params.price_max }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-currency">Moneda <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-currency" name="currency" multiple size="3">
+          <option value="">Todas</option>
+          <option value="USD" {% if "USD" in selected_filters.currency %}selected{% endif %}>USD</option>
+          <option value="ARS" {% if "ARS" in selected_filters.currency %}selected{% endif %}>ARS</option>
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-locality">Localidad <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-locality" name="locality" multiple size="3">
+          <option value="">Todas</option>
+          {% for locality in localities %}
+            <option value="{{ locality }}" {% if locality in selected_filters.locality %}selected{% endif %}>{{ locality }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-bedrooms">Dorm. min.</label>
+        <input id="stats-bedrooms" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-bedrooms-max">Dorm. max.</label>
+        <input id="stats-bedrooms-max" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-bathrooms">Banos min.</label>
+        <input id="stats-bathrooms" name="bathrooms_min" type="number" min="0" value="{{ query_params.bathrooms_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-bathrooms-max">Banos max.</label>
+        <input id="stats-bathrooms-max" name="bathrooms_max" type="number" min="0" value="{{ query_params.bathrooms_max }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-garages">Coch. min.</label>
+        <input id="stats-garages" name="garages_min" type="number" min="0" value="{{ query_params.garages_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-land">Terreno min.</label>
+        <input id="stats-land" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-land-max">Terreno max.</label>
+        <input id="stats-land-max" name="land_max" inputmode="numeric" value="{{ query_params.land_max }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-covered">Cubierta min.</label>
+        <input id="stats-covered" name="covered_min" inputmode="numeric" value="{{ query_params.covered_min }}">
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-covered-max">Cubierta max.</label>
+        <input id="stats-covered-max" name="covered_max" inputmode="numeric" value="{{ query_params.covered_max }}">
+      </div>
+
+      <div class="stats-filter-field wide">
+        <label for="stats-agency">Inmobiliaria <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-agency" name="agency" multiple size="4">
+          <option value="">Todas</option>
+          {% for agency in agencies %}
+            <option value="{{ agency.pk }}" {% if agency.pk|stringformat:"s" in selected_filters.agency %}selected{% endif %}>{{ agency.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-source">Fuente <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-source" name="source" multiple size="4">
+          <option value="">Todas</option>
+          {% for source in sources %}
+            <option value="{{ source.pk }}" {% if source.pk|stringformat:"s" in selected_filters.source %}selected{% endif %}>{{ source.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-favorite">Favoritas <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-favorite" name="favorite" multiple size="2">
+          <option value="">Todas</option>
+          <option value="1" {% if "1" in selected_filters.favorite %}selected{% endif %}>Solo favoritas</option>
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-review">Revision <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-review" name="review_state" multiple size="3">
+          <option value="">Todas</option>
+          <option value="pending" {% if "pending" in selected_filters.review_state %}selected{% endif %}>Pendientes</option>
+          <option value="reviewed" {% if "reviewed" in selected_filters.review_state %}selected{% endif %}>Revisadas</option>
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-location">Ubicacion <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-location" name="location_quality" multiple size="4">
+          <option value="">Todas</option>
+          <option value="reliable" {% if "reliable" in selected_filters.location_quality %}selected{% endif %}>Confiable</option>
+          <option value="unreliable" {% if "unreliable" in selected_filters.location_quality %}selected{% endif %}>Poco confiable</option>
+          <option value="detected" {% if "detected" in selected_filters.location_quality %}selected{% endif %}>Detectada</option>
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-hidden">Ocultas <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-hidden" name="show_hidden" multiple size="2">
+          <option value="">Ocultar descartadas</option>
+          <option value="1" {% if "1" in selected_filters.show_hidden %}selected{% endif %}>Mostrar ocultas</option>
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-feature">Caracteristica <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-feature" name="feature" multiple size="4">
+          <option value="">Todas</option>
+          {% for feature in features %}
+            <option value="{{ feature }}" {% if feature in selected_filters.feature %}selected{% endif %}>{{ feature }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <input type="hidden" name="south" value="{{ query_params.south }}">
+      <input type="hidden" name="west" value="{{ query_params.west }}">
+      <input type="hidden" name="north" value="{{ query_params.north }}">
+      <input type="hidden" name="east" value="{{ query_params.east }}">
+      <input type="hidden" name="radius_lat" value="{{ query_params.radius_lat }}">
+      <input type="hidden" name="radius_lng" value="{{ query_params.radius_lng }}">
+      <input type="hidden" name="radius_km" value="{{ query_params.radius_km }}">
+      <input type="hidden" name="polygon" value="{{ query_params.polygon }}">
+
+      <div class="stats-filter-submit">
+        <a class="secondary-button" href="{% url 'properties:stats' %}">
+          <i data-lucide="rotate-ccw"></i> Limpiar
+        </a>
+        <button class="primary-button" type="submit">
+          <i data-lucide="sliders-horizontal"></i> Aplicar
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="stats-panel">
+    <div class="section-heading">
+      <div>
+        <h1>Estadisticas</h1>
+        <p>Metricas calculadas sobre los filtros actuales.</p>
+      </div>
+      <strong>{{ total }} publicaciones</strong>
+    </div>
+    <div class="metric-grid">
+      <div><span>Precio prom.</span><strong>{% if price_stats.avg %}{{ price_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana precio</span><strong>{% if price_stats.median %}{{ price_stats.median|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Precio/m2 prom.</span><strong>{% if price_m2_stats.avg %}{{ price_m2_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana precio/m2</span><strong>{% if price_m2_stats.median %}{{ price_m2_stats.median|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Sup. terreno prom.</span><strong>{% if total_area_stats.avg %}{{ total_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana terreno</span><strong>{% if total_area_stats.median %}{{ total_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
+      <div><span>Sup. cubierta prom.</span><strong>{% if covered_area_stats.avg %}{{ covered_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana cubierta</span><strong>{% if covered_area_stats.median %}{{ covered_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
+      <div><span>Dormitorios prom.</span><strong>{% if bedroom_stats.avg %}{{ bedroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana dorm.</span><strong>{% if bedroom_stats.median %}{{ bedroom_stats.median|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Baños prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Mediana baños</span><strong>{% if bathroom_stats.median %}{{ bathroom_stats.median|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Con direccion</span><strong>{{ with_detected_address }}</strong></div>
+      <div><span>Con coordenadas</span><strong>{{ with_map_location }}</strong></div>
+      <div><span>Ubicacion debil</span><strong>{{ without_reliable_location }}</strong></div>
+      <div><span>Posibles duplicados</span><strong>{{ possible_duplicates }}</strong></div>
+      <div><span>Nuevas ultimo scrape</span><strong>{{ new_since_last_scrape }}</strong></div>
+    </div>
+  </section>
+
+  <section class="stats-panel">
+    <h2>Calidad de datos</h2>
+    <div class="quality-grid">
+      <div><a href="{{ quality_links.price.present }}">Precio</a><meter min="0" max="100" value="{{ quality_percent.price }}"></meter><strong><a href="{{ quality_links.price.missing }}">{{ quality_percent.price }}%</a></strong></div>
+      <div><a href="{{ quality_links.surface.present }}">Superficie</a><meter min="0" max="100" value="{{ quality_percent.surface }}"></meter><strong><a href="{{ quality_links.surface.missing }}">{{ quality_percent.surface }}%</a></strong></div>
+      <div><a href="{{ quality_links.address.present }}">Direccion</a><meter min="0" max="100" value="{{ quality_percent.address }}"></meter><strong><a href="{{ quality_links.address.missing }}">{{ quality_percent.address }}%</a></strong></div>
+      <div><a href="{{ quality_links.location.present }}">Mapa</a><meter min="0" max="100" value="{{ quality_percent.location }}"></meter><strong><a href="{{ quality_links.location.missing }}">{{ quality_percent.location }}%</a></strong></div>
+      <div><a href="{{ quality_links.image.present }}">Imagen</a><meter min="0" max="100" value="{{ quality_percent.image }}"></meter><strong><a href="{{ quality_links.image.missing }}">{{ quality_percent.image }}%</a></strong></div>
+      <div><a href="{{ quality_links.link.present }}">Link</a><meter min="0" max="100" value="{{ quality_percent.link }}"></meter><strong><a href="{{ quality_links.link.missing }}">{{ quality_percent.link }}%</a></strong></div>
+      <div><a href="{{ quality_links.agency.present }}">Inmobiliaria</a><meter min="0" max="100" value="{{ quality_percent.agency }}"></meter><strong><a href="{{ quality_links.agency.missing }}">{{ quality_percent.agency }}%</a></strong></div>
+    </div>
+    <p class="audit-note">{{ incomplete }} incompletas · {{ inconsistent }} inconsistentes o sospechosas · {{ anomaly_count }} valores excluidos de metricas</p>
+  </section>
+
+  {% if anomaly_rows %}
+  <section class="stats-panel">
+    <h2>Datos a revisar</h2>
+    <div class="anomaly-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+            <th>Motivo</th>
+            <th>Publicacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in anomaly_rows %}
+          <tr>
+            <td>{{ row.field }}</td>
+            <td>{{ row.value }}</td>
+            <td>{{ row.reason }}</td>
+            <td>
+              <a href="{{ row.detail_url }}">{{ row.property.title|truncatechars:54 }}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="stats-grid">
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Publicaciones por localidad</h2><canvas id="locality-chart"></canvas></div>
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Publicaciones por zona</h2><canvas id="neighborhood-chart"></canvas></div>
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Inmobiliarias con mas publicaciones</h2><canvas id="agency-chart"></canvas></div>
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Distribucion de precios</h2><canvas id="price-chart"></canvas></div>
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Superficie vs precio</h2><canvas id="surface-price-chart"></canvas></div>
+    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Habitaciones vs precio</h2><canvas id="bedrooms-price-chart"></canvas></div>
+  </section>
+  <dialog class="chart-modal" id="chart-modal">
+    <button class="icon-button small" type="button" id="chart-modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <h2 id="chart-modal-title"></h2>
+    <canvas id="chart-modal-canvas"></canvas>
+  </dialog>
+</main>
+{{ chart_data|json_script:"chart-data" }}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/stats.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+{% load static property_tags %}
+{% block title %}Propiedades | Radar Hurlingham{% endblock %}
+{% block body %}
+<header class="app-header">
+  <div>
+    <a class="brand" href="/">Radar Hurlingham</a>
+    <span class="count">{{ total }} propiedades</span>
+  </div>
+  <div class="header-actions">
+    <a class="icon-button" href="{% url 'properties:stats' %}?{{ request.GET.urlencode }}" title="Estadisticas" aria-label="Estadisticas">
+      <i data-lucide="bar-chart-3"></i>
+    </a>
+    <a class="icon-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}" title="Exportar CSV" aria-label="Exportar CSV">
+      <i data-lucide="file-down"></i>
+    </a>
+    <a class="icon-button" href="{% url 'properties:export_xlsx' %}?{{ request.GET.urlencode }}" title="Exportar Excel" aria-label="Exportar Excel">
+      <i data-lucide="sheet"></i>
+    </a>
+    <a class="icon-button" href="{% url 'properties:scraping' %}" title="Scraping a demanda" aria-label="Scraping a demanda">
+      <i data-lucide="play"></i>
+    </a>
+    <button class="icon-button" type="button" id="fit-map" title="Encuadrar resultados" aria-label="Encuadrar resultados">
+      <i data-lucide="scan"></i>
+    </button>
+    <button class="icon-button" type="button" id="map-mode" title="Alternar vista de mapa" aria-label="Alternar vista de mapa">
+      <i data-lucide="map"></i>
+    </button>
+  </div>
+</header>
+
+<main class="workspace">
+  <aside class="filters">
+    <button class="icon-button filter-toggle" type="button" id="filters-toggle" title="Ocultar filtros" aria-label="Ocultar filtros" aria-expanded="true">
+      <i data-lucide="panel-left-close"></i>
+    </button>
+    <form id="search-form" method="get"
+          hx-get="/"
+          hx-target="#results-pane"
+          hx-select="#results-pane"
+          hx-swap="outerHTML"
+          hx-push-url="true"
+          hx-trigger="change delay:250ms, submit">
+      <div class="search-field">
+        <i data-lucide="search"></i>
+        <input type="search" name="q" value="{{ query_params.q }}" placeholder="Dirección, barrio o característica">
+      </div>
+
+      <div class="filter-section">
+        <label for="property_type">Tipo</label>
+        <select id="property_type" name="property_type">
+          <option value="">Todos</option>
+          {% for value, label in property_types %}
+            <option value="{{ value }}" {% if query_params.property_type == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="price_min">Precio desde</label>
+          <input id="price_min" name="price_min" inputmode="numeric" value="{{ query_params.price_min }}">
+        </div>
+        <div>
+          <label for="price_max">Hasta</label>
+          <input id="price_max" name="price_max" inputmode="numeric" value="{{ query_params.price_max }}">
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="currency">Moneda</label>
+          <select id="currency" name="currency">
+            <option value="">Todas</option>
+            <option value="USD" {% if query_params.currency == "USD" %}selected{% endif %}>USD</option>
+            <option value="ARS" {% if query_params.currency == "ARS" %}selected{% endif %}>ARS</option>
+          </select>
+        </div>
+        <div>
+          <label for="locality">Localidad</label>
+          <select id="locality" name="locality">
+            <option value="">Todas</option>
+            {% for locality in localities %}
+              <option value="{{ locality }}" {% if query_params.locality == locality %}selected{% endif %}>{{ locality }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section three-cols">
+        <div>
+          <label for="bedrooms_min">Dorm.</label>
+          <input id="bedrooms_min" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}">
+        </div>
+        <div>
+          <label for="bathrooms_min">Baños</label>
+          <input id="bathrooms_min" name="bathrooms_min" type="number" min="0" value="{{ query_params.bathrooms_min }}">
+        </div>
+        <div>
+          <label for="garages_min">Coch.</label>
+          <input id="garages_min" name="garages_min" type="number" min="0" value="{{ query_params.garages_min }}">
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="land_min">Terreno mín. m²</label>
+          <input id="land_min" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}">
+        </div>
+        <div>
+          <label for="covered_min">Cubierta mín. m²</label>
+          <input id="covered_min" name="covered_min" inputmode="numeric" value="{{ query_params.covered_min }}">
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <label for="agency">Inmobiliaria</label>
+        <select id="agency" name="agency">
+          <option value="">Todas</option>
+          {% for agency in agencies %}
+            <option value="{{ agency.pk }}" {% if query_params.agency == agency.pk|stringformat:"s" %}selected{% endif %}>{{ agency.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="source">Fuente</label>
+          <select id="source" name="source">
+            <option value="">Todas</option>
+            {% for source in sources %}
+              <option value="{{ source.pk }}" {% if query_params.source == source.pk|stringformat:"s" %}selected{% endif %}>{{ source.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="view">Vista</label>
+          <select id="view" name="view">
+            <option value="cards" {% if view_mode != "table" %}selected{% endif %}>Tarjetas</option>
+            <option value="table" {% if view_mode == "table" %}selected{% endif %}>Tabla</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="favorite">Favoritas</label>
+          <select id="favorite" name="favorite">
+            <option value="">Todas</option>
+            <option value="1" {% if query_params.favorite == "1" %}selected{% endif %}>Solo favoritas</option>
+          </select>
+        </div>
+        <div>
+          <label for="review_state">Revision</label>
+          <select id="review_state" name="review_state">
+            <option value="">Todas</option>
+            <option value="pending" {% if query_params.review_state == "pending" %}selected{% endif %}>Pendientes</option>
+            <option value="reviewed" {% if query_params.review_state == "reviewed" %}selected{% endif %}>Revisadas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="location_quality">Ubicacion</label>
+          <select id="location_quality" name="location_quality">
+            <option value="">Todas</option>
+            <option value="reliable" {% if query_params.location_quality == "reliable" %}selected{% endif %}>Confiable</option>
+            <option value="unreliable" {% if query_params.location_quality == "unreliable" %}selected{% endif %}>Poco confiable</option>
+            <option value="detected" {% if query_params.location_quality == "detected" %}selected{% endif %}>Detectada</option>
+          </select>
+        </div>
+        <div>
+          <label for="show_hidden">Ocultas</label>
+          <select id="show_hidden" name="show_hidden">
+            <option value="">Ocultar descartadas</option>
+            <option value="1" {% if query_params.show_hidden == "1" %}selected{% endif %}>Mostrar ocultas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="feature">Característica</label>
+          <select id="feature" name="feature">
+            <option value="">Todas</option>
+            {% for feature in features %}
+              <option value="{{ feature }}" {% if query_params.feature == feature %}selected{% endif %}>{{ feature }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="sort">Orden</label>
+          <select id="sort" name="sort">
+            <option value="-last_seen">Más recientes</option>
+            <option value="price" {% if query_params.sort == "price" %}selected{% endif %}>Menor precio</option>
+            <option value="-price" {% if query_params.sort == "-price" %}selected{% endif %}>Mayor precio</option>
+            <option value="-area" {% if query_params.sort == "-area" %}selected{% endif %}>Mayor terreno</option>
+            <option value="price_m2" {% if query_params.sort == "price_m2" %}selected{% endif %}>Menor USD/m²</option>
+            <option value="-price_m2" {% if query_params.sort == "-price_m2" %}selected{% endif %}>Mayor USD/m2</option>
+            <option value="-first_seen" {% if query_params.sort == "-first_seen" %}selected{% endif %}>Alta reciente</option>
+            <option value="reviewed" {% if query_params.sort == "reviewed" %}selected{% endif %}>Pendientes primero</option>
+            <option value="-quality" {% if query_params.sort == "-quality" %}selected{% endif %}>Mejor calidad</option>
+            <option value="distance" {% if query_params.sort == "distance" %}selected{% endif %}>Distancia</option>
+          </select>
+        </div>
+      </div>
+
+      <input type="hidden" name="south" value="{{ query_params.south }}">
+      <input type="hidden" name="west" value="{{ query_params.west }}">
+      <input type="hidden" name="north" value="{{ query_params.north }}">
+      <input type="hidden" name="east" value="{{ query_params.east }}">
+      <input type="hidden" name="radius_lat" value="{{ query_params.radius_lat }}">
+      <input type="hidden" name="radius_lng" value="{{ query_params.radius_lng }}">
+      <input type="hidden" name="radius_km" value="{{ query_params.radius_km|default:'2' }}">
+      <input type="hidden" name="polygon" value="{{ query_params.polygon }}">
+
+      <div class="filter-actions">
+        <button class="secondary-button" type="button" id="clear-filters">
+          <i data-lucide="rotate-ccw"></i> Limpiar
+        </button>
+        <button class="primary-button" type="submit">
+          <i data-lucide="sliders-horizontal"></i> Aplicar
+        </button>
+      </div>
+    </form>
+  </aside>
+
+  <section class="results" id="results-pane">
+    <div class="results-toolbar">
+      <strong>{{ total }} resultados</strong>
+      <div class="geo-tools" role="group" aria-label="Filtros geográficos">
+        <button class="tool-button" type="button" id="bounds-filter" title="Filtrar por área visible">
+          <i data-lucide="frame"></i><span>Área visible</span>
+        </button>
+        <button class="tool-button" type="button" id="radius-tool" title="Buscar alrededor de un punto">
+          <i data-lucide="circle-dot"></i><span>Radio</span>
+        </button>
+        <button class="tool-button" type="button" id="polygon-tool" title="Dibujar un área">
+          <i data-lucide="pentagon"></i><span>Área</span>
+        </button>
+        <button class="icon-button small" type="button" id="clear-geo" title="Quitar filtro geográfico" aria-label="Quitar filtro geográfico">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+    </div>
+
+    {% if view_mode == "table" %}
+    <div class="property-table-wrap">
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Acciones</th>
+            <th><a href="?{{ query_params.urlencode }}&sort=price">Precio</a></th>
+            <th>Publicacion</th>
+            <th>Inmobiliaria</th>
+            <th><a href="?{{ query_params.urlencode }}&sort=source">Fuente</a></th>
+            <th>Localidad</th>
+            <th><a href="?{{ query_params.urlencode }}&sort=-bedrooms">Dorm.</a></th>
+            <th>Baños</th>
+            <th><a href="?{{ query_params.urlencode }}&sort=-covered_area">Cub.</a></th>
+            <th><a href="?{{ query_params.urlencode }}&sort=-land_area">Terr.</a></th>
+            <th><a href="?{{ query_params.urlencode }}&sort=price_m2">USD/m²</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for property in page.object_list %}
+            {% with item=serialized|get_item:property.pk %}
+            <tr class="{% if property.is_hidden %}is-hidden{% endif %}" data-property-id="{{ property.pk }}" data-detail-url="{{ item.detail_url }}">
+              <td class="table-actions">
+                <button class="icon-button small property-action {% if property.is_favorite %}active{% endif %}" type="button" data-action="favorite" data-value="{% if property.is_favorite %}0{% else %}1{% endif %}" title="Favorita" aria-label="Favorita"><i data-lucide="star"></i></button>
+                <button class="icon-button small property-action {% if property.reviewed_at %}active{% endif %}" type="button" data-action="reviewed" data-value="{% if property.reviewed_at %}0{% else %}1{% endif %}" title="Marcar revisada" aria-label="Marcar revisada"><i data-lucide="check-circle"></i></button>
+                <button class="icon-button small property-action {% if property.is_hidden %}active danger{% endif %}" type="button" data-action="hidden" data-value="{% if property.is_hidden %}0{% else %}1{% endif %}" title="Ocultar o descartar" aria-label="Ocultar o descartar"><i data-lucide="eye-off"></i></button>
+              </td>
+              <td>{% if property.price %}{{ property.currency }} {{ property.price|floatformat:0 }}{% else %}Consultar{% endif %}</td>
+              <td><a class="table-title" href="{{ item.detail_url }}">{{ property.title|truncatechars:64 }}</a></td>
+              <td>{{ item.agency_name|default:"-" }}</td>
+              <td>{{ item.source_name|default:"-" }}</td>
+              <td>{{ property.locality|default:"-" }}</td>
+              <td>{{ property.bedrooms|default:"-" }}</td>
+              <td>{% if property.bathrooms %}{{ property.bathrooms|floatformat:-1 }}{% else %}-{% endif %}</td>
+              <td>{% if property.covered_area %}{{ property.covered_area|floatformat:0 }}{% else %}-{% endif %}</td>
+              <td>{% if property.land_area %}{{ property.land_area|floatformat:0 }}{% else %}-{% endif %}</td>
+              <td>{% if item.price_m2 %}{{ item.price_m2|floatformat:0 }}{% else %}-{% endif %}</td>
+            </tr>
+            {% endwith %}
+          {% empty %}
+            <tr><td colspan="11">No hay propiedades para estos filtros</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="property-grid">
+      {% for property in page.object_list %}
+        {% with item=serialized|get_item:property.pk %}
+        <article class="property-card {% if property.is_hidden %}is-hidden{% endif %}" data-property-id="{{ property.pk }}">
+          <a class="card-link" href="{{ item.detail_url }}">
+            <div class="card-image">
+              {% if item.image %}
+                <img src="{{ item.image }}" alt="" loading="lazy">
+              {% else %}
+                <div class="image-placeholder"><i data-lucide="home"></i></div>
+              {% endif %}
+              <span class="location-badge {{ item.location_state }} {% if item.exact %}exact{% elif item.location_state == 'mapped' %}approximate{% endif %}">
+                <i data-lucide="{% if item.exact %}map-pin-check{% elif item.location_state == 'unknown' %}map-pin-off{% else %}map-pin{% endif %}"></i>
+                {{ item.precision_label }}
+              </span>
+            </div>
+            <div class="card-content">
+              <div class="card-price">
+                {% if property.price %}{{ property.currency }} {{ property.price|floatformat:0 }}{% else %}Consultar{% endif %}
+              </div>
+              <h2>{{ property.title }}</h2>
+              <p class="card-address">{{ property.address|default:property.locality }}</p>
+              <div class="facts">
+                {% if property.bedrooms != None %}<span><i data-lucide="bed-double"></i>{{ property.bedrooms }}</span>{% endif %}
+                {% if property.bathrooms != None %}<span><i data-lucide="bath"></i>{{ property.bathrooms|floatformat:-1 }}</span>{% endif %}
+                {% if property.covered_area %}<span><i data-lucide="square-dashed"></i>{{ property.covered_area|floatformat:0 }} m²</span>{% endif %}
+                {% if property.land_area %}<span><i data-lucide="land-plot"></i>{{ property.land_area|floatformat:0 }} m²</span>{% endif %}
+              </div>
+            </div>
+          </a>
+          <div class="card-actions">
+            <button class="icon-button small property-action {% if property.is_favorite %}active{% endif %}" type="button" data-action="favorite" data-value="{% if property.is_favorite %}0{% else %}1{% endif %}" title="Favorita" aria-label="Favorita">
+              <i data-lucide="star"></i>
+            </button>
+            <button class="icon-button small property-action {% if property.reviewed_at %}active{% endif %}" type="button" data-action="reviewed" data-value="{% if property.reviewed_at %}0{% else %}1{% endif %}" title="Marcar revisada" aria-label="Marcar revisada">
+              <i data-lucide="check-circle"></i>
+            </button>
+            <button class="icon-button small property-action {% if property.is_hidden %}active danger{% endif %}" type="button" data-action="hidden" data-value="{% if property.is_hidden %}0{% else %}1{% endif %}" title="Ocultar o descartar" aria-label="Ocultar o descartar">
+              <i data-lucide="eye-off"></i>
+            </button>
+            {% with listing=property.primary_listing %}
+              {% if listing %}
+              <a class="icon-button small" href="{{ listing.url }}" target="_blank" rel="noopener" title="Abrir publicacion original" aria-label="Abrir publicacion original">
+                <i data-lucide="external-link"></i>
+              </a>
+              {% endif %}
+            {% endwith %}
+          </div>
+        </article>
+        {% endwith %}
+      {% empty %}
+        <div class="empty-state">
+          <i data-lucide="search-x"></i>
+          <h2>No hay propiedades para estos filtros</h2>
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if page.has_other_pages %}
+    <nav class="pagination" aria-label="Páginas">
+      {% if page.has_previous %}
+        <a href="?{{ query_params.urlencode }}&page={{ page.previous_page_number }}" aria-label="Anterior"><i data-lucide="chevron-left"></i></a>
+      {% endif %}
+      <span>{{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}
+        <a href="?{{ query_params.urlencode }}&page={{ page.next_page_number }}" aria-label="Siguiente"><i data-lucide="chevron-right"></i></a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </section>
+
+  <div class="map-resizer" id="map-resizer" role="separator" aria-orientation="vertical" aria-label="Ajustar ancho entre resultados y mapa" tabindex="0"></div>
+
+  <section class="map-panel">
+    <div id="map"></div>
+    <div class="map-legend">
+      <span><i class="legend-dot exact"></i> Exacta</span>
+      <span><i class="legend-dot approximate"></i> Aproximada</span>
+    </div>
+    <div class="radius-panel" id="radius-panel" hidden>
+      <label for="radius-input">Radio</label>
+      <input id="radius-input" type="range" min="0.25" max="10" step="0.25" value="{{ query_params.radius_km|default:'2' }}">
+      <output id="radius-output">{{ query_params.radius_km|default:"2" }} km</output>
+    </div>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}
+<script>
+  window.RADAR_INITIAL_QUERY = "{{ request.GET.urlencode|escapejs }}";
+</script>
+<script src="{% static 'js/search-map.js' %}"></script>
+<script src="{% static 'js/property-actions.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Scraping | Radar Hurlingham{% endblock %}
+{% block body %}
+<header class="app-header">
+  <div>
+    <a class="brand" href="/">Radar Hurlingham</a>
+    <span class="count">Scraping a demanda</span>
+  </div>
+  <div class="header-actions">
+    <a class="icon-button" href="/" title="Resultados" aria-label="Resultados">
+      <i data-lucide="list-filter"></i>
+    </a>
+  </div>
+</header>
+
+<main class="scraping-page">
+  <section class="scraping-panel">
+    <div class="section-heading">
+      <div>
+        <h1>Scrapers</h1>
+        <p>Las fuentes seleccionadas corren en paralelo. Cada fuente usa sus propios workers.</p>
+      </div>
+      <button class="secondary-button" type="button" id="safe-preset">
+        <i data-lucide="shield-check"></i> Prueba segura
+      </button>
+      <button class="primary-button" type="button" id="start-scraping">
+        <i data-lucide="play"></i> Iniciar
+      </button>
+    </div>
+
+    <div class="run-options">
+      <label>
+        Max. paginas
+        <input id="max-pages" type="number" min="1" placeholder="Sin limite" title="Limita paginas de listado por fuente. Vacio recorre todas las paginas que el scraper descubra.">
+      </label>
+      <label>
+        Pagina inicial
+        <input id="start-page" type="number" min="1" placeholder="1" title="Permite barrer portales paginados por tandas. Ejemplo: pagina 4 con max. paginas 3.">
+      </label>
+      <label>
+        Max. fichas
+        <input id="max-listings" type="number" min="1" placeholder="Sin limite" title="Limita propiedades procesadas por fuente. Vacio procesa todas las fichas descubiertas.">
+      </label>
+      <label>
+        Modo
+        <select id="scrape-mode" title="Prueba no marca ausentes. Completo permite marcar ausentes si no hay limites.">
+          <option value="trial">Prueba</option>
+          <option value="complete">Completo</option>
+        </select>
+      </label>
+      <label>
+        Timeout ficha
+        <input id="request-timeout" type="number" min="1" placeholder="25" title="Segundos maximos por request de ficha. Vacio usa 25.">
+      </label>
+      <label>
+        Max. errores
+        <input id="max-errors" type="number" min="1" placeholder="Sin limite" title="Errores permitidos por fuente antes de dejar de tomar nuevas fichas.">
+      </label>
+      <label>
+        Max. geocod.
+        <input id="geocode-limit" type="number" min="0" placeholder="25" title="Direcciones a geocodificar al final de cada fuente. 0 desactiva esta etapa.">
+      </label>
+    </div>
+
+    <div class="scraping-help">
+      <strong>Como parametrizar:</strong>
+      <span>Campos vacios en paginas/fichas significan sin limite. En modo Completo eso permite recorrer todo y marcar ausentes; en modo Prueba nunca marca ausentes.</span>
+    </div>
+    <div class="scraping-help safe-sqlite-banner">
+      <strong>Modo seguro SQLite:</strong>
+      <span>activo automaticamente. Los workers descargan en paralelo y las escrituras se ordenan en una cola unica para evitar bloqueos.</span>
+    </div>
+
+    <div class="scraping-bulk-tools" aria-label="Acciones masivas de scrapers">
+      <div class="bulk-select-actions">
+        <button class="secondary-button" type="button" id="select-all-sources">
+          <i data-lucide="check-square"></i> Seleccionar todo
+        </button>
+        <button class="secondary-button" type="button" id="clear-all-sources">
+          <i data-lucide="square"></i> Deseleccionar todo
+        </button>
+      </div>
+      <label class="bulk-worker-field">
+        Workers para todos
+        <span>
+          <input id="bulk-workers" type="number" min="1" value="1">
+          <button class="secondary-button" type="button" id="apply-bulk-workers">
+            <i data-lucide="copy-check"></i> Aplicar
+          </button>
+        </span>
+      </label>
+    </div>
+
+    <div class="source-picker" id="source-picker">
+      {% for source in sources %}
+        <div class="source-row" data-source-row data-slug="{{ source.slug }}">
+          <label class="source-check">
+            <input type="checkbox" value="{{ source.slug }}" {% if source.enabled %}checked{% endif %}>
+            <span>
+              <strong>{{ source.name }}</strong>
+              <small>{{ source.slug }}{% if not source.enabled %} · deshabilitado en scrape --all{% endif %}</small>
+              {% if source.notes %}<small class="source-note">{{ source.notes }}</small>{% endif %}
+            </span>
+          </label>
+          <label class="worker-field">
+            Workers
+            <input type="number" min="1" value="1" data-workers-for="{{ source.slug }}" title="Cantidad de fichas procesadas en paralelo para esta fuente.">
+          </label>
+          <span class="worker-warning" data-worker-warning hidden>Mas de 5 puede saturar la fuente o SQLite.</span>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="scraping-panel">
+    <div class="section-heading compact">
+      <div>
+        <h2>Jobs recientes</h2>
+        <p>El progreso se guarda en la base local mientras el servidor siga abierto.</p>
+      </div>
+    </div>
+    <div id="jobs-list" class="jobs-list"></div>
+  </section>
+</main>
+{{ jobs|json_script:"initial-scrape-jobs" }}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/scraping.js' %}"></script>
+{% endblock %}
