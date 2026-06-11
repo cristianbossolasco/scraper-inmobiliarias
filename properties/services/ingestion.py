@@ -3,6 +3,7 @@ import json
 from decimal import Decimal
 
 from django.db import transaction
+from django.db.models import Q
 from django.utils import timezone
 
 from properties.models import (
@@ -20,6 +21,7 @@ from .normalization import (
     infer_property_type,
     normalize_address,
     normalize_locality,
+    normalize_street_number_address,
     parse_decimal,
 )
 
@@ -96,6 +98,8 @@ def _bounded_decimal(field, value):
 @transaction.atomic
 def ingest_listing(source, data):
     data = enrich_location_data(data)
+    data["address"] = normalize_street_number_address(data.get("address"))
+    data["detected_address"] = normalize_street_number_address(data.get("detected_address"))
     data["locality"] = normalize_locality(data.get("locality") or "Hurlingham")
     data["normalized_address"] = normalize_address(data.get("address"))
     data["property_type"] = data.get("property_type") or infer_property_type(
@@ -240,3 +244,32 @@ def mark_missing(source, seen_external_ids):
             listing.property.status = Property.Status.REMOVED
             listing.property.save(update_fields=["status"])
         listing.save(update_fields=["missing_runs", "active"])
+
+
+@transaction.atomic
+def mark_listing_removed(source, url=None, external_id=None):
+    selector = Q()
+    if url:
+        selector |= Q(url=url)
+    if external_id:
+        selector |= Q(external_id=str(external_id))
+    if not selector:
+        return None
+
+    listing = (
+        Listing.objects.select_related("property")
+        .filter(Q(source=source) & selector)
+        .first()
+    )
+    if not listing:
+        return None
+
+    listing.active = False
+    listing.source_status = "removed"
+    listing.missing_runs = max(listing.missing_runs, 2)
+    listing.save(update_fields=["active", "source_status", "missing_runs"])
+
+    if not Listing.objects.filter(property=listing.property, active=True).exists():
+        listing.property.status = Property.Status.REMOVED
+        listing.property.save(update_fields=["status"])
+    return listing

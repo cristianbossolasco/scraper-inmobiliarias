@@ -19,6 +19,7 @@ from .base import BaseScraper, SourceDefinition
 from .parsing import (
     basic_html_data,
     evidence_set,
+    external_id_from_url,
     first_json_ld,
     first_present,
     parse_labeled_fields,
@@ -113,6 +114,94 @@ def price_near_label(text):
     if not match:
         return "", None
     return normalize_currency(match.group(1)), parse_decimal(match.group(2))
+
+
+def split_suggested_text(text):
+    return re.split(
+        r"Propiedades\s+Sugeridas|Propiedades\s+similares|Tambien\s+puede\s+interesarte|TambiÃ©n\s+puede\s+interesarte|También\s+puede\s+interesarte",
+        text or "",
+        maxsplit=1,
+        flags=re.I,
+    )[0]
+
+
+def normalized_label(value):
+    folded = clean_text(value).lower()
+    replacements = {
+        "Ã¡": "a",
+        "á": "a",
+        "Ã©": "e",
+        "é": "e",
+        "Ã­": "i",
+        "í": "i",
+        "Ã³": "o",
+        "ó": "o",
+        "Ãº": "u",
+        "ú": "u",
+        "Ã±": "n",
+        "ñ": "n",
+        "Â°": "",
+        "°": "",
+        "º": "",
+    }
+    replacements.update(
+        {
+            "á": "a",
+            "é": "e",
+            "í": "i",
+            "ó": "o",
+            "ú": "u",
+            "ü": "u",
+            "ñ": "n",
+        }
+    )
+    for old, new in replacements.items():
+        folded = folded.replace(old, new)
+    return re.sub(r"[^a-z0-9]+", " ", folded).strip()
+
+
+def parse_dimension_value(value):
+    text = clean_text(value)
+    dimension = re.search(
+        r"([\d.,]+)\s*(?:x|×|por)\s*([\d.,]+)\s*(?:m2|m²|mÂ²|mts|metros)?",
+        text,
+        re.I,
+    )
+    if dimension:
+        front = parse_decimal(dimension.group(1))
+        depth = parse_decimal(dimension.group(2))
+        area = front * depth if front is not None and depth is not None else None
+        return area, front, depth
+    return parse_decimal(text), None, None
+
+
+def parse_area_value(value):
+    text = clean_text(value)
+    range_match = re.search(r"([\d.,]+)\s*/\s*[\d.,]+", text)
+    if range_match:
+        return parse_decimal(range_match.group(1))
+    return parse_decimal(text)
+
+
+def parse_garage_value(value):
+    text = clean_text(value)
+    if re.search(r"\bsin\b|no\s+tiene|no\s+posee", text, re.I):
+        return 0
+    parsed = plausible_int(text, 8)
+    if parsed is not None:
+        return parsed
+    if re.search(r"cochera|garage|garaje", text, re.I):
+        return 1
+    return None
+
+
+def price_from_guarnieri_text(text):
+    match = re.search(r"(?:Precio\s*:?\s*)?(U\$S|U\$D|US\$|USD|ARS|\$)\s*([\d.,]+)", text or "", re.I)
+    if match:
+        return normalize_currency(match.group(1)), parse_decimal(match.group(2))
+    if re.search(r"\bconsulte\b|consultar", text or "", re.I):
+        return "", None
+    return "", None
 
 
 def apply_detail_fields(data, fields, source):
@@ -735,6 +824,232 @@ class GuarnieriScraper(MultiSearchScraper):
                 data["raw_data"]["optional_garage_price_range"] = list(garage_prices[0])
         data["location_precision"] = classify_address_precision(data.get("address"))
         return data
+
+    def parse(self, url):
+        soup = self.soup(url)
+        root = soup.select_one(".elementor-location-single.property") or soup
+        title_node = root.select_one("h1") or soup.select_one("h1") or soup.select_one("title")
+        title = title_node.get_text(" ", strip=True) if title_node else "Propiedad"
+        page_text = split_suggested_text(visible_text(root))
+        detail_start = re.search(r"DATOS DE LA PROPIEDAD", page_text, re.I)
+        detail_text = page_text[detail_start.start():] if detail_start else page_text
+        details = self._detail_pairs(root)
+        overview_text = clean_text(
+            " ".join(
+                node.get_text(" ", strip=True)
+                for node in root.select(".property-overview-data")
+            )
+        )
+        data = {
+            "external_id": external_id_from_url(url),
+            "url": url,
+            "title": title,
+            "description": "",
+            "property_type": infer_property_type(title, detail_text[:900]),
+            "currency": "",
+            "price": None,
+            "features": [],
+            "status": Property.Status.ACTIVE,
+            "agency": "Guarnieri Propiedades",
+            "locality": "Hurlingham",
+            "operation": detect_operation(detail_text, url),
+            "images": self._main_images(root),
+        }
+
+        description_node = root.select_one(".property-description-wrap .block-content-wrap")
+        if description_node:
+            data["description"] = clean_text(description_node.get_text(" ", strip=True))
+        currency, price = price_from_guarnieri_text(detail_text)
+        if price is not None:
+            data["currency"] = currency
+            data["price"] = price
+
+        self._apply_guarnieri_details(data, details)
+        self._apply_guarnieri_text_fallbacks(data, detail_text, overview_text, bool(details))
+
+        address = text_value(
+            detail_text,
+            [r"Direcci(?:Ã³|ó|o)n\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTER|$)"],
+        )
+        if address:
+            data["address"] = clean_text(address)[:250]
+        city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Barrio\s*:|Propiedades|$)"])
+        if city:
+            data["locality"] = clean_text(city)
+        neighborhood = text_value(detail_text, [r"Barrio\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Propiedades|$)"])
+        if neighborhood:
+            data["neighborhood"] = clean_text(neighborhood)
+
+        unit_offers = parse_multi_unit_offers(detail_text)
+        if unit_offers:
+            cheapest = min(unit_offers, key=lambda item: parse_decimal(item["price"]))
+            data["currency"] = cheapest["currency"]
+            data["price"] = parse_decimal(cheapest["price"])
+            data["rooms"] = cheapest["rooms"]
+            data["bedrooms"] = None
+            data["bathrooms"] = None
+            data["garages"] = None
+            data["covered_area"] = None
+            data["total_area"] = parse_decimal(cheapest["total_area"])
+            data["land_area"] = None
+            data["source_status"] = "multi_unit"
+            data["raw_data"] = data.get("raw_data") or {}
+            data["raw_data"]["multi_unit"] = True
+            data["raw_data"]["unit_offers"] = unit_offers
+            data["raw_data"]["unit_count"] = len(unit_offers)
+
+        if data.get("land_area") and not data.get("total_area"):
+            data["total_area"] = data["land_area"]
+        data["location_precision"] = classify_address_precision(data.get("address"))
+        return data
+
+    def _detail_pairs(self, root):
+        pairs = {}
+        for item in root.select(".detail-wrap .list-lined-item, .property-address-wrap .list-lined-item"):
+            label_node = item.select_one("strong")
+            value_node = item.select_one("span")
+            if not label_node or not value_node:
+                continue
+            label = normalized_label(label_node.get_text(" ", strip=True))
+            value = clean_text(value_node.get_text(" ", strip=True))
+            if label and value:
+                pairs[label] = value
+        return pairs
+
+    def _main_images(self, root):
+        images = []
+        gallery_nodes = root.select(".property-banner, .hs-gallery-v4-grid, .property-top-wrap")
+        if not gallery_nodes:
+            gallery_nodes = [root]
+        for gallery in gallery_nodes:
+            for image in gallery.select("img[src], img[data-src], img[data-lazy-src]"):
+                src = image.get("data-src") or image.get("data-lazy-src") or image.get("src")
+                if not src or src.startswith("data:"):
+                    continue
+                images.append(self.absolute(src))
+        return list(dict.fromkeys(images))[:30]
+
+    def _apply_guarnieri_details(self, data, details):
+        for label, value in details.items():
+            if label.startswith("sup cubierta"):
+                data["covered_area"] = parse_area_value(value)
+            elif label.startswith("sup terreno"):
+                area, front, depth = parse_dimension_value(value)
+                if area is not None:
+                    data["land_area"] = area
+                if front is not None:
+                    data["front_width"] = front
+                if depth is not None:
+                    data["lot_depth"] = depth
+            elif label.startswith("dormitorio") or label.startswith("habitacion"):
+                data["bedrooms"] = parse_int(value)
+            elif label.startswith("bano"):
+                data["bathrooms"] = parse_decimal(value)
+            elif label.startswith("garages") or label.startswith("garage"):
+                garages = parse_garage_value(value)
+                if garages is not None:
+                    data["garages"] = garages
+            elif label.startswith("tipo"):
+                data["property_type"] = infer_property_type(value, data.get("title"))
+            elif label.startswith("estado"):
+                data["operation"] = detect_operation(value, data.get("url") or "")
+            elif label.startswith("direccion"):
+                data["address"] = clean_text(value)[:250]
+            elif label.startswith("ciudad"):
+                data["locality"] = clean_text(value)
+            elif label.startswith("barrio"):
+                data["neighborhood"] = clean_text(value)
+
+    def _apply_guarnieri_text_fallbacks(self, data, detail_text, overview_text, has_structured_details=False):
+        data["rooms"] = (
+            label_before_number(detail_text, [r"Amb\.?", r"Ambientes"], parse_int)
+            or number_before_label(detail_text, [r"Amb\.?", r"Ambientes"], parse_int)
+            or text_value(overview_text, [r"(\d+)\s*Amb\.?", r"(\d+)\s*Ambientes"], parse_int)
+            or data.get("rooms")
+        )
+        if data.get("bedrooms") is None:
+            data["bedrooms"] = (
+                label_before_number(detail_text, [r"Dormitorios"], parse_int)
+                or number_before_label(detail_text, [r"Dormitorios"], parse_int)
+                or text_value(detail_text, [r"Dormitorios?\s*:?\s*(\d+)"], parse_int)
+            )
+        if data.get("bathrooms") is None:
+            data["bathrooms"] = (
+                number_before_label(detail_text, [r"BaÃ±os", r"Baños", r"Banos"], parse_decimal)
+                or label_before_number(detail_text, [r"BaÃ±os", r"Baños", r"Banos"], parse_decimal)
+                or text_value(detail_text, [r"Ba(?:Ã±|ñ|n)o?s?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal)
+            )
+        if data.get("bathrooms") is None:
+            data["bathrooms"] = (
+                number_before_label(detail_text, [r"Baños"], parse_decimal)
+                or label_before_number(detail_text, [r"Baños"], parse_decimal)
+                or text_value(detail_text, [r"Baños?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal)
+            )
+        if data.get("garages") is None:
+            data["garages"] = (
+                label_before_number(detail_text, [r"Garage", r"Garaje", r"Cocheras"], parse_int)
+                or number_before_label(detail_text, [r"Garage", r"Garaje", r"Cocheras"], parse_int)
+            )
+        if data.get("covered_area") is None:
+            data["covered_area"] = label_before_number(
+                detail_text,
+                [r"Sup\.\s*Cubierta", r"Sup\s*Cubierta", r"Superficie\s+Cubierta"],
+            )
+        if data.get("land_area") is None:
+            raw_land = text_value(
+                detail_text,
+                [r"Sup\.?\s*Terreno\s*:?\s*([\d.,]+\s*(?:x|×|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|m²|mÂ²|mts)?"],
+            )
+            if not raw_land:
+                raw_land = text_value(
+                    detail_text,
+                    [r"Terreno\s*:?\s*([\d.,]+\s*(?:x|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|mÂ²|mÃ‚Â²|mts)?"],
+                )
+            if raw_land:
+                area, front, depth = parse_dimension_value(raw_land)
+                data["land_area"] = area
+                if front is not None:
+                    data["front_width"] = front
+                if depth is not None:
+                    data["lot_depth"] = depth
+        precise_rooms = text_value(
+            detail_text,
+            [r"(?<!\d)(\d+)\s*amb(?:\.|\b)", r"(?<!\d)(\d+)\s*ambientes?"],
+            parse_int,
+        )
+        if precise_rooms is not None:
+            data["rooms"] = precise_rooms
+        precise_bedrooms = text_value(
+            detail_text,
+            [r"(?<!\d)(\d+)\s*dormitorios?", r"Dormitorios?\s*:?\s*(\d+)"],
+            parse_int,
+        )
+        if precise_bedrooms is not None and (not has_structured_details or data.get("bedrooms") is None):
+            data["bedrooms"] = precise_bedrooms
+        precise_bathrooms = text_value(
+            detail_text,
+            [
+                r"(?<!\d)(\d+(?:[.,]\d+)?)\s*ba(?:ñ|n)os?\b",
+                r"Ba(?:ñ|n)os?\s*:?\s*(\d+(?:[.,]\d+)?)",
+            ],
+            parse_decimal,
+        )
+        if precise_bathrooms is not None and (not has_structured_details or data.get("bathrooms") is None):
+            data["bathrooms"] = precise_bathrooms
+        precise_garages = text_value(
+            detail_text,
+            [
+                r"(?<!\d)(\d+)\s*(?:Garages?|Garajes?|Cocheras?)\b",
+                r"(?:Garages?|Garajes?|Cocheras?)\s*:?\s*(\d+)\b",
+            ],
+            parse_int,
+        )
+        if precise_garages is not None and 0 <= precise_garages <= 8 and (not has_structured_details or data.get("garages") is None):
+            data["garages"] = precise_garages
+        if data.get("rooms") is not None and data["rooms"] > 20:
+            data["rooms"] = None
+        if data.get("garages") is not None and data["garages"] > 20:
+            data["garages"] = None
 
 
 class InmueblesClarinScraper(CommonDetailScraper):

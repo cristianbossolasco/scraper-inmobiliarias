@@ -11,7 +11,7 @@ from django.utils import timezone
 from properties.models import Property, ScrapeJob, ScrapeJobSource, ScrapeRun, Source
 from properties.scrapers import get_adapter, get_adapter_classes
 from properties.services.geocoding import Geocoder, has_geocodable_address
-from properties.services.ingestion import ingest_listing, mark_missing
+from properties.services.ingestion import ingest_listing, mark_listing_removed, mark_missing
 
 
 WRITE_LOCK = threading.RLock()
@@ -30,6 +30,13 @@ class ActiveScrapeJobError(ValueError):
     def __init__(self, active_job_id):
         self.active_job_id = active_job_id
         super().__init__(f"Ya hay un scraping en curso: Job #{active_job_id}.")
+
+
+class ListingGoneError(RuntimeError):
+    def __init__(self, url=None, external_id=None, message=None):
+        self.url = url
+        self.external_id = external_id
+        super().__init__(message or "Publicacion retirada o no disponible.")
 
 
 def using_sqlite():
@@ -115,6 +122,25 @@ def is_source_block_error(exc):
     return any(
         marker in text
         for marker in ("403", "forbidden", "cloudfront", "request blocked")
+    )
+
+
+def is_listing_gone_error(exc):
+    if isinstance(exc, ListingGoneError):
+        return True
+    response = getattr(exc, "response", None)
+    if getattr(response, "status_code", None) in {404, 410}:
+        return True
+    text = str(exc).lower()
+    return any(
+        marker in text
+        for marker in (
+            "aviso terminado",
+            "404 client error",
+            "410 client error",
+            "404 not found",
+            "410 gone",
+        )
     )
 
 
@@ -724,16 +750,33 @@ def run_scrape_job_source(job_id, slug):
                             )
                             block_errors_consecutive = 0
                     except Exception as exc:
-                        job_source.errors += 1
-                        run.errors += 1
-                        run.error_log += f"{url}: {exc}\n"
-                        record_source_error(job_source, url, exc)
-                        append_source_log(job_source, f"ERROR {url}: {exc}")
-                        if is_source_block_error(exc):
-                            block_errors_total += 1
-                            block_errors_consecutive += 1
-                        else:
+                        if is_listing_gone_error(exc):
+                            job_source.current_url = url
+                            job_source.skipped += 1
+                            removed = db_write(
+                                lambda: mark_listing_removed(
+                                    source,
+                                    url=getattr(exc, "url", None) or url,
+                                    external_id=getattr(exc, "external_id", None),
+                                )
+                            )
+                            suffix = "listing dado de baja" if removed else "no existia en DB"
+                            append_source_log(
+                                job_source,
+                                f"Retirada: URL no disponible, {suffix}: {url}",
+                            )
                             block_errors_consecutive = 0
+                        else:
+                            job_source.errors += 1
+                            run.errors += 1
+                            run.error_log += f"{url}: {exc}\n"
+                            record_source_error(job_source, url, exc)
+                            append_source_log(job_source, f"ERROR {url}: {exc}")
+                            if is_source_block_error(exc):
+                                block_errors_total += 1
+                                block_errors_consecutive += 1
+                            else:
+                                block_errors_consecutive = 0
                     finally:
                         job_source.processed += 1
                         run.discovered = job_source.processed

@@ -168,6 +168,209 @@ def query_url(params, overrides=None, remove=None, path="/"):
     return f"{path}?{query}" if query else path
 
 
+TABLE_SORTS = {
+    "price": {"label": "Precio", "key": lambda item, distances: item.price},
+    "title": {"label": "Publicacion", "key": lambda item, distances: item.title or ""},
+    "agency": {
+        "label": "Inmobiliaria",
+        "key": lambda item, distances: (
+            _primary_listing(item).agency.name
+            if _primary_listing(item) and _primary_listing(item).agency
+            else ""
+        ),
+    },
+    "source": {
+        "label": "Fuente",
+        "key": lambda item, distances: (
+            _primary_listing(item).source.name if _primary_listing(item) else ""
+        ),
+    },
+    "locality": {"label": "Localidad", "key": lambda item, distances: item.locality or ""},
+    "bedrooms": {"label": "Dorm.", "key": lambda item, distances: item.bedrooms},
+    "bathrooms": {"label": "Banos", "key": lambda item, distances: item.bathrooms},
+    "covered_area": {"label": "Cub.", "key": lambda item, distances: item.covered_area},
+    "land_area": {"label": "Terr.", "key": lambda item, distances: item.land_area},
+    "area": {
+        "label": "Superficie",
+        "key": lambda item, distances: item.land_area or item.total_area or item.covered_area,
+    },
+    "price_m2": {"label": "USD/m2", "key": lambda item, distances: valid_price_per_m2(item)},
+    "first_seen": {"label": "Alta", "key": lambda item, distances: item.first_seen_at},
+    "last_seen": {"label": "Vista", "key": lambda item, distances: item.last_seen_at},
+    "reviewed": {"label": "Revision", "key": lambda item, distances: 1 if item.reviewed_at else 0},
+    "quality": {"label": "Calidad", "key": lambda item, distances: _quality_score(item)},
+    "distance": {"label": "Distancia", "key": lambda item, distances: distances.get(item.pk)},
+}
+
+TABLE_FILTER_KEYS = {
+    "title",
+    "price_min",
+    "price_max",
+    "agency",
+    "source",
+    "locality",
+    "bedrooms_min",
+    "bedrooms_max",
+    "bathrooms_min",
+    "bathrooms_max",
+    "covered_min",
+    "covered_max",
+    "land_min",
+    "land_max",
+    "price_m2_min",
+    "price_m2_max",
+}
+
+
+def _sort_field(token):
+    return token[1:] if token.startswith("-") else token
+
+
+def _sort_tokens(raw_sort):
+    raw_tokens = (raw_sort or "-last_seen").split(",")
+    tokens = []
+    seen = set()
+    for raw_token in raw_tokens:
+        token = raw_token.strip()
+        field = _sort_field(token)
+        if field not in TABLE_SORTS or field in seen:
+            continue
+        seen.add(field)
+        tokens.append(f"-{field}" if token.startswith("-") else field)
+    return tokens or ["-last_seen"]
+
+
+def _sort_value(value):
+    if value is None or value == "":
+        return None
+    if hasattr(value, "timestamp"):
+        return value.timestamp()
+    if isinstance(value, str):
+        return value.casefold()
+    return value
+
+
+def _sort_with_missing_last(items, key_func, reverse=False):
+    present = []
+    missing = []
+    for item in items:
+        value = _sort_value(key_func(item))
+        if value is None:
+            missing.append(item)
+        else:
+            present.append((item, value))
+    present.sort(key=lambda pair: pair[1], reverse=reverse)
+    return [item for item, _ in present] + missing
+
+
+def _apply_sort(properties, sort_tokens, distances):
+    items = list(properties)
+    for token in reversed(sort_tokens):
+        field = _sort_field(token)
+        config = TABLE_SORTS[field]
+        items = _sort_with_missing_last(
+            items,
+            lambda item, sort_key=config["key"]: sort_key(item, distances),
+            reverse=token.startswith("-"),
+        )
+    return items
+
+
+def _query_param_pairs(params, exclude=None):
+    excluded = set(exclude or [])
+    pairs = []
+    for key, values in params.lists():
+        if key in excluded:
+            continue
+        for value in values:
+            if value not in (None, ""):
+                pairs.append((key, value))
+    return pairs
+
+
+def _sort_url(params, field):
+    tokens = _sort_tokens(params.get("sort"))
+    current_index = next(
+        (index for index, token in enumerate(tokens) if _sort_field(token) == field),
+        None,
+    )
+    if current_index == 0:
+        current = tokens[0]
+        next_token = field if current.startswith("-") else f"-{field}"
+        rest = tokens[1:]
+    elif current_index is not None:
+        next_token = tokens[current_index]
+        rest = [token for index, token in enumerate(tokens) if index != current_index]
+    else:
+        next_token = field
+        rest = tokens
+    return query_url(params, {"sort": ",".join([next_token, *rest])}, remove=["page"])
+
+
+def _remove_sort_url(params, field):
+    tokens = [token for token in _sort_tokens(params.get("sort")) if _sort_field(token) != field]
+    return query_url(params, {"sort": ",".join(tokens) if tokens else "-last_seen"}, remove=["page"])
+
+
+def table_context(params):
+    sort_tokens = _sort_tokens(params.get("sort"))
+    active_by_field = {
+        _sort_field(token): {
+            "token": token,
+            "position": index + 1,
+            "direction": "desc" if token.startswith("-") else "asc",
+        }
+        for index, token in enumerate(sort_tokens)
+    }
+    columns = [
+        {"key": "actions", "label": "Acciones", "sortable": False},
+        {"key": "price", "label": "Precio", "sortable": True},
+        {"key": "title", "label": "Publicacion", "sortable": True},
+        {"key": "agency", "label": "Inmobiliaria", "sortable": True},
+        {"key": "source", "label": "Fuente", "sortable": True},
+        {"key": "locality", "label": "Localidad", "sortable": True},
+        {"key": "bedrooms", "label": "Dorm.", "sortable": True},
+        {"key": "bathrooms", "label": "Banos", "sortable": True},
+        {"key": "covered_area", "label": "Cub.", "sortable": True},
+        {"key": "land_area", "label": "Terr.", "sortable": True},
+        {"key": "price_m2", "label": "USD/m2", "sortable": True},
+    ]
+    for column in columns:
+        if not column["sortable"]:
+            continue
+        state = active_by_field.get(column["key"])
+        column.update(
+            {
+                "sort_url": _sort_url(params, column["key"]),
+                "remove_sort_url": _remove_sort_url(params, column["key"]) if state else "",
+                "sort_direction": state["direction"] if state else "",
+                "sort_position": state["position"] if state else "",
+                "sort_icon": "arrow-down" if state and state["direction"] == "desc" else "arrow-up",
+            }
+        )
+    active_sorts = []
+    for token in sort_tokens:
+        field = _sort_field(token)
+        active_sorts.append(
+            {
+                "field": field,
+                "label": TABLE_SORTS[field]["label"],
+                "direction": "desc" if token.startswith("-") else "asc",
+                "remove_url": _remove_sort_url(params, field),
+            }
+        )
+    return {
+        "table_columns": columns,
+        "table_sort": {
+            column["key"]: column for column in columns if column.get("sortable")
+        },
+        "active_sorts": active_sorts,
+        "clear_sort_url": query_url(params, {"sort": "-last_seen"}, remove=["page"]),
+        "clear_table_filters_url": query_url(params, remove=[*TABLE_FILTER_KEYS, "page"]),
+        "table_hidden_params": _query_param_pairs(params, exclude=[*TABLE_FILTER_KEYS, "page"]),
+    }
+
+
 def filtered_properties(params):
     queryset = (
         Property.objects.select_related("location")
@@ -184,6 +387,9 @@ def filtered_properties(params):
     query = (params.get("q") or "").strip()
     if query:
         queryset = queryset.filter(pk__in=_fts_ids(query))
+    title = (params.get("title") or "").strip()
+    if title:
+        queryset = queryset.filter(title__icontains=title)
 
     filters = {
         "property_type": "property_type",
@@ -311,6 +517,20 @@ def filtered_properties(params):
             item for item in properties
             if _quality_matches(item, quality_field, quality_state)
         ]
+    price_m2_min = _decimal(params.get("price_m2_min"))
+    price_m2_max = _decimal(params.get("price_m2_max"))
+    if price_m2_min is not None or price_m2_max is not None:
+        selected = []
+        for property_obj in properties:
+            value = valid_price_per_m2(property_obj)
+            if value is None:
+                continue
+            if price_m2_min is not None and value < price_m2_min:
+                continue
+            if price_m2_max is not None and value > price_m2_max:
+                continue
+            selected.append(property_obj)
+        properties = selected
     if None not in (radius_lat, radius_lng, radius_km):
         selected = []
         for property_obj in properties:
@@ -339,32 +559,7 @@ def filtered_properties(params):
             )
         ]
 
-    sort = params.get("sort") or "-last_seen"
-    sorters = {
-        "price": lambda item: (item.price is None, item.price or 0),
-        "-price": lambda item: (item.price is None, -(item.price or 0)),
-        "area": lambda item: (item.land_area is None, item.land_area or 0),
-        "-area": lambda item: (item.land_area is None, -(item.land_area or 0)),
-        "price_m2": lambda item: (item.price_per_m2 is None, item.price_per_m2 or 0),
-        "-price_m2": lambda item: (item.price_per_m2 is None, -(item.price_per_m2 or 0)),
-        "first_seen": lambda item: item.first_seen_at,
-        "-first_seen": lambda item: -item.first_seen_at.timestamp(),
-        "reviewed": lambda item: (item.reviewed_at is None, item.reviewed_at.timestamp() if item.reviewed_at else 0),
-        "-reviewed": lambda item: (item.reviewed_at is None, -(item.reviewed_at.timestamp() if item.reviewed_at else 0)),
-        "-quality": lambda item: -_quality_score(item),
-        "agency": lambda item: (_primary_listing(item).agency.name if _primary_listing(item) and _primary_listing(item).agency else ""),
-        "source": lambda item: (_primary_listing(item).source.name if _primary_listing(item) else ""),
-        "covered_area": lambda item: (item.covered_area is None, item.covered_area or 0),
-        "-covered_area": lambda item: (item.covered_area is None, -(item.covered_area or 0)),
-        "land_area": lambda item: (item.land_area is None, item.land_area or 0),
-        "-land_area": lambda item: (item.land_area is None, -(item.land_area or 0)),
-        "bedrooms": lambda item: (item.bedrooms is None, item.bedrooms or 0),
-        "-bedrooms": lambda item: (item.bedrooms is None, -(item.bedrooms or 0)),
-        "distance": lambda item: (item.pk not in distances, distances.get(item.pk, 0)),
-        "last_seen": lambda item: item.last_seen_at,
-        "-last_seen": lambda item: -item.last_seen_at.timestamp(),
-    }
-    properties.sort(key=sorters.get(sort, sorters["-last_seen"]))
+    properties = _apply_sort(properties, _sort_tokens(params.get("sort")), distances)
     return properties, distances
 
 
@@ -494,8 +689,16 @@ def search(request):
         "features": ["Pileta", "Quincho", "Jardín", "Parrilla", "Apto crédito"],
         "query_params": request.GET,
         "view_mode": request.GET.get("view") or "cards",
+        "pagination_urls": {
+            "first": query_url(request.GET, {"page": 1}),
+            "last": query_url(request.GET, {"page": page.paginator.num_pages}),
+            "previous": query_url(request.GET, {"page": page.previous_page_number()}) if page.has_previous() else "",
+            "next": query_url(request.GET, {"page": page.next_page_number()}) if page.has_next() else "",
+        },
+        "pagination_hidden_params": _query_param_pairs(request.GET, exclude=["page"]),
     }
     context.update(filter_context(request.GET))
+    context.update(table_context(request.GET))
     return render(request, "properties/search.html", context)
 
 

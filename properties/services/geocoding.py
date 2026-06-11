@@ -6,7 +6,11 @@ from django.conf import settings
 from django.db.models import Q
 
 from properties.models import GeocodeCache, PropertyLocation
-from .normalization import classify_address_precision, normalize_whitespace
+from .normalization import (
+    classify_address_precision,
+    normalize_street_number_address,
+    normalize_whitespace,
+)
 
 
 def geocodable_address_q():
@@ -19,7 +23,7 @@ def geocodable_address_q():
 
 
 def best_address(property_obj):
-    return normalize_whitespace(property_obj.address or property_obj.detected_address or "")
+    return normalize_street_number_address(property_obj.address or property_obj.detected_address or "")
 
 
 def has_geocodable_address(property_obj):
@@ -49,7 +53,7 @@ class Geocoder:
         current = getattr(property_obj, "location", None)
         if current and current.manually_corrected:
             return current
-        if current and current.provider != "nominatim" and current.is_exact:
+        if current and not force and current.provider != "nominatim" and current.is_exact:
             return current
 
         query = self.build_query(property_obj)

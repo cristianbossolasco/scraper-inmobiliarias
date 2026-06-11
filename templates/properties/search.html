@@ -260,21 +260,137 @@
     </div>
 
     {% if view_mode == "table" %}
+    <form id="table-filter-form" class="table-filter-form" method="get"
+          hx-get="/"
+          hx-target="#results-pane"
+          hx-select="#results-pane"
+          hx-swap="outerHTML"
+          hx-push-url="true"
+          hx-trigger="change from:.table-filter delay:250ms, submit">
+      {% for key, value in table_hidden_params %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+      {% endfor %}
+    </form>
+    <div class="table-controls">
+      <div class="table-active-sorts" aria-label="Orden activo">
+        {% for sort in active_sorts %}
+          <span class="sort-chip">
+            {{ forloop.counter }}. {{ sort.label }} {% if sort.direction == "desc" %}desc{% else %}asc{% endif %}
+            <a href="{{ sort.remove_url }}"
+               hx-get="{{ sort.remove_url }}"
+               hx-target="#results-pane"
+               hx-select="#results-pane"
+               hx-swap="outerHTML"
+               hx-push-url="true"
+               title="Quitar orden {{ sort.label }}"
+               aria-label="Quitar orden {{ sort.label }}">
+              <i data-lucide="x"></i>
+            </a>
+          </span>
+        {% endfor %}
+        <a class="sort-reset" href="{{ clear_sort_url }}"
+           hx-get="{{ clear_sort_url }}"
+           hx-target="#results-pane"
+           hx-select="#results-pane"
+           hx-swap="outerHTML"
+           hx-push-url="true">
+          Orden por defecto
+        </a>
+      </div>
+      <a class="secondary-button table-clear-link" href="{{ clear_table_filters_url }}"
+         hx-get="{{ clear_table_filters_url }}"
+         hx-target="#results-pane"
+         hx-select="#results-pane"
+         hx-swap="outerHTML"
+         hx-push-url="true">
+        <i data-lucide="filter-x"></i> Limpiar tabla
+      </a>
+    </div>
     <div class="property-table-wrap">
       <table class="property-table">
         <thead>
           <tr>
-            <th>Acciones</th>
-            <th><a href="?{{ query_params.urlencode }}&sort=price">Precio</a></th>
-            <th>Publicacion</th>
-            <th>Inmobiliaria</th>
-            <th><a href="?{{ query_params.urlencode }}&sort=source">Fuente</a></th>
-            <th>Localidad</th>
-            <th><a href="?{{ query_params.urlencode }}&sort=-bedrooms">Dorm.</a></th>
-            <th>Baños</th>
-            <th><a href="?{{ query_params.urlencode }}&sort=-covered_area">Cub.</a></th>
-            <th><a href="?{{ query_params.urlencode }}&sort=-land_area">Terr.</a></th>
-            <th><a href="?{{ query_params.urlencode }}&sort=price_m2">USD/m²</a></th>
+            <th class="column-actions"><span class="table-head-label">Acciones</span></th>
+            <th class="column-price"><a class="table-sort-link {% if table_sort.price.sort_direction %}active{% endif %}" href="{{ table_sort.price.sort_url }}" hx-get="{{ table_sort.price.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por precio"><span>Precio</span>{% if table_sort.price.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.price.sort_icon }}"></i><em>{{ table_sort.price.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-title"><a class="table-sort-link {% if table_sort.title.sort_direction %}active{% endif %}" href="{{ table_sort.title.sort_url }}" hx-get="{{ table_sort.title.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por publicacion"><span>Publicacion</span>{% if table_sort.title.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.title.sort_icon }}"></i><em>{{ table_sort.title.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-agency"><a class="table-sort-link {% if table_sort.agency.sort_direction %}active{% endif %}" href="{{ table_sort.agency.sort_url }}" hx-get="{{ table_sort.agency.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por inmobiliaria"><span>Inmobiliaria</span>{% if table_sort.agency.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.agency.sort_icon }}"></i><em>{{ table_sort.agency.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-source"><a class="table-sort-link {% if table_sort.source.sort_direction %}active{% endif %}" href="{{ table_sort.source.sort_url }}" hx-get="{{ table_sort.source.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por fuente"><span>Fuente</span>{% if table_sort.source.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.source.sort_icon }}"></i><em>{{ table_sort.source.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-locality"><a class="table-sort-link {% if table_sort.locality.sort_direction %}active{% endif %}" href="{{ table_sort.locality.sort_url }}" hx-get="{{ table_sort.locality.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por localidad"><span>Localidad</span>{% if table_sort.locality.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.locality.sort_icon }}"></i><em>{{ table_sort.locality.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-bedrooms"><a class="table-sort-link {% if table_sort.bedrooms.sort_direction %}active{% endif %}" href="{{ table_sort.bedrooms.sort_url }}" hx-get="{{ table_sort.bedrooms.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por dormitorios"><span>Dorm.</span>{% if table_sort.bedrooms.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.bedrooms.sort_icon }}"></i><em>{{ table_sort.bedrooms.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-bathrooms"><a class="table-sort-link {% if table_sort.bathrooms.sort_direction %}active{% endif %}" href="{{ table_sort.bathrooms.sort_url }}" hx-get="{{ table_sort.bathrooms.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por baños"><span>Baños</span>{% if table_sort.bathrooms.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.bathrooms.sort_icon }}"></i><em>{{ table_sort.bathrooms.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-covered"><a class="table-sort-link {% if table_sort.covered_area.sort_direction %}active{% endif %}" href="{{ table_sort.covered_area.sort_url }}" hx-get="{{ table_sort.covered_area.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por superficie cubierta"><span>Cub.</span>{% if table_sort.covered_area.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.covered_area.sort_icon }}"></i><em>{{ table_sort.covered_area.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-land"><a class="table-sort-link {% if table_sort.land_area.sort_direction %}active{% endif %}" href="{{ table_sort.land_area.sort_url }}" hx-get="{{ table_sort.land_area.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por terreno"><span>Terr.</span>{% if table_sort.land_area.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.land_area.sort_icon }}"></i><em>{{ table_sort.land_area.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-price-m2"><a class="table-sort-link {% if table_sort.price_m2.sort_direction %}active{% endif %}" href="{{ table_sort.price_m2.sort_url }}" hx-get="{{ table_sort.price_m2.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por USD/m2"><span>USD/m2</span>{% if table_sort.price_m2.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.price_m2.sort_icon }}"></i><em>{{ table_sort.price_m2.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+          </tr>
+          <tr class="table-filter-row">
+            <th>
+              <button class="icon-button small" type="submit" form="table-filter-form" title="Aplicar filtros de tabla" aria-label="Aplicar filtros de tabla">
+                <i data-lucide="sliders-horizontal"></i>
+              </button>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="price_min" inputmode="numeric" value="{{ query_params.price_min }}" placeholder="Min" aria-label="Precio minimo">
+                <input class="table-filter" form="table-filter-form" name="price_max" inputmode="numeric" value="{{ query_params.price_max }}" placeholder="Max" aria-label="Precio maximo">
+              </div>
+            </th>
+            <th>
+              <input class="table-filter" form="table-filter-form" name="title" value="{{ query_params.title }}" placeholder="Buscar" aria-label="Filtrar publicacion">
+            </th>
+            <th>
+              <select class="table-filter" form="table-filter-form" name="agency" aria-label="Filtrar inmobiliaria">
+                <option value="">Todas</option>
+                {% for agency in agencies %}
+                  <option value="{{ agency.pk }}" {% if query_params.agency == agency.pk|stringformat:"s" %}selected{% endif %}>{{ agency.name }}</option>
+                {% endfor %}
+              </select>
+            </th>
+            <th>
+              <select class="table-filter" form="table-filter-form" name="source" aria-label="Filtrar fuente">
+                <option value="">Todas</option>
+                {% for source in sources %}
+                  <option value="{{ source.pk }}" {% if query_params.source == source.pk|stringformat:"s" %}selected{% endif %}>{{ source.name }}</option>
+                {% endfor %}
+              </select>
+            </th>
+            <th>
+              <select class="table-filter" form="table-filter-form" name="locality" aria-label="Filtrar localidad">
+                <option value="">Todas</option>
+                {% for locality in localities %}
+                  <option value="{{ locality }}" {% if query_params.locality == locality %}selected{% endif %}>{{ locality }}</option>
+                {% endfor %}
+              </select>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}" placeholder="Min" aria-label="Dormitorios minimo">
+                <input class="table-filter" form="table-filter-form" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}" placeholder="Max" aria-label="Dormitorios maximo">
+              </div>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="bathrooms_min" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_min }}" placeholder="Min" aria-label="Baños minimo">
+                <input class="table-filter" form="table-filter-form" name="bathrooms_max" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_max }}" placeholder="Max" aria-label="Baños maximo">
+              </div>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="covered_min" inputmode="numeric" value="{{ query_params.covered_min }}" placeholder="Min" aria-label="Cubierta minima">
+                <input class="table-filter" form="table-filter-form" name="covered_max" inputmode="numeric" value="{{ query_params.covered_max }}" placeholder="Max" aria-label="Cubierta maxima">
+              </div>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}" placeholder="Min" aria-label="Terreno minimo">
+                <input class="table-filter" form="table-filter-form" name="land_max" inputmode="numeric" value="{{ query_params.land_max }}" placeholder="Max" aria-label="Terreno maximo">
+              </div>
+            </th>
+            <th>
+              <div class="table-range-filter">
+                <input class="table-filter" form="table-filter-form" name="price_m2_min" inputmode="numeric" value="{{ query_params.price_m2_min }}" placeholder="Min" aria-label="USD por metro minimo">
+                <input class="table-filter" form="table-filter-form" name="price_m2_max" inputmode="numeric" value="{{ query_params.price_m2_max }}" placeholder="Max" aria-label="USD por metro maximo">
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -367,11 +483,20 @@
     {% if page.has_other_pages %}
     <nav class="pagination" aria-label="Páginas">
       {% if page.has_previous %}
-        <a href="?{{ query_params.urlencode }}&page={{ page.previous_page_number }}" aria-label="Anterior"><i data-lucide="chevron-left"></i></a>
+        <a href="{{ pagination_urls.first }}" aria-label="Primera pagina" title="Primera pagina"><i data-lucide="chevrons-left"></i></a>
+        <a href="{{ pagination_urls.previous }}" aria-label="Anterior" title="Anterior"><i data-lucide="chevron-left"></i></a>
       {% endif %}
       <span>{{ page.number }} / {{ page.paginator.num_pages }}</span>
+      <form class="pagination-jump" method="get" hx-get="/" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true">
+        {% for key, value in pagination_hidden_params %}
+          <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+        <input type="number" name="page" min="1" max="{{ page.paginator.num_pages }}" value="{{ page.number }}" aria-label="Ir a pagina">
+        <button class="secondary-button" type="submit">Ir</button>
+      </form>
       {% if page.has_next %}
-        <a href="?{{ query_params.urlencode }}&page={{ page.next_page_number }}" aria-label="Siguiente"><i data-lucide="chevron-right"></i></a>
+        <a href="{{ pagination_urls.next }}" aria-label="Siguiente" title="Siguiente"><i data-lucide="chevron-right"></i></a>
+        <a href="{{ pagination_urls.last }}" aria-label="Ultima pagina" title="Ultima pagina"><i data-lucide="chevrons-right"></i></a>
       {% endif %}
     </nav>
     {% endif %}

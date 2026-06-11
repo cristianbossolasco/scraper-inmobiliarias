@@ -38,6 +38,8 @@ REPAIR_FIELDS = (
     "location_evidence",
 )
 
+CLEARABLE_EMPTY_FIELDS = {"currency"}
+
 
 class Command(BaseCommand):
     help = "Reparsea publicaciones existentes y corrige campos canonicos sin tocar snapshots."
@@ -48,6 +50,7 @@ class Command(BaseCommand):
         parser.add_argument("--max-listings", type=int)
         parser.add_argument("--property-id", action="append", type=int)
         parser.add_argument("--timeout", type=int, default=20)
+        parser.add_argument("--crawl-delay", type=float)
         parser.add_argument("--mark-non-sale", action="store_true")
         parser.add_argument("--mark-listing-pages", action="store_true")
         parser.add_argument("--classify-only", action="store_true")
@@ -59,6 +62,8 @@ class Command(BaseCommand):
         touched_properties = set()
         for slug in options["source"]:
             adapter = get_adapter(slug, request_timeout=options["timeout"])
+            if options["crawl_delay"] is not None:
+                adapter.definition.crawl_delay = options["crawl_delay"]
             listings = (
                 Listing.objects.filter(source__slug=slug, active=True)
                 .select_related("property", "source")
@@ -123,7 +128,7 @@ class Command(BaseCommand):
             if field not in data:
                 continue
             new = data.get(field)
-            if new == "":
+            if new == "" and field not in CLEARABLE_EMPTY_FIELDS:
                 continue
             old = getattr(property_obj, field)
             if str(old) != str(new):

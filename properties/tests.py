@@ -11,6 +11,7 @@ from django.test import Client, TestCase, TransactionTestCase
 
 from properties.models import (
     Agency,
+    GeocodeCache,
     ListingSnapshot,
     Property,
     PropertyLocation,
@@ -19,7 +20,7 @@ from properties.models import (
     ScrapeRun,
     Source,
 )
-from properties.services.ingestion import ingest_listing, mark_missing
+from properties.services.ingestion import ingest_listing, mark_listing_removed, mark_missing
 from properties.services.location_enrichment import clean_detected_address, enrich_location_data
 from properties.services.agency_normalization import normalize_agency_name
 from properties.services.data_quality import is_garage_like, is_rental_url, valid_price, valid_value
@@ -27,6 +28,7 @@ from properties.services.geocoding import Geocoder
 from properties.services.normalization import (
     classify_address_precision,
     normalize_address,
+    normalize_street_number_address,
     parse_decimal,
 )
 from properties.services.scraping import ActiveScrapeJobError, create_scrape_job, db_writer_snapshot, run_scrape_job
@@ -76,6 +78,14 @@ class NormalizationTests(TestCase):
             normalize_address("Av. Gdor. Vergara 2.550, Hurlingham"),
             "avenida gobernador vergara 2 550 hurlingham",
         )
+        self.assertEqual(
+            normalize_address("Profesor Castagna al 4800"),
+            "profesor castagna 4800",
+        )
+        self.assertEqual(
+            normalize_street_number_address("Albariños al 1700"),
+            "Albariños 1700",
+        )
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -83,7 +93,8 @@ class NormalizationTests(TestCase):
 
     def test_precision_classification(self):
         self.assertEqual(classify_address_precision("Gurruchaga 1733"), "exact")
-        self.assertEqual(classify_address_precision("Gurruchaga al 1700"), "street")
+        self.assertEqual(classify_address_precision("Gurruchaga al 1700"), "exact")
+        self.assertEqual(classify_address_precision("Profesor Castagna al 4800"), "exact")
         self.assertEqual(classify_address_precision("Cañuelas y Villegas"), "intersection")
         self.assertEqual(classify_address_precision("Mascagni"), "street")
 
@@ -109,7 +120,11 @@ class NormalizationTests(TestCase):
             clean_detected_address(
                 "Pérez Galdós al 1100 Ubicación Hurlingham Agua Corriente Sí Alumbrado publico Sí"
             ),
-            "Pérez Galdós al 1100",
+            "Pérez Galdós 1100",
+        )
+        self.assertEqual(
+            clean_detected_address("Dirección: Profesor Castagna al 4800"),
+            "Profesor Castagna 4800",
         )
 
 
@@ -148,6 +163,23 @@ class IngestionTests(TestCase):
             "location_precision": "exact",
         }
 
+    def test_ingestion_normalizes_street_number_addresses(self):
+        listing, _ = ingest_listing(
+            self.source,
+            dict(
+                self.data,
+                external_id="abc-street-number",
+                url="https://example.com/abc-street-number",
+                address="Profesor Castagna al 4800",
+                latitude=None,
+                longitude=None,
+            ),
+        )
+        listing.property.refresh_from_db()
+        self.assertEqual(listing.property.address, "Profesor Castagna 4800")
+        self.assertEqual(listing.property.detected_address, "Profesor Castagna 4800")
+        self.assertEqual(listing.property.normalized_address, "profesor castagna 4800")
+
     def test_reuses_listing_and_records_price_history(self):
         listing, created = ingest_listing(self.source, self.data)
         self.assertTrue(created)
@@ -185,6 +217,42 @@ class IngestionTests(TestCase):
         listing.property.refresh_from_db()
         self.assertFalse(listing.active)
         self.assertEqual(listing.property.status, Property.Status.REMOVED)
+
+    def test_mark_listing_removed_deactivates_only_source_listing(self):
+        listing, _ = ingest_listing(self.source, self.data)
+        removed = mark_listing_removed(self.source, url=listing.url)
+        self.assertEqual(removed.pk, listing.pk)
+
+        listing.refresh_from_db()
+        listing.property.refresh_from_db()
+        self.assertFalse(listing.active)
+        self.assertEqual(listing.source_status, "removed")
+        self.assertEqual(listing.missing_runs, 2)
+        self.assertEqual(listing.property.status, Property.Status.REMOVED)
+
+    def test_mark_listing_removed_keeps_property_active_with_other_listing(self):
+        other_source = Source.objects.create(
+            slug="other-active", name="Other Active", base_url="https://other.example"
+        )
+        listing, _ = ingest_listing(self.source, self.data)
+        other_listing, _ = ingest_listing(
+            other_source,
+            dict(
+                self.data,
+                external_id="abc-other-active",
+                url="https://other.example/abc",
+            ),
+        )
+        self.assertEqual(listing.property_id, other_listing.property_id)
+
+        mark_listing_removed(self.source, url=listing.url)
+
+        listing.refresh_from_db()
+        other_listing.refresh_from_db()
+        listing.property.refresh_from_db()
+        self.assertFalse(listing.active)
+        self.assertTrue(other_listing.active)
+        self.assertEqual(listing.property.status, Property.Status.ACTIVE)
 
     def test_location_enrichment_detects_detail_evidence(self):
         listing, _ = ingest_listing(
@@ -229,6 +297,71 @@ class IngestionTests(TestCase):
             "Bizet 1900, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina",
         )
 
+    def test_geocoder_query_normalizes_street_number_address(self):
+        property_obj = Property.objects.create(
+            fingerprint="geo-street-number",
+            title="Casa con direccion al",
+            address="Profesor Castagna al 4800",
+            locality="Hurlingham",
+        )
+        self.assertEqual(
+            Geocoder().build_query(property_obj),
+            "Profesor Castagna 4800, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina",
+        )
+
+    def test_geocoder_force_refreshes_non_manual_location(self):
+        property_obj = Property.objects.create(
+            fingerprint="geo-force-1",
+            title="Casa con ubicacion vieja",
+            address="Profesor Castagna al 4800",
+            locality="Hurlingham",
+        )
+        PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.5,
+            longitude=-58.5,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="source",
+            confidence=1,
+        )
+        query = "Profesor Castagna 4800, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina"
+        GeocodeCache.objects.create(
+            query=query,
+            latitude=-34.596,
+            longitude=-58.654,
+            precision="exact",
+            confidence=0.8,
+            provider_payload={},
+        )
+
+        location = Geocoder().geocode_property(property_obj, force=True)
+
+        self.assertEqual(location.query, query)
+        self.assertEqual(location.provider, "nominatim")
+        self.assertAlmostEqual(location.latitude, -34.596)
+
+    def test_geocoder_force_preserves_manual_location(self):
+        property_obj = Property.objects.create(
+            fingerprint="geo-manual-1",
+            title="Casa con ubicacion manual",
+            address="Profesor Castagna al 4800",
+            locality="Hurlingham",
+        )
+        manual_location = PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.5,
+            longitude=-58.5,
+            precision=PropertyLocation.Precision.MANUAL,
+            provider="manual",
+            confidence=1,
+            manually_corrected=True,
+        )
+
+        location = Geocoder().geocode_property(property_obj, force=True)
+
+        self.assertEqual(location.pk, manual_location.pk)
+        self.assertEqual(location.provider, "manual")
+
     @patch("properties.management.commands.geocode_pending.Geocoder")
     def test_geocode_pending_filters_by_source_and_address(self, geocoder_cls):
         other_source = Source.objects.create(
@@ -257,6 +390,43 @@ class IngestionTests(TestCase):
             stdout=output,
         )
         self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 1)
+        self.assertIn("1 propiedades geolocalizadas", output.getvalue())
+
+    @patch("properties.management.commands.repair_addresses.Geocoder")
+    def test_repair_addresses_normalizes_and_geocodes_changed_only(self, geocoder_cls):
+        changed = Property.objects.create(
+            fingerprint="repair-address-1",
+            title="Casa con direccion al",
+            address="Profesor Castagna al 4800",
+            normalized_address="profesor castagna al 4800",
+            detected_address="Profesor Castagna al 4800",
+            locality="Hurlingham",
+        )
+        Property.objects.create(
+            fingerprint="repair-address-2",
+            title="Casa sin cambio",
+            address="Ocampo 1900",
+            normalized_address="ocampo 1900",
+            detected_address="Ocampo 1900",
+            locality="Hurlingham",
+        )
+        geocoder_cls.return_value.geocode_property.return_value = True
+
+        output = StringIO()
+        call_command("repair_addresses", "--dry-run", stdout=output)
+        changed.refresh_from_db()
+        self.assertEqual(changed.address, "Profesor Castagna al 4800")
+        self.assertIn("1 direcciones corregidas (dry-run)", output.getvalue())
+        self.assertFalse(geocoder_cls.return_value.geocode_property.called)
+
+        output = StringIO()
+        call_command("repair_addresses", "--geocode", stdout=output)
+        changed.refresh_from_db()
+        self.assertEqual(changed.address, "Profesor Castagna 4800")
+        self.assertEqual(changed.detected_address, "Profesor Castagna 4800")
+        self.assertEqual(changed.normalized_address, "profesor castagna 4800")
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 1)
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_args.args[0].pk, changed.pk)
         self.assertIn("1 propiedades geolocalizadas", output.getvalue())
 
 
@@ -375,6 +545,60 @@ class ViewTests(TestCase):
         self.assertContains(response, "Casa con pileta")
         response = self.client.get("/", {"quality_field": "surface", "quality_state": "missing"})
         self.assertNotContains(response, "Casa con pileta")
+
+    def test_table_column_filters_and_multi_sort(self):
+        ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "web-cheap",
+                "url": "https://example.com/web-cheap",
+                "title": "Depto chico",
+                "address": "Paso 1200",
+                "locality": "Hurlingham",
+                "property_type": "apartment",
+                "currency": "USD",
+                "price": 80000,
+                "bedrooms": 1,
+                "covered_area": 45,
+                "agency": "Beta Propiedades",
+            },
+        )
+
+        response = self.client.get("/", {"view": "table", "sort": "price,-title"})
+        content = response.content.decode()
+        self.assertContains(response, 'id="table-filter-form"')
+        self.assertContains(response, 'name="title"')
+        self.assertContains(response, 'name="price_m2_min"')
+        self.assertLess(content.index("Depto chico"), content.index("Casa con pileta"))
+        self.assertIn("sort=-price%2C-title", content)
+
+        response = self.client.get("/", {"view": "table", "title": "pileta"})
+        self.assertContains(response, "Casa con pileta")
+        self.assertNotContains(response, "Depto chico")
+
+    def test_table_pagination_can_jump_to_last_or_specific_page(self):
+        for index in range(30):
+            ingest_listing(
+                self.listing.source,
+                {
+                    "external_id": f"page-{index}",
+                    "url": f"https://example.com/page-{index}",
+                    "title": f"Paginada {index}",
+                    "address": f"San Martin {index}",
+                    "locality": "Hurlingham",
+                    "property_type": "house",
+                    "currency": "USD",
+                    "price": 50000 + index,
+                },
+            )
+
+        response = self.client.get("/", {"view": "table", "sort": "price"})
+        self.assertContains(response, 'class="pagination-jump"')
+        self.assertContains(response, 'aria-label="Ultima pagina"')
+        self.assertContains(response, 'max="2"')
+
+        response = self.client.get("/", {"view": "table", "sort": "price", "page": "2"})
+        self.assertContains(response, "Paginada 29")
 
     def test_card_shows_detected_address_without_coordinates(self):
         ingest_listing(
@@ -1020,7 +1244,7 @@ class ScraperParserTests(TestCase):
             "analia_fernandez_address_detail.html",
             "https://www.fernandezpropiedades.com.ar/p/7872839-Casa-en-Venta-en-Hurlingham-Pérez-Galdós-al-1100",
         )
-        self.assertEqual(data["address"], "Pérez Galdós al 1100")
+        self.assertEqual(data["address"], "Pérez Galdós 1100")
 
     def test_analia_fernandez_structured_tables(self):
         data = self.parse_with_fixture(
@@ -1028,7 +1252,7 @@ class ScraperParserTests(TestCase):
             "analia_fernandez_full_detail.html",
             "https://www.fernandezpropiedades.com.ar/p/4743235-Casa-en-Venta-en-Hurlingham-Diego-Carabajal-al-500",
         )
-        self.assertEqual(data["address"], "Diego Carabajal al 500")
+        self.assertEqual(data["address"], "Diego Carabajal 500")
         self.assertEqual(data["rooms"], 4)
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["bathrooms"], Decimal("1"))
@@ -1152,6 +1376,32 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["bathrooms"], Decimal("3"))
         self.assertEqual(data["garages"], 1)
+
+    def test_guarnieri_ignores_suggested_price_and_metrics(self):
+        data = self.parse_with_fixture(
+            GuarnieriScraper,
+            "guarnieri_barrio_ingles_suggested_detail.html",
+            "https://guarnieripropiedades.com.ar/inmobiliaria/propiedad/chalet-2-plantas-b-ingles",
+        )
+        self.assertIsNone(data["price"])
+        self.assertEqual(data["currency"], "")
+        self.assertEqual(data["rooms"], 5)
+        self.assertEqual(data["bedrooms"], 5)
+        self.assertEqual(data["bathrooms"], Decimal("3"))
+        self.assertEqual(data["garages"], 1)
+        self.assertEqual(data["covered_area"], Decimal("200"))
+        self.assertEqual(data["land_area"], Decimal("250"))
+        self.assertEqual(data["total_area"], Decimal("250"))
+        self.assertEqual(data["front_width"], Decimal("10"))
+        self.assertEqual(data["lot_depth"], Decimal("25"))
+        self.assertEqual(data["address"], "Barrio Ingles - Hurlingham")
+        self.assertEqual(data["neighborhood"], "Barrio Inglés")
+        self.assertEqual(
+            data["images"],
+            [
+                "https://guarnieripropiedades.com.ar/inmobiliaria/wp-content/uploads/2024/02/Pablo-Pizzurno-1287.jpeg"
+            ],
+        )
 
     def test_paula_fossati_lot_dimensions_become_area(self):
         data = self.parse_with_fixture(
@@ -1943,6 +2193,60 @@ class ScrapeCommandTests(TransactionTestCase):
         self.assertEqual(source.status, ScrapeJobSource.Status.PARTIAL)
         self.assertEqual(source.error_urls[0]["url"], "https://example.com/bad")
         self.assertIn("detalle roto", source.error_urls[0]["error"])
+
+    def test_terminal_listing_errors_are_removed_not_stored_for_retry(self):
+        Path(".scrape.lock").unlink(missing_ok=True)
+        source = Source.objects.create(
+            slug="fake-gone", name="Fake Gone", base_url="https://example.com"
+        )
+        listing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "gone",
+                "url": "https://example.com/gone",
+                "title": "Casa retirada",
+                "address": "Calle 100",
+                "locality": "Hurlingham",
+                "currency": "USD",
+                "price": "100000",
+            },
+        )
+
+        class FakeDefinition:
+            slug = "fake-gone"
+            name = "Fake Gone"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+
+            def __init__(self, max_pages=None, request_timeout=None, max_listings=None, should_cancel=None):
+                pass
+
+            def discover(self):
+                return ["https://example.com/gone"]
+
+            def parse(self, url):
+                raise RuntimeError(f"404 Client Error: AVISO TERMINADO for url: {url}")
+
+        with patch("properties.services.scraping.get_adapter", side_effect=lambda *args, **kwargs: FakeAdapter(**kwargs)):
+            job = create_scrape_job(["fake-gone"], {"fake-gone": 1}, geocode_limit=0)
+            run_scrape_job(job.pk)
+
+        source_progress = job.sources.get(slug="fake-gone")
+        listing.refresh_from_db()
+        listing.property.refresh_from_db()
+        self.assertEqual(source_progress.status, ScrapeJobSource.Status.SUCCESS)
+        self.assertEqual(source_progress.errors, 0)
+        self.assertEqual(source_progress.skipped, 1)
+        self.assertEqual(source_progress.error_urls, [])
+        self.assertIn("Retirada: URL no disponible", source_progress.logs)
+        self.assertFalse(listing.active)
+        self.assertEqual(listing.source_status, "removed")
+        self.assertEqual(listing.property.status, Property.Status.REMOVED)
 
     def test_retry_urls_skip_discovery_and_process_only_failures(self):
         Path(".scrape.lock").unlink(missing_ok=True)

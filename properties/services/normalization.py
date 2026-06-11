@@ -38,8 +38,16 @@ def normalize_whitespace(value):
     return re.sub(r"\s+", " ", (value or "")).strip()
 
 
+def normalize_street_number_address(value):
+    text = normalize_whitespace(value)
+    if not text:
+        return ""
+    text = re.sub(r"\s+\bal\s+(\d{2,5})(?=\b)", r" \1", text, flags=re.I)
+    return normalize_whitespace(text)
+
+
 def normalize_address(value):
-    text = fold_text(value)
+    text = fold_text(normalize_street_number_address(value))
     text = re.sub(r"[.,;#]", " ", text)
     replacements = {
         r"\bav(?:enida)?\b": "avenida",
@@ -146,9 +154,7 @@ def build_fingerprint(data):
 
 
 def classify_address_precision(address):
-    folded = fold_text(address)
-    if re.search(r"\bal\s+\d{2,5}\b", folded):
-        return "street"
+    folded = fold_text(normalize_street_number_address(address))
     if re.search(r"\b\d{2,5}\b", folded):
         return "exact"
     if re.search(r"\b(esq|esquina|y|entre)\b", folded):

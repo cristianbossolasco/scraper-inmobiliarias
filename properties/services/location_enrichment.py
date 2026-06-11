@@ -1,7 +1,12 @@
 import re
 
 from properties.models import Property
-from .normalization import fold_text, normalize_locality, normalize_whitespace
+from .normalization import (
+    fold_text,
+    normalize_locality,
+    normalize_street_number_address,
+    normalize_whitespace,
+)
 
 
 LOCALITY_PATTERNS = (
@@ -55,7 +60,7 @@ def clean_detected_address(value):
         return ""
     text = ADDRESS_STOP_PATTERN.split(text, maxsplit=1)[0]
     text = re.sub(r"^(?:Direccion|Direcci(?:on|ón)|Ubicaci(?:on|ón))\s*:?\s*", "", text, flags=re.I)
-    return normalize_whitespace(text.strip(" -–|,"))
+    return normalize_street_number_address(text.strip(" -–|,"))
 
 
 def _find_named(patterns, text):
