@@ -3,22 +3,6 @@ from .base import SourceDefinition
 
 AUDIT_ONLY_SOURCES = [
     SourceDefinition(
-        "fincas",
-        "Fincas Bienes Raices",
-        "https://www.fincasbienesraices.com.ar",
-        "https://www.haurie.argencasas.com",
-        enabled=False,
-        notes="Su catalogo deriva a Argencasas y queda cubierto por ese adaptador.",
-    ),
-    SourceDefinition(
-        "riquelme",
-        "Riquelme Propiedades",
-        "https://www.riquelmepropiedades.com.ar",
-        "https://www.riquelmepropiedades.com.ar",
-        enabled=False,
-        notes="Oferta tambien sindicada en Mapaprop.",
-    ),
-    SourceDefinition(
         "aurellana",
         "Aurellana Desarrollos Inmobiliarios",
         "https://www.aurellana.com.ar",

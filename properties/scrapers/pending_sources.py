@@ -25,7 +25,7 @@ from .parsing import (
     text_value,
     value_after_label,
 )
-from .paginated import paginated_discover
+from .paginated import ajax_paginated_discover, paginated_discover
 
 
 TARGET_ZONES = ("hurlingham", "villa tesei", "villa santos tesei", "william morris")
@@ -92,10 +92,20 @@ def parse_multi_unit_offers(text):
 
 
 def plausible_int(value, maximum):
-    parsed = parse_int(value)
-    if parsed is None or parsed > maximum:
+    if value in (None, ""):
         return None
-    return parsed
+    parsed = parse_int(value)
+    if parsed is not None and 0 <= parsed <= maximum:
+        return parsed
+
+    text = str(value)
+    if re.fullmatch(r"\s*-\s*\d+(?:[.,]\d+)?\s*", text):
+        return None
+    for match in re.finditer(r"(?<![-\d.,])(\d+)(?![\d.,])", text):
+        candidate = int(match.group(1))
+        if 0 <= candidate <= maximum:
+            return candidate
+    return None
 
 
 def price_near_label(text):
@@ -327,18 +337,45 @@ class MultiSearchScraper(CommonDetailScraper):
                     yield url
 
 
-class AnaliaFernandezScraper(CommonDetailScraper):
+class TokkoSearchScraper(CommonDetailScraper):
+    tokko_ajax_path = "/Buscar"
+    tokko_query = (
+        "q=&currency=ANY&minprice=&maxprice=&minsurface=&maxsurface="
+        "&minrooms=&maxrooms=&minbedrooms=&maxbedrooms=&operation=1"
+        "&locations=25973&location_type=&ptypes=&o=2,2&watermark="
+    )
+    fallback_max_pages = 20
+
+    def _ajax_url(self, page):
+        return f"{self.definition.base_url}{self.tokko_ajax_path}?{self.tokko_query}&p={page}"
+
+    def _listing_urls(self, soup):
+        yield from links_matching(self, soup, self.detail_patterns)
+
+    def discover(self):
+        yield from ajax_paginated_discover(
+            self,
+            self.definition.search_url,
+            self._ajax_url,
+            self._listing_urls,
+            fallback_max_pages=self.fallback_max_pages,
+        )
+
+
+class AnaliaFernandezScraper(TokkoSearchScraper):
     definition = SourceDefinition(
         slug="analia-fernandez",
         name="Analía Fernández Servicios Inmobiliarios",
         base_url="https://www.fernandezpropiedades.com.ar",
-        search_url="https://www.fernandezpropiedades.com.ar/Venta",
+        search_url="https://www.fernandezpropiedades.com.ar/Buscar-propiedades-en-Venta-en-Hurlingham-25973",
         crawl_delay=3,
         enabled=False,
-        notes="Fuente local con alto volumen. Arranca deshabilitada hasta validar corrida completa.",
+        notes="Motor Tokko publico para ventas en Hurlingham; primera pagina HTML y resto por AJAX p=N.",
     )
     detail_patterns = (r"/p/\d+-",)
     require_target_text = True
+    tokko_ajax_path = "/Buscar-propiedades-en-Venta-en-Hurlingham-25973"
+    fallback_max_pages = 12
 
     def parse(self, url):
         data = super().parse(url)
@@ -489,18 +526,19 @@ class MarceloRussoScraper(CommonDetailScraper):
         return data
 
 
-class LopezCombaScraper(CommonDetailScraper):
+class LopezCombaScraper(TokkoSearchScraper):
     definition = SourceDefinition(
         slug="lopez-comba",
         name="Lopez Comba Propiedades",
         base_url="https://www.lopezcomba.ar",
-        search_url="https://www.lopezcomba.ar/Casas",
+        search_url="https://www.lopezcomba.ar/Buscar?operation=1&locations=25973&o=2,2&1=1",
         crawl_delay=3,
         enabled=False,
-        notes="Fuente local para Villa Tesei y William Morris. Arranca deshabilitada.",
+        notes="Motor Tokko publico para ventas en Hurlingham; primera pagina HTML y resto por AJAX p=N.",
     )
     detail_patterns = (r"/p/\d+-",)
     require_target_text = True
+    fallback_max_pages = 5
 
 
 class RiquelmeScraper(CommonDetailScraper):
@@ -508,12 +546,34 @@ class RiquelmeScraper(CommonDetailScraper):
         slug="riquelme",
         name="Riquelme Propiedades",
         base_url="https://www.riquelmepropiedades.com.ar",
-        search_url="https://www.riquelmepropiedades.com.ar",
+        search_url="https://www.riquelmepropiedades.com.ar/buscar/?operation=1&type=&bedrooms=&priceFrom=&priceTo=&page=0&view=list&date-from=&date-to=&occupancy=&currency=&zone1=2&zone2=196&zone3=",
         crawl_delay=3,
         enabled=False,
-        notes="Fuente local con fichas /propiedad/. Falta validar paginacion completa.",
+        notes="Busqueda publica de ventas en partido de Hurlingham con page=N cero-based.",
     )
     detail_patterns = (r"/propiedad/",)
+
+    def _page_url(self, page):
+        if page == 1:
+            return self.definition.search_url
+        return (
+            f"{self.definition.base_url}/buscar/?operation=1&type=&bedrooms=&priceFrom="
+            f"&priceTo=&page={page - 1}&view=list&date-from=&date-to=&occupancy="
+            f"&currency=&zone1=2&zone2=196&zone3="
+        )
+
+    def _listing_urls(self, soup):
+        container = soup.select_one(".searchpage-results") or soup
+        yield from links_matching(self, container, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=20,
+        )
 
 
 class FincasScraper(CommonDetailScraper):
@@ -528,6 +588,23 @@ class FincasScraper(CommonDetailScraper):
     )
     detail_patterns = (r"/propiedad-[^/]+-\d+-\d+",)
     require_target_text = True
+
+    def _page_url(self, page):
+        if page == 1:
+            return self.definition.search_url
+        return f"{self.definition.search_url}?page={page}"
+
+    def _listing_urls(self, soup):
+        yield from links_matching(self, soup, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=15,
+        )
 
     def parse(self, url):
         soup = self.soup(url)
@@ -557,17 +634,31 @@ class GuarnieriScraper(MultiSearchScraper):
         slug="guarnieri",
         name="Guarnieri Propiedades",
         base_url="https://guarnieripropiedades.com.ar",
-        search_url="https://guarnieripropiedades.com.ar/inmobiliaria/ciudad/villa-tesei",
+        search_url="https://guarnieripropiedades.com.ar/inmobiliaria/busqueda-avanzada?keyword=&status%5B%5D=en-venta&location%5B%5D=hurlingham&bathrooms=&garage=&min-area=&property_id=&max-area=&bedrooms=&currency=&min-price=&max-price=&nc2ba-de-plantas=&ambientes=&antigc3bcedad=",
         crawl_delay=3,
         enabled=False,
-        notes="Fuente local con posible WordPress/JS. Incluye Villa Tesei, William Morris y Hurlingham.",
+        notes="Busqueda avanzada publica de ventas en Hurlingham con paginacion /page/N.",
     )
-    detail_patterns = (r"/inmobiliaria/propiedades/", r"/propiedad/")
-    search_urls = (
-        "https://guarnieripropiedades.com.ar/inmobiliaria/ciudad/hurlingham",
-        "https://guarnieripropiedades.com.ar/inmobiliaria/ciudad/villa-tesei",
-        "https://guarnieripropiedades.com.ar/inmobiliaria/ciudad/william-morris",
-    )
+    detail_patterns = (r"/inmobiliaria/propiedad/",)
+
+    def _page_url(self, page):
+        if page == 1:
+            return self.definition.search_url
+        query = self.definition.search_url.split("?", 1)[1]
+        return f"{self.definition.base_url}/inmobiliaria/busqueda-avanzada/page/{page}?{query}"
+
+    def _listing_urls(self, soup):
+        container = soup.select_one(".listing-view") or soup
+        yield from links_matching(self, container, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=40,
+        )
 
     def parse(self, url):
         soup = self.soup(url)
@@ -723,12 +814,29 @@ class PatagonPropScraper(CommonDetailScraper):
         slug="patagonprop",
         name="PatagonProp",
         base_url="https://patagonprop.com",
-        search_url="https://patagonprop.com/office/torriani-propiedades",
+        search_url="https://patagonprop.com/buscar/inmuebles-venta-en_hurlingham_hurlingham_buenos_aires_1_2_196_46-from_0",
         crawl_delay=4,
         enabled=False,
-        notes="Portal para oficinas chicas como Torriani y Adriana Dato. Fuente parcial.",
+        notes="Portal con paginacion por offset from_N, equivalente a Mapaprop.",
     )
     detail_patterns = (r"/property/", r"/propiedad/")
+    page_size = 12
+
+    def _page_url(self, page):
+        offset = (page - 1) * self.page_size
+        return re.sub(r"from_\d+", f"from_{offset}", self.definition.search_url)
+
+    def _listing_urls(self, soup):
+        yield from links_matching(self, soup, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=40,
+        )
 
     def parse(self, url):
         data = super().parse(url)
@@ -962,17 +1070,262 @@ class RemaxDataworkScraper(CommonDetailScraper):
         return super().parse(url)
 
 
+class RemaxArgentinaScraper(BaseScraper):
+    definition = SourceDefinition(
+        slug="remax",
+        name="RE/MAX Argentina",
+        base_url="https://www.remax.com.ar",
+        search_url=(
+            "https://www.remax.com.ar/listings/buy?page=0&pageSize=24&sort=-createdAt"
+            "&in:operationId=1&locations=in:::63@%3Cb%3EHurlingham%3C%2Fb%3E::::"
+            "&landingPath=comprar-propiedades&filterCount=0&viewMode=listViewMode"
+        ),
+        crawl_delay=4,
+        enabled=False,
+        notes="Portal nacional RE/MAX Argentina; API publica usada por la pagina de resultados.",
+    )
+    api_base = "https://api-ar.redremax.com/remaxweb-ar/api"
+    page_size = 24
+    image_base = "https://d1acdg20u0pmxj.cloudfront.net"
+
+    def _api_get(self, path, **params):
+        self.throttle()
+        response = self.session.get(
+            f"{self.api_base}/{path.lstrip('/')}",
+            params=params,
+            headers={
+                "Accept": "application/json",
+                "Origin": self.definition.base_url,
+                "Referer": f"{self.definition.base_url}/",
+            },
+            timeout=self.request_timeout,
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def _find_all(self, page):
+        return self._api_get(
+            "listings/findAllWithEntrepreneurships",
+            page=page,
+            pageSize=self.page_size,
+            sort="-createdAt",
+            **{
+                "in": "operationId:1",
+                "locations": "in:::63@<b>Hurlingham</b>::::",
+                "landingPath": "comprar-propiedades",
+            },
+        )
+
+    def _listing_url(self, item):
+        slug = item.get("slug")
+        if slug:
+            return f"{self.definition.base_url}/listings/{slug}"
+        internal_id = item.get("internalId")
+        if internal_id:
+            return f"{self.definition.base_url}/listingsByInternalId/{internal_id}"
+        entity_id = item.get("entityId") or item.get("id")
+        return f"{self.definition.base_url}/listings/{entity_id}"
+
+    def discover(self):
+        start_page = max((self.start_page or 1) - 1, 0)
+        declared_total = None
+        total_pages = None
+        seen = set()
+        pages_seen = 0
+        page = start_page
+        while total_pages is None or page < total_pages:
+            if self.max_pages is not None and pages_seen >= self.max_pages:
+                break
+            if self.should_cancel():
+                break
+            payload = self._find_all(page)
+            data = payload.get("data") or {}
+            items = data.get("data") or []
+            if declared_total is None:
+                declared_total = parse_int(data.get("totalItems") or len(items))
+            if total_pages is None:
+                total_pages = parse_int(data.get("totalPages")) or 1
+            pages_seen += 1
+            if not items:
+                break
+            for item in items:
+                text = json.dumps(item, ensure_ascii=False)
+                if not is_target_zone(text):
+                    continue
+                if (item.get("operation") or {}).get("value") not in (None, "sale"):
+                    continue
+                url = self._listing_url(item)
+                if url in seen:
+                    continue
+                seen.add(url)
+                yield url
+                if self.max_listings is not None and len(seen) >= self.max_listings:
+                    self.discovery_stats = {
+                        "declared_total": declared_total,
+                        "pages_seen": pages_seen,
+                        "urls_discovered": len(seen),
+                        "coverage_ratio": None,
+                        "limited_by_max_listings": True,
+                        "limited_by_max_pages": self.max_pages is not None,
+                    }
+                    return
+            page += 1
+
+        limited_run = (self.start_page or 1) > 1 or self.max_pages is not None or self.max_listings is not None
+        self.discovery_stats = {
+            "cancelled": self.should_cancel(),
+            "declared_total": declared_total,
+            "pages_seen": pages_seen,
+            "urls_discovered": len(seen),
+            "coverage_ratio": (
+                round((len(seen) / declared_total) * 100, 1)
+                if declared_total and not limited_run
+                else None
+            ),
+            "limited_by_max_listings": False,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
+
+    def _item_from_url(self, url):
+        path = urlparse(url).path.strip("/")
+        if path.startswith("listingsByInternalId/"):
+            internal_id = path.rsplit("/", 1)[-1]
+            payload = self._api_get(f"listings/findByInternalId/{internal_id}")
+        else:
+            slug = path.rsplit("/", 1)[-1]
+            payload = self._api_get(f"listings/findBySlug/{slug}")
+        return payload.get("data") or {}
+
+    def _image_url(self, image):
+        value = (image.get("value") or image.get("rawValue")) if isinstance(image, dict) else image
+        if not value or not isinstance(value, str):
+            return None
+        if value.startswith("http"):
+            return value
+        return f"{self.image_base}/{value.lstrip('/')}"
+
+    def parse(self, url):
+        item = self._item_from_url(url)
+        if not item:
+            return None
+        if (item.get("operation") or {}).get("value") != "sale":
+            return None
+        text = json.dumps(item, ensure_ascii=False)
+        if not is_target_zone(text):
+            return None
+
+        geo = item.get("geo") or {}
+        associate = item.get("associate") or {}
+        office = associate.get("office") or {}
+        coordinates = (item.get("location") or {}).get("coordinates") or []
+        images = []
+        for image in item.get("photos") or []:
+            image_url = self._image_url(image)
+            if image_url:
+                images.append(image_url)
+        features = [
+            feature.get("value")
+            for feature in item.get("features") or []
+            if isinstance(feature, dict) and feature.get("value")
+        ]
+        if item.get("aptCredit"):
+            features.append("Apto credito")
+        data = {
+            "external_id": item.get("id") or item.get("entityId") or item.get("internalId"),
+            "url": url,
+            "title": item.get("title") or "RE/MAX Argentina",
+            "description": item.get("description") or "",
+            "address": item.get("displayAddress") or "",
+            "locality": (
+                "William C. Morris"
+                if re.search(r"william\s+(?:c\.\s*)?morris", text, re.I)
+                else "Villa Tesei"
+                if re.search(r"villa\s+(?:santos\s+)?tesei", text, re.I)
+                else "Hurlingham"
+            ),
+            "neighborhood": clean_text(geo.get("neighborhood") or ""),
+            "agency": office.get("name") or associate.get("officeName") or self.definition.name,
+            "agency_url": f"{self.definition.base_url}/{office.get('slug')}" if office.get("slug") else "",
+            "property_type": infer_property_type((item.get("type") or {}).get("value"), item.get("title")),
+            "operation": "sale",
+            "currency": normalize_currency((item.get("currency") or {}).get("value") or ""),
+            "price": parse_decimal(item.get("price")),
+            "rooms": parse_int(item.get("totalRooms")),
+            "bedrooms": parse_int(item.get("bedrooms")),
+            "bathrooms": parse_decimal(item.get("bathrooms")),
+            "toilets": parse_int(item.get("toilets")),
+            "garages": parse_int(item.get("parkingSpaces")),
+            "covered_area": parse_decimal(item.get("dimensionCovered")),
+            "total_area": parse_decimal(item.get("dimensionTotalBuilt")),
+            "land_area": parse_decimal(item.get("dimensionLand")),
+            "uncovered_area": parse_decimal(item.get("dimensionUncovered")),
+            "semicovered_area": parse_decimal(item.get("dimensionSemicovered")),
+            "age_years": None,
+            "features": list(dict.fromkeys(features)),
+            "images": images[:30],
+            "status": Property.Status.ACTIVE,
+            "location_precision": classify_address_precision(item.get("displayAddress")),
+            "raw_data": {"remax": item},
+        }
+        year_built = parse_int(item.get("yearBuilt"))
+        if year_built and 1800 < year_built < 2100:
+            data["raw_data"]["yearBuilt"] = year_built
+        if len(coordinates) >= 2:
+            data["longitude"] = float(coordinates[0])
+            data["latitude"] = float(coordinates[1])
+        return data
+
+
 class Century21Scraper(CommonDetailScraper):
     definition = SourceDefinition(
         slug="century21-hurlingham",
         name="Century 21 Hurlingham",
         base_url="https://century21.com.ar",
-        search_url="https://century21.com.ar/v/resultados/tipo_casa/operacion_venta/en-pais_argentina/en-estado_gba-oeste/en-municipio_gba-oeste-hurlingham",
+        search_url="https://century21.com.ar/v/resultados/operacion_venta/en-pais_argentina/en-estado_gba-oeste/en-municipio_gba-oeste-hurlingham",
         crawl_delay=5,
         enabled=False,
-        notes="Red/franquicia. Puede requerir JS/API publica; no evadir bloqueos.",
+        notes="Red/franquicia; discovery desde JSON publico ?json=true de la pagina de resultados.",
     )
     detail_patterns = (r"/propiedad/", r"/ficha/", r"/detalle/")
+
+    def _json_url(self):
+        separator = "&" if "?" in self.definition.search_url else "?"
+        return f"{self.definition.search_url}{separator}json=true"
+
+    def _payload(self):
+        return self.get(self._json_url()).json()
+
+    def discover(self):
+        payload = self._payload()
+        results = payload.get("results") or payload.get("data") or []
+        declared_total = parse_int(payload.get("totalHits") or payload.get("total") or len(results))
+        seen = set()
+        for item in results:
+            text = json.dumps(item, ensure_ascii=False)
+            if re.search(r"\balquiler\b", text, re.I) and not re.search(r"\bventa\b", text, re.I):
+                continue
+            href = item.get("urlCorrectaPropiedad") or item.get("url") or item.get("permalink")
+            if not href:
+                continue
+            url = self.absolute(href)
+            if url in seen:
+                continue
+            seen.add(url)
+            yield url
+            if self.max_listings is not None and len(seen) >= self.max_listings:
+                break
+        self.discovery_stats = {
+            "declared_total": declared_total,
+            "pages_seen": 1,
+            "urls_discovered": len(seen),
+            "coverage_ratio": (
+                round((len(seen) / declared_total) * 100, 1)
+                if declared_total
+                else None
+            ),
+            "limited_by_max_listings": self.max_listings is not None and len(seen) >= self.max_listings,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
 
 
 class MercadoLibreScraper(CommonDetailScraper):
@@ -1095,18 +1448,31 @@ class ZonapropScraper(CommonDetailScraper):
         slug="zonaprop",
         name="Zonaprop",
         base_url="https://www.zonaprop.com.ar",
-        search_url="https://www.zonaprop.com.ar/inmuebles-hurlingham.html",
+        search_url="https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham.html",
         crawl_delay=6,
         enabled=False,
         notes="Portal de alto volumen y riesgo anti-bot. Usar solo si HTML publico es estable.",
     )
     detail_patterns = (r"/propiedades/", r"/inmuebles-")
 
-    def discover(self):
-        soup = self.soup(self.definition.search_url)
-        for url in links_matching(self, soup, (r"/propiedades/clasificado/",), require_target_text=True):
-            if "alquiler" not in url.lower():
+    def _page_url(self, page):
+        if page == 1:
+            return self.definition.search_url
+        return "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-pagina-%s.html" % page
+
+    def _listing_urls(self, soup):
+        for url in links_matching(self, soup, (r"/propiedades/clasificado/",)):
+            if "alquiler" not in url.lower() and "/alcl" not in url.lower():
                 yield url
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=30,
+        )
 
     def parse(self, url):
         if is_listing_page_url(url) or "alquiler" in url.lower() or "/alcl" in url.lower():

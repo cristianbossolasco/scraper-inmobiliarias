@@ -36,6 +36,11 @@ class Command(BaseCommand):
             help="Incluye argenprop y marcelo-russo en la auditoria.",
         )
         parser.add_argument(
+            "--enabled-only",
+            action="store_true",
+            help="Audita solo fuentes habilitadas para scrape --all.",
+        )
+        parser.add_argument(
             "--json",
             action="store_true",
             dest="as_json",
@@ -47,7 +52,7 @@ class Command(BaseCommand):
         skip = set() if options["include_fixed"] else DEFAULT_SKIP
         rows = []
 
-        for adapter_cls in get_adapter_classes(enabled_only=True):
+        for adapter_cls in get_adapter_classes(enabled_only=options["enabled_only"]):
             definition = adapter_cls.definition
             if wanted and definition.slug not in wanted:
                 continue
@@ -61,6 +66,8 @@ class Command(BaseCommand):
             row = {
                 "source": definition.slug,
                 "name": definition.name,
+                "enabled": definition.enabled,
+                "audit_url": definition.search_url,
                 "declared_total": None,
                 "urls_discovered": 0,
                 "coverage_ratio": None,
@@ -68,8 +75,10 @@ class Command(BaseCommand):
                 "status": "ok",
                 "error": "",
             }
+            urls = []
             try:
-                urls = list(adapter.discover())
+                for url in adapter.discover():
+                    urls.append(url)
                 stats = getattr(adapter, "discovery_stats", {}) or {}
                 row.update(
                     {
@@ -80,7 +89,17 @@ class Command(BaseCommand):
                     }
                 )
             except Exception as exc:  # noqa: BLE001 - audit should continue per source.
-                row["status"] = "error"
+                stats = getattr(adapter, "discovery_stats", {}) or {}
+                partial_urls = stats.get("urls_discovered", len(urls))
+                row.update(
+                    {
+                        "declared_total": stats.get("declared_total"),
+                        "urls_discovered": partial_urls,
+                        "coverage_ratio": stats.get("coverage_ratio"),
+                        "pages_seen": stats.get("pages_seen", 0),
+                    }
+                )
+                row["status"] = "partial" if partial_urls else "error"
                 row["error"] = f"{exc.__class__.__name__}: {exc}"
             rows.append(row)
 
@@ -89,7 +108,7 @@ class Command(BaseCommand):
             return
 
         self.stdout.write(
-            f"{'Fuente':20} {'Declarado':>10} {'URLs':>8} {'Cobertura':>10} {'Paginas':>8} Estado"
+            f"{'Fuente':20} {'Hab':>3} {'Declarado':>10} {'URLs':>8} {'Cobertura':>10} {'Paginas':>8} Estado"
         )
         for row in rows:
             ratio = (
@@ -99,7 +118,7 @@ class Command(BaseCommand):
             )
             declared = row["declared_total"] if row["declared_total"] is not None else "-"
             self.stdout.write(
-                f"{row['source']:20} {str(declared):>10} "
+                f"{row['source']:20} {('si' if row['enabled'] else 'no'):>3} {str(declared):>10} "
                 f"{row['urls_discovered']:>8} {ratio:>10} "
                 f"{row['pages_seen']:>8} {row['status']}"
             )

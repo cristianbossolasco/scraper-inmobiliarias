@@ -13,7 +13,6 @@ from .base import BaseScraper, SourceDefinition
 from .parsing import basic_html_data, first_json_ld, text_value
 
 
-RESIDENTIAL_PATHS = ("/casas/", "/departamentos/", "/terrenos/", "/ph/", "/duplex/")
 TARGET_ZONES = ("hurlingham", "villa-tesei", "william-morris", "william-morris-hurlingham")
 
 
@@ -37,8 +36,6 @@ class MercadoPropScraper(BaseScraper):
             lowered = url.lower()
             if "/venta-" not in lowered:
                 continue
-            if not any(path in lowered for path in RESIDENTIAL_PATHS):
-                continue
             if not any(zone in lowered for zone in TARGET_ZONES):
                 continue
             if url in seen:
@@ -48,6 +45,14 @@ class MercadoPropScraper(BaseScraper):
             yielded += 1
             if self.max_pages and yielded >= self.max_pages:
                 break
+        self.discovery_stats = {
+            "declared_total": None,
+            "pages_seen": 1,
+            "urls_discovered": len(seen),
+            "coverage_ratio": None,
+            "limited_by_max_listings": False,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
 
     def parse(self, url):
         soup = self.soup(url)

@@ -40,6 +40,7 @@ from properties.scrapers.local_wordpress import (
     is_miglierini_detail_url,
     is_odriozola_detail_url,
 )
+from properties.scrapers.local_sites import AliagaScraper, BecerraScraper
 from properties.scrapers.mapaprop import MapapropScraper
 from properties.scrapers.mercadoprop import MercadoPropScraper
 from properties.scrapers.pending_sources import (
@@ -52,8 +53,10 @@ from properties.scrapers.pending_sources import (
     MercadoLibreScraper,
     PatagonPropScraper,
     PaulaFossatiScraper,
+    RemaxArgentinaScraper,
     RemaxDataworkScraper,
     RiquelmeScraper,
+    Century21Scraper,
     ZonapropScraper,
 )
 from properties.scrapers.paginated import declared_total_from_text, max_page_from_markup
@@ -1054,6 +1057,14 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["covered_area"], Decimal("85"))
         self.assertEqual(data["land_area"], Decimal("95"))
 
+    def test_marcelo_russo_semicovered_garage_text(self):
+        data = self.parse_with_fixture(
+            MarceloRussoScraper,
+            "marcelo_russo_semicovered_garage_detail.html",
+            "https://marcelorussoprop.com.ar/property/2822-hurlingham/",
+        )
+        self.assertEqual(data["garages"], 1)
+
     def test_fincas_specific_metric_parser_fixtures(self):
         fraccion = self.parse_with_fixture(
             FincasScraper,
@@ -1273,6 +1284,15 @@ class ScraperParserTests(TestCase):
             393,
         )
         self.assertEqual(declared_total_from_text("662 Propiedades en venta"), 662)
+        self.assertEqual(declared_total_from_text("521 Results Found"), 521)
+        self.assertEqual(declared_total_from_text("30 Resultados de busqueda"), 30)
+        self.assertEqual(declared_total_from_text("12 Resultados encontrados"), 12)
+        self.assertEqual(declared_total_from_text("Se encontraron 204 propiedades"), 204)
+        self.assertEqual(declared_total_from_text("110 propiedades encontradas"), 110)
+        self.assertEqual(declared_total_from_text("Se encontraron 393 resultados relacionados"), 393)
+        self.assertEqual(declared_total_from_text("Mostrando 1 a 12 propiedades de 393 encontradas"), 393)
+        self.assertEqual(declared_total_from_text("752 Propiedades e inmuebles en venta"), 752)
+        self.assertEqual(declared_total_from_text("Zona Argentina (98) Tipo de operación venta"), 98)
         self.assertEqual(max_page_from_markup('<a href="/venta/page/4/">4</a>'), 4)
         self.assertEqual(
             max_page_from_markup('<a href="/motor/props.php?zona=109&page=5">5</a>'),
@@ -1282,6 +1302,184 @@ class ScraperParserTests(TestCase):
             max_page_from_markup('<a href="/motor/props.php?zona=109&amp;page=21">21</a>'),
             21,
         )
+
+    def test_fincas_guarnieri_and_offset_discovery_follow_pagination(self):
+        cases = (
+            (
+                FincasScraper,
+                "/propiedad-casa-1-1",
+                "/propiedad-casa-2-2",
+                "page=2",
+                "98 Propiedades en venta",
+            ),
+            (
+                GuarnieriScraper,
+                "/inmobiliaria/propiedad/casa-1",
+                "/inmobiliaria/propiedad/casa-2",
+                "/page/2",
+                "521 Results Found",
+            ),
+            (
+                BecerraScraper,
+                "/ficha/casa-1",
+                "/ficha/casa-2",
+                "page=2",
+                "110 propiedades encontradas",
+            ),
+            (
+                MiglieriniScraper,
+                "/propiedad/casa-1/",
+                "/propiedad/casa-2/",
+                "/page/2/",
+                "146 Propiedades encontradas",
+            ),
+            (
+                RiquelmeScraper,
+                "/propiedad/casa-1",
+                "/propiedad/casa-2",
+                "page=1",
+                "Se encontraron 204 propiedades",
+            ),
+            (
+                PatagonPropScraper,
+                "/propiedad/casa-1",
+                "/propiedad/casa-2",
+                "from_12",
+                "Showing 1 to 12 properties of 393 found",
+            ),
+            (
+                ZonapropScraper,
+                "/propiedades/clasificado/veclcain-casa-1.html",
+                "/propiedades/clasificado/veclcain-casa-2.html",
+                "pagina-2",
+                "749 Propiedades en venta",
+            ),
+        )
+
+        for scraper_cls, first_href, second_href, second_marker, total_text in cases:
+            scraper = scraper_cls(max_pages=2)
+            calls = []
+
+            def fake_soup(url):
+                calls.append(url)
+                href = second_href if second_marker in url else first_href
+                return BeautifulSoup(
+                    f"<html><body><h1>{total_text}</h1><a href='{href}'>Venta Hurlingham</a></body></html>",
+                    "lxml",
+                )
+
+            scraper.soup = fake_soup
+            urls = list(scraper.discover())
+            self.assertEqual(len(urls), 2, scraper_cls.__name__)
+            self.assertTrue(any(second_marker in url for url in calls), scraper_cls.__name__)
+            self.assertEqual(scraper.discovery_stats["pages_seen"], 2)
+
+    def test_tokko_sources_use_ajax_pagination_until_empty(self):
+        for scraper_cls in (LopezCombaScraper, AnaliaFernandezScraper, AliagaScraper):
+            scraper = scraper_cls()
+            calls = []
+
+            def fake_soup(url):
+                calls.append(url)
+                if "p=2" in url:
+                    html = "<a href='/p/200-casa-en-venta-hurlingham'>Casa 2</a>"
+                elif "p=3" in url:
+                    html = "--NoMoreProperties--"
+                else:
+                    html = "30 Resultados de busqueda <a href='/p/100-casa-en-venta-hurlingham'>Casa 1</a>"
+                return BeautifulSoup(html, "lxml")
+
+            scraper.soup = fake_soup
+            urls = list(scraper.discover())
+            self.assertEqual(len(urls), 2, scraper_cls.__name__)
+            self.assertTrue(any("p=2" in url for url in calls), scraper_cls.__name__)
+            self.assertEqual(scraper.discovery_stats["declared_total"], 30)
+
+    def test_century21_json_discovery_uses_public_results_payload(self):
+        class Response:
+            def json(self):
+                return {
+                    "totalHits": "76",
+                    "results": [
+                        {
+                            "urlCorrectaPropiedad": "/propiedad/casa-1",
+                            "tipoOperacionTxt": "Venta",
+                            "localidad": "Hurlingham",
+                        },
+                        {
+                            "urlCorrectaPropiedad": "/propiedad/alquiler-1",
+                            "tipoOperacionTxt": "Alquiler",
+                            "localidad": "Hurlingham",
+                        },
+                    ],
+                }
+
+        scraper = Century21Scraper()
+        scraper.get = lambda url: Response()
+        self.assertEqual(list(scraper.discover()), ["https://century21.com.ar/propiedad/casa-1"])
+        self.assertEqual(scraper.discovery_stats["declared_total"], 76)
+
+    def test_remax_argentina_discovers_and_parses_public_api(self):
+        scraper = RemaxArgentinaScraper()
+
+        def fake_find_all(page):
+            items = [
+                {
+                    "slug": f"venta-casa-{page}",
+                    "operation": {"value": "sale"},
+                    "geoLabel": "Hurlingham, Buenos Aires",
+                }
+            ]
+            return {"data": {"data": items, "totalPages": 2, "totalItems": 2}}
+
+        scraper._find_all = fake_find_all
+        urls = list(scraper.discover())
+        self.assertEqual(
+            urls,
+            [
+                "https://www.remax.com.ar/listings/venta-casa-0",
+                "https://www.remax.com.ar/listings/venta-casa-1",
+            ],
+        )
+        self.assertEqual(scraper.discovery_stats["declared_total"], 2)
+        self.assertEqual(scraper.discovery_stats["coverage_ratio"], 100.0)
+
+        detail = {
+            "data": {
+                "id": "uuid-1",
+                "title": "Casa en venta en William Morris",
+                "slug": "venta-casa-0",
+                "description": "Casa con galpon y parque",
+                "operation": {"value": "sale"},
+                "type": {"value": "casa"},
+                "currency": {"value": "USD"},
+                "price": 160000,
+                "displayAddress": "Paso Morales 1500",
+                "geo": {"neighborhood": "william morris", "label": "William Morris, Hurlingham"},
+                "associate": {"office": {"name": "REMAX Desafio II", "slug": "desafioii"}},
+                "location": {"coordinates": [-58.65, -34.57]},
+                "totalRooms": 7,
+                "bedrooms": 5,
+                "bathrooms": 2,
+                "parkingSpaces": 1,
+                "dimensionLand": 857,
+                "dimensionTotalBuilt": 857,
+                "dimensionCovered": 156,
+                "photos": [{"value": "listings/uuid-1/photo.jpg"}],
+                "features": [{"value": "Galpon"}],
+                "aptCredit": True,
+            }
+        }
+        scraper._api_get = lambda path, **params: detail
+        data = scraper.parse(urls[0])
+        self.assertEqual(data["external_id"], "uuid-1")
+        self.assertEqual(data["locality"], "William C. Morris")
+        self.assertEqual(data["neighborhood"], "william morris")
+        self.assertEqual(data["agency"], "REMAX Desafio II")
+        self.assertEqual(data["price"], Decimal("160000"))
+        self.assertEqual(data["land_area"], Decimal("857"))
+        self.assertEqual(data["latitude"], -34.57)
+        self.assertIn("Apto credito", data["features"])
 
     def test_phase_two_portal_parsers_capture_agency_and_metrics(self):
         for scraper_cls in (
@@ -1392,6 +1590,8 @@ class ScraperParserTests(TestCase):
             "guarnieri",
             "inmuebles-clarin",
             "patagonprop",
+            "remax",
+            "century21-hurlingham",
             "mercadolibre",
             "zonaprop",
         }:
