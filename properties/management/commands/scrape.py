@@ -7,7 +7,7 @@ from django.db import close_old_connections
 
 from properties.models import ScrapeJob
 from properties.scrapers import get_adapter_classes
-from properties.services.scraping import create_scrape_job, run_scrape_job, serialize_job
+from properties.services.scraping import active_scrape_job, create_scrape_job, run_scrape_job, serialize_job
 
 
 class Command(BaseCommand):
@@ -38,6 +38,10 @@ class Command(BaseCommand):
             ]
         if not slugs:
             raise CommandError("Use --source SLUG o --all.")
+
+        active = active_scrape_job()
+        if active:
+            raise CommandError(f"Ya hay una ejecucion de scraping en curso: Job #{active.pk}.")
 
         lock_path = Path(".scrape.lock")
         if lock_path.exists():

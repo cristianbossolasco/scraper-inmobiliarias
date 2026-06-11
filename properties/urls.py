@@ -29,4 +29,9 @@ urlpatterns = [
         views.retry_scrape_job_api,
         name="scrape_job_retry",
     ),
+    path(
+        "api/scraping/jobs/<int:pk>/retry-errors/",
+        views.retry_scrape_job_errors_api,
+        name="scrape_job_retry_errors",
+    ),
 ]

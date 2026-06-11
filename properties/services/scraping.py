@@ -18,6 +18,18 @@ WRITE_LOCK = threading.RLock()
 JOB_THREADS = {}
 DB_WRITER = None
 DB_WRITER_LOCK = threading.Lock()
+ACTIVE_JOB_STATUSES = {ScrapeJob.Status.PENDING, ScrapeJob.Status.RUNNING}
+ACTIVE_SOURCE_STATUSES = {
+    ScrapeJobSource.Status.PENDING,
+    ScrapeJobSource.Status.DISCOVERING,
+    ScrapeJobSource.Status.RUNNING,
+}
+
+
+class ActiveScrapeJobError(ValueError):
+    def __init__(self, active_job_id):
+        self.active_job_id = active_job_id
+        super().__init__(f"Ya hay un scraping en curso: Job #{active_job_id}.")
 
 
 def using_sqlite():
@@ -148,6 +160,18 @@ def db_writer_snapshot():
     return db_writer().snapshot()
 
 
+def active_scrape_job():
+    return (
+        ScrapeJob.objects.filter(
+            status__in=ACTIVE_JOB_STATUSES,
+            sources__status__in=ACTIVE_SOURCE_STATUSES,
+        )
+        .distinct()
+        .order_by("-created_at")
+        .first()
+    )
+
+
 def source_catalog(include_disabled=True):
     adapters = get_adapter_classes(enabled_only=not include_disabled)
     return [
@@ -185,6 +209,24 @@ def append_source_log(job_source, message):
     db_write(lambda: job_source.save(update_fields=["logs"]))
 
 
+def elapsed_seconds(started_at, finished_at=None):
+    if not started_at:
+        return 0
+    end = finished_at or timezone.now()
+    return max(round((end - started_at).total_seconds()), 0)
+
+
+def record_source_error(job_source, url, exc):
+    entry = {
+        "url": url,
+        "error": str(exc),
+        "timestamp": timezone.localtime().isoformat(),
+    }
+    errors = list(job_source.error_urls or [])
+    errors.append(entry)
+    job_source.error_urls = errors[-200:]
+
+
 def serialize_job(job):
     job.refresh_from_db()
     sources = []
@@ -210,8 +252,12 @@ def serialize_job(job):
                 "geocoded": source.geocoded,
                 "geocode_failed": source.geocode_failed,
                 "current_url": source.current_url,
+                "error_urls": source.error_urls or [],
                 "logs": source.logs,
                 "percent": percent,
+                "started_at": source.started_at.isoformat() if source.started_at else None,
+                "finished_at": source.finished_at.isoformat() if source.finished_at else None,
+                "elapsed_seconds": elapsed_seconds(source.started_at, source.finished_at),
             }
         )
     return {
@@ -231,9 +277,11 @@ def serialize_job(job):
         "geocode_limit": job.geocode_limit,
         "request_timeout_seconds": job.request_timeout_seconds,
         "max_errors_per_source": job.max_errors_per_source,
+        "retry_urls": job.retry_urls,
         "created_at": job.created_at.isoformat() if job.created_at else None,
         "started_at": job.started_at.isoformat() if job.started_at else None,
         "finished_at": job.finished_at.isoformat() if job.finished_at else None,
+        "elapsed_seconds": elapsed_seconds(job.started_at, job.finished_at),
         "error_log": job.error_log,
         "db_writer": db_writer_snapshot(),
         "sources": sources,
@@ -289,49 +337,62 @@ def create_scrape_job(
     request_timeout_seconds=None,
     max_errors_per_source=None,
     runner=ScrapeJob.Runner.WEB,
+    retry_urls=None,
+    enforce_single_active=False,
 ):
     if scrape_mode not in ScrapeJob.Mode.values:
         raise ValueError("Modo de scraping invalido.")
-    if scrape_mode == ScrapeJob.Mode.TRIAL and max_listings is None:
+    if scrape_mode == ScrapeJob.Mode.TRIAL and max_listings is None and not retry_urls:
         max_listings = 3
     cleaned_sources = []
     cleaned_workers = {}
+    adapters = {}
     for slug in selected_sources:
         adapter = get_adapter(slug)
+        adapters[slug] = adapter
         cleaned_sources.append(slug)
         workers = int(worker_config.get(slug, 1))
         if workers < 1:
             raise ValueError(f"Workers invalido para {slug}")
         cleaned_workers[slug] = workers
-        ensure_source(adapter.definition)
     if not cleaned_sources:
         raise ValueError("Seleccione al menos una fuente.")
-    job = ScrapeJob.objects.create(
-        selected_sources=cleaned_sources,
-        worker_config=cleaned_workers,
-        runner=runner,
-        scrape_mode=scrape_mode,
-        max_pages=max_pages,
-        start_page=start_page,
-        max_listings=max_listings,
-        geocode_limit=geocode_limit,
-        request_timeout_seconds=request_timeout_seconds,
-        max_errors_per_source=max_errors_per_source,
-    )
-    for slug in cleaned_sources:
-        adapter = get_adapter(slug)
-        source = ensure_source(adapter.definition)
-        ScrapeJobSource.objects.create(
-            job=job,
-            source=source,
-            slug=slug,
-            name=adapter.definition.name,
-            workers=cleaned_workers[slug],
+
+    def operation():
+        if enforce_single_active:
+            active = active_scrape_job()
+            if active:
+                raise ActiveScrapeJobError(active.pk)
+        job = ScrapeJob.objects.create(
+            selected_sources=cleaned_sources,
+            worker_config=cleaned_workers,
+            runner=runner,
+            scrape_mode=scrape_mode,
+            max_pages=max_pages,
+            start_page=start_page,
+            max_listings=max_listings,
+            geocode_limit=geocode_limit,
+            request_timeout_seconds=request_timeout_seconds,
+            max_errors_per_source=max_errors_per_source,
+            retry_urls=retry_urls or {},
         )
+        for slug in cleaned_sources:
+            adapter = adapters[slug]
+            source = ensure_source(adapter.definition)
+            ScrapeJobSource.objects.create(
+                job=job,
+                source=source,
+                slug=slug,
+                name=adapter.definition.name,
+                workers=cleaned_workers[slug],
+            )
+        return job
+
+    job = db_write(operation)
     return job
 
 
-def retry_scrape_job(original_job):
+def retry_scrape_job(original_job, enforce_single_active=False):
     return create_scrape_job(
         original_job.selected_sources,
         original_job.worker_config,
@@ -343,6 +404,41 @@ def retry_scrape_job(original_job):
         request_timeout_seconds=original_job.request_timeout_seconds,
         max_errors_per_source=original_job.max_errors_per_source,
         runner=ScrapeJob.Runner.WEB,
+        enforce_single_active=enforce_single_active,
+    )
+
+
+def retry_scrape_job_errors(original_job, enforce_single_active=False):
+    retry_urls = {}
+    selected_sources = []
+    worker_config = {}
+    for source in original_job.sources.all():
+        urls = [
+            item.get("url")
+            for item in (source.error_urls or [])
+            if item.get("url")
+        ]
+        urls = list(dict.fromkeys(urls))
+        if not urls:
+            continue
+        retry_urls[source.slug] = urls
+        selected_sources.append(source.slug)
+        worker_config[source.slug] = source.workers
+    if not selected_sources:
+        raise ValueError("El job no tiene URLs con error para reprocesar.")
+    return create_scrape_job(
+        selected_sources,
+        worker_config,
+        max_pages=None,
+        start_page=None,
+        max_listings=None,
+        geocode_limit=original_job.geocode_limit,
+        scrape_mode=ScrapeJob.Mode.TRIAL,
+        request_timeout_seconds=original_job.request_timeout_seconds,
+        max_errors_per_source=original_job.max_errors_per_source,
+        runner=ScrapeJob.Runner.WEB,
+        retry_urls=retry_urls,
+        enforce_single_active=enforce_single_active,
     )
 
 
@@ -449,30 +545,39 @@ def run_scrape_job_source(job_id, slug):
             job_source.status = ScrapeJobSource.Status.CANCELLED
             append_source_log(job_source, "Cancelacion solicitada antes de descubrir URLs.")
             return
-        try:
-            discovered_urls = []
-            for discovered_url in adapter.discover():
-                if job_cancelled(job_id):
-                    break
-                discovered_urls.append(discovered_url)
-        except Exception as exc:
-            if not is_source_block_error(exc):
-                raise
-            stopped_by_block = True
-            job_source.status = ScrapeJobSource.Status.PARTIAL
-            job_source.errors += 1
-            if run is not None:
-                run.errors += 1
-                run.error_log += f"Discovery bloqueado: {exc}\n"
-            append_source_log(
-                job_source,
-                "Fuente detenida automaticamente por bloqueo 403/CDN durante discovery. No se marcan ausentes.",
-            )
-            if slug == "argenprop":
-                append_source_log(job_source, "Argenprop bloqueo la IP/CDN durante discovery; se detuvo para proteger la red. Proba mas tarde con 1 worker y tandas chicas.")
-            else:
-                append_source_log(job_source, "Proba mas tarde, con otra red o con menos workers.")
-            return
+        retry_source_urls = list(dict.fromkeys((job.retry_urls or {}).get(slug, [])))
+        if retry_source_urls:
+            discovered_urls = retry_source_urls
+            adapter.discovery_stats = {
+                "retry_urls": True,
+                "urls_discovered": len(discovered_urls),
+            }
+            append_source_log(job_source, f"Reproceso selectivo: {len(discovered_urls)} URLs con error.")
+        else:
+            try:
+                discovered_urls = []
+                for discovered_url in adapter.discover():
+                    if job_cancelled(job_id):
+                        break
+                    discovered_urls.append(discovered_url)
+            except Exception as exc:
+                if not is_source_block_error(exc):
+                    raise
+                stopped_by_block = True
+                job_source.status = ScrapeJobSource.Status.PARTIAL
+                job_source.errors += 1
+                if run is not None:
+                    run.errors += 1
+                    run.error_log += f"Discovery bloqueado: {exc}\n"
+                append_source_log(
+                    job_source,
+                    "Fuente detenida automaticamente por bloqueo 403/CDN durante discovery. No se marcan ausentes.",
+                )
+                if slug == "argenprop":
+                    append_source_log(job_source, "Argenprop bloqueo la IP/CDN durante discovery; se detuvo para proteger la red. Proba mas tarde con 1 worker y tandas chicas.")
+                else:
+                    append_source_log(job_source, "Proba mas tarde, con otra red o con menos workers.")
+                return
         job_source.total_discovered = len(discovered_urls)
         discovery_stats = getattr(adapter, "discovery_stats", {}) or {}
         if job_cancelled(job_id) or discovery_stats.get("cancelled"):
@@ -622,6 +727,7 @@ def run_scrape_job_source(job_id, slug):
                         job_source.errors += 1
                         run.errors += 1
                         run.error_log += f"{url}: {exc}\n"
+                        record_source_error(job_source, url, exc)
                         append_source_log(job_source, f"ERROR {url}: {exc}")
                         if is_source_block_error(exc):
                             block_errors_total += 1
@@ -639,6 +745,7 @@ def run_scrape_job_source(job_id, slug):
                                     "updated",
                                     "skipped",
                                     "errors",
+                                    "error_urls",
                                     "current_url",
                                     "logs",
                                 ]
@@ -709,6 +816,7 @@ def run_scrape_job_source(job_id, slug):
             and job.max_listings is None
             and not job.cancel_requested
             and not stopped_by_block
+            and not retry_source_urls
         ):
             db_write(lambda: _mark_missing_atomic(source, seen))
         else:
@@ -749,14 +857,16 @@ def geocode_source_candidates(job, job_source, property_ids):
     db_write(lambda: job_source.save(update_fields=["geocode_pending"]))
     append_source_log(
         job_source,
-        f"Geocodificando {len(properties)} propiedades con direccion detectada...",
+        f"Geocodificando {len(properties)} propiedades con direccion detectada en modo seguro Nominatim (1 hilo, rate limit global)...",
     )
     geocoder = Geocoder()
-    for property_obj in properties:
+    started = monotonic()
+    for index, property_obj in enumerate(properties, start=1):
         if job_cancelled(job.pk):
             append_source_log(job_source, "Geocodificacion detenida por cancelacion.")
             break
         try:
+            job_source.current_url = f"propiedad #{property_obj.pk}"
             if geocoder.geocode_property(property_obj):
                 job_source.geocoded += 1
             else:
@@ -767,9 +877,14 @@ def geocode_source_candidates(job, job_source, property_ids):
         finally:
             db_write(
                 lambda: job_source.save(
-                    update_fields=["geocoded", "geocode_failed", "logs"]
+                    update_fields=["geocoded", "geocode_failed", "current_url", "logs"]
                 )
             )
+            if index == 1 or index == len(properties) or index % 5 == 0:
+                append_source_log(
+                    job_source,
+                    f"Geocodificacion progreso: {index}/{len(properties)} en {monotonic() - started:.1f}s.",
+                )
     append_source_log(
         job_source,
         f"Geocodificacion: {job_source.geocoded} ubicadas, {job_source.geocode_failed} sin resultado/error.",

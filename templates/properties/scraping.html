@@ -126,5 +126,5 @@
 {{ jobs|json_script:"initial-scrape-jobs" }}
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'js/scraping.js' %}"></script>
+<script src="{% static 'js/scraping.js' %}?v=20260611-concurrency"></script>
 {% endblock %}

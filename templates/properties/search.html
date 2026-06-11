@@ -87,6 +87,20 @@
         </div>
       </div>
 
+      {% if neighborhood_options %}
+      <div class="filter-section zone-filter">
+        <label>Zona</label>
+        <div class="zone-options">
+          {% for option in neighborhood_options %}
+            <label class="zone-option">
+              <input type="checkbox" name="neighborhood" value="{{ option.name }}" {% if option.name in selected_filters.neighborhood %}checked{% endif %}>
+              <span>{{ option.name }} <small>({{ option.count }})</small></span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
       <div class="filter-section three-cols">
         <div>
           <label for="bedrooms_min">Dorm.</label>

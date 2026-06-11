@@ -1,6 +1,7 @@
 import re
 
 from .base import BaseScraper, SourceDefinition
+from .paginated import paginated_discover
 from .parsing import basic_html_data, evidence_set, parse_surface_pair, text_value, value_after_label
 from properties.services.normalization import (
     classify_address_precision,
@@ -18,33 +19,35 @@ class MapapropScraper(BaseScraper):
         base_url="https://www.mapaprop.com",
         search_url=(
             "https://www.mapaprop.com/en/search/"
-            "inmuebles-venta-en_hurlingham_hurlingham_buenos_aires_1_2_196_46"
+            "inmuebles-venta-in_hurlingham_hurlingham_buenos_aires_1_2_196_46-from_0"
         ),
         crawl_delay=2,
         notes="HTML indexable y fichas estructuradas. No se utiliza su API privada.",
     )
+    page_size = 12
+    fallback_max_pages = 80
+
+    def _page_url(self, page):
+        offset = max(page - 1, 0) * self.page_size
+        return re.sub(r"-from_\d+", f"-from_{offset}", self.definition.search_url)
+
+    def _listing_urls(self, soup):
+        seen = set()
+        for anchor in soup.select('a[href*="/property/"]'):
+            url = self.absolute(anchor["href"])
+            if url in seen:
+                continue
+            seen.add(url)
+            yield url
 
     def discover(self):
-        seen = set()
-        page_url = self.definition.search_url
-        page = 0
-        while page_url and (self.max_pages is None or page < self.max_pages):
-            page += 1
-            soup = self.soup(page_url)
-            for anchor in soup.select('a[href*="/property/"]'):
-                url = self.absolute(anchor["href"])
-                if url not in seen:
-                    seen.add(url)
-                    yield url
-            next_link = next(
-                (
-                    anchor
-                    for anchor in soup.select("a[href]")
-                    if anchor.get_text(" ", strip=True).lower() in {"next", "siguiente"}
-                ),
-                None,
-            )
-            page_url = self.absolute(next_link["href"]) if next_link else None
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=self.fallback_max_pages,
+        )
 
     def parse(self, url):
         soup = self.soup(url)
@@ -83,7 +86,9 @@ class MapapropScraper(BaseScraper):
             evidence_set(data, "covered_area", covered, "mapaprop_surface_pair")
         highlight_type = text_value(
             text,
-            [r"Property\s+type\s*:?\s*([A-Za-zÃ¡Ã©Ã­Ã³ÃºÃ±ÁÉÍÓÚÑ ]+?)(?:\s+Total\s+surface|\s+Years\s+old|\s+Rooms|\s+Full|\s+Garages|\s+Building|$)"],
+            [
+                r"Property\s+type\s*:?\s*(.+?)(?:\s+Total\s+surface|\s+Years\s+old|\s+Rooms|\s+Full|\s+Garages|\s+Building|$)"
+            ],
         )
         if highlight_type:
             data["property_type"] = infer_property_type(highlight_type, data.get("title"))
@@ -114,16 +119,4 @@ class MapapropScraper(BaseScraper):
             description = description_heading.find_next("p")
             if description:
                 data["description"] = description.get_text(" ", strip=True)
-        non_residential = (
-            "oficina",
-            "galpón",
-            "galpon",
-            "local comercial",
-            "depósito",
-            "deposito",
-            "fondo de comercio",
-            "hotel",
-        )
-        if any(term in data["title"].lower() for term in non_residential):
-            return None
         return data

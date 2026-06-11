@@ -29,10 +29,11 @@ from properties.services.normalization import (
     normalize_address,
     parse_decimal,
 )
-from properties.services.scraping import create_scrape_job, db_writer_snapshot, run_scrape_job
+from properties.services.scraping import ActiveScrapeJobError, create_scrape_job, db_writer_snapshot, run_scrape_job
 from properties.services.spatial import haversine_km, point_in_polygon
 from properties.scrapers.argenprop import ArgenpropScraper
 from properties.scrapers.base import ROBOTS_CACHE
+from properties.scrapers.argencasas import ArgencasasScraper
 from properties.scrapers.local_wordpress import (
     MiglieriniScraper,
     OdriozolaScraper,
@@ -55,6 +56,7 @@ from properties.scrapers.pending_sources import (
     RiquelmeScraper,
     ZonapropScraper,
 )
+from properties.scrapers.paginated import declared_total_from_text, max_page_from_markup
 from properties.scrapers.registry import get_adapter, get_adapter_classes
 
 
@@ -402,6 +404,26 @@ class ViewTests(TestCase):
         response = self.client.get("/", {"show_hidden": "1"})
         self.assertContains(response, "Casa con pileta")
 
+    def test_neighborhood_filter_uses_declared_zone(self):
+        ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "web-zone",
+                "url": "https://example.com/web-zone",
+                "title": "Departamento en Villa Club",
+                "address": "Aconcagua 1600",
+                "locality": "Hurlingham",
+                "neighborhood": "Villa Club",
+                "property_type": "apartment",
+                "currency": "USD",
+                "price": 120000,
+            },
+        )
+        response = self.client.get("/", {"neighborhood": "Villa Club"})
+        self.assertContains(response, "Departamento en Villa Club")
+        self.assertContains(response, "Villa Club")
+        self.assertNotContains(response, "Casa con pileta")
+
     def test_exports_and_stats(self):
         response = self.client.get("/export/properties.csv")
         self.assertEqual(response.status_code, 200)
@@ -479,6 +501,45 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         job.refresh_from_db()
         self.assertTrue(job.cancel_requested)
+
+    def test_scraping_api_blocks_new_job_when_one_is_active(self):
+        source = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        active = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.RUNNING,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+        )
+        ScrapeJobSource.objects.create(
+            job=active,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            status=ScrapeJobSource.Status.RUNNING,
+        )
+
+        with patch("properties.views.start_scrape_job") as starter:
+            response = self.client.post(
+                "/api/scraping/jobs/",
+                data=json.dumps(
+                    {
+                        "sources": ["mapaprop"],
+                        "workers": {"mapaprop": 1},
+                        "scrape_mode": "trial",
+                    }
+                ),
+                content_type="application/json",
+            )
+
+        self.assertEqual(response.status_code, 409)
+        starter.assert_not_called()
+        payload = response.json()
+        self.assertEqual(payload["id"], active.pk)
+        self.assertIn(f"Job #{active.pk}", payload["error"])
+        self.assertEqual(ScrapeJob.objects.count(), 1)
 
     def test_running_job_without_live_thread_is_marked_interrupted(self):
         job = ScrapeJob.objects.create(
@@ -563,6 +624,93 @@ class ViewTests(TestCase):
         self.assertEqual(retried.request_timeout_seconds, 17)
         self.assertEqual(retried.max_errors_per_source, 3)
         self.assertEqual(retried.geocode_limit, 9)
+
+    def test_scraping_api_blocks_retry_while_another_job_is_active(self):
+        source = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        active = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.RUNNING,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+        )
+        ScrapeJobSource.objects.create(
+            job=active,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            status=ScrapeJobSource.Status.RUNNING,
+        )
+        finished = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.PARTIAL,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+        )
+        ScrapeJobSource.objects.create(
+            job=finished,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            status=ScrapeJobSource.Status.PARTIAL,
+            error_urls=[{"url": "https://example.com/bad", "error": "timeout"}],
+        )
+
+        with patch("properties.views.start_scrape_job") as starter:
+            retry_response = self.client.post(f"/api/scraping/jobs/{finished.pk}/retry/")
+            retry_errors_response = self.client.post(f"/api/scraping/jobs/{finished.pk}/retry-errors/")
+
+        self.assertEqual(retry_response.status_code, 409)
+        self.assertEqual(retry_errors_response.status_code, 409)
+        starter.assert_not_called()
+        self.assertEqual(retry_response.json()["id"], active.pk)
+        self.assertEqual(retry_errors_response.json()["id"], active.pk)
+        self.assertEqual(ScrapeJob.objects.count(), 2)
+
+    def test_scraping_api_exposes_elapsed_and_retries_error_urls(self):
+        source = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        original = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.PARTIAL,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 2},
+            scrape_mode=ScrapeJob.Mode.COMPLETE,
+        )
+        ScrapeJobSource.objects.create(
+            job=original,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            workers=2,
+            status=ScrapeJobSource.Status.PARTIAL,
+            error_urls=[
+                {
+                    "url": "https://example.com/bad",
+                    "error": "timeout",
+                    "timestamp": "2026-06-11T01:00:00-03:00",
+                }
+            ],
+        )
+
+        response = self.client.get(f"/api/scraping/jobs/{original.pk}/")
+        payload = response.json()
+        self.assertIn("elapsed_seconds", payload)
+        self.assertEqual(payload["sources"][0]["error_urls"][0]["url"], "https://example.com/bad")
+
+        with patch("properties.views.start_scrape_job") as starter:
+            response = self.client.post(f"/api/scraping/jobs/{original.pk}/retry-errors/")
+
+        self.assertEqual(response.status_code, 201)
+        starter.assert_called_once()
+        retried = ScrapeJob.objects.exclude(pk=original.pk).get()
+        self.assertEqual(retried.selected_sources, ["mapaprop"])
+        self.assertEqual(retried.worker_config, {"mapaprop": 2})
+        self.assertEqual(retried.retry_urls, {"mapaprop": ["https://example.com/bad"]})
+        self.assertEqual(retried.scrape_mode, ScrapeJob.Mode.TRIAL)
 
 
 class ScraperParserTests(TestCase):
@@ -694,6 +842,40 @@ class ScraperParserTests(TestCase):
         self.assertEqual(len(calls), 1)
         self.assertTrue(scraper.discovery_stats["limited_by_max_listings"])
 
+    def test_argencasas_discovery_uses_locality_sale_pagination(self):
+        scraper = ArgencasasScraper()
+
+        def fake_soup(url):
+            if "page=2" in url:
+                return fixture_soup("argencasas_listing_page2.html")
+            if "page=" in url:
+                return BeautifulSoup("<html><body></body></html>", "lxml")
+            return fixture_soup("argencasas_listing.html")
+
+        scraper.soup = fake_soup
+        urls = list(scraper.discover())
+        self.assertEqual(
+            urls,
+            [
+                "https://www.argencasas.com/propiedad-casa-venta-hurlingham-301-1001",
+                "https://www.argencasas.com/propiedad-local-venta-villa-club-304-1002",
+                "https://www.argencasas.com/propiedad-galpon-venta-parque-johnston-305-1003",
+            ],
+        )
+        self.assertEqual(scraper.discovery_stats["declared_total"], 662)
+        self.assertEqual(scraper.discovery_stats["pages_seen"], 5)
+        self.assertEqual(scraper.discovery_stats["coverage_ratio"], 0.5)
+
+    def test_argencasas_parser_captures_zone(self):
+        data = self.parse_with_fixture(
+            ArgencasasScraper,
+            "argencasas_detail.html",
+            "https://www.argencasas.com/propiedad-departamento-venta-villa-club-304-1394",
+        )
+        self.assertEqual(data["neighborhood"], "Villa Club")
+        self.assertEqual(data["raw_data"]["argencasas_zone"], "Villa Club")
+        self.assertEqual(data["property_type"], Property.Type.APARTMENT)
+
     def test_robots_txt_is_cached_across_scraper_instances(self):
         ROBOTS_CACHE.clear()
 
@@ -733,6 +915,42 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["covered_area"], Decimal("15000"))
         self.assertEqual(data["building_floors"], 1)
         self.assertEqual(data["garages"], 1)
+
+    def test_mapaprop_discovery_uses_offsets_and_declared_total(self):
+        scraper = MapapropScraper()
+        calls = []
+
+        def fake_soup(url):
+            calls.append(url)
+            if "from_12" in url:
+                return fixture_soup("mapaprop_listing_page2.html")
+            if "from_0" in url:
+                return fixture_soup("mapaprop_listing.html")
+            return BeautifulSoup("<html><body></body></html>", "lxml")
+
+        scraper.soup = fake_soup
+        urls = list(scraper.discover())
+        self.assertEqual(
+            urls,
+            [
+                "https://www.mapaprop.com/en/property/venta-de-casa-en-hurlingham-1001/hash",
+                "https://www.mapaprop.com/en/property/venta-de-local-comercial-en-hurlingham-1002/hash",
+            ],
+        )
+        self.assertIn("from_12", calls[1])
+        self.assertEqual(scraper.discovery_stats["declared_total"], 393)
+        self.assertEqual(scraper.discovery_stats["pages_seen"], 5)
+        self.assertEqual(scraper.discovery_stats["coverage_ratio"], 0.5)
+
+    def test_mapaprop_keeps_commercial_listings(self):
+        data = self.parse_with_fixture(
+            MapapropScraper,
+            "mapaprop_commercial_detail.html",
+            "https://www.mapaprop.com/en/property/venta-de-local-comercial-en-hurlingham-1002/hash",
+        )
+        self.assertIsNotNone(data)
+        self.assertEqual(data["property_type"], Property.Type.OTHER)
+        self.assertEqual(data["price"], Decimal("90000"))
 
     def test_mercadoprop_parser_fixture(self):
         data = self.parse_with_fixture(
@@ -1014,11 +1232,55 @@ class ScraperParserTests(TestCase):
         )
 
     def test_marcelo_russo_discovery_filters_property_links(self):
-        scraper = MarceloRussoScraper()
+        scraper = MarceloRussoScraper(max_pages=1)
         scraper.soup = lambda parsed_url: fixture_soup("marcelo_russo_listing.html")
         self.assertEqual(
             list(scraper.discover()),
             ["https://marcelorussoprop.com.ar/property/3963-hurlingham/"],
+        )
+
+    def test_marcelo_russo_discovery_reads_embedded_property_links(self):
+        scraper = MarceloRussoScraper(max_pages=1)
+        html = """
+        <html><body>
+          <a href="/property/4323-hurlingham/">4323 - Hurlingham</a>
+          <a href="/property-status/venta/">Venta</a>
+          <script>
+            var listings = [
+              "https://marcelorussoprop.com.ar/property/4323-hurlingham/",
+              "https://marcelorussoprop.com.ar/property/4289-ciudad-tesei/",
+              "/property/4294-william-morris/",
+              "https://marcelorussoprop.com.ar/property/5000-castelar/"
+            ];
+          </script>
+        </body></html>
+        """
+        scraper.soup = lambda parsed_url: BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            list(scraper.discover()),
+            [
+                "https://marcelorussoprop.com.ar/property/4323-hurlingham/",
+                "https://marcelorussoprop.com.ar/property/4289-ciudad-tesei/",
+                "https://marcelorussoprop.com.ar/property/4294-william-morris/",
+            ],
+        )
+
+    def test_wordpress_listing_pagination_helpers(self):
+        self.assertEqual(declared_total_from_text("1 a 12 de 349 propiedades"), 349)
+        self.assertEqual(declared_total_from_text("Found 393 results"), 393)
+        self.assertEqual(
+            declared_total_from_text("Showing 1 to 12 properties of 393 found"),
+            393,
+        )
+        self.assertEqual(declared_total_from_text("662 Propiedades en venta"), 662)
+        self.assertEqual(max_page_from_markup('<a href="/venta/page/4/">4</a>'), 4)
+        self.assertEqual(
+            max_page_from_markup('<a href="/motor/props.php?zona=109&page=5">5</a>'),
+            5,
+        )
+        self.assertEqual(
+            max_page_from_markup('<a href="/motor/props.php?zona=109&amp;page=21">21</a>'),
+            21,
         )
 
     def test_phase_two_portal_parsers_capture_agency_and_metrics(self):
@@ -1148,6 +1410,34 @@ class ScraperParserTests(TestCase):
 
 
 class ScrapeCommandTests(TransactionTestCase):
+    def test_single_active_job_guard_blocks_second_creation(self):
+        class FakeDefinition:
+            slug = "fake"
+            name = "Fake Source"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+
+        with patch("properties.services.scraping.get_adapter", return_value=FakeAdapter()):
+            first = create_scrape_job(
+                ["fake"],
+                {"fake": 1},
+                enforce_single_active=True,
+            )
+            with self.assertRaises(ActiveScrapeJobError) as ctx:
+                create_scrape_job(
+                    ["fake"],
+                    {"fake": 1},
+                    enforce_single_active=True,
+                )
+
+        self.assertEqual(ctx.exception.active_job_id, first.pk)
+        self.assertEqual(ScrapeJob.objects.count(), 1)
+
     def test_max_listings_limits_processed_urls(self):
         Path(".scrape.lock").unlink(missing_ok=True)
 
@@ -1403,7 +1693,7 @@ class ScrapeCommandTests(TransactionTestCase):
                 raise RuntimeError(f"403 Client Error: Forbidden for url: {url}")
 
         with patch("properties.services.scraping.get_adapter", side_effect=lambda *args, **kwargs: FakeAdapter(**kwargs)):
-            job = create_scrape_job(["fake"], {"fake": 1})
+            job = create_scrape_job(["fake"], {"fake": 1}, geocode_limit=0)
             run_scrape_job(job.pk)
 
         source = job.sources.get(slug="fake")
@@ -1411,6 +1701,97 @@ class ScrapeCommandTests(TransactionTestCase):
         self.assertEqual(source.processed, 5)
         self.assertIn("Fuente detenida automaticamente por bloqueo 403/CDN", source.logs)
         self.assertIn("No se marcan ausentes", source.logs)
+
+    def test_url_errors_are_stored_for_selective_retry(self):
+        Path(".scrape.lock").unlink(missing_ok=True)
+
+        class FakeDefinition:
+            slug = "fake"
+            name = "Fake Source"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+
+            def __init__(self, max_pages=None, request_timeout=None, max_listings=None, should_cancel=None):
+                pass
+
+            def discover(self):
+                return ["https://example.com/ok", "https://example.com/bad"]
+
+            def parse(self, url):
+                if url.endswith("/bad"):
+                    raise RuntimeError("detalle roto")
+                return {
+                    "external_id": "ok",
+                    "url": url,
+                    "title": "Casa OK",
+                    "address": "Calle 100",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": "100000",
+                }
+
+        with patch("properties.services.scraping.get_adapter", side_effect=lambda *args, **kwargs: FakeAdapter(**kwargs)):
+            job = create_scrape_job(["fake"], {"fake": 1})
+            run_scrape_job(job.pk)
+
+        source = job.sources.get(slug="fake")
+        self.assertEqual(source.status, ScrapeJobSource.Status.PARTIAL)
+        self.assertEqual(source.error_urls[0]["url"], "https://example.com/bad")
+        self.assertIn("detalle roto", source.error_urls[0]["error"])
+
+    def test_retry_urls_skip_discovery_and_process_only_failures(self):
+        Path(".scrape.lock").unlink(missing_ok=True)
+        parsed = []
+
+        class FakeDefinition:
+            slug = "fake"
+            name = "Fake Source"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+
+            def __init__(self, max_pages=None, request_timeout=None, max_listings=None, should_cancel=None):
+                pass
+
+            def discover(self):
+                raise AssertionError("No debe descubrir URLs durante reproceso selectivo.")
+
+            def parse(self, url):
+                parsed.append(url)
+                return {
+                    "external_id": url.rsplit("/", 1)[-1],
+                    "url": url,
+                    "title": "Casa retry",
+                    "address": "Calle 100",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": "100000",
+                }
+
+        with patch("properties.services.scraping.get_adapter", side_effect=lambda *args, **kwargs: FakeAdapter(**kwargs)):
+            job = create_scrape_job(
+                ["fake"],
+                {"fake": 1},
+                geocode_limit=0,
+                retry_urls={"fake": ["https://example.com/bad"]},
+            )
+            run_scrape_job(job.pk)
+
+        job.refresh_from_db()
+        source = job.sources.get(slug="fake")
+        self.assertEqual(job.status, ScrapeJob.Status.SUCCESS)
+        self.assertEqual(source.total_to_process, 1)
+        self.assertEqual(parsed, ["https://example.com/bad"])
+        self.assertIn("Reproceso selectivo: 1 URLs con error", source.logs)
 
     def test_trial_mode_defaults_to_three_listings_and_skips_missing(self):
         Path(".scrape.lock").unlink(missing_ok=True)

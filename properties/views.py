@@ -31,9 +31,11 @@ from .services.data_quality import (
     valid_value,
 )
 from .services.scraping import (
+    ActiveScrapeJobError,
     create_scrape_job,
     mark_stale_running_jobs,
     retry_scrape_job,
+    retry_scrape_job_errors,
     serialize_job,
     source_catalog,
     start_scrape_job,
@@ -117,6 +119,7 @@ def filter_context(params):
         "property_type",
         "currency",
         "locality",
+        "neighborhood",
         "agency",
         "source",
         "feature",
@@ -132,10 +135,25 @@ def filter_context(params):
         "statuses": Property.Status.choices,
         "location_confidences": Property.LocationConfidence.choices,
         "localities": ["Hurlingham", "Villa Tesei", "William C. Morris"],
+        "neighborhood_options": _neighborhood_options(),
         "features": ["Pileta", "Quincho", "Jardin", "Parrilla", "Apto credito"],
         "query_params": params,
         "selected_filters": {key: _param_values(params, key) for key in multi_keys},
     }
+
+
+def _neighborhood_options():
+    counts = {}
+    for neighborhood, detected in Property.objects.values_list(
+        "neighborhood", "detected_neighborhood"
+    ):
+        for name in {neighborhood, detected}:
+            if name:
+                counts[name] = counts.get(name, 0) + 1
+    return [
+        {"name": name, "count": count}
+        for name, count in sorted(counts.items(), key=lambda item: item[0].lower())
+    ]
 
 
 def query_url(params, overrides=None, remove=None, path="/"):
@@ -172,13 +190,19 @@ def filtered_properties(params):
         "operation": "operation",
         "currency": "currency",
         "locality": "locality",
-        "neighborhood": "neighborhood",
         "status": "status",
     }
     for parameter, field in filters.items():
         values = _param_values(params, parameter)
         if values:
             queryset = queryset.filter(**{f"{field}__in": values})
+
+    neighborhood_values = _param_values(params, "neighborhood")
+    if neighborhood_values:
+        queryset = queryset.filter(
+            Q(neighborhood__in=neighborhood_values)
+            | Q(detected_neighborhood__in=neighborhood_values)
+        )
 
     if not params.get("operation") and params.get("show_non_sale") != "1":
         queryset = queryset.filter(operation="sale")
@@ -1067,8 +1091,14 @@ def create_scrape_job_api(request):
             scrape_mode=scrape_mode,
             request_timeout_seconds=request_timeout,
             max_errors_per_source=max_errors,
+            enforce_single_active=True,
         )
         start_scrape_job(job)
+    except ActiveScrapeJobError as exc:
+        active = get_object_or_404(ScrapeJob.objects.prefetch_related("sources"), pk=exc.active_job_id)
+        payload = serialize_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
     except (ValueError, json.JSONDecodeError) as exc:
         return JsonResponse({"error": str(exc)}, status=400)
     return JsonResponse(serialize_job(job), status=201)
@@ -1095,8 +1125,31 @@ def retry_scrape_job_api(request, pk):
     if original.status in {ScrapeJob.Status.PENDING, ScrapeJob.Status.RUNNING}:
         return JsonResponse({"error": "El job todavia esta en curso."}, status=400)
     try:
-        job = retry_scrape_job(original)
+        job = retry_scrape_job(original, enforce_single_active=True)
         start_scrape_job(job)
+    except ActiveScrapeJobError as exc:
+        active = get_object_or_404(ScrapeJob.objects.prefetch_related("sources"), pk=exc.active_job_id)
+        payload = serialize_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
+    except ValueError as exc:
+        return JsonResponse({"error": str(exc)}, status=400)
+    return JsonResponse(serialize_job(job), status=201)
+
+
+@require_POST
+def retry_scrape_job_errors_api(request, pk):
+    original = get_object_or_404(ScrapeJob.objects.prefetch_related("sources"), pk=pk)
+    if original.status in {ScrapeJob.Status.PENDING, ScrapeJob.Status.RUNNING}:
+        return JsonResponse({"error": "El job todavia esta en curso."}, status=400)
+    try:
+        job = retry_scrape_job_errors(original, enforce_single_active=True)
+        start_scrape_job(job)
+    except ActiveScrapeJobError as exc:
+        active = get_object_or_404(ScrapeJob.objects.prefetch_related("sources"), pk=exc.active_job_id)
+        payload = serialize_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
     except ValueError as exc:
         return JsonResponse({"error": str(exc)}, status=400)
     return JsonResponse(serialize_job(job), status=201)

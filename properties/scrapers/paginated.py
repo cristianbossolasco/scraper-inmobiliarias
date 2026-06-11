@@ -1,7 +1,17 @@
 import re
+from math import ceil
 
 
 def declared_total_from_text(text):
+    match = re.search(r"\bFound\s+([\d.]+)\s+results\b", text or "", re.I)
+    if match:
+        return int(match.group(1).replace(".", ""))
+    match = re.search(r"\bShowing\s+\d+\s+to\s+\d+\s+properties\s+of\s+([\d.]+)\s+found\b", text or "", re.I)
+    if match:
+        return int(match.group(1).replace(".", ""))
+    match = re.search(r"\b[\d.]+\s+a\s+[\d.]+\s+de\s+([\d.]+)\s+(?:propiedades|inmuebles)\b", text or "", re.I)
+    if match:
+        return int(match.group(1).replace(".", ""))
     match = re.search(r"\b([\d.]+)\s+(?:casas|propiedades|inmuebles)\s+en\s+venta\b", text or "", re.I)
     if not match:
         return None
@@ -11,7 +21,11 @@ def declared_total_from_text(text):
 def max_page_from_markup(markup):
     pages = [
         int(match.group(1))
-        for match in re.finditer(r"pagina-(\d+)", markup or "", re.I)
+        for match in re.finditer(
+            r"(?:pagina-|/page/|(?:[?&]|&amp;)page=)(\d+)",
+            markup or "",
+            re.I,
+        )
     ]
     return max(pages) if pages else None
 
@@ -36,6 +50,7 @@ def paginated_discover(scraper, first_url, page_url, listing_urls, fallback_max_
         return
 
     first_soup = None
+    first_page_urls = None
     declared_total = None
     if not limited_run or start_page == 1:
         first_soup = scraper.soup(first_url)
@@ -44,6 +59,9 @@ def paginated_discover(scraper, first_url, page_url, listing_urls, fallback_max_
         first_text = first_soup.get_text(" ", strip=True)
         declared_total = declared_total_from_text(first_text)
         max_page = max_page_from_markup(str(first_soup)) or fallback_max_pages
+        first_page_urls = list(dict.fromkeys(listing_urls(first_soup)))
+        if declared_total and first_page_urls:
+            max_page = max(max_page, ceil(declared_total / len(first_page_urls)))
     elif scraper.max_pages is not None:
         max_page = start_page + scraper.max_pages - 1
     else:
@@ -60,7 +78,8 @@ def paginated_discover(scraper, first_url, page_url, listing_urls, fallback_max_
         soup = first_soup if page == 1 and first_soup is not None else scraper.soup(page_url(page))
         pages_seen += 1
         page_new = 0
-        for url in listing_urls(soup):
+        urls = first_page_urls if page == 1 and first_page_urls is not None else listing_urls(soup)
+        for url in urls:
             if scraper.should_cancel():
                 scraper.discovery_stats = {
                     "cancelled": True,

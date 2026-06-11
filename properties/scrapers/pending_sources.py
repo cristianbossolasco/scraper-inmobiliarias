@@ -398,6 +398,44 @@ class MarceloRussoScraper(CommonDetailScraper):
         notes="WordPress/RealHomes local con fichas /property/ y datos completos.",
     )
     detail_patterns = (r"/property/[^/]+/?$",)
+    fallback_max_pages = 40
+
+    def _page_url(self, page):
+        if page == 1:
+            return self.definition.search_url
+        return f"{self.definition.search_url.rstrip('/')}/page/{page}/"
+
+    def _is_target_property_url(self, url):
+        path = urlparse(url).path.lower()
+        return bool(re.search(r"/property/[^/]*(?:hurlingham|tesei|morris)", path))
+
+    def _listing_urls(self, soup):
+        seen = set()
+        for url in links_matching(self, soup, self.detail_patterns):
+            if self._is_target_property_url(url) and url not in seen:
+                seen.add(url)
+                yield url
+
+        base = self.definition.base_url.rstrip("/")
+        markup = str(soup)
+        for match in re.finditer(
+            rf"(?:{re.escape(base)})?/property/[^\"'<>\s\\]+/?",
+            markup,
+            re.I,
+        ):
+            url = self.absolute(match.group(0).split("#")[0])
+            if self._is_target_property_url(url) and url not in seen:
+                seen.add(url)
+                yield url
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=self.fallback_max_pages,
+        )
 
     def parse(self, url):
         soup = self.soup(url)

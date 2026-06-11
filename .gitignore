@@ -1,7 +1,7 @@
 __pycache__/
 *.py[cod]
 .venv/
-db.sqlite3
+db.sqlite3*
 *.log
 .env
 .pytest_cache/
