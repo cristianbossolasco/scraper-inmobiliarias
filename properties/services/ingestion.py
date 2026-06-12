@@ -20,10 +20,13 @@ from .normalization import (
     build_fingerprint,
     infer_property_type,
     is_plausible_property_address,
+    known_neighborhood_name,
+    locality_from_neighborhood,
     normalize_address,
     normalize_locality,
     normalize_neighborhood_name,
     normalize_street_number_address,
+    normalize_whitespace,
     parse_decimal,
 )
 
@@ -107,15 +110,30 @@ def manual_override_fields(property_obj):
 
 def canonicalize_listing_data(data, source=None):
     data = enrich_location_data(data)
+    raw_locality = data.get("locality") or ""
+    locality_zone = known_neighborhood_name(raw_locality)
     data["address"] = normalize_street_number_address(data.get("address"))
     if not is_plausible_property_address(data.get("address")):
         data["address"] = ""
     data["detected_address"] = normalize_street_number_address(data.get("detected_address"))
     if not is_plausible_property_address(data.get("detected_address")):
         data["detected_address"] = ""
-    data["locality"] = normalize_locality(data.get("locality") or "Hurlingham")
+    data["locality"] = normalize_locality(raw_locality)
     data["neighborhood"] = normalize_neighborhood_name(data.get("neighborhood"))
     data["detected_neighborhood"] = normalize_neighborhood_name(data.get("detected_neighborhood"))
+    if not data["locality"] and locality_zone:
+        if not data["neighborhood"]:
+            data["neighborhood"] = locality_zone
+        if not data["detected_neighborhood"]:
+            data["detected_neighborhood"] = locality_zone
+        data["locality"] = locality_from_neighborhood(locality_zone)
+    if not data["locality"]:
+        data["locality"] = "Hurlingham"
+        if raw_locality:
+            note = f"Localidad descartada por normalizacion: {raw_locality}"
+            data["location_notes"] = normalize_whitespace(
+                " ".join([data.get("location_notes") or "", note])
+            )
     data["normalized_address"] = normalize_address(data.get("address")) if data.get("address") else ""
     data["property_type"] = data.get("property_type") or infer_property_type(
         data.get("title"), data.get("description")

@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-06-12T22:52:10.516022+00:00",
+  "config": "config\\crime_sources.json",
+  "raw_dir": "data\\raw\\crime",
+  "sources": [
+    {
+      "key": "snic_departamentos_mensual",
+      "name": "SNIC departamentos mensual por sexo",
+      "role": "canonical_general",
+      "required": true,
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-departamentos-mes-sexo_csv.zip",
+      "target": "data\\raw\\crime\\snic-departamentos-mes-sexo_csv.zip",
+      "notes": "Monthly official SNIC data by province, department/partido/comuna, crime code and sex.",
+      "status": "existing",
+      "size_bytes": 30539739,
+      "downloaded_at": null,
+      "headers": {}
+    },
+    {
+      "key": "snic_departamentos_anual",
+      "name": "SNIC departamentos anual",
+      "role": "annual_control",
+      "required": true,
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-departamentos-anual.csv",
+      "target": "data\\raw\\crime\\snic-departamentos-anual.csv",
+      "notes": "Annual official SNIC data by province and department/partido/comuna.",
+      "status": "existing",
+      "size_bytes": 44862251,
+      "downloaded_at": null,
+      "headers": {}
+    },
+    {
+      "key": "sat_propiedad",
+      "name": "SAT Propiedad 2017-2024",
+      "role": "property_detail",
+      "required": true,
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SAT/PROP/SAT-Propiedad-BU_2017-2024.csv",
+      "target": "data\\raw\\crime\\SAT-Propiedad-BU_2017-2024.csv",
+      "notes": "Detailed monthly property-crime data, used for robbery/theft/vehicle property metrics.",
+      "status": "downloaded",
+      "size_bytes": 51022955,
+      "downloaded_at": "2026-06-12T22:51:04.516508+00:00",
+      "headers": {
+        "content_type": "text/csv",
+        "content_length": "51022955",
+        "last_modified": "Thu, 20 Nov 2025 16:54:49 GMT",
+        "etag": "\"30a8c6b-644098e0f1865\""
+      }
+    },
+    {
+      "key": "sat_homicidios",
+      "name": "SAT Homicidios dolosos",
+      "role": "homicide_auxiliary",
+      "required": true,
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SAT/HD/SAT-HD-BU.csv",
+      "target": "data\\raw\\crime\\SAT-HD-BU.csv",
+      "notes": "Homicide microdata. Radio centroid coordinates are auxiliary and are not exact incident locations.",
+      "status": "downloaded",
+      "size_bytes": 20906126,
+      "downloaded_at": "2026-06-12T22:51:55.744815+00:00",
+      "headers": {
+        "content_type": "text/csv",
+        "content_length": "20906126",
+        "last_modified": "Mon, 01 Jun 2026 16:45:46 GMT",
+        "etag": "\"13f008e-65333ed178bbe\""
+      }
+    },
+    {
+      "key": "pba_propiedad_municipio",
+      "name": "PBA hechos contra la propiedad por municipio",
+      "role": "context_control",
+      "required": true,
+      "url": "https://datos.estadistica.ec.gba.gov.ar/dataset/ba787416-c250-431e-baa3-6babc511bcec/resource/491c7ca5-d9d7-4455-9e9e-81aad75ff2cc/download/10_hechos-delictuosos-contra-la-propiedad-por-municipio.-provincia-de-buenos-aires.-2014-2023.xlsx",
+      "target": "data\\raw\\crime\\pba_hechos_propiedad_municipio.xlsx",
+      "notes": "Annual PBA municipal property-crime summary, used as context/control.",
+      "ckan_package_api": "https://datos.estadistica.ec.gba.gov.ar/api/3/action/package_show?id=hechos-delictuosos-contra-la-propiedad-por-municipio",
+      "resource_id": "491c7ca5-d9d7-4455-9e9e-81aad75ff2cc",
+      "resource_name": "Hechos delictuosos contra la propiedad por municipio. ",
+      "resource_format": "XLS",
+      "resource_last_modified": "2025-12-03T17:26:37.370537",
+      "status": "existing",
+      "size_bytes": 79276,
+      "downloaded_at": null,
+      "headers": {}
+    },
+    {
+      "key": "pba_personas_municipio",
+      "name": "PBA victimas contra las personas por municipio",
+      "role": "context_control",
+      "required": true,
+      "url": "https://datos.estadistica.ec.gba.gov.ar/dataset/f510a2b3-8d83-418c-83cc-37e7c4522a77/resource/430449ac-e8c4-496a-b51e-c728580da076/download/11_victimas-de-hechos-delictuosos-contra-las-personas-por-municipio.-provincia-de-buenos-aires-.xlsx",
+      "target": "data\\raw\\crime\\pba_victimas_personas_municipio.xlsx",
+      "notes": "Annual PBA municipal people-crime victim summary, used as context/control.",
+      "ckan_package_api": "https://datos.estadistica.ec.gba.gov.ar/api/3/action/package_show?id=victimas-de-hechos-delictuosos-contra-las-personas-por-municipio",
+      "resource_id": "430449ac-e8c4-496a-b51e-c728580da076",
+      "resource_name": "Víctimas de hechos delictuosos contra las personas por municipio. ",
+      "resource_format": "XLS",
+      "resource_last_modified": "2025-12-03T17:51:26.599803",
+      "status": "existing",
+      "size_bytes": 151766,
+      "downloaded_at": null,
+      "headers": {}
+    }
+  ]
+}

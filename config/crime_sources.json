@@ -1,0 +1,63 @@
+{
+  "raw_dir": "data/raw/crime",
+  "sources": [
+    {
+      "key": "snic_departamentos_mensual",
+      "name": "SNIC departamentos mensual por sexo",
+      "role": "canonical_general",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-departamentos-mes-sexo_csv.zip",
+      "target": "snic-departamentos-mes-sexo_csv.zip",
+      "required": true,
+      "notes": "Monthly official SNIC data by province, department/partido/comuna, crime code and sex."
+    },
+    {
+      "key": "snic_departamentos_anual",
+      "name": "SNIC departamentos anual",
+      "role": "annual_control",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-departamentos-anual.csv",
+      "target": "snic-departamentos-anual.csv",
+      "required": true,
+      "notes": "Annual official SNIC data by province and department/partido/comuna."
+    },
+    {
+      "key": "sat_propiedad",
+      "name": "SAT Propiedad 2017-2024",
+      "role": "property_detail",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SAT/PROP/SAT-Propiedad-BU_2017-2024.csv",
+      "target": "SAT-Propiedad-BU_2017-2024.csv",
+      "required": true,
+      "notes": "Detailed monthly property-crime data, used for robbery/theft/vehicle property metrics."
+    },
+    {
+      "key": "sat_homicidios",
+      "name": "SAT Homicidios dolosos",
+      "role": "homicide_auxiliary",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SAT/HD/SAT-HD-BU.csv",
+      "target": "SAT-HD-BU.csv",
+      "required": true,
+      "notes": "Homicide microdata. Radio centroid coordinates are auxiliary and are not exact incident locations."
+    },
+    {
+      "key": "pba_propiedad_municipio",
+      "name": "PBA hechos contra la propiedad por municipio",
+      "role": "context_control",
+      "resolver": "ckan_package",
+      "ckan_package_api": "https://datos.estadistica.ec.gba.gov.ar/api/3/action/package_show?id=hechos-delictuosos-contra-la-propiedad-por-municipio",
+      "preferred_formats": ["XLS", "XLSX", "CSV"],
+      "target": "pba_hechos_propiedad_municipio.xlsx",
+      "required": true,
+      "notes": "Annual PBA municipal property-crime summary, used as context/control."
+    },
+    {
+      "key": "pba_personas_municipio",
+      "name": "PBA victimas contra las personas por municipio",
+      "role": "context_control",
+      "resolver": "ckan_package",
+      "ckan_package_api": "https://datos.estadistica.ec.gba.gov.ar/api/3/action/package_show?id=victimas-de-hechos-delictuosos-contra-las-personas-por-municipio",
+      "preferred_formats": ["XLS", "XLSX", "CSV"],
+      "target": "pba_victimas_personas_municipio.xlsx",
+      "required": true,
+      "notes": "Annual PBA municipal people-crime victim summary, used as context/control."
+    }
+  ]
+}

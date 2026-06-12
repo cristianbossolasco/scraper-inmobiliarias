@@ -47,6 +47,7 @@ from .services.security_scoring import security_layers_payload
 from .services.geocoding import address_number, street_key
 from .services.normalization import (
     clean_address_for_storage,
+    locality_from_neighborhood,
     normalize_address,
     normalize_currency,
     normalize_locality,
@@ -256,6 +257,17 @@ def _param_values(params, key):
     return [str(value) for value in values if value not in (None, "")]
 
 
+def _canonical_display_locality(property_obj):
+    return (
+        normalize_locality(property_obj.detected_locality)
+        or normalize_locality(property_obj.locality)
+        or locality_from_neighborhood(property_obj.detected_neighborhood)
+        or locality_from_neighborhood(property_obj.neighborhood)
+        or locality_from_neighborhood(property_obj.inferred_neighborhood)
+        or "Sin dato"
+    )
+
+
 def filter_context(params):
     multi_keys = (
         "property_type",
@@ -366,7 +378,7 @@ TABLE_SORTS = {
             _primary_listing(item).source.name if _primary_listing(item) else ""
         ),
     },
-    "locality": {"label": "Localidad", "key": lambda item, distances: item.locality or ""},
+    "locality": {"label": "Localidad", "key": lambda item, distances: _canonical_display_locality(item)},
     "bedrooms": {"label": "Dorm.", "key": lambda item, distances: item.bedrooms},
     "bathrooms": {"label": "Banos", "key": lambda item, distances: item.bathrooms},
     "covered_area": {"label": "Cub.", "key": lambda item, distances: item.covered_area},
@@ -584,7 +596,6 @@ def filtered_properties(params, include_listings=True):
         "property_type": "property_type",
         "operation": "operation",
         "currency": "currency",
-        "locality": "locality",
         "status": "status",
         "security_level": "security_level",
         "security_zone": "security_zone_label",
@@ -593,6 +604,12 @@ def filtered_properties(params, include_listings=True):
         values = _param_values(params, parameter)
         if values:
             queryset = queryset.filter(**{f"{field}__in": values})
+
+    locality_values = _param_values(params, "locality")
+    if locality_values:
+        queryset = queryset.filter(
+            Q(locality__in=locality_values) | Q(detected_locality__in=locality_values)
+        )
 
     if not _param_values(params, "status"):
         queryset = queryset.filter(status=Property.Status.ACTIVE)
@@ -2283,7 +2300,7 @@ def market_stats(request):
     context = {
         "total": total,
         "query_params": request.GET,
-        "by_locality": _counter(properties, lambda item: item.detected_locality or item.locality),
+        "by_locality": _counter(properties, _canonical_display_locality),
         "by_neighborhood": _counter(
             properties,
             lambda item: item.detected_neighborhood
@@ -2364,7 +2381,7 @@ def market_stats(request):
     context["chart_data"] = {
         "by_locality": _series(
             properties,
-            lambda item: item.detected_locality or item.locality,
+            _canonical_display_locality,
             lambda item, label: query_url(request.GET, {"locality": label if label != "Sin dato" else ""}, path=stats_path),
         ),
         "by_neighborhood": _series(

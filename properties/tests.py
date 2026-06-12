@@ -32,7 +32,10 @@ from properties.services.normalization import (
     build_fingerprint,
     classify_address_precision,
     is_plausible_property_address,
+    known_neighborhood_name,
+    locality_from_neighborhood,
     normalize_address,
+    normalize_locality,
     normalize_neighborhood_name,
     normalize_street_number_address,
     parse_decimal,
@@ -153,6 +156,47 @@ class NormalizationTests(TestCase):
             ),
             "",
         )
+
+    def test_locality_is_strict_and_neighborhoods_are_not_localities(self):
+        self.assertEqual(normalize_locality("Hurlingham"), "Hurlingham")
+        self.assertEqual(normalize_locality("Villa Tesei"), "Villa Tesei")
+        self.assertEqual(normalize_locality("William Morris"), "William C. Morris")
+        self.assertEqual(normalize_locality("Parque Johnston"), "")
+        self.assertEqual(normalize_locality("Ar Emprendimientos Inmobiliarias Mapa Es Publicar"), "")
+        self.assertEqual(known_neighborhood_name("Parque Jhonston"), "Parque Johnston")
+        self.assertEqual(locality_from_neighborhood("Parque Johnston"), "Hurlingham")
+
+    def test_repair_localities_dry_run_apply_and_manual_override(self):
+        dirty = Property.objects.create(
+            fingerprint="dirty-locality",
+            title="Casa con zona como localidad",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+            locality="Parque Johnston",
+        )
+        manual = Property.objects.create(
+            fingerprint="manual-locality",
+            title="Casa manual",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+            locality="Parque Quirno",
+            manual_overrides={"locality": "Parque Quirno"},
+        )
+
+        output = StringIO()
+        call_command("repair_localities", "--dry-run", stdout=output)
+        dirty.refresh_from_db()
+        self.assertEqual(dirty.locality, "Parque Johnston")
+
+        call_command("repair_localities", stdout=StringIO())
+        dirty.refresh_from_db()
+        manual.refresh_from_db()
+        self.assertEqual(dirty.locality, "Hurlingham")
+        self.assertEqual(dirty.neighborhood, "Parque Johnston")
+        self.assertIn("repair_localities", dirty.location_notes)
+        self.assertEqual(manual.locality, "Parque Quirno")
 
     def test_fingerprint_falls_back_to_listing_identity_for_bad_address(self):
         source = Source(slug="guarnieri", name="Guarnieri", base_url="https://example.com")
@@ -1883,6 +1927,25 @@ class ViewTests(TestCase):
         )
         self.assertIn("url", chart_data["by_locality"][0])
         self.assertIn("price_buckets", chart_data)
+
+    def test_stats_chart_uses_canonical_localities_only(self):
+        Property.objects.create(
+            fingerprint="stats-dirty-locality",
+            title="Casa con localidad sucia",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+            currency="USD",
+            price=100000,
+            locality="Parque Johnston",
+        )
+        response = self.client.get("/estadisticas/")
+        chart_data = json.loads(
+            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
+        )
+        labels = {item["label"] for item in chart_data["by_locality"]}
+        self.assertIn("Hurlingham", labels)
+        self.assertNotIn("Parque Johnston", labels)
 
     def test_stats_exclude_metric_outliers(self):
         source = Source.objects.create(

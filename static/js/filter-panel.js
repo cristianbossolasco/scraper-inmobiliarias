@@ -21,11 +21,24 @@
     return Array.from(select.options).filter((option) => option.selected && option.value !== "");
   }
 
+  function syncPopoverGroup(popover) {
+    const group = popover.closest(".filter-group");
+    if (!group) return;
+    group.classList.toggle("filter-group-popover-open", Boolean(group.querySelector(".smart-select-popover:not([hidden])")));
+  }
+
+  function setPopoverOpen(popover, open) {
+    const shell = popover.closest(".smart-select");
+    popover.hidden = !open;
+    shell?.classList.toggle("smart-select-open", open);
+    shell?.querySelector(".smart-select-button")?.setAttribute("aria-expanded", String(open));
+    syncPopoverGroup(popover);
+  }
+
   function closePopovers(except = null) {
     document.querySelectorAll(".smart-select-popover:not([hidden])").forEach((popover) => {
       if (popover === except) return;
-      popover.hidden = true;
-      popover.closest(".smart-select")?.querySelector(".smart-select-button")?.setAttribute("aria-expanded", "false");
+      setPopoverOpen(popover, false);
     });
   }
 
@@ -111,8 +124,7 @@
     button.addEventListener("click", () => {
       const willOpen = popover.hidden;
       closePopovers(popover);
-      popover.hidden = !willOpen;
-      button.setAttribute("aria-expanded", String(willOpen));
+      setPopoverOpen(popover, willOpen);
       if (willOpen) search.focus();
     });
     search.addEventListener("input", () => {
@@ -164,6 +176,31 @@
     updateSummary(form);
   }
 
+  function filterStatus(form) {
+    return form.querySelector("[data-filter-dirty-status]") || document.querySelector("[data-filter-dirty-status]");
+  }
+
+  function setSubmitting(form, submitting) {
+    if (!form || form.dataset.filterPanelReady !== "1") return;
+    form.classList.toggle("filters-submitting", submitting);
+    if (submitting) {
+      form.setAttribute("aria-busy", "true");
+    } else {
+      form.removeAttribute("aria-busy");
+    }
+    const button = form.querySelector('button[type="submit"]');
+    if (button) {
+      button.disabled = submitting;
+      if (submitting) {
+        button.setAttribute("aria-busy", "true");
+      } else {
+        button.removeAttribute("aria-busy");
+      }
+    }
+    const status = filterStatus(form);
+    if (status) status.textContent = submitting ? "Aplicando filtros..." : "Listo para analizar";
+  }
+
   function enhanceForm(form) {
     if (!form || form.dataset.filterPanelReady === "1") return;
     form.dataset.filterPanelReady = "1";
@@ -175,9 +212,7 @@
     form.addEventListener("change", () => markDirty(form));
     form.addEventListener("submit", () => {
       form.classList.remove("filters-dirty");
-      form.classList.add("filters-submitting");
-      const status = form.querySelector("[data-filter-dirty-status]") || document.querySelector("[data-filter-dirty-status]");
-      if (status) status.textContent = "Aplicando filtros...";
+      setSubmitting(form, true);
     });
   }
 
@@ -188,6 +223,18 @@
 
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".smart-select")) closePopovers();
+  });
+  document.body.addEventListener("htmx:afterRequest", (event) => {
+    const form = event.detail?.elt?.closest?.("form");
+    if (form?.dataset.filterPanelReady === "1") setSubmitting(form, false);
+  });
+  document.body.addEventListener("htmx:sendError", (event) => {
+    const form = event.detail?.elt?.closest?.("form");
+    if (form?.dataset.filterPanelReady === "1") setSubmitting(form, false);
+  });
+  document.body.addEventListener("htmx:timeout", (event) => {
+    const form = event.detail?.elt?.closest?.("form");
+    if (form?.dataset.filterPanelReady === "1") setSubmitting(form, false);
   });
   document.addEventListener("DOMContentLoaded", init);
   document.body.addEventListener("htmx:afterSwap", init);

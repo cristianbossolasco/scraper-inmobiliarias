@@ -15,6 +15,16 @@ LOCALITY_ALIASES = {
     "morris": "William C. Morris",
 }
 
+VALID_LOCALITIES = tuple(sorted(set(LOCALITY_ALIASES.values())))
+
+NEIGHBORHOOD_LOCALITY_MAP = {
+    "Villa Tesei": "Villa Tesei",
+    "Villa Tesei Centro": "Villa Tesei",
+    "Santos Tesei": "Villa Tesei",
+    "Barrio Italia": "Villa Tesei",
+    "William C. Morris": "William C. Morris",
+}
+
 GEOCODING_LOCALITIES = {
     "hurlingham",
     "villa tesei",
@@ -111,6 +121,8 @@ NEIGHBORHOOD_ALIASES = (
     ("Hurlingham Centro", (r"\bhurlingham\s+centro\b",)),
     ("Hurlingham", (r"^hurlingham$",)),
 )
+
+KNOWN_NEIGHBORHOODS = tuple(canonical for canonical, _patterns in NEIGHBORHOOD_ALIASES)
 
 ADDRESS_NEIGHBORHOOD_RULES = (
     ("Santos Tesei", (r"\bveragua\b",)),
@@ -316,12 +328,26 @@ def infer_neighborhood_from_address(value):
     return ""
 
 
+def known_neighborhood_name(value):
+    neighborhood = normalize_neighborhood_name(value)
+    return neighborhood if neighborhood in KNOWN_NEIGHBORHOODS else ""
+
+
 def normalize_locality(value):
     folded = normalize_address(value)
+    if not folded:
+        return ""
     for candidate, canonical in sorted(LOCALITY_ALIASES.items(), key=lambda item: len(item[0]), reverse=True):
         if candidate in folded:
             return canonical
-    return normalize_whitespace(value).title()
+    return ""
+
+
+def locality_from_neighborhood(value):
+    neighborhood = known_neighborhood_name(value)
+    if not neighborhood:
+        return ""
+    return NEIGHBORHOOD_LOCALITY_MAP.get(neighborhood, "Hurlingham")
 
 
 def parse_decimal(value):
