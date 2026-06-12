@@ -71,6 +71,50 @@
       {% endfor %}
     </dl>
 
+    <section class="detail-section property-data-editor" data-property-id="{{ property.pk }}">
+      <div class="section-heading-row">
+        <div>
+          <h2>Datos de la propiedad</h2>
+          <p>Ficha completa editable. Los campos modificados manualmente no seran pisados por futuros scrapes.</p>
+        </div>
+        <button class="secondary-button" id="edit-property-data" type="button">
+          <i data-lucide="pencil"></i> Editar
+        </button>
+      </div>
+      <form id="property-data-form">
+        {% for section in edit_sections %}
+          <fieldset class="edit-fieldset">
+            <legend>{{ section.title }}</legend>
+            <div class="edit-grid">
+              {% for field in section.fields %}
+                <label class="{% if field.input_type == 'textarea' %}wide{% endif %}">
+                  <span>{{ field.label }}</span>
+                  {% if field.input_type == "select" %}
+                    <select name="{{ field.field }}" disabled>
+                      {% for option in field.choices %}
+                        <option value="{{ option.value }}" {% if option.value == field.value %}selected{% endif %}>{{ option.label }}</option>
+                      {% endfor %}
+                    </select>
+                  {% elif field.input_type == "textarea" %}
+                    <textarea name="{{ field.field }}" rows="{{ field.rows|default:4 }}" disabled>{{ field.value }}</textarea>
+                  {% else %}
+                    <input name="{{ field.field }}" type="{{ field.input_type }}" value="{{ field.value }}" {% if field.input_type == "number" %}step="any"{% endif %} disabled>
+                  {% endif %}
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        {% endfor %}
+        <div class="editor-actions" hidden>
+          <button class="primary-button" id="save-property-data" type="submit">
+            <i data-lucide="save"></i> Guardar datos
+          </button>
+          <button class="secondary-button" id="cancel-property-data" type="button">Cancelar</button>
+          <span class="note-status" id="property-data-status"></span>
+        </div>
+      </form>
+    </section>
+
     <section class="detail-section compact-section">
       <h2>Ubicacion</h2>
       <dl class="location-audit">
@@ -192,6 +236,7 @@
 {% block scripts %}
 {{ map_config|json_script:"map-config" }}
 {{ property_location|json_script:"property-location" }}
+{{ property_edit_payload|json_script:"property-edit-payload" }}
 <script src="{% static 'js/detail-map.js' %}"></script>
 <script src="{% static 'js/property-actions.js' %}"></script>
 <script>

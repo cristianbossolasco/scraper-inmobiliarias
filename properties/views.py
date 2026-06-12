@@ -2,6 +2,7 @@ import csv
 import hashlib
 import io
 import json
+import re
 import statistics
 from decimal import Decimal, InvalidOperation
 from urllib.parse import parse_qsl, urlencode, urlparse
@@ -40,7 +41,16 @@ from .services.scraping import (
     source_catalog,
     start_scrape_job,
 )
-from .services.normalization import normalize_neighborhood_name
+from .services.geocoding import address_number, street_key
+from .services.normalization import (
+    clean_address_for_storage,
+    normalize_address,
+    normalize_currency,
+    normalize_locality,
+    normalize_neighborhood_name,
+    normalize_whitespace,
+    parse_decimal,
+)
 from .services.spatial import (
     haversine_km,
     point_in_polygon,
@@ -68,6 +78,134 @@ def _float(value):
         return float(value) if value not in (None, "") else None
     except (TypeError, ValueError):
         return None
+
+
+EDITABLE_PROPERTY_FIELDS = {
+    "title",
+    "property_type",
+    "operation",
+    "status",
+    "currency",
+    "price",
+    "address",
+    "locality",
+    "neighborhood",
+    "description",
+    "rooms",
+    "bedrooms",
+    "bathrooms",
+    "garages",
+    "toilets",
+    "covered_area",
+    "total_area",
+    "land_area",
+    "uncovered_area",
+    "semicovered_area",
+    "front_width",
+    "lot_depth",
+    "building_floors",
+    "age_years",
+    "features",
+}
+
+DECIMAL_EDIT_FIELDS = {
+    "price",
+    "bathrooms",
+    "covered_area",
+    "total_area",
+    "land_area",
+    "uncovered_area",
+    "semicovered_area",
+    "front_width",
+    "lot_depth",
+}
+
+INTEGER_EDIT_FIELDS = {
+    "rooms",
+    "bedrooms",
+    "garages",
+    "toilets",
+    "building_floors",
+    "age_years",
+}
+
+CHOICE_EDIT_FIELDS = {
+    "property_type": Property.Type.values,
+    "operation": ["sale", "rent"],
+    "status": Property.Status.values,
+}
+
+
+def same_geocoding_target(before, after):
+    return (
+        bool(before and after)
+        and address_number(before) == address_number(after)
+        and street_key(before) == street_key(after)
+    )
+
+
+def _coerce_edit_value(field, value):
+    if field in DECIMAL_EDIT_FIELDS:
+        return parse_decimal(value)
+    if field in INTEGER_EDIT_FIELDS:
+        parsed = _int(value)
+        if parsed is not None and parsed < 0:
+            raise ValueError("Debe ser mayor o igual a cero.")
+        return parsed
+    if field == "features":
+        if isinstance(value, list):
+            return [normalize_whitespace(item) for item in value if normalize_whitespace(item)]
+        return [
+            normalize_whitespace(item)
+            for item in re.split(r"[\n,;]", str(value or ""))
+            if normalize_whitespace(item)
+        ]
+    if field == "address":
+        return clean_address_for_storage(value) or normalize_whitespace(value)
+    if field == "locality":
+        return normalize_locality(value or "")
+    if field == "neighborhood":
+        return normalize_neighborhood_name(value or "") or normalize_whitespace(value)
+    if field == "currency":
+        return normalize_currency(value or "") if value else ""
+    if field in {"title", "description"}:
+        return str(value or "").strip()
+    return str(value or "").strip()
+
+
+def _serialize_property_edit(property_obj):
+    return {
+        "id": property_obj.pk,
+        "title": property_obj.title,
+        "property_type": property_obj.property_type,
+        "operation": property_obj.operation,
+        "status": property_obj.status,
+        "currency": property_obj.currency,
+        "price": str(property_obj.price) if property_obj.price is not None else "",
+        "address": property_obj.address,
+        "locality": property_obj.locality,
+        "neighborhood": property_obj.neighborhood,
+        "description": property_obj.description,
+        "rooms": property_obj.rooms,
+        "bedrooms": property_obj.bedrooms,
+        "bathrooms": str(property_obj.bathrooms) if property_obj.bathrooms is not None else "",
+        "garages": property_obj.garages,
+        "toilets": property_obj.toilets,
+        "covered_area": str(property_obj.covered_area) if property_obj.covered_area is not None else "",
+        "total_area": str(property_obj.total_area) if property_obj.total_area is not None else "",
+        "land_area": str(property_obj.land_area) if property_obj.land_area is not None else "",
+        "uncovered_area": str(property_obj.uncovered_area) if property_obj.uncovered_area is not None else "",
+        "semicovered_area": str(property_obj.semicovered_area) if property_obj.semicovered_area is not None else "",
+        "front_width": str(property_obj.front_width) if property_obj.front_width is not None else "",
+        "lot_depth": str(property_obj.lot_depth) if property_obj.lot_depth is not None else "",
+        "building_floors": property_obj.building_floors,
+        "age_years": property_obj.age_years,
+        "features": property_obj.features or [],
+        "manual_overrides": property_obj.manual_overrides or {},
+        "data_manually_corrected_at": property_obj.data_manually_corrected_at.isoformat()
+        if property_obj.data_manually_corrected_at
+        else "",
+    }
 
 
 def _fts_ids(query):
@@ -736,6 +874,94 @@ def _detail_facts(property_obj):
     return [{"label": label, "value": value} for label, value in facts if value not in (None, "")]
 
 
+def _edit_field(field, label, value, input_type="text", choices=None, rows=0):
+    return {
+        "field": field,
+        "label": label,
+        "value": "" if value is None else value,
+        "input_type": input_type,
+        "choices": choices or [],
+        "rows": rows,
+    }
+
+
+def _choice_options(choices):
+    return [{"value": value, "label": label} for value, label in choices]
+
+
+def _property_edit_sections(property_obj):
+    return [
+        {
+            "title": "Identidad",
+            "fields": [
+                _edit_field("title", "Titulo", property_obj.title),
+                _edit_field(
+                    "property_type",
+                    "Tipo",
+                    property_obj.property_type,
+                    "select",
+                    _choice_options(Property.Type.choices),
+                ),
+                _edit_field(
+                    "operation",
+                    "Operacion",
+                    property_obj.operation,
+                    "select",
+                    [{"value": "sale", "label": "Venta"}, {"value": "rent", "label": "Alquiler"}],
+                ),
+                _edit_field(
+                    "status",
+                    "Estado",
+                    property_obj.status,
+                    "select",
+                    _choice_options(Property.Status.choices),
+                ),
+            ],
+        },
+        {
+            "title": "Precio",
+            "fields": [
+                _edit_field("currency", "Moneda", property_obj.currency),
+                _edit_field("price", "Precio", _format_number(property_obj.price), "number"),
+            ],
+        },
+        {
+            "title": "Ubicacion",
+            "fields": [
+                _edit_field("address", "Direccion", property_obj.address),
+                _edit_field("locality", "Localidad", property_obj.locality),
+                _edit_field("neighborhood", "Zona", property_obj.neighborhood),
+            ],
+        },
+        {
+            "title": "Metricas",
+            "fields": [
+                _edit_field("rooms", "Ambientes", property_obj.rooms, "number"),
+                _edit_field("bedrooms", "Dormitorios", property_obj.bedrooms, "number"),
+                _edit_field("bathrooms", "Banos", _format_number(property_obj.bathrooms), "number"),
+                _edit_field("garages", "Cocheras", property_obj.garages, "number"),
+                _edit_field("toilets", "Toilettes", property_obj.toilets, "number"),
+                _edit_field("covered_area", "Cubierta m2", _format_number(property_obj.covered_area), "number"),
+                _edit_field("total_area", "Total m2", _format_number(property_obj.total_area), "number"),
+                _edit_field("land_area", "Terreno m2", _format_number(property_obj.land_area), "number"),
+                _edit_field("uncovered_area", "Libre m2", _format_number(property_obj.uncovered_area), "number"),
+                _edit_field("semicovered_area", "Semicubierta m2", _format_number(property_obj.semicovered_area), "number"),
+                _edit_field("front_width", "Frente m", _format_number(property_obj.front_width), "number"),
+                _edit_field("lot_depth", "Fondo m", _format_number(property_obj.lot_depth), "number"),
+                _edit_field("building_floors", "Plantas", property_obj.building_floors, "number"),
+                _edit_field("age_years", "Antiguedad", property_obj.age_years, "number"),
+            ],
+        },
+        {
+            "title": "Texto",
+            "fields": [
+                _edit_field("description", "Descripcion", property_obj.description, "textarea", rows=5),
+                _edit_field("features", "Caracteristicas", "\n".join(property_obj.features or []), "textarea", rows=4),
+            ],
+        },
+    ]
+
+
 def _listing_domain(url):
     host = urlparse(url or "").netloc
     return host[4:] if host.startswith("www.") else host
@@ -893,6 +1119,8 @@ def detail(request, pk):
             "source_links": source_links,
             "primary_source_link": source_links[0] if source_links else None,
             "detail_facts": _detail_facts(property_obj),
+            "edit_sections": _property_edit_sections(property_obj),
+            "property_edit_payload": _serialize_property_edit(property_obj),
             "price_history": _price_history_segments(property_obj),
             "map_config": map_config_payload(),
             "property_location": location_payload,
@@ -966,6 +1194,76 @@ def update_property_note(request, pk):
     property_obj.personal_notes = str(payload.get("personal_notes") or "")[:5000]
     property_obj.save(update_fields=["personal_notes"])
     return JsonResponse({"ok": True, "personal_notes": property_obj.personal_notes})
+
+
+@require_POST
+def update_property_data(request, pk):
+    property_obj = get_object_or_404(Property, pk=pk)
+    try:
+        payload = json.loads(request.body or "{}")
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "JSON invalido."}, status=400)
+    if not isinstance(payload, dict):
+        return JsonResponse({"error": "Payload invalido."}, status=400)
+
+    unknown_fields = sorted(set(payload) - EDITABLE_PROPERTY_FIELDS)
+    if unknown_fields:
+        return JsonResponse(
+            {"error": f"Campos no editables: {', '.join(unknown_fields)}."},
+            status=400,
+        )
+
+    updates = {}
+    errors = {}
+    for field, raw_value in payload.items():
+        if field in CHOICE_EDIT_FIELDS and raw_value not in CHOICE_EDIT_FIELDS[field]:
+            errors[field] = "Opcion invalida."
+            continue
+        try:
+            value = _coerce_edit_value(field, raw_value)
+        except ValueError as exc:
+            errors[field] = str(exc)
+            continue
+        if field == "title" and not value:
+            errors[field] = "El titulo no puede estar vacio."
+            continue
+        if getattr(property_obj, field) != value:
+            updates[field] = value
+
+    if errors:
+        return JsonResponse({"error": "Hay campos invalidos.", "fields": errors}, status=400)
+    if not updates:
+        return JsonResponse({"ok": True, "changed": [], "property": _serialize_property_edit(property_obj)})
+
+    old_address = property_obj.address or property_obj.detected_address or ""
+    now = timezone.now()
+    overrides = dict(property_obj.manual_overrides or {})
+    for field, value in updates.items():
+        setattr(property_obj, field, value)
+        overrides[field] = now.isoformat()
+
+    update_fields = set(updates)
+    if "address" in updates:
+        property_obj.normalized_address = normalize_address(property_obj.address)
+        update_fields.add("normalized_address")
+    property_obj.manual_overrides = overrides
+    property_obj.data_manually_corrected_at = now
+    update_fields.update({"manual_overrides", "data_manually_corrected_at"})
+    property_obj.save(update_fields=sorted(update_fields))
+
+    if "address" in updates:
+        location = getattr(property_obj, "location", None)
+        new_address = property_obj.address or property_obj.detected_address or ""
+        if location and not location.manually_corrected and not same_geocoding_target(old_address, new_address):
+            location.delete()
+
+    return JsonResponse(
+        {
+            "ok": True,
+            "changed": sorted(updates),
+            "property": _serialize_property_edit(property_obj),
+        }
+    )
 
 
 @require_POST

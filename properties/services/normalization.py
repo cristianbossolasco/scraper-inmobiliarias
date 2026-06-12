@@ -145,6 +145,17 @@ def normalize_street_number_address(value):
 STREET_ALIAS_PATTERNS = (
     (r"\bAcevedo\s+Eduardo\b", "Eduardo Acevedo"),
     (r"(?<!Eduardo\s)\bAcevedo\b(?!\s+Eduardo)", "Eduardo Acevedo"),
+    (r"\bCarhue\b", "Carhué"),
+    (r"\bAlberto\s+Einstein\b", "Einstein"),
+    (r"\bDiego\s+de\s+Carbajal\b", "Diego de Carvajal"),
+    (r"\bDiego\s+Carbajal\b", "Diego de Carvajal"),
+    (r"(?<!Diego de )\bCarbajal\b", "Diego de Carvajal"),
+    (r"\bGonzalez\s+De\s+Hecht\s+A\.?\s+Maestra\b", "Maestra A. González de Hecht"),
+    (r"\bMaestra\s+A\.?\s+Gonzalez\s+De\s+Hecht\b", "Maestra A. González de Hecht"),
+    (r"\bMaestra\s+Gonzalez\s+de\s+Hecht\b", "Maestra A. González de Hecht"),
+    (r"\bMaestra\s+Hecht\b", "Maestra A. González de Hecht"),
+    (r"\bJ\.?\s+Batlle\s+y\s+Ordo(?:ñ|n)ez\b", "José Batlle y Ordoñez"),
+    (r"(?<!José\s)\bBatlle\s+y\s+Ordo(?:ñ|n)ez\b", "José Batlle y Ordoñez"),
     (r"\bJ\.?\s+De\s+Andonaegui\b", "José de Andonaegui"),
     (r"(?<!de\s)\bAndonaegui\b", "José de Andonaegui"),
     (r"\bGral\.?\s+Mariano\s+Necochea\b", "General Mariano Necochea"),
@@ -159,7 +170,7 @@ STREET_ALIAS_PATTERNS = (
 
 def _solis_alias_variant(value):
     folded = fold_text(value)
-    match = re.search(r"\bjuan\s+diaz\s+(?:de\s+)?solis\b|\bsolis\b", folded)
+    match = re.match(r"\s*(?:juan\s+diaz\s+(?:de\s+)?)?solis\b", folded)
     if match:
         return normalize_whitespace(f"Juan Díaz de Solís{value[match.end():]}")
     return ""
@@ -176,6 +187,11 @@ def address_alias_variants(value):
     if solis_candidate and solis_candidate != base and solis_candidate not in variants:
         variants.append(solis_candidate)
     return variants
+
+
+def canonical_address_alias(value):
+    variants = address_alias_variants(value)
+    return variants[0] if variants else normalize_street_number_address(value)
 
 
 def canonical_geocoding_locality(*values):
@@ -231,7 +247,9 @@ def clean_address_for_storage(value):
     if not parts:
         return ""
     first = parts[0]
+    first = re.sub(r"\.?\s+\bentre\b.*$", "", first, flags=re.I)
     first = re.sub(r"\s+\b(?:hurlingham|villa\s+tesei|william\s+c\.?\s+morris|william\s+morris)\b\s*$", "", first, flags=re.I)
+    first = canonical_address_alias(first)
     return normalize_whitespace(first.strip(" ,-"))
 
 

@@ -11,7 +11,6 @@ from .normalization import (
     address_alias_variants,
     canonical_geocoding_locality,
     classify_address_precision,
-    clean_address_for_storage,
     fold_text,
     is_plausible_property_address,
     normalize_address,
@@ -62,7 +61,13 @@ class Geocoder:
         self.session = session or requests.Session()
 
     def clean_query_address(self, address):
-        address = clean_address_for_storage(address) or normalize_street_number_address(address)
+        address = normalize_street_number_address(address)
+        address = re.sub(
+            r"(\b\d{2,5}\b)(?:\s*[-–,]?\s*hurlingham)?\s*[-–,]?\s+(?:barrio|b[°º]\.?)\s+[^,;/|]+",
+            r"\1",
+            address,
+            flags=re.I,
+        )
         parts = [normalize_whitespace(part) for part in address.split(",")]
         filtered = []
         for part in parts:
@@ -83,7 +88,17 @@ class Geocoder:
             }:
                 continue
             filtered.append(part)
-        return ", ".join(dict.fromkeys(filtered)) or address
+        if not filtered:
+            return address
+        first = filtered[0]
+        first = re.sub(r"\.?\s+\bentre\b.*$", "", first, flags=re.I)
+        first = re.sub(
+            r"\s+\b(?:hurlingham|villa\s+tesei|william\s+c\.?\s+morris|william\s+morris)\b\s*$",
+            "",
+            first,
+            flags=re.I,
+        )
+        return normalize_whitespace(first.strip(" ,-")) or address
 
     def build_query(self, property_obj):
         candidates = self.query_candidates(property_obj)
@@ -132,15 +147,15 @@ class Geocoder:
             return []
         variants = []
         text = normalize_whitespace(address)
-        match = re.match(r"(.+?)\s+y\s+(.+)$", text, re.I)
-        if match:
-            variants.append(f"{match.group(1)} esquina {match.group(2)}")
         match = re.match(r"(.+?)\s+e/\s*(.+?)\s+y\s+(.+)$", text, re.I)
         if match:
-            variants.append(f"{match.group(1)} y {match.group(2)}")
-            variants.append(f"{match.group(1)} y {match.group(3)}")
             variants.append(f"{match.group(1)} esquina {match.group(2)}")
             variants.append(f"{match.group(1)} esquina {match.group(3)}")
+            return [normalize_whitespace(value) for value in variants if value]
+        if "esquina" not in fold_text(text) and "batlle y ordonez" not in fold_text(text):
+            match = re.match(r"(.+?)\s+y\s+(.+)$", text, re.I)
+            if match:
+                variants.append(f"{match.group(1)} esquina {match.group(2)}")
         return [normalize_whitespace(value) for value in variants if value]
 
     def geocode_property(self, property_obj, force=False):

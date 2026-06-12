@@ -62,6 +62,83 @@
         });
       });
     }
+
+    bindPropertyDataEditor(root);
+  }
+
+  function bindPropertyDataEditor(root = document) {
+    const panel = root.querySelector(".property-data-editor");
+    const form = root.querySelector("#property-data-form");
+    const edit = root.querySelector("#edit-property-data");
+    const cancel = root.querySelector("#cancel-property-data");
+    const actions = root.querySelector(".editor-actions");
+    const status = root.querySelector("#property-data-status");
+    if (!panel || !form || !edit || edit.dataset.bound) return;
+    edit.dataset.bound = "1";
+    const controls = Array.from(form.querySelectorAll("input, select, textarea"));
+    const initial = snapshot();
+
+    function snapshot() {
+      const values = {};
+      controls.forEach((control) => {
+        values[control.name] = control.value;
+      });
+      return values;
+    }
+
+    function setEditing(enabled) {
+      controls.forEach((control) => {
+        control.disabled = !enabled;
+      });
+      edit.hidden = enabled;
+      if (actions) actions.hidden = !enabled;
+      if (status) status.textContent = "";
+    }
+
+    function restore() {
+      controls.forEach((control) => {
+        control.value = initial[control.name] || "";
+      });
+      setEditing(false);
+    }
+
+    edit.addEventListener("click", () => setEditing(true));
+    if (cancel) cancel.addEventListener("click", restore);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const payload = {};
+      controls.forEach((control) => {
+        if (control.value !== initial[control.name]) {
+          payload[control.name] = control.value;
+        }
+      });
+      if (!Object.keys(payload).length) {
+        setEditing(false);
+        return;
+      }
+      const save = root.querySelector("#save-property-data");
+      if (save) save.disabled = true;
+      fetch(`/api/propiedad/${panel.dataset.propertyId}/datos/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+        body: JSON.stringify(payload)
+      }).then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.error || "No se pudieron guardar los datos");
+          });
+        }
+        return response.json();
+      }).then(() => {
+        if (status) status.textContent = "Guardado";
+        setTimeout(() => window.location.reload(), 350);
+      }).catch((error) => {
+        if (status) status.textContent = error.message;
+      }).finally(() => {
+        if (save) save.disabled = false;
+      });
+    });
   }
 
   function setToggle(button, enabled) {

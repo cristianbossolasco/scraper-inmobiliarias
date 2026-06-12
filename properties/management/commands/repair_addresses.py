@@ -27,7 +27,40 @@ KNOWN_ADDRESS_CORRECTIONS = {
     4409: {"address": "Las Araucarias 1900", "locality": "Hurlingham", "neighborhood": "Los Troncos"},
     4548: {"address": "Juan Díaz de Solís 1686", "locality": "William C. Morris"},
     4571: {"address": "Eduardo Acevedo 329", "locality": "William C. Morris", "neighborhood": "Villa Club"},
+    1559: {"address": "Maestra Catalina G. de Pizzagalli 700", "locality": "Villa Tesei"},
+    4514: {"address": "Rolland 1200", "locality": "Hurlingham"},
+    1207: {"address": "Maestra A. González de Hecht 1200", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
+    1154: {"address": "Carhué 391", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
+    1140: {"address": "Einstein 100", "locality": "Villa Tesei"},
+    4401: {"address": "Diego de Carvajal 600", "locality": "Hurlingham", "neighborhood": "Parque Quirno"},
+    4393: {"address": "Waksman 404", "locality": "Villa Tesei", "neighborhood": "Barrio Italia"},
+    1093: {"address": "José Batlle y Ordoñez esquina Lima", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
+    1086: {"address": "Ginebra esquina Atuel", "locality": "Hurlingham"},
+    1085: {"address": "Cañuelas esquina Dolores de Huici", "locality": "William C. Morris"},
 }
+
+
+STREET_METADATA_RULES = (
+    ("maestra a gonzalez de hecht", {"locality": "Villa Tesei", "neighborhood": "Santos Tesei"}),
+    ("maestra catalina g de pizzagalli", {"locality": "Villa Tesei"}),
+    ("pizzagalli", {"locality": "Villa Tesei", "neighborhood": "Santos Tesei"}),
+    ("carhue", {"locality": "Villa Tesei", "neighborhood": "Santos Tesei"}),
+    ("einstein", {"locality": "Villa Tesei"}),
+    ("waksman", {"locality": "Villa Tesei", "neighborhood": "Barrio Italia"}),
+    ("diego de carvajal", {"locality": "Hurlingham", "neighborhood": "Parque Quirno"}),
+    ("rolland", {"locality": "Hurlingham"}),
+    ("jose batlle y ordonez", {"locality": "Villa Tesei", "neighborhood": "Santos Tesei"}),
+    ("canuelas esquina dolores de huici", {"locality": "William C. Morris"}),
+    ("ginebra esquina atuel", {"locality": "Hurlingham"}),
+)
+
+
+def metadata_for_address(address):
+    normalized = normalize_address(address)
+    for prefix, metadata in STREET_METADATA_RULES:
+        if normalized.startswith(prefix):
+            return metadata
+    return {}
 
 
 class Command(BaseCommand):
@@ -79,6 +112,19 @@ class Command(BaseCommand):
                 updates["neighborhood"] = embedded_neighborhood
                 if property_obj.detected_neighborhood in {"", "Hurlingham"}:
                     updates["detected_neighborhood"] = embedded_neighborhood
+            inferred_metadata = metadata_for_address(updates.get("address") or cleaned or property_obj.address)
+            if inferred_metadata.get("locality") and not known.get("locality"):
+                current_locality = updates.get("locality", property_obj.locality)
+                if current_locality in {"", "Hurlingham"} or inferred_metadata["locality"] != "Hurlingham":
+                    updates["locality"] = inferred_metadata["locality"]
+                    if property_obj.detected_locality:
+                        updates["detected_locality"] = inferred_metadata["locality"]
+            if inferred_metadata.get("neighborhood") and not known.get("neighborhood"):
+                current_neighborhood = updates.get("neighborhood", property_obj.neighborhood)
+                if current_neighborhood in {"", "Hurlingham"}:
+                    updates["neighborhood"] = inferred_metadata["neighborhood"]
+                    if property_obj.detected_neighborhood in {"", "Hurlingham"}:
+                        updates["detected_neighborhood"] = inferred_metadata["neighborhood"]
             if not updates:
                 continue
             changed += 1

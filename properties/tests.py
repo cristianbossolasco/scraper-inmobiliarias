@@ -102,12 +102,19 @@ class NormalizationTests(TestCase):
     def test_address_geocoding_cleanup_and_aliases(self):
         self.assertEqual(normalize_street_number_address("Rossini al 2000"), "Rossini 2000")
         self.assertEqual(normalize_street_number_address("solis al 2.800"), "solis 2800")
+        self.assertEqual(normalize_street_number_address("Rolland al 1.200"), "Rolland 1200")
         self.assertEqual(normalize_street_number_address("GRANADA 500, Piso 0"), "GRANADA 500")
         self.assertEqual(normalize_street_number_address("Bonorino 634 , Piso 1"), "Bonorino 634")
         self.assertIn("José de Andonaegui 2600", address_alias_variants("J De Andonaegui 2600"))
         self.assertIn("Esteban Bonorino 634", address_alias_variants("Bonorino 634"))
         self.assertIn("Eduardo Acevedo 329", address_alias_variants("Acevedo Eduardo 329"))
         self.assertIn("Juan Díaz de Solís 700", address_alias_variants("Solis 700"))
+        self.assertIn("Einstein 100", address_alias_variants("Alberto Einstein 100"))
+        self.assertIn("Diego de Carvajal 600", address_alias_variants("Diego de Carbajal 600"))
+        self.assertIn(
+            "Maestra A. González de Hecht 1200",
+            address_alias_variants("Maestra A Gonzalez De Hecht 1200"),
+        )
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -201,11 +208,15 @@ class NormalizationTests(TestCase):
             clean_detected_address(
                 "Acevedo Eduardo 329, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina"
             ),
-            "Acevedo Eduardo 329",
+            "Eduardo Acevedo 329",
         )
         self.assertEqual(
             clean_detected_address("Valentín Alsina 2243 - Barrio Cartero"),
             "Valentín Alsina 2243",
+        )
+        self.assertEqual(
+            clean_detected_address("Carhue 391. Entre Maestra Salinas y Las Provincias"),
+            "Carhué 391",
         )
 
 
@@ -489,6 +500,31 @@ class IngestionTests(TestCase):
         second.property.refresh_from_db()
         self.assertEqual(second.property.price, Decimal("115000"))
 
+    def test_manual_overrides_are_not_overwritten_by_ingestion(self):
+        listing, _ = ingest_listing(self.source, self.data)
+        property_obj = listing.property
+        property_obj.price = Decimal("99000")
+        property_obj.address = "Rolland 1200"
+        property_obj.normalized_address = "rolland 1200"
+        property_obj.manual_overrides = {"price": "manual", "address": "manual"}
+        property_obj.save(update_fields=["price", "address", "normalized_address", "manual_overrides"])
+
+        ingest_listing(
+            self.source,
+            dict(
+                self.data,
+                price="130000",
+                address="Ocampo 2000",
+                latitude=None,
+                longitude=None,
+            ),
+        )
+
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.price, Decimal("99000"))
+        self.assertEqual(property_obj.address, "Rolland 1200")
+        self.assertEqual(property_obj.normalized_address, "rolland 1200")
+
     def test_manual_location_is_not_overwritten(self):
         listing, _ = ingest_listing(self.source, self.data)
         location = listing.property.location
@@ -648,6 +684,31 @@ class IngestionTests(TestCase):
             candidates,
         )
         self.assertNotIn("1686S", " ".join(candidates))
+
+    def test_geocoder_candidates_translate_intersections(self):
+        batlle = Property.objects.create(
+            fingerprint="geo-candidates-batlle",
+            title="Lote Batlle",
+            address="J. Batlle y Ordoñez e/ Lima y Misserere",
+            locality="Villa Tesei",
+        )
+        candidates = Geocoder().query_candidates(batlle)
+        self.assertIn(
+            "José Batlle y Ordoñez esquina Lima, Villa Tesei, Buenos Aires, Argentina",
+            candidates,
+        )
+
+        ginebra = Property.objects.create(
+            fingerprint="geo-candidates-ginebra",
+            title="Casa Ginebra",
+            address="Ginebra e/ Atuel y Solís",
+            locality="Hurlingham",
+        )
+        candidates = Geocoder().query_candidates(ginebra)
+        self.assertIn(
+            "Ginebra esquina Atuel, Hurlingham, Buenos Aires, Argentina",
+            candidates,
+        )
 
     def test_geocoder_uses_clean_alias_cache_after_negative_old_query(self):
         property_obj = Property.objects.create(
@@ -946,6 +1007,60 @@ class IngestionTests(TestCase):
         self.assertEqual(acevedo.locality, "William C. Morris")
         self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 3)
 
+    @patch("properties.management.commands.repair_addresses.Geocoder")
+    def test_repair_addresses_applies_curated_manual_batch(self, geocoder_cls):
+        cases = [
+            (1559, "Maestra Catalina G. de Pizzagalli 700", "Hurlingham", "Villa Tesei"),
+            (4514, "Rolland al 1.200", "Hurlingham", "Hurlingham"),
+            (1207, "Maestra A Gonzalez De Hecht 1200", "Villa Tesei", "Villa Tesei"),
+            (1154, "Carhue 391. Entre Maestra Salinas y Las Provincias", "Villa Tesei", "Villa Tesei"),
+            (1140, "Alberto Einstein 100", "Hurlingham", "Villa Tesei"),
+            (4401, "Diego de Carbajal 600, Hurlingham", "Hurlingham", "Hurlingham"),
+            (4393, "waksman 404", "Hurlingham", "Villa Tesei"),
+            (1093, "J. Batlle y Ordoñez e/ Lima y Misserere", "Villa Tesei", "Villa Tesei"),
+            (1086, "Ginebra e/ Atuel y Solís", "Hurlingham", "Hurlingham"),
+            (1085, "Lavalle e/ Cañuelas y Dolores de Huici", "William C. Morris", "William C. Morris"),
+        ]
+        for property_id, address, locality, _expected_locality in cases:
+            Property.objects.create(
+                id=property_id,
+                fingerprint=f"repair-address-batch-{property_id}",
+                title=f"Propiedad {property_id}",
+                address=address,
+                detected_address=address,
+                locality=locality,
+            )
+        geocoder_cls.return_value.geocode_property.return_value = True
+
+        output = StringIO()
+        call_command(
+            "repair_addresses",
+            *[item for property_id, *_rest in cases for item in ("--property-id", str(property_id))],
+            "--geocode",
+            stdout=output,
+        )
+
+        expected = {
+            1559: ("Maestra Catalina G. de Pizzagalli 700", "Villa Tesei", ""),
+            4514: ("Rolland 1200", "Hurlingham", ""),
+            1207: ("Maestra A. González de Hecht 1200", "Villa Tesei", "Santos Tesei"),
+            1154: ("Carhué 391", "Villa Tesei", "Santos Tesei"),
+            1140: ("Einstein 100", "Villa Tesei", ""),
+            4401: ("Diego de Carvajal 600", "Hurlingham", "Parque Quirno"),
+            4393: ("Waksman 404", "Villa Tesei", "Barrio Italia"),
+            1093: ("José Batlle y Ordoñez esquina Lima", "Villa Tesei", "Santos Tesei"),
+            1086: ("Ginebra esquina Atuel", "Hurlingham", ""),
+            1085: ("Cañuelas esquina Dolores de Huici", "William C. Morris", ""),
+        }
+        for property_id, (address, locality, neighborhood) in expected.items():
+            property_obj = Property.objects.get(pk=property_id)
+            self.assertEqual(property_obj.address, address)
+            self.assertEqual(property_obj.locality, locality)
+            if neighborhood:
+                self.assertEqual(property_obj.neighborhood, neighborhood)
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 10)
+        self.assertIn("10 direcciones corregidas", output.getvalue())
+
     def test_repair_addresses_preserves_location_when_only_metadata_changes(self):
         property_obj = Property.objects.create(
             fingerprint="repair-address-preserve-pin",
@@ -1111,6 +1226,72 @@ class ViewTests(TestCase):
             {"return_to": "https://evil.example/"},
         )
         self.assertContains(response, 'href="/"')
+
+    def test_detail_renders_complete_property_data_editor(self):
+        response = self.client.get(f"/propiedad/{self.listing.property_id}/")
+
+        self.assertContains(response, "Datos de la propiedad")
+        self.assertContains(response, 'id="property-data-form"')
+        self.assertContains(response, 'name="property_type"')
+        self.assertContains(response, 'name="covered_area"')
+        self.assertContains(response, 'id="property-edit-payload"')
+
+    def test_property_data_endpoint_updates_fields_and_marks_overrides(self):
+        property_obj = self.listing.property
+        self.assertTrue(PropertyLocation.objects.filter(property=property_obj).exists())
+
+        response = self.client.post(
+            f"/api/propiedad/{property_obj.pk}/datos/",
+            data=json.dumps(
+                {
+                    "address": "Rolland al 1.200",
+                    "price": "160000",
+                    "neighborhood": "Barrio Ingles",
+                    "bedrooms": "4",
+                }
+            ),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.address, "Rolland 1200")
+        self.assertEqual(property_obj.normalized_address, "rolland 1200")
+        self.assertEqual(property_obj.price, Decimal("160000"))
+        self.assertEqual(property_obj.neighborhood, "Barrio Inglés")
+        self.assertEqual(property_obj.bedrooms, 4)
+        self.assertIn("address", property_obj.manual_overrides)
+        self.assertIn("price", property_obj.manual_overrides)
+        self.assertFalse(PropertyLocation.objects.filter(property=property_obj).exists())
+
+    def test_property_data_endpoint_rejects_unknown_fields(self):
+        response = self.client.post(
+            f"/api/propiedad/{self.listing.property_id}/datos/",
+            data=json.dumps({"fingerprint": "nope"}),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Campos no editables", response.json()["error"])
+
+    def test_property_data_endpoint_keeps_manual_location(self):
+        property_obj = self.listing.property
+        location = property_obj.location
+        location.manually_corrected = True
+        location.precision = PropertyLocation.Precision.MANUAL
+        location.provider = "manual"
+        location.save(update_fields=["manually_corrected", "precision", "provider"])
+
+        response = self.client.post(
+            f"/api/propiedad/{property_obj.pk}/datos/",
+            data=json.dumps({"address": "Diego de Carbajal 600"}),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.address, "Diego de Carvajal 600")
+        self.assertTrue(PropertyLocation.objects.filter(pk=location.pk).exists())
 
     def test_polygon_filter(self):
         polygon = json.dumps(

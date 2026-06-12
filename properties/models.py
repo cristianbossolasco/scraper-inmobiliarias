@@ -140,6 +140,8 @@ class Property(models.Model):
     is_hidden = models.BooleanField(default=False, db_index=True)
     reviewed_at = models.DateTimeField(null=True, blank=True, db_index=True)
     personal_notes = models.TextField(blank=True)
+    manual_overrides = models.JSONField(default=dict, blank=True)
+    data_manually_corrected_at = models.DateTimeField(null=True, blank=True)
     first_seen_at = models.DateTimeField(auto_now_add=True)
     last_seen_at = models.DateTimeField(auto_now=True, db_index=True)
 

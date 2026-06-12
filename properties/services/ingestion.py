@@ -97,6 +97,14 @@ def _bounded_decimal(field, value):
     return parsed
 
 
+def manual_override_fields(property_obj):
+    overrides = property_obj.manual_overrides if isinstance(property_obj.manual_overrides, dict) else {}
+    fields = {field for field in overrides if field in PROPERTY_FIELDS}
+    if "address" in fields:
+        fields.add("normalized_address")
+    return fields
+
+
 def canonicalize_listing_data(data, source=None):
     data = enrich_location_data(data)
     data["address"] = normalize_street_number_address(data.get("address"))
@@ -181,7 +189,10 @@ def ingest_listing(source, data):
                 location_evidence=data.get("location_evidence") or {},
             )
 
+    protected_fields = manual_override_fields(property_obj)
     for field in PROPERTY_FIELDS:
+        if field in protected_fields:
+            continue
         value = data.get(field)
         if value not in (None, "", []):
             setattr(property_obj, field, value)

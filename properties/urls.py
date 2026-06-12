@@ -15,6 +15,7 @@ urlpatterns = [
     path("api/propiedades/", views.properties_geojson, name="geojson"),
     path("api/propiedad/<int:pk>/estado/", views.update_property_state, name="update_property_state"),
     path("api/propiedad/<int:pk>/nota/", views.update_property_note, name="update_property_note"),
+    path("api/propiedad/<int:pk>/datos/", views.update_property_data, name="update_property_data"),
     path("api/propiedad/<int:pk>/ubicacion/", views.update_location, name="update_location"),
     path("api/configuracion-mapa/", views.map_config, name="map_config"),
     path("api/scraping/jobs/", views.create_scrape_job_api, name="scrape_job_create"),

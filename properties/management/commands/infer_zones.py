@@ -77,6 +77,10 @@ class Command(BaseCommand):
 
             stats["processed"] += 1
             stats[f"geocode_{result.geocoding_status}"] += 1
+
+            geocode_state = self._geocode_state(result)
+            stats[f"geocode_state_{geocode_state}"] += 1
+
             if result.inferred_neighborhood:
                 stats["inferred"] += 1
             if result.method.endswith("_polygon"):
@@ -99,7 +103,8 @@ class Command(BaseCommand):
                 self.stdout.write(
                     self._safe(
                         f"{index}/{total} propiedad {property_obj.pk}: "
-                        f"{status} ({result.method}){suffix}"
+                        f"{status} ({result.method}){suffix} "
+                        f"[geocode={geocode_state}, raw={result.geocoding_status}]"
                     )
                 )
 
@@ -114,10 +119,32 @@ class Command(BaseCommand):
                     f"{stats['conflicts']} conflictos; "
                     f"{stats['needs_review']} para revisar; "
                     f"{stats['no_data']} sin datos; "
-                    f"{stats['errors']} errores."
+                    f"{stats['errors']} errores. "
+                    f"Geocoding: "
+                    f"cache_hit={stats['geocode_state_cache_hit']}; "
+                    f"cache_miss={stats['geocode_state_cache_miss']}; "
+                    f"external_hit={stats['geocode_state_external_hit']}; "
+                    f"no_coordinates={stats['geocode_state_no_coordinates']}; "
+                    f"other={stats['geocode_state_other']}."
                 )
             )
         )
+
+    def _geocode_state(self, result):
+        if result.method == "no_coordinates":
+            return "no_coordinates"
+
+        status = result.geocoding_status
+
+        if status in {"not_needed", "cache_hit", "cache_applied"}:
+            return "cache_hit"
+        if status == "cache_miss":
+            return "cache_miss"
+        if status == "external_hit":
+            return "external_hit"
+        if status in {"external_no_result", "no_query"}:
+            return "no_coordinates"
+        return "other"
 
     def _safe(self, value):
         return str(value).encode("cp1252", errors="replace").decode("cp1252")
