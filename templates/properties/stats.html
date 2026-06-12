@@ -332,12 +332,13 @@
   </section>
 
   {% if anomaly_rows %}
-  <section class="stats-panel stats-tab-panel" data-tab-content="overview">
+  <section class="stats-panel stats-tab-panel" data-tab-content="models">
     <h2>Datos a revisar</h2>
     <div class="anomaly-table">
       <table>
         <thead>
           <tr>
+            <th>Modelo</th>
             <th>Campo</th>
             <th>Valor</th>
             <th>Motivo</th>
@@ -346,7 +347,8 @@
         </thead>
         <tbody>
           {% for row in anomaly_rows %}
-          <tr>
+          <tr data-anomaly-row data-model="{{ row.model_key }}">
+            <td><span class="anomaly-model-badge model-{{ row.model_key }}">{{ row.model_label }}</span></td>
             <td>{{ row.field }}</td>
             <td>{{ row.value }}</td>
             <td>{{ row.reason }}</td>
@@ -358,6 +360,7 @@
           {% endfor %}
         </tbody>
       </table>
+      <p id="anomaly-filter-empty" class="audit-note" hidden>No hay propiedades para revisar con el algoritmo seleccionado.</p>
     </div>
   </section>
   {% endif %}
@@ -453,6 +456,38 @@
   </section>
 
   <section class="stats-panel stats-tab-panel" data-tab-content="models">
+    <div class="stats-panel anomaly-model-panel">
+      <div class="section-heading">
+        <div>
+          <h2>Algoritmo de anomalías</h2>
+          <p>Seleccioná qué modelo querés inspeccionar. El cambio filtra la tabla sin recargar el dashboard.</p>
+        </div>
+        <label class="anomaly-model-select">
+          <span>Modelo</span>
+          <select id="anomaly-model-filter">
+            <option value="">Todos</option>
+            {% for option in anomaly_model_options %}
+              <option value="{{ option.key }}">{{ option.label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="anomaly-model-cards">
+        {% for item in anomaly_model_summary %}
+          <article class="anomaly-model-card model-{{ item.key }}" data-anomaly-card="{{ item.key }}">
+            <span>{{ item.label }}</span>
+            <strong>{{ item.count }}</strong>
+            <small>Severidad prom. {{ item.avg_severity }}/100</small>
+            <div class="analysis-actions">
+              <button class="text-button" type="button" data-anomaly-select="{{ item.key }}">Ver propiedades</button>
+              {% if item.first_property_id %}
+                <button class="text-button property-preview-trigger" type="button" data-property-id="{{ item.first_property_id }}">Previsualizar</button>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
     <div class="stats-grid">
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>

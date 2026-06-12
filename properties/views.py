@@ -1668,13 +1668,16 @@ def _zone_price_statistics(properties, request_query, stats_path):
     for label, values in grouped.items():
         values.sort()
         average = statistics.mean(values)
+        std = statistics.pstdev(values) if len(values) > 1 else 0
         items.append(
             {
                 "label": label,
                 "value": len(values),
                 "total": len(values),
                 "avg": round(average, 2),
-                "std": round(statistics.pstdev(values), 2) if len(values) > 1 else 0,
+                "std": round(std, 2),
+                "median": round(statistics.median(values), 2),
+                "cv": round((std / average) * 100, 1) if average else 0,
                 "min": round(values[0], 2),
                 "max": round(values[-1], 2),
                 "url": query_url(request_query, {"neighborhood": "" if label == "Sin dato" else label}, path=stats_path),
@@ -2058,6 +2061,60 @@ def _stats_cache_key(request):
     return "stats:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+ANOMALY_MODEL_OPTIONS = (
+    {"key": "rules", "label": "Reglas de calidad"},
+    {"key": "iqr_mad", "label": "IQR/MAD por zona/tipo"},
+    {"key": "regression", "label": "Regresion superficie-precio"},
+    {"key": "source_conflict", "label": "Conflictos de fuente/scraper"},
+)
+
+
+def _anomaly_model_for_category(category):
+    if category == "source_conflict":
+        return ANOMALY_MODEL_OPTIONS[3]
+    return ANOMALY_MODEL_OPTIONS[0]
+
+
+def _anomaly_severity(value=None, ratio=None, default=60):
+    if ratio is not None:
+        return max(1, min(100, round(float(ratio) * 100)))
+    if value in (None, ""):
+        return default
+    try:
+        parsed = abs(float(value))
+    except (TypeError, ValueError):
+        return default
+    return max(1, min(100, round(parsed)))
+
+
+def _anomaly_model_summary(rows):
+    by_model = {
+        option["key"]: {
+            "key": option["key"],
+            "label": option["label"],
+            "count": 0,
+            "severity_total": 0,
+            "avg_severity": 0,
+            "first_property_id": "",
+        }
+        for option in ANOMALY_MODEL_OPTIONS
+    }
+    for row in rows:
+        key = row.get("model_key") or "rules"
+        if key not in by_model:
+            continue
+        summary = by_model[key]
+        summary["count"] += 1
+        summary["severity_total"] += row.get("severity") or 0
+        if not summary["first_property_id"]:
+            summary["first_property_id"] = row["property"].pk
+    for summary in by_model.values():
+        if summary["count"]:
+            summary["avg_severity"] = round(summary["severity_total"] / summary["count"])
+        summary.pop("severity_total", None)
+    return list(by_model.values())
+
+
 def _percentile(sorted_values, percentile):
     if not sorted_values:
         return None
@@ -2102,6 +2159,8 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
         for property_obj, value in items:
             robust_z = 0 if not mad else 0.6745 * (value - median) / mad
             if value < lower or value > upper or abs(robust_z) >= 3.5:
+                distance = min(abs(value - lower), abs(value - upper)) if value < lower or value > upper else abs(robust_z)
+                severity = _anomaly_severity(ratio=(abs(robust_z) / 5 if robust_z else distance / max(1, median)))
                 rows.append(
                     {
                         "property": property_obj,
@@ -2109,6 +2168,9 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
                         "field": "modelo IQR/MAD",
                         "value": round(value),
                         "reason": f"USD/m2 atipico en {zone} ({property_type or 'tipo sin dato'})",
+                        "model_key": "iqr_mad",
+                        "model_label": "IQR/MAD por zona/tipo",
+                        "severity": severity,
                         "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
                     }
                 )
@@ -2134,6 +2196,7 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
                 for (property_obj, area, price), residual in zip(points, residuals):
                     if abs(residual) >= std * 1.8:
                         direction = "por debajo" if residual < 0 else "por encima"
+                        severity = _anomaly_severity(ratio=abs(residual) / max(1, std * 3))
                         rows.append(
                             {
                                 "property": property_obj,
@@ -2141,6 +2204,9 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
                                 "field": "regresion superficie-precio",
                                 "value": round(residual),
                                 "reason": f"precio {direction} de la banda esperada",
+                                "model_key": "regression",
+                                "model_label": "Regresion superficie-precio",
+                                "severity": severity,
                                 "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
                             }
                         )
@@ -2178,6 +2244,7 @@ def market_stats(request):
     for item in properties:
         listing = _primary_listing(item)
         for anomaly in property_anomalies(item):
+            model = _anomaly_model_for_category(anomaly.category)
             anomaly_rows.append(
                 {
                     "property": item,
@@ -2185,10 +2252,14 @@ def market_stats(request):
                     "field": anomaly.field,
                     "value": anomaly.value,
                     "reason": anomaly.reason,
+                    "model_key": model["key"],
+                    "model_label": model["label"],
+                    "severity": _anomaly_severity(default=70 if anomaly.category in {"price", "range"} else 55),
                     "detail_url": build_detail_url(item.pk, request.GET, stats_path),
                 }
             )
     anomaly_rows.extend(_advanced_anomaly_rows(properties, request.GET, stats_path))
+    anomaly_model_summary = _anomaly_model_summary(anomaly_rows)
     quality = {
         "price": sum(1 for item in properties if valid_price(item) is not None),
         "surface": sum(1 for item in properties if valid_area(item) is not None),
@@ -2251,8 +2322,10 @@ def market_stats(request):
         },
         "incomplete": incomplete,
         "inconsistent": inconsistent,
-        "anomaly_rows": anomaly_rows[:40],
+        "anomaly_rows": anomaly_rows[:120],
         "anomaly_count": len(anomaly_rows),
+        "anomaly_model_options": ANOMALY_MODEL_OPTIONS,
+        "anomaly_model_summary": anomaly_model_summary,
     }
     price_values = _numbers(curated_price_values(properties))[:500]
     min_price = min(price_values) if price_values else 0

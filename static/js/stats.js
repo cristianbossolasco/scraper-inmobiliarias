@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const dataNode = document.getElementById("chart-data");
   if (!dataNode?.textContent) return;
   const data = JSON.parse(dataNode.textContent);
@@ -266,10 +266,10 @@
         <div class="property-preview-map-heading">
           <div>
             <h3>Ubicacion</h3>
-            <p class="audit-note">Mové el marcador o hacé clic en el mapa para corregir la ubicación.</p>
+            <p class="audit-note">MovÃ© el marcador o hacÃ© clic en el mapa para corregir la ubicaciÃ³n.</p>
           </div>
           <button class="secondary-button" type="button" data-preview-save-location>
-            <i data-lucide="map-pin-check"></i> Guardar ubicación
+            <i data-lucide="map-pin-check"></i> Guardar ubicaciÃ³n
           </button>
         </div>
         <div id="property-preview-map" class="property-preview-map"></div>
@@ -277,7 +277,7 @@
     ` : `
       <div class="property-preview-map-panel">
         <h3>Ubicacion</h3>
-        <p class="audit-note">Esta propiedad todavía no tiene coordenadas para mostrar en el mapa.</p>
+        <p class="audit-note">Esta propiedad todavÃ­a no tiene coordenadas para mostrar en el mapa.</p>
       </div>
     `;
     propertyModalContent.innerHTML = `
@@ -290,7 +290,7 @@
             <div>
               <p class="eyebrow">Propiedad #${property.id}</p>
               <h2>${escapeHtml(property.title || "Propiedad")}</h2>
-              <p>${escapeHtml([property.address, property.neighborhood, property.locality].filter(Boolean).join(" · "))}</p>
+              <p>${escapeHtml([property.address, property.neighborhood, property.locality].filter(Boolean).join(" Â· "))}</p>
             </div>
             <strong>${escapeHtml(property.price_display || formatPrice(property))}</strong>
           </div>
@@ -395,14 +395,14 @@
 
   async function savePreviewLocation(propertyId, statusNode) {
     if (!propertyPreviewLocationDraft) {
-      if (statusNode) statusNode.textContent = "Mové el marcador o hacé clic en el mapa antes de guardar.";
+      if (statusNode) statusNode.textContent = "MovÃ© el marcador o hacÃ© clic en el mapa antes de guardar.";
       return;
     }
     await requestJson(`/api/propiedad/${propertyId}/ubicacion/`, {
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
-    if (statusNode) statusNode.textContent = "Ubicación guardada.";
+    if (statusNode) statusNode.textContent = "UbicaciÃ³n guardada.";
   }
 
   function initPropertyPreviewMap(property) {
@@ -451,7 +451,7 @@
           longitude: Number(lngLat.lng)
         };
         const status = propertyModalContent?.querySelector("[data-preview-status]");
-        if (status) status.textContent = "Ubicación pendiente de guardar.";
+        if (status) status.textContent = "UbicaciÃ³n pendiente de guardar.";
       };
       propertyPreviewMarker.on("dragend", () => updateDraft(propertyPreviewMarker.getLngLat()));
       propertyPreviewMap.on("click", (event) => {
@@ -512,7 +512,7 @@
             <strong>${escapeHtml(formatPrice(item))}</strong>
             <span>${escapeHtml(item.title || "Propiedad")}</span>
             <small>${escapeHtml(item.address || "")}</small>
-            <small>${escapeHtml([item.agency, item.source].filter(Boolean).join(" · "))}</small>
+            <small>${escapeHtml([item.agency, item.source].filter(Boolean).join(" Â· "))}</small>
             <em class="${status}">${statusLabel(status)}</em>
           </div>
         </div>
@@ -739,31 +739,48 @@
       return null;
     }
     ctx.hidden = false;
+    const labels = sorted.map((item) => item.label);
     const chart = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: sorted.map((item) => item.label),
+        labels,
         datasets: [
           {
-            label: "Precio promedio",
-            data: sorted.map((item) => item.avg),
-            backgroundColor: statusColors.pending,
+            label: "Banda promedio +/- desvio",
+            data: sorted.map((item) => [Math.max(0, item.avg - item.std), item.avg + item.std]),
+            backgroundColor: "rgba(23, 107, 77, 0.22)",
+            borderColor: "#176b4d",
+            borderWidth: 1,
+            borderRadius: 7,
+            barThickness: 12,
             metaItems: sorted
           },
           {
-            label: "Desvío",
-            data: sorted.map((item) => item.std),
-            borderColor: colors[1],
-            borderWidth: 3,
-            backgroundColor: "rgba(214, 165, 40, 0.38)",
-            yAxisID: "volatility",
-            type: "line",
-            tension: 0.15,
+            label: "Promedio",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.avg, y: item.label })),
+            backgroundColor: "#176b4d",
+            borderColor: "#ffffff",
+            borderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            metaItems: sorted
+          },
+          {
+            label: "Mediana",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.median || item.avg, y: item.label })),
+            backgroundColor: "#d6a528",
+            borderColor: "#17211d",
+            borderWidth: 1,
+            pointRadius: 4,
+            pointStyle: "rectRot",
             metaItems: sorted
           }
         ]
       },
       options: {
+        indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
         onClick: (event, _elements, chartInstance) => navigateFromChart(chartInstance, event),
@@ -773,34 +790,34 @@
               label: (context) => {
                 const item = context.dataset.metaItems?.[context.dataIndex];
                 if (!item) return "";
-                if (context.dataset.label === "Desvío") {
-                  return `Desvío: ${Math.round(item.std).toLocaleString("es-AR")}`;
+                if (context.dataset.label === "Banda promedio +/- desvio") {
+                  const low = Math.max(0, item.avg - item.std);
+                  const high = item.avg + item.std;
+                  return `Banda: ${Math.round(low).toLocaleString("es-AR")} a ${Math.round(high).toLocaleString("es-AR")}`;
                 }
-                return `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`;
+                if (context.dataset.label === "Mediana") {
+                  return `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`;
+                }
+                return [
+                  `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`,
+                  `Desvio: ${Math.round(item.std).toLocaleString("es-AR")}`,
+                  `Cantidad: ${item.total || 0}`,
+                  `Coef. variacion: ${item.cv || 0}%`
+                ];
               },
             },
             enabled: true
           }
         },
         scales: {
-          y: {
-            position: "left",
+          x: {
             type: "linear",
-            title: {
-              display: true,
-              text: "Precio promedio"
-            },
-            ticks: {
-              callback: (value) => priceFormatter.format(value)
-            }
+            title: { display: true, text: "Precio" },
+            ticks: { callback: (value) => priceFormatter.format(value) }
           },
-          volatility: {
-            position: "right",
-            grid: { drawOnChartArea: false },
-            title: {
-              display: true,
-              text: "Desvío estándar"
-            }
+          y: {
+            type: "category",
+            title: { display: true, text: "Zona" }
           }
         }
       }
@@ -817,6 +834,8 @@
       label: item.label,
       avg: Number(item.avg || 0),
       std: Number(item.std || 0),
+      median: Number(item.median || item.avg || 0),
+      cv: Number(item.cv || 0),
       total: item.total || 0,
       url: item.url,
       pending: item.pending || 0,
@@ -881,7 +900,7 @@
               <th>Superficie</th>
               <th>Precio</th>
               <th>Precio esperado</th>
-              <th>Desvío</th>
+              <th>DesvÃ­o</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -1038,7 +1057,7 @@
               <div class="map-popup">
                 <strong>${escapeHtml(props.label || "Zona")}</strong>
                 <p>${mode === "risk" ? "Riesgo relativo" : "Cobertura"}: ${Math.round(Number(score) || 0)}/100</p>
-                <small>${escapeHtml(props.security_level || "")} · ${escapeHtml(props.source || "")}</small>
+                <small>${escapeHtml(props.security_level || "")} Â· ${escapeHtml(props.source || "")}</small>
               </div>
             `)
             .addTo(map);
@@ -1138,7 +1157,7 @@
     }).catch(() => {
       if (emptyNote) {
         emptyNote.hidden = false;
-        emptyNote.textContent = "No se pudo cargar la configuración del mapa.";
+        emptyNote.textContent = "No se pudo cargar la configuraciÃ³n del mapa.";
       }
     });
   }
@@ -1328,7 +1347,7 @@
     if (!container) return;
     const rows = opportunityRows(data.surface_price || [], surfaceRegression);
     if (!rows.length) {
-      container.innerHTML = '<div class="audit-note">No hay oportunidades claras con los filtros actuales. Probá ampliar zona, superficie o incluir ocultas.</div>';
+      container.innerHTML = '<div class="audit-note">No hay oportunidades claras con los filtros actuales. ProbÃ¡ ampliar zona, superficie o incluir ocultas.</div>';
       return;
     }
     container.innerHTML = rows.map((item, index) => `
@@ -1440,7 +1459,7 @@
     if (!security.configured) {
       container.innerHTML = `
         <div class="audit-note">
-          No hay capa fina cargada. Agregá polígonos o puntos a <strong>data/seguridad_hurlingham.geojson</strong> para cruzar seguridad con precio.
+          No hay capa fina cargada. AgregÃ¡ polÃ­gonos o puntos a <strong>data/seguridad_hurlingham.geojson</strong> para cruzar seguridad con precio.
         </div>
       `;
       return;
@@ -1455,8 +1474,8 @@
         <div>
           <strong>${escapeHtml(formatPrice(item))}</strong>
           <span>${escapeHtml(item.zone || item.address || "Sin zona")}</span>
-          <small>Cobertura ${Math.round(Number(item.security_coverage_score) || 0)}/100 · Riesgo ${Math.round(Number(item.security_risk_score) || 0)}/100</small>
-          <small>${escapeHtml(item.security_zone_label || item.security_label || "sin zona")} · ${escapeHtml(item.security_source || "sin dato")}</small>
+          <small>Cobertura ${Math.round(Number(item.security_coverage_score) || 0)}/100 Â· Riesgo ${Math.round(Number(item.security_risk_score) || 0)}/100</small>
+          <small>${escapeHtml(item.security_zone_label || item.security_label || "sin zona")} Â· ${escapeHtml(item.security_source || "sin dato")}</small>
         </div>
         <button class="text-button property-preview-trigger" type="button" data-property-id="${item.id}">Abrir</button>
       </div>
@@ -1468,14 +1487,14 @@
     const rows = Array.isArray(data.security?.arbitrage) ? data.security.arbitrage : [];
     if (!container) return;
     if (!rows.length) {
-      container.innerHTML = '<div class="audit-note">Todavía no hay señales fuertes de arbitraje seguridad/precio con estos filtros.</div>';
+      container.innerHTML = '<div class="audit-note">TodavÃ­a no hay seÃ±ales fuertes de arbitraje seguridad/precio con estos filtros.</div>';
       return;
     }
     container.innerHTML = `
       <table>
         <thead>
           <tr>
-            <th>Señal</th>
+            <th>SeÃ±al</th>
             <th>Propiedad</th>
             <th>Zona seguridad</th>
             <th>Precio/m2</th>
@@ -1501,6 +1520,41 @@
     `;
   }
 
+  function initAnomalyModelFilter() {
+    const selector = document.getElementById("anomaly-model-filter");
+    const rows = Array.from(document.querySelectorAll("[data-anomaly-row]"));
+    const cards = Array.from(document.querySelectorAll("[data-anomaly-card]"));
+    const empty = document.getElementById("anomaly-filter-empty");
+    if (!selector) return;
+
+    const apply = () => {
+      const selected = selector.value || "";
+      let visibleRows = 0;
+      rows.forEach((row) => {
+        const visible = !selected || row.dataset.model === selected;
+        row.hidden = !visible;
+        if (visible) visibleRows += 1;
+      });
+      cards.forEach((card) => {
+        card.classList.toggle("active", Boolean(selected) && card.dataset.anomalyCard === selected);
+        card.hidden = false;
+      });
+      if (empty) empty.hidden = visibleRows > 0;
+    };
+
+    selector.addEventListener("change", apply);
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-anomaly-select]");
+      if (!button) return;
+      event.preventDefault();
+      selector.value = button.dataset.anomalySelect || "";
+      apply();
+      const table = document.querySelector("[data-anomaly-row]")?.closest(".stats-panel");
+      if (table) table.scrollIntoView({ block: "start", behavior: "smooth" });
+    });
+    apply();
+  }
+
   function renderCharts() {
     const locality = bar("locality-chart", "Publicaciones", data.by_locality);
     const neighborhood = bar("neighborhood-chart", "Publicaciones", data.by_neighborhood);
@@ -1510,7 +1564,7 @@
     const bedrooms = scatter("bedrooms-price-chart", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const bedroomsMl = scatter("bedrooms-price-chart-ml", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const securityRisk = scatter("security-risk-price-chart", "Precio/m2 vs riesgo", data.security?.risk_price || [], "Riesgo relativo", { yTitle: "Precio/m2" });
-    const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvío)", data.zone_price_volatility);
+    const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvÃ­o)", data.zone_price_volatility);
     const liquidity = createLiquidityChart();
     renderOpportunityPanel();
     renderZoneTypeMatrix();
@@ -1525,6 +1579,7 @@
   }
 
   initTabs();
+  initAnomalyModelFilter();
   if (typeof Chart !== "undefined") {
     try {
       renderCharts();
@@ -1639,3 +1694,4 @@
   }
   lucide.createIcons();
 })();
+
