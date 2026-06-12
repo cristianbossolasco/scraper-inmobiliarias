@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 from decimal import Decimal
 from io import StringIO
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
@@ -12,6 +13,7 @@ from django.test import Client, TestCase, TransactionTestCase
 from properties.models import (
     Agency,
     GeocodeCache,
+    Listing,
     ListingSnapshot,
     Property,
     PropertyLocation,
@@ -26,13 +28,22 @@ from properties.services.agency_normalization import normalize_agency_name
 from properties.services.data_quality import is_garage_like, is_rental_url, valid_price, valid_value
 from properties.services.geocoding import Geocoder
 from properties.services.normalization import (
+    build_fingerprint,
     classify_address_precision,
+    is_plausible_property_address,
     normalize_address,
+    normalize_neighborhood_name,
     normalize_street_number_address,
     parse_decimal,
 )
 from properties.services.scraping import ActiveScrapeJobError, create_scrape_job, db_writer_snapshot, run_scrape_job
 from properties.services.spatial import haversine_km, point_in_polygon
+from properties.services.zone_inference import (
+    apply_zone_inference,
+    infer_property_zone,
+    infer_zone_for_point,
+    load_zone_index,
+)
 from properties.scrapers.argenprop import ArgenpropScraper
 from properties.scrapers.base import ROBOTS_CACHE
 from properties.scrapers.argencasas import ArgencasasScraper
@@ -99,6 +110,49 @@ class NormalizationTests(TestCase):
         self.assertEqual(classify_address_precision("Mascagni"), "street")
 
 
+    def test_invalid_addresses_and_neighborhood_aliases(self):
+        self.assertFalse(is_plausible_property_address("Ciudad: Hurlingham"))
+        self.assertFalse(
+            is_plausible_property_address(
+                "Contacto Buscador de propiedades Click para llamar ahora"
+            )
+        )
+        self.assertTrue(is_plausible_property_address("Uspallata, Hurlingham"))
+        self.assertEqual(normalize_neighborhood_name("Barrio Ingles"), "Barrio Ingl\u00e9s")
+        self.assertEqual(normalize_neighborhood_name("Ingl\u00e9s"), "Barrio Ingl\u00e9s")
+        self.assertEqual(normalize_neighborhood_name("Morris"), "William C. Morris")
+        self.assertEqual(normalize_neighborhood_name("5 esquinas, Hurlingham Centro"), "5 esquinas")
+        self.assertEqual(
+            normalize_neighborhood_name(
+                "de perfil familiar, con accesos cercanos. Consultanos para conocer mas"
+            ),
+            "",
+        )
+
+    def test_fingerprint_falls_back_to_listing_identity_for_bad_address(self):
+        source = Source(slug="guarnieri", name="Guarnieri", base_url="https://example.com")
+        first = build_fingerprint(
+            {
+                "external_id": "casa-a",
+                "url": "https://example.com/casa-a",
+                "title": "Casa A",
+                "address": "Ciudad: Hurlingham",
+                "locality": "Hurlingham",
+            },
+            source=source,
+        )
+        second = build_fingerprint(
+            {
+                "external_id": "casa-b",
+                "url": "https://example.com/casa-b",
+                "title": "Casa B",
+                "address": "Ciudad: Hurlingham",
+                "locality": "Hurlingham",
+            },
+            source=source,
+        )
+        self.assertNotEqual(first, second)
+
     def test_agency_name_normalization(self):
         self.assertEqual(
             normalize_agency_name(
@@ -140,6 +194,223 @@ class SpatialTests(TestCase):
         ]
         self.assertTrue(point_in_polygon(-34.60, -58.64, polygon))
         self.assertFalse(point_in_polygon(-34.75, -58.64, polygon))
+
+
+class ZoneInferenceTests(TestCase):
+    def _geojson_path(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        path = Path(temp_dir.name) / "zones.geojson"
+
+        def polygon(name, ring):
+            return {
+                "type": "Feature",
+                "properties": {
+                    "@id": "relation/100",
+                    "name": name,
+                    "type": "boundary",
+                },
+                "geometry": {"type": "Polygon", "coordinates": [ring]},
+            }
+
+        def line(relation_id, name, coords):
+            return {
+                "type": "Feature",
+                "properties": {
+                    "@id": f"way/{relation_id}-{len(coords)}",
+                    "@relations": [
+                        {
+                            "role": "",
+                            "rel": relation_id,
+                            "reltags": {
+                                "admin_level": "9",
+                                "boundary": "administrative",
+                                "name": name,
+                                "type": "boundary",
+                            },
+                        }
+                    ],
+                },
+                "geometry": {"type": "LineString", "coordinates": coords},
+            }
+
+        direct_ring = [
+            [-58.6410, -34.6010],
+            [-58.6400, -34.6010],
+            [-58.6400, -34.6000],
+            [-58.6410, -34.6000],
+            [-58.6410, -34.6010],
+        ]
+        relation_ring = [
+            [-58.6430, -34.6030],
+            [-58.6420, -34.6030],
+            [-58.6420, -34.6020],
+            [-58.6430, -34.6020],
+            [-58.6430, -34.6030],
+        ]
+        features = [
+            polygon("Barrio Ingles", direct_ring),
+            line(200, "Cartero", [relation_ring[0], relation_ring[1]]),
+            line(200, "Cartero", [relation_ring[1], relation_ring[2]]),
+            line(200, "Cartero", [relation_ring[2], relation_ring[3]]),
+            line(200, "Cartero", [relation_ring[3], relation_ring[4]]),
+            line(300, "Incompleto", [[-58.645, -34.605], [-58.644, -34.605]]),
+        ]
+        path.write_text(
+            json.dumps({"type": "FeatureCollection", "features": features}),
+            encoding="utf-8",
+        )
+        return path
+
+    def test_zone_point_strict_boundary_nearest_and_no_match(self):
+        path = self._geojson_path()
+
+        inside = infer_zone_for_point(-34.6005, -58.6405, path, max_distance_m=100)
+        self.assertEqual(inside["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(inside["method"], "polygon")
+
+        boundary = infer_zone_for_point(-34.6000, -58.6405, path, max_distance_m=100)
+        self.assertEqual(boundary["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(boundary["method"], "polygon")
+
+        nearby = infer_zone_for_point(-34.5997, -58.6405, path, max_distance_m=100)
+        self.assertEqual(nearby["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(nearby["method"], "nearest")
+
+        far = infer_zone_for_point(-34.5980, -58.6405, path, max_distance_m=20)
+        self.assertEqual(far["zone"], "")
+        self.assertEqual(far["method"], "no_match")
+
+    def test_zone_loader_rebuilds_closed_osm_relation_and_reports_incomplete(self):
+        index = load_zone_index(self._geojson_path())
+        names = {polygon.name for polygon in index.polygons}
+        self.assertIn("Barrio Cartero", names)
+        self.assertIn("300", index.skipped_relations)
+
+        result = infer_zone_for_point(-34.6025, -58.6425, self._geojson_path())
+        self.assertEqual(result["zone"], "Barrio Cartero")
+
+    def test_inference_uses_cached_geocode_without_external_call(self):
+        path = self._geojson_path()
+        property_obj = Property.objects.create(
+            fingerprint="zone-cache-1",
+            title="Casa con cache",
+            address="Test 123",
+            locality="Hurlingham",
+        )
+        query = Geocoder().build_query(property_obj)
+        GeocodeCache.objects.create(
+            query=query,
+            latitude=-34.6005,
+            longitude=-58.6405,
+            precision="exact",
+            confidence=0.8,
+            provider_payload={},
+        )
+
+        result = infer_property_zone(property_obj, geojson_path=path)
+
+        self.assertEqual(result.inferred_neighborhood, "Barrio Ingl\u00e9s")
+        self.assertEqual(result.geocoding_status, "cache_hit")
+        property_obj.refresh_from_db()
+        self.assertTrue(hasattr(property_obj, "location"))
+
+    def test_inference_does_not_call_external_geocoder_without_flag(self):
+        class CacheOnlyGeocoder:
+            external_called = False
+
+            def build_query(self, property_obj):
+                return "Sin cache 123, Hurlingham, Buenos Aires, Argentina"
+
+            def geocode_property_from_cache(self, property_obj):
+                return None
+
+            def geocode_property(self, property_obj):
+                self.external_called = True
+                raise AssertionError("external geocoder should not be called")
+
+        geocoder = CacheOnlyGeocoder()
+        property_obj = Property.objects.create(
+            fingerprint="zone-cache-miss",
+            title="Casa sin cache",
+            address="Sin cache 123",
+            locality="Hurlingham",
+        )
+
+        result = infer_property_zone(
+            property_obj,
+            geojson_path=self._geojson_path(),
+            geocoder=geocoder,
+            geocode_missing=False,
+        )
+
+        self.assertEqual(result.geocoding_status, "cache_miss")
+        self.assertEqual(result.method, "no_coordinates")
+        self.assertFalse(geocoder.external_called)
+
+    def test_inference_preserves_source_zone_and_marks_conflict(self):
+        property_obj = Property.objects.create(
+            fingerprint="zone-conflict",
+            title="Casa con conflicto",
+            neighborhood="Villa Club",
+        )
+        PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.6005,
+            longitude=-58.6405,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="source",
+            confidence=1,
+        )
+
+        result = infer_property_zone(property_obj, geojson_path=self._geojson_path())
+        apply_zone_inference(property_obj, result)
+
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.neighborhood, "Villa Club")
+        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingl\u00e9s")
+        self.assertTrue(property_obj.zone_conflict)
+
+    def test_infer_zones_command_dry_run_and_apply(self):
+        property_obj = Property.objects.create(
+            fingerprint="zone-command",
+            title="Casa comando",
+        )
+        PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.6005,
+            longitude=-58.6405,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="source",
+            confidence=1,
+        )
+        path = self._geojson_path()
+
+        output = StringIO()
+        call_command(
+            "infer_zones",
+            "--dry-run",
+            "--property-id",
+            str(property_obj.pk),
+            "--geojson",
+            str(path),
+            stdout=output,
+        )
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.inferred_neighborhood, "")
+        self.assertIn("dry-run", output.getvalue())
+
+        call_command(
+            "infer_zones",
+            "--apply",
+            "--property-id",
+            str(property_obj.pk),
+            "--geojson",
+            str(path),
+            stdout=StringIO(),
+        )
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingl\u00e9s")
 
 
 class IngestionTests(TestCase):
@@ -294,7 +565,7 @@ class IngestionTests(TestCase):
         query = Geocoder().build_query(property_obj)
         self.assertEqual(
             query,
-            "Bizet 1900, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina",
+            "Bizet 1900, Hurlingham, Buenos Aires, Argentina",
         )
 
     def test_geocoder_query_normalizes_street_number_address(self):
@@ -306,7 +577,7 @@ class IngestionTests(TestCase):
         )
         self.assertEqual(
             Geocoder().build_query(property_obj),
-            "Profesor Castagna 4800, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina",
+            "Profesor Castagna 4800, Hurlingham, Buenos Aires, Argentina",
         )
 
     def test_geocoder_force_refreshes_non_manual_location(self):
@@ -324,7 +595,7 @@ class IngestionTests(TestCase):
             provider="source",
             confidence=1,
         )
-        query = "Profesor Castagna 4800, Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina"
+        query = "Profesor Castagna 4800, Hurlingham, Buenos Aires, Argentina"
         GeocodeCache.objects.create(
             query=query,
             latitude=-34.596,
@@ -429,6 +700,75 @@ class IngestionTests(TestCase):
         self.assertEqual(geocoder_cls.return_value.geocode_property.call_args.args[0].pk, changed.pk)
         self.assertIn("1 propiedades geolocalizadas", output.getvalue())
 
+    @patch("properties.management.commands.repair_merged_listings.get_adapter")
+    def test_repair_merged_listings_splits_invalid_address_cluster(self, get_adapter):
+        source = Source.objects.create(
+            slug="guarnieri", name="Guarnieri", base_url="https://guarnieri.example"
+        )
+        property_obj = Property.objects.create(
+            fingerprint="merged-guarnieri",
+            title="Fusion erronea",
+            address="Ciudad: Hurlingham",
+            locality="Hurlingham",
+        )
+        first = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="casa-a",
+            url="https://guarnieri.example/casa-a",
+        )
+        second = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="casa-b",
+            url="https://guarnieri.example/casa-b",
+        )
+
+        class FakeAdapter:
+            def parse(self, url):
+                if url.endswith("casa-a"):
+                    return {
+                        "external_id": "casa-a",
+                        "url": url,
+                        "title": "Casa A",
+                        "address": "Necochea 900",
+                        "locality": "Hurlingham",
+                        "property_type": "house",
+                        "currency": "USD",
+                        "price": 100000,
+                    }
+                return {
+                    "external_id": "casa-b",
+                    "url": url,
+                    "title": "Casa B",
+                    "address": "Padre Torello 2600",
+                    "locality": "Hurlingham",
+                    "property_type": "house",
+                    "currency": "USD",
+                    "price": 120000,
+                }
+
+        get_adapter.return_value = FakeAdapter()
+
+        output = StringIO()
+        call_command(
+            "repair_merged_listings",
+            "--property-id",
+            str(property_obj.pk),
+            "--source",
+            "guarnieri",
+            stdout=output,
+        )
+
+        first.refresh_from_db()
+        second.refresh_from_db()
+        property_obj.refresh_from_db()
+        self.assertEqual(first.property_id, property_obj.pk)
+        self.assertNotEqual(second.property_id, property_obj.pk)
+        self.assertEqual(property_obj.address, "Necochea 900")
+        self.assertEqual(second.property.address, "Padre Torello 2600")
+        self.assertIn("1 publicaciones separadas", output.getvalue())
+
 
 class ViewTests(TestCase):
     def setUp(self):
@@ -476,7 +816,8 @@ class ViewTests(TestCase):
             {"return_to": f"/?{query}"},
         )
         self.assertContains(response, 'href="/?price_max=200000&amp;sort=-last_seen"')
-        self.assertContains(response, 'class="source-button"')
+        self.assertContains(response, "Ver publicacion original")
+        self.assertContains(response, 'class="original-cta"')
         self.assertContains(response, 'href="https://example.com/web-1"')
 
         response = self.client.get(
@@ -509,6 +850,87 @@ class ViewTests(TestCase):
             self.listing.property.location.precision,
             PropertyLocation.Precision.MANUAL,
         )
+
+    def test_neighborhood_filter_uses_inferred_zone_as_fallback(self):
+        listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "inferred-zone",
+                "url": "https://example.com/inferred-zone",
+                "title": "Casa con zona inferida",
+                "address": "Uspallata",
+                "locality": "Hurlingham",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 100000,
+            },
+        )
+        listing.property.inferred_neighborhood = "Barrio Ingl\u00e9s"
+        listing.property.save(update_fields=["inferred_neighborhood"])
+
+        response = self.client.get("/", {"neighborhood": "Barrio Ingl\u00e9s"})
+
+        self.assertContains(response, "Casa con zona inferida")
+
+    def test_detail_allows_manual_location_without_existing_pin(self):
+        listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "no-pin",
+                "url": "https://example.com/no-pin",
+                "title": "Casa sin pin",
+                "address": "Uspallata",
+                "locality": "Hurlingham",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 100000,
+            },
+        )
+        response = self.client.get(f"/propiedad/{listing.property_id}/")
+        self.assertContains(response, "Ubicar manualmente")
+        self.assertContains(response, '"has_location": false')
+
+        response = self.client.post(
+            f"/api/propiedad/{listing.property_id}/ubicacion/",
+            data=json.dumps({"latitude": -34.591, "longitude": -58.641}),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
+        listing.property.refresh_from_db()
+        self.assertEqual(listing.property.location.provider, "manual")
+        self.assertTrue(listing.property.location.manually_corrected)
+
+    def test_detail_collapses_equal_price_history_segments(self):
+        listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "history",
+                "url": "https://example.com/history",
+                "title": "Casa historial",
+                "description": "Version uno",
+                "address": "Guardia Vieja",
+                "locality": "Hurlingham",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 100000,
+            },
+        )
+        ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "history",
+                "url": "https://example.com/history",
+                "title": "Casa historial",
+                "description": "Version dos",
+                "address": "Guardia Vieja",
+                "locality": "Hurlingham",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 100000,
+            },
+        )
+        response = self.client.get(f"/propiedad/{listing.property_id}/")
+        self.assertContains(response, "2 registros iguales")
 
     def test_property_state_notes_and_filters(self):
         property_id = self.listing.property_id
@@ -650,6 +1072,32 @@ class ViewTests(TestCase):
         self.assertContains(response, "Departamento en Villa Club")
         self.assertContains(response, "Villa Club")
         self.assertNotContains(response, "Casa con pileta")
+
+    def test_neighborhood_filter_is_searchable_multiselect_and_canonical(self):
+        listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "web-barrio-ingles",
+                "url": "https://example.com/web-barrio-ingles",
+                "title": "Casa barrio ingles",
+                "address": "Necochea 900",
+                "locality": "Hurlingham",
+                "neighborhood": "Barrio Ingles",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 130000,
+            },
+        )
+        listing.property.neighborhood = "Barrio Ingles"
+        listing.property.save(update_fields=["neighborhood"])
+
+        response = self.client.get("/")
+        self.assertContains(response, 'id="zone-search"')
+        self.assertContains(response, 'class="zone-selected"')
+        self.assertContains(response, 'src="/static/js/zone-filter.js"')
+
+        response = self.client.get("/", {"neighborhood": "Barrio Ingl\u00e9s"})
+        self.assertContains(response, "Casa barrio ingles")
 
     def test_exports_and_stats(self):
         response = self.client.get("/export/properties.csv")
@@ -1103,6 +1551,22 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["raw_data"]["argencasas_zone"], "Villa Club")
         self.assertEqual(data["property_type"], Property.Type.APARTMENT)
 
+    def test_argencasas_parser_reads_labeled_metrics(self):
+        data = self.parse_with_fixture(
+            ArgencasasScraper,
+            "argencasas_metric_detail.html",
+            "https://www.argencasas.com/propiedad-casa-venta-villa-alemania-309-358",
+        )
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["price"], Decimal("78000"))
+        self.assertEqual(data["rooms"], 3)
+        self.assertEqual(data["bedrooms"], 2)
+        self.assertEqual(data["bathrooms"], Decimal("1"))
+        self.assertEqual(data["covered_area"], Decimal("76"))
+        self.assertEqual(data["total_area"], Decimal("92"))
+        self.assertEqual(data["uncovered_area"], Decimal("10"))
+        self.assertEqual(data["age_years"], 45)
+
     def test_robots_txt_is_cached_across_scraper_instances(self):
         ROBOTS_CACHE.clear()
 
@@ -1394,8 +1858,8 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["total_area"], Decimal("250"))
         self.assertEqual(data["front_width"], Decimal("10"))
         self.assertEqual(data["lot_depth"], Decimal("25"))
-        self.assertEqual(data["address"], "Barrio Ingles - Hurlingham")
-        self.assertEqual(data["neighborhood"], "Barrio Inglés")
+        self.assertFalse(data.get("address"))
+        self.assertEqual(data["neighborhood"], "Barrio Ingl\u00e9s")
         self.assertEqual(
             data["images"],
             [
@@ -1422,7 +1886,7 @@ class ScraperParserTests(TestCase):
             "https://paulafossati.com.ar/site/properties/494112/venta-de-importante-lote-en-villa-tesei",
         )
         self.assertEqual(data["address"], "VERAGUA 4905")
-        self.assertEqual(data["neighborhood"], "Villa Santos Tesei")
+        self.assertEqual(data["neighborhood"], "Santos Tesei")
         self.assertEqual(data["locality"], "Hurlingham")
         self.assertEqual(data["garages"], 1)
         self.assertEqual(data["covered_area"], Decimal("40"))

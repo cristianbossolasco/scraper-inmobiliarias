@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from properties.models import Property
 from properties.services.geocoding import Geocoder
 from properties.services.location_enrichment import clean_detected_address
-from properties.services.normalization import normalize_address
+from properties.services.normalization import is_plausible_property_address, normalize_address
 
 
 class Command(BaseCommand):
@@ -27,10 +27,15 @@ class Command(BaseCommand):
             if cleaned and cleaned != property_obj.address:
                 updates["address"] = cleaned
                 updates["normalized_address"] = normalize_address(cleaned)
+            elif property_obj.address and not is_plausible_property_address(property_obj.address):
+                updates["address"] = ""
+                updates["normalized_address"] = ""
             elif cleaned and normalize_address(cleaned) != property_obj.normalized_address:
                 updates["normalized_address"] = normalize_address(cleaned)
             if detected_cleaned and detected_cleaned != property_obj.detected_address:
                 updates["detected_address"] = detected_cleaned
+            elif property_obj.detected_address and not is_plausible_property_address(property_obj.detected_address):
+                updates["detected_address"] = ""
             if not updates:
                 continue
             changed += 1

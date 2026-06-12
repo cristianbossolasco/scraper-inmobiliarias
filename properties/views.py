@@ -40,6 +40,7 @@ from .services.scraping import (
     source_catalog,
     start_scrape_job,
 )
+from .services.normalization import normalize_neighborhood_name
 from .services.spatial import (
     haversine_km,
     point_in_polygon,
@@ -138,22 +139,35 @@ def filter_context(params):
         "neighborhood_options": _neighborhood_options(),
         "features": ["Pileta", "Quincho", "Jardin", "Parrilla", "Apto credito"],
         "query_params": params,
-        "selected_filters": {key: _param_values(params, key) for key in multi_keys},
+        "selected_filters": {
+            key: (_selected_neighborhoods(params) if key == "neighborhood" else _param_values(params, key))
+            for key in multi_keys
+        },
     }
 
 
 def _neighborhood_options():
     counts = {}
-    for neighborhood, detected in Property.objects.values_list(
-        "neighborhood", "detected_neighborhood"
+    for neighborhood, detected, inferred in Property.objects.values_list(
+        "neighborhood", "detected_neighborhood", "inferred_neighborhood"
     ):
-        for name in {neighborhood, detected}:
-            if name:
-                counts[name] = counts.get(name, 0) + 1
+        for name in {neighborhood, detected, inferred}:
+            normalized = normalize_neighborhood_name(name)
+            if normalized:
+                counts[normalized] = counts.get(normalized, 0) + 1
     return [
         {"name": name, "count": count}
-        for name, count in sorted(counts.items(), key=lambda item: item[0].lower())
+        for name, count in sorted(counts.items(), key=lambda item: (-item[1], item[0].lower()))
     ]
+
+
+def _selected_neighborhoods(params):
+    selected = []
+    for value in _param_values(params, "neighborhood"):
+        normalized = normalize_neighborhood_name(value)
+        if normalized and normalized not in selected:
+            selected.append(normalized)
+    return selected
 
 
 def query_url(params, overrides=None, remove=None, path="/"):
@@ -403,12 +417,24 @@ def filtered_properties(params):
         if values:
             queryset = queryset.filter(**{f"{field}__in": values})
 
-    neighborhood_values = _param_values(params, "neighborhood")
+    neighborhood_values = _selected_neighborhoods(params)
     if neighborhood_values:
-        queryset = queryset.filter(
-            Q(neighborhood__in=neighborhood_values)
-            | Q(detected_neighborhood__in=neighborhood_values)
-        )
+        aliases_by_value = {value: {value} for value in neighborhood_values}
+        for neighborhood, detected, inferred in Property.objects.values_list(
+            "neighborhood", "detected_neighborhood", "inferred_neighborhood"
+        ):
+            for raw_name in (neighborhood, detected, inferred):
+                normalized = normalize_neighborhood_name(raw_name)
+                if normalized in aliases_by_value and raw_name:
+                    aliases_by_value[normalized].add(raw_name)
+        neighborhood_q = Q()
+        for aliases in aliases_by_value.values():
+            neighborhood_q |= (
+                Q(neighborhood__in=aliases)
+                | Q(detected_neighborhood__in=aliases)
+                | Q(inferred_neighborhood__in=aliases)
+            )
+        queryset = queryset.filter(neighborhood_q)
 
     if not params.get("operation") and params.get("show_non_sale") != "1":
         queryset = queryset.filter(operation="sale")
@@ -639,6 +665,9 @@ def _serialize(property_obj, distance=None, current_query=None):
         "address": property_obj.address,
         "locality": property_obj.locality,
         "neighborhood": property_obj.neighborhood,
+        "inferred_neighborhood": property_obj.inferred_neighborhood,
+        "zone_conflict": property_obj.zone_conflict,
+        "zone_needs_review": property_obj.zone_needs_review,
         "bedrooms": property_obj.bedrooms,
         "bathrooms": float(property_obj.bathrooms) if property_obj.bathrooms else None,
         "covered_area": float(property_obj.covered_area) if property_obj.covered_area else None,
@@ -665,6 +694,134 @@ def _serialize(property_obj, distance=None, current_query=None):
         "has_detected_address": has_detected_address,
         "exact": location.is_exact if location else False,
     }
+
+
+def _format_number(value):
+    if value is None or value == "":
+        return ""
+    decimal = Decimal(value)
+    if decimal == decimal.to_integral_value():
+        return f"{decimal:.0f}"
+    return f"{decimal.normalize()}"
+
+
+def _format_area(value):
+    formatted = _format_number(value)
+    return f"{formatted} m2" if formatted else ""
+
+
+def _detail_facts(property_obj):
+    price_m2 = valid_price_per_m2(property_obj)
+    facts = [
+        ("Tipo", property_obj.get_property_type_display()),
+        ("Operacion", "Venta" if property_obj.operation == "sale" else property_obj.operation.title()),
+        ("Estado", property_obj.get_status_display()),
+        ("Ambientes", property_obj.rooms),
+        ("Dormitorios", property_obj.bedrooms),
+        ("Banos", _format_number(property_obj.bathrooms)),
+        ("Toilettes", property_obj.toilets),
+        ("Cocheras", property_obj.garages),
+        ("Cubierta", _format_area(property_obj.covered_area)),
+        ("Total", _format_area(property_obj.total_area)),
+        ("Terreno", _format_area(property_obj.land_area)),
+        ("Libre", _format_area(property_obj.uncovered_area)),
+        ("Semicubierta", _format_area(property_obj.semicovered_area)),
+        ("Frente", _format_area(property_obj.front_width)),
+        ("Fondo", _format_area(property_obj.lot_depth)),
+        ("Plantas", property_obj.building_floors),
+        ("Antiguedad", f"{property_obj.age_years} anos" if property_obj.age_years else ""),
+        ("USD/m2", f"USD {_format_number(price_m2)}" if price_m2 is not None else ""),
+        ("Calidad ubicacion", property_obj.get_location_confidence_display()),
+    ]
+    return [{"label": label, "value": value} for label, value in facts if value not in (None, "")]
+
+
+def _listing_domain(url):
+    host = urlparse(url or "").netloc
+    return host[4:] if host.startswith("www.") else host
+
+
+def _source_links(property_obj):
+    links = []
+    for listing in property_obj.listings.all():
+        label = listing.source.name
+        if listing.agency:
+            label = f"{label} - {listing.agency.name}"
+        links.append(
+            {
+                "listing": listing,
+                "label": label,
+                "domain": _listing_domain(listing.url),
+            }
+        )
+    return links
+
+
+def _price_history_segments(property_obj):
+    snapshots = []
+    for listing in property_obj.listings.all():
+        for snapshot in listing.snapshots.all():
+            snapshots.append(snapshot)
+    snapshots.sort(key=lambda item: (item.observed_at, item.pk))
+    segments = []
+    for snapshot in snapshots:
+        key = (snapshot.currency or "", snapshot.price)
+        if segments and segments[-1]["key"] == key:
+            segments[-1]["last_seen"] = snapshot.observed_at
+            segments[-1]["count"] += 1
+            continue
+        segments.append(
+            {
+                "key": key,
+                "first_seen": snapshot.observed_at,
+                "last_seen": snapshot.observed_at,
+                "same_day": True,
+                "count": 1,
+                "currency": snapshot.currency or "",
+                "price": snapshot.price,
+            }
+        )
+        continue
+    for segment in segments:
+        segment["same_day"] = segment["first_seen"].date() == segment["last_seen"].date()
+    return list(reversed(segments))
+
+
+def _detail_navigation(property_obj, return_to):
+    previous_url = next_url = ""
+    parsed = urlparse(return_to)
+    params = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    properties = []
+    if parsed.path == reverse("properties:search"):
+        properties, _ = filtered_properties(params)
+    if not properties:
+        properties, _ = filtered_properties({})
+        params = {}
+    ids = [item.pk for item in properties]
+    if property_obj.pk in ids:
+        index = ids.index(property_obj.pk)
+        query = urlencode(params)
+        if index > 0:
+            previous_url = build_detail_url(ids[index - 1], query)
+        if index < len(ids) - 1:
+            next_url = build_detail_url(ids[index + 1], query)
+    if not previous_url:
+        previous_property = (
+            Property.objects.filter(operation="sale", is_hidden=False, pk__lt=property_obj.pk)
+            .order_by("-pk")
+            .first()
+        )
+        if previous_property:
+            previous_url = build_detail_url(previous_property.pk, "")
+    if not next_url:
+        next_property = (
+            Property.objects.filter(operation="sale", is_hidden=False, pk__gt=property_obj.pk)
+            .order_by("pk")
+            .first()
+        )
+        if next_property:
+            next_url = build_detail_url(next_property.pk, "")
+    return previous_url, next_url
 
 
 @ensure_csrf_cookie
@@ -715,34 +872,31 @@ def detail(request, pk):
         pk=pk,
     )
     location = getattr(property_obj, "location", None)
-    previous_url = next_url = ""
     return_to = safe_return_to(request)
     parsed = urlparse(return_to)
     return_label = "Estadisticas" if parsed.path == reverse("properties:stats") else "Resultados"
-    params = dict(parse_qsl(parsed.query, keep_blank_values=True))
-    if parsed.path == reverse("properties:search"):
-        properties, _ = filtered_properties(params)
-        ids = [item.pk for item in properties]
-        if property_obj.pk in ids:
-            index = ids.index(property_obj.pk)
-            if index > 0:
-                previous_url = build_detail_url(ids[index - 1], urlencode(params))
-            if index < len(ids) - 1:
-                next_url = build_detail_url(ids[index + 1], urlencode(params))
+    previous_url, next_url = _detail_navigation(property_obj, return_to)
     location_payload = {
         "id": property_obj.pk,
         "latitude": location.latitude if location else None,
         "longitude": location.longitude if location else None,
         "precision": location.precision if location else "",
+        "has_location": bool(location),
     }
+    source_links = _source_links(property_obj)
     return render(
         request,
         "properties/detail.html",
         {
             "property": property_obj,
+            "primary_listing": _primary_listing(property_obj),
+            "source_links": source_links,
+            "primary_source_link": source_links[0] if source_links else None,
+            "detail_facts": _detail_facts(property_obj),
+            "price_history": _price_history_segments(property_obj),
             "map_config": map_config_payload(),
             "property_location": location_payload,
-            "return_to": safe_return_to(request),
+            "return_to": return_to,
             "return_label": return_label,
             "previous_url": previous_url,
             "next_url": next_url,
@@ -878,6 +1032,9 @@ EXPORT_COLUMNS = (
     "barrio",
     "localidad_detectada",
     "barrio_detectado",
+    "barrio_inferido",
+    "conflicto_zona",
+    "zona_requiere_revision",
     "direccion_detectada",
     "fuente_localizacion",
     "confianza_localizacion",
@@ -910,6 +1067,9 @@ def _export_rows(properties):
             "barrio": property_obj.neighborhood,
             "localidad_detectada": property_obj.detected_locality,
             "barrio_detectado": property_obj.detected_neighborhood,
+            "barrio_inferido": property_obj.inferred_neighborhood,
+            "conflicto_zona": "Si" if property_obj.zone_conflict else "No",
+            "zona_requiere_revision": "Si" if property_obj.zone_needs_review else "No",
             "direccion_detectada": property_obj.detected_address,
             "fuente_localizacion": property_obj.get_location_source_display(),
             "confianza_localizacion": property_obj.get_location_confidence_display(),
@@ -1111,7 +1271,12 @@ def market_stats(request):
         "total": total,
         "query_params": request.GET,
         "by_locality": _counter(properties, lambda item: item.detected_locality or item.locality),
-        "by_neighborhood": _counter(properties, lambda item: item.detected_neighborhood or item.neighborhood),
+        "by_neighborhood": _counter(
+            properties,
+            lambda item: item.detected_neighborhood
+            or item.neighborhood
+            or item.inferred_neighborhood,
+        ),
         "by_currency": _counter(properties, lambda item: item.currency),
         "by_agency": _counter(listings, lambda item: item.agency.name if item.agency else ""),
         "by_source": _counter(listings, lambda item: item.source.name),
@@ -1189,7 +1354,9 @@ def market_stats(request):
         ),
         "by_neighborhood": _series(
             properties,
-            lambda item: item.detected_neighborhood or item.neighborhood,
+            lambda item: item.detected_neighborhood
+            or item.neighborhood
+            or item.inferred_neighborhood,
             lambda item, label: query_url(request.GET, {"neighborhood": label if label != "Sin dato" else ""}, path=stats_path),
         )[:12],
         "by_agency": _series(

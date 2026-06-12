@@ -19,8 +19,10 @@ from .agency_normalization import normalize_agency_name
 from .normalization import (
     build_fingerprint,
     infer_property_type,
+    is_plausible_property_address,
     normalize_address,
     normalize_locality,
+    normalize_neighborhood_name,
     normalize_street_number_address,
     parse_decimal,
 )
@@ -95,13 +97,18 @@ def _bounded_decimal(field, value):
     return parsed
 
 
-@transaction.atomic
-def ingest_listing(source, data):
+def canonicalize_listing_data(data, source=None):
     data = enrich_location_data(data)
     data["address"] = normalize_street_number_address(data.get("address"))
+    if not is_plausible_property_address(data.get("address")):
+        data["address"] = ""
     data["detected_address"] = normalize_street_number_address(data.get("detected_address"))
+    if not is_plausible_property_address(data.get("detected_address")):
+        data["detected_address"] = ""
     data["locality"] = normalize_locality(data.get("locality") or "Hurlingham")
-    data["normalized_address"] = normalize_address(data.get("address"))
+    data["neighborhood"] = normalize_neighborhood_name(data.get("neighborhood"))
+    data["detected_neighborhood"] = normalize_neighborhood_name(data.get("detected_neighborhood"))
+    data["normalized_address"] = normalize_address(data.get("address")) if data.get("address") else ""
     data["property_type"] = data.get("property_type") or infer_property_type(
         data.get("title"), data.get("description")
     )
@@ -117,7 +124,14 @@ def ingest_listing(source, data):
         "bathrooms",
     ):
         data[numeric_field] = _bounded_decimal(numeric_field, data.get(numeric_field))
-    data["fingerprint"] = build_fingerprint(data)
+    if source is not None:
+        data["fingerprint"] = build_fingerprint(data, source=source)
+    return data
+
+
+@transaction.atomic
+def ingest_listing(source, data):
+    data = canonicalize_listing_data(data, source=source)
 
     listing = Listing.objects.filter(
         source=source, external_id=str(data["external_id"])

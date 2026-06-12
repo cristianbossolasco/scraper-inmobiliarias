@@ -3,7 +3,7 @@ import re
 from .base import BaseScraper, SourceDefinition
 from .parsing import basic_html_data, json_ld_objects
 from .paginated import paginated_discover
-from properties.services.normalization import infer_property_type
+from properties.services.normalization import infer_property_type, parse_decimal, parse_int
 
 
 ARGENCASAS_ZONES = (
@@ -25,6 +25,18 @@ def argencasas_zone(text):
         if zone.lower() in folded:
             return zone
     return ""
+
+
+def metric_before_label(text, label, parser=parse_decimal):
+    patterns = [
+        rf"([\d.,]+)\s*(?:m²|mÂ²|m2|mts²|mts)?\s*\|\s*{label}\b",
+        rf"([\d.,]+)\s*(?:m²|mÂ²|m2|mts²|mts)?\s+{label}\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, re.I)
+        if match:
+            return parser(match.group(1))
+    return None
 
 
 class ArgencasasScraper(BaseScraper):
@@ -111,4 +123,21 @@ class ArgencasasScraper(BaseScraper):
                 data["bedrooms"] = int(re.search(r"\d+", value).group())
             elif "baño" in label:
                 data["bathrooms"] = int(re.search(r"\d+", value).group())
+        metric_text = soup.get_text(" | ", strip=True)
+        metric_updates = {
+            "rooms": metric_before_label(metric_text, "Ambientes", parse_int),
+            "bedrooms": metric_before_label(metric_text, "Dormitorios", parse_int),
+            "bathrooms": metric_before_label(metric_text, r"Ba(?:ños|nos)", parse_decimal),
+            "covered_area": metric_before_label(metric_text, "Sup Cubierta", parse_decimal),
+            "total_area": metric_before_label(metric_text, "Sup Total", parse_decimal),
+            "uncovered_area": metric_before_label(metric_text, "Sup Libre", parse_decimal),
+            "age_years": metric_before_label(metric_text, r"A(?:ños|nos)", parse_int),
+        }
+        evidence = {}
+        for field, value in metric_updates.items():
+            if value is not None:
+                data[field] = value
+                evidence[field] = str(value)
+        if evidence:
+            data.setdefault("raw_data", {})["argencasas_metrics"] = evidence
         return data

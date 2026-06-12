@@ -1,3 +1,4 @@
+import re
 import time
 import threading
 
@@ -8,6 +9,8 @@ from django.db.models import Q
 from properties.models import GeocodeCache, PropertyLocation
 from .normalization import (
     classify_address_precision,
+    fold_text,
+    is_plausible_property_address,
     normalize_street_number_address,
     normalize_whitespace,
 )
@@ -23,7 +26,11 @@ def geocodable_address_q():
 
 
 def best_address(property_obj):
-    return normalize_street_number_address(property_obj.address or property_obj.detected_address or "")
+    for value in (property_obj.address, property_obj.detected_address):
+        address = normalize_street_number_address(value or "")
+        if is_plausible_property_address(address):
+            return address
+    return ""
 
 
 def has_geocodable_address(property_obj):
@@ -37,13 +44,35 @@ class Geocoder:
     def __init__(self, session=None):
         self.session = session or requests.Session()
 
+    def clean_query_address(self, address):
+        address = normalize_street_number_address(address)
+        parts = [normalize_whitespace(part) for part in address.split(",")]
+        filtered = []
+        for part in parts:
+            folded = fold_text(part)
+            if not part:
+                continue
+            if re.fullmatch(r"b?\d{4}", folded):
+                continue
+            if folded in {
+                "argentina",
+                "buenos aires",
+                "provincia de buenos aires",
+                "partido de hurlingham",
+            }:
+                continue
+            filtered.append(part)
+        return ", ".join(dict.fromkeys(filtered)) or address
+
     def build_query(self, property_obj):
         address = best_address(property_obj)
+        if not address:
+            return ""
+        query_address = self.clean_query_address(address)
+        folded_query = fold_text(query_address)
         parts = [
-            address,
-            property_obj.neighborhood or property_obj.detected_neighborhood,
-            property_obj.locality or property_obj.detected_locality,
-            "Partido de Hurlingham",
+            query_address,
+            "" if "hurlingham" in folded_query else (property_obj.locality or property_obj.detected_locality),
             "Buenos Aires",
             "Argentina",
         ]
@@ -92,6 +121,21 @@ class Geocoder:
             confidence=float(result.get("importance", 0)),
             provider_payload=result,
         )
+        return self._apply(property_obj, query, cache)
+
+    def geocode_property_from_cache(self, property_obj, force=False):
+        current = getattr(property_obj, "location", None)
+        if current and current.manually_corrected:
+            return current
+        if current and not force:
+            return current
+
+        query = self.build_query(property_obj)
+        if not query:
+            return None
+        cache = GeocodeCache.objects.filter(query=query).first()
+        if not cache:
+            return None
         return self._apply(property_obj, query, cache)
 
     def _apply(self, property_obj, query, cache):

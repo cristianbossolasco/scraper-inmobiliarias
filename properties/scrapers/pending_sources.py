@@ -9,7 +9,9 @@ from properties.models import Property
 from properties.services.normalization import (
     classify_address_precision,
     infer_property_type,
+    is_plausible_property_address,
     normalize_currency,
+    normalize_neighborhood_name,
     parse_decimal,
     parse_int,
 )
@@ -791,7 +793,9 @@ class GuarnieriScraper(MultiSearchScraper):
             [r"Dirección\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTERÍSTICAS|CARACTERISTICAS)"],
         )
         if address:
-            data["address"] = clean_text(address)[:250]
+            parsed_address = clean_detected_address(address)
+            if parsed_address and (not data.get("address") or not is_plausible_property_address(data.get("address"))):
+                data["address"] = parsed_address[:250]
         city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Barrio\s*:|Propiedades|$)"])
         if city:
             data["locality"] = clean_text(city)
@@ -830,6 +834,16 @@ class GuarnieriScraper(MultiSearchScraper):
         root = soup.select_one(".elementor-location-single.property") or soup
         title_node = root.select_one("h1") or soup.select_one("h1") or soup.select_one("title")
         title = title_node.get_text(" ", strip=True) if title_node else "Propiedad"
+        header_address_node = (
+            root.select_one(".property-title-wrap .item-address")
+            or root.select_one(".property-header-wrap .item-address")
+            or root.select_one("address.item-address")
+        )
+        header_address = (
+            clean_detected_address(header_address_node.get_text(" ", strip=True))
+            if header_address_node
+            else ""
+        )
         page_text = split_suggested_text(visible_text(root))
         detail_start = re.search(r"DATOS DE LA PROPIEDAD", page_text, re.I)
         detail_text = page_text[detail_start.start():] if detail_start else page_text
@@ -854,7 +868,13 @@ class GuarnieriScraper(MultiSearchScraper):
             "locality": "Hurlingham",
             "operation": detect_operation(detail_text, url),
             "images": self._main_images(root),
+            "raw_data": {
+                "guarnieri_header_address": header_address,
+                "guarnieri_detail_pairs": details,
+            },
         }
+        if header_address:
+            data["address"] = header_address
 
         description_node = root.select_one(".property-description-wrap .block-content-wrap")
         if description_node:
@@ -872,7 +892,9 @@ class GuarnieriScraper(MultiSearchScraper):
             [r"Direcci(?:Ã³|ó|o)n\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTER|$)"],
         )
         if address:
-            data["address"] = clean_text(address)[:250]
+            parsed_address = clean_detected_address(address)
+            if parsed_address and (not data.get("address") or not is_plausible_property_address(data.get("address"))):
+                data["address"] = parsed_address[:250]
         city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Barrio\s*:|Propiedades|$)"])
         if city:
             data["locality"] = clean_text(city)
@@ -954,7 +976,9 @@ class GuarnieriScraper(MultiSearchScraper):
             elif label.startswith("estado"):
                 data["operation"] = detect_operation(value, data.get("url") or "")
             elif label.startswith("direccion"):
-                data["address"] = clean_text(value)[:250]
+                address = clean_detected_address(value)
+                if address:
+                    data["address"] = address[:250]
             elif label.startswith("ciudad"):
                 data["locality"] = clean_text(value)
             elif label.startswith("barrio"):
@@ -1315,6 +1339,13 @@ class PaulaFossatiScraper(CommonDetailScraper):
             "address": [r"Direcci(?:o|ó|Ã³)n"],
             "neighborhood": [r"Barrio"],
             "locality": [r"Ciudad"],
+            "province": [r"Provincia"],
+            "country": [r"Pa(?:i|Ã­|ÃƒÂ­)s"],
+            "code": [r"C(?:o|Ã³|ÃƒÂ³)digo"],
+            "category": [r"Categor(?:i|Ã­|ÃƒÂ­)a"],
+            "status_text": [r"Estado"],
+            "sale_price": [r"Venta"],
+            "location": [r"Ubicaci(?:o|Ã³|ÃƒÂ³)n"],
             "garages": [r"Estacionamientos"],
             "total_area": [r"Superficie\s+total"],
             "covered_area": [r"Superficie\s+cubierta"],
@@ -1325,11 +1356,17 @@ class PaulaFossatiScraper(CommonDetailScraper):
         }
         fields = parse_labeled_fields(page_text, labels)
         if fields.get("address"):
-            data["address"] = clean_detected_address(fields["address"])[:250]
+            address = clean_detected_address(fields["address"])
+            if address:
+                data["address"] = address[:250]
         if fields.get("locality"):
             data["locality"] = clean_text(fields["locality"])
         if fields.get("neighborhood"):
-            data["neighborhood"] = clean_text(fields["neighborhood"])
+            neighborhood = normalize_neighborhood_name(fields["neighborhood"])
+            if neighborhood:
+                data["neighborhood"] = neighborhood
+        if not data.get("neighborhood") and re.search(r"villa\s+(?:santos\s+)?tesei", text, re.I):
+            data["neighborhood"] = "Santos Tesei"
         apply_detail_fields(data, fields, "paula_fossati_detail_table")
         if fields.get("age_text"):
             year = parse_int(fields["age_text"])

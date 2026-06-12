@@ -97,3 +97,8 @@ HURLINGHAM_BOUNDS = {
     "north": -34.5480,
     "east": -58.6040,
 }
+
+ZONE_GEOJSON_PATH = os.environ.get(
+    "ZONE_GEOJSON_PATH", str(BASE_DIR / "data" / "Zonas_Hurlingham.geojson")
+)
+ZONE_INFERENCE_MAX_DISTANCE_M = float(os.environ.get("ZONE_INFERENCE_MAX_DISTANCE_M", "100"))

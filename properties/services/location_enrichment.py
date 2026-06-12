@@ -3,7 +3,10 @@ import re
 from properties.models import Property
 from .normalization import (
     fold_text,
+    infer_neighborhood_from_address,
+    is_plausible_property_address,
     normalize_locality,
+    normalize_neighborhood_name,
     normalize_street_number_address,
     normalize_whitespace,
 )
@@ -18,7 +21,7 @@ LOCALITY_PATTERNS = (
 NEIGHBORHOOD_PATTERNS = (
     ("Santos Tesei", (r"\bsantos\s+tesei\b",)),
     ("Parque Johnston", (r"\bparque\s+johnston\b", r"\bjohnston\b")),
-    ("Barrio Ingles", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
+    ("Barrio Inglés", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
 )
 
 REFERENCE_PATTERNS = (
@@ -60,7 +63,8 @@ def clean_detected_address(value):
         return ""
     text = ADDRESS_STOP_PATTERN.split(text, maxsplit=1)[0]
     text = re.sub(r"^(?:Direccion|Direcci(?:on|ón)|Ubicaci(?:on|ón))\s*:?\s*", "", text, flags=re.I)
-    return normalize_street_number_address(text.strip(" -–|,"))
+    text = normalize_street_number_address(text.strip(" -–|,"))
+    return text if is_plausible_property_address(text) else ""
 
 
 def _find_named(patterns, text):
@@ -121,8 +125,15 @@ def enrich_location_data(data):
     locality = normalize_locality(data.get("locality") or (detected_localities[0] if detected_localities else ""))
     if locality and locality not in {"Hurlingham", "Villa Tesei", "William C. Morris"}:
         locality = _find_named(LOCALITY_PATTERNS, text) or locality
-    neighborhood = data.get("neighborhood") or _find_named(NEIGHBORHOOD_PATTERNS, text)
+    neighborhood = normalize_neighborhood_name(
+        data.get("neighborhood") or _find_named(NEIGHBORHOOD_PATTERNS, text)
+    )
     address = clean_detected_address(data.get("address") or raw.get("address")) or _first_address(text)
+    address_neighborhood = infer_neighborhood_from_address(
+        data.get("address") or address or raw.get("address")
+    )
+    if address_neighborhood and (not neighborhood or neighborhood in {"Hurlingham", "Hurlingham Centro"}):
+        neighborhood = address_neighborhood
     lat, lng = _coordinates(data)
 
     folded_text = fold_text(text)
@@ -168,7 +179,9 @@ def enrich_location_data(data):
 
     if not data.get("locality") and data["detected_locality"]:
         data["locality"] = data["detected_locality"]
-    if not data.get("neighborhood") and neighborhood:
+    if data.get("neighborhood"):
+        data["neighborhood"] = neighborhood
+    elif neighborhood:
         data["neighborhood"] = neighborhood
     if not data.get("address") and address:
         data["address"] = address

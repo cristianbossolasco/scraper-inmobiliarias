@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from properties.models import Listing
 from properties.scrapers.registry import get_adapter
 from properties.services.data_quality import is_listing_url, is_rental_url
-from properties.services.location_enrichment import enrich_location_data
+from properties.services.ingestion import canonicalize_listing_data
 from properties.services.normalization import normalize_address, normalize_locality
 
 
@@ -29,6 +29,7 @@ REPAIR_FIELDS = (
     "front_width",
     "lot_depth",
     "building_floors",
+    "age_years",
     "detected_locality",
     "detected_neighborhood",
     "detected_address",
@@ -99,7 +100,7 @@ class Command(BaseCommand):
                 if not data:
                     self.stdout.write(self._safe_line(f"  OMITIDA id={listing.property_id}: parser sin datos"))
                     continue
-                data = enrich_location_data(data)
+                data = canonicalize_listing_data(data, source=listing.source)
                 changes = self._changes(listing.property, data)
                 changes.extend(self._classification_changes(listing, data, options))
                 changes = self._dedupe_changes(changes)

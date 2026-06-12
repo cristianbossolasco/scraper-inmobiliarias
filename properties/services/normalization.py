@@ -28,6 +28,80 @@ TYPE_KEYWORDS = (
     ("chalet", Property.Type.HOUSE),
 )
 
+GENERIC_ADDRESS_PARTS = (
+    "argentina",
+    "buenos aires",
+    "provincia de buenos aires",
+    "partido de hurlingham",
+    "hurlingham",
+    "villa tesei",
+    "villa santos tesei",
+    "william c morris",
+    "william morris",
+    "morris",
+    "villa alemania",
+    "villa club",
+    "parque johnston",
+    "parque quirno",
+    "barrio ingles",
+    "hurlingham centro",
+    "km 18",
+)
+
+ADDRESS_NOISE_PATTERNS = (
+    r"^\s*ciudad\s*:",
+    r"\bcontacto\s+buscador\b",
+    r"\btipo\s+de\s+propiedad\b",
+    r"\botras\s+operaciones\b",
+    r"\bmapa\s+de\s+sitio\b",
+    r"\binicio\s+propiedades\b",
+    r"\bclick\s+para\s+llamar\b",
+    r"\bcurso\s+de\s+agente\b",
+    r"\bdesarrollos\s+inmobiliarios\b",
+)
+
+NEIGHBORHOOD_NOISE_PATTERNS = (
+    r"\bconsultanos\b",
+    r"\bmartillero\b",
+    r"\bcolegiado\b",
+    r"\btodos\s+los\s+detalles\b",
+    r"\bcategoria\s*:",
+    r"\bestado\s*:",
+    r"\bventa\s*:",
+    r"\busd\b",
+)
+
+NEIGHBORHOOD_ALIASES = (
+    ("Barrio Inglés", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
+    ("William C. Morris", (r"\bwilliam\s+c\.?\s*morris\b", r"\bwilliam\s+morris\b", r"^morris$")),
+    ("Santos Tesei", (r"\bvilla\s+santos\s+tes", r"\bsantos\s+tesei\b")),
+    ("5 esquinas", (r"\b5\s+esquinas\b",)),
+    ("Barrio Cartero", (r"\bbarrio\s+cartero\b", r"^cartero$")),
+    ("Parque Johnston", (r"\bparque\s+jh?ohnston\b", r"\bjh?ohnston\b")),
+    ("Parque Quirno", (r"\bparque\s+quirno\b",)),
+    ("Villa Alemania", (r"\bvilla\s+alemania\b",)),
+    ("Villa Club", (r"\bvilla\s+club\b",)),
+    ("Villa Tesei Centro", (r"\bvilla\s+tesei\s+centro\b",)),
+    ("Villa Tesei", (r"^villa\s+tesei$",)),
+    ("Km 18", (r"\bkm\s*18\b",)),
+    ("Zona Curupayti", (r"\bzona\s+curupayti\b", r"\bcurupayti\b", r"\bcurapayti\b")),
+    ("Zona Iglesia", (r"\bzona\s+iglesia\b",)),
+    ("Zona Municipalidad", (r"\bzona\s+municipalidad\b",)),
+    ("Barrio Luna", (r"\bbarrio\s+luna\b", r"^luna$")),
+    ("Barrio Destino", (r"\bbarrio\s+destino\b", r"^el\s+destino$")),
+    ("Barrio Italia", (r"\bbarrio\s+italia\b",)),
+    ("Hurlingham Centro", (r"\bhurlingham\s+centro\b",)),
+    ("Hurlingham", (r"^hurlingham$",)),
+)
+
+ADDRESS_NEIGHBORHOOD_RULES = (
+    ("Santos Tesei", (r"\bveragua\b",)),
+    ("Villa Club", (r"\bvilla\s+club\b",)),
+    ("Barrio Ingl\u00e9s", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
+    ("Parque Johnston", (r"\bparque\s+johnston\b", r"\bjohnston\b")),
+    ("William C. Morris", (r"\bwilliam\s+c\.?\s*morris\b", r"\bwilliam\s+morris\b")),
+)
+
 
 def fold_text(value):
     value = unicodedata.normalize("NFKD", value or "")
@@ -46,6 +120,29 @@ def normalize_street_number_address(value):
     return normalize_whitespace(text)
 
 
+def _without_accents_and_punctuation(value):
+    text = normalize_address(value)
+    text = re.sub(r"\bb\d{4}\b", " ", text)
+    return normalize_whitespace(text)
+
+
+def is_plausible_property_address(value):
+    text = normalize_street_number_address(value)
+    if not text:
+        return False
+    if len(text) > 180:
+        return False
+    folded = fold_text(text)
+    if any(re.search(pattern, folded, re.I) for pattern in ADDRESS_NOISE_PATTERNS):
+        return False
+    simplified = _without_accents_and_punctuation(text)
+    for part in sorted(GENERIC_ADDRESS_PARTS, key=len, reverse=True):
+        simplified = re.sub(rf"\b{re.escape(part)}\b", " ", simplified)
+    simplified = re.sub(r"\b(?:cp|codigo\s+postal)\b", " ", simplified)
+    simplified = normalize_whitespace(simplified.strip(" ,-"))
+    return bool(re.search(r"[a-z]", simplified))
+
+
 def normalize_address(value):
     text = fold_text(normalize_street_number_address(value))
     text = re.sub(r"[.,;#]", " ", text)
@@ -60,6 +157,36 @@ def normalize_address(value):
     for pattern, replacement in replacements.items():
         text = re.sub(pattern, replacement, text)
     return normalize_whitespace(text)
+
+
+def normalize_neighborhood_name(value):
+    text = normalize_whitespace(value or "").strip(" -–|,.")
+    if not text:
+        return ""
+    if len(text) > 80:
+        return ""
+    folded = fold_text(text)
+    if any(re.search(pattern, folded, re.I) for pattern in NEIGHBORHOOD_NOISE_PATTERNS):
+        return ""
+    first_part = normalize_whitespace(re.split(r",|/|\|", text, maxsplit=1)[0])
+    folded_first = fold_text(first_part)
+    for canonical, patterns in NEIGHBORHOOD_ALIASES:
+        if any(re.search(pattern, folded_first, re.I) for pattern in patterns):
+            return canonical
+    for canonical, patterns in NEIGHBORHOOD_ALIASES:
+        if any(re.search(pattern, folded, re.I) for pattern in patterns):
+            return canonical
+    return text
+
+
+def infer_neighborhood_from_address(value):
+    folded = fold_text(normalize_street_number_address(value or ""))
+    if not folded:
+        return ""
+    for canonical, patterns in ADDRESS_NEIGHBORHOOD_RULES:
+        if any(re.search(pattern, folded, re.I) for pattern in patterns):
+            return canonical
+    return ""
 
 
 def normalize_locality(value):
@@ -129,8 +256,9 @@ def infer_property_type(*values):
     return Property.Type.OTHER
 
 
-def build_fingerprint(data):
-    address = normalize_address(data.get("address"))
+def build_fingerprint(data, source=None):
+    raw_address = data.get("address")
+    address = normalize_address(raw_address) if is_plausible_property_address(raw_address) else ""
     locality = normalize_locality(data.get("locality"))
     if address:
         identity = "|".join(
@@ -139,6 +267,15 @@ def build_fingerprint(data):
                 locality,
                 str(data.get("property_type") or ""),
                 str(data.get("covered_area") or data.get("total_area") or ""),
+            ]
+        )
+    elif source and (data.get("external_id") or data.get("url")):
+        identity = "|".join(
+            [
+                "listing",
+                getattr(source, "slug", str(source)),
+                str(data.get("external_id") or ""),
+                str(data.get("url") or ""),
             ]
         )
     else:

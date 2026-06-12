@@ -12,40 +12,46 @@
       <a class="icon-button" href="{{ next_url }}" title="Siguiente" aria-label="Siguiente"><i data-lucide="chevron-right"></i></a>
     {% endif %}
   </div>
-  <span class="precision-pill {% if property.location.is_exact %}exact{% else %}approximate{% endif %}">
-    <i data-lucide="map-pin"></i>{{ property.location.get_precision_display|default:"Sin ubicación" }}
+  <span class="precision-pill {% if property_location.precision == 'exact' or property_location.precision == 'manual' %}exact{% else %}approximate{% endif %}">
+    <i data-lucide="map-pin"></i>
+    {% if property_location.has_location %}{{ property.location.get_precision_display }}{% else %}Sin ubicacion{% endif %}
   </span>
 </header>
+
 <main class="detail-layout">
   <section class="detail-main">
-    {% with listing=property.primary_listing %}
-      {% if listing.images.all %}
+    {% if primary_listing and primary_listing.images.all %}
       <div class="gallery">
-        {% for image in listing.images.all|slice:":4" %}
+        {% for image in primary_listing.images.all|slice:":4" %}
           <img src="{{ image.url }}" alt="" loading="lazy">
         {% endfor %}
       </div>
-      {% endif %}
-    {% endwith %}
+    {% endif %}
 
     <div class="detail-heading">
       <div>
         <p class="eyebrow">{{ property.get_property_type_display }} en venta</p>
         <h1>{{ property.title }}</h1>
-        <p class="detail-address">{{ property.address }}, {{ property.locality }}</p>
+        <p class="detail-address">
+          {% if property.address %}{{ property.address }}{% else %}Direccion no confirmada{% endif %}
+          {% if property.neighborhood %} · {{ property.neighborhood }}{% endif %}
+          {% if property.locality %} · {{ property.locality }}{% endif %}
+        </p>
       </div>
       <div class="detail-price">
         {% if property.price %}{{ property.currency }} {{ property.price|floatformat:0 }}{% else %}Consultar{% endif %}
       </div>
     </div>
-    <div class="original-links">
-      {% for listing in property.listings.all %}
-        <a class="source-button" href="{{ listing.url }}" target="_blank" rel="noopener">
-          <i data-lucide="external-link"></i>
-          {{ listing.source.name }}{% if listing.agency %} · {{ listing.agency.name }}{% endif %}
-        </a>
-      {% endfor %}
-    </div>
+
+    {% if primary_source_link %}
+      <a class="original-cta" href="{{ primary_source_link.listing.url }}" target="_blank" rel="noopener">
+        <i data-lucide="external-link"></i>
+        <span>
+          <strong>Ver publicacion original</strong>
+          <small>{{ primary_source_link.label }}{% if primary_source_link.domain %} · {{ primary_source_link.domain }}{% endif %}</small>
+        </span>
+      </a>
+    {% endif %}
 
     <div class="analysis-actions" data-property-id="{{ property.pk }}">
       <button class="secondary-button property-action {% if property.is_favorite %}active{% endif %}" type="button" data-action="favorite" data-value="{% if property.is_favorite %}0{% else %}1{% endif %}">
@@ -59,25 +65,57 @@
       </button>
     </div>
 
-    <dl class="metrics">
-      <div><dt>Dormitorios</dt><dd>{{ property.bedrooms|default:"-" }}</dd></div>
-      <div><dt>Baños</dt><dd>{{ property.bathrooms|floatformat:-1|default:"-" }}</dd></div>
-      <div><dt>Cubierta</dt><dd>{% if property.covered_area %}{{ property.covered_area|floatformat:0 }} m²{% else %}-{% endif %}</dd></div>
-      <div><dt>Terreno</dt><dd>{% if property.land_area %}{{ property.land_area|floatformat:0 }} m²{% else %}-{% endif %}</dd></div>
-      <div><dt>Cocheras</dt><dd>{{ property.garages|default:"-" }}</dd></div>
-      <div><dt>Antigüedad</dt><dd>{% if property.age_years %}{{ property.age_years }} años{% else %}-{% endif %}</dd></div>
+    <dl class="metrics detail-facts">
+      {% for fact in detail_facts %}
+        <div><dt>{{ fact.label }}</dt><dd>{{ fact.value }}</dd></div>
+      {% endfor %}
     </dl>
+
+    <section class="detail-section compact-section">
+      <h2>Ubicacion</h2>
+      <dl class="location-audit">
+        <div><dt>Localidad</dt><dd>{{ property.locality|default:"-" }}</dd></div>
+        <div><dt>Zona fuente</dt><dd>{{ property.neighborhood|default:"-" }}</dd></div>
+        <div><dt>Zona inferida</dt><dd>{{ property.inferred_neighborhood|default:"-" }}</dd></div>
+        <div><dt>Direccion</dt><dd>{{ property.address|default:"-" }}</dd></div>
+        <div><dt>Fuente</dt><dd>{{ property.get_location_source_display }}</dd></div>
+        <div><dt>Confianza</dt><dd>{{ property.get_location_confidence_display }}</dd></div>
+      </dl>
+      {% if property.zone_conflict or property.zone_needs_review %}
+        <div class="location-badges">
+          {% if property.zone_conflict %}
+            <span class="quality-pill warning">Conflicto de zona</span>
+          {% endif %}
+          {% if property.zone_needs_review %}
+            <span class="quality-pill warning">Zona a revisar</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if property.detected_locality or property.detected_neighborhood or property.detected_address %}
+      <details class="audit-details">
+        <summary>Ver deteccion original</summary>
+        <dl class="location-audit secondary-audit">
+          <div><dt>Localidad</dt><dd>{{ property.detected_locality|default:"-" }}</dd></div>
+          <div><dt>Barrio/Zona</dt><dd>{{ property.detected_neighborhood|default:"-" }}</dd></div>
+          <div><dt>Direccion</dt><dd>{{ property.detected_address|default:"-" }}</dd></div>
+        </dl>
+      </details>
+      {% endif %}
+      {% if property.location_notes %}
+        <p class="audit-note">{{ property.location_notes }}</p>
+      {% endif %}
+    </section>
 
     {% if property.description %}
     <section class="detail-section">
-      <h2>Descripción</h2>
+      <h2>Descripcion</h2>
       <p>{{ property.description }}</p>
     </section>
     {% endif %}
 
     {% if property.features %}
     <section class="detail-section">
-      <h2>Características</h2>
+      <h2>Caracteristicas</h2>
       <div class="feature-list">
         {% for feature in property.features %}<span>{{ feature }}</span>{% endfor %}
       </div>
@@ -96,25 +134,14 @@
     </section>
 
     <section class="detail-section">
-      <h2>Ubicacion detectada</h2>
-      <dl class="location-audit">
-        <div><dt>Localidad</dt><dd>{{ property.detected_locality|default:"-" }}</dd></div>
-        <div><dt>Barrio/Zona</dt><dd>{{ property.detected_neighborhood|default:"-" }}</dd></div>
-        <div><dt>Direccion</dt><dd>{{ property.detected_address|default:"-" }}</dd></div>
-        <div><dt>Fuente</dt><dd>{{ property.get_location_source_display }}</dd></div>
-        <div><dt>Confianza</dt><dd>{{ property.get_location_confidence_display }}</dd></div>
-      </dl>
-      {% if property.location_notes %}
-        <p class="audit-note">{{ property.location_notes }}</p>
-      {% endif %}
-    </section>
-
-    <section class="detail-section">
       <h2>Publicaciones</h2>
       <div class="source-list">
-        {% for listing in property.listings.all %}
-          <a href="{{ listing.url }}" target="_blank" rel="noopener">
-            <span>{{ listing.source.name }}{% if listing.agency %} · {{ listing.agency.name }}{% endif %}</span>
+        {% for link in source_links %}
+          <a href="{{ link.listing.url }}" target="_blank" rel="noopener">
+            <span>
+              <strong>{{ link.label }}</strong>
+              {% if link.domain %}<small>{{ link.domain }}</small>{% endif %}
+            </span>
             <i data-lucide="external-link"></i>
           </a>
         {% endfor %}
@@ -124,12 +151,19 @@
     <section class="detail-section">
       <h2>Historial de precio</h2>
       <div class="history-list">
-        {% for listing in property.listings.all %}
-          {% for snapshot in listing.snapshots.all %}
-            <div><time>{{ snapshot.observed_at|date:"d/m/Y" }}</time><strong>{{ snapshot.currency }} {{ snapshot.price|floatformat:0|default:"Consultar" }}</strong></div>
-          {% empty %}
-            <p>Sin cambios registrados.</p>
-          {% endfor %}
+        {% for segment in price_history %}
+          <div>
+            <span>
+              <time>{{ segment.first_seen|date:"d/m/Y" }}</time>
+              {% if not segment.same_day %}
+                <small>hasta {{ segment.last_seen|date:"d/m/Y" }}</small>
+              {% endif %}
+              {% if segment.count > 1 %}<small>{{ segment.count }} registros iguales</small>{% endif %}
+            </span>
+            <strong>{% if segment.price %}{{ segment.currency }} {{ segment.price|floatformat:0 }}{% else %}Consultar{% endif %}</strong>
+          </div>
+        {% empty %}
+          <p>Sin cambios registrados.</p>
         {% endfor %}
       </div>
     </section>
@@ -138,24 +172,23 @@
   <aside class="detail-map-panel">
     <div class="sticky-map">
       <div id="detail-map"></div>
-      {% if property.location %}
       <div class="map-editor-bar">
         <div>
-          <strong id="location-label">{{ property.location.get_precision_display }}</strong>
-          <span>{% if property.location.outside_target %}Fuera del área objetivo{% else %}Partido de Hurlingham{% endif %}</span>
+          <strong id="location-label">{% if property_location.has_location %}{{ property.location.get_precision_display }}{% else %}Sin pin confirmado{% endif %}</strong>
+          <span id="location-help">{% if property_location.has_location and property.location.outside_target %}Fuera del area objetivo{% else %}Partido de Hurlingham{% endif %}</span>
         </div>
         <button class="secondary-button" id="edit-location" type="button">
-          <i data-lucide="move"></i> Corregir pin
+          <i data-lucide="move"></i> {% if property_location.has_location %}Corregir pin{% else %}Ubicar manualmente{% endif %}
         </button>
         <button class="primary-button" id="save-location" type="button" hidden>
           <i data-lucide="check"></i> Guardar
         </button>
       </div>
-      {% endif %}
     </div>
   </aside>
 </main>
 {% endblock %}
+
 {% block scripts %}
 {{ map_config|json_script:"map-config" }}
 {{ property_location|json_script:"property-location" }}

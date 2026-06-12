@@ -89,15 +89,21 @@
 
       {% if neighborhood_options %}
       <div class="filter-section zone-filter">
-        <label>Zona</label>
-        <div class="zone-options">
+        <div class="filter-section-heading">
+          <label for="zone-search">Zona</label>
+          <button class="text-button zone-clear" type="button">Limpiar</button>
+        </div>
+        <input id="zone-search" class="zone-search" type="search" autocomplete="off" placeholder="Buscar zona">
+        <div class="zone-selected" aria-live="polite"></div>
+        <div class="zone-options" data-empty-label="Escribi 3 caracteres">
           {% for option in neighborhood_options %}
-            <label class="zone-option">
+            <label class="zone-option" data-zone-name="{{ option.name|lower }}" data-selected="{% if option.name in selected_filters.neighborhood %}1{% else %}0{% endif %}">
               <input type="checkbox" name="neighborhood" value="{{ option.name }}" {% if option.name in selected_filters.neighborhood %}checked{% endif %}>
               <span>{{ option.name }} <small>({{ option.count }})</small></span>
             </label>
           {% endfor %}
         </div>
+        <div class="zone-summary"><span>0 seleccionadas</span></div>
       </div>
       {% endif %}
 
@@ -523,5 +529,6 @@
   window.RADAR_INITIAL_QUERY = "{{ request.GET.urlencode|escapejs }}";
 </script>
 <script src="{% static 'js/search-map.js' %}"></script>
+<script src="{% static 'js/zone-filter.js' %}"></script>
 <script src="{% static 'js/property-actions.js' %}"></script>
 {% endblock %}

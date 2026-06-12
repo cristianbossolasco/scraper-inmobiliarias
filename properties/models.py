@@ -118,6 +118,13 @@ class Property(models.Model):
     detected_address = models.CharField(max_length=300, blank=True)
     detected_latitude = models.FloatField(null=True, blank=True)
     detected_longitude = models.FloatField(null=True, blank=True)
+    inferred_neighborhood = models.CharField(max_length=120, blank=True, db_index=True)
+    inferred_neighborhood_method = models.CharField(max_length=40, blank=True)
+    inferred_neighborhood_distance_m = models.FloatField(null=True, blank=True)
+    zone_conflict = models.BooleanField(default=False, db_index=True)
+    zone_needs_review = models.BooleanField(default=False, db_index=True)
+    zone_inference_evidence = models.JSONField(default=dict, blank=True)
+    zone_inferred_at = models.DateTimeField(null=True, blank=True)
     location_source = models.CharField(
         max_length=20, choices=LocationSource.choices, default=LocationSource.UNKNOWN
     )
