@@ -28,6 +28,7 @@ from properties.services.agency_normalization import normalize_agency_name
 from properties.services.data_quality import is_garage_like, is_rental_url, valid_price, valid_value
 from properties.services.geocoding import Geocoder
 from properties.services.normalization import (
+    address_alias_variants,
     build_fingerprint,
     classify_address_precision,
     is_plausible_property_address,
@@ -97,6 +98,16 @@ class NormalizationTests(TestCase):
             normalize_street_number_address("Albariños al 1700"),
             "Albariños 1700",
         )
+
+    def test_address_geocoding_cleanup_and_aliases(self):
+        self.assertEqual(normalize_street_number_address("Rossini al 2000"), "Rossini 2000")
+        self.assertEqual(normalize_street_number_address("solis al 2.800"), "solis 2800")
+        self.assertEqual(normalize_street_number_address("GRANADA 500, Piso 0"), "GRANADA 500")
+        self.assertEqual(normalize_street_number_address("Bonorino 634 , Piso 1"), "Bonorino 634")
+        self.assertIn("José de Andonaegui 2600", address_alias_variants("J De Andonaegui 2600"))
+        self.assertIn("Esteban Bonorino 634", address_alias_variants("Bonorino 634"))
+        self.assertIn("Eduardo Acevedo 329", address_alias_variants("Acevedo Eduardo 329"))
+        self.assertIn("Juan Díaz de Solís 700", address_alias_variants("Solis 700"))
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -179,6 +190,22 @@ class NormalizationTests(TestCase):
         self.assertEqual(
             clean_detected_address("Dirección: Profesor Castagna al 4800"),
             "Profesor Castagna 4800",
+        )
+        self.assertEqual(
+            clean_detected_address(
+                "Las Araucarias 1900 Hurlingham barrio los troncos, Partido de Hurlingham, Buenos Aires"
+            ),
+            "Las Araucarias 1900",
+        )
+        self.assertEqual(
+            clean_detected_address(
+                "Acevedo Eduardo 329, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina"
+            ),
+            "Acevedo Eduardo 329",
+        )
+        self.assertEqual(
+            clean_detected_address("Valentín Alsina 2243 - Barrio Cartero"),
+            "Valentín Alsina 2243",
         )
 
 
@@ -580,6 +607,150 @@ class IngestionTests(TestCase):
             "Profesor Castagna 4800, Hurlingham, Buenos Aires, Argentina",
         )
 
+    def test_geocoder_candidates_use_aliases_and_canonical_locality(self):
+        property_obj = Property.objects.create(
+            fingerprint="geo-candidates",
+            title="Local con alias",
+            address="NECOCHEA 1300",
+            locality="Barrio Ingles",
+        )
+        candidates = Geocoder().query_candidates(property_obj)
+        self.assertIn(
+            "NECOCHEA 1300, Hurlingham, Buenos Aires, Argentina",
+            candidates,
+        )
+        self.assertIn(
+            "General Mariano Necochea 1300, Hurlingham, Buenos Aires, Argentina",
+            candidates,
+        )
+
+    def test_geocoder_candidates_clean_embedded_barrio_and_postal_suffixes(self):
+        araucarias = Property.objects.create(
+            fingerprint="geo-candidates-araucarias",
+            title="Casa Los Troncos",
+            address="Las Araucarias 1900 Hurlingham barrio los troncos, Partido de Hurlingham, Buenos Aires",
+            locality="Hurlingham",
+        )
+        self.assertEqual(
+            Geocoder().build_query(araucarias),
+            "Las Araucarias 1900, Hurlingham, Buenos Aires, Argentina",
+        )
+
+        acevedo = Property.objects.create(
+            fingerprint="geo-candidates-acevedo",
+            title="Casa Villa Club",
+            address="Acevedo Eduardo 329, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            locality="William C. Morris",
+        )
+        candidates = Geocoder().query_candidates(acevedo)
+        self.assertIn(
+            "Eduardo Acevedo 329, William C. Morris, Buenos Aires, Argentina",
+            candidates,
+        )
+        self.assertNotIn("1686S", " ".join(candidates))
+
+    def test_geocoder_uses_clean_alias_cache_after_negative_old_query(self):
+        property_obj = Property.objects.create(
+            fingerprint="geo-alias-cache",
+            title="Casa con alias",
+            address="J De Andonaegui 2600",
+            locality="Hurlingham",
+        )
+        GeocodeCache.objects.create(
+            query="J De Andonaegui 2600, Hurlingham, Buenos Aires, Argentina",
+            latitude=None,
+            longitude=None,
+            precision="",
+            confidence=0,
+        )
+        GeocodeCache.objects.create(
+            query="José de Andonaegui 2600, Hurlingham, Buenos Aires, Argentina",
+            latitude=-34.588,
+            longitude=-58.666,
+            precision="exact",
+            confidence=0.8,
+        )
+
+        location = Geocoder().geocode_property_from_cache(property_obj)
+
+        self.assertIsNotNone(location)
+        self.assertAlmostEqual(location.latitude, -34.588)
+        self.assertEqual(location.provider, "nominatim")
+
+    def test_geocoder_local_reference_fallback(self):
+        reference = Property.objects.create(
+            fingerprint="geo-local-ref-source",
+            title="Referencia",
+            address="Rossini 2000",
+            locality="Hurlingham",
+        )
+        PropertyLocation.objects.create(
+            property=reference,
+            latitude=-34.59,
+            longitude=-58.64,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="source",
+            confidence=1,
+        )
+        property_obj = Property.objects.create(
+            fingerprint="geo-local-ref-target",
+            title="Objetivo",
+            address="Rossini 2010",
+            locality="Hurlingham",
+        )
+
+        location = Geocoder().geocode_property_from_cache(property_obj)
+
+        self.assertIsNotNone(location)
+        self.assertEqual(location.provider, "local_reference")
+        self.assertEqual(location.precision, PropertyLocation.Precision.EXACT)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.location_evidence["local_reference"]["property_id"], reference.pk)
+
+    def test_geocoder_local_reference_ignores_outside_target_references(self):
+        outside = Property.objects.create(
+            fingerprint="geo-local-ref-outside",
+            title="Referencia fuera",
+            address="Solis 700",
+            locality="Hurlingham",
+        )
+        PropertyLocation.objects.create(
+            property=outside,
+            latitude=-34.77,
+            longitude=-58.39,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="nominatim",
+            confidence=0.5,
+            outside_target=True,
+        )
+        inside = Property.objects.create(
+            fingerprint="geo-local-ref-inside",
+            title="Referencia adentro",
+            address="Juan Díaz de Solís 700",
+            locality="Hurlingham",
+        )
+        PropertyLocation.objects.create(
+            property=inside,
+            latitude=-34.595,
+            longitude=-58.631,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="nominatim",
+            confidence=0.8,
+        )
+        property_obj = Property.objects.create(
+            fingerprint="geo-local-ref-solis-target",
+            title="Objetivo",
+            address="Solis 700",
+            locality="Hurlingham",
+        )
+
+        location = Geocoder().geocode_property_from_cache(property_obj)
+
+        self.assertIsNotNone(location)
+        self.assertAlmostEqual(location.latitude, -34.595)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.location_evidence["local_reference"]["property_id"], inside.pk)
+
     def test_geocoder_force_refreshes_non_manual_location(self):
         property_obj = Property.objects.create(
             fingerprint="geo-force-1",
@@ -681,24 +852,139 @@ class IngestionTests(TestCase):
             detected_address="Ocampo 1900",
             locality="Hurlingham",
         )
+        piso = Property.objects.create(
+            fingerprint="repair-address-piso",
+            title="Casa con piso",
+            address="GRANADA 500, Piso 0",
+            normalized_address="granada 500 piso 0",
+            detected_address="GRANADA 500, Piso 0",
+            locality="Hurlingham",
+        )
+        rossini = Property.objects.create(
+            id=2987,
+            fingerprint="repair-address-known-rossini",
+            title="Casa sin direccion Becerra",
+            address="",
+            normalized_address="",
+            detected_address="",
+            locality="Hurlingham",
+        )
         geocoder_cls.return_value.geocode_property.return_value = True
 
         output = StringIO()
         call_command("repair_addresses", "--dry-run", stdout=output)
         changed.refresh_from_db()
         self.assertEqual(changed.address, "Profesor Castagna al 4800")
-        self.assertIn("1 direcciones corregidas (dry-run)", output.getvalue())
+        self.assertIn("3 direcciones corregidas (dry-run)", output.getvalue())
         self.assertFalse(geocoder_cls.return_value.geocode_property.called)
 
         output = StringIO()
         call_command("repair_addresses", "--geocode", stdout=output)
         changed.refresh_from_db()
+        piso.refresh_from_db()
+        rossini.refresh_from_db()
         self.assertEqual(changed.address, "Profesor Castagna 4800")
         self.assertEqual(changed.detected_address, "Profesor Castagna 4800")
         self.assertEqual(changed.normalized_address, "profesor castagna 4800")
-        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 1)
-        self.assertEqual(geocoder_cls.return_value.geocode_property.call_args.args[0].pk, changed.pk)
-        self.assertIn("1 propiedades geolocalizadas", output.getvalue())
+        self.assertEqual(piso.address, "GRANADA 500")
+        self.assertEqual(piso.detected_address, "GRANADA 500")
+        self.assertEqual(rossini.address, "Rossini 2000")
+        self.assertEqual(rossini.detected_address, "Rossini 2000")
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 3)
+        self.assertIn("3 propiedades geolocalizadas", output.getvalue())
+
+    @patch("properties.management.commands.repair_addresses.Geocoder")
+    def test_repair_addresses_applies_curated_guarnieri_corrections(self, geocoder_cls):
+        Property.objects.create(
+            id=4409,
+            fingerprint="repair-address-araucarias",
+            title="Chalet Los Troncos",
+            address="Las Araucarias 1900 Hurlingham barrio los troncos, Partido de Hurlingham, Buenos Aires",
+            detected_address="Las Araucarias 1900 Hurlingham barrio los troncos, Partido de Hurlingham, Buenos Aires",
+            locality="Hurlingham",
+        )
+        Property.objects.create(
+            id=4548,
+            fingerprint="repair-address-solis",
+            title="Complejo Solis",
+            address="Juan Diaz de Solís, William C. Morris, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            detected_address="Juan Diaz de Solís, William C. Morris, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            locality="Hurlingham",
+        )
+        Property.objects.create(
+            id=4571,
+            fingerprint="repair-address-acevedo",
+            title="Casa Villa Club",
+            address="Acevedo Eduardo 329, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            detected_address="Acevedo Eduardo 329, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            locality="Hurlingham",
+            neighborhood="Villa Club",
+        )
+        geocoder_cls.return_value.geocode_property.return_value = True
+
+        output = StringIO()
+        call_command(
+            "repair_addresses",
+            "--property-id",
+            "4409",
+            "--property-id",
+            "4548",
+            "--property-id",
+            "4571",
+            "--geocode",
+            stdout=output,
+        )
+
+        araucarias = Property.objects.get(pk=4409)
+        solis = Property.objects.get(pk=4548)
+        acevedo = Property.objects.get(pk=4571)
+        self.assertEqual(araucarias.address, "Las Araucarias 1900")
+        self.assertEqual(araucarias.neighborhood, "Los Troncos")
+        self.assertEqual(solis.address, "Juan Díaz de Solís 1686")
+        self.assertEqual(solis.locality, "William C. Morris")
+        self.assertEqual(acevedo.address, "Eduardo Acevedo 329")
+        self.assertEqual(acevedo.locality, "William C. Morris")
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 3)
+
+    def test_repair_addresses_preserves_location_when_only_metadata_changes(self):
+        property_obj = Property.objects.create(
+            fingerprint="repair-address-preserve-pin",
+            title="Casa con codigo postal pegado",
+            address="Bizet 2663, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            detected_address="Bizet 2663, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686S, Argentina",
+            locality="Hurlingham",
+        )
+        location = PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.57,
+            longitude=-58.64,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="nominatim",
+            confidence=0.8,
+        )
+
+        output = StringIO()
+        call_command("repair_addresses", "--property-id", str(property_obj.pk), stdout=output)
+
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.address, "Bizet 2663")
+        self.assertTrue(PropertyLocation.objects.filter(pk=location.pk).exists())
+
+    def test_repair_addresses_moves_embedded_barrio_to_neighborhood(self):
+        property_obj = Property.objects.create(
+            fingerprint="repair-address-barrio",
+            title="Casa con barrio pegado",
+            address="Valentín Alsina 2243 - Barrio Cartero",
+            detected_address="Valentín Alsina 2243 - Barrio Cartero",
+            locality="Hurlingham",
+        )
+
+        output = StringIO()
+        call_command("repair_addresses", "--property-id", str(property_obj.pk), stdout=output)
+
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.address, "Valentín Alsina 2243")
+        self.assertEqual(property_obj.neighborhood, "Barrio Cartero")
 
     @patch("properties.management.commands.repair_merged_listings.get_adapter")
     def test_repair_merged_listings_splits_invalid_address_cluster(self, get_adapter):
@@ -1394,6 +1680,16 @@ class ScraperParserTests(TestCase):
         scraper.soup = lambda parsed_url: fixture_soup(fixture_name)
         return scraper.parse(url)
 
+    def test_becerra_parser_extracts_unlabeled_address(self):
+        data = self.parse_with_fixture(
+            BecerraScraper,
+            "becerra_detail_rossini.html",
+            "https://becerrapropiedades.com/ficha/6768701",
+        )
+        self.assertEqual(data["address"], "Rossini 2000")
+        self.assertEqual(data["locality"], "Hurlingham")
+        self.assertEqual(data["location_precision"], "exact")
+
     def test_argenprop_parser_fixture(self):
         data = self.parse_with_fixture(
             ArgenpropScraper,
@@ -1840,6 +2136,16 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["bathrooms"], Decimal("3"))
         self.assertEqual(data["garages"], 1)
+
+    def test_guarnieri_splits_embedded_barrio_from_address(self):
+        data = self.parse_with_fixture(
+            GuarnieriScraper,
+            "guarnieri_barrio_embedded_address.html",
+            "https://guarnieripropiedades.com.ar/inmobiliaria/propiedad/chalet-barrio-los-troncos",
+        )
+        self.assertEqual(data["address"], "Las Araucarias 1900")
+        self.assertEqual(data["neighborhood"], "Los Troncos")
+        self.assertEqual(data["locality"], "Hurlingham")
 
     def test_guarnieri_ignores_suggested_price_and_metrics(self):
         data = self.parse_with_fixture(

@@ -2,6 +2,8 @@ import re
 
 from properties.models import Property
 from .normalization import (
+    clean_address_for_storage,
+    extract_embedded_neighborhood,
     fold_text,
     infer_neighborhood_from_address,
     is_plausible_property_address,
@@ -63,7 +65,7 @@ def clean_detected_address(value):
         return ""
     text = ADDRESS_STOP_PATTERN.split(text, maxsplit=1)[0]
     text = re.sub(r"^(?:Direccion|Direcci(?:on|ón)|Ubicaci(?:on|ón))\s*:?\s*", "", text, flags=re.I)
-    text = normalize_street_number_address(text.strip(" -–|,"))
+    text = clean_address_for_storage(text.strip(" -–|,")) or normalize_street_number_address(text.strip(" -–|,"))
     return text if is_plausible_property_address(text) else ""
 
 
@@ -128,6 +130,9 @@ def enrich_location_data(data):
     neighborhood = normalize_neighborhood_name(
         data.get("neighborhood") or _find_named(NEIGHBORHOOD_PATTERNS, text)
     )
+    embedded_neighborhood = extract_embedded_neighborhood(data.get("address") or raw.get("address") or "")
+    if embedded_neighborhood and not neighborhood:
+        neighborhood = embedded_neighborhood
     address = clean_detected_address(data.get("address") or raw.get("address")) or _first_address(text)
     address_neighborhood = infer_neighborhood_from_address(
         data.get("address") or address or raw.get("address")

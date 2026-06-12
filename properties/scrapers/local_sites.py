@@ -1,6 +1,10 @@
+import re
+
 from .base import BaseScraper, SourceDefinition
 from .paginated import ajax_paginated_discover, paginated_discover
-from .parsing import basic_html_data
+from .parsing import basic_html_data, clean_text, text_value
+from properties.services.location_enrichment import clean_detected_address
+from properties.services.normalization import classify_address_precision
 
 
 class LinkDetailScraper(BaseScraper):
@@ -52,6 +56,40 @@ class BecerraScraper(LinkDetailScraper):
             self._listing_urls,
             fallback_max_pages=20,
         )
+
+    def parse(self, url):
+        soup = self.soup(url)
+        data = basic_html_data(soup, url)
+        text = clean_text(soup.get_text(" ", strip=True))
+        address = self._address_from_text(data.get("title") or "", text)
+        if address:
+            data["address"] = address[:250]
+        data["locality"] = "Hurlingham"
+        data["agency"] = self.definition.name
+        data["operation"] = "sale"
+        data["location_precision"] = classify_address_precision(data.get("address"))
+        return data
+
+    def _address_from_text(self, title, text):
+        candidates = []
+        title = clean_text(title)
+        if title:
+            after_title = text.split(title, 1)[-1]
+            candidates.append(after_title[:240])
+        candidates.append(text[:1200])
+        for candidate in candidates:
+            value = text_value(
+                candidate,
+                [
+                    r"([A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]{3,}?\s+(?:al\s+)?\d{2,5})\s+(?:Hurlingham|Villa\s+Tesei|William\s+C\.?\s+Morris)\b",
+                    r"([A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]{3,}?\s+(?:al\s+)?\d{2,5})\s*\|",
+                ],
+            )
+            if value:
+                address = clean_detected_address(value)
+                if address:
+                    return address
+        return ""
 
 
 class AliagaScraper(LinkDetailScraper):

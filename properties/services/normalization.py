@@ -15,6 +15,23 @@ LOCALITY_ALIASES = {
     "morris": "William C. Morris",
 }
 
+GEOCODING_LOCALITIES = {
+    "hurlingham",
+    "villa tesei",
+    "william c morris",
+    "william morris",
+    "morris",
+}
+
+ADMIN_ADDRESS_PARTS = {
+    "argentina",
+    "buenos aires",
+    "provincia de buenos aires",
+    "partido de hurlingham",
+}
+
+POSTAL_CODE_PART_RE = re.compile(r"^(?:b)?\d{4}[a-z]{0,4}$", re.I)
+
 TYPE_KEYWORDS = (
     ("duplex", Property.Type.DUPLEX),
     ("dúplex", Property.Type.DUPLEX),
@@ -77,7 +94,8 @@ NEIGHBORHOOD_ALIASES = (
     ("Santos Tesei", (r"\bvilla\s+santos\s+tes", r"\bsantos\s+tesei\b")),
     ("5 esquinas", (r"\b5\s+esquinas\b",)),
     ("Barrio Cartero", (r"\bbarrio\s+cartero\b", r"^cartero$")),
-    ("Parque Johnston", (r"\bparque\s+jh?ohnston\b", r"\bjh?ohnston\b")),
+    ("Los Troncos", (r"\bbarrio\s+los\s+troncos\b", r"\bb[°º]\.?\s*los\s+troncos\b", r"\blos\s+troncos\b")),
+    ("Parque Johnston", (r"\bparque\s+(?:johnston|jhonston)\b", r"\b(?:johnston|jhonston)\b")),
     ("Parque Quirno", (r"\bparque\s+quirno\b",)),
     ("Villa Alemania", (r"\bvilla\s+alemania\b",)),
     ("Villa Club", (r"\bvilla\s+club\b",)),
@@ -100,6 +118,7 @@ ADDRESS_NEIGHBORHOOD_RULES = (
     ("Barrio Ingl\u00e9s", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
     ("Parque Johnston", (r"\bparque\s+johnston\b", r"\bjohnston\b")),
     ("William C. Morris", (r"\bwilliam\s+c\.?\s*morris\b", r"\bwilliam\s+morris\b")),
+    ("Los Troncos", (r"\bbarrio\s+los\s+troncos\b", r"\bb[°º]\.?\s*los\s+troncos\b", r"\blos\s+troncos\b")),
 )
 
 
@@ -116,14 +135,104 @@ def normalize_street_number_address(value):
     text = normalize_whitespace(value)
     if not text:
         return ""
+    text = re.sub(r"\s*,?\s*\bpiso\s+(?:pb|bajo|\d+)\b\.?", "", text, flags=re.I)
+    text = re.sub(r"\s*,?\s*\bp\.?\s*b\.?\b\.?", "", text, flags=re.I)
+    text = re.sub(r"\s+\bal\s+(\d{1,2})[.,](\d{3})(?=\b)", r" \1\2", text, flags=re.I)
     text = re.sub(r"\s+\bal\s+(\d{2,5})(?=\b)", r" \1", text, flags=re.I)
     return normalize_whitespace(text)
 
 
+STREET_ALIAS_PATTERNS = (
+    (r"\bAcevedo\s+Eduardo\b", "Eduardo Acevedo"),
+    (r"(?<!Eduardo\s)\bAcevedo\b(?!\s+Eduardo)", "Eduardo Acevedo"),
+    (r"\bJ\.?\s+De\s+Andonaegui\b", "José de Andonaegui"),
+    (r"(?<!de\s)\bAndonaegui\b", "José de Andonaegui"),
+    (r"\bGral\.?\s+Mariano\s+Necochea\b", "General Mariano Necochea"),
+    (r"(?<!Esteban\s)\bBonorino\b", "Esteban Bonorino"),
+    (r"(?<!Mariano\s)\bNecochea\b", "General Mariano Necochea"),
+    (r"\bDip\.?\s+Hector\s+Finochietto\b", "Finochietto"),
+    (r"\bDiputado\s+Hector\s+Finochietto\b", "Finochietto"),
+    (r"\bDoctor\s+Finochietto\b", "Finochietto"),
+    (r"\bDr\.?\s+Finochietto\b", "Finochietto"),
+)
+
+
+def _solis_alias_variant(value):
+    folded = fold_text(value)
+    match = re.search(r"\bjuan\s+diaz\s+(?:de\s+)?solis\b|\bsolis\b", folded)
+    if match:
+        return normalize_whitespace(f"Juan Díaz de Solís{value[match.end():]}")
+    return ""
+
+
+def address_alias_variants(value):
+    base = normalize_street_number_address(value)
+    variants = []
+    for pattern, replacement in STREET_ALIAS_PATTERNS:
+        candidate = normalize_whitespace(re.sub(pattern, replacement, base, flags=re.I))
+        if candidate and candidate != base and candidate not in variants:
+            variants.append(candidate)
+    solis_candidate = _solis_alias_variant(base)
+    if solis_candidate and solis_candidate != base and solis_candidate not in variants:
+        variants.append(solis_candidate)
+    return variants
+
+
+def canonical_geocoding_locality(*values):
+    for value in values:
+        normalized = normalize_locality(value or "")
+        if normalize_address(normalized) in GEOCODING_LOCALITIES:
+            return normalized
+    return "Hurlingham"
+
+
 def _without_accents_and_punctuation(value):
     text = normalize_address(value)
-    text = re.sub(r"\bb\d{4}\b", " ", text)
+    text = re.sub(r"\bb?\d{4}[a-z]{0,4}\b", " ", text)
     return normalize_whitespace(text)
+
+
+def extract_embedded_neighborhood(value):
+    text = normalize_whitespace(value or "")
+    if not text:
+        return ""
+    matches = re.findall(
+        r"\b(?:barrio|b[°º]\.?)\s+([^,;/|]+)",
+        text,
+        flags=re.I,
+    )
+    for match in matches:
+        neighborhood = normalize_neighborhood_name(match)
+        if neighborhood:
+            return neighborhood
+    return ""
+
+
+def clean_address_for_storage(value):
+    text = normalize_street_number_address(value)
+    if not text:
+        return ""
+    text = re.sub(
+        r"(\b\d{2,5}\b)(?:\s*[-–,]?\s*hurlingham)?\s*[-–,]?\s+(?:barrio|b[°º]\.?)\s+[^,;/|]+",
+        r"\1",
+        text,
+        flags=re.I,
+    )
+    parts = []
+    for part in (normalize_whitespace(item.strip(" -–|.")) for item in text.split(",")):
+        folded = fold_text(part)
+        if not part:
+            continue
+        if POSTAL_CODE_PART_RE.fullmatch(folded):
+            continue
+        if folded in ADMIN_ADDRESS_PARTS or folded in GEOCODING_LOCALITIES:
+            continue
+        parts.append(part)
+    if not parts:
+        return ""
+    first = parts[0]
+    first = re.sub(r"\s+\b(?:hurlingham|villa\s+tesei|william\s+c\.?\s+morris|william\s+morris)\b\s*$", "", first, flags=re.I)
+    return normalize_whitespace(first.strip(" ,-"))
 
 
 def is_plausible_property_address(value):
@@ -191,7 +300,7 @@ def infer_neighborhood_from_address(value):
 
 def normalize_locality(value):
     folded = normalize_address(value)
-    for candidate, canonical in LOCALITY_ALIASES.items():
+    for candidate, canonical in sorted(LOCALITY_ALIASES.items(), key=lambda item: len(item[0]), reverse=True):
         if candidate in folded:
             return canonical
     return normalize_whitespace(value).title()

@@ -8,8 +8,10 @@ from bs4 import BeautifulSoup
 from properties.models import Property
 from properties.services.normalization import (
     classify_address_precision,
+    extract_embedded_neighborhood,
     infer_property_type,
     is_plausible_property_address,
+    normalize_locality,
     normalize_currency,
     normalize_neighborhood_name,
     parse_decimal,
@@ -844,6 +846,11 @@ class GuarnieriScraper(MultiSearchScraper):
             if header_address_node
             else ""
         )
+        header_neighborhood = (
+            extract_embedded_neighborhood(header_address_node.get_text(" ", strip=True))
+            if header_address_node
+            else ""
+        )
         page_text = split_suggested_text(visible_text(root))
         detail_start = re.search(r"DATOS DE LA PROPIEDAD", page_text, re.I)
         detail_text = page_text[detail_start.start():] if detail_start else page_text
@@ -875,6 +882,8 @@ class GuarnieriScraper(MultiSearchScraper):
         }
         if header_address:
             data["address"] = header_address
+        if header_neighborhood:
+            data["neighborhood"] = header_neighborhood
 
         description_node = root.select_one(".property-description-wrap .block-content-wrap")
         if description_node:
@@ -892,15 +901,18 @@ class GuarnieriScraper(MultiSearchScraper):
             [r"Direcci(?:Ã³|ó|o)n\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTER|$)"],
         )
         if address:
+            embedded_neighborhood = extract_embedded_neighborhood(address)
             parsed_address = clean_detected_address(address)
             if parsed_address and (not data.get("address") or not is_plausible_property_address(data.get("address"))):
                 data["address"] = parsed_address[:250]
+            if embedded_neighborhood and not data.get("neighborhood"):
+                data["neighborhood"] = embedded_neighborhood
         city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Barrio\s*:|Propiedades|$)"])
         if city:
-            data["locality"] = clean_text(city)
+            data["locality"] = normalize_locality(city)
         neighborhood = text_value(detail_text, [r"Barrio\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Propiedades|$)"])
         if neighborhood:
-            data["neighborhood"] = clean_text(neighborhood)
+            data["neighborhood"] = normalize_neighborhood_name(neighborhood) or clean_text(neighborhood)
 
         unit_offers = parse_multi_unit_offers(detail_text)
         if unit_offers:
@@ -976,13 +988,20 @@ class GuarnieriScraper(MultiSearchScraper):
             elif label.startswith("estado"):
                 data["operation"] = detect_operation(value, data.get("url") or "")
             elif label.startswith("direccion"):
+                embedded_neighborhood = extract_embedded_neighborhood(value)
+                if embedded_neighborhood and not data.get("neighborhood"):
+                    data["neighborhood"] = embedded_neighborhood
                 address = clean_detected_address(value)
                 if address:
                     data["address"] = address[:250]
             elif label.startswith("ciudad"):
-                data["locality"] = clean_text(value)
+                data["locality"] = normalize_locality(value)
             elif label.startswith("barrio"):
-                data["neighborhood"] = clean_text(value)
+                data["neighborhood"] = normalize_neighborhood_name(value) or clean_text(value)
+            else:
+                embedded_neighborhood = extract_embedded_neighborhood(value)
+                if embedded_neighborhood and not data.get("neighborhood"):
+                    data["neighborhood"] = embedded_neighborhood
 
     def _apply_guarnieri_text_fallbacks(self, data, detail_text, overview_text, has_structured_details=False):
         data["rooms"] = (
