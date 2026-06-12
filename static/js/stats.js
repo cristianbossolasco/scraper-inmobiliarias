@@ -239,7 +239,7 @@
     const sourceLinks = (property.source_links || []).map((link) => `
       <a class="source-button" href="${escapeHtml(link.url)}" target="_blank" rel="noopener">
         <i data-lucide="external-link"></i>
-        <span>${escapeHtml(link.label || link.domain || "Publicaci?n")}</span>
+        <span>${escapeHtml(link.label || link.domain || "Publicación")}</span>
       </a>
     `).join("");
     const editSections = (property.edit_sections || []).map((section) => `
@@ -270,7 +270,7 @@
       <div class="property-preview-map-panel">
         <div class="property-preview-map-heading">
           <div>
-            <h3>Ubicaci?n</h3>
+            <h3>Ubicación</h3>
             <p class="audit-note">MovÃ© el marcador o hacÃ© clic en el mapa para corregir la ubicaciÃ³n.</p>
           </div>
           <button class="secondary-button" type="button" data-preview-save-location>
@@ -281,7 +281,7 @@
       </div>
     ` : `
       <div class="property-preview-map-panel">
-        <h3>Ubicaci?n</h3>
+        <h3>Ubicación</h3>
         <p class="audit-note">Esta propiedad todavÃ­a no tiene coordenadas para mostrar en el mapa.</p>
       </div>
     `;
@@ -403,7 +403,7 @@
       if (statusNode) statusNode.textContent = "MovÃ© el marcador o hacÃ© clic en el mapa antes de guardar.";
       return;
     }
-    await requestJson(`/api/propiedad/${propertyId}/ubicaci?n/`, {
+    await requestJson(`/api/propiedad/${propertyId}/ubicación/`, {
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
@@ -544,11 +544,11 @@
     if (!points.length) return;
     const point = points[0];
     const item = chart.data.datasets[point.datasetIndex].metaItems?.[point.index];
-    if (item?.id) {
+    if (item².id) {
       openPropertyPreview(item.id);
       return;
     }
-    const target = item?.url ? formatListUrl(item.url) : null;
+    const target = item².url ? formatListUrl(item.url) : null;
     if (target) {
       window.location.href = target;
     }
@@ -1352,7 +1352,7 @@
     const legend = document.getElementById("price-map-legend");
     if (!legend) return;
     if (metric === "density") {
-      legend.innerHTML = "<span>Modo densidad: rojo = mayor concentracion de publicaci?nes, no precio mas alto.</span>";
+      legend.innerHTML = "<span>Modo densidad: rojo = mayor concentracion de publicaciones, no precio mas alto.</span>";
       return;
     }
     const format = (value) => {
@@ -1467,7 +1467,7 @@
         labels: rows.map((row) => row.label),
         datasets: [
           {
-            label: "Publicaci?nes",
+            label: "Publicaciones",
             data: rows.map((row) => row.value),
             backgroundColor: colors[0],
             metaItems: rows
@@ -1647,9 +1647,9 @@
   }
 
   function renderCharts() {
-    const locality = bar("locality-chart", "Publicaci?nes", data.by_locality);
-    const neighborhood = bar("neighborhood-chart", "Publicaci?nes", data.by_neighborhood);
-    const agency = bar("agency-chart", "Publicaci?nes", data.by_agency);
+    const locality = bar("locality-chart", "Publicaciones", data.by_locality);
+    const neighborhood = bar("neighborhood-chart", "Publicaciones", data.by_neighborhood);
+    const agency = bar("agency-chart", "Publicaciones", data.by_agency);
     const price = bar("price-chart", "Cantidad", data.price_buckets);
     const surface = scatterWithRegression("surface-price-chart", "Superficie vs precio", data.surface_price, "Superficie");
     const bedrooms = scatter("bedrooms-price-chart", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");

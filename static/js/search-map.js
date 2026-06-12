@@ -206,7 +206,7 @@
       map.fitBounds(bounds, {
         padding,
         maxZoom: options.maxZoom || 15,
-        duration: options.duration ?? 450
+        duration: options.duration ª 450
       });
     };
     requestAnimationFrame(() => {
