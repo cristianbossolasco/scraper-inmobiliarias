@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "crime_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-12T23:14:49.143206+00:00",
+    "generated_at": "2026-06-12T23:04:16.734938+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "spatial_precision": "low",
@@ -59,7 +59,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -359,7 +359,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -635,7 +635,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -831,7 +831,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -999,7 +999,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1179,7 +1179,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1387,7 +1387,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1695,7 +1695,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1867,7 +1867,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2071,7 +2071,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2403,7 +2403,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2667,7 +2667,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2967,7 +2967,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3127,7 +3127,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3275,7 +3275,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3751,7 +3751,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4039,7 +4039,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4331,7 +4331,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4539,7 +4539,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4779,7 +4779,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4971,7 +4971,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5111,7 +5111,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5387,7 +5387,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5603,7 +5603,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5955,7 +5955,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6187,7 +6187,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6467,7 +6467,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6835,7 +6835,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7251,7 +7251,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7499,7 +7499,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7707,7 +7707,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7855,7 +7855,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8143,7 +8143,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8415,7 +8415,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8575,7 +8575,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8867,7 +8867,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -9051,7 +9051,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -9279,7 +9279,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -9507,7 +9507,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -9719,7 +9719,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -10103,7 +10103,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -10547,7 +10547,7 @@
         ],
         "reported_crime_data_note": "Public official crime data found for Hurlingham is aggregated at partido/municipio level. Values are attached to every zone for spatial joins but are not neighborhood-specific.",
         "reported_crime_methodology": "General totals use SNIC monthly department data. Property metrics use SAT Propiedad. Homicide counts use deduplicated SAT-HD victim rows by id_hecho.",
-        "crime_generated_at": "2026-06-12T23:14:49.143206+00:00"
+        "crime_generated_at": "2026-06-12T23:04:16.734938+00:00"
       },
       "geometry": {
         "type": "Polygon",

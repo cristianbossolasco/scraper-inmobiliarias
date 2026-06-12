@@ -44,6 +44,12 @@ from .services.scraping import (
     BLOCKED_SOURCE_SLUGS,
 )
 from .services.security_scoring import security_layers_payload
+from .services.crime_context import (
+    crime_context_signature,
+    crime_dashboard_summary,
+    crime_layers_payload,
+    homicide_counts_by_zone,
+)
 from .services.geocoding import address_number, street_key
 from .services.normalization import (
     clean_address_for_storage,
@@ -1545,6 +1551,11 @@ def security_layers_api(request):
     return JsonResponse(security_layers_payload())
 
 
+@require_GET
+def crime_layers_api(request):
+    return JsonResponse(crime_layers_payload())
+
+
 EXPORT_COLUMNS = (
     "id",
     "titulo",
@@ -2011,6 +2022,81 @@ def _security_price_summary(properties, request_query, stats_path):
     }
 
 
+def _crime_zone_insights(properties, request_query, stats_path):
+    grouped = {}
+    for property_obj in properties:
+        zone = _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        )
+        row = grouped.setdefault(
+            zone,
+            {
+                "zone": zone,
+                "property_count": 0,
+                "price_m2": [],
+                "security_coverage": [],
+                "security_risk": [],
+            },
+        )
+        row["property_count"] += 1
+        price_m2 = valid_price_per_m2(property_obj)
+        if price_m2 is not None:
+            row["price_m2"].append(float(price_m2))
+        if property_obj.security_coverage_score is not None:
+            row["security_coverage"].append(float(property_obj.security_coverage_score))
+        if property_obj.security_risk_score is not None:
+            row["security_risk"].append(float(property_obj.security_risk_score))
+
+    homicide_by_zone = homicide_counts_by_zone()
+    for zone in homicide_by_zone:
+        grouped.setdefault(
+            zone,
+            {
+                "zone": zone,
+                "property_count": 0,
+                "price_m2": [],
+                "security_coverage": [],
+                "security_risk": [],
+            },
+        )
+
+    rows = []
+    for zone, values in grouped.items():
+        price_m2_summary = _summary(values["price_m2"])
+        coverage_summary = _summary(values["security_coverage"])
+        risk_summary = _summary(values["security_risk"])
+        homicide_counts = homicide_by_zone.get(zone, {})
+        rows.append(
+            {
+                "zone": zone,
+                "property_count": values["property_count"],
+                "median_price_m2": price_m2_summary["median"],
+                "avg_security_coverage": coverage_summary["avg"],
+                "avg_security_risk": risk_summary["avg"],
+                "homicide_radio_event_count": homicide_counts.get("event_count", 0),
+                "homicide_radio_victim_count": homicide_counts.get("victim_count", 0),
+                "crime_data_scope": "municipio",
+                "crime_spatial_precision": "low",
+                "precision_note": "Crimen municipal; centroides SAT-HD por radio censal, no ubicacion exacta.",
+                "url": query_url(
+                    request_query,
+                    {"neighborhood": "" if zone == "Sin dato" else zone},
+                    path=stats_path,
+                ),
+            }
+        )
+    rows.sort(
+        key=lambda item: (
+            -item["property_count"],
+            -item["homicide_radio_event_count"],
+            item["zone"],
+        )
+    )
+    return rows[:80]
+
+
 def _security_arbitrage(properties, request_query, stats_path):
     values = [
         float(valid_price_per_m2(item))
@@ -2081,6 +2167,7 @@ def _stats_cache_key(request):
             str(state.get("latest_security") or ""),
             str(favorite_count),
             str(hidden_count),
+            crime_context_signature(),
         ]
     )
     return "stats:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -2402,6 +2489,10 @@ def market_stats(request):
         "zone_type_matrix": _zone_type_matrix(properties, request.GET, stats_path),
         "liquidity": _liquidity_buckets(properties),
         "security": _security_price_summary(properties, request.GET, stats_path),
+        "crime": {
+            **crime_dashboard_summary(),
+            "zone_insights": _crime_zone_insights(properties, request.GET, stats_path),
+        },
         "heatmap_points": _heatmap_points(properties, request.GET),
         "surfaces": _numbers(
             [

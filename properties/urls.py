@@ -20,6 +20,7 @@ urlpatterns = [
     path("api/propiedad/<int:pk>/ubicacion/", views.update_location, name="update_location"),
     path("api/configuracion-mapa/", views.map_config, name="map_config"),
     path("api/seguridad/capas/", views.security_layers_api, name="security_layers"),
+    path("api/crimen/capas/", views.crime_layers_api, name="crime_layers"),
     path("api/scraping/jobs/", views.create_scrape_job_api, name="scrape_job_create"),
     path("api/scraping/jobs/<int:pk>/", views.scrape_job_status_api, name="scrape_job_status"),
     path(

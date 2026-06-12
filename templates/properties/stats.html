@@ -347,6 +347,17 @@
   </section>
 
   <section class="stats-panel stats-tab-panel" data-tab-content="overview">
+    <div class="section-heading">
+      <div>
+        <h2>Crimen reportado</h2>
+        <p>Contexto oficial municipal para Hurlingham, Villa Tesei y William C. Morris.</p>
+      </div>
+    </div>
+    <div id="crime-kpi-panel" class="crime-kpi-grid"></div>
+    <p class="audit-note">Dato municipal, no barrial. Los centroides SAT-HD son de radio censal y no ubicaciones exactas.</p>
+  </section>
+
+  <section class="stats-panel stats-tab-panel" data-tab-content="overview">
     <h2>Calidad de datos</h2>
     <div class="quality-grid">
       <div><a href="{{ quality_links.price.present }}">Precio</a><meter min="0" max="100" value="{{ quality_percent.price }}"></meter><strong><a href="{{ quality_links.price.missing }}">{{ quality_percent.price }}%</a></strong></div>
@@ -445,6 +456,30 @@
         <h2>Hab vs precio</h2>
         <canvas id="bedrooms-price-chart"></canvas>
       </div>
+      <div class="chart-panel">
+        <h2>Crimen mensual SNIC</h2>
+        <div class="crime-chart-toolbar">
+          <label>
+            <span>Medida</span>
+            <select id="crime-monthly-measure">
+              <option value="cantidad_hechos">Hechos</option>
+              <option value="cantidad_victimas">Victimas</option>
+            </select>
+          </label>
+        </div>
+        <canvas id="crime-monthly-chart"></canvas>
+        <p class="audit-note">Serie municipal; no diferencia barrios ni propiedades.</p>
+      </div>
+      <div class="chart-panel">
+        <h2>SAT Propiedad</h2>
+        <canvas id="crime-property-chart"></canvas>
+        <p class="audit-note">Robos, hurtos y vehiculos reportados para lectura contextual inmobiliaria.</p>
+      </div>
+      <div class="chart-panel">
+        <h2>Estacionalidad propiedad</h2>
+        <div id="crime-seasonality-panel" class="crime-seasonality-panel"></div>
+        <p class="audit-note">Heatmap mes x anio con hechos contra la propiedad.</p>
+      </div>
     </div>
   </section>
 
@@ -481,6 +516,23 @@
         <div id="security-risk-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
     </div>
+    <div class="chart-panel chart-panel--expanded">
+      <div class="section-heading price-map-heading">
+        <div>
+          <h2>Crimen reportado</h2>
+          <p>Poligonos neutrales con metricas municipales y puntos SAT-HD aproximados por centroide de radio censal.</p>
+        </div>
+        <label class="price-map-control">
+          <span>Anio</span>
+          <select id="crime-map-year">
+            <option value="">Todos</option>
+          </select>
+        </label>
+      </div>
+      <div id="crime-map-legend" class="crime-map-legend"></div>
+      <div id="crime-context-map" class="stats-heatmap-map stats-security-map"></div>
+      <p class="audit-note">Dato municipal, no barrial. SAT-HD usa centroides de radio censal; no marca una ubicacion exacta del hecho.</p>
+    </div>
   </section>
 
   <section class="stats-panel stats-tab-panel" data-tab-content="opportunities">
@@ -510,6 +562,11 @@
       <h2>Zonas de arbitraje seguridad/precio</h2>
       <p class="audit-note">Cruza precio/m2 con cobertura y riesgo relativo para detectar oportunidades seguras, negociables o sobreprecios riesgosos.</p>
       <div id="security-arbitrage-panel" class="matrix-table"></div>
+    </div>
+    <div class="stats-panel nested-panel">
+      <h2>Lecturas crimen/seguridad/precio por zona</h2>
+      <p class="audit-note">No suma crimen municipal al score. Sirve para decidir donde investigar mas antes de invertir.</p>
+      <div id="crime-zone-insights-panel" class="matrix-table"></div>
     </div>
     <div class="stats-panel nested-panel">
       <h2>Matriz Zona x Tipo</h2>

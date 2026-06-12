@@ -23,6 +23,10 @@
   let propertyPreviewLocationDraft = null;
   const securityMaps = {};
   let securityMapPopup = null;
+  let crimeMap = null;
+  let crimeMapPopup = null;
+  let crimeLayerPromise = null;
+  let crimeChartsRendered = false;
   let surfaceRegression = null;
   let dashboardPayloadRendered = false;
 
@@ -94,6 +98,7 @@
       if (tabName === "spatial") {
         initPriceHeatmap();
         initSecurityMaps();
+        initCrimeMap();
       }
       if (tabName === "models") {
         setTimeout(() => {
@@ -133,6 +138,13 @@
   function formatPrice(item) {
     if (!item.price) return "Consultar";
     return `${item.currency || ""} ${Math.round(item.price).toLocaleString("es-AR")}`.trim();
+  }
+
+  function formatNumber(value) {
+    if (value === null || value === undefined || value === "") return "-";
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return "-";
+    return Math.round(parsed).toLocaleString("es-AR");
   }
 
   function formatListUrl(itemUrl) {
@@ -1356,6 +1368,480 @@
     });
   }
 
+  function crimeMetrics() {
+    return data.crime?.metrics || data.crime?.summary?.metrics || data.crime?.layers?.summary?.metrics || {};
+  }
+
+  function loadCrimeLayers() {
+    if (data.crime?.layers) return Promise.resolve(data.crime.layers);
+    if (crimeLayerPromise) return crimeLayerPromise;
+    crimeLayerPromise = fetch("/api/crimen/capas/")
+      .then((response) => response.json())
+      .then((payload) => {
+        data.crime = data.crime || {};
+        data.crime.layers = payload;
+        if (payload.summary?.metrics) {
+          data.crime.metrics = payload.summary.metrics;
+        }
+        return payload;
+      });
+    return crimeLayerPromise;
+  }
+
+  function renderCrimeKpis() {
+    const container = document.getElementById("crime-kpi-panel");
+    if (!container) return;
+    const crime = data.crime || {};
+    const metrics = crimeMetrics();
+    if (!crime.configured || !Object.keys(metrics).length) {
+      container.innerHTML = '<div class="audit-note">No hay paquete de crimen configurado en data/geo/crime_*.</div>';
+      return;
+    }
+    const period = `${metrics.crime_metric_window_start_year || "?"}-${metrics.crime_metric_window_end_year || "?"}`;
+    const cards = [
+      ["Total reportado", metrics.reported_crimes_total],
+      ["Contra propiedad", metrics.reported_property_crime_count],
+      ["Robos", metrics.reported_robbery_count],
+      ["Hurtos", metrics.reported_theft_count],
+      ["Vehiculos", metrics.reported_vehicle_crime_count],
+      ["Homicidios", metrics.reported_homicide_count],
+      ["Victimas homicidio", metrics.reported_homicide_victim_count],
+      ["Lesiones", metrics.reported_injury_count],
+      ["Integridad sexual", metrics.reported_sexual_integrity_count]
+    ];
+    container.innerHTML = cards.map(([label, value]) => `
+      <div class="crime-kpi">
+        <span>${escapeHtml(label)}</span>
+        <strong>${formatNumber(value)}</strong>
+        <small>${escapeHtml(period)} · municipio</small>
+      </div>
+    `).join("");
+  }
+
+  function crimeGroupLabel(group) {
+    const labels = {
+      homicidio: "Homicidios",
+      hurto: "Hurtos",
+      hurto_vehiculo: "Hurto vehicular",
+      integridad_sexual: "Integridad sexual",
+      lesiones: "Lesiones",
+      robo: "Robos",
+      robo_vehiculo: "Robo vehicular",
+      vehiculo: "Vehiculos",
+      propiedad: "Propiedad",
+      extorsion: "Extorsion",
+      secuestro: "Secuestro"
+    };
+    return labels[group] || String(group || "Sin dato").replaceAll("_", " ");
+  }
+
+  function metricWindow() {
+    const metrics = crimeMetrics();
+    return {
+      start: Number(metrics.crime_metric_window_start_year) || 2017,
+      end: Number(metrics.crime_metric_window_end_year) || 2024
+    };
+  }
+
+  function destroyCanvasChart(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (canvas?.chart) {
+      canvas.chart.destroy();
+      canvas.chart = null;
+    }
+    return canvas;
+  }
+
+  function renderCrimeMonthlyChart(payload) {
+    const canvas = destroyCanvasChart("crime-monthly-chart");
+    if (!canvas || typeof Chart === "undefined") return null;
+    const rows = payload.timeseries?.monthly || [];
+    if (!rows.length) {
+      canvas.insertAdjacentHTML("afterend", '<p class="audit-note chart-empty-note">No hay serie SNIC mensual disponible.</p>');
+      return null;
+    }
+    const measureSelect = document.getElementById("crime-monthly-measure");
+    const measure = measureSelect?.value || "cantidad_hechos";
+    const { start, end } = metricWindow();
+    const filtered = rows.filter((row) =>
+      Number(row.period_year) >= start
+      && Number(row.period_year) <= end
+      && Number(row[measure]) > 0
+    );
+    const labels = [...new Set(filtered.map((row) => row.period))].sort();
+    const totalsByGroup = {};
+    filtered.forEach((row) => {
+      totalsByGroup[row.crime_group] = (totalsByGroup[row.crime_group] || 0) + Number(row[measure] || 0);
+    });
+    const preferred = ["robo", "hurto", "robo_vehiculo", "hurto_vehiculo", "lesiones", "integridad_sexual", "homicidio"];
+    const groups = Object.keys(totalsByGroup)
+      .sort((a, b) => (preferred.indexOf(a) === -1 ? 99 : preferred.indexOf(a)) - (preferred.indexOf(b) === -1 ? 99 : preferred.indexOf(b)) || totalsByGroup[b] - totalsByGroup[a])
+      .slice(0, 7);
+    const lookup = new Map(filtered.map((row) => [`${row.period}|${row.crime_group}`, Number(row[measure] || 0)]));
+    const chart = new Chart(canvas, {
+      type: "line",
+      data: {
+        labels,
+        datasets: groups.map((group, index) => ({
+          label: crimeGroupLabel(group),
+          data: labels.map((label) => lookup.get(`${label}|${group}`) || 0),
+          borderColor: colors[index % colors.length],
+          backgroundColor: colors[index % colors.length],
+          tension: 0.24,
+          pointRadius: 0,
+          borderWidth: 2
+        }))
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: { legend: { display: true, position: "bottom" } },
+        scales: {
+          x: { ticks: { autoSkip: true, maxTicksLimit: 12 } },
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    canvas.chart = chart;
+    if (measureSelect && !measureSelect.dataset.bound) {
+      measureSelect.dataset.bound = "1";
+      measureSelect.addEventListener("change", () => {
+        loadCrimeLayers().then(renderCrimeMonthlyChart).catch(() => {});
+      });
+    }
+    return chart;
+  }
+
+  function annualCrimeRows(rows, start, end) {
+    const annual = {};
+    rows.forEach((row) => {
+      const year = Number(row.period_year);
+      if (!year || year < start || year > end) return;
+      annual[year] = annual[year] || {};
+      annual[year][row.crime_group] = (annual[year][row.crime_group] || 0) + Number(row.cantidad_hechos || 0);
+    });
+    return annual;
+  }
+
+  function renderCrimePropertyChart(payload) {
+    const canvas = destroyCanvasChart("crime-property-chart");
+    if (!canvas || typeof Chart === "undefined") return null;
+    const rows = payload.timeseries?.property_monthly || [];
+    if (!rows.length) {
+      canvas.insertAdjacentHTML("afterend", '<p class="audit-note chart-empty-note">No hay serie SAT Propiedad disponible.</p>');
+      return null;
+    }
+    const { start, end } = metricWindow();
+    const annual = annualCrimeRows(rows, start, end);
+    const labels = Object.keys(annual).sort();
+    const totals = {};
+    labels.forEach((year) => {
+      Object.entries(annual[year]).forEach(([group, value]) => {
+        totals[group] = (totals[group] || 0) + Number(value || 0);
+      });
+    });
+    const preferred = ["robo", "hurto", "robo_vehiculo", "hurto_vehiculo", "extorsion", "secuestro"];
+    const groups = Object.keys(totals)
+      .sort((a, b) => (preferred.indexOf(a) === -1 ? 99 : preferred.indexOf(a)) - (preferred.indexOf(b) === -1 ? 99 : preferred.indexOf(b)) || totals[b] - totals[a])
+      .slice(0, 7);
+    const chart = new Chart(canvas, {
+      type: "bar",
+      data: {
+        labels,
+        datasets: groups.map((group, index) => ({
+          label: crimeGroupLabel(group),
+          data: labels.map((year) => annual[year]?.[group] || 0),
+          backgroundColor: colors[index % colors.length]
+        }))
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: true, position: "bottom" } },
+        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
+      }
+    });
+    canvas.chart = chart;
+    return chart;
+  }
+
+  function renderCrimeSeasonality(payload) {
+    const container = document.getElementById("crime-seasonality-panel");
+    if (!container) return;
+    const rows = payload.timeseries?.property_seasonality || [];
+    if (!rows.length) {
+      container.innerHTML = '<div class="audit-note">No hay datos para el heatmap de estacionalidad.</div>';
+      return;
+    }
+    const { start, end } = metricWindow();
+    const selected = rows.filter((row) => Number(row.period_year) >= start && Number(row.period_year) <= end);
+    const years = [...new Set(selected.map((row) => Number(row.period_year)))].sort((a, b) => a - b);
+    const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    const values = new Map(selected.map((row) => [`${row.period_year}-${row.period_month}`, Number(row.value || 0)]));
+    const maxValue = Math.max(...selected.map((row) => Number(row.value || 0)), 1);
+    container.innerHTML = `
+      <table class="crime-seasonality-table">
+        <thead>
+          <tr><th>Anio</th>${months.map((month) => `<th>${month}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${years.map((year) => `
+            <tr>
+              <th>${year}</th>
+              ${months.map((_month, index) => {
+                const value = values.get(`${year}-${index + 1}`) || 0;
+                const alpha = 0.12 + Math.min(0.78, (value / maxValue) * 0.78);
+                return `<td style="background-color: rgba(189, 92, 61, ${alpha.toFixed(3)});" title="${year}-${String(index + 1).padStart(2, "0")}: ${formatNumber(value)}">${formatNumber(value)}</td>`;
+              }).join("")}
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function renderCrimeCharts(payload) {
+    renderCrimeMonthlyChart(payload);
+    renderCrimePropertyChart(payload);
+    renderCrimeSeasonality(payload);
+    crimeChartsRendered = true;
+  }
+
+  function renderCrimeZoneInsights() {
+    const container = document.getElementById("crime-zone-insights-panel");
+    const rows = Array.isArray(data.crime?.zone_insights) ? data.crime.zone_insights : [];
+    if (!container) return;
+    if (!rows.length) {
+      container.innerHTML = '<div class="audit-note">No hay zonas con datos cruzables para los filtros actuales.</div>';
+      return;
+    }
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Zona</th>
+            <th>Propiedades</th>
+            <th>Mediana USD/m2</th>
+            <th>Cobertura seg.</th>
+            <th>Riesgo seg.</th>
+            <th>Centroides SAT-HD</th>
+            <th>Victimas</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((row) => `
+            <tr>
+              <td>${escapeHtml(row.zone)}</td>
+              <td>${formatNumber(row.property_count)}</td>
+              <td>${formatNumber(row.median_price_m2)}</td>
+              <td>${formatNumber(row.avg_security_coverage)}</td>
+              <td>${formatNumber(row.avg_security_risk)}</td>
+              <td>${formatNumber(row.homicide_radio_event_count)}</td>
+              <td>${formatNumber(row.homicide_radio_victim_count)}</td>
+              <td><a href="${escapeHtml(formatListUrl(row.url) || row.url || "#")}">Ver zona</a></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+      <p class="audit-note">Precision baja: ${escapeHtml(rows[0]?.precision_note || "crimen municipal y puntos aproximados.")}</p>
+    `;
+  }
+
+  function populateCrimeMapYearFilter(payload) {
+    const select = document.getElementById("crime-map-year");
+    if (!select || select.dataset.loaded) return;
+    const years = [...new Set((payload.homicide_points?.features || [])
+      .map((feature) => Number(feature.properties?.period_year))
+      .filter((year) => Number.isFinite(year)))]
+      .sort((a, b) => a - b);
+    select.innerHTML = '<option value="">Todos</option>' + years.map((year) => `<option value="${year}">${year}</option>`).join("");
+    select.dataset.loaded = "1";
+    select.addEventListener("change", () => updateCrimeMapSource(payload));
+  }
+
+  function filteredCrimePoints(payload) {
+    const selectedYear = document.getElementById("crime-map-year")?.value || "";
+    const features = payload.homicide_points?.features || [];
+    if (!selectedYear) return { type: "FeatureCollection", features };
+    return {
+      type: "FeatureCollection",
+      features: features.filter((feature) => String(feature.properties?.period_year || "") === selectedYear)
+    };
+  }
+
+  function updateCrimeMapSource(payload) {
+    if (!crimeMap || !crimeMap.getSource("crime-homicide-points")) return;
+    crimeMap.getSource("crime-homicide-points").setData(filteredCrimePoints(payload));
+  }
+
+  function renderCrimeMapLegend(payload) {
+    const legend = document.getElementById("crime-map-legend");
+    if (!legend) return;
+    const metrics = payload.summary?.metrics || crimeMetrics();
+    legend.innerHTML = `
+      <span>Total ${formatNumber(metrics.reported_crimes_total)}</span>
+      <span>Propiedad ${formatNumber(metrics.reported_property_crime_count)}</span>
+      <span>Homicidios ${formatNumber(metrics.reported_homicide_count)}</span>
+      <span class="crime-dot"></span>
+      <span>Centroide SAT-HD aproximado</span>
+    `;
+  }
+
+  function initCrimeMap() {
+    const container = document.getElementById("crime-context-map");
+    if (!container || typeof maplibregl === "undefined") return;
+    loadCrimeLayers()
+      .then((payload) => {
+        populateCrimeMapYearFilter(payload);
+        renderCrimeMapLegend(payload);
+        const zones = payload.zones || { type: "FeatureCollection", features: [] };
+        if (!payload.configured || !zones.features?.length) {
+          container.innerHTML = '<div class="audit-note">No hay capa de crimen cargada.</div>';
+          return;
+        }
+        if (crimeMap && crimeMap._loaded) {
+          crimeMap.resize();
+          updateCrimeMapSource(payload);
+          return;
+        }
+        if (crimeMap) {
+          crimeMap.once("load", () => updateCrimeMapSource(payload));
+          return;
+        }
+        fetch("/api/configuracion-mapa/").then((response) => response.json()).then((config) => {
+          crimeMap = new maplibregl.Map({
+            container: "crime-context-map",
+            style: {
+              version: 8,
+              sources: {
+                osm: {
+                  type: "raster",
+                  tiles: [config.tile_url],
+                  tileSize: 256,
+                  attribution: config.attribution
+                }
+              },
+              layers: [{ id: "osm", type: "raster", source: "osm" }]
+            },
+            center: config.center,
+            zoom: config.zoom || 12
+          });
+          crimeMap.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+          crimeMap.once("load", () => {
+            crimeMap.addSource("crime-zones", { type: "geojson", data: zones });
+            crimeMap.addSource("crime-homicide-points", { type: "geojson", data: filteredCrimePoints(payload) });
+            crimeMap.addLayer({
+              id: "crime-zone-fill",
+              type: "fill",
+              source: "crime-zones",
+              paint: {
+                "fill-color": "#eef3ee",
+                "fill-opacity": 0.42
+              }
+            });
+            crimeMap.addLayer({
+              id: "crime-zone-line",
+              type: "line",
+              source: "crime-zones",
+              paint: {
+                "line-color": "#5d6f66",
+                "line-width": 1.1,
+                "line-opacity": 0.8
+              }
+            });
+            crimeMap.addLayer({
+              id: "crime-homicide-points",
+              type: "circle",
+              source: "crime-homicide-points",
+              paint: {
+                "circle-radius": ["interpolate", ["linear"], ["get", "victims_count"], 1, 5, 4, 9],
+                "circle-color": [
+                  "match",
+                  ["get", "clase_arma"],
+                  "Arma de fuego", "#8f2d36",
+                  "Arma blanca", "#b05a2b",
+                  "Objeto contundente", "#6f5d8f",
+                  "#2f4056"
+                ],
+                "circle-opacity": 0.86,
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 1.2
+              }
+            });
+            const bounds = securityMapBounds(zones);
+            if (bounds) crimeMap.fitBounds(bounds, { padding: 30, duration: 0 });
+            crimeMap.on("click", "crime-zone-fill", (event) => {
+              const feature = event.features?.[0];
+              if (!feature) return;
+              const props = feature.properties || {};
+              if (crimeMapPopup) crimeMapPopup.remove();
+              crimeMapPopup = new maplibregl.Popup({ offset: 10 })
+                .setLngLat(event.lngLat)
+                .setHTML(`
+                  <div class="map-popup">
+                    <strong>${escapeHtml(props.label || "Zona")}</strong>
+                    <p>Total municipal: ${formatNumber(props.reported_crimes_total)}</p>
+                    <p>Propiedad: ${formatNumber(props.reported_property_crime_count)} · Homicidios: ${formatNumber(props.reported_homicide_count)}</p>
+                    <small>${escapeHtml(props.crime_data_scope || "municipio")} · precision ${escapeHtml(props.crime_spatial_precision || "low")}</small>
+                  </div>
+                `)
+                .addTo(crimeMap);
+            });
+            crimeMap.on("click", "crime-homicide-points", (event) => {
+              const feature = event.features?.[0];
+              if (!feature) return;
+              const props = feature.properties || {};
+              if (crimeMapPopup) crimeMapPopup.remove();
+              crimeMapPopup = new maplibregl.Popup({ offset: 10 })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML(`
+                  <div class="map-popup">
+                    <strong>SAT-HD ${escapeHtml(props.period_year || "")}</strong>
+                    <p>Victimas: ${formatNumber(props.victims_count)} · Zona: ${escapeHtml(props.assigned_zone_name || "")}</p>
+                    <p>${escapeHtml(props.tipo_lugar || "")} · ${escapeHtml(props.clase_arma || "")}</p>
+                    <small>Centroide de radio censal; ubicacion exacta: no.</small>
+                  </div>
+                `)
+                .addTo(crimeMap);
+            });
+            ["crime-zone-fill", "crime-homicide-points"].forEach((layerId) => {
+              crimeMap.on("mouseenter", layerId, () => { crimeMap.getCanvas().style.cursor = "pointer"; });
+              crimeMap.on("mouseleave", layerId, () => { crimeMap.getCanvas().style.cursor = ""; });
+            });
+            crimeMap.resize();
+          });
+        }).catch(() => {
+          container.innerHTML = '<div class="audit-note">No se pudo cargar la configuracion del mapa.</div>';
+        });
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="audit-note">No se pudo cargar la capa de crimen.</div>';
+      });
+  }
+
+  function renderCrimeAsyncPanels() {
+    loadCrimeLayers()
+      .then((payload) => {
+        if (!crimeChartsRendered || document.getElementById("crime-monthly-measure")?.dataset.bound !== "1") {
+          renderCrimeCharts(payload);
+        }
+      })
+      .catch(() => {
+        ["crime-monthly-chart", "crime-property-chart"].forEach((id) => {
+          const canvas = document.getElementById(id);
+          if (canvas && !canvas.parentElement.querySelector(".chart-empty-note")) {
+            canvas.insertAdjacentHTML("afterend", '<p class="audit-note chart-empty-note">No se pudo cargar la serie de crimen.</p>');
+          }
+        });
+        const seasonality = document.getElementById("crime-seasonality-panel");
+        if (seasonality) {
+          seasonality.innerHTML = '<div class="audit-note">No se pudo cargar la estacionalidad.</div>';
+        }
+      });
+  }
+
   function initPriceHeatmap() {
     const container = document.getElementById("price-heatmap-map");
     const emptyNote = document.getElementById("price-heatmap-empty");
@@ -1924,6 +2410,9 @@
     renderZoneTypeMatrix();
     renderSecurityPanel();
     renderSecurityArbitrage();
+    renderCrimeKpis();
+    renderCrimeZoneInsights();
+    renderCrimeAsyncPanels();
     [locality, neighborhood, agency, price, surface, bedrooms, bedroomsMl, securityRisk, volatility, boxplot, liquidity].forEach((chart) => {
       if (!chart) return;
       const canvas = chart.canvas;
@@ -1946,6 +2435,9 @@
       renderZoneTypeMatrix();
       renderSecurityPanel();
       renderSecurityArbitrage();
+      renderCrimeKpis();
+      renderCrimeZoneInsights();
+      renderCrimeAsyncPanels();
     }
   }
 

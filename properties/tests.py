@@ -48,6 +48,7 @@ from properties.services.scraping import (
     source_catalog,
 )
 from properties.services.security_scoring import risk_from_coverage, score_coordinates
+from properties.services.crime_context import crime_layers_payload, homicide_counts_by_zone
 from properties.services.spatial import haversine_km, point_in_polygon
 from properties.services.zone_inference import (
     apply_zone_inference,
@@ -390,6 +391,144 @@ class SecurityScoringTests(TestCase):
         self.assertEqual(property_obj.security_risk_score, 28)
         self.assertEqual(property_obj.security_level, "alta")
         self.assertEqual(property_obj.security_zone_label, "Zona Test")
+
+
+class CrimeContextTests(TestCase):
+    def _crime_fixture_paths(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        base = Path(temp_dir.name)
+        summary_path = base / "summary.json"
+        zones_path = base / "zones.geojson"
+        points_path = base / "homicide_points.geojson"
+        timeseries_path = base / "timeseries.csv"
+        summary_path.write_text(
+            json.dumps(
+                {
+                    "generated_at": "2026-01-01T00:00:00+00:00",
+                    "metrics": {
+                        "crime_data_scope": "municipio",
+                        "crime_spatial_precision": "low",
+                        "crime_municipality": "Hurlingham",
+                        "crime_metric_window_start_year": 2017,
+                        "crime_metric_window_end_year": 2024,
+                        "reported_crimes_total": 10,
+                        "reported_property_crime_count": 4,
+                        "reported_homicide_count": 1,
+                    },
+                    "validation": {"crime_zone_features": 1},
+                    "source_row_counts": {"snic_departamentos_mensual": 2},
+                }
+            ),
+            encoding="utf-8",
+        )
+        zones_path.write_text(
+            json.dumps(
+                {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "zone-test",
+                                "zone_name": "Zona Test",
+                                "crime_data_scope": "municipio",
+                                "crime_spatial_precision": "low",
+                                "reported_crimes_total": 10,
+                                "reported_property_crime_count": 4,
+                                "reported_homicide_count": 1,
+                            },
+                            "geometry": {
+                                "type": "Polygon",
+                                "coordinates": [[
+                                    [-58.70, -34.66],
+                                    [-58.60, -34.66],
+                                    [-58.60, -34.55],
+                                    [-58.70, -34.55],
+                                    [-58.70, -34.66],
+                                ]],
+                            },
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        points_path.write_text(
+            json.dumps(
+                {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "id": "sat-test",
+                            "properties": {
+                                "period_year": 2020,
+                                "period_month": 5,
+                                "id_hecho": "1",
+                                "victims_count": 2,
+                                "tipo_lugar": "Via publica",
+                                "clase_arma": "Arma de fuego",
+                                "assigned_zone_name": "Zona Test",
+                                "is_exact_location": False,
+                            },
+                            "geometry": {"type": "Point", "coordinates": [-58.64, -34.60]},
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        timeseries_path.write_text(
+            "\n".join(
+                [
+                    "source,dataset,source_key,source_role,geo_level,municipality,province,period_year,period_month,crime_group,crime_type,measure,value,source_file",
+                    "SNIC,SNIC,snic_departamentos_mensual,canonical_general,municipio,Hurlingham,Buenos Aires,2020,5,robo,Robo,cantidad_hechos,3,raw.csv",
+                    "SNIC,SNIC,snic_departamentos_mensual,canonical_general,municipio,Hurlingham,Buenos Aires,2020,5,robo,Robo,cantidad_victimas,1,raw.csv",
+                    "SAT,SAT,sat_propiedad,property_detail,municipio,Hurlingham,Buenos Aires,2020,5,hurto,Hurto,cantidad_hechos,4,raw.csv",
+                    "SNIC,SNIC,snic_departamentos_mensual,canonical_general,municipio,Otro,Buenos Aires,2020,5,robo,Robo,cantidad_hechos,99,raw.csv",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return summary_path, zones_path, points_path, timeseries_path
+
+    def test_crime_layers_payload_loads_and_aggregates_sources(self):
+        summary_path, zones_path, points_path, timeseries_path = self._crime_fixture_paths()
+
+        payload = crime_layers_payload(
+            summary_path=summary_path,
+            zone_path=zones_path,
+            point_path=points_path,
+            timeseries_path=timeseries_path,
+        )
+
+        self.assertTrue(payload["configured"])
+        self.assertEqual(len(payload["zones"]["features"]), 1)
+        self.assertEqual(payload["zones"]["features"][0]["properties"]["crime_data_scope"], "municipio")
+        self.assertEqual(len(payload["homicide_points"]["features"]), 1)
+        self.assertFalse(payload["homicide_points"]["features"][0]["properties"]["is_exact_location"])
+        self.assertEqual(payload["timeseries"]["monthly"][0]["cantidad_hechos"], 3)
+        self.assertEqual(payload["timeseries"]["monthly"][0]["cantidad_victimas"], 1)
+        self.assertEqual(payload["timeseries"]["property_monthly"][0]["cantidad_hechos"], 4)
+        self.assertEqual(payload["timeseries"]["property_seasonality"][0]["value"], 4)
+        self.assertEqual(homicide_counts_by_zone(points_path)["Zona Test"]["victim_count"], 2)
+
+    def test_crime_layers_payload_handles_missing_files(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        missing = Path(temp_dir.name) / "missing.json"
+
+        payload = crime_layers_payload(
+            summary_path=missing,
+            zone_path=missing,
+            point_path=missing,
+            timeseries_path=missing,
+        )
+
+        self.assertFalse(payload["configured"])
+        self.assertEqual(payload["zones"]["features"], [])
+        self.assertFalse(payload["timeseries"]["configured"])
 
 
 class ZoneInferenceTests(TestCase):
@@ -1921,12 +2060,68 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Dashboard de mercado")
         self.assertContains(response, "Mediana precio/m2")
+        self.assertContains(response, "Crimen reportado")
         self.assertContains(response, "quality_field=surface")
         chart_data = json.loads(
             BeautifulSoup(response.content, "lxml").find(id="chart-data").string
         )
         self.assertIn("url", chart_data["by_locality"][0])
         self.assertIn("price_buckets", chart_data)
+        self.assertIn("crime", chart_data)
+        self.assertIn("zone_insights", chart_data["crime"])
+
+    def test_crime_layers_api_returns_payload(self):
+        with patch(
+            "properties.views.crime_layers_payload",
+            return_value={
+                "configured": False,
+                "summary": {},
+                "zones": {"type": "FeatureCollection", "features": []},
+                "homicide_points": {"type": "FeatureCollection", "features": []},
+                "timeseries": {"configured": False, "monthly": []},
+            },
+        ):
+            response = self.client.get("/api/crimen/capas/")
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.json()["configured"])
+
+        with patch(
+            "properties.views.crime_layers_payload",
+            return_value={
+                "configured": True,
+                "summary": {"metrics": {"crime_data_scope": "municipio"}},
+                "zones": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "crime_data_scope": "municipio",
+                                "crime_spatial_precision": "low",
+                            },
+                            "geometry": {"type": "Polygon", "coordinates": []},
+                        }
+                    ],
+                },
+                "homicide_points": {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {"is_exact_location": False},
+                            "geometry": {"type": "Point", "coordinates": [-58.64, -34.60]},
+                        }
+                    ],
+                },
+                "timeseries": {"configured": True, "monthly": []},
+            },
+        ):
+            response = self.client.get("/api/crimen/capas/")
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertTrue(payload["configured"])
+        self.assertEqual(payload["zones"]["features"][0]["properties"]["crime_data_scope"], "municipio")
+        self.assertFalse(payload["homicide_points"]["features"][0]["properties"]["is_exact_location"])
 
     def test_stats_chart_uses_canonical_localities_only(self):
         Property.objects.create(
