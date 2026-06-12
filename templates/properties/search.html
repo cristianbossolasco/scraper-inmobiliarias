@@ -41,6 +41,21 @@
           hx-swap="outerHTML"
           hx-push-url="true"
           hx-trigger="submit">
+      <div class="filter-panel-title">
+        <div>
+          <span>Radar de mercado</span>
+          <strong>Filtros de busqueda</strong>
+        </div>
+        <small data-filter-dirty-status>Listo para analizar</small>
+      </div>
+      <div class="filter-summary" data-filter-summary></div>
+
+      <details class="filter-group" open>
+        <summary>
+          <span><i data-lucide="search"></i> Busqueda y precio</span>
+          <small>Texto, tipo, moneda y rango</small>
+        </summary>
+        <div class="filter-group-body">
       <div class="search-field">
         <i data-lucide="search"></i>
         <input type="search" name="q" value="{{ query_params.q }}" placeholder="Dirección, barrio o característica">
@@ -87,7 +102,16 @@
         </div>
       </div>
 
+        </div>
+      </details>
+
       {% if neighborhood_options %}
+      <details class="filter-group" open>
+        <summary>
+          <span><i data-lucide="map-pin"></i> Zonas</span>
+          <small>Barrios, poligonos y foco geografico</small>
+        </summary>
+        <div class="filter-group-body">
       <div class="filter-section zone-filter">
         <div class="filter-section-heading">
           <label for="zone-search">Zona</label>
@@ -105,8 +129,16 @@
         </div>
         <div class="zone-summary"><span>0 seleccionadas</span></div>
       </div>
+        </div>
+      </details>
       {% endif %}
 
+      <details class="filter-group" open>
+        <summary>
+          <span><i data-lucide="ruler"></i> Ambientes y superficies</span>
+          <small>Dormitorios, banos, cochera y m2</small>
+        </summary>
+        <div class="filter-group-body">
       <div class="filter-section three-cols">
         <div>
           <label for="bedrooms_min">Dorm.</label>
@@ -133,6 +165,15 @@
         </div>
       </div>
 
+        </div>
+      </details>
+
+      <details class="filter-group" open>
+        <summary>
+          <span><i data-lucide="building-2"></i> Origen, estado y revision</span>
+          <small>Fuente, inmobiliaria, calidad y orden</small>
+        </summary>
+        <div class="filter-group-body">
       <div class="filter-section">
         <label for="agency">Inmobiliaria</label>
         <select id="agency" name="agency" multiple size="5">
@@ -235,6 +276,9 @@
           </select>
         </div>
       </div>
+
+        </div>
+      </details>
 
       <input type="hidden" name="south" value="{{ query_params.south }}">
       <input type="hidden" name="west" value="{{ query_params.west }}">
@@ -540,5 +584,6 @@
 </script>
 <script src="{% static 'js/search-map.js' %}"></script>
 <script src="{% static 'js/zone-filter.js' %}"></script>
+<script src="{% static 'js/filter-panel.js' %}"></script>
 <script src="{% static 'js/property-actions.js' %}"></script>
 {% endblock %}

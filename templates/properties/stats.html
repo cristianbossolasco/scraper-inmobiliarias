@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static %}
 {% block title %}Dashboard | Radar Hurlingham{% endblock %}
 {% block head %}
@@ -25,7 +25,7 @@
     <div class="stats-filter-bar">
       <div>
         <strong>{{ total }} publicaciones filtradas</strong>
-        <span>Panel analítico sobre estos filtros.</span>
+        <span>Panel analitico sobre estos filtros.</span>
       </div>
       <div class="stats-filter-actions">
         <button class="secondary-button" type="button" id="stats-filter-toggle" aria-expanded="true">
@@ -44,6 +44,14 @@
     </div>
 
     <form class="stats-filter-form" id="stats-filter-form" method="get" action="{% url 'properties:stats' %}">
+      <div class="filter-summary stats-filter-summary" data-filter-summary></div>
+
+      <details class="filter-group stats-filter-group" open>
+        <summary>
+          <span><i data-lucide="search"></i> Busqueda y precio</span>
+          <small>Texto, tipo, moneda y rango</small>
+        </summary>
+        <div class="stats-filter-group-body">
       <div class="stats-filter-field wide">
         <label for="stats-q">Buscar</label>
         <input id="stats-q" type="search" name="q" value="{{ query_params.q }}" placeholder="Direccion, barrio o caracteristica">
@@ -88,6 +96,15 @@
         </select>
       </div>
 
+        </div>
+      </details>
+
+      <details class="filter-group stats-filter-group" open>
+        <summary>
+          <span><i data-lucide="ruler"></i> Ubicacion y caracteristicas</span>
+          <small>Zonas, ambientes y superficies</small>
+        </summary>
+        <div class="stats-filter-group-body">
       {% if neighborhood_options %}
       <div class="stats-filter-field wide zone-filter">
         <div class="filter-section-heading">
@@ -145,6 +162,15 @@
         <input id="stats-covered-max" name="covered_max" inputmode="numeric" value="{{ query_params.covered_max }}">
       </div>
 
+        </div>
+      </details>
+
+      <details class="filter-group stats-filter-group">
+        <summary>
+          <span><i data-lucide="sliders-horizontal"></i> Origen, estado y seguridad</span>
+          <small>Inmobiliarias, fuentes, ocultas y seguridad</small>
+        </summary>
+        <div class="stats-filter-group-body">
       <div class="stats-filter-field wide">
         <label for="stats-agency">Inmobiliaria <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-agency" name="agency" multiple size="4">
@@ -252,6 +278,9 @@
         </select>
       </div>
 
+        </div>
+      </details>
+
       <input type="hidden" name="south" value="{{ query_params.south }}">
       <input type="hidden" name="west" value="{{ query_params.west }}">
       <input type="hidden" name="north" value="{{ query_params.north }}">
@@ -293,7 +322,7 @@
   <section class="stats-panel stats-tab-panel active" data-tab-content="overview">
     <div class="section-heading">
       <div>
-        <h1>Visión general</h1>
+        <h1>VisiÃ³n general</h1>
         <p>Indicadores y calidad de datos sobre el filtro actual.</p>
       </div>
       <strong>{{ total }} publicaciones</strong>
@@ -309,7 +338,7 @@
       <div><span>Sup. cubierta prom.</span><strong>{% if covered_area_stats.avg %}{{ covered_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Mediana cubierta</span><strong>{% if covered_area_stats.median %}{{ covered_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Dormitorios prom.</span><strong>{% if bedroom_stats.avg %}{{ bedroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Baños prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>BaÃ±os prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
       <div><span>Con direccion</span><strong>{{ with_detected_address }}</strong></div>
       <div><span>Con coordenadas</span><strong>{{ with_map_location }}</strong></div>
       <div><span>Ubicacion debil</span><strong>{{ without_reliable_location }}</strong></div>
@@ -328,7 +357,7 @@
       <div><a href="{{ quality_links.link.present }}">Link</a><meter min="0" max="100" value="{{ quality_percent.link }}"></meter><strong><a href="{{ quality_links.link.missing }}">{{ quality_percent.link }}%</a></strong></div>
       <div><a href="{{ quality_links.agency.present }}">Inmobiliaria</a><meter min="0" max="100" value="{{ quality_percent.agency }}"></meter><strong><a href="{{ quality_links.agency.missing }}">{{ quality_percent.agency }}%</a></strong></div>
     </div>
-    <p class="audit-note">{{ incomplete }} incompletas · {{ inconsistent }} inconsistentes o sospechosas · {{ anomaly_count }} valores excluidos de metricas</p>
+    <p class="audit-note">{{ incomplete }} incompletas Â· {{ inconsistent }} inconsistentes o sospechosas Â· {{ anomaly_count }} valores excluidos de metricas</p>
   </section>
 
   {% if anomaly_rows %}
@@ -404,17 +433,17 @@
     <div class="chart-panel chart-panel--expanded">
       <h2>Mapa de calor de precios</h2>
       <div id="price-heatmap-map" class="stats-heatmap-map"></div>
-      <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicación para este filtro.</p>
+      <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicaciÃ³n para este filtro.</p>
     </div>
     <div class="stats-grid security-map-grid">
       <div class="chart-panel">
         <h2>Cobertura de seguridad</h2>
-        <p class="audit-note">Proxy de infraestructura: cámaras, paradas seguras, lectores y cercanía policial. No representa tasa real de delitos.</p>
+        <p class="audit-note">Proxy de infraestructura: cÃ¡maras, paradas seguras, lectores y cercanÃ­a policial. No representa tasa real de delitos.</p>
         <div id="security-coverage-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
       <div class="chart-panel">
         <h2>Riesgo relativo</h2>
-        <p class="audit-note">Inverso de la cobertura: útil para detectar zonas donde el precio debería tener descuento o margen de negociación.</p>
+        <p class="audit-note">Inverso de la cobertura: Ãºtil para detectar zonas donde el precio deberÃ­a tener descuento o margen de negociaciÃ³n.</p>
         <div id="security-risk-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
     </div>
@@ -459,8 +488,8 @@
     <div class="stats-panel anomaly-model-panel">
       <div class="section-heading">
         <div>
-          <h2>Algoritmo de anomalías</h2>
-          <p>Seleccioná qué modelo querés inspeccionar. El cambio filtra la tabla sin recargar el dashboard.</p>
+          <h2>Algoritmo de anomalÃ­as</h2>
+          <p>SeleccionÃ¡ quÃ© modelo querÃ©s inspeccionar. El cambio filtra la tabla sin recargar el dashboard.</p>
         </div>
         <label class="anomaly-model-select">
           <span>Modelo</span>
@@ -502,7 +531,7 @@
     </div>
     <div class="stats-panel">
       <h2>Outliers del modelo (por debajo de la tendencia superficie-precio)</h2>
-      <p class="audit-note">Marcá una zona/criterio desde el filtro para enfocar la detección.</p>
+      <p class="audit-note">MarcÃ¡ una zona/criterio desde el filtro para enfocar la detecciÃ³n.</p>
       <div id="surface-outliers" class="anomaly-table"></div>
     </div>
   </section>
@@ -523,6 +552,8 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/zone-filter.js' %}"></script>
+<script src="{% static 'js/filter-panel.js' %}"></script>
 <script src="{% static 'js/stats.js' %}"></script>
 <script src="{% static 'js/property-actions.js' %}"></script>
 {% endblock %}
+

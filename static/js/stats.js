@@ -24,6 +24,7 @@
   const securityMaps = {};
   let securityMapPopup = null;
   let surfaceRegression = null;
+  let dashboardPayloadRendered = false;
 
   const priceFormatter = new Intl.NumberFormat("es-AR");
   const zoneStorageKey = "stats.filterSectionCollapsed";
@@ -86,6 +87,9 @@
         panel.classList.toggle("active", panel.dataset.tabContent === tabName);
       });
       localStorage.setItem(tabStorageKey, tabName);
+      if (tabName !== "overview") {
+        renderDashboardDeferred();
+      }
       if (tabName === "spatial") {
         initPriceHeatmap();
         initSecurityMaps();
@@ -1578,19 +1582,35 @@
     });
   }
 
+  function renderDashboardDeferred() {
+    if (dashboardPayloadRendered) return;
+    dashboardPayloadRendered = true;
+    if (typeof Chart !== "undefined") {
+      try {
+        renderCharts();
+      } catch (error) {
+        console.error("No se pudieron renderizar los graficos del dashboard.", error);
+      }
+    } else {
+      renderOpportunityPanel();
+      renderZoneTypeMatrix();
+      renderSecurityPanel();
+      renderSecurityArbitrage();
+    }
+  }
+
   initTabs();
   initAnomalyModelFilter();
-  if (typeof Chart !== "undefined") {
-    try {
-      renderCharts();
-    } catch (error) {
-      console.error("No se pudieron renderizar los graficos del dashboard.", error);
+  const activeStatsTab = document.querySelector(".stats-tab.active")?.dataset.tab || "overview";
+  if (activeStatsTab === "overview") {
+    const idleRender = () => renderDashboardDeferred();
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(idleRender, { timeout: 1800 });
+    } else {
+      window.setTimeout(idleRender, 450);
     }
   } else {
-    renderOpportunityPanel();
-    renderZoneTypeMatrix();
-    renderSecurityPanel();
-    renderSecurityArbitrage();
+    renderDashboardDeferred();
   }
 
   document.addEventListener("click", (event) => {
