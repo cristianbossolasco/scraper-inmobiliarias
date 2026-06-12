@@ -37,7 +37,14 @@ from properties.services.normalization import (
     normalize_street_number_address,
     parse_decimal,
 )
-from properties.services.scraping import ActiveScrapeJobError, create_scrape_job, db_writer_snapshot, run_scrape_job
+from properties.services.scraping import (
+    ActiveScrapeJobError,
+    create_scrape_job,
+    db_writer_snapshot,
+    run_scrape_job,
+    source_catalog,
+)
+from properties.services.security_scoring import risk_from_coverage, score_coordinates
 from properties.services.spatial import haversine_km, point_in_polygon
 from properties.services.zone_inference import (
     apply_zone_inference,
@@ -232,6 +239,113 @@ class SpatialTests(TestCase):
         ]
         self.assertTrue(point_in_polygon(-34.60, -58.64, polygon))
         self.assertFalse(point_in_polygon(-34.75, -58.64, polygon))
+
+
+class SecurityScoringTests(TestCase):
+    def _security_geojson_path(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        path = Path(temp_dir.name) / "security.geojson"
+        payload = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "zone_name": "Zona Test",
+                        "security_infrastructure_score": 72,
+                        "security_level": "alta",
+                        "source": "test",
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-58.70, -34.66],
+                            [-58.60, -34.66],
+                            [-58.60, -34.55],
+                            [-58.70, -34.55],
+                            [-58.70, -34.66],
+                        ]],
+                    },
+                }
+            ],
+        }
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def _security_points_path(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        path = Path(temp_dir.name) / "points.geojson"
+        payload = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {"security_type": "camera", "name": "Camara Test"},
+                    "geometry": {"type": "Point", "coordinates": [-58.64, -34.60]},
+                }
+            ],
+        }
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def test_security_score_normalizes_coverage_and_risk(self):
+        feature = json.loads(self._security_geojson_path().read_text(encoding="utf-8"))["features"][0]
+        point = json.loads(self._security_points_path().read_text(encoding="utf-8"))["features"][0]
+
+        score = score_coordinates(-34.60, -58.64, [feature], [point])
+
+        self.assertEqual(score.coverage_score, 72)
+        self.assertEqual(risk_from_coverage(score.coverage_score), 28)
+        self.assertEqual(score.zone_label, "Zona Test")
+        self.assertEqual(score.evidence["nearby_points"]["by_type"]["camera"], 1)
+
+    def test_score_security_command_dry_run_and_apply(self):
+        property_obj = Property.objects.create(
+            fingerprint="security-command",
+            title="Casa segura",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+        )
+        PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.60,
+            longitude=-58.64,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+        geojson_path = self._security_geojson_path()
+        points_path = self._security_points_path()
+
+        call_command(
+            "score_security",
+            "--dry-run",
+            "--property-id",
+            str(property_obj.pk),
+            "--geojson",
+            str(geojson_path),
+            "--points-geojson",
+            str(points_path),
+            stdout=StringIO(),
+        )
+        property_obj.refresh_from_db()
+        self.assertIsNone(property_obj.security_coverage_score)
+
+        call_command(
+            "score_security",
+            "--property-id",
+            str(property_obj.pk),
+            "--geojson",
+            str(geojson_path),
+            "--points-geojson",
+            str(points_path),
+            stdout=StringIO(),
+        )
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.security_coverage_score, 72)
+        self.assertEqual(property_obj.security_risk_score, 28)
+        self.assertEqual(property_obj.security_level, "alta")
+        self.assertEqual(property_obj.security_zone_label, "Zona Test")
 
 
 class ZoneInferenceTests(TestCase):
@@ -1171,6 +1285,114 @@ class IngestionTests(TestCase):
         self.assertIn("1 publicaciones separadas", output.getvalue())
 
 
+class MergePropertiesCommandTests(TestCase):
+    def create_property(self, title, **overrides):
+        defaults = {
+            "fingerprint": f"merge-test-{title.lower().replace(' ', '-')}",
+            "title": title,
+            "operation": "sale",
+            "status": Property.Status.ACTIVE,
+            "property_type": Property.Type.HOUSE,
+            "currency": "USD",
+            "price": Decimal("100000"),
+            "address": title,
+        }
+        defaults.update(overrides)
+        return Property.objects.create(**defaults)
+
+    def create_listing(self, source, property_obj, external_id, url):
+        return Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id=external_id,
+            url=url,
+        )
+
+    def test_merge_properties_detects_url_tail_components_without_writing_on_dry_run(self):
+        argenprop = Source.objects.create(
+            slug="argenprop",
+            name="Argenprop",
+            base_url="https://www.argenprop.com",
+        )
+        clarin = Source.objects.create(
+            slug="inmuebles-clarin",
+            name="Inmuebles Clarin",
+            base_url="https://www.inmuebles.clarin.com",
+        )
+        first = self.create_property("Casa A")
+        middle = self.create_property("Casa B")
+        last = self.create_property("Casa C")
+        self.create_listing(argenprop, first, "a1", "https://www.argenprop.com/casa--100")
+        self.create_listing(clarin, middle, "c1", "https://www.inmuebles.clarin.com/casa--100")
+        self.create_listing(argenprop, middle, "a2", "https://www.argenprop.com/casa--200")
+        self.create_listing(clarin, last, "c2", "https://www.inmuebles.clarin.com/casa--200")
+
+        output = StringIO()
+        call_command(
+            "merge_properties",
+            "--detect-url-tail-sources",
+            "argenprop,inmuebles-clarin",
+            "--dry-run",
+            stdout=output,
+        )
+
+        text = output.getvalue()
+        self.assertIn("Componentes a procesar: 1", text)
+        self.assertIn("propiedades involucradas: 3", text)
+        self.assertEqual(first.listings.count(), 1)
+        self.assertEqual(middle.listings.count(), 2)
+        self.assertEqual(last.listings.count(), 1)
+        self.assertFalse(middle.is_hidden)
+        self.assertEqual(middle.status, Property.Status.ACTIVE)
+
+    def test_merge_properties_component_preserves_state_notes_and_listings(self):
+        source = Source.objects.create(
+            slug="manual",
+            name="Manual",
+            base_url="https://example.com",
+        )
+        canonical_seed = self.create_property("Casa visible", covered_area=Decimal("120"))
+        favorite = self.create_property(
+            "Casa favorita",
+            is_favorite=True,
+            is_hidden=True,
+            personal_notes="Nota favorita",
+            bedrooms=3,
+        )
+        noted = self.create_property(
+            "Casa anotada",
+            personal_notes="Nota secundaria",
+            status=Property.Status.RESERVED,
+        )
+        self.create_listing(source, canonical_seed, "l1", "https://example.com/1")
+        self.create_listing(source, favorite, "l2", "https://example.com/2")
+        self.create_listing(source, noted, "l3", "https://example.com/3")
+
+        call_command(
+            "merge_properties",
+            "--component",
+            f"{canonical_seed.pk},{favorite.pk},{noted.pk}",
+            stdout=StringIO(),
+        )
+
+        canonical_seed.refresh_from_db()
+        favorite.refresh_from_db()
+        noted.refresh_from_db()
+        self.assertFalse(canonical_seed.is_hidden)
+        self.assertEqual(canonical_seed.status, Property.Status.ACTIVE)
+        self.assertTrue(canonical_seed.is_favorite)
+        self.assertEqual(canonical_seed.bedrooms, 3)
+        self.assertIn("Nota favorita", canonical_seed.personal_notes)
+        self.assertIn("Nota secundaria", canonical_seed.personal_notes)
+        self.assertEqual(canonical_seed.listings.count(), 3)
+        self.assertTrue(favorite.is_hidden)
+        self.assertEqual(favorite.status, Property.Status.REMOVED)
+        self.assertEqual(favorite.listings.count(), 0)
+        self.assertTrue(noted.is_hidden)
+        self.assertEqual(noted.status, Property.Status.REMOVED)
+        self.assertEqual(noted.listings.count(), 0)
+
+
 class ViewTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -1206,6 +1428,81 @@ class ViewTests(TestCase):
         )
         payload = response.json()
         self.assertEqual(len(payload["features"]), 1)
+
+    def test_security_filters_are_applied_to_geojson_api(self):
+        primary = self.listing.property
+        primary.security_coverage_score = 72
+        primary.security_risk_score = 28
+        primary.security_level = "alta"
+        primary.security_zone_label = "Zona Test"
+        primary.save(
+            update_fields=[
+                "security_coverage_score",
+                "security_risk_score",
+                "security_level",
+                "security_zone_label",
+            ]
+        )
+        other = Property.objects.create(
+            fingerprint="security-filter-low",
+            title="Casa bajo score",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+            security_coverage_score=30,
+            security_risk_score=70,
+            security_level="baja",
+            security_zone_label="Zona Baja",
+        )
+        PropertyLocation.objects.create(
+            property=other,
+            latitude=-34.61,
+            longitude=-58.65,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+
+        response = self.client.get(
+            "/api/propiedades/",
+            {"security_coverage_min": "60", "security_level": "alta"},
+        )
+        ids = {feature["id"] for feature in response.json()["features"]}
+
+        self.assertIn(primary.pk, ids)
+        self.assertNotIn(other.pk, ids)
+        feature = next(feature for feature in response.json()["features"] if feature["id"] == primary.pk)
+        self.assertEqual(feature["properties"]["security_coverage_score"], 72)
+
+    def test_default_filters_show_only_active_status(self):
+        Property.objects.create(
+            fingerprint="status-active-filter",
+            title="Casa activa filtro",
+            property_type=Property.Type.HOUSE,
+            operation="sale",
+            status=Property.Status.ACTIVE,
+        )
+        statuses = [
+            Property.Status.SOLD,
+            Property.Status.RESERVED,
+            Property.Status.SUSPENDED,
+            Property.Status.REMOVED,
+        ]
+        for status in statuses:
+            Property.objects.create(
+                fingerprint=f"status-{status}-filter",
+                title=f"Casa {status}",
+                property_type=Property.Type.HOUSE,
+                operation="sale",
+                status=status,
+            )
+
+        response = self.client.get("/")
+        self.assertContains(response, "Casa activa filtro")
+        for status in statuses:
+            self.assertNotContains(response, f"Casa {status}")
+
+        response = self.client.get("/", {"status": Property.Status.SUSPENDED})
+        self.assertContains(response, "Casa suspended")
+        self.assertNotContains(response, "Casa activa filtro")
 
     def test_detail_links_preserve_return_to_and_show_original_links(self):
         query = "price_max=200000&sort=-last_seen"
@@ -2306,6 +2603,25 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["bathrooms"], Decimal("1"))
         self.assertEqual(data["garages"], 2)
 
+    def test_guarnieri_structured_table_wins_and_marks_conflict(self):
+        data = self.parse_with_fixture(
+            GuarnieriScraper,
+            "guarnieri_structured_conflict_detail.html",
+            "https://guarnieripropiedades.com.ar/inmobiliaria/propiedad/casa-4-amb-con-lote-hurlingham-centro-z-curupayti-apta-credito",
+        )
+        self.assertEqual(data["price"], Decimal("110000"))
+        self.assertEqual(data["covered_area"], Decimal("325"))
+        self.assertEqual(data["land_area"], Decimal("178"))
+        self.assertEqual(data["total_area"], Decimal("178"))
+        self.assertEqual(data["source_status"], "metric_conflict_review")
+        fields = {
+            conflict["field"]
+            for conflict in data["raw_data"]["guarnieri_metric_conflicts"]
+        }
+        self.assertIn("price", fields)
+        self.assertIn("covered_area", fields)
+        self.assertIn("land_area", fields)
+
     def test_guarnieri_garage_does_not_take_surface_value(self):
         data = self.parse_with_fixture(
             GuarnieriScraper,
@@ -2723,6 +3039,102 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["total_area"], Decimal("350"))
         self.assertEqual(data["source_status"], "price_age_review")
 
+    def test_patagonprop_status_badges_mark_inactive_and_clear_placeholder_price(self):
+        cases = [
+            ("Vendida", Property.Status.SOLD, "sold"),
+            ("Reservada", Property.Status.RESERVED, "reserved"),
+            ("Suspendida", Property.Status.SUSPENDED, "suspended"),
+        ]
+        for badge, expected_status, expected_source_status in cases:
+            scraper = PatagonPropScraper()
+            scraper.soup = lambda parsed_url, badge=badge: BeautifulSoup(
+                f"""
+                <html><body>
+                  <h1>Casa en Venta en Hurlingham, Hurlingham, Buenos Aires</h1>
+                  <span>{badge}</span>
+                  <div>USD 1</div>
+                  <dl>
+                    <dt>Dirección</dt><dd>Rossini 2165</dd>
+                    <dt>Ubicación</dt><dd>Hurlingham</dd>
+                    <dt>Tipo</dt><dd>Casa</dd>
+                  </dl>
+                  <img src="https://img.example/casa.jpg">
+                </body></html>
+                """,
+                "lxml",
+            )
+            data = scraper.parse(
+                "https://patagonprop.com/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-1/hash"
+            )
+            self.assertEqual(data["status"], expected_status)
+            self.assertEqual(data["source_status"], expected_source_status)
+            self.assertIsNone(data["price"])
+            self.assertEqual(data["raw_data"]["patagonprop_status_badge"], badge)
+
+    def test_repair_metrics_applies_patagonprop_inactive_status(self):
+        source = Source.objects.create(
+            slug="patagonprop",
+            name="PatagonProp",
+            base_url="https://patagonprop.com",
+        )
+        mapaprop = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        property_obj = Property.objects.create(
+            fingerprint="patagonprop-repair-status",
+            title="Casa en Hurlingham",
+            property_type=Property.Type.HOUSE,
+            operation="sale",
+            address="Rossini 2165",
+            locality="Hurlingham",
+            currency="USD",
+            price=Decimal("1"),
+            status=Property.Status.ACTIVE,
+        )
+        Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="patagon-1",
+            url="https://patagonprop.com/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-8404/hash",
+        )
+        Listing.objects.create(
+            source=mapaprop,
+            property=property_obj,
+            external_id="mapaprop-1",
+            url="https://www.mapaprop.com/en/property/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-8404/hash",
+        )
+
+        class FakeAdapter:
+            definition = type("Definition", (), {"crawl_delay": 0})()
+
+            def parse(self, url):
+                return {
+                    "external_id": "patagon-1",
+                    "url": url,
+                    "title": "Casa en Hurlingham",
+                    "property_type": Property.Type.HOUSE,
+                    "operation": "sale",
+                    "address": "Rossini 2165",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": None,
+                    "status": Property.Status.SOLD,
+                    "source_status": "sold",
+                    "raw_data": {"patagonprop_status_badge": "Vendida"},
+                }
+
+        with patch("properties.management.commands.repair_metrics.get_adapter", return_value=FakeAdapter()):
+            call_command("repair_metrics", "--source", "patagonprop", "--property-id", str(property_obj.pk), stdout=StringIO())
+
+        property_obj.refresh_from_db()
+        listing = property_obj.listings.get(source=source)
+        self.assertEqual(property_obj.status, Property.Status.SOLD)
+        self.assertIsNone(property_obj.price)
+        self.assertEqual(listing.source_status, "sold")
+        self.assertEqual(listing.raw_data["patagonprop_status_badge"], "Vendida")
+
     def test_remax_datawork_does_not_ingest_category_pages(self):
         scraper = RemaxDataworkScraper()
         scraper.soup = lambda parsed_url: fixture_soup("remax_category_page.html")
@@ -2811,6 +3223,12 @@ class ScraperParserTests(TestCase):
 
 
 class ScrapeCommandTests(TransactionTestCase):
+    def test_inmuebles_clarin_is_permanently_blocked(self):
+        slugs = {item["slug"] for item in source_catalog(include_disabled=True)}
+        self.assertNotIn("inmuebles-clarin", slugs)
+        with self.assertRaisesMessage(ValueError, "bloqueada permanentemente"):
+            create_scrape_job(["inmuebles-clarin"], {"inmuebles-clarin": 1})
+
     def test_single_active_job_guard_blocks_second_creation(self):
         class FakeDefinition:
             slug = "fake"

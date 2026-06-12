@@ -10,10 +10,35 @@
     return container ? container.dataset.propertyId : "";
   }
 
+  function noteBackupKey(id) {
+    return `radar.property.${id}.draftNote`;
+  }
+
+  function saveDirtyNotes(root, id) {
+    const notes = root.querySelector("#personal-notes");
+    const status = root.querySelector("#note-status");
+    if (!notes || !id || notes.value === (notes.dataset.savedValue || "")) {
+      return Promise.resolve();
+    }
+    if (status) status.textContent = "Guardando nota...";
+    return fetch(`/api/propiedad/${id}/nota/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+      body: JSON.stringify({ personal_notes: notes.value })
+    }).then((response) => {
+      if (!response.ok) throw new Error("No se pudo guardar la nota");
+      return response.json();
+    }).then(() => {
+      notes.dataset.savedValue = notes.value;
+      localStorage.removeItem(noteBackupKey(id));
+      if (status) status.textContent = "Nota guardada";
+    });
+  }
+
   function bindActions(root = document) {
     root.querySelectorAll(".property-action:not([data-bound])").forEach((button) => {
       button.dataset.bound = "1";
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const id = propertyId(button);
         const action = button.dataset.action;
         const value = button.dataset.value === "1";
@@ -21,14 +46,15 @@
         if (action === "favorite") payload.is_favorite = value;
         if (action === "hidden") payload.is_hidden = value;
         if (action === "reviewed") payload.reviewed = value;
-        fetch(`/api/propiedad/${id}/estado/`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
-          body: JSON.stringify(payload)
-        }).then((response) => {
+        try {
+          await saveDirtyNotes(document, id);
+          const response = await fetch(`/api/propiedad/${id}/estado/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+            body: JSON.stringify(payload)
+          });
           if (!response.ok) throw new Error("No se pudo guardar");
-          return response.json();
-        }).then((data) => {
+          const data = await response.json();
           if (action === "favorite") setToggle(button, data.is_favorite);
           if (action === "hidden") setToggle(button, data.is_hidden);
           if (action === "reviewed") setToggle(button, data.reviewed);
@@ -36,7 +62,9 @@
             const row = button.closest("[data-property-id]");
             if (row) row.classList.toggle("is-hidden", data.is_hidden);
           }
-        }).catch((error) => alert(error.message));
+        } catch (error) {
+          alert(error.message);
+        }
       });
     });
 
@@ -45,6 +73,18 @@
     const status = root.querySelector("#note-status");
     if (notes && save && !save.dataset.bound) {
       save.dataset.bound = "1";
+      const id = propertyId(save);
+      const backup = id ? localStorage.getItem(noteBackupKey(id)) : "";
+      notes.dataset.savedValue = notes.value;
+      if (backup && backup !== notes.value) {
+        notes.value = backup;
+        if (status) status.textContent = "Nota sin guardar restaurada";
+      }
+      notes.addEventListener("input", () => {
+        const noteId = propertyId(save);
+        if (noteId) localStorage.setItem(noteBackupKey(noteId), notes.value);
+        if (status) status.textContent = "Nota sin guardar";
+      });
       save.addEventListener("click", () => {
         const id = propertyId(save);
         fetch(`/api/propiedad/${id}/nota/`, {
@@ -55,6 +95,8 @@
           if (!response.ok) throw new Error("No se pudo guardar la nota");
           return response.json();
         }).then(() => {
+          notes.dataset.savedValue = notes.value;
+          localStorage.removeItem(noteBackupKey(id));
           if (status) status.textContent = "Guardado";
           setTimeout(() => { if (status) status.textContent = ""; }, 1800);
         }).catch((error) => {

@@ -1,6 +1,10 @@
-from django.core.management.base import BaseCommand, CommandError
+import re
+from urllib.parse import urlparse
 
-from properties.models import Listing
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+
+from properties.models import Listing, Property
 from properties.scrapers.registry import get_adapter
 from properties.services.data_quality import is_listing_url, is_rental_url
 from properties.services.ingestion import canonicalize_listing_data
@@ -37,7 +41,16 @@ REPAIR_FIELDS = (
     "location_confidence",
     "location_notes",
     "location_evidence",
+    "status",
 )
+
+NON_ACTIVE_SOURCE_STATUSES = {"sold", "reserved", "suspended", "removed"}
+NON_ACTIVE_PROPERTY_STATUSES = {
+    Property.Status.SOLD,
+    Property.Status.RESERVED,
+    Property.Status.SUSPENDED,
+    Property.Status.REMOVED,
+}
 
 CLEARABLE_EMPTY_FIELDS = {"currency"}
 
@@ -77,9 +90,7 @@ class Command(BaseCommand):
             self.stdout.write(f"Fuente {slug}: {len(listings)} publicaciones")
             for listing in listings:
                 classification_changes = self._classification_changes(listing, None, options)
-                if listing.property_id in touched_properties:
-                    continue
-                if classification_changes:
+                if classification_changes and listing.property_id not in touched_properties:
                     total_changes += len(classification_changes)
                     rendered = "; ".join(
                         f"{field}: {old!r} -> {new!r}"
@@ -101,12 +112,17 @@ class Command(BaseCommand):
                     self.stdout.write(self._safe_line(f"  OMITIDA id={listing.property_id}: parser sin datos"))
                     continue
                 data = canonicalize_listing_data(data, source=listing.source)
+                data = self._apply_property_status_policy(listing, data)
                 changes = self._changes(listing.property, data)
                 changes.extend(self._classification_changes(listing, data, options))
                 changes = self._dedupe_changes(changes)
                 if not changes:
+                    if not options["dry_run"]:
+                        self._apply_listing_data(listing, data)
                     continue
                 if listing.property_id in touched_properties:
+                    if not options["dry_run"]:
+                        self._apply_listing_data(listing, data)
                     continue
                 total_changes += len(changes)
                 rendered = "; ".join(
@@ -125,8 +141,24 @@ class Command(BaseCommand):
 
     def _changes(self, property_obj, data):
         changes = []
+        address_downgrade = self._is_address_downgrade(
+            property_obj.address,
+            data.get("address"),
+        ) or self._is_address_downgrade(
+            property_obj.detected_address,
+            data.get("detected_address"),
+        )
         for field in REPAIR_FIELDS:
             if field not in data:
+                continue
+            if address_downgrade and field in {
+                "address",
+                "detected_address",
+                "location_source",
+                "location_confidence",
+                "location_notes",
+                "location_evidence",
+            }:
                 continue
             new = data.get(field)
             if new == "" and field not in CLEARABLE_EMPTY_FIELDS:
@@ -136,11 +168,62 @@ class Command(BaseCommand):
                 changes.append((field, old, new))
         return changes
 
+    def _is_address_downgrade(self, old, new):
+        old_text = str(old or "").strip()
+        new_text = str(new or "").strip()
+        if not old_text or not new_text or old_text == new_text:
+            return False
+        old_has_number = bool(re.search(r"\d", old_text))
+        new_has_number = bool(re.search(r"\d", new_text))
+        if old_has_number and not new_has_number:
+            return True
+        return len(old_text) >= len(new_text) + 18 and "," in old_text
+
     def _dedupe_changes(self, changes):
         deduped = {}
         for field, old, new in changes:
             deduped[field] = (field, old, new)
         return list(deduped.values())
+
+    def _apply_property_status_policy(self, listing, data):
+        status = data.get("status")
+        if status not in NON_ACTIVE_PROPERTY_STATUSES:
+            return data
+        listing_key = self._mirror_listing_key(listing.url)
+        for other in listing.property.listings.filter(active=True).exclude(pk=listing.pk):
+            if other.source_id == listing.source_id:
+                continue
+            if self._is_patagon_mapaprop_mirror(listing, other, listing_key):
+                continue
+            if (other.source_status or "") not in NON_ACTIVE_SOURCE_STATUSES:
+                adjusted = dict(data)
+                adjusted["status"] = Property.Status.ACTIVE
+                return adjusted
+        return data
+
+    def _is_patagon_mapaprop_mirror(self, listing, other, listing_key):
+        source_slugs = {listing.source.slug, other.source.slug}
+        if source_slugs != {"patagonprop", "mapaprop"}:
+            return False
+        if listing.source.slug == "patagonprop" and other.source.slug == "mapaprop":
+            return True
+        if not listing_key:
+            return False
+        return listing_key == self._mirror_listing_key(other.url)
+
+    def _mirror_listing_key(self, url):
+        try:
+            parts = [
+                part.lower()
+                for part in urlparse(url or "").path.strip("/").split("/")
+                if part
+            ]
+        except ValueError:
+            return ""
+        for part in reversed(parts):
+            if re.search(r"-\d+-\d+$", part):
+                return part
+        return ""
 
     def _classification_changes(self, listing, data, options):
         changes = []
@@ -170,11 +253,13 @@ class Command(BaseCommand):
             setattr(property_obj, field, new)
         property_obj.normalized_address = normalize_address(property_obj.address)
         property_obj.locality = normalize_locality(property_obj.locality)
+        property_obj.last_seen_at = timezone.now()
         property_obj.save(
             update_fields=[
                 *{field for field, _old, _new in changes},
                 "normalized_address",
                 "locality",
+                "last_seen_at",
             ]
         )
 

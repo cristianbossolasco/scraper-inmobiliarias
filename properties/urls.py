@@ -13,11 +13,13 @@ urlpatterns = [
     path("export/properties.csv", views.export_properties_csv, name="export_csv"),
     path("export/properties.xlsx", views.export_properties_xlsx, name="export_xlsx"),
     path("api/propiedades/", views.properties_geojson, name="geojson"),
+    path("api/propiedad/<int:pk>/resumen/", views.property_summary_api, name="property_summary"),
     path("api/propiedad/<int:pk>/estado/", views.update_property_state, name="update_property_state"),
     path("api/propiedad/<int:pk>/nota/", views.update_property_note, name="update_property_note"),
     path("api/propiedad/<int:pk>/datos/", views.update_property_data, name="update_property_data"),
     path("api/propiedad/<int:pk>/ubicacion/", views.update_location, name="update_location"),
     path("api/configuracion-mapa/", views.map_config, name="map_config"),
+    path("api/seguridad/capas/", views.security_layers_api, name="security_layers"),
     path("api/scraping/jobs/", views.create_scrape_job_api, name="scrape_job_create"),
     path("api/scraping/jobs/<int:pk>/", views.scrape_job_status_api, name="scrape_job_status"),
     path(

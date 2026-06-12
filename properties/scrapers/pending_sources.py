@@ -805,7 +805,14 @@ class GuarnieriScraper(MultiSearchScraper):
         if neighborhood:
             data["neighborhood"] = clean_text(neighborhood)
         unit_offers = parse_multi_unit_offers(detail_text)
-        if unit_offers:
+        multi_unit_context = bool(
+            re.search(
+                r"\b(unidad|unidades|departamentos?|dptos?|monoambientes?)\b",
+                f"{title} {detail_text[:1400]}",
+                re.I,
+            )
+        )
+        if unit_offers and multi_unit_context:
             cheapest = min(unit_offers, key=lambda item: parse_decimal(item["price"]))
             data["currency"] = cheapest["currency"]
             data["price"] = parse_decimal(cheapest["price"])
@@ -915,7 +922,14 @@ class GuarnieriScraper(MultiSearchScraper):
             data["neighborhood"] = normalize_neighborhood_name(neighborhood) or clean_text(neighborhood)
 
         unit_offers = parse_multi_unit_offers(detail_text)
-        if unit_offers:
+        multi_unit_context = bool(
+            re.search(
+                r"\b(unidad|unidades|departamentos?|dptos?|monoambientes?)\b",
+                f"{title} {detail_text[:1400]}",
+                re.I,
+            )
+        )
+        if unit_offers and multi_unit_context:
             cheapest = min(unit_offers, key=lambda item: parse_decimal(item["price"]))
             data["currency"] = cheapest["currency"]
             data["price"] = parse_decimal(cheapest["price"])
@@ -931,6 +945,12 @@ class GuarnieriScraper(MultiSearchScraper):
             data["raw_data"]["multi_unit"] = True
             data["raw_data"]["unit_offers"] = unit_offers
             data["raw_data"]["unit_count"] = len(unit_offers)
+        elif unit_offers:
+            data["raw_data"] = data.get("raw_data") or {}
+            data["raw_data"]["unit_offer_candidates"] = unit_offers
+            data["raw_data"]["unit_offer_candidates_ignored"] = True
+
+        self._mark_guarnieri_metric_conflicts(data, detail_text, unit_offers if not multi_unit_context else [])
 
         if data.get("land_area") and not data.get("total_area"):
             data["total_area"] = data["land_area"]
@@ -939,7 +959,11 @@ class GuarnieriScraper(MultiSearchScraper):
 
     def _detail_pairs(self, root):
         pairs = {}
-        for item in root.select(".detail-wrap .list-lined-item, .property-address-wrap .list-lined-item"):
+        for item in root.select(
+            ".property-detail-wrap.property-section-wrap .list-lined-item, "
+            ".detail-wrap .list-lined-item, "
+            ".property-address-wrap .list-lined-item"
+        ):
             label_node = item.select_one("strong")
             value_node = item.select_one("span")
             if not label_node or not value_node:
@@ -965,7 +989,12 @@ class GuarnieriScraper(MultiSearchScraper):
 
     def _apply_guarnieri_details(self, data, details):
         for label, value in details.items():
-            if label.startswith("sup cubierta"):
+            if label.startswith("precio"):
+                currency, price = price_from_guarnieri_text(value)
+                if price is not None:
+                    data["currency"] = currency
+                    data["price"] = price
+            elif label.startswith("sup cubierta"):
                 data["covered_area"] = parse_area_value(value)
             elif label.startswith("sup terreno"):
                 area, front, depth = parse_dimension_value(value)
@@ -1002,6 +1031,76 @@ class GuarnieriScraper(MultiSearchScraper):
                 embedded_neighborhood = extract_embedded_neighborhood(value)
                 if embedded_neighborhood and not data.get("neighborhood"):
                     data["neighborhood"] = embedded_neighborhood
+
+    def _mark_guarnieri_metric_conflicts(self, data, detail_text, unit_offers=None):
+        details = (data.get("raw_data") or {}).get("guarnieri_detail_pairs") or {}
+        if not details:
+            return
+        conflicts = []
+
+        structured_price = data.get("price")
+        if structured_price is not None:
+            for currency, raw_price in re.findall(r"(U\$S|U\$D|US\$|USD|ARS|\$)\s*([\d.,]+)", detail_text or "", re.I):
+                parsed = parse_decimal(raw_price)
+                if parsed is not None and str(parsed) != str(structured_price):
+                    conflicts.append(
+                        {
+                            "field": "price",
+                            "structured": str(structured_price),
+                            "text": str(parsed),
+                            "evidence": f"{currency} {raw_price}",
+                        }
+                    )
+
+        text_covered = text_value(
+            detail_text,
+            [r"SUP\s*CUBIERTA\s*:?\s*([\d.,]+)\s*(?:m2|mÂ²|mÃ‚Â²|mts)?"],
+            parse_area_value,
+        )
+        if text_covered is not None and data.get("covered_area") is not None and str(text_covered) != str(data.get("covered_area")):
+            conflicts.append(
+                {
+                    "field": "covered_area",
+                    "structured": str(data.get("covered_area")),
+                    "text": str(text_covered),
+                    "evidence": "SUP CUBIERTA en descripcion",
+                }
+            )
+
+        text_land = text_value(
+            detail_text,
+            [
+                r"SOBRE\s+LOTE.*?\(([\d.,]+)\s*(?:m2|m²|mÂ²|mÃ‚Â²)\)",
+                r"LOTE.*?\(([\d.,]+)\s*(?:m2|m²|mÂ²|mÃ‚Â²)\)",
+            ],
+            parse_area_value,
+        )
+        if text_land is not None and data.get("land_area") is not None and str(text_land) != str(data.get("land_area")):
+            conflicts.append(
+                {
+                    "field": "land_area",
+                    "structured": str(data.get("land_area")),
+                    "text": str(text_land),
+                    "evidence": "LOTE en descripcion",
+                }
+            )
+
+        for offer in unit_offers or []:
+            parsed = parse_decimal(offer.get("price"))
+            if parsed is not None and structured_price is not None and str(parsed) != str(structured_price):
+                conflicts.append(
+                    {
+                        "field": "price",
+                        "structured": str(structured_price),
+                        "text": str(parsed),
+                        "evidence": "oferta parcial ignorada",
+                    }
+                )
+
+        if conflicts:
+            data["source_status"] = "metric_conflict_review"
+            data["raw_data"] = data.get("raw_data") or {}
+            data["raw_data"]["guarnieri_metric_conflicts"] = conflicts
 
     def _apply_guarnieri_text_fallbacks(self, data, detail_text, overview_text, has_structured_details=False):
         data["rooms"] = (
@@ -1179,6 +1278,14 @@ class PatagonPropScraper(CommonDetailScraper):
     )
     detail_patterns = (r"/property/", r"/propiedad/")
     page_size = 12
+    status_badges = {
+        "vendida": (Property.Status.SOLD, "sold"),
+        "vendido": (Property.Status.SOLD, "sold"),
+        "reservada": (Property.Status.RESERVED, "reserved"),
+        "reservado": (Property.Status.RESERVED, "reserved"),
+        "suspendida": (Property.Status.SUSPENDED, "suspended"),
+        "suspendido": (Property.Status.SUSPENDED, "suspended"),
+    }
 
     def _page_url(self, page):
         offset = (page - 1) * self.page_size
@@ -1186,6 +1293,18 @@ class PatagonPropScraper(CommonDetailScraper):
 
     def _listing_urls(self, soup):
         yield from links_matching(self, soup, self.detail_patterns)
+
+    def _status_badge(self, text):
+        match = re.search(
+            r"\b(vendida|vendido|reservada|reservado|suspendida|suspendido)\b",
+            text or "",
+            re.I,
+        )
+        if not match:
+            return None
+        raw = match.group(1)
+        status, source_status = self.status_badges[raw.lower()]
+        return {"raw": raw, "status": status, "source_status": source_status}
 
     def discover(self):
         yield from paginated_discover(
@@ -1202,6 +1321,7 @@ class PatagonPropScraper(CommonDetailScraper):
             return None
         soup = self.soup(url)
         text = visible_text(soup)
+        status_badge = self._status_badge(text)
         labels = {
             "operation": [r"Operaci(?:o|ó|Ã³)n"],
             "address": [r"Direcci(?:o|ó|Ã³)n"],
@@ -1238,15 +1358,30 @@ class PatagonPropScraper(CommonDetailScraper):
         if price is not None:
             data["currency"] = currency
             data["price"] = price
+        if status_badge:
+            data["status"] = status_badge["status"]
+            data["source_status"] = status_badge["source_status"]
+            if data.get("price") == parse_decimal("1"):
+                data["price"] = None
         apply_detail_fields(data, fields, "patagonprop_detail")
         highlighted_area = text_value(text, [r"superficie\s+([\d.,]+)\s*m2"], parse_decimal)
         if highlighted_area is not None:
             evidence_set(data, "total_area", highlighted_area, "patagonprop_highlights")
             evidence_set(data, "land_area", highlighted_area, "patagonprop_highlights")
-        if data.get("currency") == "ARS" and data.get("price") and data["price"] < 1000000:
+        if (
+            not status_badge
+            and data.get("price")
+            and (
+                data["price"] == parse_decimal("1")
+                or (data.get("currency") == "ARS" and data["price"] < 1000000)
+            )
+        ):
             data["source_status"] = "price_age_review"
         data["raw_data"] = data.get("raw_data") or {}
         data["raw_data"]["patagonprop_fields"] = fields
+        if status_badge:
+            data["raw_data"]["patagonprop_status_badge"] = status_badge["raw"]
+            data["raw_data"]["patagonprop_status_source"] = "detail_badge"
         data["location_precision"] = classify_address_precision(data.get("address"))
         return data
 

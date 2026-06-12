@@ -48,6 +48,7 @@ class Property(models.Model):
         ACTIVE = "active", "Activa"
         RESERVED = "reserved", "Reservada"
         SOLD = "sold", "Vendida"
+        SUSPENDED = "suspended", "Suspendida"
         REMOVED = "removed", "Retirada"
 
     class LocationSource(models.TextChoices):
@@ -136,6 +137,13 @@ class Property(models.Model):
     )
     location_notes = models.TextField(blank=True)
     location_evidence = models.JSONField(default=dict, blank=True)
+    security_coverage_score = models.FloatField(null=True, blank=True, db_index=True)
+    security_risk_score = models.FloatField(null=True, blank=True, db_index=True)
+    security_level = models.CharField(max_length=20, blank=True, db_index=True)
+    security_zone_label = models.CharField(max_length=120, blank=True, db_index=True)
+    security_source = models.CharField(max_length=160, blank=True)
+    security_evidence = models.JSONField(default=dict, blank=True)
+    security_scored_at = models.DateTimeField(null=True, blank=True)
     is_favorite = models.BooleanField(default=False, db_index=True)
     is_hidden = models.BooleanField(default=False, db_index=True)
     reviewed_at = models.DateTimeField(null=True, blank=True, db_index=True)

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Estadisticas | Radar Hurlingham{% endblock %}
+{% block title %}Dashboard | Radar Hurlingham{% endblock %}
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 {% endblock %}
@@ -25,11 +25,14 @@
     <div class="stats-filter-bar">
       <div>
         <strong>{{ total }} publicaciones filtradas</strong>
-        <span>Metricas y graficos usan estos filtros.</span>
+        <span>Panel analítico sobre estos filtros.</span>
       </div>
       <div class="stats-filter-actions">
         <button class="secondary-button" type="button" id="stats-filter-toggle" aria-expanded="true">
           <i data-lucide="sliders-horizontal"></i> Filtros
+        </button>
+        <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar analisis" aria-label="Alternar vista de secciones">
+          <i data-lucide="panel-top-open"></i> Secciones
         </button>
         <a class="secondary-button" href="/?{{ request.GET.urlencode }}">
           <i data-lucide="list"></i> Resultados
@@ -85,46 +88,58 @@
         </select>
       </div>
 
+      {% if neighborhood_options %}
+      <div class="stats-filter-field wide zone-filter">
+        <div class="filter-section-heading">
+          <label for="stats-zone-search">Zona</label>
+          <button class="text-button zone-clear" type="button">Limpiar</button>
+        </div>
+        <input id="stats-zone-search" class="zone-search" type="search" autocomplete="off" placeholder="Buscar zona">
+        <div class="zone-selected" aria-live="polite"></div>
+        <div class="zone-options" data-empty-label="Sin coincidencias">
+          {% for option in neighborhood_options %}
+            <label class="zone-option" data-zone-name="{{ option.name|lower }}" data-selected="{% if option.name in selected_filters.neighborhood %}1{% else %}0{% endif %}">
+              <input type="checkbox" name="neighborhood" value="{{ option.name }}" {% if option.name in selected_filters.neighborhood %}checked{% endif %}>
+              <span>{{ option.name }} <small>({{ option.count }})</small></span>
+            </label>
+          {% endfor %}
+        </div>
+        <div class="zone-summary"><span>0 seleccionadas</span></div>
+      </div>
+      {% endif %}
+
       <div class="stats-filter-field">
         <label for="stats-bedrooms">Dorm. min.</label>
         <input id="stats-bedrooms" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-bedrooms-max">Dorm. max.</label>
         <input id="stats-bedrooms-max" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-bathrooms">Banos min.</label>
         <input id="stats-bathrooms" name="bathrooms_min" type="number" min="0" value="{{ query_params.bathrooms_min }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-bathrooms-max">Banos max.</label>
         <input id="stats-bathrooms-max" name="bathrooms_max" type="number" min="0" value="{{ query_params.bathrooms_max }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-garages">Coch. min.</label>
         <input id="stats-garages" name="garages_min" type="number" min="0" value="{{ query_params.garages_min }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-land">Terreno min.</label>
         <input id="stats-land" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-land-max">Terreno max.</label>
         <input id="stats-land-max" name="land_max" inputmode="numeric" value="{{ query_params.land_max }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-covered">Cubierta min.</label>
         <input id="stats-covered" name="covered_min" inputmode="numeric" value="{{ query_params.covered_min }}">
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-covered-max">Cubierta max.</label>
         <input id="stats-covered-max" name="covered_max" inputmode="numeric" value="{{ query_params.covered_max }}">
@@ -157,7 +172,6 @@
           <option value="1" {% if "1" in selected_filters.favorite %}selected{% endif %}>Solo favoritas</option>
         </select>
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-review">Revision <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-review" name="review_state" multiple size="3">
@@ -166,7 +180,6 @@
           <option value="reviewed" {% if "reviewed" in selected_filters.review_state %}selected{% endif %}>Revisadas</option>
         </select>
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-location">Ubicacion <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-location" name="location_quality" multiple size="4">
@@ -178,13 +191,57 @@
       </div>
 
       <div class="stats-filter-field">
+        <label for="stats-status">Estado <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-status" name="status" multiple size="4">
+          <option value="">Activas por defecto</option>
+          {% for value, label in statuses %}
+            <option value="{{ value }}" {% if value in selected_filters.status %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="stats-filter-field">
+        <label for="stats-security-level">Seguridad <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-security-level" name="security_level" multiple size="3">
+          <option value="">Todas</option>
+          {% for level in security_levels %}
+            <option value="{{ level }}" {% if level in selected_filters.security_level %}selected{% endif %}>{{ level|title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="stats-filter-field wide">
+        <label for="stats-security-zone">Zona seguridad <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-security-zone" name="security_zone" multiple size="4">
+          <option value="">Todas</option>
+          {% for zone in security_zone_options %}
+            <option value="{{ zone }}" {% if zone in selected_filters.security_zone %}selected{% endif %}>{{ zone }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-security-coverage-min">Cobertura min.</label>
+        <input id="stats-security-coverage-min" name="security_coverage_min" inputmode="numeric" value="{{ query_params.security_coverage_min }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-security-coverage-max">Cobertura max.</label>
+        <input id="stats-security-coverage-max" name="security_coverage_max" inputmode="numeric" value="{{ query_params.security_coverage_max }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-security-risk-min">Riesgo min.</label>
+        <input id="stats-security-risk-min" name="security_risk_min" inputmode="numeric" value="{{ query_params.security_risk_min }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-security-risk-max">Riesgo max.</label>
+        <input id="stats-security-risk-max" name="security_risk_max" inputmode="numeric" value="{{ query_params.security_risk_max }}">
+      </div>
+
+      <div class="stats-filter-field">
         <label for="stats-hidden">Ocultas <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-hidden" name="show_hidden" multiple size="2">
           <option value="">Ocultar descartadas</option>
           <option value="1" {% if "1" in selected_filters.show_hidden %}selected{% endif %}>Mostrar ocultas</option>
         </select>
       </div>
-
       <div class="stats-filter-field">
         <label for="stats-feature">Caracteristica <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-feature" name="feature" multiple size="4">
@@ -215,36 +272,52 @@
     </form>
   </section>
 
-  <section class="stats-panel">
+  <nav class="stats-tabs" id="stats-tabs" aria-label="Paneles del dashboard">
+    <button class="stats-tab active" type="button" data-tab="overview">
+      <i data-lucide="layout-dashboard"></i> Resumen
+    </button>
+    <button class="stats-tab" type="button" data-tab="analytics">
+      <i data-lucide="bar-chart-3"></i> Analisis de mercado
+    </button>
+    <button class="stats-tab" type="button" data-tab="spatial">
+      <i data-lucide="map"></i> Mapa de precios
+    </button>
+    <button class="stats-tab" type="button" data-tab="opportunities">
+      <i data-lucide="sparkles"></i> Oportunidades
+    </button>
+    <button class="stats-tab" type="button" data-tab="models">
+      <i data-lucide="scan-search"></i> Modelos y outliers
+    </button>
+  </nav>
+
+  <section class="stats-panel stats-tab-panel active" data-tab-content="overview">
     <div class="section-heading">
       <div>
-        <h1>Estadisticas</h1>
-        <p>Metricas calculadas sobre los filtros actuales.</p>
+        <h1>Visión general</h1>
+        <p>Indicadores y calidad de datos sobre el filtro actual.</p>
       </div>
       <strong>{{ total }} publicaciones</strong>
     </div>
     <div class="metric-grid">
       <div><span>Precio prom.</span><strong>{% if price_stats.avg %}{{ price_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Mediana precio</span><strong>{% if price_stats.median %}{{ price_stats.median|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Desvio precio</span><strong>{% if price_stats.std %}{{ price_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Precio/m2 prom.</span><strong>{% if price_m2_stats.avg %}{{ price_m2_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Mediana precio/m2</span><strong>{% if price_m2_stats.median %}{{ price_m2_stats.median|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Desvio precio/m2</span><strong>{% if price_m2_stats.std %}{{ price_m2_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Sup. terreno prom.</span><strong>{% if total_area_stats.avg %}{{ total_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Mediana terreno</span><strong>{% if total_area_stats.median %}{{ total_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Sup. cubierta prom.</span><strong>{% if covered_area_stats.avg %}{{ covered_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Mediana cubierta</span><strong>{% if covered_area_stats.median %}{{ covered_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Dormitorios prom.</span><strong>{% if bedroom_stats.avg %}{{ bedroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Mediana dorm.</span><strong>{% if bedroom_stats.median %}{{ bedroom_stats.median|floatformat:1 }}{% else %}-{% endif %}</strong></div>
       <div><span>Baños prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Mediana baños</span><strong>{% if bathroom_stats.median %}{{ bathroom_stats.median|floatformat:1 }}{% else %}-{% endif %}</strong></div>
       <div><span>Con direccion</span><strong>{{ with_detected_address }}</strong></div>
       <div><span>Con coordenadas</span><strong>{{ with_map_location }}</strong></div>
       <div><span>Ubicacion debil</span><strong>{{ without_reliable_location }}</strong></div>
       <div><span>Posibles duplicados</span><strong>{{ possible_duplicates }}</strong></div>
-      <div><span>Nuevas ultimo scrape</span><strong>{{ new_since_last_scrape }}</strong></div>
     </div>
   </section>
 
-  <section class="stats-panel">
+  <section class="stats-panel stats-tab-panel" data-tab-content="overview">
     <h2>Calidad de datos</h2>
     <div class="quality-grid">
       <div><a href="{{ quality_links.price.present }}">Precio</a><meter min="0" max="100" value="{{ quality_percent.price }}"></meter><strong><a href="{{ quality_links.price.missing }}">{{ quality_percent.price }}%</a></strong></div>
@@ -259,7 +332,7 @@
   </section>
 
   {% if anomaly_rows %}
-  <section class="stats-panel">
+  <section class="stats-panel stats-tab-panel" data-tab-content="overview">
     <h2>Datos a revisar</h2>
     <div class="anomaly-table">
       <table>
@@ -279,6 +352,7 @@
             <td>{{ row.reason }}</td>
             <td>
               <a href="{{ row.detail_url }}">{{ row.property.title|truncatechars:54 }}</a>
+              <button class="text-button property-preview-trigger" type="button" data-property-id="{{ row.property.pk }}">Previsualizar / editar</button>
             </td>
           </tr>
           {% endfor %}
@@ -288,22 +362,132 @@
   </section>
   {% endif %}
 
-  <section class="stats-grid">
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Publicaciones por localidad</h2><canvas id="locality-chart"></canvas></div>
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Publicaciones por zona</h2><canvas id="neighborhood-chart"></canvas></div>
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Inmobiliarias con mas publicaciones</h2><canvas id="agency-chart"></canvas></div>
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Distribucion de precios</h2><canvas id="price-chart"></canvas></div>
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Superficie vs precio</h2><canvas id="surface-price-chart"></canvas></div>
-    <div class="chart-panel"><button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button><h2>Habitaciones vs precio</h2><canvas id="bedrooms-price-chart"></canvas></div>
+  <section class="stats-panel stats-tab-panel" data-tab-content="analytics">
+    <div class="stats-grid">
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Publicaciones por localidad</h2>
+        <canvas id="locality-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Publicaciones por zona</h2>
+        <canvas id="neighborhood-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Precio medio por zona</h2>
+        <canvas id="zone-volatility-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Inmobiliarias con mas publicaciones</h2>
+        <canvas id="agency-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Distribucion de precios</h2>
+        <canvas id="price-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Hab vs precio</h2>
+        <canvas id="bedrooms-price-chart"></canvas>
+      </div>
+    </div>
   </section>
+
+  <section class="stats-panel stats-tab-panel" data-tab-content="spatial">
+    <div class="chart-panel chart-panel--expanded">
+      <h2>Mapa de calor de precios</h2>
+      <div id="price-heatmap-map" class="stats-heatmap-map"></div>
+      <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicación para este filtro.</p>
+    </div>
+    <div class="stats-grid security-map-grid">
+      <div class="chart-panel">
+        <h2>Cobertura de seguridad</h2>
+        <p class="audit-note">Proxy de infraestructura: cámaras, paradas seguras, lectores y cercanía policial. No representa tasa real de delitos.</p>
+        <div id="security-coverage-map" class="stats-heatmap-map stats-security-map"></div>
+      </div>
+      <div class="chart-panel">
+        <h2>Riesgo relativo</h2>
+        <p class="audit-note">Inverso de la cobertura: útil para detectar zonas donde el precio debería tener descuento o margen de negociación.</p>
+        <div id="security-risk-map" class="stats-heatmap-map stats-security-map"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-panel stats-tab-panel" data-tab-content="opportunities">
+    <div class="section-heading">
+      <div>
+        <h2>Oportunidades accionables</h2>
+        <p>Ranking por descuento vs tendencia, precio/m2 bajo, calidad de datos y ubicacion confiable.</p>
+      </div>
+    </div>
+    <div id="opportunity-list" class="opportunity-grid"></div>
+    <div class="stats-grid">
+      <div class="chart-panel">
+        <h2>Liquidez del inventario</h2>
+        <canvas id="liquidity-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <h2>Seguridad + precio</h2>
+        <div id="security-price-panel" class="security-price-panel"></div>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Precio/m2 vs riesgo</h2>
+        <canvas id="security-risk-price-chart"></canvas>
+      </div>
+    </div>
+    <div class="stats-panel nested-panel">
+      <h2>Zonas de arbitraje seguridad/precio</h2>
+      <p class="audit-note">Cruza precio/m2 con cobertura y riesgo relativo para detectar oportunidades seguras, negociables o sobreprecios riesgosos.</p>
+      <div id="security-arbitrage-panel" class="matrix-table"></div>
+    </div>
+    <div class="stats-panel nested-panel">
+      <h2>Matriz Zona x Tipo</h2>
+      <p class="audit-note">Cruza promedio, mediana, desvio y cantidad para detectar submercados con variabilidad alta.</p>
+      <div id="zone-type-matrix" class="matrix-table"></div>
+    </div>
+  </section>
+
+  <section class="stats-panel stats-tab-panel" data-tab-content="models">
+    <div class="stats-grid">
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Superficie vs precio</h2>
+        <canvas id="surface-price-chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Hab vs precio</h2>
+        <canvas id="bedrooms-price-chart-ml"></canvas>
+      </div>
+    </div>
+    <div class="stats-panel">
+      <h2>Outliers del modelo (por debajo de la tendencia superficie-precio)</h2>
+      <p class="audit-note">Marcá una zona/criterio desde el filtro para enfocar la detección.</p>
+      <div id="surface-outliers" class="anomaly-table"></div>
+    </div>
+  </section>
+
   <dialog class="chart-modal" id="chart-modal">
     <button class="icon-button small" type="button" id="chart-modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
     <h2 id="chart-modal-title"></h2>
     <canvas id="chart-modal-canvas"></canvas>
   </dialog>
+  <dialog class="property-preview-modal" id="property-preview-modal">
+    <button class="icon-button small" type="button" id="property-preview-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <div id="property-preview-content" class="property-preview-content">
+      <div class="audit-note">Cargando propiedad...</div>
+    </div>
+  </dialog>
 </main>
 {{ chart_data|json_script:"chart-data" }}
 {% endblock %}
 {% block scripts %}
+<script src="{% static 'js/zone-filter.js' %}"></script>
 <script src="{% static 'js/stats.js' %}"></script>
+<script src="{% static 'js/property-actions.js' %}"></script>
 {% endblock %}

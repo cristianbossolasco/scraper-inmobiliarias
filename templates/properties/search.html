@@ -40,7 +40,7 @@
           hx-select="#results-pane"
           hx-swap="outerHTML"
           hx-push-url="true"
-          hx-trigger="change delay:250ms, submit">
+          hx-trigger="submit">
       <div class="search-field">
         <i data-lucide="search"></i>
         <input type="search" name="q" value="{{ query_params.q }}" placeholder="Dirección, barrio o característica">
@@ -48,10 +48,10 @@
 
       <div class="filter-section">
         <label for="property_type">Tipo</label>
-        <select id="property_type" name="property_type">
+        <select id="property_type" name="property_type" multiple size="4">
           <option value="">Todos</option>
           {% for value, label in property_types %}
-            <option value="{{ value }}" {% if query_params.property_type == value %}selected{% endif %}>{{ label }}</option>
+            <option value="{{ value }}" {% if value in selected_filters.property_type %}selected{% endif %}>{{ label }}</option>
           {% endfor %}
         </select>
       </div>
@@ -70,18 +70,18 @@
       <div class="filter-section two-cols">
         <div>
           <label for="currency">Moneda</label>
-          <select id="currency" name="currency">
+          <select id="currency" name="currency" multiple size="3">
             <option value="">Todas</option>
-            <option value="USD" {% if query_params.currency == "USD" %}selected{% endif %}>USD</option>
-            <option value="ARS" {% if query_params.currency == "ARS" %}selected{% endif %}>ARS</option>
+            <option value="USD" {% if "USD" in selected_filters.currency %}selected{% endif %}>USD</option>
+            <option value="ARS" {% if "ARS" in selected_filters.currency %}selected{% endif %}>ARS</option>
           </select>
         </div>
         <div>
           <label for="locality">Localidad</label>
-          <select id="locality" name="locality">
+          <select id="locality" name="locality" multiple size="4">
             <option value="">Todas</option>
             {% for locality in localities %}
-              <option value="{{ locality }}" {% if query_params.locality == locality %}selected{% endif %}>{{ locality }}</option>
+              <option value="{{ locality }}" {% if locality in selected_filters.locality %}selected{% endif %}>{{ locality }}</option>
             {% endfor %}
           </select>
         </div>
@@ -135,10 +135,10 @@
 
       <div class="filter-section">
         <label for="agency">Inmobiliaria</label>
-        <select id="agency" name="agency">
+        <select id="agency" name="agency" multiple size="5">
           <option value="">Todas</option>
           {% for agency in agencies %}
-            <option value="{{ agency.pk }}" {% if query_params.agency == agency.pk|stringformat:"s" %}selected{% endif %}>{{ agency.name }}</option>
+            <option value="{{ agency.pk }}" {% if agency.pk|stringformat:"s" in selected_filters.agency %}selected{% endif %}>{{ agency.name }}</option>
           {% endfor %}
         </select>
       </div>
@@ -146,10 +146,10 @@
       <div class="filter-section two-cols">
         <div>
           <label for="source">Fuente</label>
-          <select id="source" name="source">
+          <select id="source" name="source" multiple size="5">
             <option value="">Todas</option>
             {% for source in sources %}
-              <option value="{{ source.pk }}" {% if query_params.source == source.pk|stringformat:"s" %}selected{% endif %}>{{ source.name }}</option>
+              <option value="{{ source.pk }}" {% if source.pk|stringformat:"s" in selected_filters.source %}selected{% endif %}>{{ source.name }}</option>
             {% endfor %}
           </select>
         </div>
@@ -162,20 +162,30 @@
         </div>
       </div>
 
+      <div class="filter-section">
+        <label for="status">Estado</label>
+        <select id="status" name="status" multiple size="4">
+          <option value="">Activas por defecto</option>
+          {% for value, label in statuses %}
+            <option value="{{ value }}" {% if value in selected_filters.status %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
       <div class="filter-section two-cols">
         <div>
           <label for="favorite">Favoritas</label>
-          <select id="favorite" name="favorite">
+          <select id="favorite" name="favorite" multiple size="2">
             <option value="">Todas</option>
-            <option value="1" {% if query_params.favorite == "1" %}selected{% endif %}>Solo favoritas</option>
+            <option value="1" {% if "1" in selected_filters.favorite %}selected{% endif %}>Solo favoritas</option>
           </select>
         </div>
         <div>
           <label for="review_state">Revision</label>
-          <select id="review_state" name="review_state">
+          <select id="review_state" name="review_state" multiple size="3">
             <option value="">Todas</option>
-            <option value="pending" {% if query_params.review_state == "pending" %}selected{% endif %}>Pendientes</option>
-            <option value="reviewed" {% if query_params.review_state == "reviewed" %}selected{% endif %}>Revisadas</option>
+            <option value="pending" {% if "pending" in selected_filters.review_state %}selected{% endif %}>Pendientes</option>
+            <option value="reviewed" {% if "reviewed" in selected_filters.review_state %}selected{% endif %}>Revisadas</option>
           </select>
         </div>
       </div>
@@ -183,18 +193,18 @@
       <div class="filter-section two-cols">
         <div>
           <label for="location_quality">Ubicacion</label>
-          <select id="location_quality" name="location_quality">
+          <select id="location_quality" name="location_quality" multiple size="4">
             <option value="">Todas</option>
-            <option value="reliable" {% if query_params.location_quality == "reliable" %}selected{% endif %}>Confiable</option>
-            <option value="unreliable" {% if query_params.location_quality == "unreliable" %}selected{% endif %}>Poco confiable</option>
-            <option value="detected" {% if query_params.location_quality == "detected" %}selected{% endif %}>Detectada</option>
+            <option value="reliable" {% if "reliable" in selected_filters.location_quality %}selected{% endif %}>Confiable</option>
+            <option value="unreliable" {% if "unreliable" in selected_filters.location_quality %}selected{% endif %}>Poco confiable</option>
+            <option value="detected" {% if "detected" in selected_filters.location_quality %}selected{% endif %}>Detectada</option>
           </select>
         </div>
         <div>
           <label for="show_hidden">Ocultas</label>
-          <select id="show_hidden" name="show_hidden">
+          <select id="show_hidden" name="show_hidden" multiple size="2">
             <option value="">Ocultar descartadas</option>
-            <option value="1" {% if query_params.show_hidden == "1" %}selected{% endif %}>Mostrar ocultas</option>
+            <option value="1" {% if "1" in selected_filters.show_hidden %}selected{% endif %}>Mostrar ocultas</option>
           </select>
         </div>
       </div>
@@ -202,10 +212,10 @@
       <div class="filter-section two-cols">
         <div>
           <label for="feature">Característica</label>
-          <select id="feature" name="feature">
+          <select id="feature" name="feature" multiple size="4">
             <option value="">Todas</option>
             {% for feature in features %}
-              <option value="{{ feature }}" {% if query_params.feature == feature %}selected{% endif %}>{{ feature }}</option>
+              <option value="{{ feature }}" {% if feature in selected_filters.feature %}selected{% endif %}>{{ feature }}</option>
             {% endfor %}
           </select>
         </div>
@@ -272,7 +282,7 @@
           hx-select="#results-pane"
           hx-swap="outerHTML"
           hx-push-url="true"
-          hx-trigger="change from:.table-filter delay:250ms, submit">
+          hx-trigger="submit">
       {% for key, value in table_hidden_params %}
         <input type="hidden" name="{{ key }}" value="{{ value }}">
       {% endfor %}
@@ -344,26 +354,26 @@
               <input class="table-filter" form="table-filter-form" name="title" value="{{ query_params.title }}" placeholder="Buscar" aria-label="Filtrar publicacion">
             </th>
             <th>
-              <select class="table-filter" form="table-filter-form" name="agency" aria-label="Filtrar inmobiliaria">
+              <select class="table-filter" form="table-filter-form" name="agency" multiple size="4" aria-label="Filtrar inmobiliaria">
                 <option value="">Todas</option>
                 {% for agency in agencies %}
-                  <option value="{{ agency.pk }}" {% if query_params.agency == agency.pk|stringformat:"s" %}selected{% endif %}>{{ agency.name }}</option>
+                  <option value="{{ agency.pk }}" {% if agency.pk|stringformat:"s" in selected_filters.agency %}selected{% endif %}>{{ agency.name }}</option>
                 {% endfor %}
               </select>
             </th>
             <th>
-              <select class="table-filter" form="table-filter-form" name="source" aria-label="Filtrar fuente">
+              <select class="table-filter" form="table-filter-form" name="source" multiple size="4" aria-label="Filtrar fuente">
                 <option value="">Todas</option>
                 {% for source in sources %}
-                  <option value="{{ source.pk }}" {% if query_params.source == source.pk|stringformat:"s" %}selected{% endif %}>{{ source.name }}</option>
+                  <option value="{{ source.pk }}" {% if source.pk|stringformat:"s" in selected_filters.source %}selected{% endif %}>{{ source.name }}</option>
                 {% endfor %}
               </select>
             </th>
             <th>
-              <select class="table-filter" form="table-filter-form" name="locality" aria-label="Filtrar localidad">
+              <select class="table-filter" form="table-filter-form" name="locality" multiple size="4" aria-label="Filtrar localidad">
                 <option value="">Todas</option>
                 {% for locality in localities %}
-                  <option value="{{ locality }}" {% if query_params.locality == locality %}selected{% endif %}>{{ locality }}</option>
+                  <option value="{{ locality }}" {% if locality in selected_filters.locality %}selected{% endif %}>{{ locality }}</option>
                 {% endfor %}
               </select>
             </th>

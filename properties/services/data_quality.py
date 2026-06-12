@@ -166,6 +166,22 @@ def property_anomalies(property_obj):
                 "price",
             )
         )
+    for listing in property_obj.listings.all():
+        if listing.source_status == "metric_conflict_review":
+            conflicts = (listing.raw_data or {}).get("guarnieri_metric_conflicts") or []
+            reason = "tabla estructurada contradice descripcion"
+            if conflicts:
+                fields = ", ".join(sorted({item.get("field", "dato") for item in conflicts}))
+                reason = f"{reason}: {fields}"
+            anomalies.append(
+                QualityResult(
+                    "source_status",
+                    listing.source_status,
+                    False,
+                    reason,
+                    "source_conflict",
+                )
+            )
     return anomalies
 
 

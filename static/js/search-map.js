@@ -9,16 +9,33 @@
 
   const input = (name) => form.querySelector(`[name="${name}"]`);
   const query = () => new URLSearchParams(new FormData(form)).toString();
-  const submit = () => htmx.trigger(form, "submit");
   const workspace = document.querySelector(".workspace");
   const filtersToggle = document.getElementById("filters-toggle");
+  const mapModeButton = document.getElementById("map-mode");
   const resizer = document.getElementById("map-resizer");
   const layoutStorage = {
     filters: "radar.filtersCollapsed",
-    results: "radar.resultsColumnWidth"
+    results: "radar.resultsColumnWidth",
+    mapMode: "radar.mapMode"
   };
 
+  const POLYGON_CLOSE_METERS = 24;
+  let mapModeEnabled = false;
+  let radiusButton;
+  let polygonButton;
+  let clearGeoButton;
+
+  function markFiltersPending() {
+    form.dataset.pending = "1";
+    const apply = form.querySelector('button[type="submit"]');
+    if (apply) {
+      apply.classList.add("needs-apply");
+      apply.title = "Hay cambios pendientes. Presiona Aplicar para buscar.";
+    }
+  }
+
   applyStoredLayout();
+  applyStoredMapMode();
 
   fetch("/api/configuracion-mapa/").then((r) => r.json()).then((config) => {
     map = new maplibregl.Map({
@@ -49,6 +66,7 @@
       refreshMap();
     });
     map.on("click", handleMapClick);
+    map.on("dblclick", handleMapDoubleClick);
     map.on("click", "clusters", expandCluster);
     map.on("click", "exact-points", showPopup);
     map.on("click", "approximate-points", showPopup);
@@ -128,6 +146,13 @@
     params.delete("page");
     fetch(`/api/propiedades/?${params}`).then((r) => r.json()).then((data) => {
       map.getSource("properties").setData(data);
+      if (!data.features.length) return;
+      if (!mapModeEnabled) return;
+      const bounds = new maplibregl.LngLatBounds();
+      data.features.forEach((feature) => bounds.extend(feature.geometry.coordinates));
+      if (!bounds.isEmpty()) {
+        map.fitBounds(bounds, { padding: 40, maxZoom: 15, duration: 0 });
+      }
     });
   }
 
@@ -154,21 +179,48 @@
       .then((zoom) => map.easeTo({ center: feature.geometry.coordinates, zoom }));
   }
 
+  function distanceInMeters(pointA, pointB) {
+    const degreesToRadians = (value) => value * (Math.PI / 180);
+    const [lngA, latA] = pointA;
+    const [lngB, latB] = pointB;
+    const dLat = degreesToRadians(latB - latA);
+    const dLng = degreesToRadians(lngB - lngA);
+    const latAcos = Math.cos(degreesToRadians(latA));
+    const latBcos = Math.cos(degreesToRadians(latB));
+    const haversine = Math.sin(dLat / 2) ** 2 + latAcos * latBcos * Math.sin(dLng / 2) ** 2;
+    return 2 * 6371000 * Math.asin(Math.min(1, Math.sqrt(haversine)));
+  }
+
+  function isNearFirstPoint(point) {
+    if (polygonPoints.length < 3) return false;
+    return distanceInMeters(point, polygonPoints[0]) <= POLYGON_CLOSE_METERS;
+  }
+
   function handleMapClick(event) {
     if (drawMode === "radius") {
       radiusCenter = [event.lngLat.lng, event.lngLat.lat];
       input("radius_lng").value = radiusCenter[0];
       input("radius_lat").value = radiusCenter[1];
       drawRadius();
-      drawMode = null;
-      document.getElementById("radius-tool").classList.remove("active");
-      submit();
+      setDrawMode(null);
+      markFiltersPending();
       return;
     }
     if (drawMode === "polygon") {
-      polygonPoints.push([event.lngLat.lng, event.lngLat.lat]);
+      const current = [event.lngLat.lng, event.lngLat.lat];
+      if (isNearFirstPoint(current)) {
+        finishPolygon();
+        return;
+      }
+      polygonPoints.push(current);
       drawPolygon(false);
     }
+  }
+
+  function handleMapDoubleClick(event) {
+    if (drawMode !== "polygon") return;
+    event.preventDefault();
+    finishPolygon();
   }
 
   function drawPolygon(closed) {
@@ -185,12 +237,48 @@
 
   function finishPolygon() {
     if (polygonPoints.length < 3) return;
-    input("polygon").value = JSON.stringify(polygonPoints);
+    const polygon = [...polygonPoints];
+    input("polygon").value = JSON.stringify(polygon);
     drawPolygon(true);
-    drawMode = null;
-    document.getElementById("polygon-tool").classList.remove("active");
-    map.getCanvas().style.cursor = "";
-    submit();
+    setDrawMode(null);
+    polygonPoints = polygon;
+    drawPolygon(true);
+    markFiltersPending();
+  }
+
+  function clearDrawnGeometry(keepMode = null) {
+    polygonPoints = [];
+    radiusCenter = null;
+    drawMode = keepMode;
+    map.getSource("selection-geometry").setData({
+      type: "FeatureCollection",
+      features: []
+    });
+    if (polygonButton) polygonButton.classList.toggle("active", keepMode === "polygon");
+    if (radiusButton) radiusButton.classList.toggle("active", keepMode === "radius");
+    document.getElementById("radius-panel").hidden = keepMode !== "radius";
+    if (map) {
+      updateCursorForMode();
+      map.doubleClickZoom[keepMode === "polygon" ? "disable" : "enable"]();
+    }
+  }
+
+  function setDrawMode(nextMode) {
+    if (nextMode === "radius") {
+      clearDrawnGeometry("radius");
+      return;
+    }
+    if (nextMode === "polygon") {
+      polygonPoints = [];
+      clearDrawnGeometry("polygon");
+      return;
+    }
+    clearDrawnGeometry(null);
+  }
+
+  function updateCursorForMode() {
+    if (!map) return;
+    map.getCanvas().style.cursor = drawMode === "radius" || drawMode === "polygon" ? "crosshair" : "";
   }
 
   function drawRadius() {
@@ -217,75 +305,94 @@
       refreshMap();
     }
   });
-  form.addEventListener("submit", () => setTimeout(refreshMap, 100));
+  form.addEventListener("submit", () => {
+    form.dataset.pending = "";
+    const apply = form.querySelector('button[type="submit"]');
+    if (apply) {
+      apply.classList.remove("needs-apply");
+      apply.removeAttribute("title");
+    }
+    setTimeout(refreshMap, 100);
+  });
 
   function bindResultTools() {
     const boundsButton = document.getElementById("bounds-filter");
-    const radiusButton = document.getElementById("radius-tool");
-    const polygonButton = document.getElementById("polygon-tool");
-    const clearButton = document.getElementById("clear-geo");
+    radiusButton = document.getElementById("radius-tool");
+    polygonButton = document.getElementById("polygon-tool");
+    clearGeoButton = document.getElementById("clear-geo");
     if (!boundsButton || boundsButton.dataset.bound) return;
-    [boundsButton, radiusButton, polygonButton, clearButton].forEach((button) => {
+    [boundsButton, radiusButton, polygonButton, clearGeoButton].forEach((button) => {
       button.dataset.bound = "1";
     });
+
     boundsButton.addEventListener("click", () => {
       const bounds = map.getBounds();
       input("south").value = bounds.getSouth();
       input("west").value = bounds.getWest();
       input("north").value = bounds.getNorth();
       input("east").value = bounds.getEast();
-      submit();
+      markFiltersPending();
     });
+
     radiusButton.addEventListener("click", (event) => {
-      drawMode = drawMode === "radius" ? null : "radius";
+      if (drawMode === "radius") {
+        setDrawMode(null);
+      } else {
+        setDrawMode("radius");
+      }
       event.currentTarget.classList.toggle("active", drawMode === "radius");
       document.getElementById("radius-panel").hidden =
         drawMode !== "radius" && !radiusCenter;
-      map.getCanvas().style.cursor = drawMode ? "crosshair" : "";
+      updateCursorForMode();
     });
+
     polygonButton.addEventListener("click", (event) => {
-      if (drawMode === "polygon" && polygonPoints.length >= 3) {
-        finishPolygon();
+      if (drawMode === "polygon") {
+        if (polygonPoints.length >= 3) {
+          finishPolygon();
+        } else {
+          setDrawMode(null);
+        }
         return;
       }
-      polygonPoints = [];
-      drawMode = "polygon";
+      setDrawMode("polygon");
       event.currentTarget.classList.add("active");
-      map.getCanvas().style.cursor = "crosshair";
+      updateCursorForMode();
     });
-    clearButton.addEventListener("click", () => {
+
+    clearGeoButton.addEventListener("click", () => {
       ["south", "west", "north", "east", "radius_lat", "radius_lng", "polygon"]
         .forEach((name) => { input(name).value = ""; });
-      radiusCenter = null;
-      polygonPoints = [];
-      map.getSource("selection-geometry").setData({
-        type: "FeatureCollection",
-        features: []
-      });
+      setDrawMode(null);
       document.getElementById("radius-panel").hidden = true;
-      submit();
+      markFiltersPending();
     });
   }
+
   document.getElementById("radius-input").addEventListener("input", (event) => {
     input("radius_km").value = event.target.value;
     document.getElementById("radius-output").value = `${event.target.value} km`;
     drawRadius();
+    markFiltersPending();
   });
-  document.getElementById("radius-input").addEventListener("change", submit);
+
   document.getElementById("clear-filters").addEventListener("click", () => {
     window.location.href = "/";
   });
-  document.getElementById("map-mode").addEventListener("click", () => {
-    document.body.classList.toggle("map-full");
-    setTimeout(() => map.resize(), 180);
+
+  mapModeButton.addEventListener("click", () => {
+    applyMapMode(!mapModeEnabled);
   });
+
   filtersToggle.addEventListener("click", () => {
     const collapsed = !document.body.classList.contains("filters-collapsed");
     setFiltersCollapsed(collapsed);
     localStorage.setItem(layoutStorage.filters, collapsed ? "1" : "0");
     resizeMapSoon();
   });
+
   installResizableMap();
+
   document.getElementById("fit-map").addEventListener("click", () => {
     fetch(`/api/propiedades/?${query()}`).then((r) => r.json()).then((data) => {
       if (!data.features.length) return;
@@ -294,6 +401,28 @@
       map.fitBounds(bounds, { padding: 45, maxZoom: 15 });
     });
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !drawMode) return;
+    if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") return;
+    setDrawMode(null);
+  });
+
+  function applyMapMode(enabled) {
+    mapModeEnabled = enabled;
+    document.body.classList.toggle("map-full", enabled);
+    localStorage.setItem(layoutStorage.mapMode, enabled ? "1" : "0");
+    if (!map) return;
+    requestAnimationFrame(() => {
+      map.resize();
+      setTimeout(() => map.resize(), 80);
+      setTimeout(() => map.resize(), 180);
+    });
+  }
+
+  function applyStoredMapMode() {
+    applyMapMode(localStorage.getItem(layoutStorage.mapMode) === "1");
+  }
 
   function escapeHtml(value) {
     const div = document.createElement("div");

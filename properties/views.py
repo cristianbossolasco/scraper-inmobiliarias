@@ -5,6 +5,7 @@ import json
 import re
 import statistics
 from decimal import Decimal, InvalidOperation
+from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlparse
 
 from django.conf import settings
@@ -18,7 +19,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET, require_POST
 
 from .models import Agency, Listing, ListingImage, Property, PropertyLocation, ScrapeJob, Source
 from .services.data_quality import (
@@ -40,7 +41,9 @@ from .services.scraping import (
     serialize_job,
     source_catalog,
     start_scrape_job,
+    BLOCKED_SOURCE_SLUGS,
 )
+from .services.security_scoring import security_layers_payload
 from .services.geocoding import address_number, street_key
 from .services.normalization import (
     clean_address_for_storage,
@@ -266,13 +269,18 @@ def filter_context(params):
         "favorite",
         "review_state",
         "show_hidden",
+        "status",
+        "security_level",
+        "security_zone",
     )
     return {
         "agencies": Agency.objects.filter(listings__isnull=False).distinct().order_by("name"),
-        "sources": Source.objects.order_by("name"),
+        "sources": Source.objects.exclude(slug__in=BLOCKED_SOURCE_SLUGS).order_by("name"),
         "property_types": Property.Type.choices,
         "statuses": Property.Status.choices,
         "location_confidences": Property.LocationConfidence.choices,
+        "security_levels": _security_level_options(),
+        "security_zone_options": _security_zone_options(),
         "localities": ["Hurlingham", "Villa Tesei", "William C. Morris"],
         "neighborhood_options": _neighborhood_options(),
         "features": ["Pileta", "Quincho", "Jardin", "Parrilla", "Apto credito"],
@@ -297,6 +305,27 @@ def _neighborhood_options():
         {"name": name, "count": count}
         for name, count in sorted(counts.items(), key=lambda item: (-item[1], item[0].lower()))
     ]
+
+
+def _security_zone_options():
+    return [
+        value
+        for value in Property.objects.exclude(security_zone_label="")
+        .values_list("security_zone_label", flat=True)
+        .distinct()
+        .order_by("security_zone_label")
+    ]
+
+
+def _security_level_options():
+    defaults = ["alta", "media_alta", "media", "baja"]
+    values = [
+        value
+        for value in Property.objects.exclude(security_level="")
+        .values_list("security_level", flat=True)
+        .distinct()
+    ]
+    return sorted(set(defaults + values))
 
 
 def _selected_neighborhoods(params):
@@ -371,6 +400,12 @@ TABLE_FILTER_KEYS = {
     "land_max",
     "price_m2_min",
     "price_m2_max",
+    "security_coverage_min",
+    "security_coverage_max",
+    "security_risk_min",
+    "security_risk_max",
+    "security_level",
+    "security_zone",
 }
 
 
@@ -523,19 +558,21 @@ def table_context(params):
     }
 
 
-def filtered_properties(params):
-    queryset = (
-        Property.objects.select_related("location")
-        .prefetch_related(
+def filtered_properties(params, include_listings=True):
+    queryset = Property.objects.select_related("location")
+    if include_listings:
+        listing_queryset = Listing.objects.select_related("agency", "source")
+        if include_listings != "summary":
+            listing_queryset = listing_queryset.prefetch_related(
+                Prefetch("images", queryset=ListingImage.objects.order_by("position"))
+            )
+        queryset = queryset.prefetch_related(
             Prefetch(
                 "listings",
-                queryset=Listing.objects.select_related("agency", "source").prefetch_related(
-                    Prefetch("images", queryset=ListingImage.objects.order_by("position"))
-                ),
+                queryset=listing_queryset,
             )
         )
-        .all()
-    )
+    queryset = queryset.all()
     query = (params.get("q") or "").strip()
     if query:
         queryset = queryset.filter(pk__in=_fts_ids(query))
@@ -549,11 +586,16 @@ def filtered_properties(params):
         "currency": "currency",
         "locality": "locality",
         "status": "status",
+        "security_level": "security_level",
+        "security_zone": "security_zone_label",
     }
     for parameter, field in filters.items():
         values = _param_values(params, parameter)
         if values:
             queryset = queryset.filter(**{f"{field}__in": values})
+
+    if not _param_values(params, "status"):
+        queryset = queryset.filter(status=Property.Status.ACTIVE)
 
     neighborhood_values = _selected_neighborhoods(params)
     if neighborhood_values:
@@ -621,6 +663,10 @@ def filtered_properties(params):
     ranges = (
         ("price_min", "price__gte", _decimal),
         ("price_max", "price__lte", _decimal),
+        ("security_coverage_min", "security_coverage_score__gte", _float),
+        ("security_coverage_max", "security_coverage_score__lte", _float),
+        ("security_risk_min", "security_risk_score__gte", _float),
+        ("security_risk_max", "security_risk_score__lte", _float),
         ("land_min", "land_area__gte", _decimal),
         ("land_max", "land_area__lte", _decimal),
         ("covered_min", "covered_area__gte", _decimal),
@@ -758,6 +804,9 @@ def _primary_listing(property_obj):
 def _listing_image_url(listing):
     if not listing:
         return ""
+    prefetched = getattr(listing, "_prefetched_objects_cache", None)
+    if prefetched is None or "images" not in prefetched:
+        return ""
     images = list(listing.images.all())
     return images[0].url if images else ""
 
@@ -806,6 +855,11 @@ def _serialize(property_obj, distance=None, current_query=None):
         "inferred_neighborhood": property_obj.inferred_neighborhood,
         "zone_conflict": property_obj.zone_conflict,
         "zone_needs_review": property_obj.zone_needs_review,
+        "security_coverage_score": property_obj.security_coverage_score,
+        "security_risk_score": property_obj.security_risk_score,
+        "security_level": property_obj.security_level,
+        "security_zone_label": property_obj.security_zone_label,
+        "security_source": property_obj.security_source,
         "bedrooms": property_obj.bedrooms,
         "bathrooms": float(property_obj.bathrooms) if property_obj.bathrooms else None,
         "covered_area": float(property_obj.covered_area) if property_obj.covered_area else None,
@@ -834,6 +888,67 @@ def _serialize(property_obj, distance=None, current_query=None):
     }
 
 
+def _serialize_map_property(property_obj, distance=None, current_query=None):
+    location = property_obj.location if hasattr(property_obj, "location") else None
+    if not location:
+        return None
+    price_m2 = valid_price_per_m2(property_obj)
+    return {
+        "id": property_obj.pk,
+        "title": property_obj.title,
+        "price": float(property_obj.price) if property_obj.price is not None else None,
+        "currency": property_obj.currency,
+        "status": property_obj.status,
+        "locality": property_obj.locality,
+        "neighborhood": (
+            property_obj.neighborhood
+            or property_obj.detected_neighborhood
+            or property_obj.inferred_neighborhood
+            or ""
+        ),
+        "zone": (
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+            or property_obj.locality
+            or ""
+        ),
+        "price_m2": float(price_m2) if price_m2 is not None else None,
+        "latitude": location.latitude,
+        "longitude": location.longitude,
+        "precision": location.precision,
+        "precision_label": location.get_precision_display(),
+        "exact": location.is_exact,
+        "distance": round(distance, 2) if distance is not None else None,
+        "detail_url": build_detail_url(property_obj.pk, current_query or ""),
+        "url": f"/propiedad/{property_obj.pk}/",
+        "is_hidden": property_obj.is_hidden,
+        "security_coverage_score": property_obj.security_coverage_score,
+        "security_risk_score": property_obj.security_risk_score,
+        "security_level": property_obj.security_level,
+    }
+
+
+def _prefetch_property_details(properties):
+    ids = [property_obj.pk for property_obj in properties]
+    if not ids:
+        return []
+    detailed = (
+        Property.objects.select_related("location")
+        .prefetch_related(
+            Prefetch(
+                "listings",
+                queryset=Listing.objects.select_related("agency", "source").prefetch_related(
+                    Prefetch("images", queryset=ListingImage.objects.order_by("position"))
+                ),
+            )
+        )
+        .filter(pk__in=ids)
+    )
+    by_id = {property_obj.pk: property_obj for property_obj in detailed}
+    return [by_id[property_id] for property_id in ids if property_id in by_id]
+
+
 def _format_number(value):
     if value is None or value == "":
         return ""
@@ -841,6 +956,13 @@ def _format_number(value):
     if decimal == decimal.to_integral_value():
         return f"{decimal:.0f}"
     return f"{decimal.normalize()}"
+
+
+def _format_price(value, currency=""):
+    formatted = _format_number(value)
+    if not formatted:
+        return "Consultar"
+    return f"{currency} {formatted}".strip()
 
 
 def _format_area(value):
@@ -983,6 +1105,88 @@ def _source_links(property_obj):
     return links
 
 
+def _source_link_payload(link):
+    listing = link["listing"]
+    return {
+        "label": link["label"],
+        "domain": link["domain"],
+        "url": listing.url,
+        "source": listing.source.name if listing.source else "",
+        "agency": listing.agency.name if listing.agency else "",
+        "active": listing.active,
+    }
+
+
+@ensure_csrf_cookie
+@require_GET
+def property_summary_api(request, pk):
+    property_obj = get_object_or_404(
+        Property.objects.select_related("location").prefetch_related(
+            Prefetch(
+                "listings",
+                queryset=Listing.objects.select_related("agency", "source").prefetch_related(
+                    Prefetch("images", queryset=ListingImage.objects.order_by("position")),
+                    "snapshots",
+                ),
+            )
+        ),
+        pk=pk,
+    )
+    listing = _primary_listing(property_obj)
+    source_links = [_source_link_payload(link) for link in _source_links(property_obj)]
+    location = getattr(property_obj, "location", None)
+    price_m2 = valid_price_per_m2(property_obj)
+    return JsonResponse(
+        {
+            "id": property_obj.pk,
+            "title": property_obj.title,
+            "price": str(property_obj.price) if property_obj.price is not None else "",
+            "price_display": _format_price(property_obj.price, property_obj.currency),
+            "currency": property_obj.currency,
+            "price_m2": float(price_m2) if price_m2 is not None else None,
+            "address": property_obj.address or property_obj.detected_address or "",
+            "locality": property_obj.locality or property_obj.detected_locality or "",
+            "neighborhood": (
+                property_obj.neighborhood
+                or property_obj.detected_neighborhood
+                or property_obj.inferred_neighborhood
+                or ""
+            ),
+            "description": property_obj.description,
+            "image": _listing_image_url(listing),
+            "facts": _detail_facts(property_obj),
+            "source_links": source_links,
+            "primary_listing": source_links[0] if source_links else None,
+            "detail_url": build_detail_url(property_obj.pk, request.GET, reverse("properties:search")),
+            "original_url": listing.url if listing else "",
+            "is_favorite": property_obj.is_favorite,
+            "is_hidden": property_obj.is_hidden,
+            "reviewed": property_obj.reviewed_at is not None,
+            "personal_notes": property_obj.personal_notes,
+            "security": {
+                "coverage_score": property_obj.security_coverage_score,
+                "risk_score": property_obj.security_risk_score,
+                "level": property_obj.security_level,
+                "zone_label": property_obj.security_zone_label,
+                "source": property_obj.security_source,
+                "evidence": property_obj.security_evidence or {},
+                "scored_at": property_obj.security_scored_at.isoformat()
+                if property_obj.security_scored_at
+                else "",
+            },
+            "edit_sections": _property_edit_sections(property_obj),
+            "edit_payload": _serialize_property_edit(property_obj),
+            "location": {
+                "latitude": location.latitude if location else None,
+                "longitude": location.longitude if location else None,
+                "precision": location.precision if location else "",
+                "confidence": location.confidence if location else None,
+            },
+            "map_config": map_config_payload(),
+        }
+    )
+
+
 def _price_history_segments(property_obj):
     snapshots = []
     for listing in property_obj.listings.all():
@@ -1052,9 +1256,10 @@ def _detail_navigation(property_obj, return_to):
 
 @ensure_csrf_cookie
 def search(request):
-    properties, distances = filtered_properties(request.GET)
+    properties, distances = filtered_properties(request.GET, include_listings=False)
     paginator = Paginator(properties, 24)
     page = paginator.get_page(request.GET.get("page"))
+    page.object_list = _prefetch_property_details(page.object_list)
     serialized = {
         item.pk: _serialize(item, distances.get(item.pk), request.GET)
         for item in page.object_list
@@ -1133,11 +1338,11 @@ def detail(request, pk):
 
 
 def properties_geojson(request):
-    properties, distances = filtered_properties(request.GET)
+    properties, distances = filtered_properties(request.GET, include_listings=False)
     features = []
     for property_obj in properties:
-        item = _serialize(property_obj, distances.get(property_obj.pk), request.GET)
-        if item["latitude"] is None:
+        item = _serialize_map_property(property_obj, distances.get(property_obj.pk), request.GET)
+        if not item:
             continue
         features.append(
             {
@@ -1318,6 +1523,11 @@ def map_config(request):
     return JsonResponse(map_config_payload())
 
 
+@require_GET
+def security_layers_api(request):
+    return JsonResponse(security_layers_payload())
+
+
 EXPORT_COLUMNS = (
     "id",
     "titulo",
@@ -1386,7 +1596,7 @@ def _export_rows(properties):
 
 
 def export_properties_csv(request):
-    properties, _ = filtered_properties(request.GET)
+    properties, _ = filtered_properties(request.GET, include_listings="summary")
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = 'attachment; filename="propiedades.csv"'
     response.write("\ufeff")
@@ -1401,7 +1611,7 @@ def export_properties_xlsx(request):
         from openpyxl import Workbook
     except ImportError:
         return JsonResponse({"error": "openpyxl no esta instalado."}, status=500)
-    properties, _ = filtered_properties(request.GET)
+    properties, _ = filtered_properties(request.GET, include_listings="summary")
     workbook = Workbook()
     sheet = workbook.active
     sheet.title = "Propiedades"
@@ -1428,13 +1638,85 @@ def _numbers(values):
 def _summary(values):
     numbers = _numbers(values)
     if not numbers:
-        return {"avg": None, "median": None, "min": None, "max": None}
+        return {"avg": None, "median": None, "min": None, "max": None, "std": None}
     return {
         "avg": round(statistics.mean(numbers), 2),
         "median": round(statistics.median(numbers), 2),
         "min": round(min(numbers), 2),
         "max": round(max(numbers), 2),
+        "std": round(statistics.pstdev(numbers), 2) if len(numbers) > 1 else 0,
     }
+
+
+def _safe_label(value):
+    return value or "Sin dato"
+
+
+def _zone_price_statistics(properties, request_query, stats_path):
+    grouped = {}
+    for property_obj in properties:
+        price = valid_price(property_obj)
+        if price is None:
+            continue
+        label = _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        )
+        grouped.setdefault(label, []).append(float(price))
+    items = []
+    for label, values in grouped.items():
+        values.sort()
+        average = statistics.mean(values)
+        items.append(
+            {
+                "label": label,
+                "value": len(values),
+                "total": len(values),
+                "avg": round(average, 2),
+                "std": round(statistics.pstdev(values), 2) if len(values) > 1 else 0,
+                "min": round(values[0], 2),
+                "max": round(values[-1], 2),
+                "url": query_url(request_query, {"neighborhood": "" if label == "Sin dato" else label}, path=stats_path),
+            }
+        )
+    items.sort(key=lambda item: item["total"], reverse=True)
+    return items[:20]
+
+
+def _heatmap_points(properties, request_query, max_points=1200):
+    points = []
+    for property_obj in properties:
+        if len(points) >= max_points:
+            break
+        location = getattr(property_obj, "location", None)
+        if not location:
+            continue
+        price = valid_price(property_obj)
+        if price is None:
+            continue
+        listing = _primary_listing(property_obj)
+        points.append(
+            {
+                "id": property_obj.pk,
+                "title": property_obj.title,
+                "price": float(price),
+                "currency": property_obj.currency or "",
+                "zone": _safe_label(
+                    property_obj.detected_neighborhood
+                    or property_obj.neighborhood
+                    or property_obj.inferred_neighborhood
+                ),
+                "longitude": location.longitude,
+                "latitude": location.latitude,
+                "url": build_detail_url(property_obj.pk, request_query, reverse("properties:search")),
+                "image": _listing_image_url(listing),
+                "is_hidden": property_obj.is_hidden,
+                "is_favorite": property_obj.is_favorite,
+                "is_reviewed": property_obj.reviewed_at is not None,
+            }
+        )
+    return points
 
 
 def _counter(items, label_getter):
@@ -1482,12 +1764,29 @@ def _series(items, label_getter, url_getter):
 def _chart_property_payload(property_obj, request_query, stats_path):
     listing = _primary_listing(property_obj)
     image = _listing_image_url(listing)
+    price_m2 = valid_price_per_m2(property_obj)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
         "price": float(property_obj.price) if property_obj.price is not None else None,
         "currency": property_obj.currency,
         "address": property_obj.address or property_obj.detected_address or property_obj.locality or "",
+        "zone": _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        ),
+        "property_type": property_obj.property_type,
+        "property_type_label": property_obj.get_property_type_display(),
+        "price_m2": float(price_m2) if price_m2 is not None else None,
+        "quality_score": _quality_score(property_obj),
+        "location_confidence": property_obj.location_confidence,
+        "security_coverage_score": property_obj.security_coverage_score,
+        "security_risk_score": property_obj.security_risk_score,
+        "security_level": property_obj.security_level,
+        "security_zone_label": property_obj.security_zone_label,
+        "security_source": property_obj.security_source,
+        "is_hidden": property_obj.is_hidden,
         "agency": listing.agency.name if listing and listing.agency else "",
         "source": listing.source.name if listing and listing.source else "",
         "image": image,
@@ -1497,11 +1796,251 @@ def _chart_property_payload(property_obj, request_query, stats_path):
     }
 
 
+def _zone_type_matrix(properties, request_query, stats_path):
+    grouped = {}
+    type_labels = dict(Property.Type.choices)
+    for property_obj in properties:
+        price = valid_price(property_obj)
+        price_m2 = valid_price_per_m2(property_obj)
+        if price is None and price_m2 is None:
+            continue
+        zone = _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        )
+        key = (zone, property_obj.property_type)
+        grouped.setdefault(key, {"prices": [], "prices_m2": [], "count": 0})
+        grouped[key]["count"] += 1
+        if price is not None:
+            grouped[key]["prices"].append(float(price))
+        if price_m2 is not None:
+            grouped[key]["prices_m2"].append(float(price_m2))
+    rows = []
+    for (zone, property_type), values in grouped.items():
+        price_summary = _summary(values["prices"])
+        price_m2_summary = _summary(values["prices_m2"])
+        rows.append(
+            {
+                "zone": zone,
+                "property_type": property_type,
+                "property_type_label": type_labels.get(property_type, property_type or "Sin dato"),
+                "count": values["count"],
+                "avg_price": price_summary["avg"],
+                "median_price": price_summary["median"],
+                "std_price": price_summary["std"],
+                "avg_price_m2": price_m2_summary["avg"],
+                "median_price_m2": price_m2_summary["median"],
+                "std_price_m2": price_m2_summary["std"],
+                "url": query_url(
+                    request_query,
+                    {
+                        "neighborhood": "" if zone == "Sin dato" else zone,
+                        "property_type": property_type,
+                    },
+                    path=stats_path,
+                ),
+            }
+        )
+    rows.sort(key=lambda item: (-item["count"], item["zone"], item["property_type_label"]))
+    return rows[:80]
+
+
+def _liquidity_buckets(properties):
+    now = timezone.now()
+    buckets = [
+        ("0-15 dias", lambda age: age <= 15),
+        ("16-45 dias", lambda age: 15 < age <= 45),
+        ("46-90 dias", lambda age: 45 < age <= 90),
+        ("+90 dias", lambda age: age > 90),
+    ]
+    rows = [
+        {
+            "label": label,
+            "value": 0,
+            "avg_price": None,
+            "new": 0,
+            "persistent": 0,
+            "stale": 0,
+            "_prices": [],
+        }
+        for label, _predicate in buckets
+    ]
+    for property_obj in properties:
+        age_days = (now - property_obj.first_seen_at).days if property_obj.first_seen_at else 0
+        last_seen_days = (now - property_obj.last_seen_at).days if property_obj.last_seen_at else 0
+        row = next((item for item, (_label, predicate) in zip(rows, buckets) if predicate(age_days)), rows[-1])
+        row["value"] += 1
+        row["new"] += 1 if age_days <= 15 else 0
+        row["persistent"] += 1 if age_days >= 90 else 0
+        row["stale"] += 1 if last_seen_days >= 30 else 0
+        price = valid_price(property_obj)
+        if price is not None:
+            row["_prices"].append(float(price))
+    for row in rows:
+        summary = _summary(row.pop("_prices"))
+        row["avg_price"] = summary["avg"]
+    return rows
+
+
+def _load_security_features():
+    path = Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
+    if not path.exists():
+        return {"path": str(path), "features": [], "configured": False}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"path": str(path), "features": [], "configured": False}
+    features = payload.get("features") or []
+    return {"path": str(path), "features": features, "configured": bool(features)}
+
+
+def _security_match(location, features):
+    if not location:
+        return {"score": None, "source": "sin dato", "label": ""}
+    matches = []
+    for feature in features:
+        geometry = feature.get("geometry") or {}
+        props = feature.get("properties") or {}
+        score = _float(props.get("score"))
+        source = props.get("source") or "manual"
+        label = props.get("label") or props.get("name") or "Zona de seguridad"
+        geometry_type = geometry.get("type")
+        coordinates = geometry.get("coordinates") or []
+        matched = False
+        if geometry_type == "Polygon" and coordinates:
+            matched = point_in_polygon(location.latitude, location.longitude, coordinates[0])
+        elif geometry_type == "MultiPolygon":
+            matched = any(
+                polygon and point_in_polygon(location.latitude, location.longitude, polygon[0])
+                for polygon in coordinates
+            )
+        elif geometry_type == "Point" and len(coordinates) >= 2:
+            radius_m = _float(props.get("radius_m")) or 250
+            distance_m = haversine_km(location.latitude, location.longitude, coordinates[1], coordinates[0]) * 1000
+            matched = distance_m <= radius_m
+        if matched:
+            matches.append({"score": score, "source": source, "label": label})
+    if not matches:
+        return {"score": None, "source": "sin dato", "label": ""}
+    matches.sort(key=lambda item: -1 if item["score"] is None else item["score"])
+    return matches[-1]
+
+
+def _security_price_summary(properties, request_query, stats_path):
+    zone_path = Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
+    points_path = Path(settings.BASE_DIR) / "data" / "geo" / "security_points_hurlingham.geojson"
+    located = [item for item in properties if hasattr(item, "location")]
+    rows = []
+    for property_obj in properties:
+        location = getattr(property_obj, "location", None)
+        if not location:
+            continue
+        price = valid_price(property_obj)
+        price_m2 = valid_price_per_m2(property_obj)
+        if (
+            price is None
+            and price_m2 is None
+            and property_obj.security_coverage_score is None
+        ):
+            continue
+        rows.append(
+            {
+                **_chart_property_payload(property_obj, request_query, stats_path),
+                "latitude": location.latitude,
+                "longitude": location.longitude,
+                "security_score": property_obj.security_coverage_score,
+                "security_source": property_obj.security_source,
+                "security_label": property_obj.security_zone_label,
+            }
+        )
+    scored = [item for item in rows if item["security_score"] is not None]
+    risk_price = [
+        {
+            **item,
+            "x": item["security_risk_score"],
+            "y": item["price_m2"],
+        }
+        for item in scored
+        if item.get("security_risk_score") is not None and item.get("price_m2") is not None
+    ][:500]
+    return {
+        "configured": zone_path.exists(),
+        "path": str(zone_path),
+        "points_path": str(points_path),
+        "total_with_location": len(located),
+        "scored_count": len(scored),
+        "rows": sorted(
+            scored,
+            key=lambda item: (
+                item.get("security_risk_score") or 0,
+                -(item.get("price_m2") or 0),
+            ),
+            reverse=True,
+        )[:250],
+        "risk_price": risk_price,
+        "arbitrage": _security_arbitrage(properties, request_query, stats_path),
+    }
+
+
+def _security_arbitrage(properties, request_query, stats_path):
+    values = [
+        float(valid_price_per_m2(item))
+        for item in properties
+        if valid_price_per_m2(item) is not None and item.security_coverage_score is not None
+    ]
+    if not values:
+        return []
+    median_m2 = statistics.median(values)
+    rows = []
+    for property_obj in properties:
+        price_m2 = valid_price_per_m2(property_obj)
+        coverage = property_obj.security_coverage_score
+        risk = property_obj.security_risk_score
+        if price_m2 is None or coverage is None or risk is None:
+            continue
+        price_m2_float = float(price_m2)
+        if coverage >= 60 and price_m2_float <= median_m2:
+            kind = "Oportunidad segura"
+            priority = 4
+        elif risk >= 55 and price_m2_float <= median_m2:
+            kind = "Negociable por riesgo"
+            priority = 3
+        elif risk >= 55 and price_m2_float > median_m2:
+            kind = "Sobreprecio riesgoso"
+            priority = 2
+        elif coverage >= 60 and price_m2_float > median_m2 * 1.15:
+            kind = "Prima de seguridad"
+            priority = 1
+        else:
+            continue
+        rows.append(
+            {
+                **_chart_property_payload(property_obj, request_query, stats_path),
+                "kind": kind,
+                "priority": priority,
+                "median_price_m2": round(median_m2),
+                "coverage_score": coverage,
+                "risk_score": risk,
+            }
+        )
+    rows.sort(
+        key=lambda item: (
+            item["priority"],
+            item["coverage_score"] if item["kind"] == "Oportunidad segura" else item["risk_score"],
+            -(item.get("price_m2") or 0),
+        ),
+        reverse=True,
+    )
+    return rows[:40]
+
+
 def _stats_cache_key(request):
     state = Property.objects.aggregate(
         total=Count("pk"),
         latest_seen=Max("last_seen_at"),
         latest_reviewed=Max("reviewed_at"),
+        latest_security=Max("security_scored_at"),
     )
     favorite_count = Property.objects.filter(is_favorite=True).count()
     hidden_count = Property.objects.filter(is_hidden=True).count()
@@ -1511,6 +2050,7 @@ def _stats_cache_key(request):
             str(state.get("total") or 0),
             str(state.get("latest_seen") or ""),
             str(state.get("latest_reviewed") or ""),
+            str(state.get("latest_security") or ""),
             str(favorite_count),
             str(hidden_count),
         ]
@@ -1518,6 +2058,101 @@ def _stats_cache_key(request):
     return "stats:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+def _percentile(sorted_values, percentile):
+    if not sorted_values:
+        return None
+    index = (len(sorted_values) - 1) * percentile
+    lower = int(index)
+    upper = min(lower + 1, len(sorted_values) - 1)
+    if lower == upper:
+        return sorted_values[lower]
+    weight = index - lower
+    return sorted_values[lower] * (1 - weight) + sorted_values[upper] * weight
+
+
+def _advanced_anomaly_rows(properties, request_query, stats_path):
+    rows = []
+    grouped = {}
+    for property_obj in properties:
+        price_m2 = valid_price_per_m2(property_obj)
+        if price_m2 is None:
+            continue
+        zone = (
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+            or property_obj.locality
+            or "Sin zona"
+        )
+        key = (zone, property_obj.property_type or "")
+        grouped.setdefault(key, []).append((property_obj, float(price_m2)))
+
+    for (zone, property_type), items in grouped.items():
+        if len(items) < 7:
+            continue
+        values = sorted(value for _property, value in items)
+        q1 = _percentile(values, 0.25)
+        q3 = _percentile(values, 0.75)
+        median = statistics.median(values)
+        mad_values = [abs(value - median) for value in values]
+        mad = statistics.median(mad_values) if mad_values else 0
+        iqr = (q3 or 0) - (q1 or 0)
+        lower = (q1 or 0) - 1.5 * iqr
+        upper = (q3 or 0) + 1.5 * iqr
+        for property_obj, value in items:
+            robust_z = 0 if not mad else 0.6745 * (value - median) / mad
+            if value < lower or value > upper or abs(robust_z) >= 3.5:
+                rows.append(
+                    {
+                        "property": property_obj,
+                        "listing": _primary_listing(property_obj),
+                        "field": "modelo IQR/MAD",
+                        "value": round(value),
+                        "reason": f"USD/m2 atipico en {zone} ({property_type or 'tipo sin dato'})",
+                        "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
+                    }
+                )
+
+    points = [
+        (property_obj, float(valid_area(property_obj)), float(valid_price(property_obj)))
+        for property_obj in properties
+        if valid_area(property_obj) is not None and valid_price(property_obj) is not None
+    ]
+    if len(points) >= 8:
+        sum_x = sum(point[1] for point in points)
+        sum_y = sum(point[2] for point in points)
+        sum_xy = sum(point[1] * point[2] for point in points)
+        sum_xx = sum(point[1] * point[1] for point in points)
+        count = len(points)
+        denominator = count * sum_xx - sum_x * sum_x
+        if denominator:
+            slope = (count * sum_xy - sum_x * sum_y) / denominator
+            intercept = (sum_y - slope * sum_x) / count
+            residuals = [price - (slope * area + intercept) for _property, area, price in points]
+            std = statistics.stdev(residuals) if len(residuals) > 1 else 0
+            if std:
+                for (property_obj, area, price), residual in zip(points, residuals):
+                    if abs(residual) >= std * 1.8:
+                        direction = "por debajo" if residual < 0 else "por encima"
+                        rows.append(
+                            {
+                                "property": property_obj,
+                                "listing": _primary_listing(property_obj),
+                                "field": "regresion superficie-precio",
+                                "value": round(residual),
+                                "reason": f"precio {direction} de la banda esperada",
+                                "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
+                            }
+                        )
+
+    deduped = {}
+    for row in rows:
+        key = (row["property"].pk, row["field"], row["reason"])
+        deduped[key] = row
+    return list(deduped.values())[:80]
+
+
+@ensure_csrf_cookie
 def market_stats(request):
     cache_key = _stats_cache_key(request)
     cached_context = cache.get(cache_key)
@@ -1530,7 +2165,7 @@ def market_stats(request):
     stats_path = reverse("properties:stats")
     latest_job = ScrapeJob.objects.filter(finished_at__isnull=False).order_by("-finished_at").first()
     latest_started = latest_job.started_at if latest_job else None
-    listings = Listing.objects.filter(property__in=properties).select_related("source", "agency", "property")
+    listings = [listing for property_obj in properties for listing in _listings(property_obj)]
     duplicate_keys = {}
     for property_obj in properties:
         key = property_obj.normalized_address or property_obj.detected_address.lower()
@@ -1553,6 +2188,7 @@ def market_stats(request):
                     "detail_url": build_detail_url(item.pk, request.GET, stats_path),
                 }
             )
+    anomaly_rows.extend(_advanced_anomaly_rows(properties, request.GET, stats_path))
     quality = {
         "price": sum(1 for item in properties if valid_price(item) is not None),
         "surface": sum(1 for item in properties if valid_area(item) is not None),
@@ -1664,6 +2300,11 @@ def market_stats(request):
         )[:12],
         "price_buckets": price_buckets,
         "prices": price_values,
+        "zone_price_volatility": _zone_price_statistics(properties, request.GET, stats_path),
+        "zone_type_matrix": _zone_type_matrix(properties, request.GET, stats_path),
+        "liquidity": _liquidity_buckets(properties),
+        "security": _security_price_summary(properties, request.GET, stats_path),
+        "heatmap_points": _heatmap_points(properties, request.GET),
         "surfaces": _numbers(
             [
                 valid_value(item, "land_area") or valid_value(item, "total_area")

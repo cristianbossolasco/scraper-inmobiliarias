@@ -24,6 +24,7 @@ ACTIVE_SOURCE_STATUSES = {
     ScrapeJobSource.Status.DISCOVERING,
     ScrapeJobSource.Status.RUNNING,
 }
+BLOCKED_SOURCE_SLUGS = {"inmuebles-clarin"}
 
 
 class ActiveScrapeJobError(ValueError):
@@ -209,6 +210,7 @@ def source_catalog(include_disabled=True):
             "notes": adapter.definition.notes,
         }
         for adapter in adapters
+        if adapter.definition.slug not in BLOCKED_SOURCE_SLUGS
     ]
 
 
@@ -374,6 +376,8 @@ def create_scrape_job(
     cleaned_workers = {}
     adapters = {}
     for slug in selected_sources:
+        if slug in BLOCKED_SOURCE_SLUGS:
+            raise ValueError(f"La fuente {slug} esta bloqueada permanentemente.")
         adapter = get_adapter(slug)
         adapters[slug] = adapter
         cleaned_sources.append(slug)
@@ -546,6 +550,12 @@ def run_scrape_job_source(job_id, slug):
     stopped_by_block = False
 
     try:
+        if slug in BLOCKED_SOURCE_SLUGS:
+            job_source.status = ScrapeJobSource.Status.FAILED
+            job_source.errors += 1
+            append_source_log(job_source, f"Fuente bloqueada permanentemente: {slug}.")
+            db_write(lambda: job_source.save(update_fields=["status", "errors"]))
+            return
         job_source.status = ScrapeJobSource.Status.DISCOVERING
         job_source.started_at = timezone.now()
         db_write(lambda: job_source.save(update_fields=["status", "started_at"]))

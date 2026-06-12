@@ -1,4 +1,14 @@
 (() => {
+  function normalize(value) {
+    return (String(value || ""))
+      .normalize("NFD")
+      .replace(/[\\u0300-\\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function initZoneFilter(root = document) {
     root.querySelectorAll(".zone-filter").forEach((filter) => {
       if (filter.dataset.zoneFilterReady === "1") {
@@ -13,18 +23,6 @@
 
       function selectedOptions() {
         return options.filter((option) => option.querySelector("input").checked);
-      }
-
-      function submitForm() {
-        const form = filter.closest("form");
-        if (!form) {
-          return;
-        }
-        if (window.htmx) {
-          window.htmx.trigger(form, "submit");
-        } else {
-          form.requestSubmit();
-        }
       }
 
       function renderSelected() {
@@ -47,20 +45,19 @@
             input.checked = false;
             option.dataset.selected = "0";
             applyFilter();
-            submitForm();
           });
           selectedWrap.appendChild(button);
         });
       }
 
       function applyFilter() {
-        const term = (search?.value || "").trim().toLowerCase();
-        const hasTerm = term.length >= 3;
+        const term = normalize(search?.value || "");
+        const hasTerm = term.length > 0;
         options.forEach((option) => {
           const input = option.querySelector("input");
           const selected = input.checked;
           option.dataset.selected = selected ? "1" : "0";
-          const name = option.dataset.zoneName || "";
+          const name = normalize(option.dataset.zoneName || option.querySelector("span")?.textContent || "");
           const visible = selected || (hasTerm && name.includes(term));
           option.hidden = !visible;
         });
@@ -87,7 +84,6 @@
           search.value = "";
         }
         applyFilter();
-        submitForm();
       });
       applyFilter();
     });
