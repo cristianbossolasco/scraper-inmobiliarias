@@ -24,6 +24,7 @@
   let radiusButton;
   let polygonButton;
   let clearGeoButton;
+  let lastMapFeatures = [];
 
   function markFiltersPending() {
     form.dataset.pending = "1";
@@ -145,14 +146,70 @@
     const params = new URLSearchParams(new FormData(form));
     params.delete("page");
     fetch(`/api/propiedades/?${params}`).then((r) => r.json()).then((data) => {
+      lastMapFeatures = data.features || [];
       map.getSource("properties").setData(data);
-      if (!data.features.length) return;
+      if (!lastMapFeatures.length) return;
       if (!mapModeEnabled) return;
-      const bounds = new maplibregl.LngLatBounds();
-      data.features.forEach((feature) => bounds.extend(feature.geometry.coordinates));
-      if (!bounds.isEmpty()) {
-        map.fitBounds(bounds, { padding: 40, maxZoom: 15, duration: 0 });
-      }
+      fitMapToFeatures(lastMapFeatures, { duration: 0 });
+    });
+  }
+
+  function featureCoordinates(features) {
+    return (features || [])
+      .map((feature) => feature?.geometry?.coordinates)
+      .filter((coordinates) => Array.isArray(coordinates)
+        && Number.isFinite(Number(coordinates[0]))
+        && Number.isFinite(Number(coordinates[1])));
+  }
+
+  function trimCoordinateOutliers(coordinates) {
+    if (coordinates.length < 25) return coordinates;
+    const longitudes = coordinates.map(([longitude]) => longitude).sort((a, b) => a - b);
+    const latitudes = coordinates.map(([, latitude]) => latitude).sort((a, b) => a - b);
+    const lowerIndex = Math.floor(coordinates.length * 0.04);
+    const upperIndex = Math.max(lowerIndex, Math.ceil(coordinates.length * 0.96) - 1);
+    const minLongitude = longitudes[lowerIndex];
+    const maxLongitude = longitudes[upperIndex];
+    const minLatitude = latitudes[lowerIndex];
+    const maxLatitude = latitudes[upperIndex];
+    const trimmed = coordinates.filter(([longitude, latitude]) =>
+      longitude >= minLongitude
+      && longitude <= maxLongitude
+      && latitude >= minLatitude
+      && latitude <= maxLatitude
+    );
+    return trimmed.length >= 3 ? trimmed : coordinates;
+  }
+
+  function boundsFromCoordinates(coordinates) {
+    const bounds = new maplibregl.LngLatBounds();
+    coordinates.forEach((coordinatesPair) => bounds.extend(coordinatesPair));
+    return bounds;
+  }
+
+  function fitMapToFeatures(features, options = {}) {
+    if (!map) return;
+    const coordinates = trimCoordinateOutliers(featureCoordinates(features));
+    if (!coordinates.length) return;
+    const bounds = boundsFromCoordinates(coordinates);
+    if (bounds.isEmpty()) return;
+    const padding = options.padding || {
+      top: 76,
+      right: 76,
+      bottom: 76,
+      left: 76
+    };
+    const fit = () => {
+      map.resize();
+      map.fitBounds(bounds, {
+        padding,
+        maxZoom: options.maxZoom || 15,
+        duration: options.duration ?? 450
+      });
+    };
+    requestAnimationFrame(() => {
+      fit();
+      setTimeout(fit, 90);
     });
   }
 
@@ -395,10 +452,8 @@
 
   document.getElementById("fit-map").addEventListener("click", () => {
     fetch(`/api/propiedades/?${query()}`).then((r) => r.json()).then((data) => {
-      if (!data.features.length) return;
-      const bounds = new maplibregl.LngLatBounds();
-      data.features.forEach((feature) => bounds.extend(feature.geometry.coordinates));
-      map.fitBounds(bounds, { padding: 45, maxZoom: 15 });
+      lastMapFeatures = data.features || [];
+      fitMapToFeatures(lastMapFeatures);
     });
   });
 
@@ -416,7 +471,12 @@
     requestAnimationFrame(() => {
       map.resize();
       setTimeout(() => map.resize(), 80);
-      setTimeout(() => map.resize(), 180);
+      setTimeout(() => {
+        map.resize();
+        if (enabled && lastMapFeatures.length) {
+          fitMapToFeatures(lastMapFeatures, { duration: 0 });
+        }
+      }, 180);
     });
   }
 
