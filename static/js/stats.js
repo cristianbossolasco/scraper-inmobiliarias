@@ -733,6 +733,39 @@
     return chart;
   }
 
+  function zoneSampleCount(item) {
+    return Number(item?.total || item?.value || 0);
+  }
+
+  function zoneSampleLabel(item) {
+    return `${item.label} (n=${zoneSampleCount(item).toLocaleString("es-AR")})`;
+  }
+
+  function zoneSampleIntensity(item, maxTotal) {
+    if (!maxTotal) return 1;
+    const ratio = Math.max(0, zoneSampleCount(item)) / maxTotal;
+    return 0.45 + 0.55 * Math.sqrt(ratio);
+  }
+
+  function withZoneSampleVisuals(items) {
+    const maxTotal = Math.max(...items.map(zoneSampleCount), 0);
+    return items.map((item) => ({
+      ...item,
+      sampleLabel: zoneSampleLabel(item),
+      sampleIntensity: zoneSampleIntensity(item, maxTotal)
+    }));
+  }
+
+  function rgbaColor(rgb, alpha) {
+    return `rgba(${rgb}, ${Math.max(0, Math.min(1, alpha)).toFixed(3)})`;
+  }
+
+  function zoneSampleTooltip(item) {
+    const count = zoneSampleCount(item);
+    const noun = count === 1 ? "propiedad" : "propiedades";
+    return `Muestra: ${count.toLocaleString("es-AR")} ${noun} con precio válido`;
+  }
+
   function createZoneVolatilityChart(canvasId, title, sorted) {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return null;
@@ -744,7 +777,8 @@
       return null;
     }
     ctx.hidden = false;
-    const labels = sorted.map((item) => item.label);
+    const displayItems = withZoneSampleVisuals(sorted);
+    const labels = displayItems.map((item) => item.sampleLabel);
     const chart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -752,9 +786,9 @@
         datasets: [
           {
             label: "Rango mínimo-máximo",
-            data: sorted.map((item) => [item.min, item.max]),
-            backgroundColor: "rgba(47, 64, 56, 0.08)",
-            borderColor: "rgba(47, 64, 56, 0.55)",
+            data: displayItems.map((item) => [item.min, item.max]),
+            backgroundColor: displayItems.map((item) => rgbaColor("47, 64, 56", 0.08 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("47, 64, 56", 0.55 * item.sampleIntensity)),
             borderWidth: 1,
             borderSkipped: false,
             borderRadius: {
@@ -765,13 +799,13 @@
             },
             barThickness: 4,
             grouped: false,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Banda promedio +/- desvío",
-            data: sorted.map((item) => [Math.max(0, item.avg - item.std), item.avg + item.std]),
-            backgroundColor: "rgba(23, 107, 77, 0.22)",
-            borderColor: "#176b4d",
+            data: displayItems.map((item) => [Math.max(0, item.avg - item.std), item.avg + item.std]),
+            backgroundColor: displayItems.map((item) => rgbaColor("23, 107, 77", 0.22 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("23, 107, 77", item.sampleIntensity)),
             borderWidth: 1,
             borderSkipped: false,
             borderRadius: {
@@ -782,55 +816,55 @@
             },
             barThickness: 12,
             grouped: false,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Promedio",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.avg, y: item.label })),
-            backgroundColor: "#176b4d",
+            data: displayItems.map((item) => ({ x: item.avg, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("23, 107, 77", item.sampleIntensity)),
             borderColor: "#ffffff",
             borderWidth: 2,
             pointRadius: 5,
             pointHoverRadius: 7,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Mediana",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.median || item.avg, y: item.label })),
-            backgroundColor: "#d6a528",
-            borderColor: "#17211d",
+            data: displayItems.map((item) => ({ x: item.median || item.avg, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("214, 165, 40", item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("23, 33, 29", item.sampleIntensity)),
             borderWidth: 1,
             pointRadius: 4,
             pointStyle: "rectRot",
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Mínimo",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.min, y: item.label })),
-            backgroundColor: "#f4ead3",
-            borderColor: "#725617",
+            data: displayItems.map((item) => ({ x: item.min, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("244, 234, 211", 0.45 + 0.55 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("114, 86, 23", item.sampleIntensity)),
             borderWidth: 1,
             pointRadius: 4,
             pointHoverRadius: 6,
             pointStyle: "triangle",
             pointRotation: 270,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Máximo",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.max, y: item.label })),
-            backgroundColor: "#f4ead3",
-            borderColor: "#725617",
+            data: displayItems.map((item) => ({ x: item.max, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("244, 234, 211", 0.45 + 0.55 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("114, 86, 23", item.sampleIntensity)),
             borderWidth: 1,
             pointRadius: 4,
             pointHoverRadius: 6,
             pointStyle: "triangle",
             pointRotation: 90,
-            metaItems: sorted
+            metaItems: displayItems
           }
         ]
       },
@@ -845,22 +879,29 @@
               label: (context) => {
                 const item = context.dataset.metaItems?.[context.dataIndex];
                 if (!item) return "";
+                const sample = zoneSampleTooltip(item);
                 if (context.dataset.label === "Rango mínimo-máximo") {
-                  return `Rango: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`;
+                  return [
+                    `Rango: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`,
+                    sample
+                  ];
                 }
                 if (context.dataset.label === "Banda promedio +/- desvío") {
                   const low = Math.max(0, item.avg - item.std);
                   const high = item.avg + item.std;
-                  return `Banda: ${Math.round(low).toLocaleString("es-AR")} a ${Math.round(high).toLocaleString("es-AR")}`;
+                  return [
+                    `Banda: ${Math.round(low).toLocaleString("es-AR")} a ${Math.round(high).toLocaleString("es-AR")}`,
+                    sample
+                  ];
                 }
                 if (context.dataset.label === "Mínimo") {
-                  return `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`;
+                  return [`Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`, sample];
                 }
                 if (context.dataset.label === "Máximo") {
-                  return `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`;
+                  return [`Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`, sample];
                 }
                 if (context.dataset.label === "Mediana") {
-                  return `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`;
+                  return [`Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`, sample];
                 }
                 return [
                   `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`,
@@ -868,7 +909,7 @@
                   `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`,
                   `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`,
                   `Desvío: ${Math.round(item.std).toLocaleString("es-AR")}`,
-                  `Cantidad: ${item.total || 0}`,
+                  sample,
                   `Coef. variacion: ${item.cv || 0}%`
                 ];
               },
@@ -931,7 +972,8 @@
       return null;
     }
     ctx.hidden = false;
-    const labels = sorted.map((item) => item.label);
+    const displayItems = withZoneSampleVisuals(sorted);
+    const labels = displayItems.map((item) => item.sampleLabel);
     const chart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -939,21 +981,21 @@
         datasets: [
           {
             label: "Bigote mínimo-máximo",
-            data: sorted.map((item) => [item.min, item.max]),
-            backgroundColor: "rgba(47, 64, 56, 0.08)",
-            borderColor: "rgba(47, 64, 56, 0.65)",
+            data: displayItems.map((item) => [item.min, item.max]),
+            backgroundColor: displayItems.map((item) => rgbaColor("47, 64, 56", 0.08 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("47, 64, 56", 0.65 * item.sampleIntensity)),
             borderWidth: 1,
             borderSkipped: false,
             borderRadius: 4,
             barThickness: 4,
             grouped: false,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Caja Q1-Q3 (IQR)",
-            data: sorted.map((item) => [item.q1, item.q3]),
-            backgroundColor: "rgba(23, 107, 77, 0.22)",
-            borderColor: "#176b4d",
+            data: displayItems.map((item) => [item.q1, item.q3]),
+            backgroundColor: displayItems.map((item) => rgbaColor("23, 107, 77", 0.22 * item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("23, 107, 77", item.sampleIntensity)),
             borderWidth: 1.5,
             borderSkipped: false,
             borderRadius: {
@@ -964,30 +1006,30 @@
             },
             barThickness: 18,
             grouped: false,
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Mediana",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.median || item.avg, y: item.label })),
-            backgroundColor: "#d6a528",
-            borderColor: "#17211d",
+            data: displayItems.map((item) => ({ x: item.median || item.avg, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("214, 165, 40", item.sampleIntensity)),
+            borderColor: displayItems.map((item) => rgbaColor("23, 33, 29", item.sampleIntensity)),
             borderWidth: 1,
             pointRadius: 5,
             pointHoverRadius: 7,
             pointStyle: "rectRot",
-            metaItems: sorted
+            metaItems: displayItems
           },
           {
             label: "Promedio",
             type: "scatter",
-            data: sorted.map((item) => ({ x: item.avg, y: item.label })),
-            backgroundColor: "#176b4d",
+            data: displayItems.map((item) => ({ x: item.avg, y: item.sampleLabel })),
+            backgroundColor: displayItems.map((item) => rgbaColor("23, 107, 77", item.sampleIntensity)),
             borderColor: "#ffffff",
             borderWidth: 2,
             pointRadius: 4,
             pointHoverRadius: 6,
-            metaItems: sorted
+            metaItems: displayItems
           }
         ]
       },
@@ -1002,14 +1044,21 @@
               label: (context) => {
                 const item = context.dataset.metaItems?.[context.dataIndex];
                 if (!item) return "";
+                const sample = zoneSampleTooltip(item);
                 if (context.dataset.label === "Bigote mínimo-máximo") {
-                  return `Bigote: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`;
+                  return [
+                    `Bigote: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`,
+                    sample
+                  ];
                 }
                 if (context.dataset.label === "Caja Q1-Q3 (IQR)") {
-                  return `IQR: ${Math.round(item.q1).toLocaleString("es-AR")} a ${Math.round(item.q3).toLocaleString("es-AR")}`;
+                  return [
+                    `IQR: ${Math.round(item.q1).toLocaleString("es-AR")} a ${Math.round(item.q3).toLocaleString("es-AR")}`,
+                    sample
+                  ];
                 }
                 if (context.dataset.label === "Mediana") {
-                  return `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`;
+                  return [`Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`, sample];
                 }
                 return [
                   `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`,
@@ -1018,7 +1067,7 @@
                   `Q3: ${Math.round(item.q3).toLocaleString("es-AR")}`,
                   `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`,
                   `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`,
-                  `Cantidad: ${item.total || 0}`
+                  sample
                 ];
               }
             },
@@ -1039,7 +1088,7 @@
       }
     });
     chart.data.datasets.forEach((dataset) => {
-      dataset.metaItems = sorted;
+      dataset.metaItems = displayItems;
     });
     chart.canvas.chart = chart;
     return chart;

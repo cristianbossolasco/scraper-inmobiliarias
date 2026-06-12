@@ -180,17 +180,22 @@ def sniff_csv_dialect(data: bytes) -> csv.Dialect:
         return Fallback
 
 
-def read_csv_records_from_bytes(data: bytes) -> list[dict[str, object]]:
-    dialect = sniff_csv_dialect(data)
-    last_error: Exception | None = None
-    for encoding in ("utf-8-sig", "utf-8", "latin1"):
-        try:
-            text = data.decode(encoding)
-            reader = csv.DictReader(io.StringIO(text), dialect=dialect)
-            return [normalize_record(row) for row in reader]
-        except UnicodeDecodeError as exc:
-            last_error = exc
-    raise RuntimeError(f"Could not decode CSV: {last_error}")
+def iter_csv_records(raw: Any, dialect: csv.Dialect) -> Iterable[dict[str, object]]:
+    text = io.TextIOWrapper(raw, encoding="utf-8-sig", errors="replace", newline="")
+    reader = csv.reader(text, dialect=dialect)
+    try:
+        header = next(reader)
+    except StopIteration:
+        return
+    columns = normalize_header(header)
+    for row in reader:
+        if not row:
+            continue
+        yield {
+            columns[index]: clean_cell(value)
+            for index, value in enumerate(row)
+            if index < len(columns)
+        }
 
 
 def read_xlsx_records_from_bytes(data: bytes) -> list[dict[str, object]]:
@@ -210,30 +215,39 @@ def read_xlsx_records_from_bytes(data: bytes) -> list[dict[str, object]]:
     return records
 
 
-def read_records(path: Path) -> list[dict[str, object]]:
+def iter_records(path: Path) -> Iterable[dict[str, object]]:
     suffix = path.suffix.lower()
     if suffix == ".zip":
-        records = []
         with zipfile.ZipFile(path) as archive:
             names = sorted(name for name in archive.namelist() if not name.endswith("/"))
             for name in names:
                 lower = name.lower()
                 if not lower.endswith((".csv", ".xlsx", ".xls")):
                     continue
-                data = archive.read(name)
                 if lower.endswith(".csv"):
-                    records.extend(read_csv_records_from_bytes(data))
+                    with archive.open(name) as sample_raw:
+                        dialect = sniff_csv_dialect(sample_raw.read(8192))
+                    with archive.open(name) as raw:
+                        yield from iter_csv_records(raw, dialect)
                 else:
-                    records.extend(read_xlsx_records_from_bytes(data))
-        if not records:
-            raise ValueError(f"No CSV/XLSX records inside {path}")
-        return records
-    data = path.read_bytes()
+                    yield from read_xlsx_records_from_bytes(archive.read(name))
+        return
     if suffix == ".csv":
-        return read_csv_records_from_bytes(data)
+        with path.open("rb") as sample_raw:
+            dialect = sniff_csv_dialect(sample_raw.read(8192))
+        with path.open("rb") as raw:
+            yield from iter_csv_records(raw, dialect)
+        return
     if suffix in {".xlsx", ".xls"}:
-        return read_xlsx_records_from_bytes(data)
+        yield from read_xlsx_records_from_bytes(path.read_bytes())
+        return
     raise ValueError(f"Unsupported source file extension: {path}")
+
+
+def require_columns(row: dict[str, object], required: set[str], label: str) -> None:
+    missing = required - set(row.keys())
+    if missing:
+        raise ValueError(f"{label} schema changed; missing columns: {sorted(missing)}")
 
 
 def is_hurlingham_row(row: dict[str, object]) -> bool:
@@ -326,15 +340,16 @@ def add_standard_row(
 def standardize_snic_monthly(
     source: dict[str, Any],
     source_path: Path,
-    records: list[dict[str, object]],
+    records: Iterable[dict[str, object]],
     code_name_map: dict[str, str],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     required = {"anio", "mes", "departamento_nombre", "codigo_delito_snic_id", "codigo_delito_snic_nombre"}
-    missing = required - set(records[0].keys() if records else [])
-    if missing:
-        raise ValueError(f"SNIC monthly schema changed; missing columns: {sorted(missing)}")
+    seen = False
     for row in records:
+        if not seen:
+            require_columns(row, required, "SNIC monthly")
+            seen = True
         if not is_hurlingham_row(row):
             continue
         code = str(row.get("codigo_delito_snic_id") or "").strip()
@@ -353,21 +368,24 @@ def standardize_snic_monthly(
                     measure=col,
                     value=row.get(col),
                 )
+    if not seen:
+        raise ValueError(f"No records found in {source_path}")
     return rows
 
 
 def standardize_snic_annual(
     source: dict[str, Any],
     source_path: Path,
-    records: list[dict[str, object]],
+    records: Iterable[dict[str, object]],
     code_name_map: dict[str, str],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     required = {"anio", "departamento_nombre", "codigo_delito_snic_id"}
-    missing = required - set(records[0].keys() if records else [])
-    if missing:
-        raise ValueError(f"SNIC annual schema changed; missing columns: {sorted(missing)}")
+    seen = False
     for row in records:
+        if not seen:
+            require_columns(row, required, "SNIC annual")
+            seen = True
         if not is_hurlingham_row(row):
             continue
         code = str(row.get("codigo_delito_snic_id") or "").strip()
@@ -384,19 +402,19 @@ def standardize_snic_annual(
                     measure=col,
                     value=row.get(col),
                 )
+    if not seen:
+        raise ValueError(f"No records found in {source_path}")
     return rows
 
 
 def standardize_sat_property(
     source: dict[str, Any],
     source_path: Path,
-    records: list[dict[str, object]],
+    records: Iterable[dict[str, object]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     required = {"anio", "mes", "departamento_nombre", "nombre_delito_sat_prop", "cantidad_hechos"}
-    missing = required - set(records[0].keys() if records else [])
-    if missing:
-        raise ValueError(f"SAT property schema changed; missing columns: {sorted(missing)}")
+    seen = False
     measures = [
         "cantidad_hechos",
         "cantidad_hechos_lugar_via_publ",
@@ -413,6 +431,9 @@ def standardize_sat_property(
         "cantidad_hechos_origen_otro",
     ]
     for row in records:
+        if not seen:
+            require_columns(row, required, "SAT property")
+            seen = True
         if not is_hurlingham_row(row):
             continue
         crime_type = row.get("nombre_delito_sat_prop")
@@ -428,20 +449,23 @@ def standardize_sat_property(
                     measure=measure,
                     value=row.get(measure),
                 )
+    if not seen:
+        raise ValueError(f"No records found in {source_path}")
     return rows
 
 
 def standardize_pba_municipal(
     source: dict[str, Any],
     source_path: Path,
-    records: list[dict[str, object]],
+    records: Iterable[dict[str, object]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     required = {"ano", "municipio", "tipo", "valor"}
-    missing = required - set(records[0].keys() if records else [])
-    if missing:
-        raise ValueError(f"PBA municipal schema changed; missing columns: {sorted(missing)}")
+    seen = False
     for row in records:
+        if not seen:
+            require_columns(row, required, "PBA municipal")
+            seen = True
         if not is_hurlingham_row(row):
             continue
         add_standard_row(
@@ -454,12 +478,19 @@ def standardize_pba_municipal(
             measure="cantidad_victimas" if "victimas" in norm_text(source.get("name")) else "cantidad_hechos",
             value=row.get("valor"),
         )
+    if not seen:
+        raise ValueError(f"No records found in {source_path}")
     return rows
 
 
-def dedupe_sat_hd_events(records: list[dict[str, object]]) -> list[dict[str, object]]:
+def dedupe_sat_hd_events(records: Iterable[dict[str, object]]) -> list[dict[str, object]]:
     events: dict[str, dict[str, object]] = {}
+    required = {"id_hecho", "tipo_persona", "departamento_nombre", "anio", "mes", "cant_vic"}
+    seen = False
     for row in records:
+        if not seen:
+            require_columns(row, required, "SAT-HD")
+            seen = True
         if not is_hurlingham_row(row):
             continue
         if not norm_text(row.get("tipo_persona")).startswith("victima"):
@@ -468,18 +499,16 @@ def dedupe_sat_hd_events(records: list[dict[str, object]]) -> list[dict[str, obj
         if not event_id or event_id in events:
             continue
         events[event_id] = row
+    if not seen:
+        raise ValueError("No records found in SAT-HD source")
     return [events[key] for key in sorted(events, key=lambda item: (parse_int(item) or 0, item))]
 
 
 def standardize_sat_hd(
     source: dict[str, Any],
     source_path: Path,
-    records: list[dict[str, object]],
+    records: Iterable[dict[str, object]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, object]]]:
-    required = {"id_hecho", "tipo_persona", "departamento_nombre", "anio", "mes", "cant_vic"}
-    missing = required - set(records[0].keys() if records else [])
-    if missing:
-        raise ValueError(f"SAT-HD schema changed; missing columns: {sorted(missing)}")
     events = dedupe_sat_hd_events(records)
     rows: list[dict[str, Any]] = []
     for event in events:
@@ -901,7 +930,7 @@ def standardize_sources(
                 raise FileNotFoundError(f"Required raw source is missing: {path}")
             continue
         print(f"Reading {path}")
-        records = read_records(path)
+        records = iter_records(path)
         if source["key"] == "snic_departamentos_mensual":
             rows = standardize_snic_monthly(source, path, records, code_name_map)
         elif source["key"] == "snic_departamentos_anual":

@@ -1,0 +1,1554 @@
+{
+  "type": "FeatureCollection",
+  "name": "crime_homicide_radio_points_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-12T23:14:49.143206+00:00",
+    "crs": "EPSG:4326",
+    "source": "SAT Homicidios dolosos",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "spatial_precision": "radio_censal_centroid",
+    "is_exact_location": false,
+    "notes": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+    "event_count_with_coordinates": 48,
+    "event_count_without_coordinates": 4,
+    "event_count_without_zone_match": 0
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_15310",
+      "properties": {
+        "id": "sat_hd_hurlingham_15310",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 1,
+        "id_hecho": "15310",
+        "victims_count": 1,
+        "radio_censal": "64081003",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Objeto contundente",
+        "assigned_zone_name": "Parque Jhonston",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6419151,
+          -34.601725
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14101",
+      "properties": {
+        "id": "sat_hd_hurlingham_14101",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 2,
+        "id_hecho": "14101",
+        "victims_count": 6,
+        "radio_censal": "64080511",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Curapaytí",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6446321,
+          -34.5893033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14406",
+      "properties": {
+        "id": "sat_hd_hurlingham_14406",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 5,
+        "id_hecho": "14406",
+        "victims_count": 1,
+        "radio_censal": "64080511",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Sin determinación",
+        "assigned_zone_name": "Curapaytí",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6446321,
+          -34.5893033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14407",
+      "properties": {
+        "id": "sat_hd_hurlingham_14407",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 5,
+        "id_hecho": "14407",
+        "victims_count": 1,
+        "radio_censal": "64080609",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Parque Jhonston",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6371237,
+          -34.6008744
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14408",
+      "properties": {
+        "id": "sat_hd_hurlingham_14408",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 5,
+        "id_hecho": "14408",
+        "victims_count": 1,
+        "radio_censal": "64081311",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6419164,
+          -34.6163029
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14569",
+      "properties": {
+        "id": "sat_hd_hurlingham_14569",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 6,
+        "id_hecho": "14569",
+        "victims_count": 1,
+        "radio_censal": "64080302",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Roca 1",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6546296,
+          -34.5723058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14643",
+      "properties": {
+        "id": "sat_hd_hurlingham_14643",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 8,
+        "id_hecho": "14643",
+        "victims_count": 1,
+        "radio_censal": "64081101",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Virgen Esperanza",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6537404,
+          -34.5911261
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14807",
+      "properties": {
+        "id": "sat_hd_hurlingham_14807",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 10,
+        "id_hecho": "14807",
+        "victims_count": 1,
+        "radio_censal": "64081008",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Objeto contundente",
+        "assigned_zone_name": "Luna",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6482815,
+          -34.6041562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_14938",
+      "properties": {
+        "id": "sat_hd_hurlingham_14938",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2017,
+        "period_month": 11,
+        "id_hecho": "14938",
+        "victims_count": 1,
+        "radio_censal": "64080102",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Hurlingham Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6277592,
+          -34.5918454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_16663",
+      "properties": {
+        "id": "sat_hd_hurlingham_16663",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 2,
+        "id_hecho": "16663",
+        "victims_count": 1,
+        "radio_censal": "64080309",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Golpes",
+        "assigned_zone_name": "Belgrano",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6565324,
+          -34.5798051
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_16753",
+      "properties": {
+        "id": "sat_hd_hurlingham_16753",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 3,
+        "id_hecho": "16753",
+        "victims_count": 1,
+        "radio_censal": "64080906",
+        "tipo_lugar": "Comercio",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6396192,
+          -34.611328
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_16941",
+      "properties": {
+        "id": "sat_hd_hurlingham_16941",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 4,
+        "id_hecho": "16941",
+        "victims_count": 1,
+        "radio_censal": "64080512",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Curapaytí",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6478266,
+          -34.5877405
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17146",
+      "properties": {
+        "id": "sat_hd_hurlingham_17146",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 6,
+        "id_hecho": "17146",
+        "victims_count": 1,
+        "radio_censal": "64081411",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Libertador",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6432665,
+          -34.6287362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17169",
+      "properties": {
+        "id": "sat_hd_hurlingham_17169",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 6,
+        "id_hecho": "17169",
+        "victims_count": 1,
+        "radio_censal": "64081310",
+        "tipo_lugar": "Otro lugar",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6461828,
+          -34.6207791
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17312",
+      "properties": {
+        "id": "sat_hd_hurlingham_17312",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 7,
+        "id_hecho": "17312",
+        "victims_count": 1,
+        "radio_censal": "64080116",
+        "tipo_lugar": "Interior de rodados",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Hurlingham Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6334973,
+          -34.5886386
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17559",
+      "properties": {
+        "id": "sat_hd_hurlingham_17559",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 9,
+        "id_hecho": "17559",
+        "victims_count": 1,
+        "radio_censal": "64080903",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6306308,
+          -34.6106383
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17591",
+      "properties": {
+        "id": "sat_hd_hurlingham_17591",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 10,
+        "id_hecho": "17591",
+        "victims_count": 1,
+        "radio_censal": "64080510",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Curapaytí",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6476972,
+          -34.5906338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_17746",
+      "properties": {
+        "id": "sat_hd_hurlingham_17746",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2018,
+        "period_month": 11,
+        "id_hecho": "17746",
+        "victims_count": 1,
+        "radio_censal": "64080102",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Hurlingham Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6277592,
+          -34.5918454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_20081",
+      "properties": {
+        "id": "sat_hd_hurlingham_20081",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2019,
+        "period_month": 1,
+        "id_hecho": "20081",
+        "victims_count": 1,
+        "radio_censal": "64080303",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Roca 1",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6525575,
+          -34.5732176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_20543",
+      "properties": {
+        "id": "sat_hd_hurlingham_20543",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2019,
+        "period_month": 5,
+        "id_hecho": "20543",
+        "victims_count": 1,
+        "radio_censal": "64081408",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Porvenir",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6357558,
+          -34.6277048
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_20811",
+      "properties": {
+        "id": "sat_hd_hurlingham_20811",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2019,
+        "period_month": 7,
+        "id_hecho": "20811",
+        "victims_count": 1,
+        "radio_censal": "64080109",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Objeto contundente",
+        "assigned_zone_name": "Villa Club",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6346905,
+          -34.5745281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_21049",
+      "properties": {
+        "id": "sat_hd_hurlingham_21049",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2019,
+        "period_month": 9,
+        "id_hecho": "21049",
+        "victims_count": 1,
+        "radio_censal": "64081301",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6478128,
+          -34.6107553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_21847",
+      "properties": {
+        "id": "sat_hd_hurlingham_21847",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2019,
+        "period_month": 12,
+        "id_hecho": "21847",
+        "victims_count": 1,
+        "radio_censal": "64080409",
+        "tipo_lugar": "Sin determinar",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "La Leonor",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6595427,
+          -34.5913642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24447",
+      "properties": {
+        "id": "sat_hd_hurlingham_24447",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 1,
+        "id_hecho": "24447",
+        "victims_count": 1,
+        "radio_censal": "64081506",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Sin determinación",
+        "assigned_zone_name": "Militar",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6309718,
+          -34.6261999
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_23921",
+      "properties": {
+        "id": "sat_hd_hurlingham_23921",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 4,
+        "id_hecho": "23921",
+        "victims_count": 1,
+        "radio_censal": "64080305",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Roca 2",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6528137,
+          -34.5784072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24771",
+      "properties": {
+        "id": "sat_hd_hurlingham_24771",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 8,
+        "id_hecho": "24771",
+        "victims_count": 1,
+        "radio_censal": "64081105",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Santa Leonor",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6536353,
+          -34.5956529
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24827",
+      "properties": {
+        "id": "sat_hd_hurlingham_24827",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 8,
+        "id_hecho": "24827",
+        "victims_count": 1,
+        "radio_censal": "64080502",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "San Damián",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6610861,
+          -34.5836127
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24831",
+      "properties": {
+        "id": "sat_hd_hurlingham_24831",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 8,
+        "id_hecho": "24831",
+        "victims_count": 1,
+        "radio_censal": "64080704",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Parque Quirno",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6247741,
+          -34.6044755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24966",
+      "properties": {
+        "id": "sat_hd_hurlingham_24966",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 9,
+        "id_hecho": "24966",
+        "victims_count": 1,
+        "radio_censal": "64081110",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Los Patitos",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6610407,
+          -34.6013439
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_24172",
+      "properties": {
+        "id": "sat_hd_hurlingham_24172",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2020,
+        "period_month": 10,
+        "id_hecho": "24172",
+        "victims_count": 1,
+        "radio_censal": "64081304",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6476688,
+          -34.6138631
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_26597",
+      "properties": {
+        "id": "sat_hd_hurlingham_26597",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 1,
+        "id_hecho": "26597",
+        "victims_count": 1,
+        "radio_censal": "64081101",
+        "tipo_lugar": "Comercio",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Virgen Esperanza",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6537404,
+          -34.5911261
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_26708",
+      "properties": {
+        "id": "sat_hd_hurlingham_26708",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 2,
+        "id_hecho": "26708",
+        "victims_count": 1,
+        "radio_censal": "64081101",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Virgen Esperanza",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6537404,
+          -34.5911261
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27164",
+      "properties": {
+        "id": "sat_hd_hurlingham_27164",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 6,
+        "id_hecho": "27164",
+        "victims_count": 1,
+        "radio_censal": "64080706",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Parque Quirno",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6304405,
+          -34.6000802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27292",
+      "properties": {
+        "id": "sat_hd_hurlingham_27292",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 7,
+        "id_hecho": "27292",
+        "victims_count": 1,
+        "radio_censal": "64080708",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Parque Quirno",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6310098,
+          -34.6050995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27596",
+      "properties": {
+        "id": "sat_hd_hurlingham_27596",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 9,
+        "id_hecho": "27596",
+        "victims_count": 1,
+        "radio_censal": "64081410",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Porvenir",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6414788,
+          -34.6267401
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27597",
+      "properties": {
+        "id": "sat_hd_hurlingham_27597",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 9,
+        "id_hecho": "27597",
+        "victims_count": 1,
+        "radio_censal": "64081410",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Porvenir",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6414788,
+          -34.6267401
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27605",
+      "properties": {
+        "id": "sat_hd_hurlingham_27605",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 9,
+        "id_hecho": "27605",
+        "victims_count": 1,
+        "radio_censal": "64080102",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Sin determinación",
+        "assigned_zone_name": "Hurlingham Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6277592,
+          -34.5918454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_27684",
+      "properties": {
+        "id": "sat_hd_hurlingham_27684",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2021,
+        "period_month": 10,
+        "id_hecho": "27684",
+        "victims_count": 1,
+        "radio_censal": "64081206",
+        "tipo_lugar": "Interior de rodados",
+        "clase_arma": "Otra arma o mecanismo",
+        "assigned_zone_name": "Carola Lorenzini",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6537222,
+          -34.6243964
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_28856",
+      "properties": {
+        "id": "sat_hd_hurlingham_28856",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2022,
+        "period_month": 1,
+        "id_hecho": "28856",
+        "victims_count": 1,
+        "radio_censal": "64081306",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Golpes",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6447024,
+          -34.6142492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_29245",
+      "properties": {
+        "id": "sat_hd_hurlingham_29245",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2022,
+        "period_month": 7,
+        "id_hecho": "29245",
+        "victims_count": 1,
+        "radio_censal": "64081505",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Militar",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6284082,
+          -34.6258666
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_29591",
+      "properties": {
+        "id": "sat_hd_hurlingham_29591",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2022,
+        "period_month": 11,
+        "id_hecho": "29591",
+        "victims_count": 1,
+        "radio_censal": "64080411",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Destino",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6685659,
+          -34.5937671
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_29626",
+      "properties": {
+        "id": "sat_hd_hurlingham_29626",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2022,
+        "period_month": 11,
+        "id_hecho": "29626",
+        "victims_count": 1,
+        "radio_censal": "64080502",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "San Damián",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6610861,
+          -34.5836127
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_29465",
+      "properties": {
+        "id": "sat_hd_hurlingham_29465",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2022,
+        "period_month": 12,
+        "id_hecho": "29465",
+        "victims_count": 1,
+        "radio_censal": "64080102",
+        "tipo_lugar": "Domicilio particular",
+        "clase_arma": "Arma blanca",
+        "assigned_zone_name": "Hurlingham Centro",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6277592,
+          -34.5918454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_33653",
+      "properties": {
+        "id": "sat_hd_hurlingham_33653",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2023,
+        "period_month": 2,
+        "id_hecho": "33653",
+        "victims_count": 1,
+        "radio_censal": "64081406",
+        "tipo_lugar": "Interior de rodados",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "El Porvenir",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6339162,
+          -34.6260184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_36513",
+      "properties": {
+        "id": "sat_hd_hurlingham_36513",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2024,
+        "period_month": 3,
+        "id_hecho": "36513",
+        "victims_count": 1,
+        "radio_censal": "64081304",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6450309,
+          -34.611894
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_37386",
+      "properties": {
+        "id": "sat_hd_hurlingham_37386",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2024,
+        "period_month": 4,
+        "id_hecho": "37386",
+        "victims_count": 1,
+        "radio_censal": "64080813",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "La Juanita",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6195285,
+          -34.6196837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_37522",
+      "properties": {
+        "id": "sat_hd_hurlingham_37522",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2024,
+        "period_month": 6,
+        "id_hecho": "37522",
+        "victims_count": 1,
+        "radio_censal": "64081905",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Mitre",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6463785,
+          -34.6216729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sat_hd_hurlingham_37523",
+      "properties": {
+        "id": "sat_hd_hurlingham_37523",
+        "source": "SAT Homicidios dolosos",
+        "source_key": "sat_homicidios",
+        "municipality": "Hurlingham",
+        "province": "Buenos Aires",
+        "crime_group": "homicidio",
+        "crime_type": "Homicidios dolosos SAT-HD",
+        "period_year": 2024,
+        "period_month": 6,
+        "id_hecho": "37523",
+        "victims_count": 1,
+        "radio_censal": "64080503",
+        "tipo_lugar": "Vía pública",
+        "clase_arma": "Arma de fuego",
+        "assigned_zone_name": "Primero de Mayo",
+        "is_exact_location": false,
+        "spatial_precision": "radio_censal_centroid",
+        "source_note": "SAT-HD latitud_radio/longitud_radio are census-radio centroids, not exact incident coordinates.",
+        "generated_at": "2026-06-12T23:14:49.143206+00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6580309,
+          -34.5843243
+        ]
+      }
+    }
+  ]
+}
