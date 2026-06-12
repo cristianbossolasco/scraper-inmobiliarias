@@ -170,7 +170,7 @@
 
       <details class="filter-group" open>
         <summary>
-          <span><i data-lucide="building-2"></i> Origen, estado y revision</span>
+          <span><i data-lucide="building-2"></i> Origen, estado y revisi?n</span>
           <small>Fuente, inmobiliaria, calidad y orden</small>
         </summary>
         <div class="filter-group-body">
@@ -222,7 +222,7 @@
           </select>
         </div>
         <div>
-          <label for="review_state">Revision</label>
+          <label for="review_state">Revisi?n</label>
           <select id="review_state" name="review_state" multiple size="3">
             <option value="">Todas</option>
             <option value="pending" {% if "pending" in selected_filters.review_state %}selected{% endif %}>Pendientes</option>
@@ -233,7 +233,7 @@
 
       <div class="filter-section two-cols">
         <div>
-          <label for="location_quality">Ubicacion</label>
+          <label for="location_quality">Ubicaci?n</label>
           <select id="location_quality" name="location_quality" multiple size="4">
             <option value="">Todas</option>
             <option value="reliable" {% if "reliable" in selected_filters.location_quality %}selected{% endif %}>Confiable</option>
@@ -372,7 +372,7 @@
           <tr>
             <th class="column-actions"><span class="table-head-label">Acciones</span></th>
             <th class="column-price"><a class="table-sort-link {% if table_sort.price.sort_direction %}active{% endif %}" href="{{ table_sort.price.sort_url }}" hx-get="{{ table_sort.price.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por precio"><span>Precio</span>{% if table_sort.price.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.price.sort_icon }}"></i><em>{{ table_sort.price.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
-            <th class="column-title"><a class="table-sort-link {% if table_sort.title.sort_direction %}active{% endif %}" href="{{ table_sort.title.sort_url }}" hx-get="{{ table_sort.title.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por publicacion"><span>Publicacion</span>{% if table_sort.title.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.title.sort_icon }}"></i><em>{{ table_sort.title.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th class="column-title"><a class="table-sort-link {% if table_sort.title.sort_direction %}active{% endif %}" href="{{ table_sort.title.sort_url }}" hx-get="{{ table_sort.title.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por publicaci?n"><span>Publicaci?n</span>{% if table_sort.title.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.title.sort_icon }}"></i><em>{{ table_sort.title.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
             <th class="column-agency"><a class="table-sort-link {% if table_sort.agency.sort_direction %}active{% endif %}" href="{{ table_sort.agency.sort_url }}" hx-get="{{ table_sort.agency.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por inmobiliaria"><span>Inmobiliaria</span>{% if table_sort.agency.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.agency.sort_icon }}"></i><em>{{ table_sort.agency.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
             <th class="column-source"><a class="table-sort-link {% if table_sort.source.sort_direction %}active{% endif %}" href="{{ table_sort.source.sort_url }}" hx-get="{{ table_sort.source.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por fuente"><span>Fuente</span>{% if table_sort.source.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.source.sort_icon }}"></i><em>{{ table_sort.source.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
             <th class="column-locality"><a class="table-sort-link {% if table_sort.locality.sort_direction %}active{% endif %}" href="{{ table_sort.locality.sort_url }}" hx-get="{{ table_sort.locality.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por localidad"><span>Localidad</span>{% if table_sort.locality.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.locality.sort_icon }}"></i><em>{{ table_sort.locality.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
@@ -390,12 +390,12 @@
             </th>
             <th>
               <div class="table-range-filter">
-                <input class="table-filter" form="table-filter-form" name="price_min" inputmode="numeric" value="{{ query_params.price_min }}" placeholder="Min" aria-label="Precio minimo">
-                <input class="table-filter" form="table-filter-form" name="price_max" inputmode="numeric" value="{{ query_params.price_max }}" placeholder="Max" aria-label="Precio maximo">
+                <input class="table-filter" form="table-filter-form" name="price_min" inputmode="numeric" value="{{ query_params.price_min }}" placeholder="Min" aria-label="Precio m?nimo">
+                <input class="table-filter" form="table-filter-form" name="price_max" inputmode="numeric" value="{{ query_params.price_max }}" placeholder="Max" aria-label="Precio m?ximo">
               </div>
             </th>
             <th>
-              <input class="table-filter" form="table-filter-form" name="title" value="{{ query_params.title }}" placeholder="Buscar" aria-label="Filtrar publicacion">
+              <input class="table-filter" form="table-filter-form" name="title" value="{{ query_params.title }}" placeholder="Buscar" aria-label="Filtrar publicaci?n">
             </th>
             <th>
               <select class="table-filter" form="table-filter-form" name="agency" multiple size="4" aria-label="Filtrar inmobiliaria">
@@ -423,14 +423,14 @@
             </th>
             <th>
               <div class="table-range-filter">
-                <input class="table-filter" form="table-filter-form" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}" placeholder="Min" aria-label="Dormitorios minimo">
-                <input class="table-filter" form="table-filter-form" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}" placeholder="Max" aria-label="Dormitorios maximo">
+                <input class="table-filter" form="table-filter-form" name="bedrooms_min" type="number" min="0" value="{{ query_params.bedrooms_min }}" placeholder="Min" aria-label="Dormitorios m?nimo">
+                <input class="table-filter" form="table-filter-form" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}" placeholder="Max" aria-label="Dormitorios m?ximo">
               </div>
             </th>
             <th>
               <div class="table-range-filter">
-                <input class="table-filter" form="table-filter-form" name="bathrooms_min" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_min }}" placeholder="Min" aria-label="Baños minimo">
-                <input class="table-filter" form="table-filter-form" name="bathrooms_max" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_max }}" placeholder="Max" aria-label="Baños maximo">
+                <input class="table-filter" form="table-filter-form" name="bathrooms_min" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_min }}" placeholder="Min" aria-label="Baños m?nimo">
+                <input class="table-filter" form="table-filter-form" name="bathrooms_max" type="number" min="0" step="0.5" value="{{ query_params.bathrooms_max }}" placeholder="Max" aria-label="Baños m?ximo">
               </div>
             </th>
             <th>
@@ -441,14 +441,14 @@
             </th>
             <th>
               <div class="table-range-filter">
-                <input class="table-filter" form="table-filter-form" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}" placeholder="Min" aria-label="Terreno minimo">
-                <input class="table-filter" form="table-filter-form" name="land_max" inputmode="numeric" value="{{ query_params.land_max }}" placeholder="Max" aria-label="Terreno maximo">
+                <input class="table-filter" form="table-filter-form" name="land_min" inputmode="numeric" value="{{ query_params.land_min }}" placeholder="Min" aria-label="Terreno m?nimo">
+                <input class="table-filter" form="table-filter-form" name="land_max" inputmode="numeric" value="{{ query_params.land_max }}" placeholder="Max" aria-label="Terreno m?ximo">
               </div>
             </th>
             <th>
               <div class="table-range-filter">
-                <input class="table-filter" form="table-filter-form" name="price_m2_min" inputmode="numeric" value="{{ query_params.price_m2_min }}" placeholder="Min" aria-label="USD por metro minimo">
-                <input class="table-filter" form="table-filter-form" name="price_m2_max" inputmode="numeric" value="{{ query_params.price_m2_max }}" placeholder="Max" aria-label="USD por metro maximo">
+                <input class="table-filter" form="table-filter-form" name="price_m2_min" inputmode="numeric" value="{{ query_params.price_m2_min }}" placeholder="Min" aria-label="USD por metro m?nimo">
+                <input class="table-filter" form="table-filter-form" name="price_m2_max" inputmode="numeric" value="{{ query_params.price_m2_max }}" placeholder="Max" aria-label="USD por metro m?ximo">
               </div>
             </th>
           </tr>
@@ -523,7 +523,7 @@
             </button>
             {% with listing=property.primary_listing %}
               {% if listing %}
-              <a class="icon-button small" href="{{ listing.url }}" target="_blank" rel="noopener" title="Abrir publicacion original" aria-label="Abrir publicacion original">
+              <a class="icon-button small" href="{{ listing.url }}" target="_blank" rel="noopener" title="Abrir publicaci?n original" aria-label="Abrir publicaci?n original">
                 <i data-lucide="external-link"></i>
               </a>
               {% endif %}

@@ -201,7 +201,7 @@
   }
 
   function renderEditField(field) {
-    const value = field.value ?? "";
+    const value = field.value ? "";
     const wide = field.input_type === "textarea" || ["title", "address", "description", "features"].includes(field.field);
     if (field.input_type === "textarea") {
       return `
@@ -239,7 +239,7 @@
     const sourceLinks = (property.source_links || []).map((link) => `
       <a class="source-button" href="${escapeHtml(link.url)}" target="_blank" rel="noopener">
         <i data-lucide="external-link"></i>
-        <span>${escapeHtml(link.label || link.domain || "Publicacion")}</span>
+        <span>${escapeHtml(link.label || link.domain || "Publicaci?n")}</span>
       </a>
     `).join("");
     const editSections = (property.edit_sections || []).map((section) => `
@@ -270,7 +270,7 @@
       <div class="property-preview-map-panel">
         <div class="property-preview-map-heading">
           <div>
-            <h3>Ubicacion</h3>
+            <h3>Ubicaci?n</h3>
             <p class="audit-note">MovÃ© el marcador o hacÃ© clic en el mapa para corregir la ubicaciÃ³n.</p>
           </div>
           <button class="secondary-button" type="button" data-preview-save-location>
@@ -281,7 +281,7 @@
       </div>
     ` : `
       <div class="property-preview-map-panel">
-        <h3>Ubicacion</h3>
+        <h3>Ubicaci?n</h3>
         <p class="audit-note">Esta propiedad todavÃ­a no tiene coordenadas para mostrar en el mapa.</p>
       </div>
     `;
@@ -403,7 +403,7 @@
       if (statusNode) statusNode.textContent = "MovÃ© el marcador o hacÃ© clic en el mapa antes de guardar.";
       return;
     }
-    await requestJson(`/api/propiedad/${propertyId}/ubicacion/`, {
+    await requestJson(`/api/propiedad/${propertyId}/ubicaci?n/`, {
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
@@ -526,7 +526,7 @@
       tooltip.innerHTML = `
         <div class="chart-preview-summary">
           <strong>${escapeHtml(item.label || "")}</strong>
-          <span>Total: ${item.total ?? item.value ?? 0}</span>
+          <span>Total: ${item.total ? item.value ? 0}</span>
           <span>Favoritas: ${item.favorites || 0}</span>
           <span>Vistas: ${item.reviewed || 0}</span>
           <span>Pendientes: ${item.pending || 0}</span>
@@ -1352,7 +1352,7 @@
     const legend = document.getElementById("price-map-legend");
     if (!legend) return;
     if (metric === "density") {
-      legend.innerHTML = "<span>Modo densidad: rojo = mayor concentracion de publicaciones, no precio mas alto.</span>";
+      legend.innerHTML = "<span>Modo densidad: rojo = mayor concentracion de publicaci?nes, no precio mas alto.</span>";
       return;
     }
     const format = (value) => {
@@ -1467,7 +1467,7 @@
         labels: rows.map((row) => row.label),
         datasets: [
           {
-            label: "Publicaciones",
+            label: "Publicaci?nes",
             data: rows.map((row) => row.value),
             backgroundColor: colors[0],
             metaItems: rows
@@ -1647,9 +1647,9 @@
   }
 
   function renderCharts() {
-    const locality = bar("locality-chart", "Publicaciones", data.by_locality);
-    const neighborhood = bar("neighborhood-chart", "Publicaciones", data.by_neighborhood);
-    const agency = bar("agency-chart", "Publicaciones", data.by_agency);
+    const locality = bar("locality-chart", "Publicaci?nes", data.by_locality);
+    const neighborhood = bar("neighborhood-chart", "Publicaci?nes", data.by_neighborhood);
+    const agency = bar("agency-chart", "Publicaci?nes", data.by_agency);
     const price = bar("price-chart", "Cantidad", data.price_buckets);
     const surface = scatterWithRegression("surface-price-chart", "Superficie vs precio", data.surface_price, "Superficie");
     const bedrooms = scatter("bedrooms-price-chart", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
@@ -1676,7 +1676,7 @@
       try {
         renderCharts();
       } catch (error) {
-        console.error("No se pudieron renderizar los graficos del dashboard.", error);
+        console.error("No se pudieron renderizar los gr?ficos del dashboard.", error);
       }
     } else {
       renderOpportunityPanel();

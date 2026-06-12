@@ -24,14 +24,14 @@
   <section class="stats-filter-shell">
     <div class="stats-filter-bar">
       <div>
-        <strong>{{ total }} publicaciones filtradas</strong>
-        <span>Panel analitico sobre estos filtros.</span>
+        <strong>{{ total }} publicaci?nes filtradas</strong>
+        <span>Panel anal?tico sobre estos filtros.</span>
       </div>
       <div class="stats-filter-actions">
         <button class="secondary-button" type="button" id="stats-filter-toggle" aria-expanded="true">
           <i data-lucide="sliders-horizontal"></i> Filtros
         </button>
-        <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar analisis" aria-label="Alternar vista de secciones">
+        <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar an?lisis" aria-label="Alternar vista de secciones">
           <i data-lucide="panel-top-open"></i> Secciones
         </button>
         <a class="secondary-button" href="/?{{ request.GET.urlencode }}">
@@ -54,7 +54,7 @@
         <div class="stats-filter-group-body">
       <div class="stats-filter-field wide">
         <label for="stats-q">Buscar</label>
-        <input id="stats-q" type="search" name="q" value="{{ query_params.q }}" placeholder="Direccion, barrio o caracteristica">
+        <input id="stats-q" type="search" name="q" value="{{ query_params.q }}" placeholder="Direcci?n, barrio o caracter?stica">
       </div>
 
       <div class="stats-filter-field">
@@ -101,7 +101,7 @@
 
       <details class="filter-group stats-filter-group" open>
         <summary>
-          <span><i data-lucide="ruler"></i> Ubicacion y caracteristicas</span>
+          <span><i data-lucide="ruler"></i> Ubicaci?n y caracter?sticas</span>
           <small>Zonas, ambientes y superficies</small>
         </summary>
         <div class="stats-filter-group-body">
@@ -199,7 +199,7 @@
         </select>
       </div>
       <div class="stats-filter-field">
-        <label for="stats-review">Revision <small>Ctrl/Cmd para varias</small></label>
+        <label for="stats-review">Revisi?n <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-review" name="review_state" multiple size="3">
           <option value="">Todas</option>
           <option value="pending" {% if "pending" in selected_filters.review_state %}selected{% endif %}>Pendientes</option>
@@ -207,7 +207,7 @@
         </select>
       </div>
       <div class="stats-filter-field">
-        <label for="stats-location">Ubicacion <small>Ctrl/Cmd para varias</small></label>
+        <label for="stats-location">Ubicaci?n <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-location" name="location_quality" multiple size="4">
           <option value="">Todas</option>
           <option value="reliable" {% if "reliable" in selected_filters.location_quality %}selected{% endif %}>Confiable</option>
@@ -269,7 +269,7 @@
         </select>
       </div>
       <div class="stats-filter-field">
-        <label for="stats-feature">Caracteristica <small>Ctrl/Cmd para varias</small></label>
+        <label for="stats-feature">Caracter?stica <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-feature" name="feature" multiple size="4">
           <option value="">Todas</option>
           {% for feature in features %}
@@ -306,7 +306,7 @@
       <i data-lucide="layout-dashboard"></i> Resumen
     </button>
     <button class="stats-tab" type="button" data-tab="analytics">
-      <i data-lucide="bar-chart-3"></i> Analisis de mercado
+      <i data-lucide="bar-chart-3"></i> An?lisis de mercado
     </button>
     <button class="stats-tab" type="button" data-tab="spatial">
       <i data-lucide="map"></i> Mapa de precios
@@ -325,7 +325,7 @@
         <h1>VisiÃ³n general</h1>
         <p>Indicadores y calidad de datos sobre el filtro actual.</p>
       </div>
-      <strong>{{ total }} publicaciones</strong>
+      <strong>{{ total }} publicaci?nes</strong>
     </div>
     <div class="metric-grid">
       <div><span>Precio prom.</span><strong>{% if price_stats.avg %}{{ price_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
@@ -339,9 +339,9 @@
       <div><span>Mediana cubierta</span><strong>{% if covered_area_stats.median %}{{ covered_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Dormitorios prom.</span><strong>{% if bedroom_stats.avg %}{{ bedroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
       <div><span>BaÃ±os prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Con direccion</span><strong>{{ with_detected_address }}</strong></div>
+      <div><span>Con direcci?n</span><strong>{{ with_detected_address }}</strong></div>
       <div><span>Con coordenadas</span><strong>{{ with_map_location }}</strong></div>
-      <div><span>Ubicacion debil</span><strong>{{ without_reliable_location }}</strong></div>
+      <div><span>Ubicaci?n debil</span><strong>{{ without_reliable_location }}</strong></div>
       <div><span>Posibles duplicados</span><strong>{{ possible_duplicates }}</strong></div>
     </div>
   </section>
@@ -351,13 +351,13 @@
     <div class="quality-grid">
       <div><a href="{{ quality_links.price.present }}">Precio</a><meter min="0" max="100" value="{{ quality_percent.price }}"></meter><strong><a href="{{ quality_links.price.missing }}">{{ quality_percent.price }}%</a></strong></div>
       <div><a href="{{ quality_links.surface.present }}">Superficie</a><meter min="0" max="100" value="{{ quality_percent.surface }}"></meter><strong><a href="{{ quality_links.surface.missing }}">{{ quality_percent.surface }}%</a></strong></div>
-      <div><a href="{{ quality_links.address.present }}">Direccion</a><meter min="0" max="100" value="{{ quality_percent.address }}"></meter><strong><a href="{{ quality_links.address.missing }}">{{ quality_percent.address }}%</a></strong></div>
+      <div><a href="{{ quality_links.address.present }}">Direcci?n</a><meter min="0" max="100" value="{{ quality_percent.address }}"></meter><strong><a href="{{ quality_links.address.missing }}">{{ quality_percent.address }}%</a></strong></div>
       <div><a href="{{ quality_links.location.present }}">Mapa</a><meter min="0" max="100" value="{{ quality_percent.location }}"></meter><strong><a href="{{ quality_links.location.missing }}">{{ quality_percent.location }}%</a></strong></div>
       <div><a href="{{ quality_links.image.present }}">Imagen</a><meter min="0" max="100" value="{{ quality_percent.image }}"></meter><strong><a href="{{ quality_links.image.missing }}">{{ quality_percent.image }}%</a></strong></div>
       <div><a href="{{ quality_links.link.present }}">Link</a><meter min="0" max="100" value="{{ quality_percent.link }}"></meter><strong><a href="{{ quality_links.link.missing }}">{{ quality_percent.link }}%</a></strong></div>
       <div><a href="{{ quality_links.agency.present }}">Inmobiliaria</a><meter min="0" max="100" value="{{ quality_percent.agency }}"></meter><strong><a href="{{ quality_links.agency.missing }}">{{ quality_percent.agency }}%</a></strong></div>
     </div>
-    <p class="audit-note">{{ incomplete }} incompletas Â· {{ inconsistent }} inconsistentes o sospechosas Â· {{ anomaly_count }} valores excluidos de metricas</p>
+    <p class="audit-note">{{ incomplete }} incompletas Â· {{ inconsistent }} inconsistentes o sospechosas Â· {{ anomaly_count }} valores excluidos de m?tricas</p>
   </section>
 
   {% if anomaly_rows %}
@@ -365,7 +365,7 @@
     <div class="section-heading outlier-review-heading">
       <div>
         <h2>Datos a revisar</h2>
-        <p>{{ anomaly_rows|length }} propiedades sujetas a revision. Abrilas solo cuando necesites auditar el detalle.</p>
+        <p>{{ anomaly_rows|length }} propiedades sujetas a revisi?n. Abrilas solo cuando necesites auditar el detalle.</p>
       </div>
       <button class="secondary-button" type="button" id="anomaly-details-toggle">
         <i data-lucide="list-collapse"></i> Expandir / contraer
@@ -373,7 +373,7 @@
     </div>
     <details class="outlier-review-panel" id="anomaly-details" {% if anomaly_rows|length <= 25 %}open{% endif %}>
       <summary>
-        <span>Grilla de revision</span>
+        <span>Grilla de revisi?n</span>
         <small>{{ anomaly_rows|length }} casos detectados por reglas, IQR/MAD, regresion o conflictos.</small>
       </summary>
     <div class="anomaly-table">
@@ -384,7 +384,7 @@
             <th>Campo</th>
             <th>Valor</th>
             <th>Motivo</th>
-            <th>Publicacion</th>
+            <th>Publicaci?n</th>
           </tr>
         </thead>
         <tbody>
@@ -412,12 +412,12 @@
     <div class="stats-grid">
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
-        <h2>Publicaciones por localidad</h2>
+        <h2>Publicaci?nes por localidad</h2>
         <canvas id="locality-chart"></canvas>
       </div>
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
-        <h2>Publicaciones por zona</h2>
+        <h2>Publicaci?nes por zona</h2>
         <canvas id="neighborhood-chart"></canvas>
       </div>
       <div class="chart-panel">
@@ -427,7 +427,7 @@
       </div>
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
-        <h2>Inmobiliarias con mas publicaciones</h2>
+        <h2>Inmobiliarias con mas publicaci?nes</h2>
         <canvas id="agency-chart"></canvas>
       </div>
       <div class="chart-panel">
@@ -456,7 +456,7 @@
             <option value="price">Precio total</option>
             <option value="price_m2">USD/m2</option>
             <option value="discount">Descuento vs tendencia</option>
-            <option value="density">Densidad de publicaciones</option>
+            <option value="density">Densidad de publicaci?nes</option>
           </select>
         </label>
       </div>
@@ -482,7 +482,7 @@
     <div class="section-heading">
       <div>
         <h2>Oportunidades accionables</h2>
-        <p>Ranking por descuento vs tendencia, precio/m2 bajo, calidad de datos y ubicacion confiable.</p>
+        <p>Ranking por descuento vs tendencia, precio/m2 bajo, calidad de datos y ubicaci?n confiable.</p>
       </div>
     </div>
     <div id="opportunity-list" class="opportunity-grid"></div>
