@@ -2341,6 +2341,23 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["uncovered_area"], Decimal("10"))
         self.assertEqual(data["age_years"], 45)
 
+    def test_fincas_parser_prioritizes_structured_haurie_address(self):
+        data = self.parse_with_fixture(
+            FincasScraper,
+            "haurie_address_detail.html",
+            "https://www.haurie.argencasas.com/propiedad-local-con-vivienda-venta-hurlingham-301-1082",
+        )
+        self.assertEqual(data["address"], "BUSTAMANTE 2600")
+        self.assertNotEqual(data["address"].lower(), "salon de 17")
+
+    def test_fincas_parser_rejects_description_as_address(self):
+        data = self.parse_with_fixture(
+            FincasScraper,
+            "haurie_false_address_detail.html",
+            "https://www.haurie.argencasas.com/propiedad-casa-venta-hurlingham-301-1083",
+        )
+        self.assertFalse(data.get("address"))
+
     def test_robots_txt_is_cached_across_scraper_instances(self):
         ROBOTS_CACHE.clear()
 

@@ -30,6 +30,7 @@
   const zoneStorageKey = "stats.filterSectionCollapsed";
   const tabStorageKey = "stats.activeTab";
   const mapStorageKey = "stats.heatmap.initialized";
+  const priceMapMetricStorageKey = "stats.priceMap.metric";
 
   if (filterToggle && filterForm) {
     filterToggle.addEventListener("click", () => {
@@ -1098,6 +1099,14 @@
     const emptyNote = document.getElementById("price-heatmap-empty");
     if (!container || typeof maplibregl === "undefined") return;
     const points = Array.isArray(data.heatmap_points) ? data.heatmap_points : [];
+    const metricSelect = document.getElementById("price-map-metric");
+    if (metricSelect) {
+      metricSelect.value = localStorage.getItem(priceMapMetricStorageKey) || "price";
+      metricSelect.onchange = () => {
+        localStorage.setItem(priceMapMetricStorageKey, metricSelect.value);
+        updateHeatmapSource(points);
+      };
+    }
     if (!points.length) {
       if (emptyNote) emptyNote.hidden = false;
       return;
@@ -1169,6 +1178,8 @@
   function updateHeatmapSource(points) {
     if (!heatmapMap) return;
     if (!points.length) return;
+    const metric = document.getElementById("price-map-metric")?.value || "price";
+    const surfaceRows = new Map((data.surface_price || []).map((item) => [String(item.id), item]));
     const features = points
       .filter((item) => Number.isFinite(Number(item.longitude)) && Number.isFinite(Number(item.latitude)))
       .map((item) => ({
@@ -1181,26 +1192,31 @@
           id: item.id,
           title: item.title || "",
           price: Number(item.price) || 0,
+          price_m2: Number(item.price_m2) || 0,
+          area: Number(item.area) || 0,
           currency: item.currency || "USD",
           zone: item.zone || "Sin zona",
           url: item.url || "",
           is_hidden: item.is_hidden ? 1 : 0,
-          weight: Number(item.price) || 0
+          metric_value: metricValue(item, metric, surfaceRows),
+          metric_label: metricLabel(metric),
+          weight: metric === "density" ? 1 : metricValue(item, metric, surfaceRows)
         }
       }));
     if (!features.length) return;
 
-    const prices = features.map((item) => Number(item.properties.price)).filter((value) => Number.isFinite(value));
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-    const normalizeWeight = (price) => {
-      if (!Number.isFinite(price)) return 0;
-      if (!Number.isFinite(maxPrice) || maxPrice === minPrice) return 1;
-      return (price - minPrice) / (maxPrice - minPrice);
+    const values = features.map((item) => Number(item.properties.metric_value)).filter((value) => Number.isFinite(value));
+    const low = quantile(values, 0.05);
+    const high = quantile(values, 0.95);
+    const normalizeWeight = (value) => {
+      if (!Number.isFinite(value)) return 0;
+      if (!Number.isFinite(high) || high === low) return 0.55;
+      return Math.max(0, Math.min(1, (value - low) / (high - low)));
     };
     features.forEach((feature) => {
-      feature.properties.weight = normalizeWeight(feature.properties.price);
+      feature.properties.weight = metric === "density" ? 1 : normalizeWeight(feature.properties.metric_value);
     });
+    renderPriceMapLegend(metric, low, high);
 
     const focusBounds = calculateHeatmapFocusBounds(features);
     const fitHeatmapToData = () => {
@@ -1225,8 +1241,9 @@
         id: "price-heat",
         type: "heatmap",
         source: "price-heat-source",
+        layout: { visibility: metric === "density" ? "visible" : "none" },
         paint: {
-          "heatmap-weight": ["get", "weight"],
+          "heatmap-weight": 1,
           "heatmap-intensity": [
             "interpolate",
             ["linear"],
@@ -1262,18 +1279,28 @@
         type: "circle",
         source: "price-heat-source",
         paint: {
-          "circle-radius": 5,
-          "circle-color": [
-            "case",
-            ["==", ["get", "is_hidden"], 1],
-            "rgba(130, 130, 130, 0.85)",
-            "#176b4d"
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["get", "weight"],
+            0, 5,
+            1, 12
           ],
-          "circle-opacity": 0.65,
+          "circle-color": [
+            "interpolate",
+            ["linear"],
+            ["get", "weight"],
+            0, "#2f80ed",
+            0.25, "#25c7a0",
+            0.5, "#d9ef43",
+            0.75, "#f59f29",
+            1, "#d7191c"
+          ],
+          "circle-opacity": metric === "density" ? 0.45 : 0.92,
           "circle-stroke-width": 1,
           "circle-stroke-color": "#ffffff"
         },
-        minzoom: 11
+        minzoom: 0
       });
       localStorage.setItem(mapStorageKey, "1");
       fitHeatmapToData();
@@ -1284,7 +1311,59 @@
       type: "FeatureCollection",
       features
     });
+    if (heatmapMap.getLayer("price-heat")) {
+      heatmapMap.setLayoutProperty("price-heat", "visibility", metric === "density" ? "visible" : "none");
+    }
+    if (heatmapMap.getLayer("heatmap-points")) {
+      heatmapMap.setPaintProperty("heatmap-points", "circle-opacity", metric === "density" ? 0.45 : 0.92);
+    }
     fitHeatmapToData();
+  }
+
+  function metricLabel(metric) {
+    if (metric === "price_m2") return "USD/m2";
+    if (metric === "discount") return "Descuento vs tendencia";
+    if (metric === "density") return "Densidad";
+    return "Precio total";
+  }
+
+  function metricValue(item, metric, surfaceRows) {
+    if (metric === "price_m2") return Number(item.price_m2) || 0;
+    if (metric === "discount") {
+      const row = surfaceRows.get(String(item.id));
+      const area = Number(row?.x || item.area);
+      const price = Number(row?.y || item.price);
+      if (!surfaceRegression || !Number.isFinite(area) || !Number.isFinite(price) || area <= 0) return 0;
+      const expected = surfaceRegression.predict(area);
+      return expected > 0 ? ((expected - price) / expected) * 100 : 0;
+    }
+    if (metric === "density") return 1;
+    return Number(item.price) || 0;
+  }
+
+  function quantile(values, q) {
+    const sorted = values.filter((value) => Number.isFinite(value)).sort((a, b) => a - b);
+    if (!sorted.length) return 0;
+    const index = Math.max(0, Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * q)));
+    return sorted[index];
+  }
+
+  function renderPriceMapLegend(metric, low, high) {
+    const legend = document.getElementById("price-map-legend");
+    if (!legend) return;
+    if (metric === "density") {
+      legend.innerHTML = "<span>Modo densidad: rojo = mayor concentracion de publicaciones, no precio mas alto.</span>";
+      return;
+    }
+    const format = (value) => {
+      if (metric === "discount") return `${Math.round(value)}%`;
+      return `USD ${Math.round(value || 0).toLocaleString("es-AR")}`;
+    };
+    legend.innerHTML = `
+      <span>Bajo ${format(low)}</span>
+      <i></i>
+      <span>Alto ${format(high)}</span>
+    `;
   }
 
   function calculateHeatmapFocusBounds(features) {
@@ -1529,6 +1608,8 @@
     const rows = Array.from(document.querySelectorAll("[data-anomaly-row]"));
     const cards = Array.from(document.querySelectorAll("[data-anomaly-card]"));
     const empty = document.getElementById("anomaly-filter-empty");
+    const details = document.getElementById("anomaly-details");
+    const toggle = document.getElementById("anomaly-details-toggle");
     if (!selector) return;
 
     const apply = () => {
@@ -1544,9 +1625,15 @@
         card.hidden = false;
       });
       if (empty) empty.hidden = visibleRows > 0;
+      if (selected && details) details.open = true;
     };
 
     selector.addEventListener("change", apply);
+    if (toggle && details) {
+      toggle.addEventListener("click", () => {
+        details.open = !details.open;
+      });
+    }
     document.addEventListener("click", (event) => {
       const button = event.target.closest("[data-anomaly-select]");
       if (!button) return;

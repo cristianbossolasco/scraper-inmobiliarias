@@ -1699,11 +1699,15 @@ def _heatmap_points(properties, request_query, max_points=1200):
         if price is None:
             continue
         listing = _primary_listing(property_obj)
+        area = property_obj.covered_area or property_obj.total_area or property_obj.land_area
+        price_m2 = float(price / area) if area else None
         points.append(
             {
                 "id": property_obj.pk,
                 "title": property_obj.title,
                 "price": float(price),
+                "price_m2": price_m2,
+                "area": float(area) if area else None,
                 "currency": property_obj.currency or "",
                 "zone": _safe_label(
                     property_obj.detected_neighborhood

@@ -301,16 +301,69 @@ def links_matching(scraper, soup, patterns, require_target_text=False):
             yield url
 
 
+
+ADDRESS_FALSE_POSITIVE_RE = re.compile(
+    r"\b(?:salon|living|cocina|comedor|dormitorio|habitacion|bano|banos|ambiente|ambientes|garage|cochera|patio|jardin|quincho|lavadero|planta|galeria)\s+de\b",
+    re.I,
+)
+
+
+def normalize_argencasas_address(value):
+    text = clean_text(value or "")
+    text = re.sub(
+        r"^(?:direccion|direcci[o?]n|ubicacion|ubicaci[o?]n)\s*:?\s*",
+        "",
+        text,
+        flags=re.I,
+    )
+    text = re.split(
+        r"\s*(?:,|\||-)\s*(?:hurlingham|villa\s+tesei|william|buenos\s+aires|argentina)\b",
+        text,
+        maxsplit=1,
+        flags=re.I,
+    )[0]
+    match = re.search(
+        r"\b([A-Za-z?????????????? .'-]{3,60}?)\s+al\s+(\d{2,5})\b",
+        text,
+        re.I,
+    )
+    if match:
+        street = clean_text(match.group(1)).strip(" ,.-")
+        text = f"{street} {match.group(2)}"
+    text = clean_detected_address(text)
+    if text and ADDRESS_FALSE_POSITIVE_RE.search(text):
+        return ""
+    if text and not re.search(r"\d{2,5}|\b(?:y|esquina|entre)\b", text, re.I):
+        return ""
+    return text
+
+
+def extract_argencasas_address_from_text(text):
+    patterns = [
+        r"(?:Direccion|Direcci[o?]n|Direcci??n|Ubicacion|Ubicaci[o?]n|Ubicaci??n)\s*:?\s*([A-Za-z?????????????? .'-]{3,60}\s+al\s+\d{2,5})",
+        r"\b([A-Z??????][A-Z?????? .'-]{2,60}\s+al\s+\d{2,5})\b",
+    ]
+    for pattern in patterns:
+        candidate = text_value(text, [pattern])
+        address = normalize_argencasas_address(candidate)
+        if address:
+            return address
+    return ""
+
+
 def enrich_from_common_text(data, text, default_locality="Hurlingham"):
-    address = data.get("address") or text_value(
+    address = normalize_argencasas_address(data.get("address")) or text_value(
         text,
         [
-            r"(?:Direccion|Dirección|Ubicacion|Ubicación)\s*:?\s*(.+?)(?:Venta|USD|U\$S|US\$|ARS|\$|Caracteristicas|Características|Descripcion|Descripción)",
+            r"(?:Direccion|Direcci??n|Ubicacion|Ubicaci??n)\s*:?\s*(.+?)(?:Venta|USD|U\$S|US\$|ARS|\$|Caracteristicas|Caracter??sticas|Descripcion|Descripci??n)",
             r"^(.+?,\s*(?:Hurlingham|Villa Tesei|William Morris)[^\.]*)",
         ],
     )
+    address = normalize_argencasas_address(address)
     if address:
-        data["address"] = clean_detected_address(address)[:250]
+        data["address"] = address[:250]
+    elif data.get("address") and ADDRESS_FALSE_POSITIVE_RE.search(str(data.get("address"))):
+        data["address"] = ""
     data["locality"] = (
         "William C. Morris"
         if re.search(r"william\s+(?:c\.\s*)?morris", text, re.I)
@@ -705,6 +758,12 @@ class FincasScraper(CommonDetailScraper):
         if not data:
             return None
         text = visible_text(soup)
+        structured_address = self._structured_address(soup, text)
+        if structured_address:
+            data["address"] = structured_address[:250]
+            data["detected_address"] = structured_address[:250]
+            data["raw_data"] = data.get("raw_data") or {}
+            data["raw_data"]["haurie_address"] = structured_address
         data["rooms"] = number_before_label(text, [r"Ambientes"], parse_int) or data.get("rooms")
         data["bedrooms"] = number_before_label(text, [r"Dormitorios"], parse_int) or data.get("bedrooms")
         data["bathrooms"] = number_before_label(text, [r"Baños", r"Banos"], parse_decimal) or data.get("bathrooms")
@@ -719,7 +778,27 @@ class FincasScraper(CommonDetailScraper):
         data["raw_data"] = data.get("raw_data") or {}
         if free_area is not None:
             data["raw_data"]["free_area"] = str(free_area)
+        data["location_precision"] = classify_address_precision(data.get("address"))
         return data
+
+    def _structured_address(self, soup, text):
+        selectors = (
+            "[itemprop='streetAddress']",
+            ".item-address",
+            ".property-address",
+            ".property-location",
+            ".ubicacion",
+            ".direccion",
+            "address",
+            "h1",
+            "h2",
+        )
+        for selector in selectors:
+            for node in soup.select(selector):
+                address = normalize_argencasas_address(node.get_text(" ", strip=True))
+                if address:
+                    return address
+        return extract_argencasas_address_from_text(text)
 
 
 class GuarnieriScraper(MultiSearchScraper):

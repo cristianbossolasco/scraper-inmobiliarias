@@ -362,7 +362,20 @@
 
   {% if anomaly_rows %}
   <section class="stats-panel stats-tab-panel" data-tab-content="models">
-    <h2>Datos a revisar</h2>
+    <div class="section-heading outlier-review-heading">
+      <div>
+        <h2>Datos a revisar</h2>
+        <p>{{ anomaly_rows|length }} propiedades sujetas a revision. Abrilas solo cuando necesites auditar el detalle.</p>
+      </div>
+      <button class="secondary-button" type="button" id="anomaly-details-toggle">
+        <i data-lucide="list-collapse"></i> Expandir / contraer
+      </button>
+    </div>
+    <details class="outlier-review-panel" id="anomaly-details" {% if anomaly_rows|length <= 25 %}open{% endif %}>
+      <summary>
+        <span>Grilla de revision</span>
+        <small>{{ anomaly_rows|length }} casos detectados por reglas, IQR/MAD, regresion o conflictos.</small>
+      </summary>
     <div class="anomaly-table">
       <table>
         <thead>
@@ -391,6 +404,7 @@
       </table>
       <p id="anomaly-filter-empty" class="audit-note" hidden>No hay propiedades para revisar con el algoritmo seleccionado.</p>
     </div>
+    </details>
   </section>
   {% endif %}
 
@@ -431,7 +445,22 @@
 
   <section class="stats-panel stats-tab-panel" data-tab-content="spatial">
     <div class="chart-panel chart-panel--expanded">
-      <h2>Mapa de calor de precios</h2>
+      <div class="section-heading price-map-heading">
+        <div>
+          <h2>Mapa de precios</h2>
+          <p>El color representa valor real por propiedad. La densidad queda como modo secundario.</p>
+        </div>
+        <label class="price-map-control">
+          <span>Metrica</span>
+          <select id="price-map-metric">
+            <option value="price">Precio total</option>
+            <option value="price_m2">USD/m2</option>
+            <option value="discount">Descuento vs tendencia</option>
+            <option value="density">Densidad de publicaciones</option>
+          </select>
+        </label>
+      </div>
+      <div id="price-map-legend" class="price-map-legend"></div>
       <div id="price-heatmap-map" class="stats-heatmap-map"></div>
       <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicaciÃ³n para este filtro.</p>
     </div>

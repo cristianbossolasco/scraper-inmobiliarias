@@ -25,6 +25,7 @@
   let polygonButton;
   let clearGeoButton;
   let lastMapFeatures = [];
+  let geoStatus = null;
 
   function markFiltersPending() {
     form.dataset.pending = "1";
@@ -64,6 +65,7 @@
     map.on("load", () => {
       installPropertyLayers();
       installGeometryLayers();
+      restoreGeometryFromInputs();
       refreshMap();
     });
     map.on("click", handleMapClick);
@@ -293,14 +295,28 @@
   }
 
   function finishPolygon() {
-    if (polygonPoints.length < 3) return;
+    if (polygonPoints.length < 3) {
+      setGeoStatus("El area necesita al menos 3 puntos.", false);
+      return;
+    }
     const polygon = [...polygonPoints];
     input("polygon").value = JSON.stringify(polygon);
     drawPolygon(true);
-    setDrawMode(null);
+    drawMode = null;
+    if (polygonButton) polygonButton.classList.remove("active");
+    document.getElementById("radius-panel").hidden = true;
+    if (map) {
+      updateCursorForMode();
+      map.doubleClickZoom.enable();
+    }
     polygonPoints = polygon;
     drawPolygon(true);
-    markFiltersPending();
+    setGeoStatus("Area lista. Aplicando filtro...", true);
+    if (form.requestSubmit) {
+      form.requestSubmit();
+    } else {
+      form.submit();
+    }
   }
 
   function clearDrawnGeometry(keepMode = null) {
@@ -355,10 +371,53 @@
     });
   }
 
+  function ensureGeoStatus() {
+    if (geoStatus && document.body.contains(geoStatus)) return geoStatus;
+    const tools = document.querySelector(".geo-tools");
+    if (!tools) return null;
+    geoStatus = document.createElement("span");
+    geoStatus.className = "geo-status";
+    tools.appendChild(geoStatus);
+    return geoStatus;
+  }
+
+  function setGeoStatus(message, active) {
+    const status = ensureGeoStatus();
+    if (!status) return;
+    status.textContent = message || "";
+    status.hidden = !message;
+    status.classList.toggle("active", Boolean(active));
+  }
+
+  function restoreGeometryFromInputs() {
+    const rawPolygon = input("polygon")?.value;
+    if (rawPolygon) {
+      try {
+        const parsed = JSON.parse(rawPolygon);
+        if (Array.isArray(parsed) && parsed.length >= 3) {
+          polygonPoints = parsed;
+          drawPolygon(true);
+          setGeoStatus("Area aplicada", true);
+          return;
+        }
+      } catch (_error) {
+        setGeoStatus("No se pudo restaurar el area.", false);
+      }
+    }
+    const lat = Number(input("radius_lat")?.value);
+    const lng = Number(input("radius_lng")?.value);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      radiusCenter = [lng, lat];
+      drawRadius();
+      setGeoStatus("Radio aplicado", true);
+    }
+  }
+
   document.addEventListener("htmx:afterSwap", (event) => {
     if (event.target.id === "results-pane") {
       lucide.createIcons();
       bindResultTools();
+      restoreGeometryFromInputs();
       refreshMap();
     }
   });
@@ -422,6 +481,7 @@
         .forEach((name) => { input(name).value = ""; });
       setDrawMode(null);
       document.getElementById("radius-panel").hidden = true;
+      setGeoStatus("", false);
       markFiltersPending();
     });
   }

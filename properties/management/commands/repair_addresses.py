@@ -18,6 +18,7 @@ def same_geocoding_target(before, after):
 
 
 KNOWN_ADDRESS_CORRECTIONS = {
+    3454: {"address": "BUSTAMANTE 2600", "locality": "Hurlingham"},
     4510: {"address": "Tambo Nuevo 800", "locality": "Hurlingham", "neighborhood": "Villa Alemania"},
     2987: {"address": "Rossini 2000", "locality": "Hurlingham"},
     1068: {"address": "GRANADA 500"},
