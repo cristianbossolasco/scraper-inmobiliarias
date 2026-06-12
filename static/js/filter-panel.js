@@ -9,7 +9,7 @@
 
   function labelFor(control) {
     const form = control.closest("form");
-    const label = control.id ? form².querySelector(`label[for="${cssEscape(control.id)}"]`) : null;
+    const label = control.id ? form?.querySelector(`label[for="${cssEscape(control.id)}"]`) : null;
     return (label?.childNodes?.[0]?.textContent || control.name || "Filtro").trim();
   }
 

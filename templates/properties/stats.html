@@ -31,7 +31,7 @@
         <button class="secondary-button" type="button" id="stats-filter-toggle" aria-expanded="true">
           <i data-lucide="sliders-horizontal"></i> Filtros
         </button>
-        <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar an?lisis" aria-label="Alternar vista de secciones">
+        <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar análisis" aria-label="Alternar vista de secciones">
           <i data-lucide="panel-top-open"></i> Secciones
         </button>
         <a class="secondary-button" href="/?{{ request.GET.urlencode }}">
@@ -134,11 +134,11 @@
         <input id="stats-bedrooms-max" name="bedrooms_max" type="number" min="0" value="{{ query_params.bedrooms_max }}">
       </div>
       <div class="stats-filter-field">
-        <label for="stats-bathrooms">Banos min.</label>
+        <label for="stats-bathrooms">Baños min.</label>
         <input id="stats-bathrooms" name="bathrooms_min" type="number" min="0" value="{{ query_params.bathrooms_min }}">
       </div>
       <div class="stats-filter-field">
-        <label for="stats-bathrooms-max">Banos max.</label>
+        <label for="stats-bathrooms-max">Baños max.</label>
         <input id="stats-bathrooms-max" name="bathrooms_max" type="number" min="0" value="{{ query_params.bathrooms_max }}">
       </div>
       <div class="stats-filter-field">
@@ -306,7 +306,7 @@
       <i data-lucide="layout-dashboard"></i> Resumen
     </button>
     <button class="stats-tab" type="button" data-tab="analytics">
-      <i data-lucide="bar-chart-3"></i> An?lisis de mercado
+      <i data-lucide="bar-chart-3"></i> Análisis de mercado
     </button>
     <button class="stats-tab" type="button" data-tab="spatial">
       <i data-lucide="map"></i> Mapa de precios
@@ -322,26 +322,26 @@
   <section class="stats-panel stats-tab-panel active" data-tab-content="overview">
     <div class="section-heading">
       <div>
-        <h1>VisiÃ³n general</h1>
+        <h1>Visión general</h1>
         <p>Indicadores y calidad de datos sobre el filtro actual.</p>
       </div>
       <strong>{{ total }} publicaciones</strong>
     </div>
     <div class="metric-grid">
       <div><span>Precio prom.</span><strong>{% if price_stats.avg %}{{ price_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Desvio precio</span><strong>{% if price_stats.std %}{{ price_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Desvío precio</span><strong>{% if price_stats.std %}{{ price_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Precio/m2 prom.</span><strong>{% if price_m2_stats.avg %}{{ price_m2_stats.avg|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Mediana precio/m2</span><strong>{% if price_m2_stats.median %}{{ price_m2_stats.median|floatformat:0 }}{% else %}-{% endif %}</strong></div>
-      <div><span>Desvio precio/m2</span><strong>{% if price_m2_stats.std %}{{ price_m2_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Desvío precio/m2</span><strong>{% if price_m2_stats.std %}{{ price_m2_stats.std|floatformat:0 }}{% else %}-{% endif %}</strong></div>
       <div><span>Sup. terreno prom.</span><strong>{% if total_area_stats.avg %}{{ total_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Mediana terreno</span><strong>{% if total_area_stats.median %}{{ total_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Sup. cubierta prom.</span><strong>{% if covered_area_stats.avg %}{{ covered_area_stats.avg|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Mediana cubierta</span><strong>{% if covered_area_stats.median %}{{ covered_area_stats.median|floatformat:0 }} m2{% else %}-{% endif %}</strong></div>
       <div><span>Dormitorios prom.</span><strong>{% if bedroom_stats.avg %}{{ bedroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
-      <div><span>BaÃ±os prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
+      <div><span>Baños prom.</span><strong>{% if bathroom_stats.avg %}{{ bathroom_stats.avg|floatformat:1 }}{% else %}-{% endif %}</strong></div>
       <div><span>Con dirección</span><strong>{{ with_detected_address }}</strong></div>
       <div><span>Con coordenadas</span><strong>{{ with_map_location }}</strong></div>
-      <div><span>Ubicación debil</span><strong>{{ without_reliable_location }}</strong></div>
+      <div><span>Ubicación débil</span><strong>{{ without_reliable_location }}</strong></div>
       <div><span>Posibles duplicados</span><strong>{{ possible_duplicates }}</strong></div>
     </div>
   </section>
@@ -357,7 +357,7 @@
       <div><a href="{{ quality_links.link.present }}">Link</a><meter min="0" max="100" value="{{ quality_percent.link }}"></meter><strong><a href="{{ quality_links.link.missing }}">{{ quality_percent.link }}%</a></strong></div>
       <div><a href="{{ quality_links.agency.present }}">Inmobiliaria</a><meter min="0" max="100" value="{{ quality_percent.agency }}"></meter><strong><a href="{{ quality_links.agency.missing }}">{{ quality_percent.agency }}%</a></strong></div>
     </div>
-    <p class="audit-note">{{ incomplete }} incompletas Â· {{ inconsistent }} inconsistentes o sospechosas Â· {{ anomaly_count }} valores excluidos de m²tricas</p>
+    <p class="audit-note">{{ incomplete }} incompletas · {{ inconsistent }} inconsistentes o sospechosas · {{ anomaly_count }} valores excluidos de métricas</p>
   </section>
 
   {% if anomaly_rows %}
@@ -374,7 +374,7 @@
     <details class="outlier-review-panel" id="anomaly-details" {% if anomaly_rows|length <= 25 %}open{% endif %}>
       <summary>
         <span>Grilla de revisión</span>
-        <small>{{ anomaly_rows|length }} casos detectados por reglas, IQR/MAD, regresion o conflictos.</small>
+        <small>{{ anomaly_rows|length }} casos detectados por reglas, IQR/MAD, regresión o conflictos.</small>
       </summary>
     <div class="anomaly-table">
       <table>
@@ -427,12 +427,12 @@
       </div>
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
-        <h2>Inmobiliarias con mas publicaciones</h2>
+        <h2>Inmobiliarias con más publicaciones</h2>
         <canvas id="agency-chart"></canvas>
       </div>
       <div class="chart-panel">
         <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
-        <h2>Distribucion de precios</h2>
+        <h2>Distribución de precios</h2>
         <canvas id="price-chart"></canvas>
       </div>
       <div class="chart-panel">
@@ -462,17 +462,17 @@
       </div>
       <div id="price-map-legend" class="price-map-legend"></div>
       <div id="price-heatmap-map" class="stats-heatmap-map"></div>
-      <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicaciÃ³n para este filtro.</p>
+      <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicación para este filtro.</p>
     </div>
     <div class="stats-grid security-map-grid">
       <div class="chart-panel">
         <h2>Cobertura de seguridad</h2>
-        <p class="audit-note">Proxy de infraestructura: cÃ¡maras, paradas seguras, lectores y cercanÃ­a policial. No representa tasa real de delitos.</p>
+        <p class="audit-note">Proxy de infraestructura: cámaras, paradas seguras, lectores y cercanía policial. No representa tasa real de delitos.</p>
         <div id="security-coverage-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
       <div class="chart-panel">
         <h2>Riesgo relativo</h2>
-        <p class="audit-note">Inverso de la cobertura: Ãºtil para detectar zonas donde el precio deberÃ­a tener descuento o margen de negociaciÃ³n.</p>
+        <p class="audit-note">Inverso de la cobertura: útil para detectar zonas donde el precio debería tener descuento o margen de negociación.</p>
         <div id="security-risk-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
     </div>
@@ -508,7 +508,7 @@
     </div>
     <div class="stats-panel nested-panel">
       <h2>Matriz Zona x Tipo</h2>
-      <p class="audit-note">Cruza promedio, mediana, desvio y cantidad para detectar submercados con variabilidad alta.</p>
+      <p class="audit-note">Cruza promedio, mediana, desvío y cantidad para detectar submercados con variabilidad alta.</p>
       <div id="zone-type-matrix" class="matrix-table"></div>
     </div>
   </section>
@@ -517,8 +517,8 @@
     <div class="stats-panel anomaly-model-panel">
       <div class="section-heading">
         <div>
-          <h2>Algoritmo de anomalÃ­as</h2>
-          <p>SeleccionÃ¡ quÃ© modelo querÃ©s inspeccionar. El cambio filtra la tabla sin recargar el dashboard.</p>
+          <h2>Algoritmo de anomalías</h2>
+          <p>Seleccioná qué modelo querés inspeccionar. El cambio filtra la tabla sin recargar el dashboard.</p>
         </div>
         <label class="anomaly-model-select">
           <span>Modelo</span>
@@ -560,7 +560,7 @@
     </div>
     <div class="stats-panel">
       <h2>Outliers del modelo (por debajo de la tendencia superficie-precio)</h2>
-      <p class="audit-note">MarcÃ¡ una zona/criterio desde el filtro para enfocar la detecciÃ³n.</p>
+      <p class="audit-note">Marcá una zona/criterio desde el filtro para enfocar la detección.</p>
       <div id="surface-outliers" class="anomaly-table"></div>
     </div>
   </section>

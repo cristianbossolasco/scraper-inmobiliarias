@@ -82,7 +82,7 @@
     save.hidden = false;
     markerElement.className = markerClass("manual", true);
     if (label) {
-      label.textContent = hasLocation ? "Moviendo pin" : "Elegi la ubicacion";
+      label.textContent = hasLocation ? "Moviendo pin" : "Elegi la ubicación";
     }
     editableMarker.setDraggable(true);
   }
@@ -101,7 +101,7 @@
     }
     const point = marker.getLngLat();
     save.disabled = true;
-    fetch(`/api/propiedad/${location.id}/ubicacion/`, {
+    fetch(`/api/propiedad/${location.id}/ubicación/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@
           label.textContent = "Confirmada manualmente";
         }
         if (help) {
-          help.textContent = "Esta ubicacion no sera reemplazada por scrapers";
+          help.textContent = "Esta ubicación no sera reemplazada por scrapers";
         }
       })
       .catch((error) => {

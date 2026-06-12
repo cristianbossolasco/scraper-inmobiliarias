@@ -127,7 +127,7 @@
         renderJob(data, true);
         if (isActive(data)) schedulePoll(data);
       }
-      alert(data.error || "No se pudo ejecutar la accion.");
+      alert(data.error || "No se pudo ejecutar la acción.");
       button.disabled = false;
       return;
     }

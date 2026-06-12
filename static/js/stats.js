@@ -191,7 +191,7 @@
     });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error(payload.error || "No se pudo completar la accion.");
+      throw new Error(payload.error || "No se pudo completar la acción.");
     }
     return payload;
   }
@@ -201,7 +201,7 @@
   }
 
   function renderEditField(field) {
-    const value = field.value ? "";
+    const value = field.value ?? "";
     const wide = field.input_type === "textarea" || ["title", "address", "description", "features"].includes(field.field);
     if (field.input_type === "textarea") {
       return `
@@ -261,7 +261,7 @@
           <div><dt>Nivel</dt><dd>${escapeHtml(security.level || "-")}</dd></div>
           <div><dt>Zona</dt><dd>${escapeHtml(security.zone_label || "-")}</dd></div>
           <div><dt>Fuente</dt><dd>${escapeHtml(security.source || "sin dato")}</dd></div>
-          <div><dt>Camaras cercanas</dt><dd>${escapeHtml(security.evidence?.nearby_points?.by_type?.camera || 0)}</dd></div>
+          <div><dt>Cámaras cercanas</dt><dd>${escapeHtml(security.evidence?.nearby_points?.by_type?.camera || 0)}</dd></div>
         </dl>
         <p class="audit-note">Proxy de infraestructura; no representa tasa real de delitos.</p>
       </div>
@@ -271,10 +271,10 @@
         <div class="property-preview-map-heading">
           <div>
             <h3>Ubicación</h3>
-            <p class="audit-note">MovÃ© el marcador o hacÃ© clic en el mapa para corregir la ubicaciÃ³n.</p>
+            <p class="audit-note">Mové el marcador o hacé clic en el mapa para corregir la ubicación.</p>
           </div>
           <button class="secondary-button" type="button" data-preview-save-location>
-            <i data-lucide="map-pin-check"></i> Guardar ubicaciÃ³n
+            <i data-lucide="map-pin-check"></i> Guardar ubicación
           </button>
         </div>
         <div id="property-preview-map" class="property-preview-map"></div>
@@ -282,7 +282,7 @@
     ` : `
       <div class="property-preview-map-panel">
         <h3>Ubicación</h3>
-        <p class="audit-note">Esta propiedad todavÃ­a no tiene coordenadas para mostrar en el mapa.</p>
+        <p class="audit-note">Esta propiedad todavía no tiene coordenadas para mostrar en el mapa.</p>
       </div>
     `;
     propertyModalContent.innerHTML = `
@@ -295,7 +295,7 @@
             <div>
               <p class="eyebrow">Propiedad #${property.id}</p>
               <h2>${escapeHtml(property.title || "Propiedad")}</h2>
-              <p>${escapeHtml([property.address, property.neighborhood, property.locality].filter(Boolean).join(" Â· "))}</p>
+              <p>${escapeHtml([property.address, property.neighborhood, property.locality].filter(Boolean).join(" · "))}</p>
             </div>
             <strong>${escapeHtml(property.price_display || formatPrice(property))}</strong>
           </div>
@@ -400,14 +400,14 @@
 
   async function savePreviewLocation(propertyId, statusNode) {
     if (!propertyPreviewLocationDraft) {
-      if (statusNode) statusNode.textContent = "MovÃ© el marcador o hacÃ© clic en el mapa antes de guardar.";
+      if (statusNode) statusNode.textContent = "Mové el marcador o hacé clic en el mapa antes de guardar.";
       return;
     }
     await requestJson(`/api/propiedad/${propertyId}/ubicación/`, {
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
-    if (statusNode) statusNode.textContent = "UbicaciÃ³n guardada.";
+    if (statusNode) statusNode.textContent = "Ubicación guardada.";
   }
 
   function initPropertyPreviewMap(property) {
@@ -456,7 +456,7 @@
           longitude: Number(lngLat.lng)
         };
         const status = propertyModalContent?.querySelector("[data-preview-status]");
-        if (status) status.textContent = "UbicaciÃ³n pendiente de guardar.";
+        if (status) status.textContent = "Ubicación pendiente de guardar.";
       };
       propertyPreviewMarker.on("dragend", () => updateDraft(propertyPreviewMarker.getLngLat()));
       propertyPreviewMap.on("click", (event) => {
@@ -517,7 +517,7 @@
             <strong>${escapeHtml(formatPrice(item))}</strong>
             <span>${escapeHtml(item.title || "Propiedad")}</span>
             <small>${escapeHtml(item.address || "")}</small>
-            <small>${escapeHtml([item.agency, item.source].filter(Boolean).join(" Â· "))}</small>
+            <small>${escapeHtml([item.agency, item.source].filter(Boolean).join(" · "))}</small>
             <em class="${status}">${statusLabel(status)}</em>
           </div>
         </div>
@@ -526,7 +526,7 @@
       tooltip.innerHTML = `
         <div class="chart-preview-summary">
           <strong>${escapeHtml(item.label || "")}</strong>
-          <span>Total: ${item.total ? item.value ? 0}</span>
+          <span>Total: ${item.total ?? item.value ?? 0}</span>
           <span>Favoritas: ${item.favorites || 0}</span>
           <span>Vistas: ${item.reviewed || 0}</span>
           <span>Pendientes: ${item.pending || 0}</span>
@@ -544,11 +544,11 @@
     if (!points.length) return;
     const point = points[0];
     const item = chart.data.datasets[point.datasetIndex].metaItems?.[point.index];
-    if (item².id) {
+    if (item?.id) {
       openPropertyPreview(item.id);
       return;
     }
-    const target = item².url ? formatListUrl(item.url) : null;
+    const target = item?.url ? formatListUrl(item.url) : null;
     if (target) {
       window.location.href = target;
     }
@@ -751,7 +751,7 @@
         labels,
         datasets: [
           {
-            label: "Banda promedio +/- desvio",
+            label: "Banda promedio +/- desvío",
             data: sorted.map((item) => [Math.max(0, item.avg - item.std), item.avg + item.std]),
             backgroundColor: "rgba(23, 107, 77, 0.22)",
             borderColor: "#176b4d",
@@ -795,7 +795,7 @@
               label: (context) => {
                 const item = context.dataset.metaItems?.[context.dataIndex];
                 if (!item) return "";
-                if (context.dataset.label === "Banda promedio +/- desvio") {
+                if (context.dataset.label === "Banda promedio +/- desvío") {
                   const low = Math.max(0, item.avg - item.std);
                   const high = item.avg + item.std;
                   return `Banda: ${Math.round(low).toLocaleString("es-AR")} a ${Math.round(high).toLocaleString("es-AR")}`;
@@ -805,7 +805,7 @@
                 }
                 return [
                   `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`,
-                  `Desvio: ${Math.round(item.std).toLocaleString("es-AR")}`,
+                  `Desvío: ${Math.round(item.std).toLocaleString("es-AR")}`,
                   `Cantidad: ${item.total || 0}`,
                   `Coef. variacion: ${item.cv || 0}%`
                 ];
@@ -887,7 +887,7 @@
 
     const rows = outliers.map((entry) => `
         <tr>
-          <td><strong>${escapeHtml(entry.item.title || "Sin titulo")}</strong></td>
+          <td><strong>${escapeHtml(entry.item.title || "Sin título")}</strong></td>
           <td>${Math.round(entry.item.x)} m2</td>
           <td>${Math.round(entry.item.y).toLocaleString("es-AR")}</td>
           <td>${Math.round(entry.expected).toLocaleString("es-AR")}</td>
@@ -905,7 +905,7 @@
               <th>Superficie</th>
               <th>Precio</th>
               <th>Precio esperado</th>
-              <th>DesvÃ­o</th>
+              <th>Desvío</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -1062,7 +1062,7 @@
               <div class="map-popup">
                 <strong>${escapeHtml(props.label || "Zona")}</strong>
                 <p>${mode === "risk" ? "Riesgo relativo" : "Cobertura"}: ${Math.round(Number(score) || 0)}/100</p>
-                <small>${escapeHtml(props.security_level || "")} Â· ${escapeHtml(props.source || "")}</small>
+                <small>${escapeHtml(props.security_level || "")} · ${escapeHtml(props.source || "")}</small>
               </div>
             `)
             .addTo(map);
@@ -1170,7 +1170,7 @@
     }).catch(() => {
       if (emptyNote) {
         emptyNote.hidden = false;
-        emptyNote.textContent = "No se pudo cargar la configuraciÃ³n del mapa.";
+        emptyNote.textContent = "No se pudo cargar la configuración del mapa.";
       }
     });
   }
@@ -1430,7 +1430,7 @@
     if (!container) return;
     const rows = opportunityRows(data.surface_price || [], surfaceRegression);
     if (!rows.length) {
-      container.innerHTML = '<div class="audit-note">No hay oportunidades claras con los filtros actuales. ProbÃ¡ ampliar zona, superficie o incluir ocultas.</div>';
+      container.innerHTML = '<div class="audit-note">No hay oportunidades claras con los filtros actuales. Probá ampliar zona, superficie o incluir ocultas.</div>';
       return;
     }
     container.innerHTML = rows.map((item, index) => `
@@ -1514,7 +1514,7 @@
             <th>Cantidad</th>
             <th>Prom. precio/m2</th>
             <th>Mediana precio/m2</th>
-            <th>Desvio precio/m2</th>
+            <th>Desvío precio/m2</th>
             <th></th>
           </tr>
         </thead>
@@ -1542,7 +1542,7 @@
     if (!security.configured) {
       container.innerHTML = `
         <div class="audit-note">
-          No hay capa fina cargada. AgregÃ¡ polÃ­gonos o puntos a <strong>data/seguridad_hurlingham.geojson</strong> para cruzar seguridad con precio.
+          No hay capa fina cargada. Agregá polígonos o puntos a <strong>data/seguridad_hurlingham.geojson</strong> para cruzar seguridad con precio.
         </div>
       `;
       return;
@@ -1557,8 +1557,8 @@
         <div>
           <strong>${escapeHtml(formatPrice(item))}</strong>
           <span>${escapeHtml(item.zone || item.address || "Sin zona")}</span>
-          <small>Cobertura ${Math.round(Number(item.security_coverage_score) || 0)}/100 Â· Riesgo ${Math.round(Number(item.security_risk_score) || 0)}/100</small>
-          <small>${escapeHtml(item.security_zone_label || item.security_label || "sin zona")} Â· ${escapeHtml(item.security_source || "sin dato")}</small>
+          <small>Cobertura ${Math.round(Number(item.security_coverage_score) || 0)}/100 · Riesgo ${Math.round(Number(item.security_risk_score) || 0)}/100</small>
+          <small>${escapeHtml(item.security_zone_label || item.security_label || "sin zona")} · ${escapeHtml(item.security_source || "sin dato")}</small>
         </div>
         <button class="text-button property-preview-trigger" type="button" data-property-id="${item.id}">Abrir</button>
       </div>
@@ -1570,14 +1570,14 @@
     const rows = Array.isArray(data.security?.arbitrage) ? data.security.arbitrage : [];
     if (!container) return;
     if (!rows.length) {
-      container.innerHTML = '<div class="audit-note">TodavÃ­a no hay seÃ±ales fuertes de arbitraje seguridad/precio con estos filtros.</div>';
+      container.innerHTML = '<div class="audit-note">Todavía no hay señales fuertes de arbitraje seguridad/precio con estos filtros.</div>';
       return;
     }
     container.innerHTML = `
       <table>
         <thead>
           <tr>
-            <th>SeÃ±al</th>
+            <th>Señal</th>
             <th>Propiedad</th>
             <th>Zona seguridad</th>
             <th>Precio/m2</th>
@@ -1655,7 +1655,7 @@
     const bedrooms = scatter("bedrooms-price-chart", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const bedroomsMl = scatter("bedrooms-price-chart-ml", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const securityRisk = scatter("security-risk-price-chart", "Precio/m2 vs riesgo", data.security?.risk_price || [], "Riesgo relativo", { yTitle: "Precio/m2" });
-    const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvÃ­o)", data.zone_price_volatility);
+    const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvío)", data.zone_price_volatility);
     const liquidity = createLiquidityChart();
     renderOpportunityPanel();
     renderZoneTypeMatrix();
@@ -1676,7 +1676,7 @@
       try {
         renderCharts();
       } catch (error) {
-        console.error("No se pudieron renderizar los gr?ficos del dashboard.", error);
+        console.error("No se pudieron renderizar los gráficos del dashboard.", error);
       }
     } else {
       renderOpportunityPanel();
