@@ -1669,6 +1669,8 @@ def _zone_price_statistics(properties, request_query, stats_path):
         values.sort()
         average = statistics.mean(values)
         std = statistics.pstdev(values) if len(values) > 1 else 0
+        q1 = _percentile(values, 0.25)
+        q3 = _percentile(values, 0.75)
         items.append(
             {
                 "label": label,
@@ -1680,6 +1682,8 @@ def _zone_price_statistics(properties, request_query, stats_path):
                 "cv": round((std / average) * 100, 1) if average else 0,
                 "min": round(values[0], 2),
                 "max": round(values[-1], 2),
+                "q1": round(q1, 2) if q1 is not None else None,
+                "q3": round(q3, 2) if q3 is not None else None,
                 "url": query_url(request_query, {"neighborhood": "" if label == "Sin dato" else label}, path=stats_path),
             }
         )

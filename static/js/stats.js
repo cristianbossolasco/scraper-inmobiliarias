@@ -751,6 +751,23 @@
         labels,
         datasets: [
           {
+            label: "Rango mínimo-máximo",
+            data: sorted.map((item) => [item.min, item.max]),
+            backgroundColor: "rgba(47, 64, 56, 0.08)",
+            borderColor: "rgba(47, 64, 56, 0.55)",
+            borderWidth: 1,
+            borderSkipped: false,
+            borderRadius: {
+              topLeft: 4,
+              bottomLeft: 4,
+              topRight: 4,
+              bottomRight: 4
+            },
+            barThickness: 4,
+            grouped: false,
+            metaItems: sorted
+          },
+          {
             label: "Banda promedio +/- desvío",
             data: sorted.map((item) => [Math.max(0, item.avg - item.std), item.avg + item.std]),
             backgroundColor: "rgba(23, 107, 77, 0.22)",
@@ -764,6 +781,7 @@
               bottomRight: 7
             },
             barThickness: 12,
+            grouped: false,
             metaItems: sorted
           },
           {
@@ -787,6 +805,32 @@
             pointRadius: 4,
             pointStyle: "rectRot",
             metaItems: sorted
+          },
+          {
+            label: "Mínimo",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.min, y: item.label })),
+            backgroundColor: "#f4ead3",
+            borderColor: "#725617",
+            borderWidth: 1,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointStyle: "triangle",
+            pointRotation: 270,
+            metaItems: sorted
+          },
+          {
+            label: "Máximo",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.max, y: item.label })),
+            backgroundColor: "#f4ead3",
+            borderColor: "#725617",
+            borderWidth: 1,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointStyle: "triangle",
+            pointRotation: 90,
+            metaItems: sorted
           }
         ]
       },
@@ -801,16 +845,28 @@
               label: (context) => {
                 const item = context.dataset.metaItems?.[context.dataIndex];
                 if (!item) return "";
+                if (context.dataset.label === "Rango mínimo-máximo") {
+                  return `Rango: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`;
+                }
                 if (context.dataset.label === "Banda promedio +/- desvío") {
                   const low = Math.max(0, item.avg - item.std);
                   const high = item.avg + item.std;
                   return `Banda: ${Math.round(low).toLocaleString("es-AR")} a ${Math.round(high).toLocaleString("es-AR")}`;
                 }
+                if (context.dataset.label === "Mínimo") {
+                  return `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`;
+                }
+                if (context.dataset.label === "Máximo") {
+                  return `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`;
+                }
                 if (context.dataset.label === "Mediana") {
                   return `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`;
                 }
                 return [
+                  `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`,
                   `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`,
+                  `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`,
+                  `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`,
                   `Desvío: ${Math.round(item.std).toLocaleString("es-AR")}`,
                   `Cantidad: ${item.total || 0}`,
                   `Coef. variacion: ${item.cv || 0}%`
@@ -846,6 +902,10 @@
       avg: Number(item.avg || 0),
       std: Number(item.std || 0),
       median: Number(item.median || item.avg || 0),
+      min: Number(item.min ?? item.avg ?? 0),
+      max: Number(item.max ?? item.avg ?? 0),
+      q1: Number(item.q1 ?? item.median ?? item.avg ?? 0),
+      q3: Number(item.q3 ?? item.median ?? item.avg ?? 0),
       cv: Number(item.cv || 0),
       total: item.total || 0,
       url: item.url,
@@ -857,6 +917,153 @@
     const sorted = [...parsed].sort((a, b) => b.total - a.total);
     const chart = createZoneVolatilityChart(id, title, sorted);
     register(id, title, (targetCanvasId) => createZoneVolatilityChart(targetCanvasId, title, sorted));
+    return chart;
+  }
+
+  function createZoneBoxplotChart(canvasId, title, sorted) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return null;
+    if (!sorted.length) {
+      ctx.hidden = true;
+      if (!ctx.parentElement.querySelector(".chart-empty-note")) {
+        ctx.insertAdjacentHTML("afterend", '<p class="audit-note chart-empty-note">No hay zonas con precios validos para este filtro.</p>');
+      }
+      return null;
+    }
+    ctx.hidden = false;
+    const labels = sorted.map((item) => item.label);
+    const chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Bigote mínimo-máximo",
+            data: sorted.map((item) => [item.min, item.max]),
+            backgroundColor: "rgba(47, 64, 56, 0.08)",
+            borderColor: "rgba(47, 64, 56, 0.65)",
+            borderWidth: 1,
+            borderSkipped: false,
+            borderRadius: 4,
+            barThickness: 4,
+            grouped: false,
+            metaItems: sorted
+          },
+          {
+            label: "Caja Q1-Q3 (IQR)",
+            data: sorted.map((item) => [item.q1, item.q3]),
+            backgroundColor: "rgba(23, 107, 77, 0.22)",
+            borderColor: "#176b4d",
+            borderWidth: 1.5,
+            borderSkipped: false,
+            borderRadius: {
+              topLeft: 7,
+              bottomLeft: 7,
+              topRight: 7,
+              bottomRight: 7
+            },
+            barThickness: 18,
+            grouped: false,
+            metaItems: sorted
+          },
+          {
+            label: "Mediana",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.median || item.avg, y: item.label })),
+            backgroundColor: "#d6a528",
+            borderColor: "#17211d",
+            borderWidth: 1,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            pointStyle: "rectRot",
+            metaItems: sorted
+          },
+          {
+            label: "Promedio",
+            type: "scatter",
+            data: sorted.map((item) => ({ x: item.avg, y: item.label })),
+            backgroundColor: "#176b4d",
+            borderColor: "#ffffff",
+            borderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            metaItems: sorted
+          }
+        ]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        onClick: (event, _elements, chartInstance) => navigateFromChart(chartInstance, event),
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const item = context.dataset.metaItems?.[context.dataIndex];
+                if (!item) return "";
+                if (context.dataset.label === "Bigote mínimo-máximo") {
+                  return `Bigote: ${Math.round(item.min).toLocaleString("es-AR")} a ${Math.round(item.max).toLocaleString("es-AR")}`;
+                }
+                if (context.dataset.label === "Caja Q1-Q3 (IQR)") {
+                  return `IQR: ${Math.round(item.q1).toLocaleString("es-AR")} a ${Math.round(item.q3).toLocaleString("es-AR")}`;
+                }
+                if (context.dataset.label === "Mediana") {
+                  return `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`;
+                }
+                return [
+                  `Mínimo: ${Math.round(item.min).toLocaleString("es-AR")}`,
+                  `Q1: ${Math.round(item.q1).toLocaleString("es-AR")}`,
+                  `Mediana: ${Math.round(item.median || item.avg).toLocaleString("es-AR")}`,
+                  `Q3: ${Math.round(item.q3).toLocaleString("es-AR")}`,
+                  `Máximo: ${Math.round(item.max).toLocaleString("es-AR")}`,
+                  `Promedio: ${Math.round(item.avg).toLocaleString("es-AR")}`,
+                  `Cantidad: ${item.total || 0}`
+                ];
+              }
+            },
+            enabled: true
+          }
+        },
+        scales: {
+          x: {
+            type: "linear",
+            title: { display: true, text: "Precio" },
+            ticks: { callback: (value) => priceFormatter.format(value) }
+          },
+          y: {
+            type: "category",
+            title: { display: true, text: "Zona" }
+          }
+        }
+      }
+    });
+    chart.data.datasets.forEach((dataset) => {
+      dataset.metaItems = sorted;
+    });
+    chart.canvas.chart = chart;
+    return chart;
+  }
+
+  function zoneBoxplot(id, title, values) {
+    const parsed = normalize(values).map((item) => ({
+      label: item.label,
+      avg: Number(item.avg || 0),
+      median: Number(item.median || item.avg || 0),
+      min: Number(item.min ?? item.avg ?? 0),
+      max: Number(item.max ?? item.avg ?? 0),
+      q1: Number(item.q1 ?? item.median ?? item.avg ?? 0),
+      q3: Number(item.q3 ?? item.median ?? item.avg ?? 0),
+      total: item.total || 0,
+      url: item.url,
+      pending: item.pending || 0,
+      reviewed: item.reviewed || 0,
+      favorites: item.favorites || 0,
+      value: item.total || 0
+    }));
+    const sorted = [...parsed].sort((a, b) => b.total - a.total);
+    const chart = createZoneBoxplotChart(id, title, sorted);
+    register(id, title, (targetCanvasId) => createZoneBoxplotChart(targetCanvasId, title, sorted));
     return chart;
   }
 
@@ -1662,12 +1869,13 @@
     const bedroomsMl = scatter("bedrooms-price-chart-ml", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const securityRisk = scatter("security-risk-price-chart", "Precio/m2 vs riesgo", data.security?.risk_price || [], "Riesgo relativo", { yTitle: "Precio/m2" });
     const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvío)", data.zone_price_volatility);
+    const boxplot = zoneBoxplot("zone-boxplot-chart", "Diagrama de caja por zona", data.zone_price_volatility);
     const liquidity = createLiquidityChart();
     renderOpportunityPanel();
     renderZoneTypeMatrix();
     renderSecurityPanel();
     renderSecurityArbitrage();
-    [locality, neighborhood, agency, price, surface, bedrooms, bedroomsMl, securityRisk, volatility, liquidity].forEach((chart) => {
+    [locality, neighborhood, agency, price, surface, bedrooms, bedroomsMl, securityRisk, volatility, boxplot, liquidity].forEach((chart) => {
       if (!chart) return;
       const canvas = chart.canvas;
       if (!canvas) return;
