@@ -756,7 +756,13 @@
             backgroundColor: "rgba(23, 107, 77, 0.22)",
             borderColor: "#176b4d",
             borderWidth: 1,
-            borderRadius: 7,
+            borderSkipped: false,
+            borderRadius: {
+              topLeft: 7,
+              bottomLeft: 7,
+              topRight: 7,
+              bottomRight: 7
+            },
             barThickness: 12,
             metaItems: sorted
           },
