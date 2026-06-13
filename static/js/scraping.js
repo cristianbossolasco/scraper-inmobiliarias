@@ -3,8 +3,11 @@
 
   const operationJobs = new Map();
   const scrapeJobs = new Map();
+  const nestedScrapeJobs = new Map();
+  const nestedScrapeOperations = new Map();
   const timers = new Map();
   const legacyTimers = new Map();
+  const nestedTimers = new Map();
   const jobsList = document.getElementById("jobs-list");
   const initialOperations = readJsonScript("initial-operation-jobs", []);
   const initialScrapes = readJsonScript("initial-scrape-jobs", []);
@@ -52,10 +55,19 @@
     repair_merged_listings: "Separar fusiones detecta propiedades mezcladas por direcciones genéricas y mueve listings a propiedades separadas.",
   };
 
+  const initialNestedScrapeIds = nestedScrapeIdsForJobs(initialOperations);
+  initialScrapes.forEach((job) => {
+    if (initialNestedScrapeIds.has(Number(job.id))) nestedScrapeJobs.set(Number(job.id), job);
+  });
   initialOperations.sort(compareJobs).forEach((job) => renderOperationJob(job));
   initialOperations.filter(isActive).forEach(scheduleOperationPoll);
-  initialScrapes.sort(compareJobs).forEach((job) => renderLegacyScrapeJob(job));
-  initialScrapes.filter(isActive).forEach(scheduleLegacyPoll);
+  initialScrapes
+    .filter((job) => !initialNestedScrapeIds.has(Number(job.id)))
+    .sort(compareJobs)
+    .forEach((job) => renderLegacyScrapeJob(job));
+  initialScrapes
+    .filter((job) => !initialNestedScrapeIds.has(Number(job.id)) && isActive(job))
+    .forEach(scheduleLegacyPoll);
   sortJobCards();
   updateActionButtons();
 
@@ -314,6 +326,7 @@
 
   function renderOperationJob(job, prepend = false) {
     operationJobs.set(job.id, job);
+    trackNestedScrapeJobs(job);
     let node = document.getElementById(`operation-job-${job.id}`);
     if (!node) {
       node = document.createElement("article");
@@ -385,6 +398,17 @@
   function renderStepSummary(step) {
     const summary = step.result_summary || {};
     if (summary.scrape_job_id) {
+      const nestedJob = nestedScrapeJobs.get(Number(summary.scrape_job_id));
+      if (nestedJob) return renderNestedScrapeJob(nestedJob);
+      if (Array.isArray(summary.sources)) {
+        return renderNestedScrapeJob({
+          id: summary.scrape_job_id,
+          status: summary.scrape_status || step.status,
+          status_label: summary.scrape_status || step.status_label,
+          elapsed_seconds: summary.elapsed_seconds || step.elapsed_seconds,
+          sources: summary.sources,
+        });
+      }
       return `<div class="job-meta">ScrapeJob #${summary.scrape_job_id}${summary.scrape_status ? ` · estado ${escapeHtml(summary.scrape_status)}` : ""}</div>`;
     }
     if (summary.output_tail) {
@@ -454,6 +478,28 @@
         ${source.current_url ? `<div class="current-url">${escapeHtml(source.current_url)}</div>` : ""}
         ${errors.length ? renderSourceErrors(errors) : ""}
         ${source.logs ? `<pre class="job-log">${escapeHtml(source.logs)}</pre>` : ""}
+      </div>
+    `;
+  }
+
+  function renderNestedScrapeJob(job) {
+    const sources = Array.isArray(job.sources) ? job.sources : [];
+    const processed = sources.reduce((total, source) => total + Number(source.processed || 0), 0);
+    const total = sources.reduce((sum, source) => sum + Number(source.total_to_process || 0), 0);
+    const created = sources.reduce((sum, source) => sum + Number(source.created || 0), 0);
+    const updated = sources.reduce((sum, source) => sum + Number(source.updated || 0), 0);
+    const errors = sources.reduce((sum, source) => sum + Number(source.errors || 0), 0);
+    return `
+      <div class="nested-scrape-job">
+        <div class="job-meta nested-scrape-meta">
+          <span>ScrapeJob #${job.id}</span>
+          <span class="status-pill ${job.status}">${escapeHtml(job.status_label || job.status || "")}</span>
+          <span>${processed}/${total || 0} procesadas · ${created + updated} cambios · ${errors} errores · ${formatDuration(job.elapsed_seconds)}</span>
+        </div>
+        <div class="job-source-list nested-scrape-source-list">
+          ${sources.map(renderLegacySource).join("")}
+        </div>
+        ${job.error_log ? `<pre class="job-log">${escapeHtml(job.error_log)}</pre>` : ""}
       </div>
     `;
   }
@@ -779,6 +825,66 @@
       const response = await fetch(`/api/scraping/jobs/${job.id}/`);
       if (response.ok) renderLegacyScrapeJob(await readJson(response));
     }, 1500));
+  }
+
+  function scheduleNestedScrapePoll(scrapeJobId) {
+    const id = Number(scrapeJobId);
+    if (!id || nestedTimers.has(id)) return;
+    fetchNestedScrapeJob(id);
+    nestedTimers.set(id, setInterval(() => fetchNestedScrapeJob(id), 1500));
+  }
+
+  async function fetchNestedScrapeJob(scrapeJobId) {
+    const response = await fetch(`/api/scraping/jobs/${scrapeJobId}/`);
+    if (!response.ok) return;
+    const job = await readJson(response);
+    const id = Number(job.id);
+    nestedScrapeJobs.set(id, job);
+    rerenderNestedScrapeOperations(id);
+    if (!isActive(job) && nestedTimers.has(id)) {
+      clearInterval(nestedTimers.get(id));
+      nestedTimers.delete(id);
+    }
+  }
+
+  function trackNestedScrapeJobs(job) {
+    (job.steps || []).forEach((step) => {
+      const scrapeJobId = nestedScrapeJobId(step);
+      if (!scrapeJobId) return;
+      if (!nestedScrapeOperations.has(scrapeJobId)) nestedScrapeOperations.set(scrapeJobId, new Set());
+      nestedScrapeOperations.get(scrapeJobId).add(job.id);
+      const nestedJob = nestedScrapeJobs.get(scrapeJobId);
+      if (isActive(job) || isActive(step) || (nestedJob && isActive(nestedJob))) {
+        scheduleNestedScrapePoll(scrapeJobId);
+      }
+    });
+  }
+
+  function rerenderNestedScrapeOperations(scrapeJobId) {
+    const operationIds = nestedScrapeOperations.get(scrapeJobId);
+    if (!operationIds) return;
+    operationIds.forEach((operationId) => {
+      const job = operationJobs.get(operationId);
+      if (job) renderOperationJob(job);
+    });
+  }
+
+  function nestedScrapeJobId(step) {
+    if (!step || step.kind !== "scrape") return null;
+    const summary = step.result_summary || {};
+    const id = Number(summary.scrape_job_id);
+    return id || null;
+  }
+
+  function nestedScrapeIdsForJobs(jobs) {
+    const ids = new Set();
+    jobs.forEach((job) => {
+      (job.steps || []).forEach((step) => {
+        const id = nestedScrapeJobId(step);
+        if (id) ids.add(id);
+      });
+    });
+    return ids;
   }
 
   function updateActionButtons() {

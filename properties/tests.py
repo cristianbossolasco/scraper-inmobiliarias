@@ -1,5 +1,6 @@
 import json
 import re
+import threading
 from pathlib import Path
 from decimal import Decimal
 from io import StringIO
@@ -9,6 +10,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 from django.core.management import call_command
 from django.test import Client, TestCase, TransactionTestCase
+from django.utils import timezone
 
 from properties.models import (
     Agency,
@@ -47,6 +49,7 @@ from properties.services.normalization import (
 )
 from properties.services.scraping import (
     ActiveScrapeJobError,
+    JOB_THREADS,
     create_scrape_job,
     db_writer_snapshot,
     run_scrape_job,
@@ -2709,6 +2712,117 @@ class ViewTests(TestCase):
         )
         response = self.client.get(f"/api/scraping/jobs/{job.pk}/")
         self.assertEqual(response.json()["status"], ScrapeJob.Status.INTERRUPTED)
+
+    def test_running_job_with_live_thread_is_not_marked_interrupted(self):
+        job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.RUNNING,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+        )
+        source = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        ScrapeJobSource.objects.create(
+            job=job,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            status=ScrapeJobSource.Status.RUNNING,
+        )
+        JOB_THREADS[job.pk] = threading.current_thread()
+        try:
+            response = self.client.get(f"/api/scraping/jobs/{job.pk}/")
+        finally:
+            JOB_THREADS.pop(job.pk, None)
+        payload = response.json()
+        self.assertEqual(payload["status"], ScrapeJob.Status.RUNNING)
+        self.assertEqual(payload["sources"][0]["status"], ScrapeJobSource.Status.RUNNING)
+
+    def test_cancel_operation_marks_interrupted_child_scrape_cancel_requested(self):
+        operation = OperationJob.objects.create(
+            kind=OperationJob.Kind.SCRAPE,
+            mode=OperationJob.Mode.APPLY,
+            status=OperationJob.Status.RUNNING,
+            total_steps=1,
+        )
+        scrape_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.INTERRUPTED,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+        )
+        OperationJobStep.objects.create(
+            job=operation,
+            order=1,
+            kind=OperationJob.Kind.SCRAPE,
+            mode=OperationJob.Mode.APPLY,
+            status=OperationJob.Status.RUNNING,
+            result_summary={"scrape_job_id": scrape_job.pk},
+        )
+
+        response = self.client.post(f"/api/operations/jobs/{operation.pk}/cancel/")
+
+        self.assertEqual(response.status_code, 200)
+        scrape_job.refresh_from_db()
+        self.assertTrue(scrape_job.cancel_requested)
+
+    def test_operation_status_reconciles_finished_child_scrape(self):
+        now = timezone.now()
+        operation = OperationJob.objects.create(
+            kind=OperationJob.Kind.SCRAPE,
+            mode=OperationJob.Mode.APPLY,
+            status=OperationJob.Status.RUNNING,
+            total_steps=1,
+            cancel_requested=True,
+            started_at=now,
+        )
+        scrape_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.INTERRUPTED,
+            selected_sources=["mapaprop"],
+            worker_config={"mapaprop": 1},
+            started_at=now,
+            finished_at=now,
+        )
+        source = Source.objects.create(
+            slug="mapaprop",
+            name="Mapaprop",
+            base_url="https://www.mapaprop.com",
+        )
+        ScrapeJobSource.objects.create(
+            job=scrape_job,
+            source=source,
+            slug="mapaprop",
+            name="Mapaprop",
+            status=ScrapeJobSource.Status.INTERRUPTED,
+            processed=3,
+            total_to_process=5,
+            created=1,
+            updated=1,
+            errors=1,
+            finished_at=now,
+        )
+        OperationJobStep.objects.create(
+            job=operation,
+            order=1,
+            kind=OperationJob.Kind.SCRAPE,
+            mode=OperationJob.Mode.APPLY,
+            status=OperationJob.Status.RUNNING,
+            total=1,
+            result_summary={"scrape_job_id": scrape_job.pk},
+        )
+
+        response = self.client.get(f"/api/operations/jobs/{operation.pk}/")
+
+        payload = response.json()
+        self.assertEqual(payload["status"], OperationJob.Status.CANCELLED)
+        self.assertEqual(payload["completed_steps"], 1)
+        self.assertEqual(payload["processed"], 3)
+        self.assertEqual(payload["changed"], 2)
+        self.assertEqual(payload["errors"], 1)
+        self.assertEqual(payload["steps"][0]["status"], OperationJob.Status.CANCELLED)
+        self.assertEqual(payload["steps"][0]["result_summary"]["scrape_job_id"], scrape_job.pk)
+        self.assertEqual(len(payload["steps"][0]["result_summary"]["sources"]), 1)
 
     def test_finished_job_with_pending_sources_is_marked_partial(self):
         job = ScrapeJob.objects.create(

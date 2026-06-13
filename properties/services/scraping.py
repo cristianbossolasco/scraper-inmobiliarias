@@ -490,6 +490,9 @@ def job_cancelled(job_id):
 
 def run_scrape_job(job_id):
     close_old_connections()
+    current_thread = threading.current_thread()
+    if job_id not in JOB_THREADS:
+        JOB_THREADS[job_id] = current_thread
     job = ScrapeJob.objects.get(pk=job_id)
     now = timezone.now()
     job.status = ScrapeJob.Status.RUNNING
@@ -538,7 +541,8 @@ def run_scrape_job(job_id):
     finally:
         job.finished_at = timezone.now()
         db_write(lambda: job.save(update_fields=["status", "finished_at", "error_log"]))
-        JOB_THREADS.pop(job_id, None)
+        if JOB_THREADS.get(job_id) is current_thread:
+            JOB_THREADS.pop(job_id, None)
         close_old_connections()
 
 

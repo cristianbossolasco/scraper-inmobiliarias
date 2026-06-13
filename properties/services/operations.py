@@ -9,7 +9,7 @@ from django.db import close_old_connections, transaction
 from django.db.models import Q
 from django.utils import timezone
 
-from properties.models import OperationJob, OperationJobStep, Property, ScrapeJob
+from properties.models import OperationJob, OperationJobStep, Property, ScrapeJob, ScrapeJobSource
 from properties.services.geocoding import Geocoder, geocodable_address_q, has_geocodable_address
 from properties.services.scraping import (
     ActiveScrapeJobError,
@@ -39,6 +39,25 @@ ACTIVE_OPERATION_STATUSES = {
     OperationJob.Status.PENDING,
     OperationJob.Status.RUNNING,
 }
+TERMINAL_OPERATION_STATUSES = {
+    OperationJob.Status.SUCCESS,
+    OperationJob.Status.PARTIAL,
+    OperationJob.Status.FAILED,
+    OperationJob.Status.CANCELLED,
+    OperationJob.Status.INTERRUPTED,
+}
+TERMINAL_SCRAPE_STATUSES = {
+    ScrapeJob.Status.SUCCESS,
+    ScrapeJob.Status.PARTIAL,
+    ScrapeJob.Status.FAILED,
+    ScrapeJob.Status.CANCELLED,
+    ScrapeJob.Status.INTERRUPTED,
+}
+ACTIVE_SCRAPE_SOURCE_STATUSES = {
+    ScrapeJobSource.Status.PENDING,
+    ScrapeJobSource.Status.DISCOVERING,
+    ScrapeJobSource.Status.RUNNING,
+}
 RISKY_STEP_KINDS = {
     OperationJob.Kind.REPAIR_ADDRESSES,
     OperationJob.Kind.REPAIR_NEIGHBORHOODS,
@@ -66,9 +85,16 @@ class ActiveOperationJobError(ValueError):
 
 
 def active_operation_job():
-    return OperationJob.objects.filter(status__in=ACTIVE_OPERATION_STATUSES).order_by(
+    job = OperationJob.objects.prefetch_related("steps").filter(status__in=ACTIVE_OPERATION_STATUSES).order_by(
         "-created_at"
     ).first()
+    if not job:
+        return None
+    reconcile_operation_job(job)
+    job.refresh_from_db()
+    if job.status not in ACTIVE_OPERATION_STATUSES:
+        return None
+    return job
 
 
 def operation_catalog():
@@ -292,7 +318,12 @@ def cancel_operation_job(job):
         if scrape_job_id:
             ScrapeJob.objects.filter(
                 pk=scrape_job_id,
-                status__in={ScrapeJob.Status.PENDING, ScrapeJob.Status.RUNNING},
+            ).exclude(
+                status__in={
+                    ScrapeJob.Status.SUCCESS,
+                    ScrapeJob.Status.FAILED,
+                    ScrapeJob.Status.CANCELLED,
+                }
             ).update(cancel_requested=True)
     return job
 
@@ -305,6 +336,10 @@ def mark_stale_operation_jobs():
     )
     now = timezone.now()
     for job in stale:
+        if reconcile_operation_job(job):
+            job.refresh_from_db()
+            if job.status not in ACTIVE_OPERATION_STATUSES:
+                continue
         job.status = OperationJob.Status.INTERRUPTED
         job.finished_at = job.finished_at or now
         job.logs += "Servidor reiniciado o thread no disponible.\n"
@@ -482,6 +517,102 @@ def elapsed_seconds(started_at, finished_at=None):
 
 def operation_cancelled(job_id):
     return OperationJob.objects.filter(pk=job_id, cancel_requested=True).exists()
+
+
+def reconcile_operation_job(job):
+    changed = False
+    for step in job.steps.all():
+        if step.kind != OperationJob.Kind.SCRAPE or step.status in TERMINAL_OPERATION_STATUSES:
+            continue
+        scrape_job_id = (step.result_summary or {}).get("scrape_job_id")
+        if not scrape_job_id:
+            continue
+        scrape_job = (
+            ScrapeJob.objects.prefetch_related("sources")
+            .filter(pk=scrape_job_id)
+            .first()
+        )
+        if not scrape_job or scrape_job.status not in TERMINAL_SCRAPE_STATUSES:
+            continue
+        if scrape_job.sources.filter(status__in=ACTIVE_SCRAPE_SOURCE_STATUSES).exists():
+            continue
+
+        payload = serialize_scrape_job(scrape_job)
+        step.processed = sum(source["processed"] for source in payload["sources"])
+        step.changed = sum(
+            source["created"] + source["updated"] for source in payload["sources"]
+        )
+        step.errors = sum(source["errors"] for source in payload["sources"])
+        step.result_summary = {
+            "scrape_job_id": scrape_job.pk,
+            "scrape_status": payload["status"],
+            "sources": payload["sources"],
+        }
+        if job.cancel_requested or scrape_job.status == ScrapeJob.Status.CANCELLED:
+            step.status = OperationJob.Status.CANCELLED
+        elif scrape_job.status == ScrapeJob.Status.FAILED:
+            step.status = OperationJob.Status.FAILED
+        elif scrape_job.status in {ScrapeJob.Status.PARTIAL, ScrapeJob.Status.INTERRUPTED}:
+            step.status = OperationJob.Status.PARTIAL
+        else:
+            step.status = OperationJob.Status.SUCCESS
+        step.finished_at = scrape_job.finished_at or timezone.now()
+        step.logs = _append_log_text(
+            step.logs,
+            f"Step reconciliado desde ScrapeJob #{scrape_job.pk}: {scrape_job.get_status_display()}.",
+        )
+        step.save(
+            update_fields=[
+                "processed",
+                "changed",
+                "errors",
+                "result_summary",
+                "status",
+                "finished_at",
+                "logs",
+            ]
+        )
+        changed = True
+
+    if changed:
+        _refresh_job_counters(job)
+        _finalize_operation_if_complete(job)
+    return changed
+
+
+def _finalize_operation_if_complete(job):
+    job.refresh_from_db()
+    steps = list(job.steps.all())
+    if not steps or any(step.status not in TERMINAL_OPERATION_STATUSES for step in steps):
+        return False
+    statuses = [step.status for step in steps]
+    if job.cancel_requested or OperationJob.Status.CANCELLED in statuses:
+        job.status = OperationJob.Status.CANCELLED
+    elif OperationJob.Status.FAILED in statuses:
+        job.status = OperationJob.Status.FAILED
+    elif any(
+        status in {OperationJob.Status.PARTIAL, OperationJob.Status.INTERRUPTED}
+        for status in statuses
+    ):
+        job.status = OperationJob.Status.PARTIAL
+    else:
+        job.status = OperationJob.Status.SUCCESS
+    job.finished_at = job.finished_at or timezone.now()
+    _refresh_job_counters(job, save=False, refresh=False)
+    job.logs = _append_log_text(job.logs, f"Operacion finalizada: {job.get_status_display()}.")
+    job.save(
+        update_fields=[
+            "status",
+            "finished_at",
+            "completed_steps",
+            "processed",
+            "changed",
+            "errors",
+            "logs",
+            "result_summary",
+        ]
+    )
+    return True
 
 
 def _default_job_title(kind, steps):

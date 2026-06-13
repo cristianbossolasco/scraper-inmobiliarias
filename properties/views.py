@@ -39,6 +39,7 @@ from .services.operations import (
     create_operation_job,
     mark_stale_operation_jobs,
     operation_catalog,
+    reconcile_operation_job,
     retry_operation_job,
     serialize_operation_job,
     start_operation_job,
@@ -3198,6 +3199,7 @@ def create_operation_job_api(request):
 def operation_job_status_api(request, pk):
     mark_stale_operation_jobs()
     job = get_object_or_404(OperationJob.objects.prefetch_related("steps"), pk=pk)
+    reconcile_operation_job(job)
     return JsonResponse(serialize_operation_job(job))
 
 
