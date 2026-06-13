@@ -43,6 +43,7 @@ class Command(BaseCommand):
             "stale": 0,
             "will_increment": 0,
             "will_deactivate": 0,
+            "will_remove_properties": 0,
         }
 
         for job_source in job.sources.select_related("source").order_by("slug"):
@@ -55,7 +56,9 @@ class Command(BaseCommand):
             seen_external_ids = self._seen_external_ids(job_source)
             stale = self._stale_queryset(job_source, seen_external_ids)
             stale_count = stale.count()
-            will_deactivate = stale.filter(missing_runs__gte=1).count()
+            will_deactivate_queryset = stale.filter(missing_runs__gte=1)
+            will_deactivate = will_deactivate_queryset.count()
+            will_remove_properties = self._property_removal_count(will_deactivate_queryset)
             will_increment = stale_count - will_deactivate
 
             totals["sources_applied"] += 1
@@ -63,12 +66,14 @@ class Command(BaseCommand):
             totals["stale"] += stale_count
             totals["will_increment"] += will_increment
             totals["will_deactivate"] += will_deactivate
+            totals["will_remove_properties"] += will_remove_properties
 
             action = "[APPLY]" if apply_changes else "[DRY]"
             self.stdout.write(
                 f"{action} {job_source.slug}: vistas={len(seen_external_ids)} "
                 f"ausentes={stale_count} incrementan={will_increment} "
-                f"desactivan={will_deactivate}"
+                f"desactivan={will_deactivate} "
+                f"propiedades_retiran={will_remove_properties}"
             )
 
             if apply_changes:
@@ -85,6 +90,7 @@ class Command(BaseCommand):
                 f"ausentes={totals['stale']} "
                 f"incrementan={totals['will_increment']} "
                 f"desactivan={totals['will_deactivate']}"
+                f" propiedades_retiran={totals['will_remove_properties']}"
                 f"{suffix}"
             )
         )
@@ -127,3 +133,18 @@ class Command(BaseCommand):
         return Listing.objects.filter(source=job_source.source, active=True).exclude(
             external_id__in=seen_external_ids
         )
+
+    def _property_removal_count(self, listings_to_deactivate):
+        listing_ids = set(listings_to_deactivate.values_list("id", flat=True))
+        property_ids = (
+            listings_to_deactivate.order_by()
+            .values_list("property_id", flat=True)
+            .distinct()
+        )
+        count = 0
+        for property_id in property_ids:
+            if not Listing.objects.filter(property_id=property_id, active=True).exclude(
+                pk__in=listing_ids
+            ).exists():
+                count += 1
+        return count

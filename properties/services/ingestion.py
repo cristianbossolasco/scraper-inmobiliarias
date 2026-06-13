@@ -277,16 +277,21 @@ def ingest_listing(source, data):
 
 
 def mark_missing(source, seen_external_ids):
-    stale = Listing.objects.filter(source=source, active=True).exclude(
-        external_id__in=seen_external_ids
+    stale = (
+        Listing.objects.select_related("property")
+        .filter(source=source, active=True)
+        .exclude(external_id__in=seen_external_ids)
     )
     for listing in stale:
         listing.missing_runs += 1
         if listing.missing_runs >= 2:
             listing.active = False
+        listing.save(update_fields=["missing_runs", "active"])
+        if listing.missing_runs >= 2 and not Listing.objects.filter(
+            property=listing.property, active=True
+        ).exists():
             listing.property.status = Property.Status.REMOVED
             listing.property.save(update_fields=["status"])
-        listing.save(update_fields=["missing_runs", "active"])
 
 
 @transaction.atomic

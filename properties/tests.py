@@ -1025,6 +1025,31 @@ class IngestionTests(TestCase):
         self.assertFalse(listing.active)
         self.assertEqual(listing.property.status, Property.Status.REMOVED)
 
+    def test_mark_missing_keeps_property_active_with_other_listing(self):
+        other_source = Source.objects.create(
+            slug="other-missing", name="Other Missing", base_url="https://other.example"
+        )
+        listing, _ = ingest_listing(self.source, self.data)
+        other_listing, _ = ingest_listing(
+            other_source,
+            dict(
+                self.data,
+                external_id="abc-other-missing",
+                url="https://other.example/abc",
+            ),
+        )
+        self.assertEqual(listing.property_id, other_listing.property_id)
+
+        mark_missing(self.source, [])
+        mark_missing(self.source, [])
+
+        listing.refresh_from_db()
+        other_listing.refresh_from_db()
+        listing.property.refresh_from_db()
+        self.assertFalse(listing.active)
+        self.assertTrue(other_listing.active)
+        self.assertEqual(listing.property.status, Property.Status.ACTIVE)
+
     def test_mark_listing_removed_deactivates_only_source_listing(self):
         listing, _ = ingest_listing(self.source, self.data)
         removed = mark_listing_removed(self.source, url=listing.url)
@@ -4434,6 +4459,207 @@ class MarkMissingFromJobCommandTests(TestCase):
         self.assertTrue(stale.active)
         self.assertEqual(stale.missing_runs, 0)
         self.assertIn("exclusion conservadora", output.getvalue())
+
+
+class RepairZonapropJobsCommandTests(TestCase):
+    def setUp(self):
+        self.source = Source.objects.create(
+            slug="zonaprop",
+            name="Zonaprop",
+            base_url="https://www.zonaprop.com.ar",
+        )
+        self.started_at = timezone.now() - timedelta(hours=2)
+        self.finished_at = timezone.now() - timedelta(hours=1)
+        self.before_window = self.started_at - timedelta(days=1)
+        self.job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.CANCELLED,
+            selected_sources=[self.source.slug],
+            worker_config={self.source.slug: 1},
+            scrape_mode=ScrapeJob.Mode.COMPLETE,
+            mark_missing=False,
+            started_at=self.started_at,
+            finished_at=self.finished_at,
+        )
+        self.job_source = ScrapeJobSource.objects.create(
+            job=self.job,
+            source=self.source,
+            slug=self.source.slug,
+            name=self.source.name,
+            status=ScrapeJobSource.Status.CANCELLED,
+            workers=1,
+            total_discovered=3,
+            total_to_process=3,
+            processed=2,
+            created=2,
+            updated=0,
+            errors=0,
+            started_at=self.started_at,
+            finished_at=self.finished_at,
+        )
+
+    def create_property(self, suffix, **overrides):
+        defaults = {
+            "fingerprint": f"repair-zonaprop-{suffix}",
+            "property_type": Property.Type.HOUSE,
+            "operation": "sale",
+            "title": f"Casa {suffix}",
+            "address": f"Test {suffix} 100",
+            "normalized_address": f"test {suffix} 100",
+            "locality": "Hurlingham",
+            "currency": "USD",
+            "price": Decimal("100000"),
+            "status": Property.Status.ACTIVE,
+        }
+        defaults.update(overrides)
+        return Property.objects.create(**defaults)
+
+    def create_listing(self, property_obj, external_id, first_seen_at, last_seen_at=None):
+        listing = Listing.objects.create(
+            source=self.source,
+            property=property_obj,
+            external_id=external_id,
+            url=f"https://www.zonaprop.com.ar/propiedades/clasificado/{external_id}.html",
+        )
+        Listing.objects.filter(pk=listing.pk).update(
+            first_seen_at=first_seen_at,
+            last_seen_at=last_seen_at or first_seen_at,
+        )
+        listing.refresh_from_db()
+        return listing
+
+    def create_snapshot(self, listing, **payload_overrides):
+        payload = {
+            "property_type": Property.Type.HOUSE,
+            "operation": "sale",
+            "title": "Casa original",
+            "address": "Original 100",
+            "normalized_address": "original 100",
+            "locality": "Hurlingham",
+            "currency": "USD",
+            "price": "120000.00",
+            "status": Property.Status.ACTIVE,
+        }
+        payload.update(payload_overrides)
+        return ListingSnapshot.objects.create(
+            listing=listing,
+            content_hash=f"repair-{listing.pk}",
+            price=payload.get("price"),
+            currency=payload.get("currency") or "",
+            status=payload.get("status") or "",
+            payload=payload,
+        )
+
+    def test_dry_run_reports_counts_without_writing(self):
+        deleteable = self.create_property("deleteable")
+        delete_listing = self.create_listing(
+            deleteable, "deleteable", self.started_at + timedelta(minutes=1)
+        )
+        shared = self.create_property("shared")
+        survivor = self.create_listing(shared, "survivor", self.before_window)
+        rollback = self.create_listing(
+            shared, "shared-rollback", self.started_at + timedelta(minutes=2)
+        )
+        preserved = self.create_property("preserved", personal_notes="Mantener")
+        preserved_listing = self.create_listing(
+            preserved, "preserved", self.started_at + timedelta(minutes=3)
+        )
+
+        output = StringIO()
+        call_command("repair_zonaprop_jobs", "--job-id", str(self.job.pk), stdout=output)
+
+        text = output.getvalue()
+        self.assertIn("DRY-RUN repair_zonaprop_jobs", text)
+        self.assertIn("listings_candidatos=3", text)
+        self.assertIn("propiedades_borrables=1", text)
+        self.assertIn("propiedades_preservadas=1", text)
+        self.assertIn("propiedades_recompuestas=1", text)
+        for listing in (delete_listing, survivor, rollback, preserved_listing):
+            listing.refresh_from_db()
+            self.assertTrue(listing.active)
+        self.assertTrue(Property.objects.filter(pk=deleteable.pk).exists())
+
+    def test_apply_deletes_artifacts_without_manual_state(self):
+        property_obj = self.create_property("delete")
+        listing = self.create_listing(
+            property_obj, "delete", self.started_at + timedelta(minutes=1)
+        )
+
+        call_command(
+            "repair_zonaprop_jobs",
+            "--job-id",
+            str(self.job.pk),
+            "--apply",
+            stdout=StringIO(),
+        )
+
+        self.assertFalse(Listing.objects.filter(pk=listing.pk).exists())
+        self.assertFalse(Property.objects.filter(pk=property_obj.pk).exists())
+
+    def test_apply_preserves_manual_property_as_removed(self):
+        property_obj = self.create_property(
+            "manual",
+            personal_notes="Mantener esta observacion",
+            is_hidden=True,
+        )
+        listing = self.create_listing(
+            property_obj, "manual", self.started_at + timedelta(minutes=1)
+        )
+
+        call_command(
+            "repair_zonaprop_jobs",
+            "--job-id",
+            str(self.job.pk),
+            "--apply",
+            stdout=StringIO(),
+        )
+
+        listing.refresh_from_db()
+        property_obj.refresh_from_db()
+        self.assertFalse(listing.active)
+        self.assertEqual(listing.source_status, "removed")
+        self.assertEqual(listing.missing_runs, 2)
+        self.assertTrue(property_obj.is_hidden)
+        self.assertEqual(property_obj.status, Property.Status.REMOVED)
+        self.assertIn("Mantener esta observacion", property_obj.personal_notes)
+        self.assertIn("Reparacion Zonaprop jobs", property_obj.personal_notes)
+
+    def test_apply_recomposes_shared_property_from_survivor_snapshot(self):
+        property_obj = self.create_property(
+            "shared-restore",
+            title="Titulo Zonaprop",
+            address="Zonaprop 999",
+            normalized_address="zonaprop 999",
+            price=Decimal("999000"),
+            personal_notes="Nota manual",
+        )
+        survivor = self.create_listing(property_obj, "survivor", self.before_window)
+        self.create_snapshot(
+            survivor,
+            title="Titulo original",
+            address="Original 123",
+            normalized_address="original 123",
+            price="120000.00",
+        )
+        rollback = self.create_listing(
+            property_obj, "rollback", self.started_at + timedelta(minutes=1)
+        )
+
+        call_command(
+            "repair_zonaprop_jobs",
+            "--job-id",
+            str(self.job.pk),
+            "--apply",
+            stdout=StringIO(),
+        )
+
+        property_obj.refresh_from_db()
+        self.assertTrue(Listing.objects.filter(pk=survivor.pk).exists())
+        self.assertFalse(Listing.objects.filter(pk=rollback.pk).exists())
+        self.assertEqual(property_obj.title, "Titulo original")
+        self.assertEqual(property_obj.address, "Original 123")
+        self.assertEqual(property_obj.normalized_address, "original 123")
+        self.assertEqual(property_obj.price, Decimal("120000.00"))
+        self.assertEqual(property_obj.personal_notes, "Nota manual")
 
 
 class ScrapeCommandTests(TransactionTestCase):
