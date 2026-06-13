@@ -18,6 +18,7 @@ from properties.models import (
     OperationJob,
     OperationJobStep,
     Property,
+    PropertyLocationIntelligence,
     PropertyLocation,
     ScrapeJob,
     ScrapeJobSource,
@@ -52,6 +53,10 @@ from properties.services.scraping import (
     source_catalog,
 )
 from properties.services.security_scoring import risk_from_coverage, score_coordinates
+from properties.services.location_intelligence import (
+    location_intelligence_layers_payload,
+    score_property_location_intelligence,
+)
 from properties.services.crime_context import crime_layers_payload, homicide_counts_by_zone
 from properties.services.spatial import haversine_km, point_in_polygon
 from properties.services.zone_inference import (
@@ -416,6 +421,148 @@ class SecurityScoringTests(TestCase):
         self.assertEqual(property_obj.security_risk_score, 28)
         self.assertEqual(property_obj.security_level, "alta")
         self.assertEqual(property_obj.security_zone_label, "Zona Test")
+
+
+class LocationIntelligenceScoringTests(TestCase):
+    def _location_geojson_path(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        path = Path(temp_dir.name) / "location_value.geojson"
+        payload = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "zone_name": "Zona Test",
+                        "overall_location_value_score": 73,
+                        "location_value_level": "alta",
+                        "transport_access_score": 81,
+                        "education_access_score": 66,
+                        "health_access_score": 52,
+                        "flood_penalty_score": 15,
+                        "in_flood_risk_zone": False,
+                        "urban_informality_score": 20,
+                        "nearest_renabap_m": 420,
+                        "nearest_sube_point_m": 180,
+                        "nearest_school_m": 260,
+                        "nearest_health_center_m": 500,
+                        "data_confidence": "high",
+                        "generated_at": "2026-06-13T00:00:00+00:00",
+                        "score_methodology": "test",
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-58.70, -34.66],
+                            [-58.60, -34.66],
+                            [-58.60, -34.55],
+                            [-58.70, -34.55],
+                            [-58.70, -34.66],
+                        ]],
+                    },
+                }
+            ],
+        }
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def test_location_intelligence_scores_by_coordinates_and_zone_fallback(self):
+        path = self._location_geojson_path()
+        features = json.loads(path.read_text(encoding="utf-8"))["features"]
+        located = Property.objects.create(
+            fingerprint="location-intel-point",
+            title="Casa territorial",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+        )
+        PropertyLocation.objects.create(
+            property=located,
+            latitude=-34.60,
+            longitude=-58.64,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+        fallback = Property.objects.create(
+            fingerprint="location-intel-zone",
+            title="Casa zona",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            inferred_neighborhood="Zona Test",
+        )
+
+        point_score = score_property_location_intelligence(
+            located,
+            zones=features,
+            source_signature="test",
+        )
+        zone_score = score_property_location_intelligence(
+            fallback,
+            zones=features,
+            source_signature="test",
+        )
+
+        self.assertEqual(point_score.overall_score, 73)
+        self.assertEqual(point_score.match_method, "coordinates")
+        self.assertEqual(point_score.transport_score, 81)
+        self.assertEqual(point_score.evidence["matched_zone"], "Zona Test")
+        self.assertEqual(zone_score.overall_score, 73)
+        self.assertEqual(zone_score.match_method, "zone")
+
+    def test_score_location_intelligence_command_dry_run_apply_and_only_missing(self):
+        path = self._location_geojson_path()
+        existing = Property.objects.create(
+            fingerprint="location-intel-existing",
+            title="Casa existente",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            inferred_neighborhood="Zona Test",
+        )
+        PropertyLocationIntelligence.objects.create(
+            property=existing,
+            overall_score=10,
+            level="baja",
+            zone_name="Vieja",
+        )
+        missing = Property.objects.create(
+            fingerprint="location-intel-missing",
+            title="Casa faltante",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            inferred_neighborhood="Zona Test",
+        )
+
+        call_command(
+            "score_location_intelligence",
+            "--dry-run",
+            "--geojson",
+            str(path),
+            stdout=StringIO(),
+        )
+        self.assertFalse(
+            PropertyLocationIntelligence.objects.filter(property=missing).exists()
+        )
+
+        call_command(
+            "score_location_intelligence",
+            "--only-missing",
+            "--geojson",
+            str(path),
+            stdout=StringIO(),
+        )
+        existing.refresh_from_db()
+        missing.refresh_from_db()
+        self.assertEqual(existing.location_intelligence.overall_score, 10)
+        self.assertEqual(missing.location_intelligence.overall_score, 73)
+        self.assertEqual(missing.location_intelligence.zone_name, "Zona Test")
+
+    def test_location_intelligence_layers_payload_sanitizes_zones(self):
+        payload = location_intelligence_layers_payload(zone_path=self._location_geojson_path())
+
+        self.assertTrue(payload["configured"])
+        props = payload["zones"]["features"][0]["properties"]
+        self.assertEqual(props["overall_score"], 73)
+        self.assertEqual(props["transport_score"], 81)
+        self.assertIn("renabap", payload["notes"])
 
 
 class CrimeContextTests(TestCase):
@@ -1602,6 +1749,38 @@ class MergePropertiesCommandTests(TestCase):
 
 
 class OperationRunnerTests(TestCase):
+    def _location_geojson_path(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        path = Path(temp_dir.name) / "location_value.geojson"
+        payload = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "zone_name": "Zona Runner",
+                        "overall_location_value_score": 69,
+                        "location_value_level": "media_alta",
+                        "transport_access_score": 70,
+                        "in_flood_risk_zone": False,
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-58.70, -34.66],
+                            [-58.60, -34.66],
+                            [-58.60, -34.55],
+                            [-58.70, -34.55],
+                            [-58.70, -34.66],
+                        ]],
+                    },
+                }
+            ],
+        }
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
     def test_geocode_dry_run_does_not_create_location(self):
         property_obj = Property.objects.create(
             fingerprint="operation-geocode-dry-run",
@@ -1631,6 +1810,39 @@ class OperationRunnerTests(TestCase):
         self.assertEqual(job.status, OperationJob.Status.SUCCESS)
         self.assertEqual(step.processed, 1)
         self.assertFalse(PropertyLocation.objects.filter(property=property_obj).exists())
+
+    def test_location_intelligence_operation_step_scores_properties(self):
+        property_obj = Property.objects.create(
+            fingerprint="operation-location-intelligence",
+            title="Casa territorial runner",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+        )
+        PropertyLocation.objects.create(
+            property=property_obj,
+            latitude=-34.60,
+            longitude=-58.64,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+        job = create_operation_job(
+            kind=OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE,
+            mode=OperationJob.Mode.APPLY,
+            steps=[
+                {
+                    "kind": OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE,
+                    "mode": OperationJob.Mode.APPLY,
+                    "params": {"geojson": str(self._location_geojson_path())},
+                }
+            ],
+        )
+
+        run_operation_job(job.pk)
+
+        job.refresh_from_db()
+        property_obj.refresh_from_db()
+        self.assertEqual(job.status, OperationJob.Status.SUCCESS)
+        self.assertEqual(property_obj.location_intelligence.overall_score, 69)
+        self.assertEqual(property_obj.location_intelligence.zone_name, "Zona Runner")
 
 
 class ViewTests(TestCase):
@@ -1711,6 +1923,73 @@ class ViewTests(TestCase):
         self.assertNotIn(other.pk, ids)
         feature = next(feature for feature in response.json()["features"] if feature["id"] == primary.pk)
         self.assertEqual(feature["properties"]["security_coverage_score"], 72)
+
+    def test_location_intelligence_filters_payloads_exports_and_stats(self):
+        primary = self.listing.property
+        PropertyLocationIntelligence.objects.create(
+            property=primary,
+            overall_score=74,
+            level="alta",
+            zone_name="Zona Alta",
+            match_method="coordinates",
+            confidence="high",
+            transport_score=82,
+            education_score=61,
+            health_score=50,
+            flood_penalty_score=12,
+            in_flood_risk_zone=False,
+            nearest_renabap_m=450,
+            evidence={"matched_zone": "Zona Alta"},
+        )
+        other = Property.objects.create(
+            fingerprint="location-filter-low",
+            title="Casa territorial baja",
+            operation="sale",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+            currency="USD",
+            price=100000,
+        )
+        PropertyLocation.objects.create(
+            property=other,
+            latitude=-34.61,
+            longitude=-58.65,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+        PropertyLocationIntelligence.objects.create(
+            property=other,
+            overall_score=35,
+            level="baja",
+            zone_name="Zona Baja",
+            match_method="coordinates",
+            transport_score=20,
+            flood_penalty_score=70,
+            in_flood_risk_zone=True,
+            nearest_renabap_m=80,
+        )
+
+        response = self.client.get(
+            "/api/propiedades/",
+            {"location_score_min": "60", "location_value_level": "alta"},
+        )
+        features = response.json()["features"]
+        ids = {feature["id"] for feature in features}
+        self.assertIn(primary.pk, ids)
+        self.assertNotIn(other.pk, ids)
+        self.assertEqual(features[0]["properties"]["location_value_score"], 74)
+
+        response = self.client.get(f"/api/propiedad/{primary.pk}/resumen/")
+        payload = response.json()
+        self.assertEqual(payload["location_intelligence"]["overall_score"], 74)
+        self.assertEqual(payload["location_intelligence"]["zone_name"], "Zona Alta")
+
+        response = self.client.get("/export/properties.csv")
+        self.assertContains(response, "score_territorial")
+        self.assertContains(response, "Zona Alta")
+
+        response = self.client.get("/estadisticas/")
+        self.assertContains(response, "Score territorial + precio")
+        self.assertContains(response, "location_intelligence")
 
     def test_default_filters_show_only_active_status(self):
         Property.objects.create(

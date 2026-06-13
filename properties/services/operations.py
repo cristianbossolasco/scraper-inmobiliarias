@@ -6,6 +6,7 @@ from time import monotonic
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.db import close_old_connections, transaction
+from django.db.models import Q
 from django.utils import timezone
 
 from properties.models import OperationJob, OperationJobStep, Property, ScrapeJob
@@ -23,6 +24,12 @@ from properties.services.security_scoring import (
     load_security_points,
     load_security_zones,
     score_property_security,
+)
+from properties.services.location_intelligence import (
+    apply_location_intelligence_score,
+    load_location_zones,
+    location_intelligence_values,
+    score_property_location_intelligence,
 )
 from properties.services.zone_inference import apply_zone_inference, infer_property_zone
 
@@ -94,6 +101,13 @@ def operation_catalog():
             "default_mode": OperationJob.Mode.APPLY,
             "supports_dry_run": True,
         },
+        {
+            "kind": OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE,
+            "label": "Scoring territorial",
+            "risk": "low",
+            "default_mode": OperationJob.Mode.APPLY,
+            "supports_dry_run": True,
+        },
         *[
             {
                 "kind": kind,
@@ -119,6 +133,7 @@ def operation_catalog():
                 OperationJob.Kind.GEOCODE,
                 OperationJob.Kind.INFER_ZONES,
                 OperationJob.Kind.SCORE_SECURITY,
+                OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE,
             ],
         },
         {
@@ -141,6 +156,7 @@ def operation_catalog():
                 OperationJob.Kind.GEOCODE,
                 OperationJob.Kind.INFER_ZONES,
                 OperationJob.Kind.SCORE_SECURITY,
+                OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE,
                 OperationJob.Kind.REPAIR_ADDRESSES,
                 OperationJob.Kind.REPAIR_NEIGHBORHOODS,
                 OperationJob.Kind.REPAIR_LOCALITIES,
@@ -843,6 +859,61 @@ def _security_values(property_obj):
     }
 
 
+def _run_location_intelligence_step(step):
+    params = step.params or {}
+    limit = _optional_int(params.get("limit"), 0)
+    queryset = _base_property_queryset(params)
+    if _bool_param(params, "only_missing"):
+        queryset = queryset.filter(location_intelligence__isnull=True)
+    if not _bool_param(params, "force"):
+        queryset = queryset.filter(
+            Q(location__isnull=False)
+            | Q(inferred_neighborhood__gt="")
+            | Q(detected_neighborhood__gt="")
+            | Q(neighborhood__gt="")
+        )
+    properties = _limit_items(
+        queryset.select_related("location_intelligence").order_by("pk"),
+        limit,
+    )
+    dataset = load_location_zones(params.get("geojson") or None)
+    if not dataset["configured"]:
+        raise ValueError("No se encontro GeoJSON integrado de inteligencia territorial.")
+    step.total = len(properties)
+    _save_step(step)
+    matched = 0
+    changed = 0
+    for property_obj in properties:
+        if operation_cancelled(step.job_id):
+            step.status = OperationJob.Status.CANCELLED
+            break
+        step.processed += 1
+        try:
+            score = score_property_location_intelligence(
+                property_obj,
+                zones=dataset["features"],
+                source_signature=dataset["signature"],
+            )
+            if score.matched:
+                matched += 1
+            old_values = location_intelligence_values(
+                getattr(property_obj, "location_intelligence", None)
+            )
+            record = apply_location_intelligence_score(property_obj, score, commit=False)
+            if old_values != location_intelligence_values(record):
+                changed += 1
+                step.changed += 1
+            if step.mode == OperationJob.Mode.APPLY:
+                apply_location_intelligence_score(property_obj, score, commit=True)
+        except Exception as exc:
+            step.errors += 1
+            step.error_log = _append_log_text(step.error_log, f"{property_obj.pk}: {exc}")
+        if step.processed == step.total or step.processed % 25 == 0:
+            _save_step(step)
+    step.result_summary = {"matched": matched, "changed": changed}
+    _save_step(step)
+
+
 def _run_command_step(step):
     command, options = _command_options(step.kind, step.params or {}, step.mode)
     stdout = StringIO()
@@ -954,5 +1025,6 @@ STEP_HANDLERS = {
     OperationJob.Kind.GEOCODE: _run_geocode_step,
     OperationJob.Kind.INFER_ZONES: _run_zone_step,
     OperationJob.Kind.SCORE_SECURITY: _run_security_step,
+    OperationJob.Kind.SCORE_LOCATION_INTELLIGENCE: _run_location_intelligence_step,
     **{kind: _run_command_step for kind in COMMAND_STEP_KINDS},
 }

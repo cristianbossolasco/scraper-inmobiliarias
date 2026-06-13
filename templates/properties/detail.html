@@ -150,6 +150,27 @@
       {% endif %}
     </section>
 
+    {% if location_intelligence.configured %}
+    <section class="detail-section compact-section">
+      <h2>Contexto territorial</h2>
+      <dl class="location-audit">
+        <div><dt>Score</dt><dd>{{ location_intelligence.overall_score|floatformat:0 }}/100</dd></div>
+        <div><dt>Nivel</dt><dd>{{ location_intelligence.level|title|default:"-" }}</dd></div>
+        <div><dt>Zona</dt><dd>{{ location_intelligence.zone_name|default:"-" }}</dd></div>
+        <div><dt>Transporte</dt><dd>{% if location_intelligence.transport_score != None %}{{ location_intelligence.transport_score|floatformat:0 }}/100{% else %}-{% endif %}</dd></div>
+        <div><dt>Educación</dt><dd>{% if location_intelligence.education_score != None %}{{ location_intelligence.education_score|floatformat:0 }}/100{% else %}-{% endif %}</dd></div>
+        <div><dt>Salud</dt><dd>{% if location_intelligence.health_score != None %}{{ location_intelligence.health_score|floatformat:0 }}/100{% else %}-{% endif %}</dd></div>
+        <div><dt>Riesgo hídrico</dt><dd>{% if location_intelligence.in_flood_risk_zone %}Sí{% else %}No{% endif %}</dd></div>
+        <div><dt>SUBE</dt><dd>{% if location_intelligence.nearest_sube_point_m != None %}{{ location_intelligence.nearest_sube_point_m|floatformat:0 }} m{% else %}-{% endif %}</dd></div>
+        <div><dt>Escuela</dt><dd>{% if location_intelligence.nearest_school_m != None %}{{ location_intelligence.nearest_school_m|floatformat:0 }} m{% else %}-{% endif %}</dd></div>
+        <div><dt>Salud cercana</dt><dd>{% if location_intelligence.nearest_health_center_m != None %}{{ location_intelligence.nearest_health_center_m|floatformat:0 }} m{% else %}-{% endif %}</dd></div>
+      </dl>
+      {% if location_intelligence.nearest_renabap_m != None %}
+        <p class="audit-note">RENABAP a {{ location_intelligence.nearest_renabap_m|floatformat:0 }} m: contexto urbano e infraestructura, no juicio de valor de la propiedad. Crimen municipal se muestra separado del score territorial.</p>
+      {% endif %}
+    </section>
+    {% endif %}
+
     {% if property.description %}
     <section class="detail-section">
       <h2>Descripcion</h2>

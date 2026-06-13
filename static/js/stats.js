@@ -23,6 +23,9 @@
   let propertyPreviewLocationDraft = null;
   const securityMaps = {};
   let securityMapPopup = null;
+  let locationValueMap = null;
+  let locationValueMapPopup = null;
+  let locationLayerPromise = null;
   let crimeMap = null;
   let crimeMapPopup = null;
   let crimeLayerPromise = null;
@@ -97,6 +100,7 @@
       }
       if (tabName === "spatial") {
         initPriceHeatmap();
+        initLocationValueMap();
         initSecurityMaps();
         initCrimeMap();
       }
@@ -145,6 +149,20 @@
     const parsed = Number(value);
     if (!Number.isFinite(parsed)) return "-";
     return Math.round(parsed).toLocaleString("es-AR");
+  }
+
+  function formatScoreCell(value) {
+    if (value === null || value === undefined || value === "") return "-";
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return "-";
+    return `${Math.round(parsed)}/100`;
+  }
+
+  function formatMeters(value) {
+    if (value === null || value === undefined || value === "") return "-";
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return "-";
+    return `${Math.round(parsed).toLocaleString("es-AR")} m`;
   }
 
   function formatListUrl(itemUrl) {
@@ -264,6 +282,7 @@
     `).join("");
     const security = property.security || {};
     const location = property.location || {};
+    const locationIntelligence = property.location_intelligence || {};
     const securityBlock = security.coverage_score !== null && security.coverage_score !== undefined ? `
       <div class="property-preview-security">
         <h3>Seguridad proxy</h3>
@@ -276,6 +295,23 @@
           <div><dt>Cámaras cercanas</dt><dd>${escapeHtml(security.evidence?.nearby_points?.by_type?.camera || 0)}</dd></div>
         </dl>
         <p class="audit-note">Proxy de infraestructura; no representa tasa real de delitos.</p>
+      </div>
+    ` : "";
+    const locationIntelligenceBlock = locationIntelligence.overall_score !== null && locationIntelligence.overall_score !== undefined ? `
+      <div class="property-preview-security property-preview-territory">
+        <h3>Contexto territorial</h3>
+        <dl>
+          <div><dt>Score</dt><dd>${Math.round(Number(locationIntelligence.overall_score) || 0)}/100</dd></div>
+          <div><dt>Nivel</dt><dd>${escapeHtml(locationIntelligence.level || "-")}</dd></div>
+          <div><dt>Zona</dt><dd>${escapeHtml(locationIntelligence.zone_name || "-")}</dd></div>
+          <div><dt>Transporte</dt><dd>${formatScoreCell(locationIntelligence.transport_score)}</dd></div>
+          <div><dt>Educación</dt><dd>${formatScoreCell(locationIntelligence.education_score)}</dd></div>
+          <div><dt>Salud</dt><dd>${formatScoreCell(locationIntelligence.health_score)}</dd></div>
+          <div><dt>Riesgo hídrico</dt><dd>${locationIntelligence.in_flood_risk_zone ? "Sí" : "No"}</dd></div>
+          <div><dt>SUBE</dt><dd>${formatMeters(locationIntelligence.nearest_sube_point_m)}</dd></div>
+          <div><dt>RENABAP</dt><dd>${formatMeters(locationIntelligence.nearest_renabap_m)}</dd></div>
+        </dl>
+        <p class="audit-note">RENABAP es contexto urbano/infraestructura; crimen municipal se muestra separado del score.</p>
       </div>
     ` : "";
     const mapBlock = Number.isFinite(Number(location.latitude)) && Number.isFinite(Number(location.longitude)) ? `
@@ -328,6 +364,7 @@
           </div>
           <div class="metric-grid detail-facts">${facts}</div>
           ${securityBlock}
+          ${locationIntelligenceBlock}
           ${mapBlock}
           ${sourceLinks ? `<div class="original-links">${sourceLinks}</div>` : ""}
           <div class="notes-panel">
@@ -1368,6 +1405,135 @@
     });
   }
 
+  function locationValueFillColor() {
+    return [
+      "interpolate",
+      ["linear"],
+      ["get", "overall_score"],
+      0, "#f3efe6",
+      40, "#f6c97b",
+      55, "#b9d984",
+      70, "#42a873",
+      85, "#0b6448",
+      100, "#053d2d"
+    ];
+  }
+
+  function loadLocationLayers() {
+    if (data.location_intelligence?.layers) return Promise.resolve(data.location_intelligence.layers);
+    if (locationLayerPromise) return locationLayerPromise;
+    locationLayerPromise = fetch("/api/inteligencia-territorial/capas/")
+      .then((response) => response.json())
+      .then((payload) => {
+        data.location_intelligence = data.location_intelligence || {};
+        data.location_intelligence.layers = payload;
+        data.location_intelligence.configured = payload.configured || data.location_intelligence.configured;
+        return payload;
+      });
+    return locationLayerPromise;
+  }
+
+  function initLocationValueMap() {
+    const container = document.getElementById("location-value-map");
+    if (!container || typeof maplibregl === "undefined") return;
+    loadLocationLayers()
+      .then((payload) => {
+        const zones = payload.zones || { type: "FeatureCollection", features: [] };
+        if (!zones.features?.length) {
+          container.innerHTML = '<div class="audit-note">No hay capa territorial cargada.</div>';
+          return;
+        }
+        renderLocationValueLegend();
+        if (locationValueMap && locationValueMap._loaded) {
+          locationValueMap.resize();
+          return;
+        }
+        if (locationValueMap) {
+          locationValueMap.once("load", () => locationValueMap.resize());
+          return;
+        }
+        fetch("/api/configuracion-mapa/").then((response) => response.json()).then((config) => {
+          locationValueMap = new maplibregl.Map({
+            container: "location-value-map",
+            style: {
+              version: 8,
+              sources: {
+                osm: {
+                  type: "raster",
+                  tiles: [config.tile_url],
+                  tileSize: 256,
+                  attribution: config.attribution
+                }
+              },
+              layers: [{ id: "osm", type: "raster", source: "osm" }]
+            },
+            center: config.center,
+            zoom: config.zoom || 12
+          });
+          locationValueMap.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+          locationValueMap.once("load", () => {
+            locationValueMap.addSource("location-value-zones", { type: "geojson", data: zones });
+            locationValueMap.addLayer({
+              id: "location-value-fill",
+              type: "fill",
+              source: "location-value-zones",
+              paint: {
+                "fill-color": locationValueFillColor(),
+                "fill-opacity": 0.58
+              }
+            });
+            locationValueMap.addLayer({
+              id: "location-value-line",
+              type: "line",
+              source: "location-value-zones",
+              paint: {
+                "line-color": "#0b4f3a",
+                "line-width": 1.2,
+                "line-opacity": 0.72
+              }
+            });
+            const bounds = securityMapBounds(zones);
+            if (bounds) locationValueMap.fitBounds(bounds, { padding: 30, duration: 0 });
+            locationValueMap.on("click", "location-value-fill", (event) => {
+              const feature = event.features?.[0];
+              if (!feature) return;
+              const props = feature.properties || {};
+              if (locationValueMapPopup) locationValueMapPopup.remove();
+              locationValueMapPopup = new maplibregl.Popup({ offset: 10 })
+                .setLngLat(event.lngLat)
+                .setHTML(`
+                  <div class="map-popup">
+                    <strong>${escapeHtml(props.zone_name || "Zona")}</strong>
+                    <p>Score territorial: ${formatScoreCell(props.overall_score)}</p>
+                    <small>Transporte ${formatScoreCell(props.transport_score)} · Educación ${formatScoreCell(props.education_score)} · Salud ${formatScoreCell(props.health_score)}</small><br>
+                    <small>Riesgo hídrico ${props.in_flood_risk_zone ? "sí" : "no"} · RENABAP ${formatMeters(props.nearest_renabap_m)}</small>
+                  </div>
+                `)
+                .addTo(locationValueMap);
+            });
+            locationValueMap.on("mouseenter", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = "pointer"; });
+            locationValueMap.on("mouseleave", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = ""; });
+            locationValueMap.resize();
+          });
+        }).catch(() => {
+          container.innerHTML = '<div class="audit-note">No se pudo cargar la configuracion del mapa.</div>';
+        });
+      })
+      .catch(() => {
+        container.innerHTML = '<div class="audit-note">No se pudo cargar la capa territorial.</div>';
+      });
+  }
+
+  function renderLocationValueLegend() {
+    const legend = document.getElementById("location-value-map-legend");
+    if (!legend) return;
+    legend.innerHTML = `
+      <span>Bajo 0</span>
+      <i></i>
+      <span>Alto 100</span>
+    `;
+  }
+
   function crimeMetrics() {
     return data.crime?.metrics || data.crime?.summary?.metrics || data.crime?.layers?.summary?.metrics || {};
   }
@@ -1904,6 +2070,7 @@
               <strong>${props.currency || ""} ${Math.round(Number(props.price) || 0).toLocaleString("es-AR")}</strong>
               <p>${props.title || ""}</p>
               <small>${props.zone || ""}</small><br>
+              ${Number.isFinite(Number(props.location_value_score)) ? `<small>Territorial ${Math.round(Number(props.location_value_score))}/100 · ${escapeHtml(props.location_value_level || "")}</small><br>` : ""}
               <button class="text-button" type="button" data-map-preview-id="${props.id || ""}">Abrir ficha</button>
             </div>
           `)
@@ -1941,6 +2108,9 @@
           title: item.title || "",
           price: Number(item.price) || 0,
           price_m2: Number(item.price_m2) || 0,
+          location_value_score: Number(item.location_value_score),
+          location_value_level: item.location_value_level || "",
+          location_value_zone: item.location_value_zone || "",
           area: Number(item.area) || 0,
           currency: item.currency || "USD",
           zone: item.zone || "Sin zona",
@@ -2070,6 +2240,7 @@
 
   function metricLabel(metric) {
     if (metric === "price_m2") return "USD/m2";
+    if (metric === "location_value") return "Score territorial";
     if (metric === "discount") return "Descuento vs tendencia";
     if (metric === "density") return "Densidad";
     return "Precio total";
@@ -2077,6 +2248,7 @@
 
   function metricValue(item, metric, surfaceRows) {
     if (metric === "price_m2") return Number(item.price_m2) || 0;
+    if (metric === "location_value") return Number(item.location_value_score) || 0;
     if (metric === "discount") {
       const row = surfaceRows.get(String(item.id));
       const area = Number(row?.x || item.area);
@@ -2105,6 +2277,7 @@
     }
     const format = (value) => {
       if (metric === "discount") return `${Math.round(value)}%`;
+      if (metric === "location_value") return `${Math.round(value || 0)}/100`;
       return `USD ${Math.round(value || 0).toLocaleString("es-AR")}`;
     };
     legend.innerHTML = `
@@ -2155,17 +2328,25 @@
         const qualityBonus = Number(item.quality_score || 0) / 12;
         const coverage = Number(item.security_coverage_score);
         const risk = Number(item.security_risk_score);
+        const territory = Number(item.location_value_score);
+        const flood = Number(item.location_flood_penalty_score);
         const securityBonus = Number.isFinite(coverage) && coverage >= 60 ? 8 : 0;
         const negotiationBonus = Number.isFinite(risk) && risk >= 55 ? 4 : 0;
+        const territoryBonus = Number.isFinite(territory) && territory >= 65 ? 10 : 0;
+        const floodPenalty = Number.isFinite(flood) && flood >= 55 ? -8 : 0;
         const securityTag = Number.isFinite(coverage) && coverage >= 60
           ? "Oportunidad segura"
           : (Number.isFinite(risk) && risk >= 55 ? "Negociable por riesgo" : "Oportunidad");
+        const territoryTag = Number.isFinite(territory) && territory >= 65
+          ? "Buen contexto territorial"
+          : "";
         return {
           ...item,
           expected,
           discount,
           securityTag,
-          opportunity_score: discount + priceM2Bonus + locationBonus + qualityBonus + securityBonus + negotiationBonus
+          territoryTag,
+          opportunity_score: discount + priceM2Bonus + locationBonus + qualityBonus + securityBonus + negotiationBonus + territoryBonus + floodPenalty
         };
       })
       .filter((item) => item.discount > 3)
@@ -2193,6 +2374,8 @@
             <span>${Math.round(item.discount)}% bajo tendencia</span>
             <span>${item.price_m2 ? `${Math.round(item.price_m2).toLocaleString("es-AR")} /m2` : "Sin m2"}</span>
             <span>${escapeHtml(item.securityTag)}</span>
+            ${item.territoryTag ? `<span>${escapeHtml(item.territoryTag)}</span>` : ""}
+            ${Number.isFinite(Number(item.location_value_score)) ? `<span>Terr. ${Math.round(Number(item.location_value_score))}/100</span>` : ""}
             ${Number.isFinite(Number(item.security_coverage_score)) ? `<span>Seg. ${Math.round(Number(item.security_coverage_score))}/100</span>` : ""}
             <span>Calidad ${Math.round(item.quality_score || 0)}%</span>
           </div>
@@ -2351,6 +2534,112 @@
     `;
   }
 
+  function renderLocationValuePanel() {
+    const container = document.getElementById("location-value-panel");
+    const payload = data.location_intelligence || {};
+    if (!container) return;
+    const rows = Array.isArray(payload.rows) ? payload.rows.slice(0, 10) : [];
+    if (!rows.length) {
+      container.innerHTML = '<div class="audit-note">Todavía no hay propiedades con score territorial para estos filtros.</div>';
+      return;
+    }
+    container.innerHTML = rows.map((item) => `
+      <div class="security-row">
+        <div>
+          <strong>${escapeHtml(formatPrice(item))}</strong>
+          <span>${escapeHtml(item.zone || item.address || "Sin zona")}</span>
+          <small>Territorial ${formatScoreCell(item.location_value_score)} · ${escapeHtml(item.location_value_level || "-")}</small>
+          <small>Transporte ${formatScoreCell(item.location_transport_score)} · Flood ${formatScoreCell(item.location_flood_penalty_score)}</small>
+        </div>
+        <button class="text-button property-preview-trigger" type="button" data-property-id="${item.id}">Abrir</button>
+      </div>
+    `).join("");
+  }
+
+  function renderLocationOpportunities() {
+    const container = document.getElementById("location-opportunity-panel");
+    const rows = Array.isArray(data.location_intelligence?.opportunities)
+      ? data.location_intelligence.opportunities
+      : [];
+    if (!container) return;
+    if (!rows.length) {
+      container.innerHTML = '<div class="audit-note">No hay señales territoriales fuertes con estos filtros.</div>';
+      return;
+    }
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Señal</th>
+            <th>Propiedad</th>
+            <th>Zona</th>
+            <th>Precio/m2</th>
+            <th>Score</th>
+            <th>Transporte</th>
+            <th>Flood</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((row) => `
+            <tr>
+              <td><span class="security-badge ${row.kind === "Sobreprecio con riesgo" ? "risk" : ""}">${escapeHtml(row.kind)}</span></td>
+              <td>${escapeHtml(row.title || row.address || `#${row.id}`)}</td>
+              <td>${escapeHtml(row.location_value_zone || row.zone || "-")}</td>
+              <td>${row.price_m2 ? Math.round(row.price_m2).toLocaleString("es-AR") : "-"}</td>
+              <td>${formatScoreCell(row.location_value_score || row.territorial_score)}</td>
+              <td>${formatScoreCell(row.location_transport_score || row.transport_score)}</td>
+              <td>${formatScoreCell(row.location_flood_penalty_score || row.flood_penalty_score)}</td>
+              <td><button class="text-button property-preview-trigger" type="button" data-property-id="${row.id}">Abrir</button></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function renderLocationZoneMatrix() {
+    const container = document.getElementById("location-zone-matrix-panel");
+    const rows = Array.isArray(data.location_intelligence?.zones)
+      ? data.location_intelligence.zones
+      : [];
+    if (!container) return;
+    if (!rows.length) {
+      container.innerHTML = '<div class="audit-note">No hay matriz territorial disponible para estos filtros.</div>';
+      return;
+    }
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Zona</th>
+            <th>Propiedades</th>
+            <th>Score prom.</th>
+            <th>Mediana USD/m2</th>
+            <th>Transporte</th>
+            <th>Flood</th>
+            <th>RENABAP/contexto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((row) => `
+            <tr>
+              <td>${escapeHtml(row.zone || "-")}</td>
+              <td>${row.property_count || 0}</td>
+              <td>${formatScoreCell(row.avg_score)}</td>
+              <td>${formatNumber(row.median_price_m2)}</td>
+              <td>${formatScoreCell(row.avg_transport_score)}</td>
+              <td>${formatScoreCell(row.avg_flood_penalty)}</td>
+              <td>${formatScoreCell(row.avg_urban_informality)}</td>
+              <td><a href="${escapeHtml(formatListUrl(row.url) || row.url || "#")}">Ver zona</a></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+
   function initAnomalyModelFilter() {
     const selector = document.getElementById("anomaly-model-filter");
     const rows = Array.from(document.querySelectorAll("[data-anomaly-row]"));
@@ -2402,6 +2691,7 @@
     const surface = scatterWithRegression("surface-price-chart", "Superficie vs precio", data.surface_price, "Superficie");
     const bedrooms = scatter("bedrooms-price-chart", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
     const bedroomsMl = scatter("bedrooms-price-chart-ml", "Habitaciones vs precio", data.bedrooms_price, "Dormitorios");
+    const locationValuePrice = scatter("location-value-price-chart", "Precio/m2 vs score territorial", data.location_intelligence?.value_price || [], "Score territorial", { yTitle: "Precio/m2" });
     const securityRisk = scatter("security-risk-price-chart", "Precio/m2 vs riesgo", data.security?.risk_price || [], "Riesgo relativo", { yTitle: "Precio/m2" });
     const volatility = zoneVolatility("zone-volatility-chart", "Precio medio por zona (y desvío)", data.zone_price_volatility);
     const boxplot = zoneBoxplot("zone-boxplot-chart", "Diagrama de caja por zona", data.zone_price_volatility);
@@ -2410,10 +2700,13 @@
     renderZoneTypeMatrix();
     renderSecurityPanel();
     renderSecurityArbitrage();
+    renderLocationValuePanel();
+    renderLocationOpportunities();
+    renderLocationZoneMatrix();
     renderCrimeKpis();
     renderCrimeZoneInsights();
     renderCrimeAsyncPanels();
-    [locality, neighborhood, agency, price, surface, bedrooms, bedroomsMl, securityRisk, volatility, boxplot, liquidity].forEach((chart) => {
+    [locality, neighborhood, agency, price, surface, bedrooms, bedroomsMl, locationValuePrice, securityRisk, volatility, boxplot, liquidity].forEach((chart) => {
       if (!chart) return;
       const canvas = chart.canvas;
       if (!canvas) return;
@@ -2550,6 +2843,7 @@
       const isSpatial = document.querySelector('.stats-tab[data-tab="spatial"].active');
       if (isSpatial) {
         initPriceHeatmap();
+        initLocationValueMap();
         initSecurityMaps();
       }
     }, 0);

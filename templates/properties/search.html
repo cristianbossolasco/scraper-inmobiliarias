@@ -261,6 +261,44 @@
           </select>
         </div>
         <div>
+          <label for="location_value_level">Inteligencia territorial</label>
+          <select id="location_value_level" name="location_value_level" multiple size="4">
+            <option value="">Todas</option>
+            {% for level in location_value_levels %}
+              <option value="{{ level }}" {% if level in selected_filters.location_value_level %}selected{% endif %}>{{ level|title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="location_score_min">Score territorial min.</label>
+          <input id="location_score_min" name="location_score_min" inputmode="numeric" value="{{ query_params.location_score_min }}">
+        </div>
+        <div>
+          <label for="transport_score_min">Transporte min.</label>
+          <input id="transport_score_min" name="transport_score_min" inputmode="numeric" value="{{ query_params.transport_score_min }}">
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
+          <label for="location_flood_risk">Riesgo hídrico</label>
+          <select id="location_flood_risk" name="location_flood_risk" multiple size="3">
+            <option value="">Todos</option>
+            <option value="yes" {% if "yes" in selected_filters.location_flood_risk %}selected{% endif %}>Con riesgo</option>
+            <option value="no" {% if "no" in selected_filters.location_flood_risk %}selected{% endif %}>Sin riesgo</option>
+          </select>
+        </div>
+        <div>
+          <label for="renabap_near_max">RENABAP máx. m</label>
+          <input id="renabap_near_max" name="renabap_near_max" inputmode="numeric" value="{{ query_params.renabap_near_max }}">
+        </div>
+      </div>
+
+      <div class="filter-section two-cols">
+        <div>
           <label for="sort">Orden</label>
           <select id="sort" name="sort">
             <option value="-last_seen">Más recientes</option>
@@ -381,6 +419,7 @@
             <th class="column-covered"><a class="table-sort-link {% if table_sort.covered_area.sort_direction %}active{% endif %}" href="{{ table_sort.covered_area.sort_url }}" hx-get="{{ table_sort.covered_area.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por superficie cubierta"><span>Cub.</span>{% if table_sort.covered_area.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.covered_area.sort_icon }}"></i><em>{{ table_sort.covered_area.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
             <th class="column-land"><a class="table-sort-link {% if table_sort.land_area.sort_direction %}active{% endif %}" href="{{ table_sort.land_area.sort_url }}" hx-get="{{ table_sort.land_area.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por terreno"><span>Terr.</span>{% if table_sort.land_area.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.land_area.sort_icon }}"></i><em>{{ table_sort.land_area.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
             <th class="column-price-m2"><a class="table-sort-link {% if table_sort.price_m2.sort_direction %}active{% endif %}" href="{{ table_sort.price_m2.sort_url }}" hx-get="{{ table_sort.price_m2.sort_url }}" hx-target="#results-pane" hx-select="#results-pane" hx-swap="outerHTML" hx-push-url="true" title="Ordenar por USD/m2"><span>USD/m2</span>{% if table_sort.price_m2.sort_direction %}<span class="sort-state"><i data-lucide="{{ table_sort.price_m2.sort_icon }}"></i><em>{{ table_sort.price_m2.sort_position }}</em></span>{% else %}<i data-lucide="chevrons-up-down"></i>{% endif %}</a></th>
+            <th><span class="table-head-label">Terr.</span></th>
           </tr>
           <tr class="table-filter-row">
             <th>
@@ -451,6 +490,9 @@
                 <input class="table-filter" form="table-filter-form" name="price_m2_max" inputmode="numeric" value="{{ query_params.price_m2_max }}" placeholder="Max" aria-label="USD por metro máximo">
               </div>
             </th>
+            <th>
+              <input class="table-filter" form="table-filter-form" name="location_score_min" inputmode="numeric" value="{{ query_params.location_score_min }}" placeholder="Min" aria-label="Score territorial minimo">
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -472,10 +514,17 @@
               <td>{% if property.covered_area %}{{ property.covered_area|floatformat:0 }}{% else %}-{% endif %}</td>
               <td>{% if property.land_area %}{{ property.land_area|floatformat:0 }}{% else %}-{% endif %}</td>
               <td>{% if item.price_m2 %}{{ item.price_m2|floatformat:0 }}{% else %}-{% endif %}</td>
+              <td>
+                {% if item.location_value_score != None %}
+                  <span class="quality-pill">Terr. {{ item.location_value_score|floatformat:0 }}</span>
+                {% else %}
+                  -
+                {% endif %}
+              </td>
             </tr>
             {% endwith %}
           {% empty %}
-            <tr><td colspan="11">No hay propiedades para estos filtros</td></tr>
+            <tr><td colspan="12">No hay propiedades para estos filtros</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -508,6 +557,8 @@
                 {% if property.bathrooms != None %}<span><i data-lucide="bath"></i>{{ property.bathrooms|floatformat:-1 }}</span>{% endif %}
                 {% if property.covered_area %}<span><i data-lucide="square-dashed"></i>{{ property.covered_area|floatformat:0 }} m²</span>{% endif %}
                 {% if property.land_area %}<span><i data-lucide="land-plot"></i>{{ property.land_area|floatformat:0 }} m²</span>{% endif %}
+                {% if item.location_value_score != None %}<span class="territory-fact"><i data-lucide="map"></i>Terr. {{ item.location_value_score|floatformat:0 }}</span>{% endif %}
+                {% if item.location_intelligence.in_flood_risk_zone %}<span class="territory-fact risk"><i data-lucide="waves"></i>Hídrico</span>{% endif %}
               </div>
             </div>
           </a>

@@ -27,6 +27,7 @@ from .models import (
     ListingImage,
     OperationJob,
     Property,
+    PropertyLocationIntelligence,
     PropertyLocation,
     ScrapeJob,
     Source,
@@ -64,6 +65,10 @@ from .services.scraping import (
     BLOCKED_SOURCE_SLUGS,
 )
 from .services.security_scoring import security_layers_payload
+from .services.location_intelligence import (
+    location_intelligence_layers_payload,
+    location_intelligence_signature,
+)
 from .services.crime_context import (
     crime_context_signature,
     crime_dashboard_summary,
@@ -310,6 +315,9 @@ def filter_context(params):
         "status",
         "security_level",
         "security_zone",
+        "location_value_level",
+        "location_value_zone",
+        "location_flood_risk",
     )
     return {
         "agencies": Agency.objects.filter(listings__isnull=False).distinct().order_by("name"),
@@ -319,6 +327,8 @@ def filter_context(params):
         "location_confidences": Property.LocationConfidence.choices,
         "security_levels": _security_level_options(),
         "security_zone_options": _security_zone_options(),
+        "location_value_levels": _location_value_level_options(),
+        "location_value_zone_options": _location_value_zone_options(),
         "localities": ["Hurlingham", "Villa Tesei", "William C. Morris"],
         "neighborhood_options": _neighborhood_options(),
         "features": ["Pileta", "Quincho", "Jardin", "Parrilla", "Apto credito"],
@@ -361,6 +371,27 @@ def _security_level_options():
         value
         for value in Property.objects.exclude(security_level="")
         .values_list("security_level", flat=True)
+        .distinct()
+    ]
+    return sorted(set(defaults + values))
+
+
+def _location_value_zone_options():
+    return [
+        value
+        for value in PropertyLocationIntelligence.objects.exclude(zone_name="")
+        .values_list("zone_name", flat=True)
+        .distinct()
+        .order_by("zone_name")
+    ]
+
+
+def _location_value_level_options():
+    defaults = ["alta", "media_alta", "media", "baja"]
+    values = [
+        value
+        for value in PropertyLocationIntelligence.objects.exclude(level="")
+        .values_list("level", flat=True)
         .distinct()
     ]
     return sorted(set(defaults + values))
@@ -508,6 +539,15 @@ TABLE_FILTER_KEYS = {
     "security_risk_max",
     "security_level",
     "security_zone",
+    "location_score_min",
+    "location_score_max",
+    "location_value_level",
+    "location_value_zone",
+    "transport_score_min",
+    "flood_penalty_min",
+    "flood_penalty_max",
+    "location_flood_risk",
+    "renabap_near_max",
 }
 
 
@@ -661,7 +701,7 @@ def table_context(params):
 
 
 def filtered_properties(params, include_listings=True):
-    queryset = Property.objects.select_related("location")
+    queryset = Property.objects.select_related("location", "location_intelligence")
     if include_listings:
         listing_queryset = Listing.objects.select_related("agency", "source")
         if include_listings != "summary":
@@ -689,6 +729,8 @@ def filtered_properties(params, include_listings=True):
         "status": "status",
         "security_level": "security_level",
         "security_zone": "security_zone_label",
+        "location_value_level": "location_intelligence__level",
+        "location_value_zone": "location_intelligence__zone_name",
     }
     for parameter, field in filters.items():
         values = _param_values(params, parameter)
@@ -774,6 +816,12 @@ def filtered_properties(params, include_listings=True):
         ("security_coverage_max", "security_coverage_score__lte", _float),
         ("security_risk_min", "security_risk_score__gte", _float),
         ("security_risk_max", "security_risk_score__lte", _float),
+        ("location_score_min", "location_intelligence__overall_score__gte", _float),
+        ("location_score_max", "location_intelligence__overall_score__lte", _float),
+        ("transport_score_min", "location_intelligence__transport_score__gte", _float),
+        ("flood_penalty_min", "location_intelligence__flood_penalty_score__gte", _float),
+        ("flood_penalty_max", "location_intelligence__flood_penalty_score__lte", _float),
+        ("renabap_near_max", "location_intelligence__nearest_renabap_m__lte", _float),
         ("land_min", "land_area__gte", _decimal),
         ("land_max", "land_area__lte", _decimal),
         ("covered_min", "covered_area__gte", _decimal),
@@ -788,6 +836,12 @@ def filtered_properties(params, include_listings=True):
         value = parser(params.get(parameter))
         if value is not None:
             queryset = queryset.filter(**{lookup: value})
+
+    flood_values = set(_param_values(params, "location_flood_risk"))
+    if flood_values == {"yes"}:
+        queryset = queryset.filter(location_intelligence__in_flood_risk_zone=True)
+    elif flood_values == {"no"}:
+        queryset = queryset.filter(location_intelligence__in_flood_risk_zone=False)
 
     features = _param_values(params, "feature")
     if features:
@@ -938,6 +992,57 @@ def _quality_score(property_obj):
     )
 
 
+def _location_intelligence_record(property_obj):
+    return getattr(property_obj, "location_intelligence", None)
+
+
+def _location_intelligence_payload(property_obj, *, include_evidence=True):
+    record = _location_intelligence_record(property_obj)
+    if not record:
+        payload = {
+            "configured": False,
+            "overall_score": None,
+            "level": "",
+            "zone_name": "",
+            "match_method": "none",
+            "confidence": "",
+            "scored_at": "",
+        }
+        if include_evidence:
+            payload.update({"components": {}, "risks": {}, "evidence": {}})
+        return payload
+    payload = {
+        "configured": record.overall_score is not None,
+        "overall_score": record.overall_score,
+        "level": record.level,
+        "zone_name": record.zone_name,
+        "match_method": record.match_method,
+        "confidence": record.confidence,
+        "transport_score": record.transport_score,
+        "education_score": record.education_score,
+        "health_score": record.health_score,
+        "flood_penalty_score": record.flood_penalty_score,
+        "urban_informality_score": record.urban_informality_score,
+        "environmental_penalty_score": record.environmental_penalty_score,
+        "development_potential_score": record.development_potential_score,
+        "in_flood_risk_zone": record.in_flood_risk_zone,
+        "nearest_renabap_m": record.nearest_renabap_m,
+        "nearest_sube_point_m": record.nearest_sube_point_m,
+        "nearest_school_m": record.nearest_school_m,
+        "nearest_health_center_m": record.nearest_health_center_m,
+        "scored_at": record.scored_at.isoformat() if record.scored_at else "",
+    }
+    if include_evidence:
+        payload.update(
+            {
+                "components": record.components or {},
+                "risks": record.risks or {},
+                "evidence": record.evidence or {},
+            }
+        )
+    return payload
+
+
 def _serialize(property_obj, distance=None, current_query=None):
     location = property_obj.location if hasattr(property_obj, "location") else None
     has_detected_address = bool(property_obj.address or property_obj.detected_address)
@@ -950,6 +1055,7 @@ def _serialize(property_obj, distance=None, current_query=None):
     listing = _primary_listing(property_obj)
     image = _listing_image_url(listing)
     price_m2 = valid_price_per_m2(property_obj)
+    location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
@@ -967,6 +1073,10 @@ def _serialize(property_obj, distance=None, current_query=None):
         "security_level": property_obj.security_level,
         "security_zone_label": property_obj.security_zone_label,
         "security_source": property_obj.security_source,
+        "location_value_score": location_intelligence["overall_score"],
+        "location_value_level": location_intelligence["level"],
+        "location_value_zone": location_intelligence["zone_name"],
+        "location_intelligence": location_intelligence,
         "bedrooms": property_obj.bedrooms,
         "bathrooms": float(property_obj.bathrooms) if property_obj.bathrooms else None,
         "covered_area": float(property_obj.covered_area) if property_obj.covered_area else None,
@@ -1000,6 +1110,7 @@ def _serialize_map_property(property_obj, distance=None, current_query=None):
     if not location:
         return None
     price_m2 = valid_price_per_m2(property_obj)
+    location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
@@ -1033,6 +1144,9 @@ def _serialize_map_property(property_obj, distance=None, current_query=None):
         "security_coverage_score": property_obj.security_coverage_score,
         "security_risk_score": property_obj.security_risk_score,
         "security_level": property_obj.security_level,
+        "location_value_score": location_intelligence["overall_score"],
+        "location_value_level": location_intelligence["level"],
+        "location_value_zone": location_intelligence["zone_name"],
     }
 
 
@@ -1041,7 +1155,7 @@ def _prefetch_property_details(properties):
     if not ids:
         return []
     detailed = (
-        Property.objects.select_related("location")
+        Property.objects.select_related("location", "location_intelligence")
         .prefetch_related(
             Prefetch(
                 "listings",
@@ -1228,7 +1342,7 @@ def _source_link_payload(link):
 @require_GET
 def property_summary_api(request, pk):
     property_obj = get_object_or_404(
-        Property.objects.select_related("location").prefetch_related(
+        Property.objects.select_related("location", "location_intelligence").prefetch_related(
             Prefetch(
                 "listings",
                 queryset=Listing.objects.select_related("agency", "source").prefetch_related(
@@ -1243,6 +1357,7 @@ def property_summary_api(request, pk):
     source_links = [_source_link_payload(link) for link in _source_links(property_obj)]
     location = getattr(property_obj, "location", None)
     price_m2 = valid_price_per_m2(property_obj)
+    location_intelligence = _location_intelligence_payload(property_obj)
     return JsonResponse(
         {
             "id": property_obj.pk,
@@ -1281,6 +1396,7 @@ def property_summary_api(request, pk):
                 if property_obj.security_scored_at
                 else "",
             },
+            "location_intelligence": location_intelligence,
             "edit_sections": _property_edit_sections(property_obj),
             "edit_payload": _serialize_property_edit(property_obj),
             "location": {
@@ -1404,7 +1520,7 @@ def search(request):
 @ensure_csrf_cookie
 def detail(request, pk):
     property_obj = get_object_or_404(
-        Property.objects.select_related("location").prefetch_related(
+        Property.objects.select_related("location", "location_intelligence").prefetch_related(
             "listings__images",
             "listings__agency",
             "listings__source",
@@ -1440,6 +1556,7 @@ def detail(request, pk):
             "price_history": _price_history_segments(property_obj),
             "map_config": map_config_payload(),
             "property_location": location_payload,
+            "location_intelligence": _location_intelligence_payload(property_obj),
             "return_to": return_to,
             "return_label": return_label,
             "previous_url": previous_url,
@@ -1644,6 +1761,20 @@ def crime_layers_api(request):
     return JsonResponse(crime_layers_payload())
 
 
+@require_GET
+def location_intelligence_layers_api(request):
+    include = []
+    for value in request.GET.getlist("include"):
+        include.extend(part.strip() for part in value.split(",") if part.strip())
+    max_features = _int(request.GET.get("max_features")) or 1200
+    return JsonResponse(
+        location_intelligence_layers_payload(
+            include=include,
+            max_features=max(50, min(max_features, 5000)),
+        )
+    )
+
+
 EXPORT_COLUMNS = (
     "id",
     "titulo",
@@ -1662,6 +1793,16 @@ EXPORT_COLUMNS = (
     "direccion_detectada",
     "fuente_localizacion",
     "confianza_localizacion",
+    "score_territorial",
+    "nivel_territorial",
+    "zona_territorial",
+    "match_territorial",
+    "score_transporte",
+    "score_educacion",
+    "score_salud",
+    "penalidad_inundacion",
+    "riesgo_hidrico",
+    "distancia_renabap_m",
     "dormitorios",
     "banos",
     "cubierta_m2",
@@ -1679,6 +1820,7 @@ EXPORT_COLUMNS = (
 def _export_rows(properties):
     for property_obj in properties:
         listing = _primary_listing(property_obj)
+        location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
         yield {
             "id": property_obj.pk,
             "titulo": property_obj.title,
@@ -1697,6 +1839,22 @@ def _export_rows(properties):
             "direccion_detectada": property_obj.detected_address,
             "fuente_localizacion": property_obj.get_location_source_display(),
             "confianza_localizacion": property_obj.get_location_confidence_display(),
+            "score_territorial": location_intelligence["overall_score"],
+            "nivel_territorial": location_intelligence["level"],
+            "zona_territorial": location_intelligence["zone_name"],
+            "match_territorial": location_intelligence["match_method"],
+            "score_transporte": location_intelligence.get("transport_score"),
+            "score_educacion": location_intelligence.get("education_score"),
+            "score_salud": location_intelligence.get("health_score"),
+            "penalidad_inundacion": location_intelligence.get("flood_penalty_score"),
+            "riesgo_hidrico": (
+                "Si"
+                if location_intelligence.get("in_flood_risk_zone") is True
+                else "No"
+                if location_intelligence.get("in_flood_risk_zone") is False
+                else ""
+            ),
+            "distancia_renabap_m": location_intelligence.get("nearest_renabap_m"),
             "dormitorios": valid_value(property_obj, "bedrooms"),
             "banos": valid_value(property_obj, "bathrooms"),
             "cubierta_m2": valid_value(property_obj, "covered_area"),
@@ -1821,6 +1979,7 @@ def _heatmap_points(properties, request_query, max_points=1200):
         listing = _primary_listing(property_obj)
         area = property_obj.covered_area or property_obj.total_area or property_obj.land_area
         price_m2 = float(price / area) if area else None
+        location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
         points.append(
             {
                 "id": property_obj.pk,
@@ -1836,6 +1995,10 @@ def _heatmap_points(properties, request_query, max_points=1200):
                 ),
                 "longitude": location.longitude,
                 "latitude": location.latitude,
+                "location_value_score": location_intelligence["overall_score"],
+                "location_value_level": location_intelligence["level"],
+                "location_value_zone": location_intelligence["zone_name"],
+                "location_flood_penalty_score": location_intelligence.get("flood_penalty_score"),
                 "url": build_detail_url(property_obj.pk, request_query, reverse("properties:search")),
                 "image": _listing_image_url(listing),
                 "is_hidden": property_obj.is_hidden,
@@ -1892,6 +2055,7 @@ def _chart_property_payload(property_obj, request_query, stats_path):
     listing = _primary_listing(property_obj)
     image = _listing_image_url(listing)
     price_m2 = valid_price_per_m2(property_obj)
+    location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
@@ -1913,6 +2077,18 @@ def _chart_property_payload(property_obj, request_query, stats_path):
         "security_level": property_obj.security_level,
         "security_zone_label": property_obj.security_zone_label,
         "security_source": property_obj.security_source,
+        "location_value_score": location_intelligence["overall_score"],
+        "location_value_level": location_intelligence["level"],
+        "location_value_zone": location_intelligence["zone_name"],
+        "location_value_match": location_intelligence["match_method"],
+        "location_transport_score": location_intelligence.get("transport_score"),
+        "location_education_score": location_intelligence.get("education_score"),
+        "location_health_score": location_intelligence.get("health_score"),
+        "location_flood_penalty_score": location_intelligence.get("flood_penalty_score"),
+        "location_in_flood_risk_zone": location_intelligence.get("in_flood_risk_zone"),
+        "location_urban_informality_score": location_intelligence.get("urban_informality_score"),
+        "location_nearest_renabap_m": location_intelligence.get("nearest_renabap_m"),
+        "location_intelligence": location_intelligence,
         "is_hidden": property_obj.is_hidden,
         "agency": listing.agency.name if listing and listing.agency else "",
         "source": listing.source.name if listing and listing.source else "",
@@ -1920,6 +2096,35 @@ def _chart_property_payload(property_obj, request_query, stats_path):
         "url": build_detail_url(property_obj.pk, request_query, stats_path),
         "is_favorite": property_obj.is_favorite,
         "is_reviewed": property_obj.reviewed_at is not None,
+    }
+
+
+def _compact_location_property_payload(property_obj, record, request_query, stats_path, price_m2=None):
+    listing = _primary_listing(property_obj)
+    if price_m2 is None:
+        price_m2 = valid_price_per_m2(property_obj)
+    return {
+        "id": property_obj.pk,
+        "title": property_obj.title,
+        "price": float(property_obj.price) if property_obj.price is not None else None,
+        "currency": property_obj.currency,
+        "address": property_obj.address or property_obj.detected_address or property_obj.locality or "",
+        "zone": _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        ),
+        "price_m2": float(price_m2) if price_m2 is not None else None,
+        "location_value_score": record.overall_score,
+        "location_value_level": record.level,
+        "location_value_zone": record.zone_name,
+        "location_transport_score": record.transport_score,
+        "location_flood_penalty_score": record.flood_penalty_score,
+        "is_hidden": property_obj.is_hidden,
+        "is_favorite": property_obj.is_favorite,
+        "is_reviewed": property_obj.reviewed_at is not None,
+        "agency": listing.agency.name if listing and listing.agency else "",
+        "source": listing.source.name if listing and listing.source else "",
     }
 
 
@@ -2237,12 +2442,209 @@ def _security_arbitrage(properties, request_query, stats_path):
     return rows[:40]
 
 
+def _location_value_summary(properties, request_query, stats_path):
+    candidates = []
+    for property_obj in properties:
+        record = _location_intelligence_record(property_obj)
+        if not record or record.overall_score is None:
+            continue
+        price_m2 = valid_price_per_m2(property_obj)
+        candidates.append(
+            {
+                "property": property_obj,
+                "record": record,
+                "price_m2": price_m2,
+            }
+        )
+    ranked = sorted(
+        candidates,
+        key=lambda item: (
+            item["record"].overall_score or 0,
+            -(float(item["price_m2"]) if item["price_m2"] is not None else 0),
+        ),
+        reverse=True,
+    )
+    rows = [
+        {
+            **_compact_location_property_payload(
+                item["property"],
+                item["record"],
+                request_query,
+                stats_path,
+                item["price_m2"],
+            ),
+            "territorial_score": item["record"].overall_score,
+            "territorial_level": item["record"].level,
+            "territorial_zone": item["record"].zone_name,
+        }
+        for item in ranked[:40]
+    ]
+    value_price = [
+        {
+            **_compact_location_property_payload(
+                item["property"],
+                item["record"],
+                request_query,
+                stats_path,
+                item["price_m2"],
+            ),
+            "x": item["record"].overall_score,
+            "y": float(item["price_m2"]),
+        }
+        for item in ranked
+        if item["record"].overall_score is not None and item["price_m2"] is not None
+    ][:180]
+    return {
+        "configured": bool(candidates),
+        "scored_count": len(candidates),
+        "rows": rows,
+        "value_price": value_price,
+        "zones": _location_zone_matrix(properties, request_query, stats_path),
+        "opportunities": _location_value_opportunities(properties, request_query, stats_path),
+    }
+
+
+def _location_zone_matrix(properties, request_query, stats_path):
+    grouped = {}
+    for property_obj in properties:
+        record = _location_intelligence_record(property_obj)
+        if not record:
+            continue
+        zone = record.zone_name or _safe_label(
+            property_obj.detected_neighborhood
+            or property_obj.neighborhood
+            or property_obj.inferred_neighborhood
+        )
+        row = grouped.setdefault(
+            zone,
+            {
+                "zone": zone,
+                "property_count": 0,
+                "scores": [],
+                "price_m2": [],
+                "transport": [],
+                "flood": [],
+                "urban": [],
+            },
+        )
+        row["property_count"] += 1
+        if record.overall_score is not None:
+            row["scores"].append(float(record.overall_score))
+        price_m2 = valid_price_per_m2(property_obj)
+        if price_m2 is not None:
+            row["price_m2"].append(float(price_m2))
+        if record.transport_score is not None:
+            row["transport"].append(float(record.transport_score))
+        if record.flood_penalty_score is not None:
+            row["flood"].append(float(record.flood_penalty_score))
+        if record.urban_informality_score is not None:
+            row["urban"].append(float(record.urban_informality_score))
+    rows = []
+    for zone, values in grouped.items():
+        score_summary = _summary(values["scores"])
+        price_m2_summary = _summary(values["price_m2"])
+        rows.append(
+            {
+                "zone": zone,
+                "property_count": values["property_count"],
+                "avg_score": score_summary["avg"],
+                "median_score": score_summary["median"],
+                "median_price_m2": price_m2_summary["median"],
+                "avg_transport_score": _summary(values["transport"])["avg"],
+                "avg_flood_penalty": _summary(values["flood"])["avg"],
+                "avg_urban_informality": _summary(values["urban"])["avg"],
+                "url": query_url(
+                    request_query,
+                    {"location_value_zone": "" if zone == "Sin dato" else zone},
+                    path=stats_path,
+                ),
+            }
+        )
+    rows.sort(
+        key=lambda item: (
+            item["avg_score"] is None,
+            -(item["avg_score"] or 0),
+            -item["property_count"],
+            item["zone"],
+        )
+    )
+    return rows[:80]
+
+
+def _location_value_opportunities(properties, request_query, stats_path):
+    price_values = [
+        float(valid_price_per_m2(item))
+        for item in properties
+        if valid_price_per_m2(item) is not None
+        and _location_intelligence_record(item)
+        and _location_intelligence_record(item).overall_score is not None
+    ]
+    if not price_values:
+        return []
+    median_m2 = statistics.median(price_values)
+    rows = []
+    for property_obj in properties:
+        record = _location_intelligence_record(property_obj)
+        price_m2 = valid_price_per_m2(property_obj)
+        if not record or record.overall_score is None or price_m2 is None:
+            continue
+        price_m2_float = float(price_m2)
+        score = record.overall_score
+        flood = record.flood_penalty_score or 0
+        transport = record.transport_score or 0
+        land = valid_value(property_obj, "land_area") or valid_value(property_obj, "total_area")
+        if score >= 65 and price_m2_float <= median_m2:
+            kind = "Arbitraje territorial"
+            priority = 5
+        elif price_m2_float > median_m2 * 1.15 and (score < 50 or flood >= 55 or transport < 45):
+            kind = "Sobreprecio con riesgo"
+            priority = 4
+        elif land and float(land) >= 300 and score >= 60 and flood < 45:
+            kind = "Potencial de desarrollo"
+            priority = 3
+        elif score >= 60 and property_obj.location_confidence not in {
+            Property.LocationConfidence.HIGH,
+            Property.LocationConfidence.MEDIUM,
+        }:
+            kind = "Revisión necesaria"
+            priority = 2
+        else:
+            continue
+        rows.append(
+            {
+                **_compact_location_property_payload(
+                    property_obj,
+                    record,
+                    request_query,
+                    stats_path,
+                    price_m2,
+                ),
+                "kind": kind,
+                "priority": priority,
+                "median_price_m2": round(median_m2),
+                "territorial_score": score,
+                "flood_penalty_score": record.flood_penalty_score,
+                "transport_score": record.transport_score,
+            }
+        )
+    rows.sort(
+        key=lambda item: (
+            item["priority"],
+            item.get("territorial_score") or 0,
+            -(item.get("price_m2") or 0),
+        ),
+        reverse=True,
+    )
+    return rows[:30]
+
+
 def _stats_cache_key(request):
     state = Property.objects.aggregate(
         total=Count("pk"),
         latest_seen=Max("last_seen_at"),
         latest_reviewed=Max("reviewed_at"),
         latest_security=Max("security_scored_at"),
+        latest_location_intelligence=Max("location_intelligence__scored_at"),
     )
     favorite_count = Property.objects.filter(is_favorite=True).count()
     hidden_count = Property.objects.filter(is_hidden=True).count()
@@ -2253,9 +2655,11 @@ def _stats_cache_key(request):
             str(state.get("latest_seen") or ""),
             str(state.get("latest_reviewed") or ""),
             str(state.get("latest_security") or ""),
+            str(state.get("latest_location_intelligence") or ""),
             str(favorite_count),
             str(hidden_count),
             crime_context_signature(),
+            location_intelligence_signature(),
         ]
     )
     return "stats:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -2581,6 +2985,7 @@ def market_stats(request):
         "zone_price_volatility": _zone_price_statistics(properties, request.GET, stats_path),
         "zone_type_matrix": _zone_type_matrix(properties, request.GET, stats_path),
         "liquidity": _liquidity_buckets(properties),
+        "location_intelligence": _location_value_summary(properties, request.GET, stats_path),
         "security": _security_price_summary(properties, request.GET, stats_path),
         "crime": {
             **crime_dashboard_summary(),

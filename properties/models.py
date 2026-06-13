@@ -235,6 +235,59 @@ class PropertyLocation(models.Model):
         return self.precision in {self.Precision.EXACT, self.Precision.MANUAL}
 
 
+class PropertyLocationIntelligence(models.Model):
+    class MatchMethod(models.TextChoices):
+        COORDINATES = "coordinates", "Coordenadas"
+        ZONE = "zone", "Zona inferida"
+        NONE = "none", "Sin match"
+
+    property = models.OneToOneField(
+        Property, related_name="location_intelligence", on_delete=models.CASCADE
+    )
+    overall_score = models.FloatField(null=True, blank=True, db_index=True)
+    level = models.CharField(max_length=20, blank=True, db_index=True)
+    zone_name = models.CharField(max_length=120, blank=True, db_index=True)
+    match_method = models.CharField(
+        max_length=20, choices=MatchMethod.choices, default=MatchMethod.NONE, db_index=True
+    )
+    confidence = models.CharField(max_length=40, blank=True, db_index=True)
+    transport_score = models.FloatField(null=True, blank=True, db_index=True)
+    education_score = models.FloatField(null=True, blank=True, db_index=True)
+    health_score = models.FloatField(null=True, blank=True, db_index=True)
+    flood_penalty_score = models.FloatField(null=True, blank=True, db_index=True)
+    urban_informality_score = models.FloatField(null=True, blank=True, db_index=True)
+    environmental_penalty_score = models.FloatField(null=True, blank=True)
+    development_potential_score = models.FloatField(null=True, blank=True)
+    in_flood_risk_zone = models.BooleanField(null=True, blank=True, db_index=True)
+    nearest_renabap_m = models.FloatField(null=True, blank=True)
+    nearest_sube_point_m = models.FloatField(null=True, blank=True)
+    nearest_school_m = models.FloatField(null=True, blank=True)
+    nearest_health_center_m = models.FloatField(null=True, blank=True)
+    components = models.JSONField(default=dict, blank=True)
+    risks = models.JSONField(default=dict, blank=True)
+    evidence = models.JSONField(default=dict, blank=True)
+    source_signature = models.CharField(max_length=300, blank=True)
+    scored_at = models.DateTimeField(null=True, blank=True, db_index=True)
+
+    class Meta:
+        ordering = ["-overall_score", "zone_name"]
+        indexes = [
+            models.Index(
+                fields=["overall_score", "level"],
+                name="properties__locati_b9d0c4_idx",
+            ),
+            models.Index(
+                fields=["zone_name", "overall_score"],
+                name="properties__locati_79cf14_idx",
+            ),
+        ]
+
+    def __str__(self):
+        label = self.zone_name or "Sin zona"
+        score = "-" if self.overall_score is None else round(self.overall_score, 1)
+        return f"{label}: {score}"
+
+
 class LocationHistory(models.Model):
     property = models.ForeignKey(
         Property, related_name="location_history", on_delete=models.CASCADE
@@ -459,6 +512,10 @@ class OperationJob(models.Model):
         GEOCODE = "geocode", "Geocoding"
         INFER_ZONES = "infer_zones", "Inferencia de zonas"
         SCORE_SECURITY = "score_security", "Scoring seguridad"
+        SCORE_LOCATION_INTELLIGENCE = (
+            "score_location_intelligence",
+            "Scoring inteligencia territorial",
+        )
         REPAIR_ADDRESSES = "repair_addresses", "Reparar direcciones"
         REPAIR_NEIGHBORHOODS = "repair_neighborhoods", "Reparar barrios"
         REPAIR_LOCALITIES = "repair_localities", "Reparar localidades"

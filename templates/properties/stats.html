@@ -262,6 +262,49 @@
       </div>
 
       <div class="stats-filter-field">
+        <label for="stats-location-score-min">Territorial min.</label>
+        <input id="stats-location-score-min" name="location_score_min" inputmode="numeric" value="{{ query_params.location_score_min }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-location-score-max">Territorial max.</label>
+        <input id="stats-location-score-max" name="location_score_max" inputmode="numeric" value="{{ query_params.location_score_max }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-location-level">Nivel territorial <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-location-level" name="location_value_level" multiple size="4">
+          <option value="">Todos</option>
+          {% for level in location_value_levels %}
+            <option value="{{ level }}" {% if level in selected_filters.location_value_level %}selected{% endif %}>{{ level|title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="stats-filter-field wide">
+        <label for="stats-location-zone">Zona territorial <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-location-zone" name="location_value_zone" multiple size="4">
+          <option value="">Todas</option>
+          {% for zone in location_value_zone_options %}
+            <option value="{{ zone }}" {% if zone in selected_filters.location_value_zone %}selected{% endif %}>{{ zone }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-transport-score-min">Transporte min.</label>
+        <input id="stats-transport-score-min" name="transport_score_min" inputmode="numeric" value="{{ query_params.transport_score_min }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-location-flood-risk">Riesgo hídrico <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-location-flood-risk" name="location_flood_risk" multiple size="3">
+          <option value="">Todos</option>
+          <option value="yes" {% if "yes" in selected_filters.location_flood_risk %}selected{% endif %}>Con riesgo</option>
+          <option value="no" {% if "no" in selected_filters.location_flood_risk %}selected{% endif %}>Sin riesgo</option>
+        </select>
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-renabap-near-max">RENABAP máx. m</label>
+        <input id="stats-renabap-near-max" name="renabap_near_max" inputmode="numeric" value="{{ query_params.renabap_near_max }}">
+      </div>
+
+      <div class="stats-filter-field">
         <label for="stats-hidden">Ocultas <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-hidden" name="show_hidden" multiple size="2">
           <option value="">Ocultar descartadas</option>
@@ -495,6 +538,7 @@
           <select id="price-map-metric">
             <option value="price">Precio total</option>
             <option value="price_m2">USD/m2</option>
+            <option value="location_value">Score territorial</option>
             <option value="discount">Descuento vs tendencia</option>
             <option value="density">Densidad de publicaciones</option>
           </select>
@@ -503,6 +547,16 @@
       <div id="price-map-legend" class="price-map-legend"></div>
       <div id="price-heatmap-map" class="stats-heatmap-map"></div>
       <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicación para este filtro.</p>
+    </div>
+    <div class="chart-panel chart-panel--expanded">
+      <div class="section-heading price-map-heading">
+        <div>
+          <h2>Valor territorial</h2>
+          <p>Zonas por score integrado; RENABAP y crimen quedan como contexto separado.</p>
+        </div>
+      </div>
+      <div id="location-value-map-legend" class="price-map-legend"></div>
+      <div id="location-value-map" class="stats-heatmap-map stats-security-map"></div>
     </div>
     <div class="stats-grid security-map-grid">
       <div class="chart-panel">
@@ -549,6 +603,15 @@
         <canvas id="liquidity-chart"></canvas>
       </div>
       <div class="chart-panel">
+        <h2>Score territorial + precio</h2>
+        <div id="location-value-panel" class="security-price-panel"></div>
+      </div>
+      <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <h2>Precio/m2 vs score territorial</h2>
+        <canvas id="location-value-price-chart"></canvas>
+      </div>
+      <div class="chart-panel">
         <h2>Seguridad + precio</h2>
         <div id="security-price-panel" class="security-price-panel"></div>
       </div>
@@ -562,6 +625,16 @@
       <h2>Zonas de arbitraje seguridad/precio</h2>
       <p class="audit-note">Cruza precio/m2 con cobertura y riesgo relativo para detectar oportunidades seguras, negociables o sobreprecios riesgosos.</p>
       <div id="security-arbitrage-panel" class="matrix-table"></div>
+    </div>
+    <div class="stats-panel nested-panel">
+      <h2>Oportunidades territoriales</h2>
+      <p class="audit-note">Cruza score territorial, precio/m2, transporte, riesgo hídrico y ubicación confiable.</p>
+      <div id="location-opportunity-panel" class="matrix-table"></div>
+    </div>
+    <div class="stats-panel nested-panel">
+      <h2>Matriz territorial por zona</h2>
+      <p class="audit-note">RENABAP se usa como contexto urbano/infraestructura; crimen municipal no entra al score.</p>
+      <div id="location-zone-matrix-panel" class="matrix-table"></div>
     </div>
     <div class="stats-panel nested-panel">
       <h2>Lecturas crimen/seguridad/precio por zona</h2>
