@@ -15,6 +15,8 @@ from properties.models import (
     GeocodeCache,
     Listing,
     ListingSnapshot,
+    OperationJob,
+    OperationJobStep,
     Property,
     PropertyLocation,
     ScrapeJob,
@@ -22,6 +24,7 @@ from properties.models import (
     ScrapeRun,
     Source,
 )
+from properties.services.operations import create_operation_job, run_operation_job
 from properties.services.ingestion import ingest_listing, mark_listing_removed, mark_missing
 from properties.services.location_enrichment import clean_detected_address, enrich_location_data
 from properties.services.agency_normalization import normalize_agency_name
@@ -1576,6 +1579,38 @@ class MergePropertiesCommandTests(TestCase):
         self.assertEqual(noted.listings.count(), 0)
 
 
+class OperationRunnerTests(TestCase):
+    def test_geocode_dry_run_does_not_create_location(self):
+        property_obj = Property.objects.create(
+            fingerprint="operation-geocode-dry-run",
+            title="Casa con direccion",
+            address="Villegas 1200",
+            normalized_address=normalize_address("Villegas 1200"),
+            locality="Hurlingham",
+            price=Decimal("100000"),
+            currency="USD",
+        )
+        job = create_operation_job(
+            kind=OperationJob.Kind.GEOCODE,
+            mode=OperationJob.Mode.DRY_RUN,
+            steps=[
+                {
+                    "kind": OperationJob.Kind.GEOCODE,
+                    "mode": OperationJob.Mode.DRY_RUN,
+                    "params": {"limit": 10, "cache_only": False},
+                }
+            ],
+        )
+
+        run_operation_job(job.pk)
+
+        job.refresh_from_db()
+        step = job.steps.get()
+        self.assertEqual(job.status, OperationJob.Status.SUCCESS)
+        self.assertEqual(step.processed, 1)
+        self.assertFalse(PropertyLocation.objects.filter(property=property_obj).exists())
+
+
 class ViewTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -2227,6 +2262,7 @@ class ViewTests(TestCase):
         self.assertEqual(job.request_timeout_seconds, 12)
         self.assertEqual(job.max_errors_per_source, 2)
         self.assertEqual(job.geocode_limit, 7)
+        self.assertFalse(job.mark_missing)
         source_progress = ScrapeJobSource.objects.get(job=job, slug="mapaprop")
         self.assertEqual(source_progress.workers, 2)
 
@@ -2237,6 +2273,81 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         job.refresh_from_db()
         self.assertTrue(job.cancel_requested)
+
+    def test_operation_api_creates_job_and_catalog(self):
+        catalog = self.client.get("/api/operations/catalog/")
+        self.assertEqual(catalog.status_code, 200)
+        self.assertIn("steps", catalog.json())
+
+        with patch("properties.views.start_operation_job") as starter:
+            response = self.client.post(
+                "/api/operations/jobs/",
+                data=json.dumps(
+                    {
+                        "kind": "geocode",
+                        "mode": "apply",
+                        "title": "Geocode test",
+                        "steps": [
+                            {
+                                "kind": "geocode",
+                                "mode": "apply",
+                                "params": {"limit": 5, "cache_only": True},
+                            }
+                        ],
+                    }
+                ),
+                content_type="application/json",
+            )
+        self.assertEqual(response.status_code, 201)
+        starter.assert_called_once()
+        job = OperationJob.objects.get()
+        self.assertEqual(job.kind, OperationJob.Kind.GEOCODE)
+        self.assertEqual(job.mode, OperationJob.Mode.APPLY)
+        self.assertEqual(job.total_steps, 1)
+        self.assertEqual(job.steps.get().params["limit"], 5)
+
+    def test_operation_api_requires_dry_run_before_risky_apply(self):
+        with patch("properties.views.start_operation_job") as starter:
+            response = self.client.post(
+                "/api/operations/jobs/",
+                data=json.dumps(
+                    {
+                        "kind": "repair_addresses",
+                        "mode": "apply",
+                        "steps": [{"kind": "repair_addresses", "mode": "apply"}],
+                    }
+                ),
+                content_type="application/json",
+            )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("simulacion", response.json()["error"])
+        starter.assert_not_called()
+
+    def test_operation_apply_from_dry_run_creates_apply_job(self):
+        dry_run = OperationJob.objects.create(
+            kind=OperationJob.Kind.REPAIR_AGENCIES,
+            mode=OperationJob.Mode.DRY_RUN,
+            status=OperationJob.Status.SUCCESS,
+            total_steps=1,
+            completed_steps=1,
+        )
+        OperationJobStep.objects.create(
+            job=dry_run,
+            order=1,
+            kind=OperationJob.Kind.REPAIR_AGENCIES,
+            mode=OperationJob.Mode.DRY_RUN,
+            status=OperationJob.Status.SUCCESS,
+        )
+        with patch("properties.views.start_operation_job") as starter:
+            response = self.client.post(
+                f"/api/operations/jobs/{dry_run.pk}/apply-from-dry-run/"
+            )
+        self.assertEqual(response.status_code, 201)
+        starter.assert_called_once()
+        apply_job = OperationJob.objects.exclude(pk=dry_run.pk).get()
+        self.assertEqual(apply_job.mode, OperationJob.Mode.APPLY)
+        self.assertEqual(apply_job.source_job, dry_run)
+        self.assertEqual(apply_job.steps.get().mode, OperationJob.Mode.APPLY)
 
     def test_scraping_api_blocks_new_job_when_one_is_active(self):
         source = Source.objects.create(

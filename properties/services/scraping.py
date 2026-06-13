@@ -303,6 +303,7 @@ def serialize_job(job):
         "start_page": job.start_page,
         "max_listings": job.max_listings,
         "geocode_limit": job.geocode_limit,
+        "mark_missing": job.mark_missing,
         "request_timeout_seconds": job.request_timeout_seconds,
         "max_errors_per_source": job.max_errors_per_source,
         "retry_urls": job.retry_urls,
@@ -361,6 +362,7 @@ def create_scrape_job(
     start_page=None,
     max_listings=None,
     geocode_limit=25,
+    mark_missing=True,
     scrape_mode=ScrapeJob.Mode.COMPLETE,
     request_timeout_seconds=None,
     max_errors_per_source=None,
@@ -402,6 +404,7 @@ def create_scrape_job(
             start_page=start_page,
             max_listings=max_listings,
             geocode_limit=geocode_limit,
+            mark_missing=mark_missing,
             request_timeout_seconds=request_timeout_seconds,
             max_errors_per_source=max_errors_per_source,
             retry_urls=retry_urls or {},
@@ -430,6 +433,7 @@ def retry_scrape_job(original_job, enforce_single_active=False):
         start_page=original_job.start_page,
         max_listings=original_job.max_listings,
         geocode_limit=original_job.geocode_limit,
+        mark_missing=original_job.mark_missing,
         scrape_mode=original_job.scrape_mode,
         request_timeout_seconds=original_job.request_timeout_seconds,
         max_errors_per_source=original_job.max_errors_per_source,
@@ -463,6 +467,7 @@ def retry_scrape_job_errors(original_job, enforce_single_active=False):
         start_page=None,
         max_listings=None,
         geocode_limit=original_job.geocode_limit,
+        mark_missing=original_job.mark_missing,
         scrape_mode=ScrapeJob.Mode.TRIAL,
         request_timeout_seconds=original_job.request_timeout_seconds,
         max_errors_per_source=original_job.max_errors_per_source,
@@ -867,13 +872,14 @@ def run_scrape_job_source(job_id, slug):
         if (
             job.scrape_mode == ScrapeJob.Mode.COMPLETE
             and job.max_listings is None
+            and job.mark_missing
             and not job.cancel_requested
             and not stopped_by_block
             and not retry_source_urls
         ):
             db_write(lambda: _mark_missing_atomic(source, seen))
         else:
-            append_source_log(job_source, "Modo prueba o muestra limitada: no se marcan ausentes.")
+            append_source_log(job_source, "Modo liviano, prueba o muestra limitada: no se marcan ausentes.")
     except Exception as exc:
         job_source.status = ScrapeJobSource.Status.FAILED
         job_source.errors += 1

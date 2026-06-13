@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radar Hurlingham - 50 referencias Dashboard</title>
+  <style>
+    :root{
+      --line:#d5d6de;
+      --muted:#6f7380;
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:#101112;
+      background:linear-gradient(140deg,#f7f7fb,#e3e8f5 48%,#f3ece0);
+      line-height:1.2;
+      font-size:14px;
+    }
+    .root{max-width:1900px;margin:0 auto;min-width:0;overflow-x:hidden;padding-bottom:30px}
+    .top{
+      position:sticky;top:0;z-index:4;
+      padding:14px 16px;
+      display:grid;gap:8px;grid-template-columns:minmax(0,1fr) auto;
+      border-bottom:1px solid var(--line);
+      background:rgba(250,250,250,.92);
+      backdrop-filter:blur(10px);
+    }
+    .top h1{margin:0;font-size:20px}
+    .top p{margin:0;color:var(--muted);font-size:12px;max-width:840px}
+    .jump{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .jump a{
+      width:33px;height:33px;border:1px solid var(--line);border-radius:999px;
+      display:grid;place-items:center;text-decoration:none;color:#222;font-size:11px;font-weight:700;
+      background:#fff;
+    }
+    .intro{
+      padding:12px 16px 0;
+      display:grid;gap:7px;
+    }
+    .intro strong{
+      font-family:Georgia,serif;
+      display:block;
+      font-size:34px;
+      line-height:1.02;
+    }
+    .intro span{color:var(--muted)}
+    .legend{
+      display:flex;gap:8px;flex-wrap:wrap;
+      padding:8px 16px;
+    }
+    .legend a,.legend em{
+      padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+      font-size:11px;color:#1f2937;background:#fff;text-decoration:none;font-weight:700;
+    }
+    .legend em{color:#6b7280}
+    .list{display:grid;gap:26px;padding:16px 12px}
+
+    .reference{
+      border:1px solid color-mix(in srgb,var(--line),#000 15%);
+      border-radius:18px;
+      background:var(--bg);
+      color:var(--ink);
+      box-shadow:var(--shadow);
+      font-family:var(--font);
+      overflow:hidden;
+      position:relative;
+      min-width:0;
+    }
+    .reference::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background:var(--grain);
+      z-index:0;
+    }
+    .reference-head{
+      padding:12px 14px;
+      border-bottom:1px solid color-mix(in srgb,var(--line),transparent 30%);
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      align-items:flex-start;
+      background:color-mix(in srgb,var(--panel),transparent 5%);
+      position:relative;
+    }
+    .reference-head h2{margin:0;font-size:clamp(22px,2.5vw,44px);line-height:1;font-family:var(--display);max-width:86%;overflow-wrap:anywhere}
+    .reference-head .meta{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .reference-head p{margin:8px 0 0;color:var(--muted);max-width:96%;overflow-wrap:anywhere}
+    .dash-wrap{
+      padding:10px;
+      min-width:0;
+    }
+    .dashboard{
+      border:1px solid color-mix(in srgb,var(--line),transparent 10%);
+      border-radius:14px;
+      background:color-mix(in srgb,var(--panel),transparent 4%);
+      padding:8px;
+      display:grid;
+      gap:8px;
+      min-height:700px;
+      min-width:0;
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
+    }
+    .dash-top{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:center;
+      padding:7px 8px;
+      border:1px solid color-mix(in srgb,var(--line),transparent 20%);
+      border-radius:12px;
+      background:color-mix(in srgb,var(--panel),#fff 8%);
+      min-width:0;
+    }
+    .brand{display:flex;gap:8px;align-items:center;min-width:0}
+    .brand-icon{
+      width:30px;height:30px;border-radius:9px;
+      display:grid;place-items:center;font-family:var(--display);
+      color:color-mix(in srgb,var(--panel),#000 65%);
+      background:var(--accent);font-weight:900
+    }
+    .brand-text strong{display:block;font-size:16px;line-height:1;font-family:var(--display);overflow-wrap:anywhere}
+    .brand-text span{display:block;color:var(--muted);font-size:11px}
+    .chips{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+    .chip{
+      font-size:10px;font-weight:700;
+      height:26px;padding:0 9px;
+      border-radius:999px;border:1px solid color-mix(in srgb,var(--line),transparent 12%);
+      display:inline-flex;align-items:center;white-space:nowrap;background:color-mix(in srgb,var(--panel),transparent 6%);
+    }
+
+    .dash-grid{
+      display:grid;
+      gap:8px;
+      min-height:0;
+      min-width:0;
+    }
+    .panel{
+      border:1px solid color-mix(in srgb,var(--line),transparent 14%);
+      border-radius:12px;
+      padding:8px;
+      background:color-mix(in srgb,var(--panel),transparent 6%);
+      display:grid;gap:7px;
+      min-width:0;
+      min-height:0;
+      overflow:hidden;
+    }
+    .panel h3{
+      margin:0;
+      font-family:var(--display);
+      font-size:17px;
+      line-height:1.05;
+      overflow-wrap:anywhere;
+    }
+    .panel small{color:var(--muted);font-size:11px}
+    .kpis{
+      display:grid;
+      gap:7px;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      min-width:0;
+    }
+    .kpi{
+      padding:9px;
+      border:1px solid color-mix(in srgb,var(--line),transparent 10%);
+      border-radius:10px;
+      background:color-mix(in srgb,var(--panel),var(--bg) 10%);
+      display:grid;gap:4px;
+    }
+    .kpi span{
+      color:var(--muted);font-size:10px;text-transform:uppercase;font-weight:800;letter-spacing:.04em;
+      white-space:nowrap;
+    }
+    .kpi strong{font-size:24px;font-family:var(--display);overflow-wrap:anywhere}
+    .big-chart{
+      display:grid;
+      gap:7px;
+      min-width:0;
+    }
+    .chart{
+      border:1px solid color-mix(in srgb,var(--line),transparent 12%);
+      border-radius:10px;
+      padding:8px;
+      min-height:180px;
+      background:color-mix(in srgb,var(--panel),#fff 2%);
+      position:relative;
+      overflow:hidden;
+    }
+    .bars{
+      display:flex;gap:6px;align-items:end;height:155px;
+    }
+    .bars i{
+      flex:1;
+      border-radius:7px 7px 2px 2px;
+      background:linear-gradient(180deg,var(--accent2),var(--accent));
+      height:var(--h,45%);
+    }
+    .mini-line{
+      position:relative;min-height:160px
+    }
+    .mini-line::before{
+      content:"";
+      position:absolute;inset:16px 10px;
+      border-left:2px solid color-mix(in srgb,var(--line),transparent 18%);
+      border-bottom:2px solid color-mix(in srgb,var(--line),transparent 18%);
+    }
+    .mini-line svg{width:100%;height:100%}
+    .mini-line polyline{fill:none;stroke:var(--accent);stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+    .table{
+      display:grid;
+      min-width:0;
+    }
+    .table-row{
+      display:grid;
+      grid-template-columns:1.7fr .8fr .8fr .8fr;
+      gap:6px;
+      align-items:center;
+      border-bottom:1px solid color-mix(in srgb,var(--line),transparent 30%);
+      padding:7px 1px;
+      font-size:12px;
+      min-width:0;
+    }
+    .table-row:first-child{border-top:none}
+    .table-row span:nth-child(1){font-weight:800}
+    .radar{
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      padding:18px;
+      background:conic-gradient(from 18deg,var(--accent) 0 27%,transparent 27% 47%,var(--chart) 47% 79%,transparent 79% 100%);
+      position:relative;
+      min-height:200px;
+    }
+    .radar::after{
+      content:"";
+      width:45%;
+      aspect-ratio:1;
+      border-radius:50%;
+      border:2px solid color-mix(in srgb,var(--line),transparent 26%);
+    }
+
+    .layout-dense .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .layout-wide .dash-grid{
+      grid-template-columns:1.3fr 1fr 1fr;
+      grid-template-areas:"kpi kpi kpi" "chart chart table" "heat map table";
+    }
+    .layout-wide .kpi-wrap{grid-area:kpi}
+    .layout-wide .chart.big{grid-area:chart}
+    .layout-wide .chart.small{grid-area:heat}
+    .layout-wide .radar{grid-area:map}
+    .layout-wide .table{grid-area:table}
+
+    .layout-column .dash-grid{grid-template-columns:1fr;grid-template-areas:"kpi" "chart1" "chart2" "chart3" "table"}
+    .layout-column .kpi-wrap{grid-area:kpi}
+    .layout-column .chart.main{grid-area:chart1}
+    .layout-column .chart.sec{grid-area:chart2}
+    .layout-column .chart.third{grid-area:chart3}
+    .layout-column .table{grid-area:table}
+
+    .layout-lateral .dash-grid{
+      grid-template-columns:1fr 1.3fr;
+      grid-template-areas:"table chart" "kpi chart" "kpi chart2";
+    }
+    .layout-lateral .table{grid-area:table}
+    .layout-lateral .kpi-wrap{grid-area:kpi}
+    .layout-lateral .chart.main{grid-area:chart}
+    .layout-lateral .chart.sec{grid-area:chart2}
+    .layout-lateral .chart.third{display:none}
+
+    .layout-zones .dash-grid{
+      grid-template-columns:1.15fr 1fr 1.1fr;
+      grid-template-areas:"chart chart radar" "kpi kpi radar" "table table table";
+    }
+    .layout-zones .kpi-wrap{grid-area:kpi}
+    .layout-zones .chart.main{grid-area:chart}
+    .layout-zones .radar{grid-area:radar}
+    .layout-zones .table{grid-area:table}
+
+    .layout-mosaic .dash-grid{
+      grid-template-columns:1.2fr 1fr;
+      grid-template-areas:"kpi kpi" "chart chart" "chart2 radar" "table table";
+    }
+    .layout-mosaic .kpi-wrap{grid-area:kpi}
+    .layout-mosaic .chart.main{grid-area:chart}
+    .layout-mosaic .chart.sec{grid-area:chart2}
+    .layout-mosaic .radar{grid-area:radar}
+    .layout-mosaic .table{grid-area:table}
+
+    .layout-dashboard-only .kpi-wrap{grid-area:kpi}
+    .layout-dashboard-only .dash-grid{
+      grid-template-columns:1fr;
+      grid-template-areas:"kpi" "chart" "chart2" "chart3" "table";
+    }
+    .layout-dashboard-only .chart.main{grid-area:chart}
+    .layout-dashboard-only .chart.sec{grid-area:chart2}
+    .layout-dashboard-only .table{grid-area:table}
+    .layout-dashboard-only .chart.third{grid-area:chart3}
+    .layout-dashboard-only .radar{display:none}
+
+    .layout-kpi .dash-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      grid-template-areas:"kpi kpi kpi kpi kpi" "chart chart chart table table" "chart2 chart2 chart3 table table";
+    }
+    .layout-kpi .kpi-wrap{grid-area:kpi}
+    .layout-kpi .chart.main{grid-area:chart}
+    .layout-kpi .chart.sec{grid-area:chart2}
+    .layout-kpi .chart.third{grid-area:chart3}
+    .layout-kpi .table{grid-area:table}
+
+    .layout-minimal .panel{padding:6px}
+    .layout-minimal .chart{min-height:160px}
+
+    .theme-a{--bg:#f4f1ea;--panel:#fffdf7;--ink:#201a14;--muted:#6f6459;--line:#d8ccb8;--accent:#8a4630;--accent2:#2b6f84;--chart:#cda45a;--shadow:0 16px 46px rgba(39,31,18,.14);--font:"Georgia,Times New Roman,serif";--display:"Georgia,Times New Roman,serif";--grain:linear-gradient(0deg,transparent 48%,rgba(255,255,255,.2) 48%,rgba(255,255,255,.2) 50%,transparent 50%),linear-gradient(90deg,transparent 48%,rgba(255,255,255,.12) 48%,rgba(255,255,255,.12) 50%,transparent 50%)}
+    .theme-b{--bg:#080f15;--panel:#0f1b24;--ink:#dff5ea;--muted:#82a0ad;--line:#285565;--accent:#1dffd7;--accent2:#2c78ff;--chart:#f0ff59;--shadow:0 16px 58px rgba(0,0,0,.52);--font:"Consolas,Monaco,monospace";--display:"Arial Black,Consolas,monospace";--grain:linear-gradient(0deg,transparent 52%,rgba(255,255,255,.06) 52%)}
+    .theme-c{--bg:#f5f9ff;--panel:#ffffff;--ink:#111827;--muted:#6b7280;--line:#d5deeb;--accent:#111827;--accent2:#8b5cf6;--chart:#0ea5e9;--shadow:0 8px 24px rgba(15,23,42,.12);--font:"Helvetica,Arial,sans-serif";--display:"Helvetica,Arial,sans-serif";--grain:none}
+    .theme-d{--bg:#160f0a;--panel:#251b15;--ink:#f3e8d8;--muted:#b39b86;--line:#5a4a3a;--accent:#d9b26f;--accent2:#8f5a37;--chart:#eedfc4;--shadow:0 22px 62px rgba(0,0,0,.45);--font:"Cambria,Georgia,serif";--display:"Didot,Georgia,serif";--grain:none}
+    .theme-e{--bg:#ece8fb;--panel:#f9f7ff;--ink:#201333;--muted:#6c6380;--line:#bcaedc;--accent:#bf2de0;--accent2:#15a6d6;--chart:#f59e0b;--shadow:0 16px 54px rgba(72,38,120,.2);--font:"Trebuchet MS,Arial,sans-serif";--display:"Impact,Arial Black,sans-serif";--grain:radial-gradient(circle at 10% 10%,rgba(255,255,255,.35),transparent 28%)}
+    .theme-f{--bg:#e9eff8;--panel:#ffffff;--ink:#18273f;--muted:#63748f;--line:#c8d8ea;--accent:#2f6dff;--accent2:#0ea5a5;--chart:#f59e0b;--shadow:0 10px 32px rgba(16,40,84,.15);--font:"Segoe UI,Arial,sans-serif";--display:"Segoe UI,Arial,sans-serif";--grain:none}
+    .theme-g{--bg:#fffde5;--panel:#fffaf3;--ink:#202014;--muted:#736a52;--line:#d8ca95;--accent:#e14c2e;--accent2:#0f8f8f;--chart:#e5a23f;--shadow:9px 9px 0 #121212;--font:"Arial,Helvetica,sans-serif";--display:"Arial Black,Arial,sans-serif";--grain:none}
+    .theme-h{--bg:#eef6ff;--panel:#f8fbff;--ink:#0f2437;--muted:#5f6d80;--line:#c7d9eb;--accent:#0ea5e9;--accent2:#06b6d4;--chart:#a855f7;--shadow:0 20px 48px rgba(12,40,76,.16);--font:"Segoe UI,Arial,sans-serif";--display:"Segoe UI,Arial,sans-serif";--grain:linear-gradient(130deg,rgba(255,255,255,.45),transparent 50%)}
+    .theme-i{--bg:#f2eef3;--panel:#fbf7fb;--ink:#302132;--muted:#6f6270;--line:#ccb7ca;--accent:#c026d3;--accent2:#f59e0b;--chart:#16a34a;--shadow:0 20px 52px rgba(47,26,54,.16);--font:"Georgia,serif";--display:"Cambria,Times New Roman,serif";--grain:none}
+    .theme-j{--bg:#1a101f;--panel:#25152f;--ink:#f6efff;--muted:#c0b0cb;--line:#3f2b53;--accent:#8b5cf6;--accent2:#4f46e5;--chart:#f472b6;--shadow:0 16px 46px rgba(0,0,0,.65);--font:"Verdana,Arial,sans-serif";--display:"Verdana,Arial,sans-serif";--grain:none}
+
+    .map-theme .radar{display:none}
+
+    .kpi-giant .kpi strong{font-size:28px}
+    .kpi-wide .kpi{display:flex;justify-content:space-between;align-items:baseline}
+    .compact-table .table-row{grid-template-columns:1fr .7fr .6fr}
+
+    .grid-cards .dash-grid{display:grid;grid-auto-rows:minmax(0,auto)}
+    .grid-cards .kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
+
+    .note{
+      border-radius:11px;
+      border:1px solid var(--line);
+      background:color-mix(in srgb,var(--panel),transparent 6%);
+      padding:7px;
+      color:var(--muted);
+      margin:0 10px;
+      font-size:12px;
+    }
+    .note b{color:var(--ink)}
+
+    @media (max-width:1300px){
+      .layout-wide .dash-grid,.layout-zones .dash-grid,.layout-mosaic .dash-grid,.layout-kpi .dash-grid,.layout-lateral .dash-grid,.layout-column .dash-grid{
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "kpi"
+          "chart"
+          "chart2"
+          "chart3"
+          "table";
+      }
+      .layout-wide .kpi-wrap,.layout-zones .kpi-wrap,.layout-mosaic .kpi-wrap,.layout-kpi .kpi-wrap,.layout-lateral .kpi-wrap,.layout-column .kpi-wrap{grid-area:auto}
+      .layout-wide .chart.main,.layout-zones .chart.main,.layout-mosaic .chart.main,.layout-kpi .chart.main,.layout-lateral .chart.main,.layout-column .chart.main{grid-area:auto}
+      .layout-wide .chart.sec,.layout-zones .chart.sec,.layout-mosaic .chart.sec,.layout-kpi .chart.sec,.layout-lateral .chart.sec,.layout-column .chart.sec{grid-area:auto}
+      .layout-wide .chart.third,.layout-kpi .chart.third,.layout-column .chart.third,.layout-mosaic .chart.third,.layout-zones .radar{display:none}
+      .layout-wide .radar{grid-area:auto}
+      .table,.kpi-wrap,.dash-grid{min-height:unset}
+      .table-row{grid-template-columns:1fr 1fr 1fr}
+      .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width:720px){
+      .top{grid-template-columns:1fr;padding:12px}
+      .jump{justify-content:flex-start}
+      .dashboard{min-height:650px}
+      .dash-top{flex-wrap:wrap}
+      .chips{width:100%}
+      .legend,.intro,strong,.intro span{padding-inline:8px}
+    }
+  </style>
+</head>
+<body>
+  <div class="root">
+    <header class="top">
+      <div>
+        <h1>Radar Hurlingham | Galería Dashboard (50)</h1>
+        <p>Páginas exclusivamente orientadas a la experiencia de analítica. 50 variaciones de tablero con jerarquía grande y foco claro en métricas.</p>
+      </div>
+      <nav class="jump" id="dash-jump"></nav>
+    </header>
+
+    <section class="intro">
+      <strong>50 referencias de dashboard, separadas y autónomas</strong>
+      <span>Cada dashboard mantiene coherencia de dominio inmobiliario y usa la misma data de muestra, pero cambia patrón de layout, tipo visual, tipografía, paneles y jerarquía.</span>
+    </section>
+    <div class="note"><b>Objetivo de esta sección:</b> no juntar radar y dashboard; aquí sólo hay interfaces de paneles e indicadores.</div>
+    <nav class="legend" id="dash-legend"></nav>
+
+    <main class="list" id="dashboard-list"></main>
+  </div>
+
+  <script>
+    const properties = [
+      {"id":1241,"title":"Casa en Venta en Villa Santos Tesei, Partido de Hurlingham - Argenprop","price":60000,"currency":"USD","locality":"Villa Tesei","zone":"Santos Tesei","beds":2,"baths":1,"covered":67,"land":291,"security":"media","source":"Argenprop","agency":"RE/MAX LINK","image":"https://www.argenprop.com/static-content/41224891/ff0be481-415e-4b0f-a762-12f2df53b114.jpg"},
+      {"id":1100,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":179000,"currency":"USD","locality":"Hurlingham","zone":"Zona a confirmar","beds":4,"baths":2,"covered":119,"land":183,"security":"media_alta","source":"Argenprop","agency":"RE/MAX Platino","image":"https://www.argenprop.com/static-content/74914891/9e4e8bf7-431c-4962-81a3-6262326c25e5.jpg"},
+      {"id":4523,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":289000,"currency":"USD","locality":"Hurlingham","zone":"Parque Johnston","beds":3,"baths":2,"covered":190,"land":220,"security":"media","source":"Argenprop","agency":"RedSuma CMCPSI","image":"https://www.argenprop.com/static-content/56114891/c4a55bdc-a183-4aea-a956-0e7a272d1c59.jpg"},
+      {"id":1204,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":89000,"currency":"USD","locality":"Hurlingham","zone":"La Juanita","beds":2,"baths":1,"covered":146,"land":204,"security":"media_alta","source":"Argenprop","agency":"Remax Namai","image":"https://www.argenprop.com/static-content/44114891/0d0e2321-20a7-474f-adc8-97f07f566231.jpg"},
+      {"id":1083,"title":"Casa en Venta en William Morris, Hurlingham - Argenprop","price":83000,"currency":"USD","locality":"William C. Morris","zone":"Zona a confirmar","beds":2,"baths":1,"covered":92,"land":281,"security":"media","source":"Argenprop","agency":"Remax Namai","image":"https://www.argenprop.com/static-content/27293891/edfe960d-cb4b-4681-bee0-7b3201381ece.jpg"},
+      {"id":1094,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":70000,"currency":"USD","locality":"Hurlingham","zone":"Zona a confirmar","beds":3,"baths":1,"covered":100,"land":172,"security":"media_alta","source":"Argenprop","agency":"Remax Namai","image":"https://www.argenprop.com/static-content/96293891/77efedb7-dcfd-4b48-a1b3-e9594e634eae.jpg"},
+      {"id":1081,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":239900,"currency":"USD","locality":"Hurlingham","zone":"Zona a confirmar","beds":3,"baths":2,"covered":163,"land":374,"security":"media","source":"Argenprop","agency":"RE/MAX Free","image":"https://www.argenprop.com/static-content/46093891/ab5a6d25-7acd-4992-a0f2-db5d35491e2a.jpg"},
+      {"id":1089,"title":"Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop","price":108000,"currency":"USD","locality":"Hurlingham","zone":"Parque Johnston","beds":3,"baths":2,"covered":160,"land":353,"security":"media_alta","source":"Argenprop","agency":"RE/MAX Data Work","image":"https://www.argenprop.com/static-content/32883891/0f80fff9-7fde-4aeb-8698-d82dc5f33947.jpg"}
+    ];
+
+    const themes = ["theme-a","theme-b","theme-c","theme-d","theme-e","theme-f","theme-g","theme-h","theme-i","theme-j"];
+    const dashboardLayouts = ["layout-wide","layout-column","layout-lateral","layout-zones","layout-mosaic","layout-dashboard-only","layout-kpi","layout-dense","layout-minimal"];
+    const themeModifiers = ["", "grid-cards", "kpi-giant", "kpi-wide", "compact-table", "map-theme"];
+    const family = [
+      "Terminal de control", "Analítico catastral", "Comercial ejecutivo", "Neural dashboard", "Riesgo de inversión",
+      "Control de parqueo", "Cuadrícula de oportunidades", "Dashboard operacional", "Laboratorio inmobiliario",
+      "Vista de trading"
+    ];
+    const traits = ["cinemático", "institucional", "ultra limpio", "compacto", "radical"];
+    const stats = {count:4571,avg:139737,min:60000,max:289000};
+    const fmt = new Intl.NumberFormat("es-AR");
+    const money = (value)=>`USD ${fmt.format(value)}`;
+    const esc = (value)=>String(value).replace(/[&<>\"']/g, (char)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[char]));
+
+    const dashRefs = Array.from({length:50},(_,i)=>({
+      id:i+1,
+      name:`${family[i % family.length]} ${traits[Math.floor(i / family.length)]}`,
+      theme:themes[i % themes.length],
+      layout:dashboardLayouts[i % dashboardLayouts.length],
+      modifier:themeModifiers[i % themeModifiers.length]
+    }));
+
+    function metricSet(seed){
+      const total = properties.reduce((acc,p)=>acc+p.price,0);
+      const avg = Math.round(total / properties.length);
+      return [
+        {k:"Precio promedio", v:money(avg)},
+        {k:"Mínimo", v:money(stats.min)},
+        {k:"Máximo", v:money(stats.max)},
+        {k:"Propiedades", v:fmt.format(stats.count)},
+        {k:"Cobertura", v:`${properties.length}/8`},
+        {k:"Última actualización", v:"hoy"}
+      ];
+    }
+
+    function bars(seed){
+      const bars = [38,63,44,71,58,81,52,67,49];
+      return bars.map((b,idx)=>`<i style="--h:${(b + seed * 5 + idx * 4) % 95 + 5}%"></i>`).join("");
+    }
+
+    function tableRows(){
+      return properties.map((p,idx)=>{
+        return `<div class="table-row">
+          <span>${esc(p.locality)} · ${esc(p.zone)}</span>
+          <span>${p.beds} dorm.</span>
+          <span>${p.baths} baños</span>
+          <span>${money(p.price)}</span>
+        </div>`;
+      }).join("");
+    }
+
+    function renderDashboardTile(ref){
+      const kpis = metricSet(ref.id).map(item=>`<div class="kpi"><span>${esc(item.k)}</span><strong>${esc(item.v)}</strong></div>`).join("");
+      return `
+        <article class="reference ${ref.theme} ${ref.layout} ${ref.modifier}" id="dash-${ref.id}" data-layout="${ref.layout}">
+          <header class="reference-head">
+            <div>
+              <div class="meta">${ref.theme} / ${ref.layout}</div>
+              <h2>${esc(ref.name)}</h2>
+              <p>Panel de control para seguimiento de cartera de propiedades, indicadores por zona y tendencia de precio.</p>
+            </div>
+            <span>${String(ref.id).padStart(2,"0")}</span>
+          </header>
+          <div class="dash-wrap">
+            <section class="dashboard">
+              <div class="dash-top">
+                <div class="brand">
+                  <div class="brand-icon">RH</div>
+                  <div class="brand-text">
+                    <strong>Radar Hurlingham</strong>
+                    <span>Dashboard ${ref.id}</span>
+                  </div>
+                </div>
+                <div class="chips">
+                  <span class="chip">Reporte</span>
+                  <span class="chip">Comparar</span>
+                  <span class="chip">Exportar</span>
+                  <span class="chip">CSV</span>
+                </div>
+              </div>
+
+              <div class="dash-grid">
+                <div class="panel kpi-wrap">
+                  <h3>KPIs</h3>
+                  <small>Métricas en primer plano para decisión rápida</small>
+                  <div class="kpis">${kpis}</div>
+                </div>
+
+                <div class="panel chart main">
+                  <h3>Distribución por rango</h3>
+                  <small>Comparación por bloques de referencia</small>
+                  <div class="big-chart"><div class="bars">${bars(ref.id)}</div></div>
+                </div>
+
+                <div class="panel chart sec">
+                  <h3>Tendencia diaria</h3>
+                  <small>Series con comportamiento de 7 días</small>
+                  <div class="mini-line">
+                    <svg viewBox="0 0 220 90" aria-hidden="true">
+                      <polyline points="3,74 29,56 53,62 82,38 114,44 144,20 218,34"></polyline>
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="panel chart third">
+                  <h3>Concentración</h3>
+                  <small>Mapeo de densidad por segmento</small>
+                  <div class="radar"></div>
+                </div>
+
+                <div class="panel table">
+                  <h3>Listado principal</h3>
+                  <small>Resumen por propiedad</small>
+                  <div>${tableRows()}</div>
+                </div>
+
+                <div class="panel radar">
+                  <h3>Resumen radial</h3>
+                  <small>Indicador de consistencia por zona</small>
+                </div>
+              </div>
+            </section>
+          </div>
+        </article>
+      `;
+    }
+
+    document.getElementById("dashboard-list").innerHTML = dashRefs.map(renderDashboardTile).join("");
+    document.getElementById("dash-jump").innerHTML = dashRefs.map((d) => `<a href="#dash-${d.id}" title="${esc(d.name)}">${String(d.id).padStart(2,"0")}</a>`).join("");
+    document.getElementById("dash-legend").innerHTML = themes.map((theme,idx)=>`<a href="#dash-${idx + 1}">${esc(theme.replace("theme-",""))}</a>`).join(" ");
+  </script>
+</body>
+</html>

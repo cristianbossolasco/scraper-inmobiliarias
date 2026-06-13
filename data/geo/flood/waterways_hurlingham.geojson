@@ -1,0 +1,603 @@
+{
+  "type": "FeatureCollection",
+  "name": "waterways_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
+    "query_bbox": [
+      -34.66,
+      -58.72,
+      -34.54,
+      -58.58
+    ],
+    "data_confidence": "medium",
+    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_131125563",
+        "osm_type": "way",
+        "osm_id": 131125563,
+        "name": "Arroyo Soto",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "stream",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Destino"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6599525,
+          -34.596221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_188771984",
+        "osm_type": "way",
+        "osm_id": 188771984,
+        "name": "Arroyo Morón",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "river",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Alemania"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6177722,
+          -34.592846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041734",
+        "osm_type": "way",
+        "osm_id": 193041734,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6394978,
+          -34.5688388
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041735",
+        "osm_type": "way",
+        "osm_id": 193041735,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6425414,
+          -34.5676381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193048405",
+        "osm_type": "way",
+        "osm_id": 193048405,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6495709,
+          -34.570257
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193048407",
+        "osm_type": "way",
+        "osm_id": 193048407,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "drain",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6452348,
+          -34.5691339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193048408",
+        "osm_type": "way",
+        "osm_id": 193048408,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.648402,
+          -34.5694392
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193048409",
+        "osm_type": "way",
+        "osm_id": 193048409,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.651569,
+          -34.5705904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_254743640",
+        "osm_type": "way",
+        "osm_id": 254743640,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "canal",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "San Damián"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6608525,
+          -34.5807695
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_793804368",
+        "osm_type": "way",
+        "osm_id": 793804368,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6412385,
+          -34.5683456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_793804369",
+        "osm_type": "way",
+        "osm_id": 793804369,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6399217,
+          -34.5689979
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_844880454",
+        "osm_type": "way",
+        "osm_id": 844880454,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6505406,
+          -34.5704166
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_844880455",
+        "osm_type": "way",
+        "osm_id": 844880455,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "drain",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6462483,
+          -34.5683651
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_844880456",
+        "osm_type": "way",
+        "osm_id": 844880456,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "drain",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6456021,
+          -34.5684538
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_844880458",
+        "osm_type": "way",
+        "osm_id": 844880458,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "ditch",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6470159,
+          -34.5684485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1044402034",
+        "osm_type": "way",
+        "osm_id": 1044402034,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "drain",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Belgrano"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6627127,
+          -34.576087
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1411342647",
+        "osm_type": "way",
+        "osm_id": 1411342647,
+        "name": "Arroyo Morón",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "stream",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Asunción"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6202366,
+          -34.6296594
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418102486",
+        "osm_type": "way",
+        "osm_id": 1418102486,
+        "name": "Arroyo Morón",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "river",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Palanco"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.618749,
+          -34.6235461
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418102489",
+        "osm_type": "way",
+        "osm_id": 1418102489,
+        "name": "Arroyo Morón",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "river",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "La Juanita"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6184684,
+          -34.6195277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418111237",
+        "osm_type": "way",
+        "osm_id": 1418111237,
+        "name": "Arroyo Morón",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": "river",
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nuevo Parque Quirno"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6207962,
+          -34.6086285
+        ]
+      }
+    }
+  ]
+}

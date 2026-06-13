@@ -1,75 +1,100 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Scraping | Radar Hurlingham{% endblock %}
+{% block title %}Operaciones | Radar Hurlingham{% endblock %}
 {% block body %}
 <header class="app-header">
   <div>
     <a class="brand" href="/">Radar Hurlingham</a>
-    <span class="count">Scraping a demanda</span>
+    <span class="count">Centro de operaciones</span>
   </div>
   <div class="header-actions">
+    <a class="icon-button" href="{% url 'properties:stats' %}" title="Estadisticas" aria-label="Estadisticas">
+      <i data-lucide="bar-chart-3"></i>
+    </a>
     <a class="icon-button" href="/" title="Resultados" aria-label="Resultados">
       <i data-lucide="list-filter"></i>
     </a>
   </div>
 </header>
 
-<main class="scraping-page">
-  <section class="scraping-panel">
+<main class="scraping-page operations-page">
+  <nav class="operation-tabs" aria-label="Centro de operaciones">
+    <button class="operation-tab active" type="button" data-tab="scraping">
+      <i data-lucide="download-cloud"></i> Scraping
+    </button>
+    <button class="operation-tab" type="button" data-tab="enrichment">
+      <i data-lucide="map-pin-plus"></i> Enriquecimiento
+    </button>
+    <button class="operation-tab" type="button" data-tab="repairs">
+      <i data-lucide="wrench"></i> Reparaciones
+    </button>
+    <button class="operation-tab" type="button" data-tab="merges">
+      <i data-lucide="git-merge"></i> Merges
+    </button>
+    <button class="operation-tab" type="button" data-tab="history">
+      <i data-lucide="history"></i> Historial
+    </button>
+  </nav>
+
+  <section class="scraping-panel operation-panel active" data-tab-panel="scraping">
     <div class="section-heading">
       <div>
-        <h1>Scrapers</h1>
-        <p>Las fuentes seleccionadas corren en paralelo. Cada fuente usa sus propios workers.</p>
+        <h1>Scrape liviano</h1>
+        <p>Descubre, parsea e ingiere. Geocoding, zonas, seguridad y reparaciones corren como steps separados.</p>
       </div>
       <button class="secondary-button" type="button" id="safe-preset">
-        <i data-lucide="shield-check"></i> Prueba segura
+        <i data-lucide="shield-check"></i> Scrape liviano seguro
       </button>
       <button class="primary-button" type="button" id="start-scraping">
-        <i data-lucide="play"></i> Iniciar
+        <i data-lucide="play"></i> Iniciar scraping
       </button>
     </div>
 
     <div class="run-options">
       <label>
         Max. paginas
-        <input id="max-pages" type="number" min="1" placeholder="Sin limite" title="Limita paginas de listado por fuente. Vacio recorre todas las paginas que el scraper descubra.">
+        <input id="max-pages" type="number" min="1" placeholder="Sin limite" title="Limita paginas de listado por fuente.">
       </label>
       <label>
         Pagina inicial
-        <input id="start-page" type="number" min="1" placeholder="1" title="Permite barrer portales paginados por tandas. Ejemplo: pagina 4 con max. paginas 3.">
+        <input id="start-page" type="number" min="1" placeholder="1" title="Permite barrer portales por tandas.">
       </label>
       <label>
         Max. fichas
-        <input id="max-listings" type="number" min="1" placeholder="Sin limite" title="Limita propiedades procesadas por fuente. Vacio procesa todas las fichas descubiertas.">
+        <input id="max-listings" type="number" min="1" placeholder="Sin limite" title="Limita propiedades procesadas por fuente.">
       </label>
       <label>
-        Modo
-        <select id="scrape-mode" title="Prueba no marca ausentes. Completo permite marcar ausentes si no hay limites.">
+        Modo scrape
+        <select id="scrape-mode" title="Completo solo marca ausentes si activas esa opcion.">
+          <option value="complete">Completo liviano</option>
           <option value="trial">Prueba</option>
-          <option value="complete">Completo</option>
         </select>
       </label>
       <label>
         Timeout ficha
-        <input id="request-timeout" type="number" min="1" placeholder="25" title="Segundos maximos por request de ficha. Vacio usa 25.">
+        <input id="request-timeout" type="number" min="1" placeholder="25">
       </label>
       <label>
         Max. errores
-        <input id="max-errors" type="number" min="1" placeholder="Sin limite" title="Errores permitidos por fuente antes de dejar de tomar nuevas fichas.">
+        <input id="max-errors" type="number" min="1" placeholder="Sin limite">
       </label>
       <label>
         Max. geocod.
-        <input id="geocode-limit" type="number" min="0" placeholder="25" title="Direcciones a geocodificar al final de cada fuente. 0 desactiva esta etapa.">
+        <input id="geocode-limit" type="number" min="0" value="0" title="0 mantiene el scrape liviano.">
+      </label>
+      <label class="checkbox-field">
+        <input id="mark-missing" type="checkbox">
+        Marcar ausentes
       </label>
     </div>
 
     <div class="scraping-help">
-      <strong>Como parametrizar:</strong>
-      <span>Campos vacios en paginas/fichas significan sin limite. En modo Completo eso permite recorrer todo y marcar ausentes; en modo Prueba nunca marca ausentes.</span>
+      <strong>Default liviano:</strong>
+      <span>no geocodifica y no marca ausentes. Activa esos efectos solo cuando quieras una corrida de mantenimiento.</span>
     </div>
     <div class="scraping-help safe-sqlite-banner">
       <strong>Modo seguro SQLite:</strong>
-      <span>activo automaticamente. Los workers descargan en paralelo y las escrituras se ordenan en una cola unica para evitar bloqueos.</span>
+      <span>los workers descargan en paralelo y las escrituras se ordenan en una cola unica.</span>
     </div>
 
     <div class="scraping-bulk-tools" aria-label="Acciones masivas de scrapers">
@@ -105,7 +130,7 @@
           </label>
           <label class="worker-field">
             Workers
-            <input type="number" min="1" value="1" data-workers-for="{{ source.slug }}" title="Cantidad de fichas procesadas en paralelo para esta fuente.">
+            <input type="number" min="1" value="1" data-workers-for="{{ source.slug }}">
           </label>
           <span class="worker-warning" data-worker-warning hidden>Mas de 5 puede saturar la fuente o SQLite.</span>
         </div>
@@ -113,18 +138,168 @@
     </div>
   </section>
 
-  <section class="scraping-panel">
+  <section class="scraping-panel operation-panel" data-tab-panel="enrichment">
+    <div class="section-heading">
+      <div>
+        <h1>Enriquecimiento</h1>
+        <p>Corre geocoding, inferencia de zonas y scoring de seguridad sin volver a scrapear.</p>
+      </div>
+      <button class="primary-button" type="button" id="run-location-preset">
+        <i data-lucide="map"></i> Completar ubicacion
+      </button>
+    </div>
+    <div class="run-options">
+      <label>
+        Fuente
+        <select id="enrich-source">
+          <option value="">Todas</option>
+          {% for source in sources %}<option value="{{ source.slug }}">{{ source.name }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>
+        Property IDs
+        <input id="enrich-property-ids" type="text" placeholder="123,456">
+      </label>
+      <label>
+        Limite
+        <input id="enrich-limit" type="number" min="0" value="50">
+      </label>
+      <label>
+        Distancia zona (m)
+        <input id="zone-max-distance" type="number" min="0" placeholder="Default">
+      </label>
+      <label class="checkbox-field">
+        <input id="geocode-cache-only" type="checkbox" checked>
+        Solo cache/local
+      </label>
+      <label class="checkbox-field">
+        <input id="geocode-force" type="checkbox">
+        Recalcular existentes
+      </label>
+      <label class="checkbox-field">
+        <input id="zone-geocode-missing" type="checkbox">
+        Geocoding externo en zonas
+      </label>
+      <label class="checkbox-field">
+        <input id="security-only-missing" type="checkbox" checked>
+        Seguridad solo faltantes
+      </label>
+    </div>
+    <div class="operation-actions">
+      <button class="secondary-button" type="button" data-enrich-step="geocode">
+        <i data-lucide="map-pin-plus"></i> Geocodificar
+      </button>
+      <button class="secondary-button" type="button" data-enrich-step="infer_zones">
+        <i data-lucide="map-pinned"></i> Inferir zonas
+      </button>
+      <button class="secondary-button" type="button" data-enrich-step="score_security">
+        <i data-lucide="shield"></i> Score seguridad
+      </button>
+    </div>
+  </section>
+
+  <section class="scraping-panel operation-panel" data-tab-panel="repairs">
+    <div class="section-heading">
+      <div>
+        <h1>Reparaciones</h1>
+        <p>Las reparaciones arrancan como simulacion. Para aplicar, usa el boton del job terminado.</p>
+      </div>
+      <button class="primary-button" type="button" id="run-quality-audit">
+        <i data-lucide="stethoscope"></i> Auditar calidad
+      </button>
+    </div>
+    <div class="run-options">
+      <label>
+        Reparacion
+        <select id="repair-kind">
+          <option value="repair_addresses">Direcciones</option>
+          <option value="repair_neighborhoods">Barrios</option>
+          <option value="repair_localities">Localidades</option>
+          <option value="repair_agencies">Agencias</option>
+          <option value="repair_metrics">Metricas / reparseo</option>
+          <option value="repair_merged_listings">Separar fusiones</option>
+        </select>
+      </label>
+      <label>
+        Fuente(s)
+        <input id="repair-sources" type="text" placeholder="argenprop,mapaprop">
+      </label>
+      <label>
+        Property IDs
+        <input id="repair-property-ids" type="text" placeholder="123,456">
+      </label>
+      <label>
+        Max. fichas
+        <input id="repair-max-listings" type="number" min="1" placeholder="Sin limite">
+      </label>
+      <label>
+        Max. propiedades
+        <input id="repair-max-properties" type="number" min="1" placeholder="Sin limite">
+      </label>
+      <label>
+        Timeout
+        <input id="repair-timeout" type="number" min="1" value="20">
+      </label>
+      <label class="checkbox-field">
+        <input id="repair-classify-only" type="checkbox">
+        Solo clasificar
+      </label>
+      <label class="checkbox-field">
+        <input id="repair-mark-non-sale" type="checkbox">
+        Marcar no venta
+      </label>
+      <label class="checkbox-field">
+        <input id="repair-mark-listing-pages" type="checkbox">
+        Marcar paginas listado
+      </label>
+    </div>
+    <div class="operation-actions">
+      <button class="secondary-button" type="button" id="run-repair-dry-run">
+        <i data-lucide="scan-search"></i> Simular reparacion
+      </button>
+    </div>
+  </section>
+
+  <section class="scraping-panel operation-panel" data-tab-panel="merges">
+    <div class="section-heading">
+      <div>
+        <h1>Merges</h1>
+        <p>Fusionar o separar duplicados exige simulacion previa y conserva flags, notas, ubicaciones manuales y links.</p>
+      </div>
+      <button class="primary-button" type="button" id="run-merge-dry-run">
+        <i data-lucide="scan-search"></i> Simular merge
+      </button>
+    </div>
+    <div class="run-options">
+      <label>
+        Pares
+        <input id="merge-pairs" type="text" placeholder="1088:3830,272:672">
+      </label>
+      <label>
+        Componentes
+        <input id="merge-components" type="text" placeholder="272,672,2639">
+      </label>
+      <label>
+        Detectar URL tail
+        <input id="merge-url-tail-sources" type="text" placeholder="patagonprop,mapaprop">
+      </label>
+    </div>
+  </section>
+
+  <section class="scraping-panel operation-panel" data-tab-panel="history">
     <div class="section-heading compact">
       <div>
         <h2>Jobs recientes</h2>
-        <p>El progreso se guarda en la base local mientras el servidor siga abierto.</p>
+        <p>Operaciones y scrapes se guardan con parametros, progreso, logs y errores.</p>
       </div>
     </div>
     <div id="jobs-list" class="jobs-list"></div>
   </section>
 </main>
+{{ operation_catalog|json_script:"operation-catalog" }}
+{{ operation_jobs|json_script:"initial-operation-jobs" }}
 {{ jobs|json_script:"initial-scrape-jobs" }}
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'js/scraping.js' %}?v=20260611-concurrency"></script>
+<script src="{% static 'js/scraping.js' %}?v=20260613-operations"></script>
 {% endblock %}

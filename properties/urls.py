@@ -38,4 +38,22 @@ urlpatterns = [
         views.retry_scrape_job_errors_api,
         name="scrape_job_retry_errors",
     ),
+    path("api/operations/catalog/", views.operation_catalog_api, name="operation_catalog"),
+    path("api/operations/jobs/", views.create_operation_job_api, name="operation_job_create"),
+    path("api/operations/jobs/<int:pk>/", views.operation_job_status_api, name="operation_job_status"),
+    path(
+        "api/operations/jobs/<int:pk>/cancel/",
+        views.cancel_operation_job_api,
+        name="operation_job_cancel",
+    ),
+    path(
+        "api/operations/jobs/<int:pk>/retry/",
+        views.retry_operation_job_api,
+        name="operation_job_retry",
+    ),
+    path(
+        "api/operations/jobs/<int:pk>/apply-from-dry-run/",
+        views.apply_operation_dry_run_api,
+        name="operation_job_apply_from_dry_run",
+    ),
 ]

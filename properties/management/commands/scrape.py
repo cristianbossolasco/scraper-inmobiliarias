@@ -28,6 +28,11 @@ class Command(BaseCommand):
         )
         parser.add_argument("--request-timeout", type=int, default=None)
         parser.add_argument("--max-errors", type=int, default=None)
+        parser.add_argument(
+            "--no-mark-missing",
+            action="store_true",
+            help="No marca publicaciones ausentes al finalizar una corrida completa.",
+        )
 
     def handle(self, *args, **options):
         slugs = options["sources"] or []
@@ -56,6 +61,7 @@ class Command(BaseCommand):
                 start_page=options["start_page"],
                 max_listings=options["max_listings"],
                 geocode_limit=options["geocode_limit"],
+                mark_missing=not options["no_mark_missing"],
                 scrape_mode=options["mode"],
                 request_timeout_seconds=options["request_timeout"],
                 max_errors_per_source=options["max_errors"],

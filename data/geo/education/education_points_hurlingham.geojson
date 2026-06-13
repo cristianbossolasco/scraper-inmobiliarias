@@ -1,0 +1,1493 @@
+{
+  "type": "FeatureCollection",
+  "name": "education_points_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
+    "query_bbox": [
+      -34.66,
+      -58.72,
+      -34.54,
+      -58.58
+    ],
+    "data_confidence": "medium",
+    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_721205783",
+        "osm_type": "node",
+        "osm_id": 721205783,
+        "name": "Escuela Primaria 70",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6286964,
+          -34.5787942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680522743",
+        "osm_type": "node",
+        "osm_id": 2680522743,
+        "name": "Primaria 1 Ricardo Gutierrez",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6505881,
+          -34.6263116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680522749",
+        "osm_type": "node",
+        "osm_id": 2680522749,
+        "name": "Jardín de Infantes Nº 908",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6500006,
+          -34.6264193
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727488",
+        "osm_type": "node",
+        "osm_id": 2680727488,
+        "name": "Educación Especial 502",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6518813,
+          -34.6260415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727490",
+        "osm_type": "node",
+        "osm_id": 2680727490,
+        "name": "Secundaria Básica 7 Ricardo Gutierrez",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6506643,
+          -34.6259452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727493",
+        "osm_type": "node",
+        "osm_id": 2680727493,
+        "name": "Primaria Nº 21 \"Rosario Vera Peñaloza\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6402288,
+          -34.6242718
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727497",
+        "osm_type": "node",
+        "osm_id": 2680727497,
+        "name": "Secundaria Básica Nº 18",
+        "amenity": "college",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6405129,
+          -34.6240532
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727498",
+        "osm_type": "node",
+        "osm_id": 2680727498,
+        "name": "Primaria Nº 13 \"Dr. Tomás Le Bretón\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.637095,
+          -34.6270206
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680759999",
+        "osm_type": "node",
+        "osm_id": 2680759999,
+        "name": "Colegio Parroquial \"Santa Marta\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Atepam Italia",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.629986,
+          -34.6303443
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2701883468",
+        "osm_type": "node",
+        "osm_id": 2701883468,
+        "name": "Escuela de Educación Primaria 2 \"Pablo A. Pizzurno\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6346714,
+          -34.5862694
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2983766117",
+        "osm_type": "node",
+        "osm_id": 2983766117,
+        "name": "Deutsche Schule Hurlingham - Instituto Cultural Roca",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6272408,
+          -34.5926702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3610019284",
+        "osm_type": "node",
+        "osm_id": 3610019284,
+        "name": "Ep Nº 29 \"Jorge Daniel Thevenin\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "San Damián",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6682312,
+          -34.5842245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4587981490",
+        "osm_type": "node",
+        "osm_id": 4587981490,
+        "name": "Centro de Educación Física 175",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6501937,
+          -34.6262856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595121489",
+        "osm_type": "node",
+        "osm_id": 4595121489,
+        "name": "Universidad Nacional de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6377732,
+          -34.6183018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4596988690",
+        "osm_type": "node",
+        "osm_id": 4596988690,
+        "name": "Jardín de infantes Santa Hilda",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6329884,
+          -34.5954869
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597016091",
+        "osm_type": "node",
+        "osm_id": 4597016091,
+        "name": "Colegio San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6296797,
+          -34.5945868
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053291",
+        "osm_type": "node",
+        "osm_id": 4597053291,
+        "name": "Colegio Santa Hilda",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.633821,
+          -34.5950275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053490",
+        "osm_type": "node",
+        "osm_id": 4597053490,
+        "name": "Jardín de infantes San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6305224,
+          -34.5945616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4602851893",
+        "osm_type": "node",
+        "osm_id": 4602851893,
+        "name": "Escuela especial Platerito",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344082,
+          -34.6036992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4606091389",
+        "osm_type": "node",
+        "osm_id": 4606091389,
+        "name": "Instituto Sagrado Corazón de Jesús",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6385037,
+          -34.5820715
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4611805089",
+        "osm_type": "node",
+        "osm_id": 4611805089,
+        "name": "Escuela De Educación Primaria 11 Jonas Salk",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6243354,
+          -34.5922266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4613280489",
+        "osm_type": "node",
+        "osm_id": 4613280489,
+        "name": "Jardín Burbujas",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6412259,
+          -34.594225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636046492",
+        "osm_type": "node",
+        "osm_id": 4636046492,
+        "name": "Colegio San Fernando",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6352651,
+          -34.5888311
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636076794",
+        "osm_type": "node",
+        "osm_id": 4636076794,
+        "name": "Escuela De Educación Secundaria 1 Esteban Echeverria",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6266256,
+          -34.5935648
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636099390",
+        "osm_type": "node",
+        "osm_id": 4636099390,
+        "name": "Escuela De Educación Secundaria Técnica 2 República del Perú",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Alemania",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6251346,
+          -34.5943684
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636135989",
+        "osm_type": "node",
+        "osm_id": 4636135989,
+        "name": "Jardín de infantes Estrella de Belen",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6357029,
+          -34.5884606
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740704",
+        "osm_type": "node",
+        "osm_id": 5859740704,
+        "name": "Instituto Lincoln",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6424821,
+          -34.5802742
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740705",
+        "osm_type": "node",
+        "osm_id": 5859740705,
+        "name": "Jardín De Infantes Instituto Lincoln",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6426477,
+          -34.5801789
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740718",
+        "osm_type": "node",
+        "osm_id": 5859740718,
+        "name": "Escuela De Educación Primaria 8 Fray Luis Beltrán",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6396155,
+          -34.5760327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740719",
+        "osm_type": "node",
+        "osm_id": 5859740719,
+        "name": "Escuela De Educación Secundaria 5",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344018,
+          -34.5856588
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740720",
+        "osm_type": "node",
+        "osm_id": 5859740720,
+        "name": "Escuela De Educación Primaria 24 La Esperanza",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6468818,
+          -34.5797522
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740721",
+        "osm_type": "node",
+        "osm_id": 5859740721,
+        "name": "Escuela De Educación Secundaria 23",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6467409,
+          -34.5797909
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740766",
+        "osm_type": "node",
+        "osm_id": 5859740766,
+        "name": "Centro De Adultos 704/01",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6524513,
+          -34.5754324
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740767",
+        "osm_type": "node",
+        "osm_id": 5859740767,
+        "name": "Escuela De Educación Primaria 5 Granaderos De San Martin",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Curapaytí",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6482014,
+          -34.5860438
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740768",
+        "osm_type": "node",
+        "osm_id": 5859740768,
+        "name": "Escuela Especial 501",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6199853,
+          -34.5872891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740769",
+        "osm_type": "node",
+        "osm_id": 5859740769,
+        "name": "Escuela De Educación Secundaria 4 Manuel Dorrego",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6262694,
+          -34.5937331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859741102",
+        "osm_type": "node",
+        "osm_id": 5859741102,
+        "name": "Instituto Presidente Sarmiento",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6388553,
+          -34.5917668
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5906408963",
+        "osm_type": "node",
+        "osm_id": 5906408963,
+        "name": "Instituto Cardenal Stepinac",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Santa Leonor",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6518191,
+          -34.5987884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5906409696",
+        "osm_type": "node",
+        "osm_id": 5906409696,
+        "name": "Leopoldo Marechal N°6",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Santa Leonor",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6553681,
+          -34.5964349
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_8855570050",
+        "osm_type": "node",
+        "osm_id": 8855570050,
+        "name": "Escuela De Educacion Primaria 22 Martín Fierro",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6321592,
+          -34.6007065
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_8855570051",
+        "osm_type": "node",
+        "osm_id": 8855570051,
+        "name": "Instituto San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6295326,
+          -34.5947455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12903106071",
+        "osm_type": "node",
+        "osm_id": 12903106071,
+        "name": "Escuela de Educación Secundaria 3 \"General Don José de San Martín\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6351313,
+          -34.5861134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677113",
+        "osm_type": "node",
+        "osm_id": 13030677113,
+        "name": "Jardín de Infantes la Rana Juana",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6347003,
+          -34.5864245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677114",
+        "osm_type": "node",
+        "osm_id": 13030677114,
+        "name": "Extension I de Escuela de Educación Secundaria 5 \"Almafuerte\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6349579,
+          -34.5862392
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677115",
+        "osm_type": "node",
+        "osm_id": 13030677115,
+        "name": "Centro Educativo de Nivel Secundario 454",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6350062,
+          -34.586217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677116",
+        "osm_type": "node",
+        "osm_id": 13030677116,
+        "name": "Escuela de Educación Secundaria 5",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.635193,
+          -34.586066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_480916429",
+        "osm_type": "way",
+        "osm_id": 480916429,
+        "name": "Universidad Nacional de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6377119,
+          -34.6186526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_480916431",
+        "osm_type": "way",
+        "osm_id": 480916431,
+        "name": "Universidad de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344397,
+          -34.6165408
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_517802853",
+        "osm_type": "way",
+        "osm_id": 517802853,
+        "name": "Calasanz",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6364511,
+          -34.6159443
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "generated_for": "Partido de Hurlingham, Buenos Aires, Argentina",
+  "metric_crs": "EPSG:32721",
+  "output_crs": "EPSG:4326",
+  "arba": {
+    "source_name": "ARBA GeoARBA",
+    "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
+    "wfs_url": "https://geo.arba.gov.ar/geoserver/idera/wfs?service=WFS&request=GetCapabilities&version=2.0.0",
+    "input_crs": "EPSG:5347",
+    "license": "Public official geospatial data; cite ARBA/GeoARBA. Commercialization restrictions may apply according to IDEBA notice.",
+    "layers": [
+      {
+        "key": "departamento",
+        "archive": "135_departamentos.tar.gz",
+        "title": "Departamento / Partido",
+        "wfs_type": "idera:Departamento",
+        "output": "data/geo/admin/arba_departamento_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "circunscripcion",
+        "archive": "135_circunscripcion.tar.gz",
+        "title": "Circunscripcion",
+        "wfs_type": "idera:Circunscripcion",
+        "output": "data/geo/parcels/circunscripcion_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "seccion_catastral",
+        "archive": "135_seccion_catastral.tar.gz",
+        "title": "Seccion Catastral",
+        "wfs_type": "idera:Seccion_Catastral",
+        "output": "data/geo/parcels/seccion_catastral_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "fraccion",
+        "archive": "135_fraccion.tar.gz",
+        "title": "Fraccion",
+        "wfs_type": "idera:Fraccion",
+        "output": "data/geo/parcels/fraccion_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "chacra",
+        "archive": "135_chacra.tar.gz",
+        "title": "Chacra",
+        "wfs_type": "idera:Chacra",
+        "output": "data/geo/parcels/chacra_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "quinta",
+        "archive": "135_quinta.tar.gz",
+        "title": "Quinta",
+        "wfs_type": "idera:Quinta",
+        "output": "data/geo/parcels/quinta_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "manzana",
+        "archive": "135_manzana.tar.gz",
+        "title": "Manzana",
+        "wfs_type": "idera:Manzana",
+        "output": "data/geo/parcels/blocks_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "parcela",
+        "archive": "135_parcela.tar.gz",
+        "title": "Parcela",
+        "wfs_type": "idera:Parcela",
+        "output": "data/geo/parcels/parcels_hurlingham.geojson",
+        "confidence": "high"
+      },
+      {
+        "key": "subparcela",
+        "archive": "135_subparcela.tar.gz",
+        "title": "Subparcela",
+        "wfs_type": "idera:Subparcela",
+        "output": "data/geo/parcels/subparcels_hurlingham.geojson",
+        "confidence": "medium"
+      },
+      {
+        "key": "medida_lado",
+        "archive": "135_medida_lado.tar.gz",
+        "title": "Lado Catastral / Medida de lado",
+        "wfs_type": "idera:Lado_Catastral",
+        "output": "data/geo/parcels/parcel_side_measure_points_hurlingham.geojson",
+        "confidence": "medium",
+        "notes": "Point layer from ARBA. It is not treated as a validated parcel frontage until cadastral semantics are reviewed."
+      }
+    ]
+  },
+  "existing_layers": [
+    {
+      "key": "zones",
+      "source": "data/geo/Zonas_Hurlingham_polygons.geojson",
+      "output": "data/geo/zones/zones_hurlingham.geojson",
+      "source_name": "OpenStreetMap Overpass API",
+      "confidence": "medium"
+    },
+    {
+      "key": "security_points",
+      "source": "data/geo/security_points_hurlingham.geojson",
+      "output": "data/geo/security/security_points_hurlingham.geojson",
+      "source_name": "Hurlingham Municipio / OSM / PBA",
+      "confidence": "high"
+    },
+    {
+      "key": "security_zones",
+      "source": "data/geo/security_zones_hurlingham.geojson",
+      "output": "data/geo/security/security_zones_hurlingham.geojson",
+      "source_name": "Generated local security pipeline",
+      "confidence": "high"
+    },
+    {
+      "key": "crime_zones",
+      "source": "data/geo/crime_zones_hurlingham.geojson",
+      "output": "data/geo/crime/crime_zones_hurlingham.geojson",
+      "source_name": "SNIC / SAT / PBA municipal datasets",
+      "confidence": "medium"
+    },
+    {
+      "key": "crime_homicide_points",
+      "source": "data/geo/crime_homicide_radio_points_hurlingham.geojson",
+      "output": "data/geo/crime/crime_homicide_radio_points_hurlingham.geojson",
+      "source_name": "SAT-HD radio centroids",
+      "confidence": "low"
+    },
+    {
+      "key": "crime_timeseries",
+      "source": "data/geo/crime_hurlingham_municipality_timeseries.csv",
+      "output": "data/geo/crime/crime_hurlingham_municipality_timeseries.csv",
+      "source_name": "SNIC / SAT / PBA municipal datasets",
+      "confidence": "medium",
+      "spatial_precision": "municipio",
+      "temporal_coverage": "2017-2024"
+    }
+  ],
+  "osm": {
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "bbox": [-34.66, -58.72, -34.54, -58.58],
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json"
+  },
+  "unavailable_layers": [
+    {
+      "folder": "data/geo/zoning",
+      "file": "source_unavailable.md",
+      "title": "Zonificacion urbana",
+      "reason": "No se encontro una capa vectorial oficial confiable para zonificacion/FOT/FOS en esta primera entrega."
+    },
+    {
+      "folder": "data/geo/utilities",
+      "file": "source_unavailable.md",
+      "title": "Servicios urbanos agua/cloaca/cortes electricos",
+      "reason": "No se genero capa confiable sin endpoint publico estable y reusable en esta primera entrega."
+    },
+    {
+      "folder": "data/geo/renabap",
+      "file": "source_unavailable.md",
+      "title": "RENABAP / barrios populares",
+      "reason": "Queda priorizado para la siguiente iteracion con descarga oficial y validacion de geometria antes de integrarlo al score."
+    },
+    {
+      "folder": "data/geo/flood",
+      "file": "flood_risk_source_unavailable.md",
+      "title": "Peligrosidad hidrica oficial",
+      "reason": "La capa oficial de riesgo hidrico requiere investigacion especifica de descarga WFS/WMS o digitalizacion; se usa solo hidrografia OSM como proxy de distancia."
+    }
+  ]
+}

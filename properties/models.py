@@ -382,6 +382,7 @@ class ScrapeJob(models.Model):
     start_page = models.PositiveIntegerField(null=True, blank=True)
     max_listings = models.PositiveIntegerField(null=True, blank=True)
     geocode_limit = models.PositiveIntegerField(null=True, blank=True)
+    mark_missing = models.BooleanField(default=True)
     request_timeout_seconds = models.PositiveIntegerField(null=True, blank=True)
     max_errors_per_source = models.PositiveIntegerField(null=True, blank=True)
     retry_urls = models.JSONField(default=dict, blank=True)
@@ -449,3 +450,109 @@ class GeocodeCache(models.Model):
     confidence = models.FloatField(default=0)
     provider_payload = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class OperationJob(models.Model):
+    class Kind(models.TextChoices):
+        PIPELINE = "pipeline", "Pipeline"
+        SCRAPE = "scrape", "Scraping"
+        GEOCODE = "geocode", "Geocoding"
+        INFER_ZONES = "infer_zones", "Inferencia de zonas"
+        SCORE_SECURITY = "score_security", "Scoring seguridad"
+        REPAIR_ADDRESSES = "repair_addresses", "Reparar direcciones"
+        REPAIR_NEIGHBORHOODS = "repair_neighborhoods", "Reparar barrios"
+        REPAIR_LOCALITIES = "repair_localities", "Reparar localidades"
+        REPAIR_AGENCIES = "repair_agencies", "Reparar agencias"
+        REPAIR_METRICS = "repair_metrics", "Reparar metricas"
+        REPAIR_MERGED_LISTINGS = "repair_merged_listings", "Separar fusiones"
+        MERGE_PROPERTIES = "merge_properties", "Fusionar duplicados"
+
+    class Mode(models.TextChoices):
+        DRY_RUN = "dry_run", "Simulacion"
+        APPLY = "apply", "Aplicar"
+
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pendiente"
+        RUNNING = "running", "En curso"
+        SUCCESS = "success", "Correcta"
+        PARTIAL = "partial", "Parcial"
+        FAILED = "failed", "Fallida"
+        CANCELLED = "cancelled", "Cancelada"
+        INTERRUPTED = "interrupted", "Interrumpida"
+
+    kind = models.CharField(
+        max_length=40, choices=Kind.choices, default=Kind.PIPELINE, db_index=True
+    )
+    title = models.CharField(max_length=160, blank=True)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.PENDING, db_index=True
+    )
+    mode = models.CharField(
+        max_length=16, choices=Mode.choices, default=Mode.DRY_RUN, db_index=True
+    )
+    scope = models.JSONField(default=dict, blank=True)
+    params = models.JSONField(default=dict, blank=True)
+    result_summary = models.JSONField(default=dict, blank=True)
+    total_steps = models.PositiveIntegerField(default=0)
+    completed_steps = models.PositiveIntegerField(default=0)
+    processed = models.PositiveIntegerField(default=0)
+    changed = models.PositiveIntegerField(default=0)
+    errors = models.PositiveIntegerField(default=0)
+    logs = models.TextField(blank=True)
+    cancel_requested = models.BooleanField(default=False)
+    source_job = models.ForeignKey(
+        "self",
+        related_name="apply_jobs",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        label = self.title or self.get_kind_display()
+        return f"{label} #{self.pk}"
+
+
+class OperationJobStep(models.Model):
+    job = models.ForeignKey(
+        OperationJob, related_name="steps", on_delete=models.CASCADE
+    )
+    order = models.PositiveSmallIntegerField(default=0)
+    kind = models.CharField(max_length=40, choices=OperationJob.Kind.choices)
+    status = models.CharField(
+        max_length=20,
+        choices=OperationJob.Status.choices,
+        default=OperationJob.Status.PENDING,
+        db_index=True,
+    )
+    mode = models.CharField(
+        max_length=16, choices=OperationJob.Mode.choices, default=OperationJob.Mode.DRY_RUN
+    )
+    params = models.JSONField(default=dict, blank=True)
+    total = models.PositiveIntegerField(default=0)
+    processed = models.PositiveIntegerField(default=0)
+    changed = models.PositiveIntegerField(default=0)
+    skipped = models.PositiveIntegerField(default=0)
+    errors = models.PositiveIntegerField(default=0)
+    logs = models.TextField(blank=True)
+    error_log = models.TextField(blank=True)
+    result_summary = models.JSONField(default=dict, blank=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["job_id", "order", "id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["job", "order"], name="unique_operation_step_order"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.job_id}:{self.order} {self.kind}"

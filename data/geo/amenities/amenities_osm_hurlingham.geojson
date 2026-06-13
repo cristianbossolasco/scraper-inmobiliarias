@@ -1,0 +1,4463 @@
+{
+  "type": "FeatureCollection",
+  "name": "amenities_osm_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
+    "query_bbox": [
+      -34.66,
+      -58.72,
+      -34.54,
+      -58.58
+    ],
+    "data_confidence": "medium",
+    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_721205783",
+        "osm_type": "node",
+        "osm_id": 721205783,
+        "name": "Escuela Primaria 70",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6286964,
+          -34.5787942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_721206242",
+        "osm_type": "node",
+        "osm_id": 721206242,
+        "name": "Parrilla La Taba",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6384167,
+          -34.5855781
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_721207024",
+        "osm_type": "node",
+        "osm_id": 721207024,
+        "name": "McDonald's",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6310808,
+          -34.5885748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_1633081364",
+        "osm_type": "node",
+        "osm_id": 1633081364,
+        "name": "YPF",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Alemania",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62226,
+          -34.5935443
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680522743",
+        "osm_type": "node",
+        "osm_id": 2680522743,
+        "name": "Primaria 1 Ricardo Gutierrez",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6505881,
+          -34.6263116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680522749",
+        "osm_type": "node",
+        "osm_id": 2680522749,
+        "name": "Jardín de Infantes Nº 908",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6500006,
+          -34.6264193
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727488",
+        "osm_type": "node",
+        "osm_id": 2680727488,
+        "name": "Educación Especial 502",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6518813,
+          -34.6260415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727490",
+        "osm_type": "node",
+        "osm_id": 2680727490,
+        "name": "Secundaria Básica 7 Ricardo Gutierrez",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6506643,
+          -34.6259452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727493",
+        "osm_type": "node",
+        "osm_id": 2680727493,
+        "name": "Primaria Nº 21 \"Rosario Vera Peñaloza\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6402288,
+          -34.6242718
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727497",
+        "osm_type": "node",
+        "osm_id": 2680727497,
+        "name": "Secundaria Básica Nº 18",
+        "amenity": "college",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6405129,
+          -34.6240532
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680727498",
+        "osm_type": "node",
+        "osm_id": 2680727498,
+        "name": "Primaria Nº 13 \"Dr. Tomás Le Bretón\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.637095,
+          -34.6270206
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2680759999",
+        "osm_type": "node",
+        "osm_id": 2680759999,
+        "name": "Colegio Parroquial \"Santa Marta\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Atepam Italia",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.629986,
+          -34.6303443
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2701883468",
+        "osm_type": "node",
+        "osm_id": 2701883468,
+        "name": "Escuela de Educación Primaria 2 \"Pablo A. Pizzurno\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6346714,
+          -34.5862694
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2712504881",
+        "osm_type": "node",
+        "osm_id": 2712504881,
+        "name": "Puma",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.634261,
+          -34.6193447
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2903919379",
+        "osm_type": "node",
+        "osm_id": 2903919379,
+        "name": "Super Morris",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6549355,
+          -34.5779608
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_2983766117",
+        "osm_type": "node",
+        "osm_id": 2983766117,
+        "name": "Deutsche Schule Hurlingham - Instituto Cultural Roca",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6272408,
+          -34.5926702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3132410608",
+        "osm_type": "node",
+        "osm_id": 3132410608,
+        "name": "Subway",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6317242,
+          -34.58902
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3132411897",
+        "osm_type": "node",
+        "osm_id": 3132411897,
+        "name": "Güemes",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6313487,
+          -34.5889891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3132411899",
+        "osm_type": "node",
+        "osm_id": 3132411899,
+        "name": "Café Martínez",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6314431,
+          -34.5883861
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3426898079",
+        "osm_type": "node",
+        "osm_id": 3426898079,
+        "name": "Navarro",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6394123,
+          -34.5800804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3610019284",
+        "osm_type": "node",
+        "osm_id": 3610019284,
+        "name": "Ep Nº 29 \"Jorge Daniel Thevenin\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "San Damián",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6682312,
+          -34.5842245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3788302806",
+        "osm_type": "node",
+        "osm_id": 3788302806,
+        "name": "La Fragata",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6287205,
+          -34.5884983
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3788304157",
+        "osm_type": "node",
+        "osm_id": 3788304157,
+        "name": "Bonafide",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6303651,
+          -34.5878129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3788305954",
+        "osm_type": "node",
+        "osm_id": 3788305954,
+        "name": "Banco Nación",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6293652,
+          -34.5883826
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3788310059",
+        "osm_type": "node",
+        "osm_id": 3788310059,
+        "name": "Sunios Teramo",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6292515,
+          -34.5902957
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3797615816",
+        "osm_type": "node",
+        "osm_id": 3797615816,
+        "name": "Gulf",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nuevo Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6204778,
+          -34.6059116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3804418709",
+        "osm_type": "node",
+        "osm_id": 3804418709,
+        "name": "Shell",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6363066,
+          -34.5946748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4108838910",
+        "osm_type": "node",
+        "osm_id": 4108838910,
+        "name": "Hospital Municipal San Bernardino De Siena",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6410048,
+          -34.5889949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4327575639",
+        "osm_type": "node",
+        "osm_id": 4327575639,
+        "name": "YPF",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.635962,
+          -34.5987395
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4327910068",
+        "osm_type": "node",
+        "osm_id": 4327910068,
+        "name": "Credicoop",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6326733,
+          -34.5894705
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4336487343",
+        "osm_type": "node",
+        "osm_id": 4336487343,
+        "name": "Carrefour Market",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6358016,
+          -34.5921533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4344870644",
+        "osm_type": "node",
+        "osm_id": 4344870644,
+        "name": "YPF",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6340151,
+          -34.6161539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4587981490",
+        "osm_type": "node",
+        "osm_id": 4587981490,
+        "name": "Centro de Educación Física 175",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6501937,
+          -34.6262856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4594859693",
+        "osm_type": "node",
+        "osm_id": 4594859693,
+        "name": "Autoservicio Parque Quirno",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nueve de Julio",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6245371,
+          -34.6016842
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595121489",
+        "osm_type": "node",
+        "osm_id": 4595121489,
+        "name": "Universidad Nacional de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6377732,
+          -34.6183018
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595143890",
+        "osm_type": "node",
+        "osm_id": 4595143890,
+        "name": "Panadería Buenas Migas",
+        "amenity": null,
+        "shop": "bakery",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6284877,
+          -34.6034757
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595193001",
+        "osm_type": "node",
+        "osm_id": 4595193001,
+        "name": "Galicia",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6324743,
+          -34.5895869
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595203290",
+        "osm_type": "node",
+        "osm_id": 4595203290,
+        "name": "Heladería Rino",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.635336,
+          -34.5920461
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4595206589",
+        "osm_type": "node",
+        "osm_id": 4595206589,
+        "name": "ZAR Burguers",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6242845,
+          -34.5919768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4596988690",
+        "osm_type": "node",
+        "osm_id": 4596988690,
+        "name": "Jardín de infantes Santa Hilda",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6329884,
+          -34.5954869
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4596988692",
+        "osm_type": "node",
+        "osm_id": 4596988692,
+        "name": "Supermercado Gaboto",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6259111,
+          -34.6010888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597016091",
+        "osm_type": "node",
+        "osm_id": 4597016091,
+        "name": "Colegio San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6296797,
+          -34.5945868
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597016092",
+        "osm_type": "node",
+        "osm_id": 4597016092,
+        "name": "Heladería Necochea",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6345538,
+          -34.5986798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597016093",
+        "osm_type": "node",
+        "osm_id": 4597016093,
+        "name": "Supermercado Grand",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6312049,
+          -34.6007754
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597050290",
+        "osm_type": "node",
+        "osm_id": 4597050290,
+        "name": "Nueva Casella",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6263219,
+          -34.590769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053290",
+        "osm_type": "node",
+        "osm_id": 4597053290,
+        "name": "Fernández",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6283479,
+          -34.5949154
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053291",
+        "osm_type": "node",
+        "osm_id": 4597053291,
+        "name": "Colegio Santa Hilda",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.633821,
+          -34.5950275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053490",
+        "osm_type": "node",
+        "osm_id": 4597053490,
+        "name": "Jardín de infantes San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6305224,
+          -34.5945616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053491",
+        "osm_type": "node",
+        "osm_id": 4597053491,
+        "name": "Terrazas Market",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6359147,
+          -34.598962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4602851893",
+        "osm_type": "node",
+        "osm_id": 4602851893,
+        "name": "Escuela especial Platerito",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344082,
+          -34.6036992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4602966704",
+        "osm_type": "node",
+        "osm_id": 4602966704,
+        "name": "Heladería Grido",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6281155,
+          -34.5889778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4602981989",
+        "osm_type": "node",
+        "osm_id": 4602981989,
+        "name": "Panadería Costumbres Argentinas",
+        "amenity": null,
+        "shop": "bakery",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6301192,
+          -34.5877231
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4606091389",
+        "osm_type": "node",
+        "osm_id": 4606091389,
+        "name": "Instituto Sagrado Corazón de Jesús",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6385037,
+          -34.5820715
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4611804689",
+        "osm_type": "node",
+        "osm_id": 4611804689,
+        "name": "Candela - mate y café",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6246468,
+          -34.5916935
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4611805089",
+        "osm_type": "node",
+        "osm_id": 4611805089,
+        "name": "Escuela De Educación Primaria 11 Jonas Salk",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6243354,
+          -34.5922266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4613280390",
+        "osm_type": "node",
+        "osm_id": 4613280390,
+        "name": "Panadería JR",
+        "amenity": null,
+        "shop": "bakery",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6311913,
+          -34.598892
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4613280489",
+        "osm_type": "node",
+        "osm_id": 4613280489,
+        "name": "Jardín Burbujas",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6412259,
+          -34.594225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4617025520",
+        "osm_type": "node",
+        "osm_id": 4617025520,
+        "name": "Parada Santa Rosa",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.654003,
+          -34.629946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636046492",
+        "osm_type": "node",
+        "osm_id": 4636046492,
+        "name": "Colegio San Fernando",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6352651,
+          -34.5888311
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636076794",
+        "osm_type": "node",
+        "osm_id": 4636076794,
+        "name": "Escuela De Educación Secundaria 1 Esteban Echeverria",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6266256,
+          -34.5935648
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636082691",
+        "osm_type": "node",
+        "osm_id": 4636082691,
+        "name": null,
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6405989,
+          -34.5786571
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636099390",
+        "osm_type": "node",
+        "osm_id": 4636099390,
+        "name": "Escuela De Educación Secundaria Técnica 2 República del Perú",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Alemania",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6251346,
+          -34.5943684
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636117791",
+        "osm_type": "node",
+        "osm_id": 4636117791,
+        "name": "La Candelaria",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6390069,
+          -34.5842615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636119991",
+        "osm_type": "node",
+        "osm_id": 4636119991,
+        "name": "Clinica Sagrado Corazón de Jesús",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6375516,
+          -34.586896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636135989",
+        "osm_type": "node",
+        "osm_id": 4636135989,
+        "name": "Jardín de infantes Estrella de Belen",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6357029,
+          -34.5884606
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4767501121",
+        "osm_type": "node",
+        "osm_id": 4767501121,
+        "name": "Banco Provincia",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6346125,
+          -34.613312
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740704",
+        "osm_type": "node",
+        "osm_id": 5859740704,
+        "name": "Instituto Lincoln",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6424821,
+          -34.5802742
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740705",
+        "osm_type": "node",
+        "osm_id": 5859740705,
+        "name": "Jardín De Infantes Instituto Lincoln",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6426477,
+          -34.5801789
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740718",
+        "osm_type": "node",
+        "osm_id": 5859740718,
+        "name": "Escuela De Educación Primaria 8 Fray Luis Beltrán",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6396155,
+          -34.5760327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740719",
+        "osm_type": "node",
+        "osm_id": 5859740719,
+        "name": "Escuela De Educación Secundaria 5",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344018,
+          -34.5856588
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740720",
+        "osm_type": "node",
+        "osm_id": 5859740720,
+        "name": "Escuela De Educación Primaria 24 La Esperanza",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6468818,
+          -34.5797522
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740721",
+        "osm_type": "node",
+        "osm_id": 5859740721,
+        "name": "Escuela De Educación Secundaria 23",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6467409,
+          -34.5797909
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740766",
+        "osm_type": "node",
+        "osm_id": 5859740766,
+        "name": "Centro De Adultos 704/01",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6524513,
+          -34.5754324
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740767",
+        "osm_type": "node",
+        "osm_id": 5859740767,
+        "name": "Escuela De Educación Primaria 5 Granaderos De San Martin",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Curapaytí",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6482014,
+          -34.5860438
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740768",
+        "osm_type": "node",
+        "osm_id": 5859740768,
+        "name": "Escuela Especial 501",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6199853,
+          -34.5872891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859740769",
+        "osm_type": "node",
+        "osm_id": 5859740769,
+        "name": "Escuela De Educación Secundaria 4 Manuel Dorrego",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6262694,
+          -34.5937331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5859741102",
+        "osm_type": "node",
+        "osm_id": 5859741102,
+        "name": "Instituto Presidente Sarmiento",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6388553,
+          -34.5917668
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5860057686",
+        "osm_type": "node",
+        "osm_id": 5860057686,
+        "name": "Credicoop",
+        "amenity": "atm",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6462728,
+          -34.5711932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5906408963",
+        "osm_type": "node",
+        "osm_id": 5906408963,
+        "name": "Instituto Cardenal Stepinac",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Santa Leonor",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6518191,
+          -34.5987884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5906409696",
+        "osm_type": "node",
+        "osm_id": 5906409696,
+        "name": "Leopoldo Marechal N°6",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Santa Leonor",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6553681,
+          -34.5964349
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5909135685",
+        "osm_type": "node",
+        "osm_id": 5909135685,
+        "name": null,
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6492042,
+          -34.5724502
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5909135688",
+        "osm_type": "node",
+        "osm_id": 5909135688,
+        "name": "El Trebol",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.647052,
+          -34.5741658
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5909135689",
+        "osm_type": "node",
+        "osm_id": 5909135689,
+        "name": "La Flor del Ceibo",
+        "amenity": null,
+        "shop": "bakery",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6446323,
+          -34.5760802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5909135698",
+        "osm_type": "node",
+        "osm_id": 5909135698,
+        "name": "Dalia",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6319257,
+          -34.5863644
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5987379786",
+        "osm_type": "node",
+        "osm_id": 5987379786,
+        "name": "Fabi",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6502879,
+          -34.5716374
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5987379885",
+        "osm_type": "node",
+        "osm_id": 5987379885,
+        "name": "La Central de W. Morris",
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6549334,
+          -34.5781738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5987379986",
+        "osm_type": "node",
+        "osm_id": 5987379986,
+        "name": null,
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6535366,
+          -34.5769442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5987380085",
+        "osm_type": "node",
+        "osm_id": 5987380085,
+        "name": "Nueva Villegas",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6533113,
+          -34.576654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6252770885",
+        "osm_type": "node",
+        "osm_id": 6252770885,
+        "name": "Panadería Rosita",
+        "amenity": null,
+        "shop": "bakery",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6367057,
+          -34.5925688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6258873463",
+        "osm_type": "node",
+        "osm_id": 6258873463,
+        "name": "Farmacia Neri",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Curapaytí",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6418287,
+          -34.5882829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6258873477",
+        "osm_type": "node",
+        "osm_id": 6258873477,
+        "name": "La Amistad",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Curapaytí",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.642523,
+          -34.5877166
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6262833185",
+        "osm_type": "node",
+        "osm_id": 6262833185,
+        "name": "Abuela Paula Fiambreria",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Alemania",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.622905,
+          -34.5934421
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029185",
+        "osm_type": "node",
+        "osm_id": 6263029185,
+        "name": "Don Pocho",
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6319338,
+          -34.6010215
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029285",
+        "osm_type": "node",
+        "osm_id": 6263029285,
+        "name": "Milenium",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6353248,
+          -34.6018495
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029286",
+        "osm_type": "node",
+        "osm_id": 6263029286,
+        "name": "Vea",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Quirno",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6351985,
+          -34.603161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029289",
+        "osm_type": "node",
+        "osm_id": 6263029289,
+        "name": "Magoo Bodegón",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6361914,
+          -34.5950891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029290",
+        "osm_type": "node",
+        "osm_id": 6263029290,
+        "name": "Amico e hijos",
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6339343,
+          -34.5906033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6263029885",
+        "osm_type": "node",
+        "osm_id": 6263029885,
+        "name": "Banco Piano",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6354659,
+          -34.6030166
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6363858393",
+        "osm_type": "node",
+        "osm_id": 6363858393,
+        "name": "Florencia",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6535767,
+          -34.6299613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7195671941",
+        "osm_type": "node",
+        "osm_id": 7195671941,
+        "name": "Chango Mas",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "La Leonor",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6638111,
+          -34.5871628
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7399819676",
+        "osm_type": "node",
+        "osm_id": 7399819676,
+        "name": "Unidad Sanitaria 2 De Junio De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6409992,
+          -34.6236188
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504768564",
+        "osm_type": "node",
+        "osm_id": 7504768564,
+        "name": "Unidad Sanitaria 2 De Abril De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Dos de Abril",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6613971,
+          -34.6201848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504776441",
+        "osm_type": "node",
+        "osm_id": 7504776441,
+        "name": "Unidad Sanitaria Barrio Libertador",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.646653,
+          -34.6287111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504793159",
+        "osm_type": "node",
+        "osm_id": 7504793159,
+        "name": "Unidad Sanitaria Eva Peron De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Scholnik",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6243343,
+          -34.6124499
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504795879",
+        "osm_type": "node",
+        "osm_id": 7504795879,
+        "name": "Hospital Odontologico - (Hurlingham)",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6323217,
+          -34.6142818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504812038",
+        "osm_type": "node",
+        "osm_id": 7504812038,
+        "name": "Centro De Salud Doctor Ramon Carrillo",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "La Juanita",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6204452,
+          -34.619428
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504817303",
+        "osm_type": "node",
+        "osm_id": 7504817303,
+        "name": "Centro De Salud 21 De Agosto",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Los Patitos",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6606923,
+          -34.5996793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504819934",
+        "osm_type": "node",
+        "osm_id": 7504819934,
+        "name": "Unidad Sanitaria San J. Obrero",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6560306,
+          -34.5746925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524641347",
+        "osm_type": "node",
+        "osm_id": 7524641347,
+        "name": "Policlinica Doctor Argerich",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6398657,
+          -34.5900609
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524738599",
+        "osm_type": "node",
+        "osm_id": 7524738599,
+        "name": "Unidad Sanitaria Bartolome Mitre De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Mitre",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6491595,
+          -34.6121367
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524804416",
+        "osm_type": "node",
+        "osm_id": 7524804416,
+        "name": "Unidad Sanitaria Barrio Angel",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Belgrano",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6589415,
+          -34.5783683
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_8855570050",
+        "osm_type": "node",
+        "osm_id": 8855570050,
+        "name": "Escuela De Educacion Primaria 22 Martín Fierro",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6321592,
+          -34.6007065
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_8855570051",
+        "osm_type": "node",
+        "osm_id": 8855570051,
+        "name": "Instituto San Pablo",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6295326,
+          -34.5947455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_9414401150",
+        "osm_type": "node",
+        "osm_id": 9414401150,
+        "name": "El Puente",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Atepam Italia",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6296092,
+          -34.631108
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_10789235727",
+        "osm_type": "node",
+        "osm_id": 10789235727,
+        "name": "Kiosco Los Primos",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Atepam Italia",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6297871,
+          -34.6310612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_11328167969",
+        "osm_type": "node",
+        "osm_id": 11328167969,
+        "name": "Los Pinos",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6311714,
+          -34.5882514
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12229857901",
+        "osm_type": "node",
+        "osm_id": 12229857901,
+        "name": "Parrilla Los Amigos de Ramon",
+        "amenity": "restaurant",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6502306,
+          -34.6308197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12229859601",
+        "osm_type": "node",
+        "osm_id": 12229859601,
+        "name": "Verduleria",
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Atepam Italia",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6270821,
+          -34.6323453
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12863596901",
+        "osm_type": "node",
+        "osm_id": 12863596901,
+        "name": "Delhia",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6251856,
+          -34.591235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12863597001",
+        "osm_type": "node",
+        "osm_id": 12863597001,
+        "name": "Candela",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6257879,
+          -34.5911392
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12863646401",
+        "osm_type": "node",
+        "osm_id": 12863646401,
+        "name": "Weimburg",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6263329,
+          -34.5904002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_12903106071",
+        "osm_type": "node",
+        "osm_id": 12903106071,
+        "name": "Escuela de Educación Secundaria 3 \"General Don José de San Martín\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6351313,
+          -34.5861134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677113",
+        "osm_type": "node",
+        "osm_id": 13030677113,
+        "name": "Jardín de Infantes la Rana Juana",
+        "amenity": "kindergarten",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6347003,
+          -34.5864245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677114",
+        "osm_type": "node",
+        "osm_id": 13030677114,
+        "name": "Extension I de Escuela de Educación Secundaria 5 \"Almafuerte\"",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6349579,
+          -34.5862392
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677115",
+        "osm_type": "node",
+        "osm_id": 13030677115,
+        "name": "Centro Educativo de Nivel Secundario 454",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6350062,
+          -34.586217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13030677116",
+        "osm_type": "node",
+        "osm_id": 13030677116,
+        "name": "Escuela de Educación Secundaria 5",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.635193,
+          -34.586066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13049832901",
+        "osm_type": "node",
+        "osm_id": 13049832901,
+        "name": "AR Cars & Coffee",
+        "amenity": "cafe",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6361119,
+          -34.5955158
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13054587401",
+        "osm_type": "node",
+        "osm_id": 13054587401,
+        "name": "ARIAL",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6359294,
+          -34.5956624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13414624590",
+        "osm_type": "node",
+        "osm_id": 13414624590,
+        "name": "Cucina 10",
+        "amenity": "fast_food",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6365494,
+          -34.5944241
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13414769350",
+        "osm_type": "node",
+        "osm_id": 13414769350,
+        "name": null,
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6251154,
+          -34.5919573
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13417008726",
+        "osm_type": "node",
+        "osm_id": 13417008726,
+        "name": "Hospital de Ojos Municipal",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6322111,
+          -34.6142287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_242972677",
+        "osm_type": "way",
+        "osm_id": 242972677,
+        "name": "Centro de Rehabilitacion San Juan De Dios",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "San Damián",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6676093,
+          -34.5895226
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_263220964",
+        "osm_type": "way",
+        "osm_id": 263220964,
+        "name": "Carrefour",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": "retail",
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6362783,
+          -34.6211359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_286714464",
+        "osm_type": "way",
+        "osm_id": 286714464,
+        "name": "Macro",
+        "amenity": "bank",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6294836,
+          -34.5878285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_467008746",
+        "osm_type": "way",
+        "osm_id": 467008746,
+        "name": "Dia",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Carola Lorenzini",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6563712,
+          -34.6277862
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_467008753",
+        "osm_type": "way",
+        "osm_id": 467008753,
+        "name": "Autoservicio Florencia",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6536296,
+          -34.6297146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_467008755",
+        "osm_type": "way",
+        "osm_id": 467008755,
+        "name": "Sol",
+        "amenity": null,
+        "shop": "greengrocer",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6536793,
+          -34.6299293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_476771677",
+        "osm_type": "way",
+        "osm_id": 476771677,
+        "name": "Axion Shop",
+        "amenity": null,
+        "shop": "convenience",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Asunción",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6261831,
+          -34.6321208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_480916429",
+        "osm_type": "way",
+        "osm_id": 480916429,
+        "name": "Universidad Nacional de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6377119,
+          -34.6186526
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_480916431",
+        "osm_type": "way",
+        "osm_id": 480916431,
+        "name": "Universidad de Hurlingham",
+        "amenity": "university",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6344397,
+          -34.6165408
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_517802853",
+        "osm_type": "way",
+        "osm_id": 517802853,
+        "name": "Calasanz",
+        "amenity": "school",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6364511,
+          -34.6159443
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_551156515",
+        "osm_type": "way",
+        "osm_id": 551156515,
+        "name": "YPF",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6419068,
+          -34.5781562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_672594545",
+        "osm_type": "way",
+        "osm_id": 672594545,
+        "name": "Axion",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Asunción",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6262574,
+          -34.6322059
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1022124632",
+        "osm_type": "way",
+        "osm_id": 1022124632,
+        "name": "Axion",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6355922,
+          -34.6059703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1022124638",
+        "osm_type": "way",
+        "osm_id": 1022124638,
+        "name": "Puma",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Militar",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6318727,
+          -34.6249473
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081056341",
+        "osm_type": "way",
+        "osm_id": 1081056341,
+        "name": "Axion",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6465223,
+          -34.5751656
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1279924898",
+        "osm_type": "way",
+        "osm_id": 1279924898,
+        "name": "Carrefour",
+        "amenity": null,
+        "shop": "supermarket",
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6361367,
+          -34.5917574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1279924901",
+        "osm_type": "way",
+        "osm_id": 1279924901,
+        "name": "Shell",
+        "amenity": "fuel",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6363274,
+          -34.5946512
+        ]
+      }
+    }
+  ]
+}

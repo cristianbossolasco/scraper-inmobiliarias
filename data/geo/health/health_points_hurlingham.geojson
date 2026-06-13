@@ -1,0 +1,653 @@
+{
+  "type": "FeatureCollection",
+  "name": "health_points_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
+    "query_bbox": [
+      -34.66,
+      -58.72,
+      -34.54,
+      -58.58
+    ],
+    "data_confidence": "medium",
+    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_3426898079",
+        "osm_type": "node",
+        "osm_id": 3426898079,
+        "name": "Navarro",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6394123,
+          -34.5800804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4108838910",
+        "osm_type": "node",
+        "osm_id": 4108838910,
+        "name": "Hospital Municipal San Bernardino De Siena",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6410048,
+          -34.5889949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597050290",
+        "osm_type": "node",
+        "osm_id": 4597050290,
+        "name": "Nueva Casella",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6263219,
+          -34.590769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4597053290",
+        "osm_type": "node",
+        "osm_id": 4597053290,
+        "name": "Fernández",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6283479,
+          -34.5949154
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_4636119991",
+        "osm_type": "node",
+        "osm_id": 4636119991,
+        "name": "Clinica Sagrado Corazón de Jesús",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6375516,
+          -34.586896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_5987380085",
+        "osm_type": "node",
+        "osm_id": 5987380085,
+        "name": "Nueva Villegas",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6533113,
+          -34.576654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_6258873463",
+        "osm_type": "node",
+        "osm_id": 6258873463,
+        "name": "Farmacia Neri",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Curapaytí",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6418287,
+          -34.5882829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7399819676",
+        "osm_type": "node",
+        "osm_id": 7399819676,
+        "name": "Unidad Sanitaria 2 De Junio De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Porvenir",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6409992,
+          -34.6236188
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504768564",
+        "osm_type": "node",
+        "osm_id": 7504768564,
+        "name": "Unidad Sanitaria 2 De Abril De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Dos de Abril",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6613971,
+          -34.6201848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504776441",
+        "osm_type": "node",
+        "osm_id": 7504776441,
+        "name": "Unidad Sanitaria Barrio Libertador",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "El Libertador",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.646653,
+          -34.6287111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504793159",
+        "osm_type": "node",
+        "osm_id": 7504793159,
+        "name": "Unidad Sanitaria Eva Peron De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Scholnik",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6243343,
+          -34.6124499
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504795879",
+        "osm_type": "node",
+        "osm_id": 7504795879,
+        "name": "Hospital Odontologico - (Hurlingham)",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6323217,
+          -34.6142818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504812038",
+        "osm_type": "node",
+        "osm_id": 7504812038,
+        "name": "Centro De Salud Doctor Ramon Carrillo",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "La Juanita",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6204452,
+          -34.619428
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504817303",
+        "osm_type": "node",
+        "osm_id": 7504817303,
+        "name": "Centro De Salud 21 De Agosto",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Los Patitos",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6606923,
+          -34.5996793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7504819934",
+        "osm_type": "node",
+        "osm_id": 7504819934,
+        "name": "Unidad Sanitaria San J. Obrero",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6560306,
+          -34.5746925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524641347",
+        "osm_type": "node",
+        "osm_id": 7524641347,
+        "name": "Policlinica Doctor Argerich",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Parque Jhonston",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6398657,
+          -34.5900609
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524738599",
+        "osm_type": "node",
+        "osm_id": 7524738599,
+        "name": "Unidad Sanitaria Bartolome Mitre De Hurlingham",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Mitre",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6491595,
+          -34.6121367
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_7524804416",
+        "osm_type": "node",
+        "osm_id": 7524804416,
+        "name": "Unidad Sanitaria Barrio Angel",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Belgrano",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6589415,
+          -34.5783683
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13054587401",
+        "osm_type": "node",
+        "osm_id": 13054587401,
+        "name": "ARIAL",
+        "amenity": "pharmacy",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6359294,
+          -34.5956624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_13417008726",
+        "osm_type": "node",
+        "osm_id": 13417008726,
+        "name": "Hospital de Ojos Municipal",
+        "amenity": "clinic",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6322111,
+          -34.6142287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_242972677",
+        "osm_type": "way",
+        "osm_id": 242972677,
+        "name": "Centro de Rehabilitacion San Juan De Dios",
+        "amenity": "hospital",
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": null,
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "San Damián",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6676093,
+          -34.5895226
+        ]
+      }
+    }
+  ]
+}

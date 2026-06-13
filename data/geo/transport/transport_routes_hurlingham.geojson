@@ -1,0 +1,1415 @@
+{
+  "type": "FeatureCollection",
+  "name": "transport_routes_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "OpenStreetMap Overpass API",
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "license": "Open Database License (ODbL)",
+    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
+    "query_bbox": [
+      -34.66,
+      -58.72,
+      -34.54,
+      -58.58
+    ],
+    "data_confidence": "medium",
+    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139170631",
+        "osm_type": "way",
+        "osm_id": 139170631,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6337973,
+          -34.5875736
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139170635",
+        "osm_type": "way",
+        "osm_id": 139170635,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6338093,
+          -34.587638
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139170639",
+        "osm_type": "way",
+        "osm_id": 139170639,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.633707,
+          -34.5876485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139170646",
+        "osm_type": "way",
+        "osm_id": 139170646,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6324089,
+          -34.5875426
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139187656",
+        "osm_type": "way",
+        "osm_id": 139187656,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nueve de Julio"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6192763,
+          -34.597961
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139187664",
+        "osm_type": "way",
+        "osm_id": 139187664,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6260951,
+          -34.587647
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_139933182",
+        "osm_type": "way",
+        "osm_id": 139933182,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6399055,
+          -34.581497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_188770773",
+        "osm_type": "way",
+        "osm_id": 188770773,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6425402,
+          -34.5788294
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_191859758",
+        "osm_type": "way",
+        "osm_id": 191859758,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6584522,
+          -34.5775198
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_192436204",
+        "osm_type": "way",
+        "osm_id": 192436204,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6550499,
+          -34.5792323
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041715",
+        "osm_type": "way",
+        "osm_id": 193041715,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6495719,
+          -34.5702627
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041717",
+        "osm_type": "way",
+        "osm_id": 193041717,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6495216,
+          -34.5701944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041718",
+        "osm_type": "way",
+        "osm_id": 193041718,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6512438,
+          -34.5689394
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_193041721",
+        "osm_type": "way",
+        "osm_id": 193041721,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Juan B. de Lasalle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6504317,
+          -34.569637
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_255112638",
+        "osm_type": "way",
+        "osm_id": 255112638,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nueve de Julio"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6192492,
+          -34.5979252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_255784517",
+        "osm_type": "way",
+        "osm_id": 255784517,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6338681,
+          -34.5874379
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_263127337",
+        "osm_type": "way",
+        "osm_id": 263127337,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Jorge Newbery"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6210105,
+          -34.5878724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_282575138",
+        "osm_type": "way",
+        "osm_id": 282575138,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6424866,
+          -34.5787735
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753190",
+        "osm_type": "way",
+        "osm_id": 581753190,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6325117,
+          -34.5910331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753191",
+        "osm_type": "way",
+        "osm_id": 581753191,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6321979,
+          -34.5911463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753193",
+        "osm_type": "way",
+        "osm_id": 581753193,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nueve de Julio"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.624633,
+          -34.5951036
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753196",
+        "osm_type": "way",
+        "osm_id": 581753196,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Nueve de Julio"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6249368,
+          -34.5949926
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753201",
+        "osm_type": "way",
+        "osm_id": 581753201,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6355701,
+          -34.5894863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753204",
+        "osm_type": "way",
+        "osm_id": 581753204,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6325117,
+          -34.5910331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_581753209",
+        "osm_type": "way",
+        "osm_id": 581753209,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6321979,
+          -34.5911463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062119",
+        "osm_type": "way",
+        "osm_id": 1081062119,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6349974,
+          -34.5875118
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062120",
+        "osm_type": "way",
+        "osm_id": 1081062120,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.635,
+          -34.5875581
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062121",
+        "osm_type": "way",
+        "osm_id": 1081062121,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6350039,
+          -34.5876055
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062122",
+        "osm_type": "way",
+        "osm_id": 1081062122,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6350017,
+          -34.58765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062123",
+        "osm_type": "way",
+        "osm_id": 1081062123,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6350108,
+          -34.5877129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062124",
+        "osm_type": "way",
+        "osm_id": 1081062124,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6339036,
+          -34.5876042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062125",
+        "osm_type": "way",
+        "osm_id": 1081062125,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6319975,
+          -34.5874532
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062126",
+        "osm_type": "way",
+        "osm_id": 1081062126,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6328048,
+          -34.5874601
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062128",
+        "osm_type": "way",
+        "osm_id": 1081062128,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6351214,
+          -34.5873215
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062129",
+        "osm_type": "way",
+        "osm_id": 1081062129,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6336285,
+          -34.5874953
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062130",
+        "osm_type": "way",
+        "osm_id": 1081062130,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6345634,
+          -34.5874625
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062131",
+        "osm_type": "way",
+        "osm_id": 1081062131,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6353073,
+          -34.5874363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062132",
+        "osm_type": "way",
+        "osm_id": 1081062132,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6342734,
+          -34.5873965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062133",
+        "osm_type": "way",
+        "osm_id": 1081062133,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6325346,
+          -34.5875552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062134",
+        "osm_type": "way",
+        "osm_id": 1081062134,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6315206,
+          -34.5875729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1081062135",
+        "osm_type": "way",
+        "osm_id": 1081062135,
+        "name": null,
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6321667,
+          -34.5876468
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1152238769",
+        "osm_type": "way",
+        "osm_id": 1152238769,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Cosmopolita"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6395665,
+          -34.5873134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418111223",
+        "osm_type": "way",
+        "osm_id": 1418111223,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6362503,
+          -34.5890867
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418111225",
+        "osm_type": "way",
+        "osm_id": 1418111225,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Cosmopolita"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6389415,
+          -34.5876813
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418118135",
+        "osm_type": "way",
+        "osm_id": 1418118135,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Hurlingham Centro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6329276,
+          -34.5874344
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418118138",
+        "osm_type": "way",
+        "osm_id": 1418118138,
+        "name": "FC Urquiza",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Villa Club"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6278074,
+          -34.5876204
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418118142",
+        "osm_type": "way",
+        "osm_id": 1418118142,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Cosmopolita"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6431459,
+          -34.5855048
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_way_1418124621",
+        "osm_type": "way",
+        "osm_id": 1418124621,
+        "name": "FC San Martín",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": null,
+        "railway": "rail",
+        "waterway": null,
+        "public_transport": null,
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Roca 2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.650907,
+          -34.5814558
+        ]
+      }
+    }
+  ]
+}

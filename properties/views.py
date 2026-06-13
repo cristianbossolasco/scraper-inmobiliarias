@@ -21,7 +21,27 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 
-from .models import Agency, Listing, ListingImage, Property, PropertyLocation, ScrapeJob, Source
+from .models import (
+    Agency,
+    Listing,
+    ListingImage,
+    OperationJob,
+    Property,
+    PropertyLocation,
+    ScrapeJob,
+    Source,
+)
+from .services.operations import (
+    ActiveOperationJobError,
+    cancel_operation_job,
+    create_apply_from_dry_run_job,
+    create_operation_job,
+    mark_stale_operation_jobs,
+    operation_catalog,
+    retry_operation_job,
+    serialize_operation_job,
+    start_operation_job,
+)
 from .services.data_quality import (
     curated_metric_values,
     curated_price_m2_values,
@@ -2600,13 +2620,17 @@ def market_stats(request):
 @ensure_csrf_cookie
 def scraping_dashboard(request):
     mark_stale_running_jobs()
+    mark_stale_operation_jobs()
     jobs = ScrapeJob.objects.prefetch_related("sources").order_by("-created_at")[:8]
+    operation_jobs = OperationJob.objects.prefetch_related("steps").order_by("-created_at")[:12]
     return render(
         request,
         "properties/scraping.html",
         {
             "sources": source_catalog(include_disabled=True),
             "jobs": [serialize_job(job) for job in jobs],
+            "operation_catalog": operation_catalog(),
+            "operation_jobs": [serialize_operation_job(job) for job in operation_jobs],
         },
     )
 
@@ -2635,6 +2659,13 @@ def _optional_non_negative_int(value, field_name):
     return parsed
 
 
+def _payload_bool(payload, key, default=False):
+    value = payload.get(key, default)
+    if isinstance(value, str):
+        return value.lower() in {"1", "true", "yes", "si", "on"}
+    return bool(value)
+
+
 @require_POST
 def create_scrape_job_api(request):
     try:
@@ -2646,6 +2677,7 @@ def create_scrape_job_api(request):
         start_page = _optional_positive_int(payload.get("start_page"), "start_page")
         max_listings = _optional_positive_int(payload.get("max_listings"), "max_listings")
         geocode_limit = _optional_non_negative_int(payload.get("geocode_limit"), "geocode_limit")
+        mark_missing = _payload_bool(payload, "mark_missing", False)
         request_timeout = _optional_positive_int(
             payload.get("request_timeout_seconds"), "request_timeout_seconds"
         )
@@ -2658,7 +2690,8 @@ def create_scrape_job_api(request):
             max_pages=max_pages,
             start_page=start_page,
             max_listings=max_listings,
-            geocode_limit=geocode_limit if geocode_limit is not None else 25,
+            geocode_limit=geocode_limit if geocode_limit is not None else 0,
+            mark_missing=mark_missing,
             scrape_mode=scrape_mode,
             request_timeout_seconds=request_timeout,
             max_errors_per_source=max_errors,
@@ -2724,3 +2757,86 @@ def retry_scrape_job_errors_api(request, pk):
     except ValueError as exc:
         return JsonResponse({"error": str(exc)}, status=400)
     return JsonResponse(serialize_job(job), status=201)
+
+
+@require_GET
+def operation_catalog_api(request):
+    return JsonResponse(operation_catalog())
+
+
+@require_POST
+def create_operation_job_api(request):
+    try:
+        payload = json.loads(request.body or "{}")
+        job = create_operation_job(
+            kind=payload.get("kind") or OperationJob.Kind.PIPELINE,
+            mode=payload.get("mode") or OperationJob.Mode.DRY_RUN,
+            steps=payload.get("steps") or [],
+            scope=payload.get("scope") or {},
+            params=payload.get("params") or {},
+            title=payload.get("title") or "",
+            enforce_single_active=True,
+        )
+        start_operation_job(job)
+    except ActiveOperationJobError as exc:
+        active = get_object_or_404(
+            OperationJob.objects.prefetch_related("steps"), pk=exc.active_job_id
+        )
+        payload = serialize_operation_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
+    except (ValueError, json.JSONDecodeError) as exc:
+        return JsonResponse({"error": str(exc)}, status=400)
+    return JsonResponse(serialize_operation_job(job), status=201)
+
+
+def operation_job_status_api(request, pk):
+    mark_stale_operation_jobs()
+    job = get_object_or_404(OperationJob.objects.prefetch_related("steps"), pk=pk)
+    return JsonResponse(serialize_operation_job(job))
+
+
+@require_POST
+def cancel_operation_job_api(request, pk):
+    job = get_object_or_404(OperationJob.objects.prefetch_related("steps"), pk=pk)
+    if job.status in {OperationJob.Status.PENDING, OperationJob.Status.RUNNING}:
+        cancel_operation_job(job)
+    return JsonResponse(serialize_operation_job(job))
+
+
+@require_POST
+def retry_operation_job_api(request, pk):
+    original = get_object_or_404(OperationJob.objects.prefetch_related("steps"), pk=pk)
+    if original.status in {OperationJob.Status.PENDING, OperationJob.Status.RUNNING}:
+        return JsonResponse({"error": "La operacion todavia esta en curso."}, status=400)
+    try:
+        job = retry_operation_job(original, enforce_single_active=True)
+        start_operation_job(job)
+    except ActiveOperationJobError as exc:
+        active = get_object_or_404(
+            OperationJob.objects.prefetch_related("steps"), pk=exc.active_job_id
+        )
+        payload = serialize_operation_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
+    except ValueError as exc:
+        return JsonResponse({"error": str(exc)}, status=400)
+    return JsonResponse(serialize_operation_job(job), status=201)
+
+
+@require_POST
+def apply_operation_dry_run_api(request, pk):
+    original = get_object_or_404(OperationJob.objects.prefetch_related("steps"), pk=pk)
+    try:
+        job = create_apply_from_dry_run_job(original, enforce_single_active=True)
+        start_operation_job(job)
+    except ActiveOperationJobError as exc:
+        active = get_object_or_404(
+            OperationJob.objects.prefetch_related("steps"), pk=exc.active_job_id
+        )
+        payload = serialize_operation_job(active)
+        payload["error"] = str(exc)
+        return JsonResponse(payload, status=409)
+    except ValueError as exc:
+        return JsonResponse({"error": str(exc)}, status=400)
+    return JsonResponse(serialize_operation_job(job), status=201)
