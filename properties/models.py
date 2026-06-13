@@ -2,6 +2,7 @@ import builtins
 from decimal import Decimal
 
 from django.db import models
+from django.utils import timezone
 
 
 class Agency(models.Model):
@@ -338,6 +339,34 @@ class Listing(models.Model):
             models.Index(
                 fields=["source", "active"],
                 name="properties__source__e7ad06_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.source}: {self.external_id}"
+
+
+class ListingIdentity(models.Model):
+    source = models.ForeignKey(
+        Source, related_name="listing_identities", on_delete=models.PROTECT
+    )
+    external_id = models.CharField(max_length=160)
+    url = models.URLField(max_length=800, blank=True)
+    first_seen_at = models.DateTimeField(default=timezone.now, db_index=True)
+    last_seen_at = models.DateTimeField(default=timezone.now, db_index=True)
+    last_seen_reason = models.CharField(max_length=50, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source", "external_id"], name="unique_source_listing_identity"
+            )
+        ]
+        ordering = ["-last_seen_at"]
+        indexes = [
+            models.Index(
+                fields=["source", "last_seen_at"],
+                name="props_ident_src_seen_idx",
             ),
         ]
 

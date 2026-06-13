@@ -9,6 +9,7 @@ from django.utils import timezone
 from properties.models import (
     Agency,
     Listing,
+    ListingIdentity,
     ListingImage,
     ListingSnapshot,
     Property,
@@ -158,11 +159,23 @@ def canonicalize_listing_data(data, source=None):
 @transaction.atomic
 def ingest_listing(source, data):
     data = canonicalize_listing_data(data, source=source)
+    external_id = str(data["external_id"])
+    now = timezone.now()
 
     listing = Listing.objects.filter(
-        source=source, external_id=str(data["external_id"])
+        source=source, external_id=external_id
     ).select_related("property").first()
-    created = listing is None
+    identity, identity_created = ListingIdentity.objects.get_or_create(
+        source=source,
+        external_id=external_id,
+        defaults={
+            "url": data["url"],
+            "first_seen_at": now,
+            "last_seen_at": now,
+            "last_seen_reason": "ingest",
+        },
+    )
+    created = listing is None and identity_created
     if listing:
         property_obj = listing.property
     else:
@@ -226,7 +239,7 @@ def ingest_listing(source, data):
         )
     listing, _ = Listing.objects.update_or_create(
         source=source,
-        external_id=str(data["external_id"]),
+        external_id=external_id,
         defaults={
             "property": property_obj,
             "agency": agency,
@@ -237,6 +250,11 @@ def ingest_listing(source, data):
             "raw_data": data.get("raw_data") or {},
         },
     )
+    if not identity_created:
+        identity.url = data["url"]
+        identity.last_seen_at = now
+        identity.last_seen_reason = "ingest"
+        identity.save(update_fields=["url", "last_seen_at", "last_seen_reason"])
 
     for position, image_url in enumerate(dict.fromkeys(data.get("images") or [])):
         ListingImage.objects.get_or_create(

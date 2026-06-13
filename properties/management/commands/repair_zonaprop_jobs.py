@@ -3,9 +3,11 @@ from decimal import Decimal, InvalidOperation
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db import models, transaction
+from django.utils import timezone
 
 from properties.models import (
     Listing,
+    ListingIdentity,
     Property,
     PropertyLocation,
     ScrapeJob,
@@ -108,6 +110,16 @@ class Command(BaseCommand):
         active_rollback_ids = {
             listing.pk for listing in rollback_listings if listing.active
         }
+        identity_items = [
+            {
+                "source_id": listing.source_id,
+                "external_id": listing.external_id,
+                "url": listing.url,
+                "first_seen_at": listing.first_seen_at,
+                "last_seen_at": listing.last_seen_at,
+            }
+            for listing in rollback_listings
+        ]
         by_property = defaultdict(list)
         for listing in rollback_listings:
             by_property[listing.property_id].append(listing.pk)
@@ -162,6 +174,7 @@ class Command(BaseCommand):
             "min_started": min_started,
             "max_finished": max_finished,
             "rollback_ids": sorted(rollback_ids),
+            "identity_items": identity_items,
             "affected_property_ids": sorted(by_property),
             "listing_ids_by_property": listing_ids_by_property,
             "delete_property_ids": delete_property_ids,
@@ -211,6 +224,8 @@ class Command(BaseCommand):
         )
 
     def _apply_plan(self, plan):
+        self._remember_listing_identities(plan)
+
         for property_id in plan["shared_property_ids"]:
             self._restore_shared_property(property_id, plan)
 
@@ -228,6 +243,42 @@ class Command(BaseCommand):
                 missing_runs=2,
             )
             self._mark_preserved_property_removed(property_obj, plan)
+
+    def _remember_listing_identities(self, plan):
+        if not plan["identity_items"]:
+            return
+        now = timezone.now()
+        existing = set(
+            ListingIdentity.objects.filter(
+                source_id__in={item["source_id"] for item in plan["identity_items"]},
+                external_id__in=[item["external_id"] for item in plan["identity_items"]],
+            ).values_list("source_id", "external_id")
+        )
+        to_create = [
+            ListingIdentity(
+                source_id=item["source_id"],
+                external_id=item["external_id"],
+                url=item["url"],
+                first_seen_at=item["first_seen_at"],
+                last_seen_at=now,
+                last_seen_reason="repair_zonaprop_jobs",
+            )
+            for item in plan["identity_items"]
+            if (item["source_id"], item["external_id"]) not in existing
+        ]
+        if to_create:
+            ListingIdentity.objects.bulk_create(to_create, ignore_conflicts=True)
+        for item in plan["identity_items"]:
+            if (item["source_id"], item["external_id"]) not in existing:
+                continue
+            ListingIdentity.objects.filter(
+                source_id=item["source_id"],
+                external_id=item["external_id"],
+            ).update(
+                url=item["url"],
+                last_seen_at=now,
+                last_seen_reason="repair_zonaprop_jobs",
+            )
 
     def _restore_shared_property(self, property_id, plan):
         property_obj = Property.objects.get(pk=property_id)

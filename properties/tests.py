@@ -17,6 +17,7 @@ from properties.models import (
     Agency,
     GeocodeCache,
     Listing,
+    ListingIdentity,
     ListingSnapshot,
     OperationJob,
     OperationJobStep,
@@ -972,6 +973,35 @@ class IngestionTests(TestCase):
         self.assertEqual(ListingSnapshot.objects.count(), 2)
         second.property.refresh_from_db()
         self.assertEqual(second.property.price, Decimal("115000"))
+
+    def test_ingestion_creates_listing_identity_for_new_listing(self):
+        listing, created = ingest_listing(self.source, self.data)
+
+        self.assertTrue(created)
+        identity = ListingIdentity.objects.get(
+            source=self.source,
+            external_id=listing.external_id,
+        )
+        self.assertEqual(identity.url, listing.url)
+        self.assertEqual(identity.last_seen_reason, "ingest")
+
+    def test_known_listing_identity_is_not_counted_as_created(self):
+        ListingIdentity.objects.create(
+            source=self.source,
+            external_id=self.data["external_id"],
+            url=self.data["url"],
+            last_seen_reason="seed_discovery",
+        )
+
+        listing, created = ingest_listing(self.source, self.data)
+
+        self.assertFalse(created)
+        self.assertTrue(Listing.objects.filter(pk=listing.pk).exists())
+        identity = ListingIdentity.objects.get(
+            source=self.source,
+            external_id=self.data["external_id"],
+        )
+        self.assertEqual(identity.last_seen_reason, "ingest")
 
     def test_manual_overrides_are_not_overwritten_by_ingestion(self):
         listing, _ = ingest_listing(self.source, self.data)
@@ -4594,6 +4624,11 @@ class RepairZonapropJobsCommandTests(TestCase):
 
         self.assertFalse(Listing.objects.filter(pk=listing.pk).exists())
         self.assertFalse(Property.objects.filter(pk=property_obj.pk).exists())
+        identity = ListingIdentity.objects.get(
+            source=self.source,
+            external_id="delete",
+        )
+        self.assertEqual(identity.last_seen_reason, "repair_zonaprop_jobs")
 
     def test_apply_preserves_manual_property_as_removed(self):
         property_obj = self.create_property(
@@ -4660,6 +4695,82 @@ class RepairZonapropJobsCommandTests(TestCase):
         self.assertEqual(property_obj.normalized_address, "original 123")
         self.assertEqual(property_obj.price, Decimal("120000.00"))
         self.assertEqual(property_obj.personal_notes, "Nota manual")
+
+
+class SeedListingIdentitiesCommandTests(TestCase):
+    def setUp(self):
+        self.source = Source.objects.create(
+            slug="zonaprop",
+            name="Zonaprop",
+            base_url="https://www.zonaprop.com.ar",
+        )
+        self.urls = [
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-1-111.html",
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-2-222.html",
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-1-111.html",
+        ]
+
+    class FakeAdapter:
+        discovery_stats = {
+            "declared_total": 2,
+            "urls_discovered": 2,
+            "coverage_ratio": 100.0,
+        }
+
+        def __init__(self, urls):
+            self.urls = urls
+
+        def discover(self):
+            yield from self.urls
+
+    @patch("properties.management.commands.seed_listing_identities.get_adapter")
+    def test_seed_listing_identities_dry_run_does_not_write(self, get_adapter_mock):
+        get_adapter_mock.return_value = self.FakeAdapter(self.urls)
+
+        output = StringIO()
+        call_command(
+            "seed_listing_identities",
+            "--source",
+            self.source.slug,
+            stdout=output,
+        )
+
+        self.assertEqual(ListingIdentity.objects.count(), 0)
+        self.assertIn("DRY-RUN seed_listing_identities", output.getvalue())
+        self.assertIn("nuevas=2", output.getvalue())
+
+    @patch("properties.management.commands.seed_listing_identities.get_adapter")
+    def test_seed_listing_identities_apply_creates_and_updates_memory(self, get_adapter_mock):
+        get_adapter_mock.return_value = self.FakeAdapter(self.urls)
+        ListingIdentity.objects.create(
+            source=self.source,
+            external_id="veclcain-casa-1-111.html",
+            url="https://old.example/old.html",
+            last_seen_reason="old",
+        )
+
+        output = StringIO()
+        call_command(
+            "seed_listing_identities",
+            "--source",
+            self.source.slug,
+            "--apply",
+            stdout=output,
+        )
+
+        self.assertEqual(ListingIdentity.objects.count(), 2)
+        self.assertEqual(Listing.objects.count(), 0)
+        existing = ListingIdentity.objects.get(
+            source=self.source,
+            external_id="veclcain-casa-1-111.html",
+        )
+        created = ListingIdentity.objects.get(
+            source=self.source,
+            external_id="veclcain-casa-2-222.html",
+        )
+        self.assertEqual(existing.last_seen_reason, "seed_discovery")
+        self.assertEqual(created.last_seen_reason, "seed_discovery")
+        self.assertIn("Identidades sembradas", output.getvalue())
 
 
 class ScrapeCommandTests(TransactionTestCase):
