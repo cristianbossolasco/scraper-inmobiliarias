@@ -7,14 +7,14 @@
 {% block body %}
 <header class="app-header">
   <div>
-    <a class="brand" href="/">Radar Hurlingham</a>
+    <a class="brand" href="{{ active_search_url }}">Radar Hurlingham</a>
     <span class="count">Dashboard de mercado</span>
   </div>
   <div class="header-actions">
-    <a class="icon-button" href="/?{{ request.GET.urlencode }}" title="Volver a resultados" aria-label="Volver a resultados">
+    <a class="icon-button" href="{{ active_search_url }}" title="Volver a resultados" aria-label="Volver a resultados">
       <i data-lucide="list"></i>
     </a>
-    <a class="icon-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}" title="Exportar CSV" aria-label="Exportar CSV">
+    <a class="icon-button" href="{{ active_export_csv_url }}" title="Exportar CSV" aria-label="Exportar CSV">
       <i data-lucide="file-down"></i>
     </a>
   </div>
@@ -34,10 +34,10 @@
         <button class="secondary-button" type="button" id="stats-filter-collapse" title="Contrastar análisis" aria-label="Alternar vista de secciones">
           <i data-lucide="panel-top-open"></i> Secciones
         </button>
-        <a class="secondary-button" href="/?{{ request.GET.urlencode }}">
+        <a class="secondary-button" href="{{ active_search_url }}">
           <i data-lucide="list"></i> Resultados
         </a>
-        <a class="primary-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}">
+        <a class="primary-button" href="{{ active_export_csv_url }}">
           <i data-lucide="file-down"></i> CSV
         </a>
       </div>
@@ -291,7 +291,7 @@
       <input type="hidden" name="polygon" value="{{ query_params.polygon }}">
 
       <div class="stats-filter-submit">
-        <a class="secondary-button" href="{% url 'properties:stats' %}">
+        <a class="secondary-button" href="{{ clear_filters_url }}">
           <i data-lucide="rotate-ccw"></i> Limpiar
         </a>
         <button class="primary-button" type="submit">

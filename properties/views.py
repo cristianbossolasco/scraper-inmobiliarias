@@ -13,7 +13,7 @@ from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.db import connection
 from django.db.models import Count, Max, Prefetch, Q
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
@@ -365,6 +365,70 @@ def query_url(params, overrides=None, remove=None, path="/"):
             data[key] = value
     query = data.urlencode() if hasattr(data, "urlencode") else urlencode(data, doseq=True)
     return f"{path}?{query}" if query else path
+
+
+ACTIVE_FILTER_SESSION_KEY = "radar_active_filters"
+ACTIVE_FILTER_EXCLUDED_KEYS = {"page", "return_to", "clear_filters"}
+
+
+def _clean_active_filter_query(params):
+    cleaned = QueryDict(mutable=True)
+    if not params:
+        return ""
+    for key, values in params.lists():
+        if key in ACTIVE_FILTER_EXCLUDED_KEYS:
+            continue
+        for value in values:
+            if value not in (None, ""):
+                cleaned.appendlist(key, value)
+    return cleaned.urlencode()
+
+
+def _url_with_query(path, query):
+    return f"{path}?{query}" if query else path
+
+
+def _active_filter_urls(active_query, clear_path):
+    search_path = reverse("properties:search")
+    stats_path = reverse("properties:stats")
+    csv_path = reverse("properties:export_csv")
+    xlsx_path = reverse("properties:export_xlsx")
+    return {
+        "active_filter_query": active_query,
+        "active_search_url": _url_with_query(search_path, active_query),
+        "active_stats_url": _url_with_query(stats_path, active_query),
+        "active_export_csv_url": _url_with_query(csv_path, active_query),
+        "active_export_xlsx_url": _url_with_query(xlsx_path, active_query),
+        "clear_filters_url": query_url({}, {"clear_filters": "1"}, path=clear_path),
+    }
+
+
+def active_filter_context(request, current_path):
+    if request.GET.get("clear_filters"):
+        request.session.pop(ACTIVE_FILTER_SESSION_KEY, None)
+        return {"redirect_url": current_path, "context": _active_filter_urls("", current_path)}
+
+    active_query = _clean_active_filter_query(request.GET)
+    if active_query:
+        if request.session.get(ACTIVE_FILTER_SESSION_KEY) != active_query:
+            request.session[ACTIVE_FILTER_SESSION_KEY] = active_query
+            request.session.modified = True
+        return {"redirect_url": "", "context": _active_filter_urls(active_query, current_path)}
+
+    stored_query = request.session.get(ACTIVE_FILTER_SESSION_KEY, "")
+    if stored_query and not request.GET:
+        return {
+            "redirect_url": _url_with_query(current_path, stored_query),
+            "context": _active_filter_urls(stored_query, current_path),
+        }
+    return {"redirect_url": "", "context": _active_filter_urls(stored_query, current_path)}
+
+
+def effective_filter_params(request):
+    if _clean_active_filter_query(request.GET):
+        return request.GET
+    stored_query = request.session.get(ACTIVE_FILTER_SESSION_KEY, "")
+    return QueryDict(stored_query) if stored_query else request.GET
 
 
 TABLE_SORTS = {
@@ -1279,6 +1343,9 @@ def _detail_navigation(property_obj, return_to):
 
 @ensure_csrf_cookie
 def search(request):
+    active_filters = active_filter_context(request, reverse("properties:search"))
+    if active_filters["redirect_url"]:
+        return HttpResponseRedirect(active_filters["redirect_url"])
     properties, distances = filtered_properties(request.GET, include_listings=False)
     paginator = Paginator(properties, 24)
     page = paginator.get_page(request.GET.get("page"))
@@ -1308,6 +1375,7 @@ def search(request):
         },
         "pagination_hidden_params": _query_param_pairs(request.GET, exclude=["page"]),
     }
+    context.update(active_filters["context"])
     context.update(filter_context(request.GET))
     context.update(table_context(request.GET))
     return render(request, "properties/search.html", context)
@@ -1624,7 +1692,7 @@ def _export_rows(properties):
 
 
 def export_properties_csv(request):
-    properties, _ = filtered_properties(request.GET, include_listings="summary")
+    properties, _ = filtered_properties(effective_filter_params(request), include_listings="summary")
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = 'attachment; filename="propiedades.csv"'
     response.write("\ufeff")
@@ -1639,7 +1707,7 @@ def export_properties_xlsx(request):
         from openpyxl import Workbook
     except ImportError:
         return JsonResponse({"error": "openpyxl no esta instalado."}, status=500)
-    properties, _ = filtered_properties(request.GET, include_listings="summary")
+    properties, _ = filtered_properties(effective_filter_params(request), include_listings="summary")
     workbook = Workbook()
     sheet = workbook.active
     sheet.title = "Propiedades"
@@ -2332,10 +2400,14 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
 
 @ensure_csrf_cookie
 def market_stats(request):
+    active_filters = active_filter_context(request, reverse("properties:stats"))
+    if active_filters["redirect_url"]:
+        return HttpResponseRedirect(active_filters["redirect_url"])
     cache_key = _stats_cache_key(request)
     cached_context = cache.get(cache_key)
     if cached_context:
         context = cached_context.copy()
+        context.update(active_filters["context"])
         context.update(filter_context(request.GET))
         return render(request, "properties/stats.html", context)
 
@@ -2439,6 +2511,7 @@ def market_stats(request):
         "anomaly_model_options": ANOMALY_MODEL_OPTIONS,
         "anomaly_model_summary": anomaly_model_summary,
     }
+    context.update(active_filters["context"])
     price_values = _numbers(curated_price_values(properties))[:500]
     min_price = min(price_values) if price_values else 0
     max_price = max(price_values) if price_values else 0

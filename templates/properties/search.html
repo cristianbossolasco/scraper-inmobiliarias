@@ -4,17 +4,17 @@
 {% block body %}
 <header class="app-header">
   <div>
-    <a class="brand" href="/">Radar Hurlingham</a>
+    <a class="brand" href="{{ active_search_url }}">Radar Hurlingham</a>
     <span class="count">{{ total }} propiedades</span>
   </div>
   <div class="header-actions">
-    <a class="icon-button" href="{% url 'properties:stats' %}?{{ request.GET.urlencode }}" title="Estadisticas" aria-label="Estadisticas">
+    <a class="icon-button" href="{{ active_stats_url }}" title="Estadisticas" aria-label="Estadisticas">
       <i data-lucide="bar-chart-3"></i>
     </a>
-    <a class="icon-button" href="{% url 'properties:export_csv' %}?{{ request.GET.urlencode }}" title="Exportar CSV" aria-label="Exportar CSV">
+    <a class="icon-button" href="{{ active_export_csv_url }}" title="Exportar CSV" aria-label="Exportar CSV">
       <i data-lucide="file-down"></i>
     </a>
-    <a class="icon-button" href="{% url 'properties:export_xlsx' %}?{{ request.GET.urlencode }}" title="Exportar Excel" aria-label="Exportar Excel">
+    <a class="icon-button" href="{{ active_export_xlsx_url }}" title="Exportar Excel" aria-label="Exportar Excel">
       <i data-lucide="sheet"></i>
     </a>
     <a class="icon-button" href="{% url 'properties:scraping' %}" title="Scraping a demanda" aria-label="Scraping a demanda">
@@ -581,6 +581,7 @@
 {% block scripts %}
 <script>
   window.RADAR_INITIAL_QUERY = "{{ request.GET.urlencode|escapejs }}";
+  window.RADAR_CLEAR_FILTERS_URL = "{{ clear_filters_url|escapejs }}";
 </script>
 <script src="{% static 'js/search-map.js' %}"></script>
 <script src="{% static 'js/zone-filter.js' %}"></script>

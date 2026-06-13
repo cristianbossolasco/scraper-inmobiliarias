@@ -1716,6 +1716,45 @@ class ViewTests(TestCase):
         self.assertContains(response, 'name="covered_area"')
         self.assertContains(response, 'id="property-edit-payload"')
 
+    def test_active_filters_persist_from_radar_to_dashboard(self):
+        self.client.get("/", {"price_max": "200000", "sort": "price"})
+
+        response = self.client.get("/estadisticas/")
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response["Location"], "/estadisticas/?price_max=200000&sort=price")
+
+    def test_active_filters_persist_from_dashboard_to_radar(self):
+        self.client.get("/estadisticas/", {"locality": "Villa Tesei", "view": "table"})
+
+        response = self.client.get("/")
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response["Location"], "/?locality=Villa+Tesei&view=table")
+
+    def test_clear_filters_removes_active_session_filter(self):
+        self.client.get("/", {"price_max": "200000"})
+
+        response = self.client.get("/", {"clear_filters": "1"})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response["Location"], "/")
+        self.assertNotIn("radar_active_filters", self.client.session)
+
+        response = self.client.get("/estadisticas/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_navigation_links_use_active_filter_query(self):
+        response = self.client.get("/", {"price_max": "200000", "sort": "price"})
+        self.assertContains(response, 'href="/estadisticas/?price_max=200000&amp;sort=price"')
+        self.assertContains(response, 'href="/export/properties.csv?price_max=200000&amp;sort=price"')
+        self.assertContains(response, "window.RADAR_CLEAR_FILTERS_URL")
+        self.assertContains(response, "clear_filters\\u003D1")
+
+        response = self.client.get("/estadisticas/", {"price_max": "200000", "sort": "price"})
+        self.assertContains(response, 'href="/?price_max=200000&amp;sort=price"')
+        self.assertContains(response, 'href="/export/properties.csv?price_max=200000&amp;sort=price"')
+        self.assertContains(response, 'href="/estadisticas/?clear_filters=1"')
+
     def test_property_data_endpoint_updates_fields_and_marks_overrides(self):
         property_obj = self.listing.property
         self.assertTrue(PropertyLocation.objects.filter(property=property_obj).exists())

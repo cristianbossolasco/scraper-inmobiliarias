@@ -494,7 +494,7 @@
   });
 
   document.getElementById("clear-filters").addEventListener("click", () => {
-    window.location.href = "/";
+    window.location.href = window.RADAR_CLEAR_FILTERS_URL || "/?clear_filters=1";
   });
 
   mapModeButton.addEventListener("click", () => {
