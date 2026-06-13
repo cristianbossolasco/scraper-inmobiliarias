@@ -2034,8 +2034,8 @@ class ZonapropScraper(CommonDetailScraper):
             "just a moment",
             "enable javascript and cookies to continue",
             "_cf_chl_opt",
-            "/cdn-cgi/challenge-platform",
-            "__cf_chl",
+            "__cf_chl_tk",
+            "cf_chl_rt_tk",
         )
         if any(marker in haystack for marker in markers):
             raise RuntimeError("request blocked by Cloudflare challenge")

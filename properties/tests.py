@@ -3610,6 +3610,21 @@ class ScraperParserTests(TestCase):
         with self.assertRaisesMessage(RuntimeError, "request blocked by Cloudflare challenge"):
             list(scraper._listing_urls(fixture_soup("zonaprop_cloudflare_challenge.html")))
 
+    def test_zonaprop_detail_allows_benign_cloudflare_jsd_script(self):
+        class FakeResponse:
+            text = (FIXTURES / "zonaprop_detail_with_jsd.html").read_text(encoding="utf-8")
+
+        scraper = ZonapropScraper()
+        scraper.get = lambda url: FakeResponse()
+        data = scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-57923940.html"
+        )
+
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["price"], Decimal("122000"))
+        self.assertEqual(data["operation"], "sale")
+        self.assertEqual(data["url"], "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-57923940.html")
+
     def test_zonaprop_parse_rejects_non_sale_links(self):
         scraper = ZonapropScraper()
         self.assertIsNone(
