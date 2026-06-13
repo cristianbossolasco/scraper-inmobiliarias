@@ -636,15 +636,22 @@ def run_scrape_job_source(job_id, slug):
         db_write(lambda: job_source.save(update_fields=["total_discovered", "total_to_process", "status"]))
         declared_total = discovery_stats.get("declared_total")
         coverage_ratio = discovery_stats.get("coverage_ratio")
+        coverage_complete = discovery_stats.get("coverage_complete", True)
         limited_by_max_listings = discovery_stats.get("limited_by_max_listings")
         limited_by_max_pages = discovery_stats.get("limited_by_max_pages")
         if declared_total:
+            if discovery_stats.get("segmented"):
+                append_source_log(
+                    job_source,
+                    f"Cobertura discovery segmentada: {discovery_stats.get('urls_discovered', job_source.total_discovered)}/{declared_total} "
+                    f"({coverage_ratio}%) en {discovery_stats.get('segments_seen', '?')} segmentos y {discovery_stats.get('pages_seen', '?')} paginas.",
+                )
             if limited_by_max_listings:
                 append_source_log(
                     job_source,
                     f"Muestra limitada: discovery cortado en {job_source.total_discovered}/{declared_total} fichas declaradas tras {discovery_stats.get('pages_seen', '?')} paginas.",
                 )
-            else:
+            elif not discovery_stats.get("segmented"):
                 append_source_log(
                     job_source,
                     f"Cobertura discovery: {discovery_stats.get('urls_discovered', job_source.total_discovered)}/{declared_total} ({coverage_ratio}%) en {discovery_stats.get('pages_seen', '?')} paginas.",
@@ -849,6 +856,12 @@ def run_scrape_job_source(job_id, slug):
             )
         elif job_source.errors:
             job_source.status = ScrapeJobSource.Status.PARTIAL
+        elif not coverage_complete:
+            job_source.status = ScrapeJobSource.Status.PARTIAL
+            append_source_log(
+                job_source,
+                "Discovery incompleto frente al total declarado por el portal; no se marcan ausentes.",
+            )
         elif (
             job.max_pages is None
             and job.max_listings is None
@@ -880,8 +893,19 @@ def run_scrape_job_source(job_id, slug):
             and not job.cancel_requested
             and not stopped_by_block
             and not retry_source_urls
+            and job_source.status == ScrapeJobSource.Status.SUCCESS
         ):
             db_write(lambda: _mark_missing_atomic(source, seen))
+        elif (
+            job.scrape_mode == ScrapeJob.Mode.COMPLETE
+            and job.max_listings is None
+            and job.mark_missing
+            and not job.cancel_requested
+            and not stopped_by_block
+            and not retry_source_urls
+            and job_source.status != ScrapeJobSource.Status.SUCCESS
+        ):
+            append_source_log(job_source, "No se marcan ausentes porque la fuente no termino con cobertura completa.")
         else:
             append_source_log(job_source, "Modo liviano, prueba o muestra limitada: no se marcan ausentes.")
     except Exception as exc:

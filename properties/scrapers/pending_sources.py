@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from math import ceil
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
@@ -32,7 +33,7 @@ from .parsing import (
     text_value,
     value_after_label,
 )
-from .paginated import ajax_paginated_discover, paginated_discover
+from .paginated import ajax_paginated_discover, declared_total_from_text, paginated_discover
 
 
 TARGET_ZONES = ("hurlingham", "villa tesei", "villa santos tesei", "william morris")
@@ -2003,6 +2004,11 @@ class MercadoLibreScraper(CommonDetailScraper):
 
 class ZonapropScraper(CommonDetailScraper):
     max_public_pages = 5
+    price_split_step = 2500
+    initial_price_probe = 100000
+    max_price_probe = 5000000
+    segment_capacity_ratio = 0.8
+    min_complete_coverage_ratio = 98.0
 
     definition = SourceDefinition(
         slug="zonaprop",
@@ -2025,6 +2031,23 @@ class ZonapropScraper(CommonDetailScraper):
         if page == 1:
             return self.definition.search_url
         return "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-pagina-%s.html" % page
+
+    def _sorted_url(self):
+        return f"{self.definition.base_url}/inmuebles-venta-hurlingham-hurlingham-orden-precio-ascendente.html"
+
+    def _price_url(self, min_price=None, max_price=None, page=1):
+        stem = f"{self.definition.base_url}/inmuebles-venta-hurlingham-hurlingham"
+        if min_price is None and max_price is None:
+            url = f"{stem}-orden-precio-ascendente.html"
+        elif min_price is None:
+            url = f"{stem}-menos-{int(max_price)}-dolar-orden-precio-ascendente.html"
+        elif max_price is None:
+            url = f"{stem}-mas-{int(min_price)}-dolar-orden-precio-ascendente.html"
+        else:
+            url = f"{stem}-{int(min_price)}-{int(max_price)}-dolar-orden-precio-ascendente.html"
+        if page == 1:
+            return url
+        return url[:-5] + f"-pagina-{page}.html"
 
     def _ensure_not_blocked(self, soup):
         text = soup.get_text(" ", strip=True)
@@ -2062,6 +2085,18 @@ class ZonapropScraper(CommonDetailScraper):
                 yield canonical
 
     def discover(self):
+        limited_run = (
+            self.start_page > 1
+            or self.max_pages is not None
+            or self.max_listings is not None
+        )
+        if not limited_run:
+            yield from self._segmented_discover()
+            return
+
+        yield from self._limited_discover()
+
+    def _limited_discover(self):
         if self.start_page > self.max_public_pages:
             self.discovery_stats = {
                 "declared_total": None,
@@ -2085,6 +2120,225 @@ class ZonapropScraper(CommonDetailScraper):
             )
         finally:
             self.max_pages = original_max_pages
+
+    def _probe_price_segment(self, min_price, max_price, cache):
+        key = (min_price, max_price)
+        if key not in cache:
+            soup = self.soup(self._price_url(min_price, max_price))
+            text = soup.get_text(" ", strip=True)
+            cache[key] = {
+                "min_price": min_price,
+                "max_price": max_price,
+                "declared_total": declared_total_from_text(text),
+                "first_page_urls": list(dict.fromkeys(self._listing_urls(soup))),
+            }
+        return cache[key]
+
+    def _segment_capacity(self, first_page_urls):
+        page_size = len(first_page_urls) or 30
+        return max(page_size, 1) * self.max_public_pages
+
+    def _target_segment_capacity(self, capacity):
+        return max(1, int(capacity * self.segment_capacity_ratio))
+
+    def _segment_fits(self, segment, capacity):
+        total = segment.get("declared_total")
+        if total is not None:
+            return total <= capacity
+        return len(segment.get("first_page_urls") or []) < capacity
+
+    def _split_price(self, min_price, max_price):
+        low = min_price or 0
+        span = max_price - low
+        if span <= self.price_split_step:
+            return None
+        midpoint = low + (span // 2)
+        midpoint = round(midpoint / self.price_split_step) * self.price_split_step
+        midpoint = int(max(low + self.price_split_step, min(max_price - self.price_split_step, midpoint)))
+        return midpoint if low < midpoint < max_price else None
+
+    def _find_tail_boundary(self, probe, capacity):
+        boundary = self.initial_price_probe
+        last_tail = None
+        while boundary <= self.max_price_probe:
+            tail = probe(boundary, None)
+            last_tail = tail
+            if self._segment_fits(tail, capacity):
+                return boundary, tail, False
+            boundary *= 2
+        return boundary, last_tail, True
+
+    def _split_price_range(self, min_price, max_price, probe, capacity, segments, incomplete):
+        segment = probe(min_price, max_price)
+        if self._segment_fits(segment, capacity):
+            segments.append(segment)
+            return
+
+        midpoint = self._split_price(min_price, max_price)
+        if midpoint is None:
+            segment["incomplete"] = True
+            segments.append(segment)
+            incomplete.append(segment)
+            return
+
+        self._split_price_range(min_price, midpoint, probe, capacity, segments, incomplete)
+        self._split_price_range(midpoint, max_price, probe, capacity, segments, incomplete)
+
+    def _build_price_segments(self):
+        cache = {}
+
+        def probe(min_price, max_price):
+            return self._probe_price_segment(min_price, max_price, cache)
+
+        base_segment = probe(None, None)
+        capacity = self._segment_capacity(base_segment["first_page_urls"])
+        target_capacity = self._target_segment_capacity(capacity)
+        boundary, tail_segment, tail_incomplete = self._find_tail_boundary(probe, target_capacity)
+
+        segments = []
+        incomplete = []
+        self._split_price_range(None, boundary, probe, target_capacity, segments, incomplete)
+        if tail_segment:
+            if tail_incomplete:
+                tail_segment["incomplete"] = True
+                incomplete.append(tail_segment)
+            segments.append(tail_segment)
+
+        return base_segment, segments, incomplete, capacity, target_capacity
+
+    def _segment_page_count(self, segment, capacity):
+        total = segment.get("declared_total")
+        page_size = max(len(segment.get("first_page_urls") or []), 1)
+        if total is None:
+            return self.max_public_pages
+        return max(1, min(self.max_public_pages, ceil(total / page_size), ceil(total / max(capacity // self.max_public_pages, 1))))
+
+    def _segmented_discover(self):
+        base_seed_urls = set()
+        base_seed_pages = 0
+        base_declared_total = None
+        for page in range(1, self.max_public_pages + 1):
+            if self.should_cancel():
+                self.discovery_stats = {
+                    "cancelled": True,
+                    "declared_total": base_declared_total,
+                    "pages_seen": base_seed_pages,
+                    "urls_discovered": 0,
+                    "coverage_ratio": None,
+                    "limited_by_max_listings": False,
+                    "limited_by_max_pages": False,
+                    "segmented": True,
+                    "coverage_complete": False,
+                }
+                return
+            soup = self.soup(self._page_url(page))
+            base_seed_pages += 1
+            if page == 1:
+                base_declared_total = declared_total_from_text(soup.get_text(" ", strip=True))
+            base_seed_urls.update(self._listing_urls(soup))
+
+        base_segment, segments, incomplete_segments, capacity, target_capacity = self._build_price_segments()
+        seen = set()
+        pages_seen = base_seed_pages
+        segment_stats = []
+        coverage_complete = not incomplete_segments
+
+        if self.should_cancel():
+            self.discovery_stats = {
+                "cancelled": True,
+                "declared_total": base_declared_total or base_segment.get("declared_total"),
+                "pages_seen": pages_seen,
+                "urls_discovered": 0,
+                "coverage_ratio": None,
+                "limited_by_max_listings": False,
+                "limited_by_max_pages": False,
+                "segmented": True,
+                "coverage_complete": False,
+            }
+            return
+
+        for url in sorted(base_seed_urls):
+            if self.should_cancel():
+                coverage_complete = False
+                break
+            seen.add(url)
+            yield url
+
+        for segment in segments:
+            if self.should_cancel():
+                coverage_complete = False
+                break
+
+            segment_urls = set(segment.get("first_page_urls") or [])
+            page_count = self._segment_page_count(segment, capacity)
+            pages_seen += 1
+            for page in range(2, page_count + 1):
+                if self.should_cancel():
+                    coverage_complete = False
+                    break
+                soup = self.soup(self._price_url(segment.get("min_price"), segment.get("max_price"), page=page))
+                pages_seen += 1
+                segment_urls.update(self._listing_urls(soup))
+
+            declared = segment.get("declared_total")
+            if declared is not None and len(segment_urls) < declared:
+                coverage_complete = False
+            if segment.get("incomplete"):
+                coverage_complete = False
+
+            segment_stats.append(
+                {
+                    "min_price": segment.get("min_price"),
+                    "max_price": segment.get("max_price"),
+                    "declared_total": declared,
+                    "urls_discovered": len(segment_urls),
+                    "pages_seen": page_count,
+                    "incomplete": bool(segment.get("incomplete")) or (declared is not None and len(segment_urls) < declared),
+                }
+            )
+
+            for url in sorted(segment_urls):
+                if self.should_cancel():
+                    coverage_complete = False
+                    break
+                if url in seen:
+                    continue
+                seen.add(url)
+                yield url
+
+        declared_totals = [
+            total
+            for total in (base_declared_total, base_segment.get("declared_total"))
+            if total
+        ]
+        declared_total = max(declared_totals) if declared_totals else None
+        coverage_ratio = (
+            round((len(seen) / declared_total) * 100, 1)
+            if declared_total
+            else None
+        )
+        if declared_total and coverage_ratio < self.min_complete_coverage_ratio:
+            coverage_complete = False
+
+        self.discovery_stats = {
+            "cancelled": self.should_cancel(),
+            "declared_total": declared_total,
+            "pages_seen": pages_seen,
+            "urls_discovered": len(seen),
+            "coverage_ratio": coverage_ratio,
+            "limited_by_max_listings": False,
+            "limited_by_max_pages": False,
+            "segmented": True,
+            "base_seed_pages": base_seed_pages,
+            "base_seed_urls": len(base_seed_urls),
+            "base_declared_total": base_declared_total,
+            "price_declared_total": base_segment.get("declared_total"),
+            "segments_seen": len(segment_stats),
+            "segments": segment_stats,
+            "segment_capacity": capacity,
+            "target_segment_capacity": target_capacity,
+            "coverage_complete": coverage_complete and not self.should_cancel(),
+        }
 
     def parse(self, url):
         canonical = self._canonical_listing_url(url)

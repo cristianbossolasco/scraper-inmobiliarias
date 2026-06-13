@@ -3566,7 +3566,7 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["lot_depth"], Decimal("37.5"))
 
     def test_zonaprop_discovery_excludes_listings_and_rentals(self):
-        scraper = ZonapropScraper()
+        scraper = ZonapropScraper(max_pages=1)
         scraper.soup = lambda parsed_url: fixture_soup("zonaprop_listing.html")
         self.assertEqual(
             list(scraper.discover()),
@@ -3575,6 +3575,84 @@ class ScraperParserTests(TestCase):
                 "https://www.zonaprop.com.ar/propiedades/clasificado/vecltrin-hurlingham-terreno-venta-56884803.html",
             ],
         )
+
+    def test_zonaprop_price_urls_use_allowed_sorted_public_paths(self):
+        scraper = ZonapropScraper()
+        self.assertEqual(
+            scraper._price_url(None, None),
+            "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-orden-precio-ascendente.html",
+        )
+        self.assertEqual(
+            scraper._price_url(None, 50000, page=2),
+            "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-menos-50000-dolar-orden-precio-ascendente-pagina-2.html",
+        )
+        self.assertEqual(
+            scraper._price_url(87500, 100000, page=3),
+            "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-87500-100000-dolar-orden-precio-ascendente-pagina-3.html",
+        )
+        self.assertEqual(
+            scraper._price_url(600000, None),
+            "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-mas-600000-dolar-orden-precio-ascendente.html",
+        )
+
+    def test_zonaprop_segmented_discovery_splits_price_ranges_dynamically(self):
+        scraper = ZonapropScraper()
+        scraper.max_public_pages = 2
+        scraper.price_split_step = 10
+        scraper.initial_price_probe = 100
+        scraper.segment_capacity_ratio = 1.0
+        requested_urls = []
+        totals = {
+            (None, None): 10,
+            (100, None): 3,
+            (None, 100): 7,
+            (None, 50): 3,
+            (50, 100): 4,
+        }
+        listings = {
+            (None, 50): [1, 2, 3],
+            (50, 100): [4, 5, 6, 7],
+            (100, None): [8, 9, 10],
+        }
+
+        def segment_key(url):
+            if "menos-" in url:
+                return (None, int(re.search(r"menos-(\d+)-dolar", url).group(1)))
+            if "mas-" in url:
+                return (int(re.search(r"mas-(\d+)-dolar", url).group(1)), None)
+            match = re.search(r"hurlingham-hurlingham-(\d+)-(\d+)-dolar", url)
+            if match:
+                return (int(match.group(1)), int(match.group(2)))
+            return (None, None)
+
+        def fake_soup(url):
+            requested_urls.append(url)
+            is_base_seed = "orden-precio-ascendente" not in url
+            key = segment_key(url)
+            page_match = re.search(r"pagina-(\d+)", url)
+            page = int(page_match.group(1)) if page_match else 1
+            total = totals[key]
+            ids = [1, 4, 8, 9] if is_base_seed else listings.get(key) or list(range(100, 100 + total))
+            page_ids = ids[(page - 1) * 2 : page * 2]
+            links = "".join(
+                f'<a href="/propiedades/clasificado/veclcain-casa-en-venta-{item}.html">Casa {item}</a>'
+                for item in page_ids
+            )
+            return BeautifulSoup(
+                f"<html><body><h1>{total} Propiedades e inmuebles en venta</h1>{links}</body></html>",
+                "lxml",
+            )
+
+        scraper.soup = fake_soup
+        urls = list(scraper.discover())
+        self.assertEqual(len(urls), 10)
+        self.assertEqual(scraper.discovery_stats["segments_seen"], 3)
+        self.assertTrue(scraper.discovery_stats["coverage_complete"])
+        self.assertEqual(scraper.discovery_stats["coverage_ratio"], 100.0)
+        self.assertTrue(any("menos-50-dolar" in url for url in requested_urls))
+        self.assertTrue(any("50-100-dolar" in url for url in requested_urls))
+        self.assertTrue(any("mas-100-dolar" in url for url in requested_urls))
+        self.assertFalse(any("pagina-3" in url for url in requested_urls))
 
     def test_zonaprop_discovery_caps_public_pagination(self):
         requested_urls = []
@@ -4554,6 +4632,72 @@ class ScrapeCommandTests(TransactionTestCase):
         source = job.sources.get(slug="fake")
         self.assertEqual(source.status, ScrapeJobSource.Status.PARTIAL)
         self.assertIn("Cobertura discovery: 10/100", source.logs)
+
+    def test_incomplete_discovery_does_not_mark_missing(self):
+        Path(".scrape.lock").unlink(missing_ok=True)
+
+        class FakeDefinition:
+            slug = "fake"
+            name = "Fake Source"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+
+            def __init__(self, max_pages=None, request_timeout=None):
+                self.discovery_stats = {
+                    "declared_total": 2,
+                    "pages_seen": 1,
+                    "urls_discovered": 1,
+                    "coverage_ratio": 50.0,
+                    "coverage_complete": False,
+                }
+
+            def discover(self):
+                return ["https://example.com/fresh"]
+
+            def parse(self, url):
+                return {
+                    "external_id": "fresh",
+                    "url": url,
+                    "title": "Casa fresh",
+                    "address": "Calle Fresh 100",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": "100000",
+                }
+
+        with patch("properties.services.scraping.get_adapter", return_value=FakeAdapter()):
+            job = create_scrape_job(["fake"], {"fake": 1})
+            source = Source.objects.get(slug="fake")
+            stale_property = Property.objects.create(
+                fingerprint="stale-fake-listing",
+                property_type=Property.Type.HOUSE,
+                operation="sale",
+                title="Casa stale",
+                status=Property.Status.ACTIVE,
+            )
+            stale = Listing.objects.create(
+                source=source,
+                property=stale_property,
+                external_id="stale",
+                url="https://example.com/stale",
+                missing_runs=1,
+            )
+            run_scrape_job(job.pk)
+
+        stale.refresh_from_db()
+        stale.property.refresh_from_db()
+        job.refresh_from_db()
+        job_source = job.sources.get(slug="fake")
+        self.assertTrue(stale.active)
+        self.assertEqual(stale.missing_runs, 1)
+        self.assertEqual(stale.property.status, Property.Status.ACTIVE)
+        self.assertEqual(job_source.status, ScrapeJobSource.Status.PARTIAL)
+        self.assertIn("no se marcan ausentes", job_source.logs.lower())
 
     def test_cancel_during_discovery_stops_before_processing(self):
         Path(".scrape.lock").unlink(missing_ok=True)

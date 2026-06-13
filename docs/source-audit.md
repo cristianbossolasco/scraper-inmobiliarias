@@ -18,7 +18,7 @@ Fecha: 6 de junio de 2026.
 | Aurellana | Oferta local | Sindicada en Mapaprop | Sitio propio pendiente de estabilidad | Cubierta por Mapaprop |
 | Buscainmueble | Mismo listado observado que Argenprop | HTML equivalente a Argenprop | Replica catalogo | Excluida por duplicacion |
 | MemudoYa | Red tecnica similar a Mapaprop; Tesei Propiedades expone 12 links y coordenadas | Nuxt, HTML publico, `/api/` prohibida | Duplicaria fuente Mapaprop | Excluida |
-| Zonaprop | Volumen muy alto | Listados estructurados por link directo | Trial limitado: deshabilitada para `--all`, posible challenge Cloudflare, solo paginas publicas 1-5 | Adaptador trial |
+| Zonaprop | Volumen muy alto | Listados estructurados por link directo y segmentacion dinamica por precio | Trial limitado: deshabilitada para `--all`, posible challenge Cloudflare, solo paginas publicas 1-5 por segmento | Adaptador trial |
 | MercadoLibre Inmuebles | Volumen muy alto | API oficial de items/search y detalle por item | Requiere token si la busqueda publica queda limitada | Integrar por API oficial, no por login web |
 | Facebook Marketplace | Volumen potencial alto | Sin API publica oficial de busqueda Marketplace | Requiere login y tiene alta friccion anti-bot | No automatizar; solo importacion manual de URLs/CSV |
 | Grupos de Facebook | Publicaciones locales potencialmente utiles | API de grupos restringida/deprecada para terceros | Requiere permisos/admin/revision; no es fuente abierta estable | No automatizar; solo importacion manual |
