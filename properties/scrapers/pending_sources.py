@@ -2002,6 +2002,8 @@ class MercadoLibreScraper(CommonDetailScraper):
 
 
 class ZonapropScraper(CommonDetailScraper):
+    max_public_pages = 5
+
     definition = SourceDefinition(
         slug="zonaprop",
         name="Zonaprop",
@@ -2009,36 +2011,90 @@ class ZonapropScraper(CommonDetailScraper):
         search_url="https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham.html",
         crawl_delay=6,
         enabled=False,
-        notes="Portal de alto volumen y riesgo anti-bot. Usar solo si HTML publico es estable.",
+        notes=(
+            "Trial limitado por link directo; deshabilitado para --all. "
+            "No automatizar popup, login, captcha ni challenge Cloudflare."
+        ),
     )
-    detail_patterns = (r"/propiedades/", r"/inmuebles-")
+    detail_patterns = (r"/propiedades/clasificado/",)
+
+    def soup(self, url):
+        return self._ensure_not_blocked(super().soup(url))
 
     def _page_url(self, page):
         if page == 1:
             return self.definition.search_url
         return "https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham-pagina-%s.html" % page
 
+    def _ensure_not_blocked(self, soup):
+        text = soup.get_text(" ", strip=True)
+        markup = str(soup)
+        haystack = f"{text}\n{markup}".lower()
+        markers = (
+            "just a moment",
+            "enable javascript and cookies to continue",
+            "_cf_chl_opt",
+            "/cdn-cgi/challenge-platform",
+            "__cf_chl",
+        )
+        if any(marker in haystack for marker in markers):
+            raise RuntimeError("request blocked by Cloudflare challenge")
+        return soup
+
+    def _canonical_listing_url(self, url):
+        parsed = urlparse(url)
+        path = parsed.path.lower()
+        if not path.startswith("/propiedades/clasificado/"):
+            return None
+        if "alquiler" in path or "/alcl" in path:
+            return None
+        if "venta" not in path and not path.startswith("/propiedades/clasificado/vecl"):
+            return None
+        return parsed._replace(query="", fragment="").geturl()
+
     def _listing_urls(self, soup):
+        self._ensure_not_blocked(soup)
+        seen = set()
         for url in links_matching(self, soup, (r"/propiedades/clasificado/",)):
-            if "alquiler" not in url.lower() and "/alcl" not in url.lower():
-                yield url
+            canonical = self._canonical_listing_url(url)
+            if canonical and canonical not in seen:
+                seen.add(canonical)
+                yield canonical
 
     def discover(self):
-        yield from paginated_discover(
-            self,
-            self._page_url(1),
-            self._page_url,
-            self._listing_urls,
-            fallback_max_pages=30,
-        )
+        if self.start_page > self.max_public_pages:
+            self.discovery_stats = {
+                "declared_total": None,
+                "pages_seen": 0,
+                "urls_discovered": 0,
+                "coverage_ratio": None,
+                "limited_by_max_listings": False,
+                "limited_by_max_pages": True,
+            }
+            return
+        original_max_pages = self.max_pages
+        remaining_public_pages = self.max_public_pages - self.start_page + 1
+        self.max_pages = min(original_max_pages or remaining_public_pages, remaining_public_pages)
+        try:
+            yield from paginated_discover(
+                self,
+                self._page_url(1),
+                self._page_url,
+                self._listing_urls,
+                fallback_max_pages=self.max_public_pages,
+            )
+        finally:
+            self.max_pages = original_max_pages
 
     def parse(self, url):
-        if is_listing_page_url(url) or "alquiler" in url.lower() or "/alcl" in url.lower():
+        canonical = self._canonical_listing_url(url)
+        if not canonical or is_listing_page_url(canonical):
             return None
-        data = super().parse(url)
+        data = super().parse(canonical)
         if data:
+            data["url"] = canonical
             data["operation"] = detect_operation(
                 f"{data.get('title') or ''} {data.get('description') or ''}",
-                url,
+                canonical,
             )
         return data

@@ -1,6 +1,7 @@
 import json
 import re
 import threading
+from datetime import timedelta
 from pathlib import Path
 from decimal import Decimal
 from io import StringIO
@@ -3570,8 +3571,54 @@ class ScraperParserTests(TestCase):
         self.assertEqual(
             list(scraper.discover()),
             [
-                "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-57923940.html"
+                "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-57923940.html",
+                "https://www.zonaprop.com.ar/propiedades/clasificado/vecltrin-hurlingham-terreno-venta-56884803.html",
             ],
+        )
+
+    def test_zonaprop_discovery_caps_public_pagination(self):
+        requested_urls = []
+
+        def fake_soup(url):
+            requested_urls.append(url)
+            page = 1
+            match = re.search(r"pagina-(\d+)", url)
+            if match:
+                page = int(match.group(1))
+            return BeautifulSoup(
+                f"""
+                <html><body>
+                  <article>
+                    <a href="/propiedades/clasificado/veclcain-casa-en-venta-pagina-{page}-5792394{page}.html?n_src=Listado&n_pg={page}">
+                      Casa en venta pagina {page}
+                    </a>
+                  </article>
+                </body></html>
+                """,
+                "lxml",
+            )
+
+        scraper = ZonapropScraper(max_pages=10)
+        scraper.soup = fake_soup
+        urls = list(scraper.discover())
+        self.assertEqual(len(urls), 5)
+        self.assertEqual(requested_urls[-1], scraper._page_url(5))
+        self.assertNotIn(scraper._page_url(6), requested_urls)
+
+    def test_zonaprop_cloudflare_challenge_is_controlled_block_error(self):
+        scraper = ZonapropScraper()
+        with self.assertRaisesMessage(RuntimeError, "request blocked by Cloudflare challenge"):
+            list(scraper._listing_urls(fixture_soup("zonaprop_cloudflare_challenge.html")))
+
+    def test_zonaprop_parse_rejects_non_sale_links(self):
+        scraper = ZonapropScraper()
+        self.assertIsNone(
+            scraper.parse(
+                "https://www.zonaprop.com.ar/propiedades/clasificado/alcldein-deposito-en-alquiler-en-hurlingham-57923949.html"
+            )
+        )
+        self.assertIsNone(
+            scraper.parse("https://www.zonaprop.com.ar/inmuebles-venta-hurlingham-hurlingham.html")
         )
 
     def test_data_quality_rules(self):
@@ -3871,10 +3918,16 @@ class ScraperParserTests(TestCase):
             PatagonPropScraper,
             ZonapropScraper,
         ):
+            url = f"{scraper_cls.definition.base_url}/casa-en-venta-en-hurlingham--11598328"
+            if scraper_cls is ZonapropScraper:
+                url = (
+                    "https://www.zonaprop.com.ar/propiedades/clasificado/"
+                    "veclcain-casa-en-venta-en-hurlingham-57923940.html"
+                )
             data = self.parse_with_fixture(
                 scraper_cls,
                 "portal_detail.html",
-                f"{scraper_cls.definition.base_url}/casa-en-venta-en-hurlingham--11598328",
+                url,
             )
             self.assertEqual(data["currency"], "USD")
             self.assertEqual(data["price"], Decimal("190000"))
@@ -4087,6 +4140,207 @@ class ScraperParserTests(TestCase):
                 "https://odriozolapropiedades.com.ar/inmobiliaria/tipo-de-propiedad/casas-chalets"
             )
         )
+
+
+class MarkMissingFromJobCommandTests(TestCase):
+    def setUp(self):
+        self.started_at = timezone.now() - timedelta(hours=1)
+        self.finished_at = timezone.now()
+        self.seen_at = self.started_at + timedelta(minutes=30)
+        self.old_seen_at = self.started_at - timedelta(days=1)
+
+    def create_source(self, slug="clean"):
+        return Source.objects.create(
+            slug=slug,
+            name=slug.replace("-", " ").title(),
+            base_url=f"https://{slug}.example.com",
+        )
+
+    def create_job(self, sources, **overrides):
+        defaults = {
+            "status": ScrapeJob.Status.SUCCESS,
+            "selected_sources": [source.slug for source in sources],
+            "worker_config": {source.slug: 1 for source in sources},
+            "scrape_mode": ScrapeJob.Mode.COMPLETE,
+            "mark_missing": False,
+            "started_at": self.started_at,
+            "finished_at": self.finished_at,
+        }
+        defaults.update(overrides)
+        return ScrapeJob.objects.create(**defaults)
+
+    def create_job_source(self, job, source, **overrides):
+        defaults = {
+            "source": source,
+            "slug": source.slug,
+            "name": source.name,
+            "status": ScrapeJobSource.Status.SUCCESS,
+            "workers": 1,
+            "total_discovered": 1,
+            "total_to_process": 1,
+            "processed": 1,
+            "errors": 0,
+            "started_at": self.started_at,
+            "finished_at": self.finished_at,
+        }
+        defaults.update(overrides)
+        return ScrapeJobSource.objects.create(job=job, **defaults)
+
+    def create_listing(self, source, external_id, last_seen_at, missing_runs=0):
+        property_obj = Property.objects.create(
+            fingerprint=f"mark-missing-job-{source.slug}-{external_id}",
+            property_type=Property.Type.HOUSE,
+            operation="sale",
+            title=f"Casa {external_id}",
+            status=Property.Status.ACTIVE,
+        )
+        listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id=external_id,
+            url=f"https://{source.slug}.example.com/{external_id}",
+            missing_runs=missing_runs,
+        )
+        Listing.objects.filter(pk=listing.pk).update(last_seen_at=last_seen_at)
+        listing.refresh_from_db()
+        return listing
+
+    def test_dry_run_reports_missing_without_writing(self):
+        source = self.create_source("clean")
+        job = self.create_job([source])
+        self.create_job_source(job, source)
+        seen = self.create_listing(source, "seen", self.seen_at)
+        stale = self.create_listing(source, "stale", self.old_seen_at)
+
+        output = StringIO()
+        call_command("mark_missing_from_job", "--job-id", str(job.pk), stdout=output)
+
+        seen.refresh_from_db()
+        stale.refresh_from_db()
+        self.assertTrue(seen.active)
+        self.assertEqual(seen.missing_runs, 0)
+        self.assertTrue(stale.active)
+        self.assertEqual(stale.missing_runs, 0)
+        self.assertIn(
+            "[DRY] clean: vistas=1 ausentes=1 incrementan=1 desactivan=0",
+            output.getvalue(),
+        )
+        self.assertIn("(sin cambios)", output.getvalue())
+
+    def test_apply_uses_existing_two_missing_runs_policy(self):
+        source = self.create_source("clean")
+        job = self.create_job([source])
+        self.create_job_source(job, source)
+        seen = self.create_listing(source, "seen", self.seen_at)
+        first_missing = self.create_listing(source, "first-missing", self.old_seen_at)
+        second_missing = self.create_listing(
+            source,
+            "second-missing",
+            self.old_seen_at,
+            missing_runs=1,
+        )
+
+        output = StringIO()
+        call_command(
+            "mark_missing_from_job",
+            "--job-id",
+            str(job.pk),
+            "--apply",
+            stdout=output,
+        )
+
+        seen.refresh_from_db()
+        first_missing.refresh_from_db()
+        first_missing.property.refresh_from_db()
+        second_missing.refresh_from_db()
+        second_missing.property.refresh_from_db()
+        self.assertTrue(seen.active)
+        self.assertEqual(seen.missing_runs, 0)
+        self.assertTrue(first_missing.active)
+        self.assertEqual(first_missing.missing_runs, 1)
+        self.assertEqual(first_missing.property.status, Property.Status.ACTIVE)
+        self.assertFalse(second_missing.active)
+        self.assertEqual(second_missing.missing_runs, 2)
+        self.assertEqual(second_missing.property.status, Property.Status.REMOVED)
+        self.assertIn(
+            "[APPLY] clean: vistas=1 ausentes=2 incrementan=1 desactivan=1",
+            output.getvalue(),
+        )
+
+    def test_apply_skips_unsafe_sources(self):
+        unsafe_cases = [
+            ("failed-source", {"status": ScrapeJobSource.Status.FAILED}),
+            ("partial-source", {"status": ScrapeJobSource.Status.PARTIAL}),
+            ("error-source", {"errors": 1}),
+            ("zero-source", {"total_discovered": 0, "total_to_process": 0, "processed": 0}),
+            ("incomplete-source", {"total_to_process": 2, "processed": 1}),
+        ]
+        sources = [self.create_source(slug) for slug, _ in unsafe_cases]
+        job = self.create_job(sources)
+        listings = []
+        for source, (_, overrides) in zip(sources, unsafe_cases):
+            self.create_job_source(job, source, **overrides)
+            listings.append(self.create_listing(source, "stale", self.old_seen_at))
+
+        output = StringIO()
+        call_command(
+            "mark_missing_from_job",
+            "--job-id",
+            str(job.pk),
+            "--apply",
+            stdout=output,
+        )
+
+        for listing in listings:
+            listing.refresh_from_db()
+            self.assertTrue(listing.active)
+            self.assertEqual(listing.missing_runs, 0)
+        text = output.getvalue()
+        self.assertIn("[SKIP] failed-source: estado failed", text)
+        self.assertIn("[SKIP] partial-source: estado partial", text)
+        self.assertIn("[SKIP] error-source: 1 errores", text)
+        self.assertIn("[SKIP] zero-source: sin fichas procesables", text)
+        self.assertIn("[SKIP] incomplete-source: procesadas 1/2", text)
+
+    def test_apply_skips_limited_jobs(self):
+        source = self.create_source("limited")
+        job = self.create_job([source], max_listings=1)
+        self.create_job_source(job, source)
+        stale = self.create_listing(source, "stale", self.old_seen_at)
+
+        output = StringIO()
+        call_command(
+            "mark_missing_from_job",
+            "--job-id",
+            str(job.pk),
+            "--apply",
+            stdout=output,
+        )
+
+        stale.refresh_from_db()
+        self.assertTrue(stale.active)
+        self.assertEqual(stale.missing_runs, 0)
+        self.assertIn("job tuvo limites de muestra/paginacion", output.getvalue())
+
+    def test_job_166_exclusions_are_conservative_even_if_source_is_clean(self):
+        source = self.create_source("remax-datawork")
+        job = self.create_job([source], id=166)
+        self.create_job_source(job, source)
+        stale = self.create_listing(source, "stale", self.old_seen_at)
+
+        output = StringIO()
+        call_command(
+            "mark_missing_from_job",
+            "--job-id",
+            str(job.pk),
+            "--apply",
+            stdout=output,
+        )
+
+        stale.refresh_from_db()
+        self.assertTrue(stale.active)
+        self.assertEqual(stale.missing_runs, 0)
+        self.assertIn("exclusion conservadora", output.getvalue())
 
 
 class ScrapeCommandTests(TransactionTestCase):
