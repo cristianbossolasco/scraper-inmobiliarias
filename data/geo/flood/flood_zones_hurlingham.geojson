@@ -2,12 +2,14 @@
   "type": "FeatureCollection",
   "name": "flood_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-13T02:01:46.729138+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
-    "source_name": "OpenStreetMap Overpass API",
+    "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+    "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+    "license": "Public official geospatial data; cite ADA PBA.",
     "metric_crs_used_for_calculation": "EPSG:32721",
-    "data_confidence": "medium"
+    "data_confidence": "high"
   },
   "features": [
     {
@@ -15,11 +17,17 @@
       "properties": {
         "zone_name": "Asunción",
         "area_km2": 0.3938,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -274,11 +282,17 @@
       "properties": {
         "zone_name": "Atepam Italia",
         "area_km2": 0.1536,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 555.91,
-        "flood_penalty_score": 53.67,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -509,11 +523,17 @@
       "properties": {
         "zone_name": "Belgrano",
         "area_km2": 0.297,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 29563.08,
+        "flood_risk_overlap_pct": 9.9475,
+        "flood_risk_high_or_medium_m2": 2.26,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 7.47,
+        "flood_risk_max_score": 50,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -664,11 +684,17 @@
       "properties": {
         "zone_name": "Carola Lorenzini",
         "area_km2": 0.3936,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 2744.88,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -791,11 +817,17 @@
       "properties": {
         "zone_name": "Cartero",
         "area_km2": 0.0794,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 968.09,
-        "flood_penalty_score": 19.33,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -930,11 +962,17 @@
       "properties": {
         "zone_name": "Cosmopolita",
         "area_km2": 0.3223,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1129.45,
-        "flood_penalty_score": 5.88,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1097,11 +1135,17 @@
       "properties": {
         "zone_name": "Curapaytí",
         "area_km2": 0.7093,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 892.89,
-        "flood_penalty_score": 25.59,
-        "flood_risk_level": "baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1364,11 +1408,17 @@
       "properties": {
         "zone_name": "Dos de Abril",
         "area_km2": 0.4137,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 2248.35,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1495,11 +1545,17 @@
       "properties": {
         "zone_name": "El Destino",
         "area_km2": 0.5872,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 9320.97,
+        "flood_risk_overlap_pct": 1.5864,
+        "flood_risk_high_or_medium_m2": 2299.06,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "baja",
+        "flood_penalty_score": 21.25,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1658,11 +1714,17 @@
       "properties": {
         "zone_name": "El Libertador",
         "area_km2": 0.6741,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1558.51,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1949,11 +2011,17 @@
       "properties": {
         "zone_name": "El Palanco",
         "area_km2": 0.6597,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 14183.17,
+        "flood_risk_overlap_pct": 2.1486,
+        "flood_risk_high_or_medium_m2": 12719.9,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "media_alta",
+        "flood_penalty_score": 66.68,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2172,11 +2240,17 @@
       "properties": {
         "zone_name": "El Porvenir",
         "area_km2": 0.5371,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1277.14,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2431,11 +2505,17 @@
       "properties": {
         "zone_name": "El Progreso",
         "area_km2": 0.1572,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1942.01,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2550,11 +2630,17 @@
       "properties": {
         "zone_name": "Federal",
         "area_km2": 0.1577,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 2495.45,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2657,11 +2743,17 @@
       "properties": {
         "zone_name": "Hurlingham Centro",
         "area_km2": 1.2585,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 577.23,
-        "flood_penalty_score": 51.9,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3092,11 +3184,17 @@
       "properties": {
         "zone_name": "Jorge Newbery",
         "area_km2": 0.4669,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 409.33,
-        "flood_penalty_score": 65.89,
-        "flood_risk_level": "media_alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3339,11 +3437,17 @@
       "properties": {
         "zone_name": "Juan B. de Lasalle",
         "area_km2": 0.3488,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 66895.4,
+        "flood_risk_overlap_pct": 19.1674,
+        "flood_risk_high_or_medium_m2": 6178.63,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 12.77,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3590,11 +3694,17 @@
       "properties": {
         "zone_name": "La Juanita",
         "area_km2": 0.4522,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 13999.38,
+        "flood_risk_overlap_pct": 3.094,
+        "flood_risk_high_or_medium_m2": 8242.91,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "media",
+        "flood_penalty_score": 45.77,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3757,11 +3867,17 @@
       "properties": {
         "zone_name": "La Leonor",
         "area_km2": 0.6904,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 141.1,
-        "flood_penalty_score": 88.24,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 37809.0,
+        "flood_risk_overlap_pct": 5.4729,
+        "flood_risk_high_or_medium_m2": 6583.0,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 15.33,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3956,11 +4072,17 @@
       "properties": {
         "zone_name": "Los Patitos",
         "area_km2": 0.2937,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 40.04,
-        "flood_penalty_score": 96.66,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 39470.88,
+        "flood_risk_overlap_pct": 13.4299,
+        "flood_risk_high_or_medium_m2": 2298.57,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 8.23,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4107,11 +4229,17 @@
       "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1420.45,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4206,11 +4334,17 @@
       "properties": {
         "zone_name": "Luna",
         "area_km2": 0.7198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 925.26,
-        "flood_penalty_score": 22.89,
-        "flood_risk_level": "baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4441,11 +4575,17 @@
       "properties": {
         "zone_name": "Militar",
         "area_km2": 0.1772,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 559.95,
-        "flood_penalty_score": 53.34,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4616,11 +4756,17 @@
       "properties": {
         "zone_name": "Mitre",
         "area_km2": 1.5379,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1587.64,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4927,11 +5073,17 @@
       "properties": {
         "zone_name": "Nueve de Julio",
         "area_km2": 0.4924,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 387.5,
-        "flood_penalty_score": 67.71,
+        "flood_risk_overlap_m2": 21668.78,
+        "flood_risk_overlap_pct": 4.3978,
+        "flood_risk_high_or_medium_m2": 19453.34,
+        "in_flood_risk_zone": true,
         "flood_risk_level": "media_alta",
-        "in_flood_risk_zone": null
+        "flood_penalty_score": 67.28,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5118,11 +5270,17 @@
       "properties": {
         "zone_name": "Nuevo Parque Quirno",
         "area_km2": 0.1848,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 25788.8,
+        "flood_risk_overlap_pct": 13.9429,
+        "flood_risk_high_or_medium_m2": 21382.95,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "media_alta",
+        "flood_penalty_score": 62.4,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5357,11 +5515,17 @@
       "properties": {
         "zone_name": "Parque Jhonston",
         "area_km2": 1.3584,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1056.34,
-        "flood_penalty_score": 11.97,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5684,11 +5848,17 @@
       "properties": {
         "zone_name": "Parque Quirno",
         "area_km2": 1.1008,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 144.33,
-        "flood_penalty_score": 87.97,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6059,11 +6229,17 @@
       "properties": {
         "zone_name": "Prensa",
         "area_km2": 0.2243,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 914.32,
-        "flood_penalty_score": 23.81,
-        "flood_risk_level": "baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6266,11 +6442,17 @@
       "properties": {
         "zone_name": "Primero de Mayo",
         "area_km2": 0.3157,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 291.72,
-        "flood_penalty_score": 75.69,
-        "flood_risk_level": "media_alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6433,11 +6615,17 @@
       "properties": {
         "zone_name": "Rimoldi",
         "area_km2": 0.1004,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 1423.72,
-        "flood_penalty_score": 0.0,
-        "flood_risk_level": "muy_baja",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6540,11 +6728,17 @@
       "properties": {
         "zone_name": "Roca 1",
         "area_km2": 0.5515,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 60.96,
-        "flood_penalty_score": 94.92,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 87720.68,
+        "flood_risk_overlap_pct": 15.8972,
+        "flood_risk_high_or_medium_m2": 573.65,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 10.91,
+        "flood_risk_max_score": 50,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6787,11 +6981,17 @@
       "properties": {
         "zone_name": "Roca 2",
         "area_km2": 0.8198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 293.8,
-        "flood_penalty_score": 75.52,
-        "flood_risk_level": "media_alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 22264.93,
+        "flood_risk_overlap_pct": 2.7141,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 5.0,
+        "flood_risk_max_score": 5,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7018,11 +7218,17 @@
       "properties": {
         "zone_name": "San Alberto",
         "area_km2": 0.1906,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 490.64,
-        "flood_penalty_score": 59.11,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 9517.9,
+        "flood_risk_overlap_pct": 4.9898,
+        "flood_risk_high_or_medium_m2": 1627.13,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 16.02,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7137,11 +7343,17 @@
       "properties": {
         "zone_name": "San Damián",
         "area_km2": 0.9102,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 47371.14,
+        "flood_risk_overlap_pct": 5.2014,
+        "flood_risk_high_or_medium_m2": 10163.06,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 18.76,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7388,11 +7600,17 @@
       "properties": {
         "zone_name": "Santa Clara",
         "area_km2": 0.4501,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 296.74,
-        "flood_penalty_score": 75.27,
-        "flood_risk_level": "media_alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7531,11 +7749,17 @@
       "properties": {
         "zone_name": "Santa Leonor",
         "area_km2": 0.4076,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 86.41,
-        "flood_penalty_score": 92.8,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7718,11 +7942,17 @@
       "properties": {
         "zone_name": "Scholnik",
         "area_km2": 0.5449,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 177.28,
-        "flood_penalty_score": 85.23,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 19741.81,
+        "flood_risk_overlap_pct": 3.6205,
+        "flood_risk_high_or_medium_m2": 14836.89,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "media",
+        "flood_penalty_score": 56.97,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7905,11 +8135,17 @@
       "properties": {
         "zone_name": "Villa Alemania",
         "area_km2": 0.5048,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 26459.83,
+        "flood_risk_overlap_pct": 5.2379,
+        "flood_risk_high_or_medium_m2": 24347.56,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "media_alta",
+        "flood_penalty_score": 68.58,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8076,11 +8312,17 @@
       "properties": {
         "zone_name": "Villa Club",
         "area_km2": 2.6183,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 0.0,
-        "flood_penalty_score": 100.0,
-        "flood_risk_level": "alta",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 268704.87,
+        "flood_risk_overlap_pct": 10.2559,
+        "flood_risk_high_or_medium_m2": 19359.0,
+        "in_flood_risk_zone": true,
+        "flood_risk_level": "muy_baja",
+        "flood_penalty_score": 17.47,
+        "flood_risk_max_score": 75,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8419,11 +8661,17 @@
       "properties": {
         "zone_name": "Villa Tesei Centro",
         "area_km2": 1.856,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 635.96,
-        "flood_penalty_score": 47.0,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8822,11 +9070,17 @@
       "properties": {
         "zone_name": "Virgen Esperanza",
         "area_km2": 0.2668,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_waterway_m": 597.48,
-        "flood_penalty_score": 50.21,
-        "flood_risk_level": "media",
-        "in_flood_risk_zone": null
+        "flood_risk_overlap_m2": 0.0,
+        "flood_risk_overlap_pct": 0.0,
+        "flood_risk_high_or_medium_m2": 0.0,
+        "in_flood_risk_zone": false,
+        "flood_risk_level": null,
+        "flood_penalty_score": null,
+        "flood_risk_max_score": null,
+        "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+        "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",

@@ -1,0 +1,2719 @@
+{
+  "type": "FeatureCollection",
+  "name": "renabap_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+    "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+    "mirror_note": "Primary official download was unavailable; public GitHub mirror was used.",
+    "data_confidence": "medium_low"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 177,
+        "nombre_barrio": "Ceamse",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 198.0,
+        "cantidad_viviendas_aproximadas": 180.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 12676,
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6513546,
+                -34.5706168
+              ],
+              [
+                -58.6507194,
+                -34.570324
+              ],
+              [
+                -58.649583,
+                -34.5703275
+              ],
+              [
+                -58.6493576,
+                -34.5705048
+              ],
+              [
+                -58.6504877,
+                -34.5714571
+              ],
+              [
+                -58.6513546,
+                -34.5706168
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 464,
+        "nombre_barrio": "El Palanco",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 22.0,
+        "cantidad_viviendas_aproximadas": 20.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 6088,
+        "assigned_zone_name": "El Palanco",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6196679,
+                -34.6264652
+              ],
+              [
+                -58.6195708,
+                -34.6264606
+              ],
+              [
+                -58.6195113,
+                -34.6259685
+              ],
+              [
+                -58.6196526,
+                -34.6259553
+              ],
+              [
+                -58.6194162,
+                -34.6250229
+              ],
+              [
+                -58.6199531,
+                -34.6249642
+              ],
+              [
+                -58.6200484,
+                -34.6255217
+              ],
+              [
+                -58.6200702,
+                -34.6257091
+              ],
+              [
+                -58.6196679,
+                -34.6264652
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 474,
+        "nombre_barrio": "Arroyo Morón y Díaz de Solís",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 11.0,
+        "cantidad_viviendas_aproximadas": 10.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión formal a la red de agua con factura",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 2200,
+        "assigned_zone_name": "Nueve de Julio",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6220161,
+                -34.6018729
+              ],
+              [
+                -58.6216918,
+                -34.601559
+              ],
+              [
+                -58.6215037,
+                -34.6017059
+              ],
+              [
+                -58.6216484,
+                -34.6021167
+              ],
+              [
+                -58.6217331,
+                -34.6024372
+              ],
+              [
+                -58.6219671,
+                -34.602229
+              ],
+              [
+                -58.6217896,
+                -34.602039
+              ],
+              [
+                -58.6220161,
+                -34.6018729
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 626,
+        "nombre_barrio": "Barrio Cartero",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 43.0,
+        "cantidad_viviendas_aproximadas": 39.0,
+        "decada_de_creacion": "Década 1950",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 3001,
+        "assigned_zone_name": "Virgen Esperanza",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6497372,
+                -34.5938234
+              ],
+              [
+                -58.6493736,
+                -34.5941185
+              ],
+              [
+                -58.6498916,
+                -34.5945728
+              ],
+              [
+                -58.650236,
+                -34.594297
+              ],
+              [
+                -58.6498207,
+                -34.5939984
+              ],
+              [
+                -58.6498947,
+                -34.5939298
+              ],
+              [
+                -58.6497372,
+                -34.5938234
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 717,
+        "nombre_barrio": "San Jorge",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 55.0,
+        "cantidad_viviendas_aproximadas": 50.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 7666,
+        "assigned_zone_name": "Nuevo Parque Quirno",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6228826,
+                -34.6101944
+              ],
+              [
+                -58.6221152,
+                -34.6095325
+              ],
+              [
+                -58.6214941,
+                -34.6100027
+              ],
+              [
+                -58.6220418,
+                -34.6105386
+              ],
+              [
+                -58.6223728,
+                -34.6104673
+              ],
+              [
+                -58.6225647,
+                -34.6104454
+              ],
+              [
+                -58.6228826,
+                -34.6101944
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 862,
+        "nombre_barrio": "Villegas",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 52.0,
+        "cantidad_viviendas_aproximadas": 47.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 6789,
+        "assigned_zone_name": "San Damián",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6621396,
+                -34.5855133
+              ],
+              [
+                -58.6622173,
+                -34.5853934
+              ],
+              [
+                -58.661929,
+                -34.5850411
+              ],
+              [
+                -58.6619026,
+                -34.5849379
+              ],
+              [
+                -58.661913,
+                -34.5848669
+              ],
+              [
+                -58.6618769,
+                -34.5848447
+              ],
+              [
+                -58.6617128,
+                -34.5843559
+              ],
+              [
+                -58.6617275,
+                -34.584311
+              ],
+              [
+                -58.6617217,
+                -34.5841265
+              ],
+              [
+                -58.6617697,
+                -34.5839912
+              ],
+              [
+                -58.6617597,
+                -34.5839149
+              ],
+              [
+                -58.6616563,
+                -34.5839143
+              ],
+              [
+                -58.661476,
+                -34.583804
+              ],
+              [
+                -58.6612149,
+                -34.5840359
+              ],
+              [
+                -58.6613081,
+                -34.5841233
+              ],
+              [
+                -58.6612146,
+                -34.5842861
+              ],
+              [
+                -58.6612395,
+                -34.5844381
+              ],
+              [
+                -58.6612829,
+                -34.5844197
+              ],
+              [
+                -58.6613613,
+                -34.5846184
+              ],
+              [
+                -58.6614214,
+                -34.5846705
+              ],
+              [
+                -58.6612946,
+                -34.5848265
+              ],
+              [
+                -58.6621396,
+                -34.5855133
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 867,
+        "nombre_barrio": "Cristo Obrero",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 17.0,
+        "cantidad_viviendas_aproximadas": 15.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 1910,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6458439,
+                -34.6132221
+              ],
+              [
+                -58.645336,
+                -34.612807
+              ],
+              [
+                -58.6451751,
+                -34.6129457
+              ],
+              [
+                -58.6455515,
+                -34.6134368
+              ],
+              [
+                -58.6456447,
+                -34.6134147
+              ],
+              [
+                -58.6458439,
+                -34.6132221
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 869,
+        "nombre_barrio": "Del Río",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 13.0,
+        "cantidad_viviendas_aproximadas": 12.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 1958,
+        "assigned_zone_name": "El Palanco",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6202282,
+                -34.6229897
+              ],
+              [
+                -58.6201281,
+                -34.622641
+              ],
+              [
+                -58.6196088,
+                -34.6227232
+              ],
+              [
+                -58.6196994,
+                -34.6230778
+              ],
+              [
+                -58.6202282,
+                -34.6229897
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 870,
+        "nombre_barrio": "La Chimenea",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 121.0,
+        "cantidad_viviendas_aproximadas": 110.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 13392,
+        "assigned_zone_name": "Belgrano",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6636799,
+                -34.5782072
+              ],
+              [
+                -58.6626099,
+                -34.5771338
+              ],
+              [
+                -58.6619081,
+                -34.5776559
+              ],
+              [
+                -58.6629569,
+                -34.5787263
+              ],
+              [
+                -58.6636799,
+                -34.5782072
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 874,
+        "nombre_barrio": "Parque Quirno II",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 44.0,
+        "cantidad_viviendas_aproximadas": 40.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 5733,
+        "assigned_zone_name": "Nuevo Parque Quirno",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6235275,
+                -34.6119734
+              ],
+              [
+                -58.623528,
+                -34.611936
+              ],
+              [
+                -58.6234317,
+                -34.6115717
+              ],
+              [
+                -58.62305,
+                -34.6116377
+              ],
+              [
+                -58.6230261,
+                -34.6115472
+              ],
+              [
+                -58.6222655,
+                -34.6116717
+              ],
+              [
+                -58.6223885,
+                -34.6121858
+              ],
+              [
+                -58.6235275,
+                -34.6119734
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 882,
+        "nombre_barrio": "El Progreso",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 110.0,
+        "cantidad_viviendas_aproximadas": 100.0,
+        "decada_de_creacion": "Década 1970",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a intemperie o cuerpo de agua",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 5313,
+        "assigned_zone_name": "Nueve de Julio",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6224856,
+                -34.6035346
+              ],
+              [
+                -58.6222932,
+                -34.6033521
+              ],
+              [
+                -58.621923,
+                -34.6029978
+              ],
+              [
+                -58.6217588,
+                -34.6031637
+              ],
+              [
+                -58.6216856,
+                -34.6033625
+              ],
+              [
+                -58.6216724,
+                -34.6034051
+              ],
+              [
+                -58.6216628,
+                -34.6035663
+              ],
+              [
+                -58.6216559,
+                -34.6038089
+              ],
+              [
+                -58.6216554,
+                -34.6038211
+              ],
+              [
+                -58.6216551,
+                -34.6038264
+              ],
+              [
+                -58.6216534,
+                -34.6038688
+              ],
+              [
+                -58.6216511,
+                -34.6039256
+              ],
+              [
+                -58.6216495,
+                -34.6039655
+              ],
+              [
+                -58.6216449,
+                -34.6040796
+              ],
+              [
+                -58.6216438,
+                -34.6041124
+              ],
+              [
+                -58.6217073,
+                -34.6041539
+              ],
+              [
+                -58.6219096,
+                -34.6039649
+              ],
+              [
+                -58.6219333,
+                -34.6039853
+              ],
+              [
+                -58.6220418,
+                -34.6039021
+              ],
+              [
+                -58.6224856,
+                -34.6035346
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 888,
+        "nombre_barrio": "Dos de Abril",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 396.0,
+        "cantidad_viviendas_aproximadas": 360.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión regular a la red de agua pero sin factura",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 114231,
+        "assigned_zone_name": "Dos de Abril",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.662416,
+                -34.6210465
+              ],
+              [
+                -58.6620409,
+                -34.6207514
+              ],
+              [
+                -58.6619607,
+                -34.620807
+              ],
+              [
+                -58.6588695,
+                -34.6182226
+              ],
+              [
+                -58.6569937,
+                -34.6197828
+              ],
+              [
+                -58.6599225,
+                -34.6224518
+              ],
+              [
+                -58.6600744,
+                -34.6224515
+              ],
+              [
+                -58.6603895,
+                -34.6227006
+              ],
+              [
+                -58.662416,
+                -34.6210465
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 891,
+        "nombre_barrio": "San Damián",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 198.0,
+        "cantidad_viviendas_aproximadas": 180.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 31407,
+        "assigned_zone_name": "San Damián",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.667501,
+                -34.5803901
+              ],
+              [
+                -58.6660789,
+                -34.5793697
+              ],
+              [
+                -58.6658769,
+                -34.5795737
+              ],
+              [
+                -58.665777,
+                -34.5796919
+              ],
+              [
+                -58.6655486,
+                -34.5798949
+              ],
+              [
+                -58.6653183,
+                -34.5801083
+              ],
+              [
+                -58.6652903,
+                -34.5802385
+              ],
+              [
+                -58.6651555,
+                -34.5803403
+              ],
+              [
+                -58.6653131,
+                -34.5804276
+              ],
+              [
+                -58.6653894,
+                -34.5805109
+              ],
+              [
+                -58.6654456,
+                -34.5806171
+              ],
+              [
+                -58.6654878,
+                -34.5807375
+              ],
+              [
+                -58.6655893,
+                -34.5810568
+              ],
+              [
+                -58.6656309,
+                -34.581125
+              ],
+              [
+                -58.6656652,
+                -34.5812135
+              ],
+              [
+                -58.6658983,
+                -34.5814295
+              ],
+              [
+                -58.6664159,
+                -34.5817361
+              ],
+              [
+                -58.6666435,
+                -34.581757
+              ],
+              [
+                -58.6671571,
+                -34.5812926
+              ],
+              [
+                -58.6668948,
+                -34.5810325
+              ],
+              [
+                -58.667501,
+                -34.5803901
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 893,
+        "nombre_barrio": "Barrio Mitre",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 22.0,
+        "cantidad_viviendas_aproximadas": 20.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1854,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.64847,
+                -34.6193525
+              ],
+              [
+                -58.6481934,
+                -34.6190801
+              ],
+              [
+                -58.6478322,
+                -34.6193549
+              ],
+              [
+                -58.6478219,
+                -34.6193745
+              ],
+              [
+                -58.648114,
+                -34.6196384
+              ],
+              [
+                -58.64847,
+                -34.6193525
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 899,
+        "nombre_barrio": "Libertad",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 110.0,
+        "cantidad_viviendas_aproximadas": 100.0,
+        "decada_de_creacion": "Década 1970",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 13960,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6474816,
+                -34.5831366
+              ],
+              [
+                -58.647043,
+                -34.5827205
+              ],
+              [
+                -58.6466658,
+                -34.5829923
+              ],
+              [
+                -58.6469082,
+                -34.5832258
+              ],
+              [
+                -58.646144,
+                -34.5836189
+              ],
+              [
+                -58.6462757,
+                -34.5837791
+              ],
+              [
+                -58.6474816,
+                -34.5831366
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                -58.6470585,
+                -34.5827098
+              ],
+              [
+                -58.6474927,
+                -34.583096
+              ],
+              [
+                -58.647534,
+                -34.5830975
+              ],
+              [
+                -58.6487502,
+                -34.5824138
+              ],
+              [
+                -58.6481629,
+                -34.5818878
+              ],
+              [
+                -58.6470585,
+                -34.5827098
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 902,
+        "nombre_barrio": "Nuevo Parque Quirno",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 176.0,
+        "cantidad_viviendas_aproximadas": 160.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 33188,
+        "assigned_zone_name": "Scholnik",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6244382,
+                -34.6118319
+              ],
+              [
+                -58.6244382,
+                -34.6130847
+              ],
+              [
+                -58.6208602,
+                -34.6131113
+              ],
+              [
+                -58.6213108,
+                -34.6122953
+              ],
+              [
+                -58.6215028,
+                -34.6123271
+              ],
+              [
+                -58.6214937,
+                -34.6123682
+              ],
+              [
+                -58.6244382,
+                -34.6118319
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 903,
+        "nombre_barrio": "Los Patitos",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 88.0,
+        "cantidad_viviendas_aproximadas": 80.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Red cloacal conectada a la red pluvial",
+        "agua_corriente": "Conexión formal a la red de agua con factura",
+        "cocina": "Conexión formal a la red de gas",
+        "calefaccion": "Conexión formal a la red de gas",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 9263,
+        "assigned_zone_name": "Los Patitos",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6629815,
+                -34.5993118
+              ],
+              [
+                -58.6625971,
+                -34.5995935
+              ],
+              [
+                -58.6625665,
+                -34.5996733
+              ],
+              [
+                -58.6624305,
+                -34.5997744
+              ],
+              [
+                -58.6623412,
+                -34.5999736
+              ],
+              [
+                -58.662191,
+                -34.6001678
+              ],
+              [
+                -58.6622876,
+                -34.6002606
+              ],
+              [
+                -58.6624528,
+                -34.6003545
+              ],
+              [
+                -58.6629122,
+                -34.5999345
+              ],
+              [
+                -58.6634523,
+                -34.6003926
+              ],
+              [
+                -58.6635155,
+                -34.6004066
+              ],
+              [
+                -58.663915,
+                -34.6000582
+              ],
+              [
+                -58.6638652,
+                -34.6000021
+              ],
+              [
+                -58.6634895,
+                -34.599699
+              ],
+              [
+                -58.6629815,
+                -34.5993118
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 904,
+        "nombre_barrio": "Malarredo II",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 17.0,
+        "cantidad_viviendas_aproximadas": 15.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 980,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6409907,
+                -34.6213697
+              ],
+              [
+                -58.6407681,
+                -34.6210722
+              ],
+              [
+                -58.6405234,
+                -34.6212291
+              ],
+              [
+                -58.6408328,
+                -34.6215039
+              ],
+              [
+                -58.6409907,
+                -34.6213697
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 905,
+        "nombre_barrio": "El Mástil",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 11.0,
+        "cantidad_viviendas_aproximadas": 10.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1043,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6426163,
+                -34.6264676
+              ],
+              [
+                -58.6427476,
+                -34.6263992
+              ],
+              [
+                -58.6426595,
+                -34.6262863
+              ],
+              [
+                -58.6424133,
+                -34.6263568
+              ],
+              [
+                -58.642128,
+                -34.6264177
+              ],
+              [
+                -58.642163,
+                -34.626591
+              ],
+              [
+                -58.6425067,
+                -34.6265319
+              ],
+              [
+                -58.6426163,
+                -34.6264676
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 907,
+        "nombre_barrio": "La Juanita",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 62.0,
+        "cantidad_viviendas_aproximadas": 56.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a intemperie o cuerpo de agua",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 11454,
+        "assigned_zone_name": "La Juanita",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6196979,
+                -34.6180802
+              ],
+              [
+                -58.6194824,
+                -34.6180274
+              ],
+              [
+                -58.6193869,
+                -34.6180373
+              ],
+              [
+                -58.6192777,
+                -34.6180087
+              ],
+              [
+                -58.6191008,
+                -34.6182469
+              ],
+              [
+                -58.6188359,
+                -34.6186339
+              ],
+              [
+                -58.6185706,
+                -34.61939
+              ],
+              [
+                -58.6196076,
+                -34.6194037
+              ],
+              [
+                -58.6196798,
+                -34.6193487
+              ],
+              [
+                -58.6196795,
+                -34.618208
+              ],
+              [
+                -58.6196979,
+                -34.6180802
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 908,
+        "nombre_barrio": "La Floresta",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 19.0,
+        "cantidad_viviendas_aproximadas": 17.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Conexión formal a la red de gas",
+        "calefaccion": "Conexión formal a la red de gas",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1328,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6464207,
+                -34.6145169
+              ],
+              [
+                -58.6466033,
+                -34.6143629
+              ],
+              [
+                -58.646802,
+                -34.6142037
+              ],
+              [
+                -58.6469031,
+                -34.6141155
+              ],
+              [
+                -58.6467514,
+                -34.6140077
+              ],
+              [
+                -58.6466469,
+                -34.6140989
+              ],
+              [
+                -58.6466302,
+                -34.6140833
+              ],
+              [
+                -58.6466174,
+                -34.6140885
+              ],
+              [
+                -58.6466046,
+                -34.6140782
+              ],
+              [
+                -58.6462423,
+                -34.6143874
+              ],
+              [
+                -58.6464207,
+                -34.6145169
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 916,
+        "nombre_barrio": "La Esperanza II",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 69.0,
+        "cantidad_viviendas_aproximadas": 63.0,
+        "decada_de_creacion": "Década 1930",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión formal a la red de agua con factura",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 17744,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6488999,
+                -34.5786218
+              ],
+              [
+                -58.6480195,
+                -34.5778848
+              ],
+              [
+                -58.6468021,
+                -34.5788552
+              ],
+              [
+                -58.6471527,
+                -34.5791545
+              ],
+              [
+                -58.6472876,
+                -34.5792717
+              ],
+              [
+                -58.647674,
+                -34.5795796
+              ],
+              [
+                -58.6488999,
+                -34.5786218
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 950,
+        "nombre_barrio": "Diecisiete de Agosto",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 9.0,
+        "cantidad_viviendas_aproximadas": 8.0,
+        "decada_de_creacion": "Década 1970",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1841,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6430959,
+                -34.6097604
+              ],
+              [
+                -58.6428143,
+                -34.6095142
+              ],
+              [
+                -58.6424303,
+                -34.6098411
+              ],
+              [
+                -58.6427001,
+                -34.6100715
+              ],
+              [
+                -58.6430959,
+                -34.6097604
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 962,
+        "nombre_barrio": "El Molino",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 143.0,
+        "cantidad_viviendas_aproximadas": 130.0,
+        "decada_de_creacion": "Década 1990",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 23387,
+        "assigned_zone_name": "San Damián",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6716256,
+                -34.583922
+              ],
+              [
+                -58.6716313,
+                -34.5838846
+              ],
+              [
+                -58.6713754,
+                -34.5835913
+              ],
+              [
+                -58.6711856,
+                -34.5834101
+              ],
+              [
+                -58.6711138,
+                -34.5833986
+              ],
+              [
+                -58.6695542,
+                -34.5846737
+              ],
+              [
+                -58.6686786,
+                -34.5853986
+              ],
+              [
+                -58.6686829,
+                -34.5854401
+              ],
+              [
+                -58.6691764,
+                -34.585879
+              ],
+              [
+                -58.6692092,
+                -34.585879
+              ],
+              [
+                -58.6705849,
+                -34.5847501
+              ],
+              [
+                -58.6706709,
+                -34.5847041
+              ],
+              [
+                -58.6716256,
+                -34.583922
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 979,
+        "nombre_barrio": "Juan Pedro Rolón",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 81.0,
+        "cantidad_viviendas_aproximadas": 74.0,
+        "decada_de_creacion": "Década 2000",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Conexión formal a la red cloacal",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Otro tipo de seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 21478,
+        "assigned_zone_name": "Scholnik",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6209747,
+                -34.6131181
+              ],
+              [
+                -58.6207688,
+                -34.613545
+              ],
+              [
+                -58.620696,
+                -34.6138105
+              ],
+              [
+                -58.6205656,
+                -34.6139972
+              ],
+              [
+                -58.6205243,
+                -34.6144129
+              ],
+              [
+                -58.6220415,
+                -34.6143938
+              ],
+              [
+                -58.6228354,
+                -34.6143806
+              ],
+              [
+                -58.623043,
+                -34.6143871
+              ],
+              [
+                -58.6230551,
+                -34.6138655
+              ],
+              [
+                -58.6218825,
+                -34.6138405
+              ],
+              [
+                -58.6218852,
+                -34.6137931
+              ],
+              [
+                -58.6218537,
+                -34.6137934
+              ],
+              [
+                -58.6218376,
+                -34.6135682
+              ],
+              [
+                -58.6218378,
+                -34.6131184
+              ],
+              [
+                -58.6209747,
+                -34.6131181
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 984,
+        "nombre_barrio": "Pasaje Güemes",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 28.0,
+        "cantidad_viviendas_aproximadas": 25.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Conexión formal a la red de gas",
+        "calefaccion": "Conexión formal a la red de gas",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1892,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.637939,
+                -34.6176983
+              ],
+              [
+                -58.6380166,
+                -34.6176466
+              ],
+              [
+                -58.6380319,
+                -34.6176371
+              ],
+              [
+                -58.6380887,
+                -34.6175945
+              ],
+              [
+                -58.6380987,
+                -34.617587
+              ],
+              [
+                -58.6380606,
+                -34.617519
+              ],
+              [
+                -58.6379924,
+                -34.6174289
+              ],
+              [
+                -58.6379389,
+                -34.6173581
+              ],
+              [
+                -58.637886,
+                -34.6172917
+              ],
+              [
+                -58.6378172,
+                -34.6172122
+              ],
+              [
+                -58.6377492,
+                -34.6171381
+              ],
+              [
+                -58.6376664,
+                -34.6170344
+              ],
+              [
+                -58.637605,
+                -34.6169536
+              ],
+              [
+                -58.6375578,
+                -34.6169037
+              ],
+              [
+                -58.6375136,
+                -34.6168342
+              ],
+              [
+                -58.6374509,
+                -34.6168645
+              ],
+              [
+                -58.637438,
+                -34.6168668
+              ],
+              [
+                -58.6373498,
+                -34.616915
+              ],
+              [
+                -58.637939,
+                -34.6176983
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 986,
+        "nombre_barrio": "Mitre",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 42.0,
+        "cantidad_viviendas_aproximadas": 38.0,
+        "decada_de_creacion": "Década 1960",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Conexión formal a la red de agua con factura",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 5553,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6524454,
+                -34.6178298
+              ],
+              [
+                -58.6529948,
+                -34.6173364
+              ],
+              [
+                -58.6527933,
+                -34.6171842
+              ],
+              [
+                -58.6526693,
+                -34.6170718
+              ],
+              [
+                -58.6522637,
+                -34.6173869
+              ],
+              [
+                -58.6520841,
+                -34.6175229
+              ],
+              [
+                -58.6524454,
+                -34.6178298
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                -58.6550398,
+                -34.6152479
+              ],
+              [
+                -58.6547193,
+                -34.6150102
+              ],
+              [
+                -58.6542576,
+                -34.6153496
+              ],
+              [
+                -58.6545267,
+                -34.6156079
+              ],
+              [
+                -58.6550398,
+                -34.6152479
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 991,
+        "nombre_barrio": "Malarredo 1",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Villa Tesei",
+        "cantidad_familias_aproximada": 66.0,
+        "cantidad_viviendas_aproximadas": 60.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo domiciliaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 4062,
+        "assigned_zone_name": "Mitre",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.64498,
+                -34.6181862
+              ],
+              [
+                -58.6443259,
+                -34.6176366
+              ],
+              [
+                -58.6441719,
+                -34.6177701
+              ],
+              [
+                -58.6440398,
+                -34.6178753
+              ],
+              [
+                -58.644059,
+                -34.6178934
+              ],
+              [
+                -58.6440503,
+                -34.6179122
+              ],
+              [
+                -58.6441053,
+                -34.6180105
+              ],
+              [
+                -58.6441241,
+                -34.6180062
+              ],
+              [
+                -58.6445305,
+                -34.6185426
+              ],
+              [
+                -58.64498,
+                -34.6181862
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 1364,
+        "nombre_barrio": "Arroyo Morón",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "Hurlingham",
+        "cantidad_familias_aproximada": 66.0,
+        "cantidad_viviendas_aproximadas": 60.0,
+        "decada_de_creacion": "Década 1970",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a intemperie o cuerpo de agua",
+        "agua_corriente": "Conexión irregular a la red de agua",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 9178,
+        "assigned_zone_name": "Nueve de Julio",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6206848,
+                -34.6051221
+              ],
+              [
+                -58.6216681,
+                -34.6041576
+              ],
+              [
+                -58.6216493,
+                -34.6041345
+              ],
+              [
+                -58.6216393,
+                -34.604132
+              ],
+              [
+                -58.6216403,
+                -34.6041065
+              ],
+              [
+                -58.6216451,
+                -34.6039861
+              ],
+              [
+                -58.6216464,
+                -34.6039542
+              ],
+              [
+                -58.6216628,
+                -34.6035663
+              ],
+              [
+                -58.6216685,
+                -34.6034114
+              ],
+              [
+                -58.6216701,
+                -34.6033663
+              ],
+              [
+                -58.621744,
+                -34.603157
+              ],
+              [
+                -58.6218564,
+                -34.6030427
+              ],
+              [
+                -58.6219408,
+                -34.6029615
+              ],
+              [
+                -58.6217125,
+                -34.6027654
+              ],
+              [
+                -58.6215373,
+                -34.6028703
+              ],
+              [
+                -58.6214039,
+                -34.6032208
+              ],
+              [
+                -58.6212506,
+                -34.6036987
+              ],
+              [
+                -58.6211053,
+                -34.6041333
+              ],
+              [
+                -58.6209452,
+                -34.6044224
+              ],
+              [
+                -58.6206582,
+                -34.6046883
+              ],
+              [
+                -58.6205965,
+                -34.604801
+              ],
+              [
+                -58.6206848,
+                -34.6051221
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 1491,
+        "nombre_barrio": "Arroyo Soto",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 86.0,
+        "cantidad_viviendas_aproximadas": 78.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Otro / vacío",
+        "situacion_dominial": "Ninguna seguridad en la tenencia",
+        "clasificacion_barrio": "Asentamiento",
+        "superficie_m2": 8637,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.661195,
+                -34.5886721
+              ],
+              [
+                -58.6612241,
+                -34.5885552
+              ],
+              [
+                -58.661237,
+                -34.5884292
+              ],
+              [
+                -58.6612208,
+                -34.58842
+              ],
+              [
+                -58.661216,
+                -34.5883839
+              ],
+              [
+                -58.6612054,
+                -34.5883657
+              ],
+              [
+                -58.6612064,
+                -34.5883026
+              ],
+              [
+                -58.6612125,
+                -34.5882576
+              ],
+              [
+                -58.6612022,
+                -34.5882215
+              ],
+              [
+                -58.6612019,
+                -34.5879015
+              ],
+              [
+                -58.6611926,
+                -34.5878022
+              ],
+              [
+                -58.6611566,
+                -34.5876711
+              ],
+              [
+                -58.6611746,
+                -34.5875677
+              ],
+              [
+                -58.6613132,
+                -34.587416
+              ],
+              [
+                -58.661485,
+                -34.5872376
+              ],
+              [
+                -58.661775,
+                -34.5868261
+              ],
+              [
+                -58.6618249,
+                -34.5867726
+              ],
+              [
+                -58.6618491,
+                -34.5866241
+              ],
+              [
+                -58.6619322,
+                -34.5865394
+              ],
+              [
+                -58.6619351,
+                -34.5863592
+              ],
+              [
+                -58.6619926,
+                -34.5861705
+              ],
+              [
+                -58.6619282,
+                -34.5861028
+              ],
+              [
+                -58.6615795,
+                -34.5863899
+              ],
+              [
+                -58.6615722,
+                -34.5865625
+              ],
+              [
+                -58.661381,
+                -34.5867388
+              ],
+              [
+                -58.6613595,
+                -34.5870259
+              ],
+              [
+                -58.6612201,
+                -34.5871628
+              ],
+              [
+                -58.6608768,
+                -34.5874278
+              ],
+              [
+                -58.6608768,
+                -34.587653
+              ],
+              [
+                -58.6603886,
+                -34.5880549
+              ],
+              [
+                -58.6605173,
+                -34.5881432
+              ],
+              [
+                -58.6608928,
+                -34.5878517
+              ],
+              [
+                -58.6608982,
+                -34.5879091
+              ],
+              [
+                -58.6609733,
+                -34.5880814
+              ],
+              [
+                -58.6609089,
+                -34.5884082
+              ],
+              [
+                -58.661195,
+                -34.5886721
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 4576,
+        "nombre_barrio": "Roca",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 10.0,
+        "cantidad_viviendas_aproximadas": 9.0,
+        "decada_de_creacion": "Década 1980",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión formal a la red con medidor domiciliario con factura",
+        "efluentes_cloacales": "Desagüe sólo a pozo negro/ciego u hoyo",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Energía eléctrica",
+        "situacion_dominial": "Boleto de compra-venta",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 2570,
+        "assigned_zone_name": "Roca 1",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.6563411,
+                -34.572295
+              ],
+              [
+                -58.6561115,
+                -34.5724615
+              ],
+              [
+                -58.6561393,
+                -34.5724875
+              ],
+              [
+                -58.6560421,
+                -34.5725593
+              ],
+              [
+                -58.6560119,
+                -34.5725351
+              ],
+              [
+                -58.6559584,
+                -34.5725762
+              ],
+              [
+                -58.655982,
+                -34.5725954
+              ],
+              [
+                -58.656258,
+                -34.5728427
+              ],
+              [
+                -58.6562502,
+                -34.5728548
+              ],
+              [
+                -58.6563309,
+                -34.5729216
+              ],
+              [
+                -58.6564076,
+                -34.5728612
+              ],
+              [
+                -58.6564484,
+                -34.5728924
+              ],
+              [
+                -58.6565705,
+                -34.5727974
+              ],
+              [
+                -58.6567636,
+                -34.5726638
+              ],
+              [
+                -58.6563411,
+                -34.572295
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "renabap_id": 5367,
+        "nombre_barrio": "C. Villegas y Bustamante y Guevara",
+        "provincia": "Buenos Aires",
+        "departamento": "Hurlingham",
+        "localidad": "William Morris",
+        "cantidad_familias_aproximada": 110.0,
+        "cantidad_viviendas_aproximadas": 100.0,
+        "decada_de_creacion": "Década 1960",
+        "anio_de_creacion": null,
+        "energia_electrica": "Conexión irregular a la red",
+        "efluentes_cloacales": "Desagüe a cámara séptica y pozo ciego",
+        "agua_corriente": "Bomba de agua de pozo comunitaria",
+        "cocina": "Gas en garrafa",
+        "calefaccion": "Gas en garrafa",
+        "situacion_dominial": "Boleto de compra-venta",
+        "clasificacion_barrio": "Villa",
+        "superficie_m2": 1984,
+        "assigned_zone_name": "Primero de Mayo",
+        "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+        "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium_low",
+        "source_note": "Primary official download was unavailable; public GitHub mirror was used."
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -58.66073,
+                -34.5843813
+              ],
+              [
+                -58.6603837,
+                -34.5840877
+              ],
+              [
+                -58.6600711,
+                -34.5843272
+              ],
+              [
+                -58.6600919,
+                -34.5843455
+              ],
+              [
+                -58.6600543,
+                -34.5843773
+              ],
+              [
+                -58.6603911,
+                -34.5846493
+              ],
+              [
+                -58.66073,
+                -34.5843813
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

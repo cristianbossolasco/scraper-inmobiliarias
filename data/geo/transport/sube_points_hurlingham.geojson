@@ -1,0 +1,6324 @@
+{
+  "type": "FeatureCollection",
+  "name": "sube_points_hurlingham",
+  "metadata": {
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "Datos Transporte / SUBE - Puntos de carga",
+    "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+    "license": "No especificada",
+    "temporal_coverage": "2019-10-01",
+    "data_confidence": "medium"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 169,
+        "Entidad": "SOFSE-SAN MART�N",
+        "Id Ubicaci": 25662,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "FFCC San Martin- Est. Hurlingham",
+        "Nro.Cuit": 30714362395.0,
+        "Tipo Ubica": "Estaci�n de Tren",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ESCALADA REMEDIOS DE",
+        "N�mero": "1199",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59146,
+        "Longitud": -58.63237,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63237,
+          -34.59146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 169,
+        "Entidad": "SOFSE-SAN MART�N",
+        "Id Ubicaci": 25480,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "FFCC San Martin- Est. W.Morris",
+        "Nro.Cuit": 30714362395.0,
+        "Tipo Ubica": "Estaci�n de Tren",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GUTENBERG  Y A. ARGUIBEL",
+        "N�mero": "1899",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM C. MORRIS",
+        "CP": "1686",
+        "Latitud": -34.57852,
+        "Longitud": -58.65644,
+        "assigned_zone_name": "Roca 1",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65644,
+          -34.57852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 176,
+        "Entidad": "CORREO ARGENTINO",
+        "Id Ubicaci": 39832,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "WILLIAM MORRIS",
+        "Nro.Cuit": 30708574836.0,
+        "Tipo Ubica": "Correo",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "1764",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "B1681",
+        "Latitud": -34.57878,
+        "Longitud": -58.65494,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65494,
+          -34.57878
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 176,
+        "Entidad": "CORREO ARGENTINO",
+        "Id Ubicaci": 22608,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "HURLINGHAM",
+        "Nro.Cuit": 30708574836.0,
+        "Tipo Ubica": "Correo",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1305",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59064,
+        "Longitud": -58.63399,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63399,
+          -34.59064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 25506,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "GASTIEN HORACIO ORLANDO",
+        "Nro.Cuit": 20048823018.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2267",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58293,
+        "Longitud": -58.6591,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6591,
+          -34.58293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 40032,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Panaderia Mary",
+        "Nro.Cuit": 27104547384.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LEBENSOHN MOISES",
+        "N�mero": "3967",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61527,
+        "Longitud": -58.64965,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64965,
+          -34.61527
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 47512,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Celulares Villegas",
+        "Nro.Cuit": 20148096105.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2174",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1681",
+        "Latitud": -34.58205,
+        "Longitud": -58.65769,
+        "assigned_zone_name": "Santa Clara",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65769,
+          -34.58205
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 46299,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"El Gauchito\"",
+        "Nro.Cuit": 20116866189.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ARGUIBEL ANDRES",
+        "N�mero": "3284",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.57908,
+        "Longitud": -58.65622,
+        "assigned_zone_name": "Belgrano",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65622,
+          -34.57908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 23100,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "GASTIEN HORACIO ORLANDO",
+        "Nro.Cuit": 20048823018.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1440",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.5916,
+        "Longitud": -58.63467,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63467,
+          -34.5916
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 56757,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Distribuidora Luna",
+        "Nro.Cuit": 20924545888.0,
+        "Tipo Ubica": "Supermercado",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MASCAGNI",
+        "N�mero": "3044",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686EZD",
+        "Latitud": -34.60217,
+        "Longitud": -58.64886,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64886,
+          -34.60217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 179,
+        "Entidad": "AME",
+        "Id Ubicaci": 75296,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "ALMACEN HUGO",
+        "Nro.Cuit": 27138992816.0,
+        "Tipo Ubica": "Almacen/Autoserv",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LA CALANDRIA",
+        "N�mero": "2752",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1713",
+        "Latitud": -34.58449,
+        "Longitud": -58.66672,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66672,
+          -34.58449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 28772,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Farmacia Guayra",
+        "Nro.Cuit": 30710661606.0,
+        "Tipo Ubica": "Farmacia",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GUAYRA",
+        "N�mero": "4131",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62411,
+        "Longitud": -58.64094,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64094,
+          -34.62411
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 30396,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Enzo Claudio Gambillara",
+        "Nro.Cuit": 20176025221.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "2273",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61626,
+        "Longitud": -58.63406,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63406,
+          -34.61626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 41154,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Viviana Caminos",
+        "Nro.Cuit": 27225785134.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "CAMARGO VICENTE AV.",
+        "N�mero": "2323",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61016,
+        "Longitud": -58.62547,
+        "assigned_zone_name": "Parque Quirno",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62547,
+          -34.61016
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 29059,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Locutorio Las Caba�as",
+        "Nro.Cuit": 23246781184.0,
+        "Tipo Ubica": "Locutorio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "N. REPETTO",
+        "N�mero": "499",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62807,
+        "Longitud": -58.65647,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65647,
+          -34.62807
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 56682,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Locutorio Tesei",
+        "Nro.Cuit": 20176946351.0,
+        "Tipo Ubica": "Locutorio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "2421",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61368,
+        "Longitud": -58.63452,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63452,
+          -34.61368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 41463,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Km 18",
+        "Nro.Cuit": 20161504786.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "2120",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.57908,
+        "Longitud": -58.64119,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64119,
+          -34.57908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 77134,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "SOLIS FABIAN OMAR",
+        "Nro.Cuit": 20168788321.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "BOLIVAR SIMON GRAL.",
+        "N�mero": "2292",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59273,
+        "Longitud": -58.64513,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64513,
+          -34.59273
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 47265,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Kiosco Sugar",
+        "Nro.Cuit": 27172247550.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1582",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686",
+        "Latitud": -34.5926,
+        "Longitud": -58.63611,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63611,
+          -34.5926
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 50814,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Reconquista\"",
+        "Nro.Cuit": 20307959748.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GABOTO SEBASTIAN",
+        "N�mero": "345",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60201,
+        "Longitud": -58.62426,
+        "assigned_zone_name": "Nueve de Julio",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62426,
+          -34.60201
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 45129,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Vergara",
+        "Nro.Cuit": 20297087798.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3312",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.6019,
+        "Longitud": -58.63567,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63567,
+          -34.6019
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 62046,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Zn8 Camila",
+        "Nro.Cuit": 27216521116.0,
+        "Tipo Ubica": "Almacen/Autoserv",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "WILLIAM MORRIS",
+        "N�mero": "8828",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "GENERAL PUEYRREDON",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "MAR DEL PLATA",
+        "CP": "7600",
+        "Latitud": -38.02246,
+        "Longitud": -57.61479,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.61479,
+          -38.02246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 62171,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Perfumeria Agus",
+        "Nro.Cuit": 20168782595.0,
+        "Tipo Ubica": "Farmacia",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "996",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686LQS",
+        "Latitud": -34.59103,
+        "Longitud": -58.626,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.626,
+          -34.59103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 63537,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Parada Santa Rosa",
+        "Nro.Cuit": 20226669176.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ACCESO ACCESO OESTE P.PERON",
+        "N�mero": "6543",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.63002,
+        "Longitud": -58.65399,
+        "assigned_zone_name": "El Libertador",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65399,
+          -34.63002
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 61084,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Cirigliano Esteban Ariel",
+        "Nro.Cuit": 20313728197.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "1296",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58841,
+        "Longitud": -58.62917,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62917,
+          -34.58841
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 58246,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Marasco Nahuel",
+        "Nro.Cuit": 20355820050.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1167",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.5899,
+        "Longitud": -58.63297,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63297,
+          -34.5899
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 55070,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "IRIOSOLA ELIANA ANDREA",
+        "Nro.Cuit": 27317861783.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3100",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.60488,
+        "Longitud": -58.63523,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63523,
+          -34.60488
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 67669,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Quelali Mendoza M. Angela",
+        "Nro.Cuit": 27939949467.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "3089",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58931,
+        "Longitud": -58.66688,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66688,
+          -34.58931
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 65852,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Cirigliano Esteban Ariel",
+        "Nro.Cuit": 20313728197.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "919",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686FCA",
+        "Latitud": -34.5879,
+        "Longitud": -58.63085,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63085,
+          -34.5879
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 66486,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Marcela",
+        "Nro.Cuit": 20235904552.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "KIERNAN J.B.",
+        "N�mero": "901",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "B1688BUS",
+        "Latitud": -34.62812,
+        "Longitud": -58.64108,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64108,
+          -34.62812
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 62337,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Tres Coyotes",
+        "Nro.Cuit": 20313728197.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1585",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686FDG",
+        "Latitud": -34.59253,
+        "Longitud": -58.63621,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63621,
+          -34.59253
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 31095,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Flores Norna Beatriz",
+        "Nro.Cuit": 27181138977.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "N. REPETTO",
+        "N�mero": "266",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62865,
+        "Longitud": -58.65607,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65607,
+          -34.62865
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 73949,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "PEREZ LEONARDO GABRIEL",
+        "Nro.Cuit": 20220420206.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "PALACIOS ALFREDO L. DR.",
+        "N�mero": "2612",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1681",
+        "Latitud": -34.5765,
+        "Longitud": -58.64748,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64748,
+          -34.5765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 74140,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "GARCIA LUCENA YULLIAM BELISSA",
+        "Nro.Cuit": 23958869304.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JUFRE JUAN",
+        "N�mero": "591",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62671,
+        "Longitud": -58.62553,
+        "assigned_zone_name": "Asunción",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62553,
+          -34.62671
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 180,
+        "Entidad": "REVIRTUAL",
+        "Id Ubicaci": 42335,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco El Flaco 1",
+        "Nro.Cuit": 23284656199.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "EPECUEN",
+        "N�mero": "215",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.57264,
+        "Longitud": -58.63806,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63806,
+          -34.57264
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 22857,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "ROJAS DIEGO ELIO",
+        "Nro.Cuit": 20118296371.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "4126",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59206,
+        "Longitud": -58.63677,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63677,
+          -34.59206
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 23844,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "ARBIA JOSE",
+        "Nro.Cuit": 20230361224.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GRANADEROS",
+        "N�mero": "325",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.5753,
+        "Longitud": -58.6365,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6365,
+          -34.5753
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 23534,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "MALDONADO LOPEZ ERICA PAULA",
+        "Nro.Cuit": 27219917908.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "RN PTE J D PERON",
+        "N�mero": "6465",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.6309,
+        "Longitud": -58.65151,
+        "assigned_zone_name": "El Libertador",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65151,
+          -34.6309
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 30211,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Kopriva Juan Carlos",
+        "Nro.Cuit": 20171634130.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "SALAZAR JUAN DE",
+        "N�mero": "299",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.63042,
+        "Longitud": -58.62854,
+        "assigned_zone_name": "Atepam Italia",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62854,
+          -34.63042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 34841,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "BOLE GUSTAVO MARCELO",
+        "Nro.Cuit": 20203188715.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "AVILES DE MARQUES",
+        "N�mero": "1901",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58553,
+        "Longitud": -58.64878,
+        "assigned_zone_name": "Santa Clara",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64878,
+          -34.58553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 29786,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Gaules Estela Victoria",
+        "Nro.Cuit": 27162994692.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ARGUIBEL ANDRES",
+        "N�mero": "3252",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1688",
+        "Latitud": -34.57924,
+        "Longitud": -58.6559,
+        "assigned_zone_name": "Belgrano",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6559,
+          -34.57924
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 25319,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Gagliano Liliana Noemi",
+        "Nro.Cuit": 27125737973.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "4892",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.57936,
+        "Longitud": -58.64088,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64088,
+          -34.57936
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 31475,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "RODRIGUEZ CLAUDIA ELIZABETH",
+        "Nro.Cuit": 27208605580.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ERE��",
+        "N�mero": "59",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62257,
+        "Longitud": -58.64084,
+        "assigned_zone_name": "El Progreso",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64084,
+          -34.62257
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 38657,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "MORALI SANDRA FABIANA",
+        "Nro.Cuit": 27226516951.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "1298",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58853,
+        "Longitud": -58.62922,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62922,
+          -34.58853
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 54494,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "ROJAS BEATRIZ LORENA",
+        "Nro.Cuit": 27286155478.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "LA CALANDRIA",
+        "N�mero": "2685",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58351,
+        "Longitud": -58.66603,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66603,
+          -34.58351
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 28536,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Diaz Monica Elena",
+        "Nro.Cuit": 27172247089.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "2701",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.5748,
+        "Longitud": -58.64623,
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64623,
+          -34.5748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 35745,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "VAZQUEZ FERNANDO DIEGO",
+        "Nro.Cuit": 20171481490.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1402",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59137,
+        "Longitud": -58.63439,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63439,
+          -34.59137
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 23868,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "ROSENDE MABEL",
+        "Nro.Cuit": 27130204118.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "740",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59336,
+        "Longitud": -58.62301,
+        "assigned_zone_name": "Villa Alemania",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62301,
+          -34.59336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 40116,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "LANDRO SANDRA LORENA",
+        "Nro.Cuit": 27227820360.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "1208",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61996,
+        "Longitud": -58.6338,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6338,
+          -34.61996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 189,
+        "Entidad": "LOTERIA PROVINCIAL",
+        "Id Ubicaci": 23848,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "ARBIA JOSE",
+        "Nro.Cuit": 20230361224.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MALARREDO JOSE DE",
+        "N�mero": "253",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62052,
+        "Longitud": -58.64201,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64201,
+          -34.62052
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 41131,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Igareca Saravia Laura",
+        "Nro.Cuit": 27311936897.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "LAS PROVINCIAS",
+        "N�mero": "4115",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62551,
+        "Longitud": -58.63215,
+        "assigned_zone_name": "Prensa",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63215,
+          -34.62551
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 39023,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "AG�ERO NORA ALICIA",
+        "Nro.Cuit": 27142844260.0,
+        "Tipo Ubica": "Centro de Pago",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3211",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1884",
+        "Latitud": -34.60368,
+        "Longitud": -58.63519,
+        "assigned_zone_name": "Parque Quirno",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63519,
+          -34.60368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 48802,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Weiss Elvira Marcela",
+        "Nro.Cuit": 27177472463.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "PLASS L.",
+        "N�mero": "3921",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62128,
+        "Longitud": -58.63845,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63845,
+          -34.62128
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 49757,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Cyber \"La Cueva\"",
+        "Nro.Cuit": 27179229892.0,
+        "Tipo Ubica": "Ciber",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "CENTRANGOLO A. DR.",
+        "N�mero": "495",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61875,
+        "Longitud": -58.62468,
+        "assigned_zone_name": "La Juanita",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62468,
+          -34.61875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 49753,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Usai Silvana",
+        "Nro.Cuit": 27125742748.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "AVILES DE MARQUES",
+        "N�mero": "1098",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58047,
+        "Longitud": -58.64248,
+        "assigned_zone_name": "Cosmopolita",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64248,
+          -34.58047
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 193,
+        "Entidad": "GIRE",
+        "Id Ubicaci": 46984,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Billen Mariela Veronica",
+        "Nro.Cuit": 27283261749.0,
+        "Tipo Ubica": "Locutorio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "1944",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58038,
+        "Longitud": -58.65651,
+        "assigned_zone_name": "Santa Clara",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65651,
+          -34.58038
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 204,
+        "Entidad": "FFCC URQUIZA",
+        "Id Ubicaci": 27537,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "FFCC URQUIZA-Est. Rub�n Dar�o",
+        "Nro.Cuit": 30663501212.0,
+        "Tipo Ubica": "Estaci�n de Tren",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "1300",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58833,
+        "Longitud": -58.62908,
+        "assigned_zone_name": "Jorge Newbery",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62908,
+          -34.58833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 204,
+        "Entidad": "FFCC URQUIZA",
+        "Id Ubicaci": 27641,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "FFCC URQUIZA-Est. Ej�rcito de los Andes",
+        "Nro.Cuit": 30663501212.0,
+        "Tipo Ubica": "Estaci�n de Tren",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "4700",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58255,
+        "Longitud": -58.63978,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63978,
+          -34.58255
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 204,
+        "Entidad": "FFCC URQUIZA",
+        "Id Ubicaci": 27655,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "FFCC URQUIZA-Est. Juan B. de Lasalle",
+        "Nro.Cuit": 30663501212.0,
+        "Tipo Ubica": "Estaci�n de Tren",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "5200",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686LVT",
+        "Latitud": -34.57677,
+        "Longitud": -58.64291,
+        "assigned_zone_name": "Juan B. de Lasalle",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64291,
+          -34.57677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 36332,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "TR ARGENTINA",
+        "Nro.Cuit": 33711557879.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "HUSARES",
+        "N�mero": "671",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62657,
+        "Longitud": -58.62168,
+        "assigned_zone_name": "Asunción",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62168,
+          -34.62657
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 36243,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "VITACOM SA",
+        "Nro.Cuit": 30710839324.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "PRADO ALVAREZ",
+        "N�mero": "2302",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1879",
+        "Latitud": -34.60682,
+        "Longitud": -58.63821,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63821,
+          -34.60682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 31376,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "VITACOM S.A.",
+        "Nro.Cuit": 30710839324.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MALARREDO JOSE DE",
+        "N�mero": "443",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61826,
+        "Longitud": -58.64479,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64479,
+          -34.61826
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 43633,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "\"Manno Vanesa Iliana\" (TR Argentina)",
+        "Nro.Cuit": 27247630304.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "HUSARES",
+        "N�mero": "1156",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62061,
+        "Longitud": -58.62098,
+        "assigned_zone_name": "La Juanita",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62098,
+          -34.62061
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 42796,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Bertonasco Mercedes Dolores ( Vitacom)",
+        "Nro.Cuit": 27048614820.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "PONS I.O.DE",
+        "N�mero": "676",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62677,
+        "Longitud": -58.62007,
+        "assigned_zone_name": "Asunción",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62007,
+          -34.62677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 53834,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "JUAN (RECARGARTE-VITACOM)",
+        "Nro.Cuit": 20145655502.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "LANGARA J.DE",
+        "N�mero": "639",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61932,
+        "Longitud": -58.65076,
+        "assigned_zone_name": "Federal",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65076,
+          -34.61932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 52160,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Laina Atilio Jose (Tr Argentina)",
+        "Nro.Cuit": 20077003712.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "2402",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.57736,
+        "Longitud": -58.64334,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64334,
+          -34.57736
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 42801,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Herz Patricia Raquel ( Vitacom)",
+        "Nro.Cuit": 27144414301.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "WILLIAM MORRIS",
+        "N�mero": "3406",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "MORON",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "CASTELAR",
+        "CP": "1712",
+        "Latitud": -34.68376,
+        "Longitud": -58.65924,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65924,
+          -34.68376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 76698,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "LICIAGA CARLOS  (TR ARGENTINA)",
+        "Nro.Cuit": 23077001999.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "1171",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1886",
+        "Latitud": -34.60656,
+        "Longitud": -58.64554,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64554,
+          -34.60656
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 52719,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Juani\" (Recargarte-Vitacom)",
+        "Nro.Cuit": 23303826319.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "J. BUSTAMANTE Y GUEVARA",
+        "N�mero": "2200",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59334,
+        "Longitud": -58.64963,
+        "assigned_zone_name": "Virgen Esperanza",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64963,
+          -34.59334
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 51917,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Sauer Cesar",
+        "Nro.Cuit": 20294827502.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ACHA MARIANO",
+        "N�mero": "2335",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61287,
+        "Longitud": -58.623,
+        "assigned_zone_name": "Scholnik",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.623,
+          -34.61287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 52283,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Locutorio \"Las Casitas\" (Vitacom Recargarte)",
+        "Nro.Cuit": 20121070333.0,
+        "Tipo Ubica": "Locutorio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JUAN JUFRE",
+        "N�mero": "447",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62819,
+        "Longitud": -58.62597,
+        "assigned_zone_name": "Asunción",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62597,
+          -34.62819
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 50087,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Albo Daniela Mariel (TR Argentina)",
+        "Nro.Cuit": 27246254341.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ACHA MARIANO",
+        "N�mero": "1205",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62101,
+        "Longitud": -58.62255,
+        "assigned_zone_name": "La Juanita",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62255,
+          -34.62101
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 59810,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Benitez Hector  (Recargarte-Vitacom)",
+        "Nro.Cuit": 20274633450.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2893",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58798,
+        "Longitud": -58.66532,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66532,
+          -34.58798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 209,
+        "Entidad": "ELECTROPAGOS S.A.",
+        "Id Ubicaci": 72224,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "VERA PATRICIA  (TR ARGENTINA)",
+        "Nro.Cuit": 27247218535.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "BONORINO E.",
+        "N�mero": "708",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62703,
+        "Longitud": -58.6381,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6381,
+          -34.62703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44488,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "maxikiosco san kalpa",
+        "Nro.Cuit": 27296565542.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "ACOYTE",
+        "N�mero": "3398",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.59416,
+        "Longitud": -58.66598,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66598,
+          -34.59416
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44294,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Pago Facil - C.S. Carrefour Moron (V.Tesei)",
+        "Nro.Cuit": 30707495371.0,
+        "Tipo Ubica": "Centro de Pago",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "1910",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1698",
+        "Latitud": -34.62123,
+        "Longitud": -58.636,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.636,
+          -34.62123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 46387,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Perla",
+        "Nro.Cuit": 27137228233.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "DEL CASTILLO PEDRO",
+        "N�mero": "623",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62807,
+        "Longitud": -58.62365,
+        "assigned_zone_name": "Asunción",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62365,
+          -34.62807
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 47483,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Drugstore 23",
+        "Nro.Cuit": 20283120709.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "945",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58816,
+        "Longitud": -58.63121,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63121,
+          -34.58816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 60566,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Almacen Willy",
+        "Nro.Cuit": 20275885976.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "MALASPINA ALEJANDRO",
+        "N�mero": "2162",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686JKB",
+        "Latitud": -34.59552,
+        "Longitud": -58.65163,
+        "assigned_zone_name": "Santa Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65163,
+          -34.59552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44433,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "maxikiosco los primos",
+        "Nro.Cuit": 20275885976.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MAESTRO I.S.DE",
+        "N�mero": "3472",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.59717,
+        "Longitud": -58.66355,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66355,
+          -34.59717
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 46098,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Las Nenas\"",
+        "Nro.Cuit": 20215347398.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GIBRALTAR",
+        "N�mero": "3220",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59222,
+        "Longitud": -58.66844,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66844,
+          -34.59222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44395,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Santiago Anibal Villanueva Sanabria",
+        "Nro.Cuit": 20921907908.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GORRITI JUANA M.",
+        "N�mero": "2571",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.59645,
+        "Longitud": -58.66134,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66134,
+          -34.59645
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44342,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "My Kiosco",
+        "Nro.Cuit": 23285969794.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "LEBENSOHN MOISES",
+        "N�mero": "3886",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61491,
+        "Longitud": -58.64877,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64877,
+          -34.61491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 44464,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Libreria \" La Tribu\"",
+        "Nro.Cuit": 20170902204.0,
+        "Tipo Ubica": "Libreria",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "PIOVANO MTRA.",
+        "N�mero": "2681",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58973,
+        "Longitud": -58.65799,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65799,
+          -34.58973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 60565,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Zapata Guillermo",
+        "Nro.Cuit": 20275885976.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "BUSTAMANTE Y GUEVARA JOSE",
+        "N�mero": "3102",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58566,
+        "Longitud": -58.65908,
+        "assigned_zone_name": "Primero de Mayo",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65908,
+          -34.58566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 61081,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Nancy",
+        "Nro.Cuit": 27252847842.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "1549",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60351,
+        "Longitud": -58.6495,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6495,
+          -34.60351
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 54898,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MARTINEZ ANDREA YAMILA",
+        "Nro.Cuit": 27345199115.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GRANADA",
+        "N�mero": "996",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61103,
+        "Longitud": -58.64738,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64738,
+          -34.61103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 56277,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Carmen",
+        "Nro.Cuit": 27184970983.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MALARREDO JOSE DE",
+        "N�mero": "574",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61704,
+        "Longitud": -58.64667,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64667,
+          -34.61704
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 65607,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Despensa Los Primos",
+        "Nro.Cuit": 27378433377.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "PEREZ GALDOS B.",
+        "N�mero": "1340",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686JDL",
+        "Latitud": -34.6044,
+        "Longitud": -58.64385,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64385,
+          -34.6044
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 65608,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Ariel Fabian Heredia - Maxikiosco",
+        "Nro.Cuit": 20255239512.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "2065",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59915,
+        "Longitud": -58.65494,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65494,
+          -34.59915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 69629,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "ledesma graciela",
+        "Nro.Cuit": 27229507554.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JUANA MANUELA GORRITI",
+        "N�mero": "2599",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59624,
+        "Longitud": -58.66149,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66149,
+          -34.59624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 69630,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "zapata gabriel",
+        "Nro.Cuit": 20275885976.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "SANGA LIO",
+        "N�mero": "3020",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58513,
+        "Longitud": -58.66892,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66892,
+          -34.58513
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 65056,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Sergio Daniel Luna - Granja Nelson",
+        "Nro.Cuit": 20311805089.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "MUSTONI INT.",
+        "N�mero": "3011",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.57542,
+        "Longitud": -58.65212,
+        "assigned_zone_name": "Roca 1",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65212,
+          -34.57542
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 60567,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Quimey",
+        "Nro.Cuit": 20275885976.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ACOYTE",
+        "N�mero": "3050",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59184,
+        "Longitud": -58.66311,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66311,
+          -34.59184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 71809,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "DANIELA BELEN PINO",
+        "Nro.Cuit": 23339967334.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ALBANIA",
+        "N�mero": "3319",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.59672,
+        "Longitud": -58.66136,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66136,
+          -34.59672
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 71811,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MARIA DANIELA BONSI",
+        "Nro.Cuit": 27321966077.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DANTE",
+        "N�mero": "3440",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.5813,
+        "Longitud": -58.66199,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66199,
+          -34.5813
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 248,
+        "Entidad": "MICROPAGO",
+        "Id Ubicaci": 74486,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "LUNA SERGIO DANIEL",
+        "Nro.Cuit": 20311805089.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "RISSO POETA ROMILDO",
+        "N�mero": "3512",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.58638,
+        "Longitud": -58.66744,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66744,
+          -34.58638
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 76058,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Provincia NET AGENCIA",
+        "Nro.Cuit": 30704950345.0,
+        "Tipo Ubica": "Centro de Pago",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "1710",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.60271,
+        "Longitud": -58.65186,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65186,
+          -34.60271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 51378,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Lo de Migue\"",
+        "Nro.Cuit": 20108889129.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "DANTE",
+        "N�mero": "3461",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58226,
+        "Longitud": -58.66071,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66071,
+          -34.58226
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 49297,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Tincho",
+        "Nro.Cuit": 20236973442.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "AMBERES",
+        "N�mero": "2015",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61133,
+        "Longitud": -58.65145,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65145,
+          -34.61133
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 51376,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Mary\"",
+        "Nro.Cuit": 20236973442.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "LA CALANDRIA",
+        "N�mero": "2879",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58549,
+        "Longitud": -58.66819,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66819,
+          -34.58549
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 45510,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Jesus Gonzalez",
+        "Nro.Cuit": 20938800023.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "RODRIGUEZ A. GRAL.",
+        "N�mero": "2228",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60572,
+        "Longitud": -58.63086,
+        "assigned_zone_name": "Parque Quirno",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63086,
+          -34.60572
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 59261,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Pablo",
+        "Nro.Cuit": 23336632609.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GARIBALDI JOSE GRAL.",
+        "N�mero": "3046",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1646",
+        "Latitud": -34.57531,
+        "Longitud": -58.654,
+        "assigned_zone_name": "Roca 1",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.654,
+          -34.57531
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 45503,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Despensa Eli",
+        "Nro.Cuit": 27284651370.0,
+        "Tipo Ubica": "Almacen/Autoserv",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JURAMENTO",
+        "N�mero": "600",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62404,
+        "Longitud": -58.65486,
+        "assigned_zone_name": "Carola Lorenzini",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65486,
+          -34.62404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 54808,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "CARNICERIA LA ESQUINA DE ABEL",
+        "Nro.Cuit": 20224373237.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "EINSTEIN A.",
+        "N�mero": "298",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62253,
+        "Longitud": -58.62848,
+        "assigned_zone_name": "El Palanco",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62848,
+          -34.62253
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 51377,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Pichy\"",
+        "Nro.Cuit": 27300699486.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "OFELIA C OJEDA",
+        "N�mero": "2741",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58328,
+        "Longitud": -58.66787,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66787,
+          -34.58328
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 49282,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Ale",
+        "Nro.Cuit": 27921299317.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "FITZ ROY",
+        "N�mero": "1025",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62151,
+        "Longitud": -58.66121,
+        "assigned_zone_name": "Dos de Abril",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66121,
+          -34.62151
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 45073,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Maxikiosco \"Kari\"",
+        "Nro.Cuit": 27253841708.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "1788",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.57899,
+        "Longitud": -58.65524,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65524,
+          -34.57899
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 59263,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Gra",
+        "Nro.Cuit": 20942679212.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "RISSO POETA ROMILDO",
+        "N�mero": "3494",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58664,
+        "Longitud": -58.66736,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66736,
+          -34.58664
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 65954,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kala Ii",
+        "Nro.Cuit": 20942679212.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GRAL CONRADO VILLEGAS",
+        "N�mero": "2332",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58338,
+        "Longitud": -58.65928,
+        "assigned_zone_name": "Primero de Mayo",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65928,
+          -34.58338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 62789,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco Ricardo",
+        "Nro.Cuit": 20121064694.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VALDES C.",
+        "N�mero": "3365",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61233,
+        "Longitud": -58.64077,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64077,
+          -34.61233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 62794,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Maxikiosco Maxi",
+        "Nro.Cuit": 27171637568.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ARRIBENOS",
+        "N�mero": "2623",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59026,
+        "Longitud": -58.6556,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6556,
+          -34.59026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 70150,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "emiliano",
+        "Nro.Cuit": 27116869565.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "1566",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61996,
+        "Longitud": -58.6338,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6338,
+          -34.61996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 71019,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI MELY",
+        "Nro.Cuit": 20121064694.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "PLASS L.",
+        "N�mero": "3861",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62101,
+        "Longitud": -58.63795,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63795,
+          -34.62101
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 71912,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI EDU",
+        "Nro.Cuit": 20165986947.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ORIGONE TTE.",
+        "N�mero": "147",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.6182,
+        "Longitud": -58.63682,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63682,
+          -34.6182
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 71957,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI CIRO",
+        "Nro.Cuit": 20232228157.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "J. BUSTAMANTE Y GUEVARA",
+        "N�mero": "2250",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59292,
+        "Longitud": -58.6502,
+        "assigned_zone_name": "Virgen Esperanza",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6502,
+          -34.59292
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 72958,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI NICO",
+        "Nro.Cuit": 20256415802.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "RISSO POETA ROMILDO",
+        "N�mero": "3570",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.58595,
+        "Longitud": -58.66821,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66821,
+          -34.58595
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 72959,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "EL DESTINO",
+        "Nro.Cuit": 20259806403.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GIBRALTAR",
+        "N�mero": "3163",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686",
+        "Latitud": -34.59271,
+        "Longitud": -58.66781,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66781,
+          -34.59271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 71954,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI LEO",
+        "Nro.Cuit": 20256415802.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ACOYTE",
+        "N�mero": "2695",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58868,
+        "Longitud": -58.65983,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65983,
+          -34.58868
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 72708,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "LOS PIBES",
+        "Nro.Cuit": 20165986947.0,
+        "Tipo Ubica": "Almacen/Autoserv",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROSAS CASTILLO AVDOR.",
+        "N�mero": "1538",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60243,
+        "Longitud": -58.62264,
+        "assigned_zone_name": "Nueve de Julio",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62264,
+          -34.60243
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 73069,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI NANCY",
+        "Nro.Cuit": 27245342441.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "BONORINO E.",
+        "N�mero": "1001",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62632,
+        "Longitud": -58.64067,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64067,
+          -34.62632
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 70904,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI SERGIO",
+        "Nro.Cuit": 27171637568.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "FELIX FRIAS",
+        "N�mero": "3749",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61279,
+        "Longitud": -58.64841,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64841,
+          -34.61279
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 70971,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI LOVO",
+        "Nro.Cuit": 20127269093.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ALBANIA",
+        "N�mero": "2666",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59214,
+        "Longitud": -58.65468,
+        "assigned_zone_name": "Virgen Esperanza",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65468,
+          -34.59214
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 72710,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "QUINIELA DARIO",
+        "Nro.Cuit": 23125742254.0,
+        "Tipo Ubica": "Age. De Lote",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LA CALANDRIA",
+        "N�mero": "2609",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.58313,
+        "Longitud": -58.66554,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66554,
+          -34.58313
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 74584,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI DE LIDIA",
+        "Nro.Cuit": 27292790495.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "SANABRIA",
+        "N�mero": "4083",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.62385,
+        "Longitud": -58.63907,
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63907,
+          -34.62385
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 75254,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "ACOSTA FARINA JOSEFINA",
+        "Nro.Cuit": 27924910068.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "RISSO POETA ROMILDO",
+        "N�mero": "1547",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60203,
+        "Longitud": -58.64774,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64774,
+          -34.60203
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 74586,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Provincia NET AGENCIA 7699",
+        "Nro.Cuit": 30704950345.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "2334",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61525,
+        "Longitud": -58.63703,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63703,
+          -34.61525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 74848,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Provincia NET AGENCIA 9413",
+        "Nro.Cuit": 30704950345.0,
+        "Tipo Ubica": "Centro de Pago",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3698",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59894,
+        "Longitud": -58.63598,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63598,
+          -34.59894
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 74593,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI EL �ANDU",
+        "Nro.Cuit": 20333987865.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "CHOPIN FEDERICO",
+        "N�mero": "1285",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61722,
+        "Longitud": -58.66127,
+        "assigned_zone_name": "Dos de Abril",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66127,
+          -34.61722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 262,
+        "Entidad": "CARGA AL TOQUE",
+        "Id Ubicaci": 74583,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MAXI HOPE",
+        "Nro.Cuit": 27937594203.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "596",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61107,
+        "Longitud": -58.64034,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64034,
+          -34.61107
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 58000,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Troncoso Nilda Irma",
+        "Nro.Cuit": 27163799753.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3131",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.64687,
+        "Longitud": -58.58264,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.58264,
+          -34.64687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 56852,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Acevedo Mirtha Adelaida",
+        "Nro.Cuit": 27102415952.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "1187",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686IQA",
+        "Latitud": -34.60638,
+        "Longitud": -58.64596,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64596,
+          -34.60638
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 59032,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Vigay Rodrigo Luis",
+        "Nro.Cuit": 20241123422.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LANGARA J.DE",
+        "N�mero": "640",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61924,
+        "Longitud": -58.65081,
+        "assigned_zone_name": "Federal",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65081,
+          -34.61924
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 54792,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "CRUCE�O EVA CRISTINA",
+        "Nro.Cuit": 27067202401.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "2395",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61385,
+        "Longitud": -58.63448,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63448,
+          -34.61385
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 58939,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "PASTRENGO ELISA CAROLINA",
+        "Nro.Cuit": 27172249251.0,
+        "Tipo Ubica": "Almacen/Autoserv",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "NOMEOLVIDES",
+        "N�mero": "295",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62885,
+        "Longitud": -58.63022,
+        "assigned_zone_name": "Atepam Italia",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63022,
+          -34.62885
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 54895,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "PUGLIESE CARLOS SERGIO",
+        "Nro.Cuit": 20171636079.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "2496",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61319,
+        "Longitud": -58.63452,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63452,
+          -34.61319
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 65962,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Bernardez Karina Lilian",
+        "Nro.Cuit": 27259582100.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "950",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686FCB",
+        "Latitud": -34.58815,
+        "Longitud": -58.63082,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63082,
+          -34.58815
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 361,
+        "Entidad": "COMP. GRAL. DE TRANSACCIONES ELECTRONICAS",
+        "Id Ubicaci": 74508,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "IRIBARREN SERGIO DANIEL (42327)",
+        "Nro.Cuit": 20266257903.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "1284",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58852,
+        "Longitud": -58.62895,
+        "assigned_zone_name": "Jorge Newbery",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62895,
+          -34.58852
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 362,
+        "Entidad": "MOVIL CARGA S.A.",
+        "Id Ubicaci": 74216,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "kiosco maria",
+        "Nro.Cuit": 27163398139.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "BIZET",
+        "N�mero": "2786",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60164,
+        "Longitud": -58.64456,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64456,
+          -34.60164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 362,
+        "Entidad": "MOVIL CARGA S.A.",
+        "Id Ubicaci": 69962,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "NADIA ABAL",
+        "Nro.Cuit": 27403053355.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "KIERNAN J.B.",
+        "N�mero": "1536",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.62671,
+        "Longitud": -58.65021,
+        "assigned_zone_name": "El Libertador",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65021,
+          -34.62671
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 363,
+        "Entidad": "VIRTUALINE S.A.",
+        "Id Ubicaci": 72895,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "JAZBEC LAURA SILVIA",
+        "Nro.Cuit": 27183583862.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1347",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686",
+        "Latitud": -34.59104,
+        "Longitud": -58.63434,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63434,
+          -34.59104
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 384,
+        "Entidad": "INC S.A. (CARREFOUR)",
+        "Id Ubicaci": 60409,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Carrefour Suc. 472",
+        "Nro.Cuit": 30687310434.0,
+        "Tipo Ubica": "Supermercado",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1125",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686FCE",
+        "Latitud": -34.58961,
+        "Longitud": -58.6328,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6328,
+          -34.58961
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 402,
+        "Entidad": "PREPAY S.A.",
+        "Id Ubicaci": 65553,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Alan Agustin Ricardi",
+        "Nro.Cuit": 20385199628.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GRAL CONRADO VILLEGAS",
+        "N�mero": "1826",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.57942,
+        "Longitud": -58.65579,
+        "assigned_zone_name": "Santa Clara",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65579,
+          -34.57942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 402,
+        "Entidad": "PREPAY S.A.",
+        "Id Ubicaci": 63156,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Diaz Gabriel Alejandro",
+        "Nro.Cuit": 20291930736.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "JAURETCHE ARTURO DR.",
+        "N�mero": "1133",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686FCE",
+        "Latitud": -34.58967,
+        "Longitud": -58.63278,
+        "assigned_zone_name": "Hurlingham Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63278,
+          -34.58967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 402,
+        "Entidad": "PREPAY S.A.",
+        "Id Ubicaci": 72131,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "LEGUIZAMON MIGUEL ANGEL",
+        "Nro.Cuit": 23112144269.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "GARIBALDI JOSE GRAL.",
+        "N�mero": "2185",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.58173,
+        "Longitud": -58.64531,
+        "assigned_zone_name": "Roca 2",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64531,
+          -34.58173
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 402,
+        "Entidad": "PREPAY S.A.",
+        "Id Ubicaci": 72142,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "BENITEZ CRISTIAN NORBERTO",
+        "Nro.Cuit": 20289636073.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2964",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS",
+        "CP": "1686",
+        "Latitud": -34.58846,
+        "Longitud": -58.66549,
+        "assigned_zone_name": "La Leonor",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66549,
+          -34.58846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 435,
+        "Entidad": "RGP S.A.(RECAUDACI�N,GESTI�N Y PAGOS)",
+        "Id Ubicaci": 76715,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "El Botellon",
+        "Nro.Cuit": 30715107321.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "MASCAGNI",
+        "N�mero": "2794",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60032,
+        "Longitud": -58.64647,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64647,
+          -34.60032
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 435,
+        "Entidad": "RGP S.A.(RECAUDACI�N,GESTI�N Y PAGOS)",
+        "Id Ubicaci": 66883,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Hurlingham Combustibles SRL",
+        "Nro.Cuit": 30627119247.0,
+        "Tipo Ubica": "Est. de Serv.",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ROCA JULIO ARGENTINO PRES. GRAL.",
+        "N�mero": "693",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.59359,
+        "Longitud": -58.62245,
+        "assigned_zone_name": "Villa Alemania",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.62245,
+          -34.59359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 435,
+        "Entidad": "RGP S.A.(RECAUDACI�N,GESTI�N Y PAGOS)",
+        "Id Ubicaci": 72400,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "El Monito",
+        "Nro.Cuit": 23276421239.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ACONCAGUA",
+        "N�mero": "2101",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.57559,
+        "Longitud": -58.63709,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63709,
+          -34.57559
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 435,
+        "Entidad": "RGP S.A.(RECAUDACI�N,GESTI�N Y PAGOS)",
+        "Id Ubicaci": 74699,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "MARTINEZ CLAUDIO GUSTAVO",
+        "Nro.Cuit": 20161813142.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3095",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61003,
+        "Longitud": -58.64213,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64213,
+          -34.61003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 435,
+        "Entidad": "RGP S.A.(RECAUDACI�N,GESTI�N Y PAGOS)",
+        "Id Ubicaci": 75212,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "BRAVO PATRICIA CRISTINA",
+        "Nro.Cuit": 27248142575.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "SCHCOLNIK W.",
+        "N�mero": "189",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61382,
+        "Longitud": -58.6319,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6319,
+          -34.61382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1001,
+        "Entidad": "TALLION",
+        "Id Ubicaci": 35957,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Dellorso Agustin Federico",
+        "Nro.Cuit": 20295759101.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "GENERAL CONRADO VILLEGAS",
+        "N�mero": "1710",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM C. MORRIS",
+        "CP": "1663",
+        "Latitud": -34.57799,
+        "Longitud": -58.65482,
+        "assigned_zone_name": "Roca 1",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65482,
+          -34.57799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 34443,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Realcom SRL",
+        "Nro.Cuit": 30707582010.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DOMINGO FAUSTINO SARMIENTO",
+        "N�mero": "858",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "MORENO",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "MORENO",
+        "CP": "1708",
+        "Latitud": -34.59958,
+        "Longitud": -58.63752,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63752,
+          -34.59958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 34404,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Rodriguez Jorge",
+        "Nro.Cuit": 20176745925.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "CA�ADA DE LA CRUZ",
+        "N�mero": "2594",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.58315,
+        "Longitud": -58.66368,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66368,
+          -34.58315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 28804,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Jose Luis Mendes",
+        "Nro.Cuit": 20234257057.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LA PATRIA",
+        "N�mero": "3105",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "B1688FBC",
+        "Latitud": -34.61382,
+        "Longitud": -58.63531,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63531,
+          -34.61382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 43435,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"El Chavo\"",
+        "Nro.Cuit": 27116664165.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "LA CALANDRIA",
+        "N�mero": "2548",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.58234,
+        "Longitud": -58.66409,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66409,
+          -34.58234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 43963,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Kiosco \"Mely\"",
+        "Nro.Cuit": 20236114415.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "1686",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1686",
+        "Latitud": -34.61996,
+        "Longitud": -58.6338,
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6338,
+          -34.61996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 27979,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Reinoso Claudia Patricia",
+        "Nro.Cuit": 27213537887.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "MALARREDO JOSE DE",
+        "N�mero": "802",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.61509,
+        "Longitud": -58.64887,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64887,
+          -34.61509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 48177,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Morales Lidia Beatriz",
+        "Nro.Cuit": 23224601514.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2223",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1681",
+        "Latitud": -34.58269,
+        "Longitud": -58.6587,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6587,
+          -34.58269
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 43071,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Martinez Norma Beatriz",
+        "Nro.Cuit": 27168780791.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "ALVAREZ THOMAS",
+        "N�mero": "385",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.57305,
+        "Longitud": -58.64029,
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64029,
+          -34.57305
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 25837,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Coronel Pablo Alberto",
+        "Nro.Cuit": 23162418599.0,
+        "Tipo Ubica": "Comercio",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "MAESTRO I.S.DE",
+        "N�mero": "3480",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1686",
+        "Latitud": -34.59731,
+        "Longitud": -58.66334,
+        "assigned_zone_name": "El Destino",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.66334,
+          -34.59731
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 47413,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga y Venta",
+        "Ubicaci�": "Seit�",
+        "Nro.Cuit": 20228481247.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VILLEGAS CONRADO GRAL.",
+        "N�mero": "2199",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "WILLIAM MORRIS (HURLINGHAM)",
+        "CP": "1868",
+        "Latitud": -34.58255,
+        "Longitud": -58.65852,
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65852,
+          -34.58255
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 43428,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Castagnaro Juan Carlos",
+        "Nro.Cuit": 20260605446.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "1797",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "1686",
+        "Latitud": -34.60161,
+        "Longitud": -58.65185,
+        "assigned_zone_name": "Luna",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.65185,
+          -34.60161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 59470,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Varas Teresa Liliana",
+        "Nro.Cuit": 27171519492.0,
+        "Tipo Ubica": "Otros",
+        "Modalidad": "Pos Pago",
+        "Direcci�": "WILLIAM MORRIS",
+        "N�mero": "8964",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "GENERAL PUEYRREDON",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "MAR DEL PLATA",
+        "CP": "7611",
+        "Latitud": -38.02167,
+        "Longitud": -57.61605,
+        "assigned_zone_name": null,
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.61605,
+          -38.02167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 29560,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Vergara Combustibles SRL",
+        "Nro.Cuit": 30681830800.0,
+        "Tipo Ubica": "Est. de Serv.",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "VERGARA VALENTIN GOB. AV.",
+        "N�mero": "3702",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "HURLINGHAM",
+        "CP": "B1686LVT",
+        "Latitud": -34.5988,
+        "Longitud": -58.63581,
+        "assigned_zone_name": "Parque Jhonston",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.63581,
+          -34.5988
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Id Entidad": 1003,
+        "Entidad": "SEAC",
+        "Id Ubicaci": 49407,
+        "Estado": "A",
+        "Tipo de Ce": "Recarga",
+        "Ubicaci�": "Los Amores",
+        "Nro.Cuit": 23304442034.0,
+        "Tipo Ubica": "Kiosco",
+        "Modalidad": "Pre Pago",
+        "Direcci�": "DIAZ PEDRO GRAL.",
+        "N�mero": "906",
+        "Barrio": null,
+        "Comuna": null,
+        "Partido": "HURLINGHAM",
+        "Pa�s": "ARG",
+        "Provincia": "BA",
+        "Localidad": "VILLA SANTOS TESEI",
+        "CP": "1688",
+        "Latitud": -34.60894,
+        "Longitud": -58.64302,
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Transporte / SUBE - Puntos de carga",
+        "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
+        "license": "No especificada",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.64302,
+          -34.60894
+        ]
+      }
+    }
+  ]
+}

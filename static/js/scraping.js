@@ -8,6 +8,49 @@
   const jobsList = document.getElementById("jobs-list");
   const initialOperations = readJsonScript("initial-operation-jobs", []);
   const initialScrapes = readJsonScript("initial-scrape-jobs", []);
+  const stepLabels = {
+    scrape: "Scraping",
+    geocode: "Geocoding",
+    infer_zones: "Inferencia de zonas",
+    score_security: "Scoring de seguridad",
+    repair_addresses: "Reparar direcciones",
+    repair_neighborhoods: "Reparar barrios",
+    repair_localities: "Reparar localidades",
+    repair_agencies: "Reparar agencias",
+    repair_metrics: "Reparar metricas",
+    repair_merged_listings: "Separar fusiones",
+    merge_properties: "Fusionar duplicados",
+  };
+  const resultLabels = {
+    candidates: "Candidatas",
+    cache_only: "Solo cache/local",
+    changed: "Cambios",
+    conflicts: "Conflictos de zona",
+    dry_run: "Simulacion",
+    elapsed_seconds: "Tiempo",
+    errors: "Errores",
+    external_hit: "Geocoding externo OK",
+    inferred: "Zonas inferidas",
+    located: "Ubicadas",
+    matched: "Con score",
+    no_result: "Sin resultado",
+    note: "Nota",
+    planned_sources: "Fuentes planificadas",
+    processed: "Procesadas",
+    scrape_job_id: "ScrapeJob",
+    scrape_status: "Estado scrape",
+    skipped: "Omitidas",
+    steps: "Steps",
+    needs_review: "Para revisar",
+  };
+  const repairHelp = {
+    repair_addresses: "Direcciones limpia domicilios, metadata pegada y puede borrar pins no manuales si cambió el objetivo de geocoding.",
+    repair_neighborhoods: "Barrios normaliza nombres de zona y elimina variantes contaminadas.",
+    repair_localities: "Localidades mueve barrios mal cargados al campo zona y descarta localidades inválidas.",
+    repair_agencies: "Agencias normaliza nombres de inmobiliarias y fusiona/agota agencias huérfanas.",
+    repair_metrics: "Métricas reparsea fichas activas para corregir precio, superficies, ambientes y estado.",
+    repair_merged_listings: "Separar fusiones detecta propiedades mezcladas por direcciones genéricas y mueve listings a propiedades separadas.",
+  };
 
   initialOperations.sort(compareJobs).forEach((job) => renderOperationJob(job));
   initialOperations.filter(isActive).forEach(scheduleOperationPoll);
@@ -19,6 +62,9 @@
   document.querySelectorAll("[data-tab]").forEach((button) => {
     button.addEventListener("click", () => activateTab(button.dataset.tab));
   });
+
+  document.getElementById("repair-kind").addEventListener("change", updateRepairHelp);
+  updateRepairHelp();
 
   document.getElementById("select-all-sources").addEventListener("click", () => {
     document.querySelectorAll("#source-picker input[type=checkbox]").forEach((input) => {
@@ -191,6 +237,13 @@
       alert(`Ya hay una operacion en curso: Job #${active.id}.`);
       return;
     }
+    payload.params = {
+      ...(payload.params || {}),
+      ui_summary: operationSummary(payload),
+      ui_warnings: operationWarnings(payload),
+    };
+    const draftId = renderOperationDraft(payload);
+    activateTab("history");
     try {
       const response = await fetch("/api/operations/jobs/", {
         method: "POST",
@@ -199,6 +252,7 @@
       });
       const data = await readJson(response);
       if (response.status === 409) {
+        removeOperationDraft(draftId);
         renderOperationJob(data, true);
         scheduleOperationPoll(data);
         activateTab("history");
@@ -206,10 +260,12 @@
         return;
       }
       if (!response.ok) throw new Error(data.error || "No se pudo iniciar la operacion.");
+      removeOperationDraft(draftId);
       renderOperationJob(data, true);
       scheduleOperationPoll(data);
       activateTab("history");
     } catch (error) {
+      markOperationDraftError(draftId, error.message);
       alert(error.message);
     }
   }
@@ -286,6 +342,7 @@
           ${canRetry(job) ? actionButton("retry", job.id, "rotate-cw", "Repetir") : ""}
         </div>
       </div>
+      ${renderJobSummary(job)}
       ${job.cancel_requested && isActive(job) ? `<div class="job-meta cancelling-meta">Cancelacion solicitada; esperando tareas en curso...</div>` : ""}
       <div class="job-source-list">
         ${(job.steps || []).map(renderOperationStep).join("")}
@@ -335,7 +392,7 @@
     }
     const keys = Object.keys(summary).filter((key) => !["elapsed_seconds"].includes(key));
     if (!keys.length) return "";
-    return `<div class="job-meta">${keys.map((key) => `${escapeHtml(key)}=${escapeHtml(summary[key])}`).join(" · ")}</div>`;
+    return `<div class="job-meta">${keys.map((key) => `${escapeHtml(resultLabel(key))}: ${escapeHtml(formatSummaryValue(summary[key]))}`).join(" · ")}</div>`;
   }
 
   function renderLegacyScrapeJob(job, prepend = false) {
@@ -418,11 +475,11 @@
   }
 
   function actionButton(action, id, icon, label, disabled = false) {
-    return `<button class="secondary-button" type="button" data-operation-action="${action}" data-job-id="${id}" ${disabled ? "disabled" : ""}><i data-lucide="${icon}"></i> ${label}</button>`;
+    return `<button class="secondary-button" type="button" data-operation-action="${action}" data-job-id="${id}" title="${escapeAttribute(actionHelp(action))}" ${disabled ? "disabled" : ""}><i data-lucide="${icon}"></i> ${label}</button>`;
   }
 
   function legacyActionButton(action, id, icon, label, disabled = false) {
-    return `<button class="secondary-button" type="button" data-legacy-action="${action}" data-job-id="${id}" ${disabled ? "disabled" : ""}><i data-lucide="${icon}"></i> ${label}</button>`;
+    return `<button class="secondary-button" type="button" data-legacy-action="${action}" data-job-id="${id}" title="${escapeAttribute(actionHelp(action))}" ${disabled ? "disabled" : ""}><i data-lucide="${icon}"></i> ${label}</button>`;
   }
 
   function enrichmentParams() {
@@ -485,6 +542,218 @@
       repair_metrics: "metricas",
       repair_merged_listings: "fusiones",
     }[kind] || "reparacion";
+  }
+
+  function updateRepairHelp() {
+    const help = document.getElementById("repair-kind-help");
+    if (!help) return;
+    const kind = valueOf("repair-kind");
+    help.textContent = repairHelp[kind] || "Ejecuta una reparacion en simulacion; aplicar queda disponible desde el job terminado.";
+  }
+
+  function operationSummary(payload) {
+    const steps = Array.isArray(payload.steps) ? payload.steps : [];
+    const summary = [`Modo: ${payload.mode === "dry_run" ? "simulacion" : "aplicar"}`];
+    if (steps.length) summary.push(`Flujo: ${steps.map((step) => stepLabel(step.kind)).join(" > ")}`);
+
+    if (steps.some((step) => step.kind === "scrape")) {
+      const params = steps.find((step) => step.kind === "scrape").params || {};
+      const maxWorker = Math.max(1, ...Object.values(params.workers || {}).map((value) => Number(value || 1)));
+      summary.push(`Fuentes: ${formatList(params.sources) || "ninguna"}`);
+      summary.push(`Tipo: ${params.scrape_mode === "trial" ? "prueba" : "completo liviano"}`);
+      summary.push(`Paginas: ${params.max_pages || "sin limite"} desde ${params.start_page || 1}`);
+      summary.push(`Listings: ${params.max_listings || "sin limite"}`);
+      summary.push(`Geocoding: ${Number(params.geocode_limit || 0) > 0 ? `hasta ${params.geocode_limit}` : "no, scrape liviano"}`);
+      summary.push(`Marcar ausentes: ${yesNo(params.mark_missing)}`);
+      summary.push(`Workers: hasta ${maxWorker} por fuente`);
+    }
+
+    const enrichStep = steps.find((step) => ["geocode", "infer_zones", "score_security"].includes(step.kind));
+    if (enrichStep) {
+      summary.push(...scopeSummary(enrichStep.params || {}));
+      const geocode = steps.find((step) => step.kind === "geocode");
+      const zones = steps.find((step) => step.kind === "infer_zones");
+      const security = steps.find((step) => step.kind === "score_security");
+      if (geocode) {
+        summary.push(`Geocoding externo: ${geocode.params && geocode.params.cache_only === false ? "permitido" : "no, cache/local"}`);
+        summary.push(`Recalcular existentes: ${yesNo(geocode.params && geocode.params.force)}`);
+      }
+      if (zones) {
+        const distance = zones.params && zones.params.max_distance_m;
+        summary.push(`Zonas: distancia ${distance || "default"} m; geocodificar faltantes ${yesNo(zones.params && zones.params.geocode_missing)}`);
+      }
+      if (security) summary.push(`Seguridad solo faltantes: ${yesNo(security.params && security.params.only_missing)}`);
+    }
+
+    if (steps.some((step) => step.kind && step.kind.startsWith("repair_"))) {
+      const params = steps[0].params || {};
+      summary.push(...scopeSummary(params));
+      if (params.max_listings) summary.push(`Max. listings: ${params.max_listings}`);
+      if (params.max_properties) summary.push(`Max. propiedades: ${params.max_properties}`);
+      if (params.classify_only) summary.push("Metricas: solo clasificar");
+      if (params.mark_non_sale) summary.push("Marcara no venta si corresponde");
+      if (params.mark_listing_pages) summary.push("Marcara paginas de listado si corresponde");
+    }
+
+    if (steps.some((step) => step.kind === "merge_properties")) {
+      const params = steps.find((step) => step.kind === "merge_properties").params || {};
+      summary.push(`Pares: ${(params.pair || []).length || "ninguno"}`);
+      summary.push(`Componentes: ${(params.component || []).length || "ninguno"}`);
+      summary.push(`URL tail: ${formatList(params.detect_url_tail_sources) || "desactivado"}`);
+    }
+
+    return summary.filter(Boolean);
+  }
+
+  function operationWarnings(payload) {
+    const steps = Array.isArray(payload.steps) ? payload.steps : [];
+    const warnings = [];
+    const add = (level, text) => {
+      if (!warnings.some((item) => item.text === text)) warnings.push({level, text});
+    };
+    steps.forEach((step) => {
+      const params = step.params || {};
+      if (step.kind === "scrape") {
+        if (Number(params.geocode_limit || 0) > 0) add("medium", "Activa geocoding post-scrape; para scrape liviano dejar Max. geocod. en 0.");
+        if (params.mark_missing) add("high", "Marcar ausentes puede retirar publicaciones no vistas en corridas completas.");
+      }
+      if (step.kind === "geocode") {
+        if (params.cache_only === false) add("medium", "Geocoding externo puede cambiar coordenadas no manuales y depende del proveedor.");
+        if (params.force) add("medium", "Recalcular existentes actualiza ubicaciones no manuales ya cargadas.");
+      }
+      if (step.kind === "infer_zones" && params.geocode_missing) {
+        add("medium", "Inferir zonas con geocoding externo puede completar coordenadas faltantes antes de asignar zona.");
+      }
+      if (step.kind && step.kind.startsWith("repair_")) {
+        add(payload.mode === "dry_run" ? "low" : "high", payload.mode === "dry_run"
+          ? "Simulacion: no modifica datos hasta usar Aplicar dry-run desde el historial."
+          : "Aplicara cambios de reparacion usando una simulacion previa.");
+      }
+      if (step.kind === "merge_properties") {
+        add(payload.mode === "dry_run" ? "medium" : "high", "Merge conserva flags, notas y links, pero puede mover listings entre propiedades; revisar el dry-run.");
+      }
+    });
+    return warnings;
+  }
+
+  function renderOperationDraft(payload) {
+    const id = `operation-draft-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const node = document.createElement("article");
+    node.className = "job-card operation-job-card job-draft-card";
+    node.id = id;
+    node.dataset.active = "1";
+    node.dataset.createdAt = new Date().toISOString();
+    node.innerHTML = `
+      <div class="job-heading">
+        <div>
+          <strong>${escapeHtml(payload.title || "Operacion")}</strong>
+          <span class="status-pill running">Preparando</span>
+          <small>Resumen previo antes de crear el job</small>
+        </div>
+      </div>
+      ${renderSummaryBlock(payload.params && payload.params.ui_summary, payload.params && payload.params.ui_warnings)}
+    `;
+    jobsList.prepend(node);
+    lucide.createIcons();
+    sortJobCards();
+    return id;
+  }
+
+  function removeOperationDraft(id) {
+    const node = document.getElementById(id);
+    if (node) node.remove();
+  }
+
+  function markOperationDraftError(id, message) {
+    const node = document.getElementById(id);
+    if (!node) return;
+    node.dataset.active = "0";
+    node.classList.add("failed");
+    node.innerHTML = `
+      <div class="job-heading">
+        <div>
+          <strong>No se pudo preparar la operacion</strong>
+          <span class="status-pill failed">Error</span>
+          <small>${escapeHtml(message || "Error desconocido")}</small>
+        </div>
+      </div>
+    `;
+    sortJobCards();
+  }
+
+  function renderJobSummary(job) {
+    const params = job.params && typeof job.params === "object" ? job.params : {};
+    return renderSummaryBlock(params.ui_summary, params.ui_warnings);
+  }
+
+  function renderSummaryBlock(summary, warnings) {
+    const items = Array.isArray(summary) ? summary.filter(Boolean) : [];
+    const notes = Array.isArray(warnings) ? warnings.filter(Boolean) : [];
+    if (!items.length && !notes.length) return "";
+    return `
+      <div class="job-summary">
+        ${items.length ? `<div class="job-summary-list">${items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>` : ""}
+        ${notes.length ? `<div class="job-warning-list">${notes.map(renderRiskNote).join("")}</div>` : ""}
+      </div>
+    `;
+  }
+
+  function renderRiskNote(item) {
+    const level = riskLevel(item);
+    const text = typeof item === "string" ? item : item.text;
+    return `<span class="risk-note risk-${level}">${escapeHtml(text || "")}</span>`;
+  }
+
+  function riskLevel(item) {
+    const level = typeof item === "object" && item ? item.level : "medium";
+    return ["low", "medium", "high"].includes(level) ? level : "medium";
+  }
+
+  function scopeSummary(params) {
+    const items = [];
+    if (params.source) items.push(`Fuente: ${params.source}`);
+    if (params.sources && params.sources.length) items.push(`Fuentes: ${formatList(params.sources)}`);
+    if (params.property_ids && params.property_ids.length) items.push(`IDs: ${formatList(params.property_ids)}`);
+    items.push(`Limite: ${params.limit || "todos"}`);
+    return items;
+  }
+
+  function stepLabel(kind) {
+    return stepLabels[kind] || repairLabel(kind) || String(kind || "step").replace(/_/g, " ");
+  }
+
+  function resultLabel(key) {
+    return resultLabels[key] || String(key).replace(/_/g, " ");
+  }
+
+  function formatSummaryValue(value) {
+    if (value === null || value === undefined || value === "") return "-";
+    if (typeof value === "boolean") return yesNo(value);
+    if (Array.isArray(value)) return value.length ? value.map(formatSummaryValue).join(", ") : "ninguno";
+    if (typeof value === "object") {
+      const text = JSON.stringify(value);
+      return text.length > 160 ? `${text.slice(0, 157)}...` : text;
+    }
+    return String(value);
+  }
+
+  function formatList(values) {
+    if (!Array.isArray(values) || !values.length) return "";
+    if (values.length <= 4) return values.join(", ");
+    return `${values.slice(0, 4).join(", ")} +${values.length - 4}`;
+  }
+
+  function yesNo(value) {
+    return value ? "si" : "no";
+  }
+
+  function actionHelp(action) {
+    return {
+      apply: "Ejecuta en modo aplicar la misma parametria de esta simulacion.",
+      cancel: "Pide detener el job; las tareas en curso pueden terminar antes de frenar.",
+      retry: "Crea otro job con los mismos parametros.",
+      "retry-errors": "Reprocesa solo las URLs fallidas del scraper legacy.",
+    }[action] || "Ejecuta esta accion sobre el job.";
   }
 
   function activateTab(name) {

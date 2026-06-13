@@ -2,12 +2,14 @@
   "type": "FeatureCollection",
   "name": "education_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
-    "source_name": "OpenStreetMap Overpass API",
+    "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+    "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+    "license": "Creative Commons Attribution 4.0",
     "metric_crs_used_for_calculation": "EPSG:32721",
-    "data_confidence": "medium"
+    "data_confidence": "high"
   },
   "features": [
     {
@@ -15,11 +17,19 @@
       "properties": {
         "zone_name": "Asunción",
         "area_km2": 0.3938,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 48.39,
-        "nearest_school_m": 300.41,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 2,
+        "schools_per_km2": 5.0791,
+        "public_schools_count": 2,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 186.97,
+        "education_access_score": 59.54,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -274,11 +284,19 @@
       "properties": {
         "zone_name": "Atepam Italia",
         "area_km2": 0.1536,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 85.72,
+        "schools_count": 3,
+        "schools_per_km2": 19.5265,
+        "public_schools_count": 0,
+        "private_schools_count": 3,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 6.5088
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 72.44,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -509,11 +527,19 @@
       "properties": {
         "zone_name": "Belgrano",
         "area_km2": 0.297,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 44.25,
-        "nearest_school_m": 488.82,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 4,
+        "schools_per_km2": 13.4674,
+        "public_schools_count": 4,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 67.03,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -664,11 +690,19 @@
       "properties": {
         "zone_name": "Carola Lorenzini",
         "area_km2": 0.3936,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 54.2,
-        "nearest_school_m": 36.56,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 9.19,
+        "nearest_kindergarten_m": 9.19,
+        "nearest_primary_school_m": 9.19,
+        "nearest_secondary_school_m": 104.0,
+        "education_access_score": 54.8,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -791,11 +825,19 @@
       "properties": {
         "zone_name": "Cartero",
         "area_km2": 0.0794,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 45.4,
-        "nearest_school_m": 436.43,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 4,
+        "schools_per_km2": 50.3893,
+        "public_schools_count": 4,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 100.0,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -930,11 +972,19 @@
       "properties": {
         "zone_name": "Cosmopolita",
         "area_km2": 0.3223,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 54.69,
-        "nearest_school_m": 14.1,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 1,
+        "schools_per_km2": 3.1031,
+        "public_schools_count": 1,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 44.69,
+        "nearest_secondary_school_m": 9.92,
+        "education_access_score": 57.77,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1097,11 +1147,19 @@
       "properties": {
         "zone_name": "Curapaytí",
         "area_km2": 0.7093,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 61.65,
+        "schools_count": 6,
+        "schools_per_km2": 8.459,
+        "public_schools_count": 3,
+        "private_schools_count": 3,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 1.4098
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 62.55,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1364,11 +1422,19 @@
       "properties": {
         "zone_name": "Dos de Abril",
         "area_km2": 0.4137,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 40.21,
-        "nearest_school_m": 672.46,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 20.24,
+        "nearest_kindergarten_m": 604.21,
+        "nearest_primary_school_m": 640.14,
+        "nearest_secondary_school_m": 20.24,
+        "education_access_score": 54.55,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1495,11 +1561,19 @@
       "properties": {
         "zone_name": "El Destino",
         "area_km2": 0.5872,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 47.61,
-        "nearest_school_m": 336.11,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 3,
+        "schools_per_km2": 5.1089,
+        "public_schools_count": 3,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 59.56,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1658,11 +1732,19 @@
       "properties": {
         "zone_name": "El Libertador",
         "area_km2": 0.6741,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 90.01,
+        "schools_count": 8,
+        "schools_per_km2": 11.8681,
+        "public_schools_count": 8,
+        "private_schools_count": 0,
         "nearest_school_m": 0.0,
-        "schools_count": 5,
-        "schools_per_km2": 7.4176
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 65.6,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1949,11 +2031,19 @@
       "properties": {
         "zone_name": "El Palanco",
         "area_km2": 0.6597,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 44.98,
-        "nearest_school_m": 455.39,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 2,
+        "schools_per_km2": 3.0317,
+        "public_schools_count": 2,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 7.72,
+        "education_access_score": 57.71,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2172,11 +2262,19 @@
       "properties": {
         "zone_name": "El Porvenir",
         "area_km2": 0.5371,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 81.36,
+        "schools_count": 8,
+        "schools_per_km2": 14.8961,
+        "public_schools_count": 8,
+        "private_schools_count": 0,
         "nearest_school_m": 0.0,
-        "schools_count": 3,
-        "schools_per_km2": 5.586
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 68.3,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2431,11 +2529,19 @@
       "properties": {
         "zone_name": "El Progreso",
         "area_km2": 0.1572,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 53.29,
-        "nearest_school_m": 77.55,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 59.26,
+        "nearest_kindergarten_m": 361.7,
+        "nearest_primary_school_m": 102.54,
+        "nearest_secondary_school_m": 59.26,
+        "education_access_score": 53.7,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2550,11 +2656,19 @@
       "properties": {
         "zone_name": "Federal",
         "area_km2": 0.1577,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 47.06,
-        "nearest_school_m": 360.84,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 102.0,
+        "nearest_kindergarten_m": 153.53,
+        "nearest_primary_school_m": 209.95,
+        "nearest_secondary_school_m": 102.0,
+        "education_access_score": 52.76,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2657,11 +2771,19 @@
       "properties": {
         "zone_name": "Hurlingham Centro",
         "area_km2": 1.2585,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 100.0,
+        "schools_count": 22,
+        "schools_per_km2": 17.4813,
+        "public_schools_count": 9,
+        "private_schools_count": 13,
         "nearest_school_m": 0.0,
-        "schools_count": 12,
-        "schools_per_km2": 9.5353
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 70.61,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3092,11 +3214,19 @@
       "properties": {
         "zone_name": "Jorge Newbery",
         "area_km2": 0.4669,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 65.11,
+        "schools_count": 7,
+        "schools_per_km2": 14.9929,
+        "public_schools_count": 6,
+        "private_schools_count": 1,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 2.1418
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 217.89,
+        "education_access_score": 68.39,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3339,11 +3469,19 @@
       "properties": {
         "zone_name": "Juan B. de Lasalle",
         "area_km2": 0.3488,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 50.87,
-        "nearest_school_m": 187.69,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 77.9,
+        "nearest_kindergarten_m": 77.9,
+        "nearest_primary_school_m": 195.64,
+        "nearest_secondary_school_m": 157.98,
+        "education_access_score": 53.29,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3590,11 +3728,19 @@
       "properties": {
         "zone_name": "La Juanita",
         "area_km2": 0.4522,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 48.15,
-        "nearest_school_m": 311.48,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 1,
+        "schools_per_km2": 2.2115,
+        "public_schools_count": 1,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 151.39,
+        "nearest_primary_school_m": 144.64,
+        "nearest_secondary_school_m": 265.82,
+        "education_access_score": 56.97,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3757,11 +3903,19 @@
       "properties": {
         "zone_name": "La Leonor",
         "area_km2": 0.6904,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 45.55,
-        "nearest_school_m": 429.36,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 6,
+        "schools_per_km2": 8.6904,
+        "public_schools_count": 4,
+        "private_schools_count": 2,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 62.76,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3956,11 +4110,19 @@
       "properties": {
         "zone_name": "Los Patitos",
         "area_km2": 0.2937,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 50.79,
-        "nearest_school_m": 191.27,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 1,
+        "schools_per_km2": 3.4045,
+        "public_schools_count": 1,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 118.9,
+        "nearest_secondary_school_m": 144.33,
+        "education_access_score": 58.04,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4107,11 +4269,19 @@
       "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 39.06,
-        "nearest_school_m": 724.46,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 277.85,
+        "nearest_kindergarten_m": 384.81,
+        "nearest_primary_school_m": 459.15,
+        "nearest_secondary_school_m": 277.85,
+        "education_access_score": 48.89,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4206,11 +4376,19 @@
       "properties": {
         "zone_name": "Luna",
         "area_km2": 0.7198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 51.98,
-        "nearest_school_m": 137.24,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 3,
+        "schools_per_km2": 4.1679,
+        "public_schools_count": 3,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 58.72,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4441,11 +4619,19 @@
       "properties": {
         "zone_name": "Militar",
         "area_km2": 0.1772,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 49.18,
-        "nearest_school_m": 264.32,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 4,
+        "schools_per_km2": 22.5773,
+        "public_schools_count": 4,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 75.16,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4616,11 +4802,19 @@
       "properties": {
         "zone_name": "Mitre",
         "area_km2": 1.5379,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 50.07,
-        "nearest_school_m": 224.23,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 9,
+        "schools_per_km2": 5.8521,
+        "public_schools_count": 6,
+        "private_schools_count": 3,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 60.23,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4927,11 +5121,19 @@
       "properties": {
         "zone_name": "Nueve de Julio",
         "area_km2": 0.4924,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 54.16,
-        "nearest_school_m": 38.04,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 32.52,
+        "nearest_kindergarten_m": 245.56,
+        "nearest_primary_school_m": 282.28,
+        "nearest_secondary_school_m": 32.52,
+        "education_access_score": 54.28,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5118,11 +5320,19 @@
       "properties": {
         "zone_name": "Nuevo Parque Quirno",
         "area_km2": 0.1848,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 34.62,
-        "nearest_school_m": 926.59,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 286.73,
+        "nearest_kindergarten_m": 458.66,
+        "nearest_primary_school_m": 286.73,
+        "nearest_secondary_school_m": 290.97,
+        "education_access_score": 48.69,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5357,11 +5567,19 @@
       "properties": {
         "zone_name": "Parque Jhonston",
         "area_km2": 1.3584,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 61.95,
+        "schools_count": 5,
+        "schools_per_km2": 3.6807,
+        "public_schools_count": 3,
+        "private_schools_count": 2,
         "nearest_school_m": 0.0,
-        "schools_count": 2,
-        "schools_per_km2": 1.4723
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 58.29,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5684,11 +5902,19 @@
       "properties": {
         "zone_name": "Parque Quirno",
         "area_km2": 1.1008,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 59.29,
+        "schools_count": 6,
+        "schools_per_km2": 5.4504,
+        "public_schools_count": 3,
+        "private_schools_count": 3,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 0.9084
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 235.73,
+        "education_access_score": 59.87,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6059,11 +6285,19 @@
       "properties": {
         "zone_name": "Prensa",
         "area_km2": 0.2243,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 54.32,
-        "nearest_school_m": 30.71,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 36.03,
+        "nearest_kindergarten_m": 36.03,
+        "nearest_primary_school_m": 65.07,
+        "nearest_secondary_school_m": 61.26,
+        "education_access_score": 54.21,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6266,11 +6500,19 @@
       "properties": {
         "zone_name": "Primero de Mayo",
         "area_km2": 0.3157,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 50.62,
-        "nearest_school_m": 198.93,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 1,
+        "schools_per_km2": 3.1672,
+        "public_schools_count": 1,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 187.28,
+        "nearest_secondary_school_m": 183.19,
+        "education_access_score": 57.83,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6433,11 +6675,19 @@
       "properties": {
         "zone_name": "Rimoldi",
         "area_km2": 0.1004,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 37.32,
-        "nearest_school_m": 803.63,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 265.99,
+        "nearest_kindergarten_m": 566.11,
+        "nearest_primary_school_m": 265.99,
+        "nearest_secondary_school_m": 446.88,
+        "education_access_score": 49.15,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6540,11 +6790,19 @@
       "properties": {
         "zone_name": "Roca 1",
         "area_km2": 0.5515,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 63.56,
+        "schools_count": 7,
+        "schools_per_km2": 12.6934,
+        "public_schools_count": 7,
+        "private_schools_count": 0,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 1.8133
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 66.34,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6787,11 +7045,19 @@
       "properties": {
         "zone_name": "Roca 2",
         "area_km2": 0.8198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 78.03,
+        "schools_count": 7,
+        "schools_per_km2": 8.5384,
+        "public_schools_count": 3,
+        "private_schools_count": 4,
         "nearest_school_m": 0.0,
-        "schools_count": 4,
-        "schools_per_km2": 4.8791
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 62.63,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7018,11 +7284,19 @@
       "properties": {
         "zone_name": "San Alberto",
         "area_km2": 0.1906,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 49.88,
-        "nearest_school_m": 232.56,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 15.42,
+        "nearest_kindergarten_m": 17.94,
+        "nearest_primary_school_m": 17.9,
+        "nearest_secondary_school_m": 15.42,
+        "education_access_score": 54.66,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7137,11 +7411,19 @@
       "properties": {
         "zone_name": "San Damián",
         "area_km2": 0.9102,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 60.19,
+        "schools_count": 4,
+        "schools_per_km2": 4.3947,
+        "public_schools_count": 4,
+        "private_schools_count": 0,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 1.0987
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 58.92,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7388,11 +7670,19 @@
       "properties": {
         "zone_name": "Santa Clara",
         "area_km2": 0.4501,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 53.48,
-        "nearest_school_m": 69.18,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 62.46,
+        "nearest_kindergarten_m": 206.96,
+        "nearest_primary_school_m": 62.46,
+        "nearest_secondary_school_m": 262.77,
+        "education_access_score": 53.63,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7531,11 +7821,19 @@
       "properties": {
         "zone_name": "Santa Leonor",
         "area_km2": 0.4076,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 78.15,
+        "schools_count": 6,
+        "schools_per_km2": 14.7188,
+        "public_schools_count": 6,
+        "private_schools_count": 0,
         "nearest_school_m": 0.0,
-        "schools_count": 2,
-        "schools_per_km2": 4.9063
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 68.14,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7718,11 +8016,19 @@
       "properties": {
         "zone_name": "Scholnik",
         "area_km2": 0.5449,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 48.14,
-        "nearest_school_m": 311.95,
-        "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_count": 4,
+        "schools_per_km2": 7.3404,
+        "public_schools_count": 4,
+        "private_schools_count": 0,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 61.56,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7905,11 +8211,19 @@
       "properties": {
         "zone_name": "Villa Alemania",
         "area_km2": 0.5048,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 64.35,
+        "schools_count": 4,
+        "schools_per_km2": 7.9234,
+        "public_schools_count": 1,
+        "private_schools_count": 3,
         "nearest_school_m": 0.0,
-        "schools_count": 1,
-        "schools_per_km2": 1.9808
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 62.08,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8076,11 +8390,19 @@
       "properties": {
         "zone_name": "Villa Club",
         "area_km2": 2.6183,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 73.02,
+        "schools_count": 20,
+        "schools_per_km2": 7.6384,
+        "public_schools_count": 12,
+        "private_schools_count": 8,
         "nearest_school_m": 0.0,
-        "schools_count": 10,
-        "schools_per_km2": 3.8192
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 61.82,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8419,11 +8741,19 @@
       "properties": {
         "zone_name": "Villa Tesei Centro",
         "area_km2": 1.856,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 65.17,
+        "schools_count": 18,
+        "schools_per_km2": 9.6984,
+        "public_schools_count": 7,
+        "private_schools_count": 11,
         "nearest_school_m": 0.0,
-        "schools_count": 4,
-        "schools_per_km2": 2.1552
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 63.66,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8822,11 +9152,19 @@
       "properties": {
         "zone_name": "Virgen Esperanza",
         "area_km2": 0.2668,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "education_access_score": 48.85,
-        "nearest_school_m": 279.71,
         "schools_count": 0,
-        "schools_per_km2": 0.0
+        "schools_per_km2": 0.0,
+        "public_schools_count": 0,
+        "private_schools_count": 0,
+        "nearest_school_m": 66.47,
+        "nearest_kindergarten_m": 143.05,
+        "nearest_primary_school_m": 93.18,
+        "nearest_secondary_school_m": 93.79,
+        "education_access_score": 53.54,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",

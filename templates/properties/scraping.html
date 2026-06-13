@@ -50,18 +50,32 @@
       </button>
     </div>
 
+    <details class="operation-guide" open>
+      <summary>Qué hace este flujo</summary>
+      <p>Trae publicaciones desde las fuentes seleccionadas, las normaliza al guardar y registra snapshots. Por defecto no geocodifica ni retira ausentes, así podés probar sin efectos colaterales fuertes.</p>
+      <div class="operation-guide-grid">
+        <span class="risk-note risk-low">Seguro: limitar páginas/fichas y usar 1 worker.</span>
+        <span class="risk-note risk-medium">Atención: geocodificar suma tiempo y puede llamar servicios externos.</span>
+        <span class="risk-note risk-high">Riesgo alto: marcar ausentes puede retirar avisos que no aparezcan en una corrida completa.</span>
+      </div>
+      <p class="button-help"><strong>Scrape liviano seguro</strong> carga una muestra chica. <strong>Iniciar scraping</strong> ejecuta con la parametría actual.</p>
+    </details>
+
     <div class="run-options">
       <label>
         Max. paginas
         <input id="max-pages" type="number" min="1" placeholder="Sin limite" title="Limita paginas de listado por fuente.">
+        <small class="field-help">Cuántas páginas de resultados lee por fuente. Vacío recorre hasta que el scraper corte.</small>
       </label>
       <label>
         Pagina inicial
         <input id="start-page" type="number" min="1" placeholder="1" title="Permite barrer portales por tandas.">
+        <small class="field-help">Útil para tandas: por ejemplo empezar en página 4 después de una corrida anterior.</small>
       </label>
       <label>
         Max. fichas
         <input id="max-listings" type="number" min="1" placeholder="Sin limite" title="Limita propiedades procesadas por fuente.">
+        <small class="field-help">Cantidad máxima de fichas que parsea por fuente. Ideal para pruebas rápidas.</small>
       </label>
       <label>
         Modo scrape
@@ -69,22 +83,27 @@
           <option value="complete">Completo liviano</option>
           <option value="trial">Prueba</option>
         </select>
+        <small class="field-help">Completo liviano permite recorrer todo. Prueba fuerza muestra chica y nunca marca ausentes.</small>
       </label>
       <label>
         Timeout ficha
         <input id="request-timeout" type="number" min="1" placeholder="25">
+        <small class="field-help">Segundos máximos para cargar una ficha antes de contar error.</small>
       </label>
       <label>
         Max. errores
         <input id="max-errors" type="number" min="1" placeholder="Sin limite">
+        <small class="field-help">Corta una fuente al alcanzar este número de errores. Vacío no impone corte manual.</small>
       </label>
       <label>
         Max. geocod.
         <input id="geocode-limit" type="number" min="0" value="0" title="0 mantiene el scrape liviano.">
+        <small class="field-help">0 mantiene el scrape liviano. Mayor a 0 geocodifica al final de cada fuente.</small>
       </label>
       <label class="checkbox-field">
         <input id="mark-missing" type="checkbox">
-        Marcar ausentes
+        <span>Marcar ausentes</span>
+        <small class="field-help">Solo para corridas completas sin límites: puede retirar avisos no vistos.</small>
       </label>
     </div>
 
@@ -114,6 +133,7 @@
             <i data-lucide="copy-check"></i> Aplicar
           </button>
         </span>
+        <small class="field-help">Copia ese número a todas las fuentes. Más workers acelera, pero aumenta bloqueos y presión sobre SQLite.</small>
       </label>
     </div>
 
@@ -131,6 +151,7 @@
           <label class="worker-field">
             Workers
             <input type="number" min="1" value="1" data-workers-for="{{ source.slug }}">
+            <small class="field-help">Fichas en paralelo para esta fuente. Usá 1 si el portal bloquea fácil.</small>
           </label>
           <span class="worker-warning" data-worker-warning hidden>Mas de 5 puede saturar la fuente o SQLite.</span>
         </div>
@@ -148,6 +169,16 @@
         <i data-lucide="map"></i> Completar ubicacion
       </button>
     </div>
+    <details class="operation-guide" open>
+      <summary>Qué hace este flujo</summary>
+      <p>Trabaja sobre propiedades ya guardadas. Podés correr cada step por separado o usar el preset para encadenar geocoding, zonas y seguridad.</p>
+      <div class="operation-guide-grid">
+        <span class="risk-note risk-low">Cache/local evita llamadas externas y usa datos ya conocidos.</span>
+        <span class="risk-note risk-medium">Recalcular existentes puede mover pins no manuales.</span>
+        <span class="risk-note risk-high">Geocoding externo consulta Nominatim y tarda por rate limit.</span>
+      </div>
+      <p class="button-help"><strong>Completar ubicación</strong> ejecuta geocodificar, inferir zonas y score de seguridad con los filtros elegidos.</p>
+    </details>
     <div class="run-options">
       <label>
         Fuente
@@ -155,34 +186,42 @@
           <option value="">Todas</option>
           {% for source in sources %}<option value="{{ source.slug }}">{{ source.name }}</option>{% endfor %}
         </select>
+        <small class="field-help">Acota el trabajo a propiedades que tengan avisos de esa fuente. Vacío usa todas.</small>
       </label>
       <label>
         Property IDs
         <input id="enrich-property-ids" type="text" placeholder="123,456">
+        <small class="field-help">Lista puntual separada por comas. Si completás IDs, tienen prioridad práctica sobre el universo grande.</small>
       </label>
       <label>
         Limite
         <input id="enrich-limit" type="number" min="0" value="50">
+        <small class="field-help">Máximo de propiedades a procesar. 0 procesa todas las candidatas filtradas.</small>
       </label>
       <label>
         Distancia zona (m)
         <input id="zone-max-distance" type="number" min="0" placeholder="Default">
+        <small class="field-help">Tolerancia para asignar zona cercana si el punto cae apenas fuera del polígono.</small>
       </label>
       <label class="checkbox-field">
         <input id="geocode-cache-only" type="checkbox" checked>
-        Solo cache/local
+        <span>Solo cache/local</span>
+        <small class="field-help">No llama Nominatim. Usa cache y referencias locales, más seguro para pruebas.</small>
       </label>
       <label class="checkbox-field">
         <input id="geocode-force" type="checkbox">
-        Recalcular existentes
+        <span>Recalcular existentes</span>
+        <small class="field-help">Intenta actualizar pins no manuales ya existentes. Los pins manuales se preservan.</small>
       </label>
       <label class="checkbox-field">
         <input id="zone-geocode-missing" type="checkbox">
-        Geocoding externo en zonas
+        <span>Geocoding externo en zonas</span>
+        <small class="field-help">Permite que inferir zonas busque coordenadas faltantes afuera de la cache.</small>
       </label>
       <label class="checkbox-field">
         <input id="security-only-missing" type="checkbox" checked>
-        Seguridad solo faltantes
+        <span>Seguridad solo faltantes</span>
+        <small class="field-help">No recalcula scores ya cargados. Desmarcalo para refrescar todo.</small>
       </label>
     </div>
     <div class="operation-actions">
@@ -196,6 +235,7 @@
         <i data-lucide="shield"></i> Score seguridad
       </button>
     </div>
+    <p class="button-help">Los botones individuales ejecutan solo ese step con los mismos filtros de fuente, IDs y límite.</p>
   </section>
 
   <section class="scraping-panel operation-panel" data-tab-panel="repairs">
@@ -208,6 +248,16 @@
         <i data-lucide="stethoscope"></i> Auditar calidad
       </button>
     </div>
+    <details class="operation-guide" open>
+      <summary>Qué hace este flujo</summary>
+      <p>Busca datos sucios o inconsistentes sin aplicar cambios. Si el dry-run termina bien, el historial habilita <strong>Aplicar dry-run</strong> para ejecutar exactamente la misma parametría.</p>
+      <div class="operation-guide-grid">
+        <span class="risk-note risk-low">Direcciones/barrios/localidades limpian texto contaminado.</span>
+        <span class="risk-note risk-medium">Métricas reparsea fichas activas y puede cambiar precio/superficies.</span>
+        <span class="risk-note risk-high">Separar fusiones puede mover listings entre propiedades.</span>
+      </div>
+      <p class="button-help"><strong>Auditar calidad</strong> corre varias simulaciones juntas. <strong>Simular reparación</strong> corre solo la reparación elegida.</p>
+    </details>
     <div class="run-options">
       <label>
         Reparacion
@@ -219,38 +269,47 @@
           <option value="repair_metrics">Metricas / reparseo</option>
           <option value="repair_merged_listings">Separar fusiones</option>
         </select>
+        <small class="field-help" id="repair-kind-help">Direcciones limpia domicilios y metadata pegada; elegí otra opción para ver su alcance.</small>
       </label>
       <label>
         Fuente(s)
         <input id="repair-sources" type="text" placeholder="argenprop,mapaprop">
+        <small class="field-help">Slugs separados por comas. Requerido para métricas; opcional en otras reparaciones.</small>
       </label>
       <label>
         Property IDs
         <input id="repair-property-ids" type="text" placeholder="123,456">
+        <small class="field-help">Acota a propiedades puntuales. Para localidades, usá un solo ID.</small>
       </label>
       <label>
         Max. fichas
         <input id="repair-max-listings" type="number" min="1" placeholder="Sin limite">
+        <small class="field-help">Límite para reparseo de métricas por fuente.</small>
       </label>
       <label>
         Max. propiedades
         <input id="repair-max-properties" type="number" min="1" placeholder="Sin limite">
+        <small class="field-help">Límite para separar fusiones sospechosas.</small>
       </label>
       <label>
         Timeout
         <input id="repair-timeout" type="number" min="1" value="20">
+        <small class="field-help">Segundos por ficha cuando una reparación necesita reparsear sitios.</small>
       </label>
       <label class="checkbox-field">
         <input id="repair-classify-only" type="checkbox">
-        Solo clasificar
+        <span>Solo clasificar</span>
+        <small class="field-help">En métricas, evita reparsear campos y solo marca alquileres/listados si corresponde.</small>
       </label>
       <label class="checkbox-field">
         <input id="repair-mark-non-sale" type="checkbox">
-        Marcar no venta
+        <span>Marcar no venta</span>
+        <small class="field-help">Oculta o reclasifica alquileres u operaciones que no sean venta.</small>
       </label>
       <label class="checkbox-field">
         <input id="repair-mark-listing-pages" type="checkbox">
-        Marcar paginas listado
+        <span>Marcar paginas listado</span>
+        <small class="field-help">Detecta URLs que son listados/categorías y no fichas reales.</small>
       </label>
     </div>
     <div class="operation-actions">
@@ -270,18 +329,30 @@
         <i data-lucide="scan-search"></i> Simular merge
       </button>
     </div>
+    <details class="operation-guide" open>
+      <summary>Qué hace este flujo</summary>
+      <p>Planifica fusiones de propiedades duplicadas. Siempre empieza en dry-run; al aplicar conserva favoritos, ocultas, revisadas, notas, manual overrides, ubicación manual y links originales.</p>
+      <div class="operation-guide-grid">
+        <span class="risk-note risk-medium">Pares une dos propiedades: <strong>1088:3830</strong>.</span>
+        <span class="risk-note risk-medium">Componentes une un grupo completo: <strong>272,672,2639</strong>.</span>
+        <span class="risk-note risk-high">Detectar URL tail puede encontrar muchos duplicados entre fuentes sindicadas.</span>
+      </div>
+    </details>
     <div class="run-options">
       <label>
         Pares
         <input id="merge-pairs" type="text" placeholder="1088:3830,272:672">
+        <small class="field-help">Formato par origen:destino. Separá varios pares con comas.</small>
       </label>
       <label>
         Componentes
         <input id="merge-components" type="text" placeholder="272,672,2639">
+        <small class="field-help">Grupo completo de IDs que representan la misma propiedad.</small>
       </label>
       <label>
         Detectar URL tail
         <input id="merge-url-tail-sources" type="text" placeholder="patagonprop,mapaprop">
+        <small class="field-help">Compara el último segmento de URL entre fuentes, útil para sindicaciones espejo.</small>
       </label>
     </div>
   </section>
@@ -293,6 +364,15 @@
         <p>Operaciones y scrapes se guardan con parametros, progreso, logs y errores.</p>
       </div>
     </div>
+    <details class="operation-guide" open>
+      <summary>Cómo leer el historial</summary>
+      <p>Los contadores muestran propiedades procesadas, cambios previstos o aplicados y errores. En simulaciones terminadas, <strong>Aplicar dry-run</strong> repite la misma parametría en modo aplicar.</p>
+      <div class="operation-guide-grid">
+        <span class="risk-note risk-low"><strong>Repetir</strong> crea otro job con los mismos parámetros.</span>
+        <span class="risk-note risk-medium"><strong>Cancelar</strong> pide detener el job; tareas en curso pueden terminar.</span>
+        <span class="risk-note risk-medium"><strong>Scrape legacy</strong> son jobs del runner anterior, conservados para trazabilidad.</span>
+      </div>
+    </details>
     <div id="jobs-list" class="jobs-list"></div>
   </section>
 </main>

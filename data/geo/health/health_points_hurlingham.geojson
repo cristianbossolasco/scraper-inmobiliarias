@@ -2,650 +2,678 @@
   "type": "FeatureCollection",
   "name": "health_points_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
-    "source_name": "OpenStreetMap Overpass API",
-    "source_url": "https://overpass-api.de/api/interpreter",
-    "license": "Open Database License (ODbL)",
-    "raw_output": "data/raw/osm/overpass_hurlingham_base.json",
-    "query_bbox": [
-      -34.66,
-      -58.72,
-      -34.54,
-      -58.58
-    ],
-    "data_confidence": "medium",
-    "notes": "Features are extracted by bbox then clipped/intersected against local Hurlingham zones."
+    "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+    "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+    "raw_path": "data\\raw\\health\\establecimientos-salud-publicos-2025.zip",
+    "license": "Creative Commons Attribution 4.0",
+    "temporal_coverage": "2025",
+    "data_confidence": "high",
+    "filter_method": "municipality property and geometric intersection with Hurlingham zones"
   },
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_node_3426898079",
-        "osm_type": "node",
-        "osm_id": 3426898079,
-        "name": "Navarro",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Villa Club",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6394123,
-          -34.5800804
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_4108838910",
-        "osm_type": "node",
-        "osm_id": 4108838910,
-        "name": "Hospital Municipal San Bernardino De Siena",
-        "amenity": "hospital",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
+        "id": 1220,
+        "lat": -34.588279,
+        "long": -58.640327,
+        "cat": "ESTABLECIMIENTO POLIVALENTE CON INTERNACION Y PRESTACIÓN QUIRURGICA",
+        "nor": "HOSPITAL MUNICIPAL SAN BERNARDINO DE SIENA",
+        "cpd": 40800076,
+        "cnr": 1,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "GERMAN ARGERICH   1650",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44521694 Int:",
+        "tes": "secsaludhurlingham@gmail.com",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL CON INTERNACION",
+        "field_21": "GENERAL",
         "assigned_zone_name": "Parque Jhonston",
-        "source_geometry_type": "Point"
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -58.6410048,
-          -34.5889949
+          -58.640327,
+          -34.5882789
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_node_4597050290",
-        "osm_type": "node",
-        "osm_id": 4597050290,
-        "name": "Nueva Casella",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6263219,
-          -34.590769
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_4597053290",
-        "osm_type": "node",
-        "osm_id": 4597053290,
-        "name": "Fernández",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6283479,
-          -34.5949154
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_4636119991",
-        "osm_type": "node",
-        "osm_id": 4636119991,
-        "name": "Clinica Sagrado Corazón de Jesús",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Villa Club",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6375516,
-          -34.586896
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_5987380085",
-        "osm_type": "node",
-        "osm_id": 5987380085,
-        "name": "Nueva Villegas",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Roca 1",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6533113,
-          -34.576654
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_6258873463",
-        "osm_type": "node",
-        "osm_id": 6258873463,
-        "name": "Farmacia Neri",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Curapaytí",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6418287,
-          -34.5882829
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7399819676",
-        "osm_type": "node",
-        "osm_id": 7399819676,
-        "name": "Unidad Sanitaria 2 De Junio De Hurlingham",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "El Porvenir",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6409992,
-          -34.6236188
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504768564",
-        "osm_type": "node",
-        "osm_id": 7504768564,
-        "name": "Unidad Sanitaria 2 De Abril De Hurlingham",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Dos de Abril",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6613971,
-          -34.6201848
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504776441",
-        "osm_type": "node",
-        "osm_id": 7504776441,
-        "name": "Unidad Sanitaria Barrio Libertador",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "El Libertador",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.646653,
-          -34.6287111
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504793159",
-        "osm_type": "node",
-        "osm_id": 7504793159,
-        "name": "Unidad Sanitaria Eva Peron De Hurlingham",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Scholnik",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6243343,
-          -34.6124499
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504795879",
-        "osm_type": "node",
-        "osm_id": 7504795879,
-        "name": "Hospital Odontologico - (Hurlingham)",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Villa Tesei Centro",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6323217,
-          -34.6142818
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504812038",
-        "osm_type": "node",
-        "osm_id": 7504812038,
-        "name": "Centro De Salud Doctor Ramon Carrillo",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "La Juanita",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6204452,
-          -34.619428
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504817303",
-        "osm_type": "node",
-        "osm_id": 7504817303,
-        "name": "Centro De Salud 21 De Agosto",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Los Patitos",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6606923,
-          -34.5996793
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7504819934",
-        "osm_type": "node",
-        "osm_id": 7504819934,
-        "name": "Unidad Sanitaria San J. Obrero",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Roca 1",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6560306,
-          -34.5746925
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7524641347",
-        "osm_type": "node",
-        "osm_id": 7524641347,
-        "name": "Policlinica Doctor Argerich",
-        "amenity": "hospital",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Parque Jhonston",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6398657,
-          -34.5900609
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7524738599",
-        "osm_type": "node",
-        "osm_id": 7524738599,
-        "name": "Unidad Sanitaria Bartolome Mitre De Hurlingham",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Mitre",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6491595,
-          -34.6121367
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_7524804416",
-        "osm_type": "node",
-        "osm_id": 7524804416,
-        "name": "Unidad Sanitaria Barrio Angel",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
+        "id": 1221,
+        "lat": -34.578381,
+        "long": -58.658697,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA BARRIO ANGEL",
+        "cpd": 40800572,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "POTOSI Y LEVALLE - BARRIO SAN DAMIAN   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 46657021 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
         "assigned_zone_name": "Belgrano",
-        "source_geometry_type": "Point"
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -58.6589415,
-          -34.5783683
+          -58.6586966,
+          -34.5783813
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_node_13054587401",
-        "osm_type": "node",
-        "osm_id": 13054587401,
-        "name": "ARIAL",
-        "amenity": "pharmacy",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6359294,
-          -34.5956624
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_node_13417008726",
-        "osm_type": "node",
-        "osm_id": 13417008726,
-        "name": "Hospital de Ojos Municipal",
-        "amenity": "clinic",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
-        "assigned_zone_name": "Villa Tesei Centro",
-        "source_geometry_type": "Point"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -58.6322111,
-          -34.6142287
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "osm_way_242972677",
-        "osm_type": "way",
-        "osm_id": 242972677,
-        "name": "Centro de Rehabilitacion San Juan De Dios",
-        "amenity": "hospital",
-        "shop": null,
-        "leisure": null,
-        "landuse": null,
-        "highway": null,
-        "railway": null,
-        "waterway": null,
-        "public_transport": null,
-        "source_name": "OpenStreetMap Overpass API",
-        "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "data_confidence": "medium",
+        "id": 1222,
+        "lat": -34.583837,
+        "long": -58.668513,
+        "cat": "C.A.P.S.",
+        "nor": "CENTRO DE SALUD SAN DAMIAN Y MORRIS",
+        "cpd": 40800661,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "OFELIA OJEDA   2381",
+        "nrs": "WILLIAM MORRIS",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": null,
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
         "assigned_zone_name": "San Damián",
-        "source_geometry_type": "Point"
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -58.6676093,
-          -34.5895226
+          -58.668513,
+          -34.583837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1223,
+        "lat": -34.628384,
+        "long": -58.646708,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA BARRIO LIBERTADOR",
+        "cpd": 40800670,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "CARABELAS 4900   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44508965 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "El Libertador",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6467081,
+          -34.6283837
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1224,
+        "lat": -34.619484,
+        "long": -58.620344,
+        "cat": "C.A.P.S.",
+        "nor": "CENTRO DE SALUD DR. RAMON CARRILLO",
+        "cpd": 40800831,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "MANUELA PEDRAZA 750   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44599022 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "La Juanita",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6203438,
+          -34.6194836
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1225,
+        "lat": -34.613043,
+        "long": -58.65028,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA BARTOLOME MITRE DE HURLINGHAM",
+        "cpd": 40800866,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "PALERMO 555 ENTRE CUZCO Y AMBERES - BARRIO BARTOLOME MITRE   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44597767 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Mitre",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6502798,
+          -34.6130432
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1226,
+        "lat": -34.574674,
+        "long": -58.655817,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA SAN J. OBRERO",
+        "cpd": 40801021,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "QUEQUEN Y LEVALLE   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "44525993 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Roca 1",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6558174,
+          -34.5746737
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1227,
+        "lat": -34.623707,
+        "long": -58.641242,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA 2 DE JUNIO DE HURLINGHAM",
+        "cpd": 40801153,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "PLASS Y NIGHTINGALE   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44593384 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "El Porvenir",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6412421,
+          -34.6237072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1228,
+        "lat": -34.620171,
+        "long": -58.661244,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA 2 DE ABRIL DE HURLINGHAM",
+        "cpd": 40801234,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "LA TRILLA Y CIUDADELA - BARRIO 2 DE ABRIL   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44506605 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Dos de Abril",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6612444,
+          -34.6201706
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1229,
+        "lat": -34.612662,
+        "long": -58.624404,
+        "cat": "C.A.P.S.",
+        "nor": "UNIDAD SANITARIA EVA PERON DE HURLINGHAM",
+        "cpd": 40801404,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "J. JUFRE 2263   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44508965 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Scholnik",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6244042,
+          -34.6126619
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1230,
+        "lat": -34.59982,
+        "long": -58.660729,
+        "cat": "C.A.P.S.",
+        "nor": "CENTRO DE SALUD 21 DE AGOSTO",
+        "cpd": 40801447,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "GRANADA 2349 - BARRIO EL DESTINO   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": "11 44526074 Int:",
+        "tes": "ssalud@munhurli.gov.ar",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Los Patitos",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6607295,
+          -34.5998204
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1231,
+        "lat": -34.604107,
+        "long": -58.635266,
+        "cat": "CENTRO DE ESTIMULACION TEMPRANA",
+        "nor": "CENTRO DE ESTIMULACION E INTERVENCION TEMPRANA",
+        "cpd": 40801455,
+        "cnr": 5,
+        "cde": 2.0641e+17,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "VERGARA  3181   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": null,
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "DISCAPACIDAD",
+        "assigned_zone_name": "Parque Quirno",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6352658,
+          -34.6041069
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1232,
+        "lat": -34.614154,
+        "long": -58.631963,
+        "cat": "ESTABLECIMIENTO MONOVALENTE CON CIRUGIA AMBULATORIA ESPECIFICA ESPECIALIZADO EN OFTALMOLOGIA",
+        "nor": "HOSPITAL MUNICIPAL DE OFTALMOLOGIA",
+        "cpd": 40801472,
+        "cnr": 1,
+        "cde": 4.0641e+17,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "CONCEPCIÓN ARENAL 2951   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": null,
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6319633,
+          -34.6141539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1233,
+        "lat": -34.612146,
+        "long": -58.629582,
+        "cat": "ESTABLECIMIENTO MONOVALENTE CON CIRUGIA AMBULATORIA ESPECIFICA",
+        "nor": "HOSPITAL ODONTOLOGICO MUNICIPAL - (HURLINGHAM)",
+        "cpd": 40801531,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "CONCEPCIÓN ARENAL 2963   0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": null,
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Villa Tesei Centro",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6295823,
+          -34.6121455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1234,
+        "lat": -34.620747,
+        "long": -58.655813,
+        "cat": "C.A.P.S.",
+        "nor": "UPA 9",
+        "cpd": 40801565,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "ARISTIZABAL - BARRIO MITRE VERAGUA  0",
+        "nrs": "VILLA TESSEI",
+        "cp1": "VII",
+        "tel": "1688",
+        "mai": "11 75448181 Int:",
+        "tes": "direccionupa9@gmail.com",
+        "Com": "Provincial",
+        "Dep": null,
+        "mod": "Ministerio de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Federal",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6558132,
+          -34.6207474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1235,
+        "lat": -34.585622,
+        "long": -58.671764,
+        "cat": "C.A.P.S.",
+        "nor": "CENTRO DE SALUD PEDRO DIAZ",
+        "cpd": 40801596,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "PEDRO DIAZ NRO 3600 ESQUINA OLASCOAGA   0",
+        "nrs": "WILLIAM MORRIS",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": "capspedrodiaz@gmail.com",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "San Damián",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6717642,
+          -34.585622
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1236,
+        "lat": -34.570866,
+        "long": -58.641669,
+        "cat": "C.A.P.S.",
+        "nor": "CENTRO DE SALUD VILLA CLUB",
+        "cpd": 40801597,
+        "cnr": 5,
+        "cde": 6410000000000000.0,
+        "nde": "408",
+        "dom": "HURLINGHAM",
+        "nba": "PASO MORALES  los patos 0",
+        "nrs": "HURLINGHAM",
+        "cp1": "VII",
+        "tel": "1686",
+        "mai": null,
+        "tes": "centrodesaludvillaclub@gmail.com",
+        "Com": "Municipal",
+        "Dep": null,
+        "mod": "Secretaria de Salud",
+        "Esp": "ASISTENCIAL SIN INTERNACION",
+        "field_21": "GENERAL",
+        "assigned_zone_name": "Villa Club",
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "license": "Creative Commons Attribution 4.0",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6416687,
+          -34.5708664
         ]
       }
     }

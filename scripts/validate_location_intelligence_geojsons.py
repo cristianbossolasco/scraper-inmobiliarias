@@ -27,8 +27,13 @@ EXPECTED_GEOJSONS = [
     "data/geo/parcels/blocks_hurlingham.geojson",
     "data/geo/parcels/cadastral_zones_hurlingham.geojson",
     "data/geo/parcels/parcel_side_measure_points_hurlingham.geojson",
+    "data/geo/census/census_tracts_2022_hurlingham.geojson",
+    "data/geo/census/census_zones_hurlingham.geojson",
+    "data/geo/renabap/renabap_hurlingham.geojson",
+    "data/geo/renabap/renabap_zones_hurlingham.geojson",
     "data/geo/transport/transport_stops_hurlingham.geojson",
     "data/geo/transport/transport_routes_hurlingham.geojson",
+    "data/geo/transport/sube_points_hurlingham.geojson",
     "data/geo/transport/transport_zones_hurlingham.geojson",
     "data/geo/amenities/amenities_osm_hurlingham.geojson",
     "data/geo/amenities/green_spaces_hurlingham.geojson",
@@ -37,10 +42,12 @@ EXPECTED_GEOJSONS = [
     "data/geo/education/education_zones_hurlingham.geojson",
     "data/geo/health/health_points_hurlingham.geojson",
     "data/geo/health/health_zones_hurlingham.geojson",
+    "data/geo/flood/flood_risk_hurlingham.geojson",
     "data/geo/flood/waterways_hurlingham.geojson",
     "data/geo/flood/flood_zones_hurlingham.geojson",
     "data/geo/externalities/externalities_hurlingham.geojson",
     "data/geo/externalities/externalities_zones_hurlingham.geojson",
+    "data/geo/utilities/utilities_zones_hurlingham.geojson",
 ]
 
 

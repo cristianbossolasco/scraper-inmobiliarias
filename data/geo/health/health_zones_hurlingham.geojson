@@ -2,12 +2,14 @@
   "type": "FeatureCollection",
   "name": "health_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
-    "source_name": "OpenStreetMap Overpass API",
+    "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+    "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+    "license": "Creative Commons Attribution 4.0",
     "metric_crs_used_for_calculation": "EPSG:32721",
-    "data_confidence": "medium"
+    "data_confidence": "high"
   },
   "features": [
     {
@@ -15,11 +17,16 @@
       "properties": {
         "zone_name": "Asunción",
         "area_km2": 0.3938,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 44.64,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 767.77
+        "hospitals_count": 0,
+        "nearest_health_center_m": 763.53,
+        "nearest_hospital_m": 1411.9,
+        "health_access_score": 51.49,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -274,11 +281,16 @@
       "properties": {
         "zone_name": "Atepam Italia",
         "area_km2": 0.1536,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 39.49,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 1025.52
+        "hospitals_count": 0,
+        "nearest_health_center_m": 1040.65,
+        "nearest_hospital_m": 1536.17,
+        "health_access_score": 46.71,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -509,11 +521,16 @@
       "properties": {
         "zone_name": "Belgrano",
         "area_km2": 0.297,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 97.13,
         "health_points_count": 1,
         "health_points_per_km2": 3.3669,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1727.7,
+        "health_access_score": 77.29,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -664,11 +681,16 @@
       "properties": {
         "zone_name": "Carola Lorenzini",
         "area_km2": 0.3936,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 51.92,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 404.17
+        "hospitals_count": 0,
+        "nearest_health_center_m": 2.76,
+        "nearest_hospital_m": 2100.38,
+        "health_access_score": 59.46,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -791,11 +813,16 @@
       "properties": {
         "zone_name": "Cartero",
         "area_km2": 0.0794,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 46.54,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 672.98
+        "hospitals_count": 0,
+        "nearest_health_center_m": 771.97,
+        "nearest_hospital_m": 771.97,
+        "health_access_score": 54.56,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -930,11 +957,16 @@
       "properties": {
         "zone_name": "Cosmopolita",
         "area_km2": 0.3223,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 58.63,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 68.44
+        "hospitals_count": 0,
+        "nearest_health_center_m": 123.62,
+        "nearest_hospital_m": 123.62,
+        "health_access_score": 67.53,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1097,11 +1129,16 @@
       "properties": {
         "zone_name": "Curapaytí",
         "area_km2": 0.7093,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 75.55,
-        "health_points_count": 1,
-        "health_points_per_km2": 1.4098,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 0,
+        "health_points_per_km2": 0.0,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 64.47,
+        "nearest_hospital_m": 64.47,
+        "health_access_score": 68.71,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1364,11 +1401,16 @@
       "properties": {
         "zone_name": "Dos de Abril",
         "area_km2": 0.4137,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 86.66,
         "health_points_count": 1,
         "health_points_per_km2": 2.4174,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 2310.67,
+        "health_access_score": 69.88,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1495,11 +1537,16 @@
       "properties": {
         "zone_name": "El Destino",
         "area_km2": 0.5872,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 59.04,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 47.76
+        "hospitals_count": 0,
+        "nearest_health_center_m": 191.31,
+        "nearest_hospital_m": 1909.2,
+        "health_access_score": 57.58,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1658,11 +1705,16 @@
       "properties": {
         "zone_name": "El Libertador",
         "area_km2": 0.6741,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 76.36,
         "health_points_count": 1,
         "health_points_per_km2": 1.4835,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1699.29,
+        "health_access_score": 68.52,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -1949,11 +2001,16 @@
       "properties": {
         "zone_name": "El Palanco",
         "area_km2": 0.6597,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 56.37,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 181.73
+        "hospitals_count": 0,
+        "nearest_health_center_m": 175.52,
+        "nearest_hospital_m": 761.88,
+        "health_access_score": 63.56,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2172,11 +2229,16 @@
       "properties": {
         "zone_name": "El Porvenir",
         "area_km2": 0.5371,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 80.54,
         "health_points_count": 1,
         "health_points_per_km2": 1.862,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1133.01,
+        "health_access_score": 73.14,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2431,11 +2493,16 @@
       "properties": {
         "zone_name": "El Progreso",
         "area_km2": 0.1572,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 59.74,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 12.94
+        "hospitals_count": 0,
+        "nearest_health_center_m": 1.1,
+        "nearest_hospital_m": 1156.77,
+        "health_access_score": 64.2,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2550,11 +2617,16 @@
       "properties": {
         "zone_name": "Federal",
         "area_km2": 0.1577,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 49.79,
-        "health_points_count": 0,
-        "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 510.45
+        "health_points_count": 1,
+        "health_points_per_km2": 6.3426,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1756.55,
+        "health_access_score": 91.22,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -2657,11 +2729,16 @@
       "properties": {
         "zone_name": "Hurlingham Centro",
         "area_km2": 1.2585,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 86.29,
-        "health_points_count": 3,
-        "health_points_per_km2": 2.3838,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 0,
+        "health_points_per_km2": 0.0,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 216.9,
+        "nearest_hospital_m": 216.9,
+        "health_access_score": 65.66,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3092,11 +3169,16 @@
       "properties": {
         "zone_name": "Jorge Newbery",
         "area_km2": 0.4669,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 59.75,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 12.62
+        "hospitals_count": 0,
+        "nearest_health_center_m": 928.59,
+        "nearest_hospital_m": 928.59,
+        "health_access_score": 51.43,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3339,11 +3421,16 @@
       "properties": {
         "zone_name": "Juan B. de Lasalle",
         "area_km2": 0.3488,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 56.49,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 175.42
+        "hospitals_count": 0,
+        "nearest_health_center_m": 374.21,
+        "nearest_hospital_m": 1014.79,
+        "health_access_score": 59.31,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3590,11 +3677,16 @@
       "properties": {
         "zone_name": "La Juanita",
         "area_km2": 0.4522,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 84.39,
         "health_points_count": 1,
         "health_points_per_km2": 2.2115,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 420.1,
+        "health_access_score": 78.36,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3757,11 +3849,16 @@
       "properties": {
         "zone_name": "La Leonor",
         "area_km2": 0.6904,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 58.72,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 64.18
+        "hospitals_count": 0,
+        "nearest_health_center_m": 541.44,
+        "nearest_hospital_m": 1266.84,
+        "health_access_score": 55.54,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -3956,11 +4053,16 @@
       "properties": {
         "zone_name": "Los Patitos",
         "area_km2": 0.2937,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 97.55,
         "health_points_count": 1,
         "health_points_per_km2": 3.4045,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1811.88,
+        "health_access_score": 77.04,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4107,11 +4209,16 @@
       "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 50.47,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 476.7
+        "hospitals_count": 0,
+        "nearest_health_center_m": 620.01,
+        "nearest_hospital_m": 1344.49,
+        "health_access_score": 53.98,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4206,11 +4313,16 @@
       "properties": {
         "zone_name": "Luna",
         "area_km2": 0.7198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 46.87,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 656.54
+        "hospitals_count": 0,
+        "nearest_health_center_m": 324.63,
+        "nearest_hospital_m": 1152.82,
+        "health_access_score": 59.37,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4441,11 +4553,16 @@
       "properties": {
         "zone_name": "Militar",
         "area_km2": 0.1772,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 44.13,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 793.28
+        "hospitals_count": 0,
+        "nearest_health_center_m": 814.26,
+        "nearest_hospital_m": 1148.82,
+        "health_access_score": 52.04,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4616,11 +4733,16 @@
       "properties": {
         "zone_name": "Mitre",
         "area_km2": 1.5379,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 67.17,
         "health_points_count": 1,
         "health_points_per_km2": 0.6502,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 469.4,
+        "health_access_score": 70.73,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -4927,11 +5049,16 @@
       "properties": {
         "zone_name": "Nueve de Julio",
         "area_km2": 0.4924,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 55.84,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 208.08
+        "hospitals_count": 0,
+        "nearest_health_center_m": 849.73,
+        "nearest_hospital_m": 1133.52,
+        "health_access_score": 51.59,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5118,11 +5245,16 @@
       "properties": {
         "zone_name": "Nuevo Parque Quirno",
         "area_km2": 0.1848,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 58.78,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 60.77
+        "hospitals_count": 0,
+        "nearest_health_center_m": 85.1,
+        "nearest_hospital_m": 301.74,
+        "health_access_score": 67.21,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5357,11 +5489,16 @@
       "properties": {
         "zone_name": "Parque Jhonston",
         "area_km2": 1.3584,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 76.24,
-        "health_points_count": 2,
-        "health_points_per_km2": 1.4723,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 1,
+        "health_points_per_km2": 0.7361,
+        "hospitals_count": 1,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 0.0,
+        "health_access_score": 73.48,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -5684,11 +5821,16 @@
       "properties": {
         "zone_name": "Parque Quirno",
         "area_km2": 1.1008,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 55.69,
-        "health_points_count": 0,
-        "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 215.5
+        "health_points_count": 1,
+        "health_points_per_km2": 0.9084,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 218.7,
+        "health_access_score": 73.2,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6059,11 +6201,16 @@
       "properties": {
         "zone_name": "Prensa",
         "area_km2": 0.2243,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 45.75,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 712.56
+        "hospitals_count": 0,
+        "nearest_health_center_m": 732.05,
+        "nearest_hospital_m": 1138.12,
+        "health_access_score": 53.33,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6266,11 +6413,16 @@
       "properties": {
         "zone_name": "Primero de Mayo",
         "area_km2": 0.3157,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 51.07,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 446.7
+        "hospitals_count": 0,
+        "nearest_health_center_m": 442.62,
+        "nearest_hospital_m": 929.34,
+        "health_access_score": 58.71,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6433,11 +6585,16 @@
       "properties": {
         "zone_name": "Rimoldi",
         "area_km2": 0.1004,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 55.11,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 244.51
+        "hospitals_count": 0,
+        "nearest_health_center_m": 355.98,
+        "nearest_hospital_m": 1556.45,
+        "health_access_score": 56.88,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6540,11 +6697,16 @@
       "properties": {
         "zone_name": "Roca 1",
         "area_km2": 0.5515,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 100.0,
-        "health_points_count": 2,
-        "health_points_per_km2": 3.6267,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 1,
+        "health_points_per_km2": 1.8133,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1702.69,
+        "health_access_score": 70.06,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -6787,11 +6949,16 @@
       "properties": {
         "zone_name": "Roca 2",
         "area_km2": 0.8198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 59.93,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 3.26
+        "hospitals_count": 0,
+        "nearest_health_center_m": 302.73,
+        "nearest_hospital_m": 736.08,
+        "health_access_score": 61.78,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7018,11 +7185,16 @@
       "properties": {
         "zone_name": "San Alberto",
         "area_km2": 0.1906,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 54.51,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 274.65
+        "hospitals_count": 0,
+        "nearest_health_center_m": 266.29,
+        "nearest_hospital_m": 1802.8,
+        "health_access_score": 56.99,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7137,11 +7309,16 @@
       "properties": {
         "zone_name": "San Damián",
         "area_km2": 0.9102,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 72.12,
-        "health_points_count": 1,
-        "health_points_per_km2": 1.0987,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 2,
+        "health_points_per_km2": 2.1973,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 1770.35,
+        "health_access_score": 71.54,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7388,11 +7565,16 @@
       "properties": {
         "zone_name": "Santa Clara",
         "area_km2": 0.4501,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 54.04,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 297.97
+        "hospitals_count": 0,
+        "nearest_health_center_m": 278.22,
+        "nearest_hospital_m": 735.71,
+        "health_access_score": 62.15,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7531,11 +7713,16 @@
       "properties": {
         "zone_name": "Santa Leonor",
         "area_km2": 0.4076,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 51.84,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 407.98
+        "hospitals_count": 0,
+        "nearest_health_center_m": 421.48,
+        "nearest_hospital_m": 1290.62,
+        "health_access_score": 57.22,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7718,11 +7905,16 @@
       "properties": {
         "zone_name": "Scholnik",
         "area_km2": 0.5449,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 80.24,
         "health_points_count": 1,
         "health_points_per_km2": 1.8351,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 205.14,
+        "health_access_score": 77.65,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -7905,11 +8097,16 @@
       "properties": {
         "zone_name": "Villa Alemania",
         "area_km2": 0.5048,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 55.26,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 237.11
+        "hospitals_count": 0,
+        "nearest_health_center_m": 1401.43,
+        "nearest_hospital_m": 1465.93,
+        "health_access_score": 41.65,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8076,11 +8273,16 @@
       "properties": {
         "zone_name": "Villa Club",
         "area_km2": 2.6183,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 68.42,
-        "health_points_count": 2,
-        "health_points_per_km2": 0.7638,
-        "nearest_health_center_m": 0.0
+        "health_points_count": 1,
+        "health_points_per_km2": 0.3819,
+        "hospitals_count": 0,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 226.59,
+        "health_access_score": 70.67,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8419,11 +8621,16 @@
       "properties": {
         "zone_name": "Villa Tesei Centro",
         "area_km2": 1.856,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 71.89,
         "health_points_count": 2,
         "health_points_per_km2": 1.0776,
-        "nearest_health_center_m": 0.0
+        "hospitals_count": 2,
+        "nearest_health_center_m": 0.0,
+        "nearest_hospital_m": 0.0,
+        "health_access_score": 75.1,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
@@ -8822,11 +9029,16 @@
       "properties": {
         "zone_name": "Virgen Esperanza",
         "area_km2": 0.2668,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "health_access_score": 42.27,
         "health_points_count": 0,
         "health_points_per_km2": 0.0,
-        "nearest_health_center_m": 886.32
+        "hospitals_count": 0,
+        "nearest_health_center_m": 932.84,
+        "nearest_hospital_m": 996.48,
+        "health_access_score": 51.02,
+        "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",

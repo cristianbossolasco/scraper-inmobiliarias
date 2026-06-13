@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-13T01:44:39.293100+00:00",
+  "primary_url_failed": "https://datosabiertos.desarrollosocial.gob.ar/dataset/0d022767-9390-486a-bff4-ba53b85d730e/resource/97cc7d10-ad4c-46cb-9ee4-becb402adf9f/download/2022-07-13_info_publica_barrios_populares.geojson",
+  "fallback_url_used": "https://raw.githubusercontent.com/OpenDataCordoba/barrios/main/Barrios%20Populares%20de%20Argentina.geojson",
+  "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+  "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares"
+}
