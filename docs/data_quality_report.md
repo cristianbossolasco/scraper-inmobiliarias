@@ -1,12 +1,12 @@
 # Location Intelligence Data Quality Report
 
-Generated at: 2026-06-13T02:08:49.410541+00:00
+Generated at: 2026-06-13T02:20:14.286001+00:00
 
 ## Summary
 
 - Files checked: 31
 - Files with errors: 0
-- Files with warnings: 1
+- Files with warnings: 0
 
 ## Layers
 
@@ -122,13 +122,12 @@ Generated at: 2026-06-13T02:08:49.410541+00:00
 - Geometry types: LineString:21
 - Bounds: [-58.777392, -34.653754, -58.356929, -34.454069]
 
-### WARN `data\geo\transport\sube_points_hurlingham.geojson`
+### OK `data\geo\transport\sube_points_hurlingham.geojson`
 
-- Features: 0
+- Features: 166
 - CRS: EPSG:4326
-- Geometry types: none
-- Bounds: None
-- Warnings: empty_feature_collection
+- Geometry types: Point:166
+- Bounds: [-58.66892, -38.02246, -57.61479, -34.57264]
 
 ### OK `data\geo\transport\transport_zones_hurlingham.geojson`
 

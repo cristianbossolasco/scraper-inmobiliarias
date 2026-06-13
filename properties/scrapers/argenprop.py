@@ -7,6 +7,7 @@ from properties.services.normalization import (
     normalize_currency,
     parse_decimal,
     parse_int,
+    repair_mojibake_text,
 )
 
 from .base import BaseScraper, SourceDefinition
@@ -58,7 +59,7 @@ class ArgenpropScraper(BaseScraper):
 
     def parse(self, url):
         soup = self.soup(url)
-        text = soup.get_text(" ", strip=True)
+        text = repair_mojibake_text(soup.get_text(" ", strip=True))
         data = basic_html_data(soup, url)
         payload = first_json_ld(soup, {"House", "Apartment", "SingleFamilyResidence", "Product"})
         if payload:
@@ -101,9 +102,9 @@ class ArgenpropScraper(BaseScraper):
                 text_value(text, [r"(\d+)\s*dormitorios?", r"(\d+)\s*habitaciones?"], parse_int),
             ),
             "bathrooms": first_present(
-                value_before_label(text, [r"Ba(?:ñ|n|Ã±)os?"], parse_decimal, unit_pattern=""),
-                value_after_label(text, [r"Ba(?:ñ|n|Ã±)os?"], parse_decimal, unit_pattern=""),
-                text_value(text, [r"(\d+(?:[.,]\d+)?)\s*ba(?:ñ|n|Ã±)os?"], parse_decimal),
+                value_before_label(text, [r"Ba(?:ñ|n)os?"], parse_decimal, unit_pattern=""),
+                value_after_label(text, [r"Ba(?:ñ|n)os?"], parse_decimal, unit_pattern=""),
+                text_value(text, [r"(\d+(?:[.,]\d+)?)\s*ba(?:ñ|n)os?"], parse_decimal),
             ),
             "garages": first_present(
                 value_before_label(text, [r"Cocheras?", r"Garages?"], parse_int, unit_pattern=""),
@@ -128,15 +129,15 @@ class ArgenpropScraper(BaseScraper):
             evidence_set(data, field, value, "argenprop_metrics")
 
         agency = None
-        for candidate in re.findall(r"Contact(?:a|á|Ã¡)\s+al\s+anunciante\s+(.+?)\s+Ver\s+tel", text, re.I):
+        for candidate in re.findall(r"Contact(?:a|á)\s+al\s+anunciante\s+(.+?)\s+Ver\s+tel", text, re.I):
             if "ubicaci" not in candidate.lower() and len(candidate) < 90:
                 agency = candidate.strip()
                 break
         agency = agency or text_value(
             text,
             [
-                r"Publicado por\s+(.+?)(?:\s+C[oóÃ³]digo|\s+Ver tel[eéÃ©]fono|\s+Contactar)",
-                r"Anunciante\s+(.+?)(?:\s+Ubicaci[oóÃ³]n|\s+C[oóÃ³]digo)",
+                r"Publicado por\s+(.+?)(?:\s+C[oó]digo|\s+Ver tel[eé]fono|\s+Contactar)",
+                r"Anunciante\s+(.+?)(?:\s+Ubicaci[oó]n|\s+C[oó]digo)",
             ],
         )
         if agency and "ubicaci" in agency.lower():

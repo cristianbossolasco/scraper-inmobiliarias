@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "flood_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:01:46.729138+00:00",
+    "generated_at": "2026-06-13T02:11:01.209890+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
@@ -26,7 +26,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -291,7 +291,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -532,7 +532,7 @@
         "flood_risk_max_score": 50,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -693,7 +693,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -826,7 +826,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -971,7 +971,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1144,7 +1144,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1417,7 +1417,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1554,7 +1554,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1723,7 +1723,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2020,7 +2020,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2249,7 +2249,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2514,7 +2514,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2639,7 +2639,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2752,7 +2752,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3193,7 +3193,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3446,7 +3446,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3703,7 +3703,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3876,7 +3876,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4081,7 +4081,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4238,7 +4238,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4343,7 +4343,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4584,7 +4584,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4765,7 +4765,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5082,7 +5082,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5279,7 +5279,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5524,7 +5524,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5857,7 +5857,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6238,7 +6238,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6451,7 +6451,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6624,7 +6624,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6737,7 +6737,7 @@
         "flood_risk_max_score": 50,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6990,7 +6990,7 @@
         "flood_risk_max_score": 5,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7227,7 +7227,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7352,7 +7352,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7609,7 +7609,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7758,7 +7758,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7951,7 +7951,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8144,7 +8144,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8321,7 +8321,7 @@
         "flood_risk_max_score": 75,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8670,7 +8670,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -9079,7 +9079,7 @@
         "flood_risk_max_score": null,
         "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
         "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
-        "generated_at": "2026-06-13T02:01:46.729138+00:00",
+        "generated_at": "2026-06-13T02:11:01.209890+00:00",
         "data_confidence": "high"
       },
       "geometry": {

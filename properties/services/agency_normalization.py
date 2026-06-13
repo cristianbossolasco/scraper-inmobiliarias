@@ -1,6 +1,8 @@
 import html
 import re
 
+from properties.services.normalization import repair_mojibake_text
+
 
 INVALID_MARKERS = (
     "ubicacion",
@@ -12,7 +14,7 @@ INVALID_MARKERS = (
 
 CUT_MARKERS = (
     r"\s+\d+[\d.,]*\s*m2\b",
-    r"\s+\d+[\d.,]*\s*mÂ²\b",
+    r"\s+\d+[\d.,]*\s*m²\b",
     r"\s+Operation\s*:",
     r"\s+Address\s*:",
     r"\s+Location\s*:",
@@ -23,7 +25,7 @@ CUT_MARKERS = (
 
 
 def normalize_agency_name(value):
-    text = html.unescape(value or "")
+    text = repair_mojibake_text(html.unescape(value or ""))
     text = re.sub(r"\s+", " ", text).strip(" -–|·")
     if not text:
         return ""

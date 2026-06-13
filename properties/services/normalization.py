@@ -134,12 +134,50 @@ ADDRESS_NEIGHBORHOOD_RULES = (
 )
 
 
+def _build_mojibake_map():
+    replacements = {}
+    recoverable_chars = (
+        "\u00c1\u00c9\u00cd\u00d3\u00da\u00dc\u00d1"
+        "\u00e1\u00e9\u00ed\u00f3\u00fa\u00fc\u00f1"
+        "\u00b0\u00ba\u00b2\u00d7"
+        "\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u00b7"
+    )
+    for char in recoverable_chars:
+        variants = set()
+        for encoding in ("latin-1", "cp1252"):
+            try:
+                variant = char.encode("utf-8").decode(encoding)
+            except UnicodeDecodeError:
+                continue
+            if variant != char and "\ufffd" not in variant:
+                variants.add(variant)
+                try:
+                    variants.add(variant.encode("utf-8").decode(encoding))
+                except UnicodeDecodeError:
+                    pass
+        for variant in variants:
+            replacements[variant] = char
+    return dict(sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True))
+
+
+_MOJIBAKE_REPLACEMENTS = _build_mojibake_map()
+
+
+def repair_mojibake_text(value):
+    text = "" if value is None else str(value)
+    for old, new in _MOJIBAKE_REPLACEMENTS.items():
+        text = text.replace(old, new)
+    return text
+
+
 def fold_text(value):
+    value = repair_mojibake_text(value)
     value = unicodedata.normalize("NFKD", value or "")
     return "".join(char for char in value if not unicodedata.combining(char)).lower()
 
 
 def normalize_whitespace(value):
+    value = repair_mojibake_text(value)
     return re.sub(r"\s+", " ", (value or "")).strip()
 
 

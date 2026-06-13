@@ -145,6 +145,102 @@
     "bbox": [-34.66, -58.72, -34.54, -58.58],
     "raw_output": "data/raw/osm/overpass_hurlingham_base.json"
   },
+  "phase2_sources": [
+    {
+      "key": "census_2022_radios",
+      "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
+      "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
+      "download_url": "https://catalogo.datos.gba.gob.ar/dataset/33b080d2-e369-4076-acd4-511db0e9bffb/resource/151d80d2-87c1-4981-9bea-9aab38a82ec9/download/radios-censales-2022-geojson.zip",
+      "raw_path": "data/raw/census/radios-censales-2022-geojson.zip",
+      "outputs": [
+        "data/geo/census/census_tracts_2022_hurlingham.geojson",
+        "data/geo/census/census_zones_hurlingham.geojson"
+      ],
+      "license": "Creative Commons Attribution 4.0",
+      "confidence": "medium",
+      "notes": "Downloaded resource provides radio geometry and identifiers; population/housing attributes were not present."
+    },
+    {
+      "key": "education_official",
+      "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+      "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+      "download_url": "https://catalogo.datos.gba.gob.ar/dataset/4becb4b7-0a21-4fef-8f2c-30df7f345a01/resource/08a49256-620d-4d75-9a40-6f57df3be830/download/establecimientos-educativos-08062026.zip",
+      "raw_path": "data/raw/education/establecimientos-educativos-08062026.zip",
+      "outputs": [
+        "data/geo/education/education_points_hurlingham.geojson",
+        "data/geo/education/education_zones_hurlingham.geojson"
+      ],
+      "license": "Creative Commons Attribution 4.0",
+      "confidence": "high"
+    },
+    {
+      "key": "health_official_2025",
+      "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
+      "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
+      "download_url": "https://catalogo.datos.gba.gob.ar/dataset/91743f68-bc82-4475-baca-7d5d6908eee8/resource/32ddfa86-3c6e-4754-a9db-dc4af8891b8f/download/establecimientos-salud-publicos-2025.zip",
+      "raw_path": "data/raw/health/establecimientos-salud-publicos-2025.zip",
+      "outputs": [
+        "data/geo/health/health_points_hurlingham.geojson",
+        "data/geo/health/health_zones_hurlingham.geojson"
+      ],
+      "license": "Creative Commons Attribution 4.0",
+      "confidence": "high"
+    },
+    {
+      "key": "transport_official",
+      "source_name": "Datos Transporte - Recorridos AMBA y puntos SUBE",
+      "source_url": "https://datos.transporte.gob.ar/",
+      "outputs": [
+        "data/geo/transport/transport_routes_hurlingham.geojson",
+        "data/geo/transport/sube_points_hurlingham.geojson",
+        "data/geo/transport/transport_zones_hurlingham.geojson"
+      ],
+      "license": "Mixed: CC BY 4.0 for AMBA routes; SUBE license unspecified",
+      "confidence": "medium",
+      "notes": "SUBE source is official but old: 2019-10-01."
+    },
+    {
+      "key": "flood_reconquista_ada",
+      "source_name": "Autoridad del Agua PBA - Peligrosidad Cuenca Reconquista",
+      "source_url": "https://ada.gba.gov.ar/cartas-de-riesgo-hidrico/",
+      "download_url": "https://www.ada.gba.gov.ar/web_doc/gis/capas/peligrosidad_reconquista.zip",
+      "raw_path": "data/raw/flood/peligrosidad_reconquista.zip",
+      "outputs": [
+        "data/geo/flood/flood_risk_hurlingham.geojson",
+        "data/geo/flood/flood_zones_hurlingham.geojson"
+      ],
+      "input_crs": "EPSG:5347",
+      "license": "Public official geospatial data; cite ADA PBA.",
+      "confidence": "high"
+    },
+    {
+      "key": "renabap_fallback",
+      "source_name": "RENABAP - Registro Nacional de Barrios Populares",
+      "source_url": "https://datos.gob.ar/dataset/desarrollo-social-registro-nacional-barrios-populares",
+      "download_url": "https://datosabiertos.desarrollosocial.gob.ar/dataset/0d022767-9390-486a-bff4-ba53b85d730e/resource/97cc7d10-ad4c-46cb-9ee4-becb402adf9f/download/2022-07-13_info_publica_barrios_populares.geojson",
+      "fallback_url": "https://raw.githubusercontent.com/OpenDataCordoba/barrios/main/Barrios%20Populares%20de%20Argentina.geojson",
+      "raw_path": "data/raw/renabap/renabap_barrios_populares.geojson",
+      "outputs": [
+        "data/geo/renabap/renabap_hurlingham.geojson",
+        "data/geo/renabap/renabap_zones_hurlingham.geojson"
+      ],
+      "license": "No especificada",
+      "confidence": "medium_low",
+      "notes": "Primary official host failed DNS resolution in this environment; public mirror was used."
+    },
+    {
+      "key": "gas_segments_unavailable",
+      "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
+      "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
+      "download_url": "http://datos.minem.gob.ar/dataset/d850c7a4-e2cb-4a2e-9b15-666dd9e27398/resource/ae05ccf6-b486-44ea-89a1-1d315cdbd5bd/download/cantidad-de-usuarios-de-gas-de-red-por-segmento-de-calle.zip",
+      "outputs": [
+        "data/geo/utilities/utilities_zones_hurlingham.geojson"
+      ],
+      "license": "No especificada",
+      "confidence": "none",
+      "notes": "Catalog resource returned HTTP 404 during phase 2 build."
+    }
+  ],
   "unavailable_layers": [
     {
       "folder": "data/geo/zoning",
@@ -157,18 +253,6 @@
       "file": "source_unavailable.md",
       "title": "Servicios urbanos agua/cloaca/cortes electricos",
       "reason": "No se genero capa confiable sin endpoint publico estable y reusable en esta primera entrega."
-    },
-    {
-      "folder": "data/geo/renabap",
-      "file": "source_unavailable.md",
-      "title": "RENABAP / barrios populares",
-      "reason": "Queda priorizado para la siguiente iteracion con descarga oficial y validacion de geometria antes de integrarlo al score."
-    },
-    {
-      "folder": "data/geo/flood",
-      "file": "flood_risk_source_unavailable.md",
-      "title": "Peligrosidad hidrica oficial",
-      "reason": "La capa oficial de riesgo hidrico requiere investigacion especifica de descarga WFS/WMS o digitalizacion; se usa solo hidrografia OSM como proxy de distancia."
     }
   ]
 }

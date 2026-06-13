@@ -8,10 +8,12 @@ from properties.services.normalization import (
     normalize_currency,
     parse_decimal,
     parse_int,
+    repair_mojibake_text,
 )
 
 
 def clean_text(value):
+    value = repair_mojibake_text(value)
     return re.sub(r"\s+", " ", value or "").strip()
 
 
@@ -69,7 +71,7 @@ def metric_label_pattern(labels):
     return "|".join(labels)
 
 
-def value_after_label(text, labels, cast=parse_decimal, unit_pattern=r"(?:m2|m²|mÂ²|mts|mts²|Mts²)?"):
+def value_after_label(text, labels, cast=parse_decimal, unit_pattern=r"(?:m2|m²|mts|mts²|Mts²)?"):
     label_pattern = metric_label_pattern(labels)
     return text_value(
         text,
@@ -78,7 +80,7 @@ def value_after_label(text, labels, cast=parse_decimal, unit_pattern=r"(?:m2|m²
     )
 
 
-def value_before_label(text, labels, cast=parse_decimal, unit_pattern=r"(?:m2|m²|mÂ²|mts|mts²|Mts²)?"):
+def value_before_label(text, labels, cast=parse_decimal, unit_pattern=r"(?:m2|m²|mts|mts²|Mts²)?"):
     label_pattern = metric_label_pattern(labels)
     return text_value(
         text,
@@ -143,9 +145,9 @@ def external_id_from_url(url):
 
 
 def basic_html_data(soup, url):
-    text = soup.get_text(" ", strip=True)
+    text = clean_text(soup.get_text(" ", strip=True))
     title_node = soup.select_one("h1") or soup.select_one("title")
-    title = title_node.get_text(" ", strip=True) if title_node else "Propiedad"
+    title = clean_text(title_node.get_text(" ", strip=True)) if title_node else "Propiedad"
     price_text = text_value(
         text,
         [

@@ -4,6 +4,7 @@ import re
 from urllib.parse import urlparse
 
 from properties.models import Property
+from properties.services.normalization import fold_text
 
 
 @dataclass(frozen=True)
@@ -32,22 +33,22 @@ USD_PRICE_RANGE = (1000, 5000000)
 def folded_text(property_obj):
     return " ".join(
         [
-            (property_obj.title or "").lower(),
-            (property_obj.description or "").lower(),
-            (property_obj.property_type or "").lower(),
+            fold_text(property_obj.title or ""),
+            fold_text(property_obj.description or ""),
+            fold_text(property_obj.property_type or ""),
         ]
     )
 
 
 def folded_title(property_obj):
-    return (property_obj.title or "").lower()
+    return fold_text(property_obj.title or "")
 
 
 def is_garage_like(property_obj):
     title = folded_title(property_obj)
     if not re.search(r"\b(cochera|garage|garaje|cocheras)\b", title):
         return False
-    residential_terms = r"\b(casa|chalet|depto|departamento|ph|duplex|dÃºplex|triplex|monoambiente|ambientes?)\b"
+    residential_terms = r"\b(casa|chalet|depto|departamento|ph|duplex|dúplex|triplex|monoambiente|ambientes?)\b"
     return not re.search(residential_terms, title)
 
 

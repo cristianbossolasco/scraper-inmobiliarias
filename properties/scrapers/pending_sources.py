@@ -9,6 +9,7 @@ from properties.models import Property
 from properties.services.normalization import (
     classify_address_precision,
     extract_embedded_neighborhood,
+    fold_text,
     infer_property_type,
     is_plausible_property_address,
     normalize_locality,
@@ -16,6 +17,7 @@ from properties.services.normalization import (
     normalize_neighborhood_name,
     parse_decimal,
     parse_int,
+    repair_mojibake_text,
 )
 from properties.services.location_enrichment import clean_detected_address
 
@@ -37,6 +39,7 @@ TARGET_ZONES = ("hurlingham", "villa tesei", "villa santos tesei", "william morr
 
 
 def clean_text(value):
+    value = repair_mojibake_text(value)
     return re.sub(r"\s+", " ", value or "").strip()
 
 
@@ -74,7 +77,7 @@ def parse_multi_unit_offers(text):
         return offers
     unit_pattern = re.compile(
         r"Unidad\s+(.+?)\s+[–-]\s+(\d+)\s*Ambientes?.*?"
-        r"Superficie\s+total\s*:?\s*([\d.,]+)\s*m(?:2|²|Â²)?.*?"
+        r"Superficie\s+total\s*:?\s*([\d.,]+)\s*m(?:2|²)?.*?"
         r"Precio\s*:?\s*(USD|U\$S|US\$|ARS|\$)\s*([\d.,]+)",
         re.I,
     )
@@ -122,7 +125,7 @@ def price_near_label(text):
 
 def split_suggested_text(text):
     return re.split(
-        r"Propiedades\s+Sugeridas|Propiedades\s+similares|Tambien\s+puede\s+interesarte|TambiÃ©n\s+puede\s+interesarte|También\s+puede\s+interesarte",
+        r"Propiedades\s+Sugeridas|Propiedades\s+similares|Tambien\s+puede\s+interesarte|También\s+puede\s+interesarte",
         text or "",
         maxsplit=1,
         flags=re.I,
@@ -130,44 +133,14 @@ def split_suggested_text(text):
 
 
 def normalized_label(value):
-    folded = clean_text(value).lower()
-    replacements = {
-        "Ã¡": "a",
-        "á": "a",
-        "Ã©": "e",
-        "é": "e",
-        "Ã­": "i",
-        "í": "i",
-        "Ã³": "o",
-        "ó": "o",
-        "Ãº": "u",
-        "ú": "u",
-        "Ã±": "n",
-        "ñ": "n",
-        "Â°": "",
-        "°": "",
-        "º": "",
-    }
-    replacements.update(
-        {
-            "á": "a",
-            "é": "e",
-            "í": "i",
-            "ó": "o",
-            "ú": "u",
-            "ü": "u",
-            "ñ": "n",
-        }
-    )
-    for old, new in replacements.items():
-        folded = folded.replace(old, new)
+    folded = fold_text(value).replace("°", "").replace("º", "")
     return re.sub(r"[^a-z0-9]+", " ", folded).strip()
 
 
 def parse_dimension_value(value):
     text = clean_text(value)
     dimension = re.search(
-        r"([\d.,]+)\s*(?:x|×|por)\s*([\d.,]+)\s*(?:m2|m²|mÂ²|mts|metros)?",
+        r"([\d.,]+)\s*(?:x|×|por)\s*([\d.,]+)\s*(?:m2|m²|mts|metros)?",
         text,
         re.I,
     )
@@ -529,16 +502,16 @@ class AnaliaFernandezScraper(TokkoSearchScraper):
             return None
         soup = self.soup(url)
         text = visible_text(soup)
-        if not re.search(r"INFORMACI(?:O|Ó|Ã“)N\s+B(?:A|Á|Ã)SICA|SUPERFICIES\s+Y\s+MEDIDAS", text, re.I):
+        if not re.search(r"INFORMACI(?:O|Ó)N\s+B(?:A|Á)SICA|SUPERFICIES\s+Y\s+MEDIDAS", text, re.I):
             return data
         labels = {
             "rooms": [r"Ambientes"],
             "bedrooms": [r"Dormitorios"],
-            "bathrooms": [r"Ba(?:ñ|n|Ã±)os"],
+            "bathrooms": [r"Ba(?:ñ|n)os"],
             "toilets": [r"Toilettes?"],
             "garages": [r"Cocheras?"],
-            "age_text": [r"Antig(?:ü|u|Ã¼)edad"],
-            "condition": [r"Condici(?:o|ó|Ã³)n"],
+            "age_text": [r"Antig(?:ü|u)edad"],
+            "condition": [r"Condici(?:o|ó)n"],
             "floors_text": [r"Plantas"],
             "land_area": [r"Terreno"],
             "covered_area": [r"Cubierta"],
@@ -558,8 +531,8 @@ class AnaliaFernandezScraper(TokkoSearchScraper):
         address = text_value(
             text,
             [
-                r"(?:Direcci(?:o|ó|Ã³)n)\s*:?\s*(.+?)(?:\s+Ubicaci(?:o|ó|Ã³)n|\s+Agua|\s+INFORMACI)",
-                r"(?:Ubicaci(?:o|ó|Ã³)n)\s*:?\s*(.+?)(?:\s+Agua|\s+INFORMACI)",
+                r"(?:Direcci(?:o|ó)n)\s*:?\s*(.+?)(?:\s+Ubicaci(?:o|ó)n|\s+Agua|\s+INFORMACI)",
+                r"(?:Ubicaci(?:o|ó)n)\s*:?\s*(.+?)(?:\s+Agua|\s+INFORMACI)",
             ],
         )
         if address:
@@ -851,7 +824,7 @@ class GuarnieriScraper(MultiSearchScraper):
             data["currency"] = normalize_currency(price_match.group(1))
             data["price"] = parse_decimal(price_match.group(2))
         metrics_text = detail_text[price_match.start():] if price_match else detail_text
-        metric_block_match = re.search(r"Precio\s*:.*?(?:CARACTER[ÃÍI]STICAS|UBICACI[ÃÓO]N|$)", detail_text, re.I)
+        metric_block_match = re.search(r"Precio\s*:.*?(?:CARACTER[ÍI]STICAS|UBICACI[ÓO]N|$)", detail_text, re.I)
         metric_block = metric_block_match.group(0) if metric_block_match else metrics_text
         data["rooms"] = label_before_number(detail_text, [r"Amb\.?", r"Ambientes"], parse_int) or number_before_label(detail_text, [r"Amb\.?", r"Ambientes"], parse_int) or data.get("rooms")
         data["bedrooms"] = label_before_number(detail_text, [r"Dormitorios"], parse_int) or number_before_label(detail_text, [r"Dormitorios"], parse_int) or data.get("bedrooms")
@@ -859,11 +832,11 @@ class GuarnieriScraper(MultiSearchScraper):
         data["garages"] = number_before_label(detail_text, [r"Garage", r"Garaje", r"Cocheras"], parse_int) or label_before_number(detail_text, [r"Garage", r"Garaje", r"Cocheras"], parse_int) or data.get("garages")
         data["rooms"] = label_before_number(metrics_text, [r"Amb\.?", r"Ambientes"], parse_int) or data.get("rooms")
         data["bedrooms"] = label_before_number(metrics_text, [r"Dormitorios"], parse_int) or data.get("bedrooms")
-        data["bathrooms"] = label_before_number(metrics_text, [r"BaÃ±os", r"Banos"], parse_decimal) or data.get("bathrooms")
+        data["bathrooms"] = label_before_number(metrics_text, [r"Baños", r"Banos"], parse_decimal) or data.get("bathrooms")
         data["garages"] = label_before_number(metrics_text, [r"Garage", r"Garaje", r"Cocheras"], parse_int) or data.get("garages")
         data["rooms"] = text_value(detail_text, [r"(\d+)\s*Amb\.?", r"(\d+)\s*Ambientes"], parse_int) or data.get("rooms")
         data["bedrooms"] = text_value(metric_block, [r"Dormitorios?\s*:?\s*(\d+)"], parse_int) or data.get("bedrooms")
-        data["bathrooms"] = text_value(metric_block, [r"Ba(?:Ã±|ñ|n)o?s?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal) or data.get("bathrooms")
+        data["bathrooms"] = text_value(metric_block, [r"Ba(?:ñ|n)o?s?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal) or data.get("bathrooms")
         data["garages"] = text_value(metric_block, [r"Garages?\s*:?\s*(\d+)", r"Cocheras?\s*:?\s*(\d+)"], parse_int) or data.get("garages")
         data["covered_area"] = label_before_number(detail_text, [r"Sup\.\s*Cubierta", r"Sup\s*Cubierta"]) or data.get("covered_area")
         data["land_area"] = label_before_number(detail_text, [r"Sup\.\s*Terreno", r"Sup\s*Terreno"]) or data.get("land_area")
@@ -984,7 +957,7 @@ class GuarnieriScraper(MultiSearchScraper):
 
         address = text_value(
             detail_text,
-            [r"Direcci(?:Ã³|ó|o)n\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTER|$)"],
+            [r"Direcci(?:ó|o)n\s*:?\s*(.+?)(?:Ciudad\s*:|Barrio\s*:|Propiedades Sugeridas|CARACTER|$)"],
         )
         if address:
             embedded_neighborhood = extract_embedded_neighborhood(address)
@@ -993,10 +966,10 @@ class GuarnieriScraper(MultiSearchScraper):
                 data["address"] = parsed_address[:250]
             if embedded_neighborhood and not data.get("neighborhood"):
                 data["neighborhood"] = embedded_neighborhood
-        city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Barrio\s*:|Propiedades|$)"])
+        city = text_value(detail_text, [r"Ciudad\s*:?\s*([A-Za-zÀ-ɏ .]+?)(?:Barrio\s*:|Propiedades|$)"])
         if city:
             data["locality"] = normalize_locality(city)
-        neighborhood = text_value(detail_text, [r"Barrio\s*:?\s*([A-Za-zÃÃ‰ÃÃ“ÃšÃœÃ‘Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±ÁÉÍÓÚÜÑáéíóúüñ .]+?)(?:Propiedades|$)"])
+        neighborhood = text_value(detail_text, [r"Barrio\s*:?\s*([A-Za-zÀ-ɏ .]+?)(?:Propiedades|$)"])
         if neighborhood:
             data["neighborhood"] = normalize_neighborhood_name(neighborhood) or clean_text(neighborhood)
 
@@ -1133,7 +1106,7 @@ class GuarnieriScraper(MultiSearchScraper):
 
         text_covered = text_value(
             detail_text,
-            [r"SUP\s*CUBIERTA\s*:?\s*([\d.,]+)\s*(?:m2|mÂ²|mÃ‚Â²|mts)?"],
+            [r"SUP\s*CUBIERTA\s*:?\s*([\d.,]+)\s*(?:m2|m²|mts)?"],
             parse_area_value,
         )
         if text_covered is not None and data.get("covered_area") is not None and str(text_covered) != str(data.get("covered_area")):
@@ -1149,8 +1122,8 @@ class GuarnieriScraper(MultiSearchScraper):
         text_land = text_value(
             detail_text,
             [
-                r"SOBRE\s+LOTE.*?\(([\d.,]+)\s*(?:m2|m²|mÂ²|mÃ‚Â²)\)",
-                r"LOTE.*?\(([\d.,]+)\s*(?:m2|m²|mÂ²|mÃ‚Â²)\)",
+                r"SOBRE\s+LOTE.*?\(([\d.,]+)\s*(?:m2|m²|m²)\)",
+                r"LOTE.*?\(([\d.,]+)\s*(?:m2|m²|m²)\)",
             ],
             parse_area_value,
         )
@@ -1196,9 +1169,9 @@ class GuarnieriScraper(MultiSearchScraper):
             )
         if data.get("bathrooms") is None:
             data["bathrooms"] = (
-                number_before_label(detail_text, [r"BaÃ±os", r"Baños", r"Banos"], parse_decimal)
-                or label_before_number(detail_text, [r"BaÃ±os", r"Baños", r"Banos"], parse_decimal)
-                or text_value(detail_text, [r"Ba(?:Ã±|ñ|n)o?s?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal)
+                number_before_label(detail_text, [r"Baños", r"Baños", r"Banos"], parse_decimal)
+                or label_before_number(detail_text, [r"Baños", r"Baños", r"Banos"], parse_decimal)
+                or text_value(detail_text, [r"Ba(?:ñ|n)o?s?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal)
             )
         if data.get("bathrooms") is None:
             data["bathrooms"] = (
@@ -1219,12 +1192,12 @@ class GuarnieriScraper(MultiSearchScraper):
         if data.get("land_area") is None:
             raw_land = text_value(
                 detail_text,
-                [r"Sup\.?\s*Terreno\s*:?\s*([\d.,]+\s*(?:x|×|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|m²|mÂ²|mts)?"],
+                [r"Sup\.?\s*Terreno\s*:?\s*([\d.,]+\s*(?:x|×|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|m²|mts)?"],
             )
             if not raw_land:
                 raw_land = text_value(
                     detail_text,
-                    [r"Terreno\s*:?\s*([\d.,]+\s*(?:x|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|mÂ²|mÃ‚Â²|mts)?"],
+                    [r"Terreno\s*:?\s*([\d.,]+\s*(?:x|por)\s*[\d.,]+|[\d.,]+)\s*(?:m2|m²|mts)?"],
                 )
             if raw_land:
                 area, front, depth = parse_dimension_value(raw_land)
@@ -1320,23 +1293,23 @@ class InmueblesClarinScraper(CommonDetailScraper):
                 value_after_label(text, [r"Dormitorios?"], parse_int, unit_pattern=""),
             ),
             "bathrooms": first_present(
-                text_value(text, [r"(\d+(?:[.,]\d+)?)\s*ba(?:ñ|n|Ã±)os?"], parse_decimal),
-                value_after_label(text, [r"Ba(?:ñ|n|Ã±)os?"], parse_decimal, unit_pattern=""),
+                text_value(text, [r"(\d+(?:[.,]\d+)?)\s*ba(?:ñ|n)os?"], parse_decimal),
+                value_after_label(text, [r"Ba(?:ñ|n)os?"], parse_decimal, unit_pattern=""),
             ),
             "garages": first_present(
                 text_value(text, [r"(\d+)\s*cocheras?"], parse_int),
                 value_after_label(text, [r"Cocheras?"], parse_int, unit_pattern=""),
             ),
             "covered_area": first_present(
-                text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s*Cubierta"], parse_decimal),
+                text_value(text, [r"([\d.,]+)\s*m(?:2|²)?\s*Cubierta"], parse_decimal),
                 value_after_label(text, [r"Superficie\s+Cubierta", r"Sup\.?\s*Cubierta"], parse_decimal),
             ),
             "total_area": first_present(
-                text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s*Totales"], parse_decimal),
+                text_value(text, [r"([\d.,]+)\s*m(?:2|²)?\s*Totales"], parse_decimal),
                 value_after_label(text, [r"Superficie\s+Total", r"Sup\.?\s*Total", r"Totales?"], parse_decimal),
             ),
             "land_area": first_present(
-                text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s*Terreno"], parse_decimal),
+                text_value(text, [r"([\d.,]+)\s*m(?:2|²)?\s*Terreno"], parse_decimal),
                 value_after_label(text, [r"Superficie\s+Terreno", r"Sup\.?\s*Terreno", r"Terreno"], parse_decimal),
             ),
         }
@@ -1402,15 +1375,15 @@ class PatagonPropScraper(CommonDetailScraper):
         text = visible_text(soup)
         status_badge = self._status_badge(text)
         labels = {
-            "operation": [r"Operaci(?:o|ó|Ã³)n"],
-            "address": [r"Direcci(?:o|ó|Ã³)n"],
-            "location": [r"Ubicaci(?:o|ó|Ã³)n"],
-            "code": [r"C(?:o|ó|Ã³)digo"],
+            "operation": [r"Operaci(?:o|ó)n"],
+            "address": [r"Direcci(?:o|ó)n"],
+            "location": [r"Ubicaci(?:o|ó)n"],
+            "code": [r"C(?:o|ó)digo"],
             "property_type_text": [r"Tipo"],
             "total_area": [r"Superficie\s+total", r"Superficie"],
             "rooms": [r"Ambientes?"],
             "bedrooms": [r"Habitaciones?", r"Dormitorios?"],
-            "bathrooms": [r"Ba(?:ñ|n|Ã±)os?"],
+            "bathrooms": [r"Ba(?:ñ|n)os?"],
             "garages": [r"Garages?", r"Cocheras?"],
         }
         fields = parse_labeled_fields(text, labels)
@@ -1569,21 +1542,21 @@ class PaulaFossatiScraper(CommonDetailScraper):
         soup = self.soup(url)
         page_text = visible_text(soup)
         labels = {
-            "address": [r"Direcci(?:o|ó|Ã³)n"],
+            "address": [r"Direcci(?:o|ó)n"],
             "neighborhood": [r"Barrio"],
             "locality": [r"Ciudad"],
             "province": [r"Provincia"],
-            "country": [r"Pa(?:i|Ã­|ÃƒÂ­)s"],
-            "code": [r"C(?:o|Ã³|ÃƒÂ³)digo"],
-            "category": [r"Categor(?:i|Ã­|ÃƒÂ­)a"],
+            "country": [r"Pa(?:i|í)s"],
+            "code": [r"C(?:o|ó)digo"],
+            "category": [r"Categor(?:i|í)a"],
             "status_text": [r"Estado"],
             "sale_price": [r"Venta"],
-            "location": [r"Ubicaci(?:o|Ã³|ÃƒÂ³)n"],
+            "location": [r"Ubicaci(?:o|ó)n"],
             "garages": [r"Estacionamientos"],
             "total_area": [r"Superficie\s+total"],
             "covered_area": [r"Superficie\s+cubierta"],
             "uncovered_area": [r"Superficie\s+descubierta"],
-            "age_text": [r"A(?:ñ|n|Ã±)o\s+de\s+construcci(?:o|ó|Ã³)n"],
+            "age_text": [r"A(?:ñ|n)o\s+de\s+construcci(?:o|ó)n"],
             "front_width": [r"Frente"],
             "lot_depth": [r"Fondo"],
         }

@@ -3,7 +3,13 @@ import re
 from .base import BaseScraper, SourceDefinition
 from .parsing import basic_html_data, json_ld_objects
 from .paginated import paginated_discover
-from properties.services.normalization import infer_property_type, parse_decimal, parse_int
+from properties.services.normalization import (
+    fold_text,
+    infer_property_type,
+    parse_decimal,
+    parse_int,
+    repair_mojibake_text,
+)
 
 
 ARGENCASAS_ZONES = (
@@ -20,17 +26,18 @@ ARGENCASAS_ZONES = (
 
 
 def argencasas_zone(text):
-    folded = (text or "").lower()
+    folded = fold_text(text)
     for zone in ARGENCASAS_ZONES:
-        if zone.lower() in folded:
+        if fold_text(zone) in folded:
             return zone
     return ""
 
 
 def metric_before_label(text, label, parser=parse_decimal):
+    text = repair_mojibake_text(text)
     patterns = [
-        rf"([\d.,]+)\s*(?:m²|mÂ²|m2|mts²|mts)?\s*\|\s*{label}\b",
-        rf"([\d.,]+)\s*(?:m²|mÂ²|m2|mts²|mts)?\s+{label}\b",
+        rf"([\d.,]+)\s*(?:m²|m2|mts²|mts)?\s*\|\s*{label}\b",
+        rf"([\d.,]+)\s*(?:m²|m2|mts²|mts)?\s+{label}\b",
     ]
     for pattern in patterns:
         match = re.search(pattern, text, re.I)
@@ -76,7 +83,7 @@ class ArgencasasScraper(BaseScraper):
     def parse(self, url):
         soup = self.soup(url)
         data = basic_html_data(soup, url)
-        page_text = soup.get_text(" ", strip=True)
+        page_text = repair_mojibake_text(soup.get_text(" ", strip=True))
         for payload in json_ld_objects(soup):
             if payload.get("@type") != "RealEstateListing":
                 continue
@@ -100,7 +107,7 @@ class ArgencasasScraper(BaseScraper):
             break
 
         labels = [
-            item.get_text(" ", strip=True)
+            repair_mojibake_text(item.get_text(" ", strip=True))
             for item in soup.select("li")
             if item.get_text(" ", strip=True)
         ]
@@ -116,14 +123,14 @@ class ArgencasasScraper(BaseScraper):
             r"([\d.,]+(?:\s*x\s*[\d.,]+)?(?:\s*m²)?)\s*\|\s*([^|]+)", joined
         )
         for value, label in pairs:
-            label = label.lower()
+            label = fold_text(label)
             if "ambiente" in label:
                 data["rooms"] = int(re.search(r"\d+", value).group())
             elif "dormitorio" in label:
                 data["bedrooms"] = int(re.search(r"\d+", value).group())
             elif "baño" in label:
                 data["bathrooms"] = int(re.search(r"\d+", value).group())
-        metric_text = soup.get_text(" | ", strip=True)
+        metric_text = repair_mojibake_text(soup.get_text(" | ", strip=True))
         metric_updates = {
             "rooms": metric_before_label(metric_text, "Ambientes", parse_int),
             "bedrooms": metric_before_label(metric_text, "Dormitorios", parse_int),

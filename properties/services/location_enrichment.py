@@ -52,7 +52,7 @@ ADDRESS_RE = re.compile(
 ADDRESS_STOP_PATTERN = re.compile(
     r"\b(?:Ubicaci(?:on|ón)|Agua\s+Corriente|Alumbrado|Cloaca|Pavimento|"
     r"INFORMACI(?:ON|ÓN)\s+B(?:ASICA|ÁSICA)|Ambientes?\s*:|Dormitorios?\s*:|"
-    r"Ba(?:n|ñ|Ã±)os?\s*:|Condici(?:on|ón)\s*:|Plantas?\s*:|Antig(?:u|ü)edad\s*:|"
+    r"Ba(?:n|ñ)os?\s*:|Condici(?:on|ón)\s*:|Plantas?\s*:|Antig(?:u|ü)edad\s*:|"
     r"Situaci(?:on|ón)\s*:|Caracter(?:isticas|ísticas)|Descripci(?:on|ón)|Venta|"
     r"USD|U\$S|US\$|ARS|\$)",
     re.I,

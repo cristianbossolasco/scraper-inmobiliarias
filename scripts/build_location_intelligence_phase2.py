@@ -171,13 +171,38 @@ def safe_round(value: float | None, digits: int = 2) -> float | None:
     return round(float(value), digits)
 
 
+LOSSY_TEXT_REPLACEMENTS = {
+    "Direcci\ufffd": "Dirección",
+    "N\ufffdmero": "Número",
+    "Pa\ufffds": "País",
+    "Ubicaci\ufffd": "Ubicación",
+    "AG\ufffdERO NORA ALICIA": "AGÜERO NORA ALICIA",
+    "CA\ufffdADA DE LA CRUZ": "CAÑADA DE LA CRUZ",
+    "CRUCE\ufffdO EVA CRISTINA": "CRUCEÑO EVA CRISTINA",
+    "Estaci\ufffdn de Tren": "Estación de Tren",
+    "FFCC URQUIZA-Est. Ej\ufffdrcito de los Andes": "FFCC URQUIZA-Est. Ejército de los Andes",
+    "FFCC URQUIZA-Est. Rub\ufffdn Dar\ufffdo": "FFCC URQUIZA-Est. Rubén Darío",
+    "Locutorio Las Caba\ufffdas": "Locutorio Las Cabañas",
+    "MAXI EL \ufffdANDU": "MAXI EL ÑANDU",
+    "RGP S.A.(RECAUDACI\ufffdN,GESTI\ufffdN Y PAGOS)": "RGP S.A.(RECAUDACIÓN,GESTIÓN Y PAGOS)",
+    "SOFSE-SAN MART\ufffdN": "SOFSE-SAN MARTÍN",
+    "Seit\ufffd": "Seitú",
+}
+
+
+def clean_lossy_replacement_chars(value: str) -> str:
+    for old, new in LOSSY_TEXT_REPLACEMENTS.items():
+        value = value.replace(old, new)
+    return value.replace("\ufffd", "")
+
+
 def clean_property(value: Any) -> Any:
     if value is None:
         return None
     if isinstance(value, bytes):
         value = value.decode("utf-8", errors="replace")
     if isinstance(value, str):
-        return value.strip() or None
+        return clean_lossy_replacement_chars(value.strip()) or None
     if isinstance(value, float):
         return round(value, 6) if math.isfinite(value) else None
     return value
@@ -443,7 +468,11 @@ def standard_feature(
     source_note: str = "",
 ) -> dict[str, Any]:
     zone_idx = assign_zone_index(geom, zone_context["geoms_wgs"])
-    output_props = {key: clean_property(value) for key, value in props.items()}
+    output_props = {}
+    for key, value in props.items():
+        clean_key = clean_property(key)
+        if clean_key:
+            output_props[str(clean_key)] = clean_property(value)
     output_props.update(
         {
             "assigned_zone_name": zone_context["names"][zone_idx] if zone_idx is not None else None,
@@ -1151,6 +1180,38 @@ def write_phase2_docs(generated_at: str, unavailable: list[dict[str, str]]) -> N
         ]
     )
     write_text(Path("docs/phase2_source_research.md"), "\n".join(lines))
+    write_text(
+        Path("docs/sources.md"),
+        f"""# Location Intelligence Sources
+
+Generated at: {generated_at}
+
+## Base And Existing Layers
+
+- Zones: `data/geo/Zonas_Hurlingham_polygons.geojson`, generated from OpenStreetMap relations by the existing local pipeline.
+- Security: municipal WP Google Maps markers, police-station seed, OSM zone polygons, and existing local scoring artifacts.
+- Crime: SNIC/SAT/PBA municipal datasets. Crime remains municipality scope and low spatial precision; no neighborhood distribution is inferred.
+- ARBA GeoARBA: cadastral parcels, blocks, cadastral hierarchy, and side-measure points from local raw archives and GeoARBA/WFS metadata.
+
+## Phase 2 Official Sources
+
+- Census 2022 radios: {PHASE2_SOURCES['census_2022_geojson_zip']['source_url']}
+- Education establishments: {PHASE2_SOURCES['education_official_zip']['source_url']}
+- Public health establishments 2025: {PHASE2_SOURCES['health_official_2025_zip']['source_url']}
+- AMBA bus routes: {PHASE2_SOURCES['transport_routes_kml']['source_url']}
+- SUBE charge points: {PHASE2_SOURCES['sube_points_geojson']['source_url']}
+- ADA Reconquista flood-risk polygons: {PHASE2_SOURCES['flood_reconquista_zip']['source_url']}
+- RENABAP: {PHASE2_SOURCES['renabap_official_geojson']['source_url']}
+
+## Fallbacks And Limitations
+
+- RENABAP primary host failed in this environment; the public mirror was used and marked as `medium_low` confidence.
+- Census 2022 PBA downloadable resources inspected here provide radio geometry and identifiers, not population or household totals.
+- Gas segments are listed in the national catalog but the download URL returned HTTP 404 during this build.
+- ENRE outage pages were researched, but no stable reusable historical CSV/GeoJSON endpoint was confirmed.
+- Official zoning/FOT/FOS remains unavailable as vector data; keep zoning attributes null until a reliable source or manual digitization workflow is approved.
+""",
+    )
 
 
 def main() -> int:

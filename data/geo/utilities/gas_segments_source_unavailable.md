@@ -2,7 +2,7 @@
 
 Status: not available in phase 2 automated build.
 
-Generated at: 2026-06-13T02:01:46.729138+00:00
+Generated at: 2026-06-13T02:11:01.209890+00:00
 
 Source URL: https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle
 

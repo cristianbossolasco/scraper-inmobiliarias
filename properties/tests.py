@@ -42,6 +42,7 @@ from properties.services.normalization import (
     normalize_neighborhood_name,
     normalize_street_number_address,
     parse_decimal,
+    repair_mojibake_text,
 )
 from properties.services.scraping import (
     ActiveScrapeJobError,
@@ -81,6 +82,8 @@ from properties.scrapers.pending_sources import (
     MercadoLibreScraper,
     PatagonPropScraper,
     PaulaFossatiScraper,
+    parse_dimension_value,
+    parse_multi_unit_offers,
     RemaxArgentinaScraper,
     RemaxDataworkScraper,
     RiquelmeScraper,
@@ -133,6 +136,25 @@ class NormalizationTests(TestCase):
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
         self.assertEqual(parse_decimal("151,50 m²"), Decimal("151.50"))
+
+    def test_repair_mojibake_text(self):
+        cases = {
+            "Ba\u00c3\u00b1os": "Baños",
+            "Tambi\u00c3\u00a9n": "También",
+            "Par\u00c3\u00a1metro": "Parámetro",
+            "151,50 m\u00c2\u00b2": "151,50 m²",
+            "151,50 m\u00c3\u201a\u00c2\u00b2": "151,50 m²",
+            "d\u00c3\u00baplex": "dúplex",
+            "\u00c3\u0081ngel Vicente Peñaloza": "Ángel Vicente Peñaloza",
+        }
+        for value, expected in cases.items():
+            with self.subTest(value=value.encode("unicode_escape").decode("ascii")):
+                self.assertEqual(repair_mojibake_text(value), expected)
+
+        self.assertEqual(
+            normalize_street_number_address("Albari\u00c3\u00b1os al 1700"),
+            "Albariños 1700",
+        )
 
     def test_precision_classification(self):
         self.assertEqual(classify_address_precision("Gurruchaga 1733"), "exact")
@@ -2588,6 +2610,33 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["agency"], "Adriana Dato Inmobiliaria")
         self.assertEqual(data["bedrooms"], 1)
         self.assertNotIn("latitude", data)
+
+    def test_scraper_helpers_repair_mojibake_metrics(self):
+        offers = parse_multi_unit_offers(
+            "Unidad A \u00e2\u20ac\u201c 2 Ambientes "
+            "Superficie total: 42 m\u00c2\u00b2 Precio: USD 100.000"
+        )
+        self.assertEqual(offers[0]["unit"], "A")
+        self.assertEqual(offers[0]["total_area"], "42")
+
+        area, front, depth = parse_dimension_value("8 \u00c3\u0097 10 m\u00c2\u00b2")
+        self.assertEqual(area, Decimal("80"))
+        self.assertEqual(front, Decimal("8"))
+        self.assertEqual(depth, Decimal("10"))
+
+        scraper = ArgenpropScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa en Hurlingham</h1>
+              <p>USD 120.000 2 Ba\u00c3\u00b1os Contact\u00c3\u00a1 al anunciante Demo Propiedades Ver tel</p>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.argenprop.com/casa-en-venta-en-hurlingham--100")
+        self.assertEqual(data["bathrooms"], Decimal("2"))
+        self.assertEqual(data["agency"], "Demo Propiedades")
 
     def test_argenprop_labeled_metrics_override_json_ld(self):
         data = self.parse_with_fixture(
