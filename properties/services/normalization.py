@@ -55,6 +55,52 @@ TYPE_KEYWORDS = (
     ("chalet", Property.Type.HOUSE),
 )
 
+CONDITION_KEYWORDS = (
+    (
+        Property.ConditionCategory.NEEDS_WORK,
+        (
+            r"\ba\s+refaccionar\b",
+            r"\bpara\s+refaccionar\b",
+            r"\ba\s+reciclar\b",
+            r"\bpara\s+reciclar\b",
+            r"\ba\s+demoler\b",
+            r"\bpara\s+demoler\b",
+            r"\bmal\s+estado\b",
+            r"\bdeteriorad",
+        ),
+    ),
+    (
+        Property.ConditionCategory.NEW,
+        (
+            r"\ba\s+estrenar\b",
+            r"\bestrenar\b",
+            r"\bobra\s+nueva\b",
+            r"\bpozo\b",
+        ),
+    ),
+    (
+        Property.ConditionCategory.RENOVATED,
+        (
+            r"\brefaccionad",
+            r"\breciclad",
+            r"\bremodelad",
+            r"\brenovad",
+            r"\bimpecable\b",
+            r"\bexcelente\s+estado\b",
+            r"\bactualizad",
+        ),
+    ),
+    (
+        Property.ConditionCategory.USED,
+        (
+            r"\busad[ao]\b",
+            r"\bbuen\s+estado\b",
+            r"\bmuy\s+buen\s+estado\b",
+            r"\bantigu[ao]\b",
+        ),
+    ),
+)
+
 GENERIC_ADDRESS_PARTS = (
     "argentina",
     "buenos aires",
@@ -447,6 +493,63 @@ def infer_property_type(*values):
     return Property.Type.OTHER
 
 
+def infer_condition_category(*values):
+    flattened = []
+    for value in values:
+        if isinstance(value, (list, tuple, set)):
+            flattened.extend(str(item) for item in value if item)
+        elif value:
+            flattened.append(str(value))
+    text = fold_text(" ".join(flattened))
+    if not text:
+        return Property.ConditionCategory.UNKNOWN
+    for category, patterns in CONDITION_KEYWORDS:
+        if any(re.search(pattern, text, re.I) for pattern in patterns):
+            return category
+    return Property.ConditionCategory.UNKNOWN
+
+
+def _identity_text(value, limit):
+    text = fold_text(normalize_whitespace(value))
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return normalize_whitespace(text)[:limit]
+
+
+def _strict_no_address_identity(data, source):
+    source_slug = getattr(source, "slug", str(source)) if source else ""
+    if source_slug != "zonaprop":
+        return ""
+    if is_plausible_property_address(data.get("address")):
+        return ""
+    title = _identity_text(data.get("title"), 140)
+    description = _identity_text(data.get("description"), 240)
+    if len(title) < 18 and len(description) < 60:
+        return ""
+    area = data.get("land_area") or data.get("total_area") or data.get("covered_area")
+    required = [
+        data.get("property_type"),
+        data.get("operation") or "sale",
+        data.get("currency"),
+        data.get("price"),
+        area,
+    ]
+    if any(value in (None, "") for value in required):
+        return ""
+    return "|".join(
+        [
+            "source_content",
+            source_slug,
+            str(data.get("property_type") or ""),
+            str(data.get("operation") or "sale"),
+            str(data.get("currency") or ""),
+            str(data.get("price") or ""),
+            str(area or ""),
+            title,
+            description,
+        ]
+    )
+
+
 def build_fingerprint(data, source=None):
     raw_address = data.get("address")
     address = normalize_address(raw_address) if is_plausible_property_address(raw_address) else ""
@@ -460,6 +563,8 @@ def build_fingerprint(data, source=None):
                 str(data.get("covered_area") or data.get("total_area") or ""),
             ]
         )
+    elif source and (strict_identity := _strict_no_address_identity(data, source)):
+        identity = strict_identity
     elif source and (data.get("external_id") or data.get("url")):
         identity = "|".join(
             [

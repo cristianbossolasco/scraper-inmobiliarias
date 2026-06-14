@@ -35,6 +35,7 @@ FILL_IF_EMPTY_FIELDS = (
     "lot_depth",
     "building_floors",
     "age_years",
+    "condition_category",
     "features",
     "detected_locality",
     "detected_neighborhood",
@@ -106,6 +107,11 @@ class Command(BaseCommand):
             help="Slugs separados por coma. Une propiedades cuyas URLs comparten el ultimo segmento del path.",
         )
         parser.add_argument(
+            "--canonical-id",
+            type=int,
+            help="ID de propiedad que debe quedar como canonica para todos los componentes indicados.",
+        )
+        parser.add_argument(
             "--dry-run",
             action="store_true",
             help="Muestra las acciones sin escribir cambios.",
@@ -127,7 +133,7 @@ class Command(BaseCommand):
                 f"{detected_stats['multi_property']} grupos con propiedades distintas."
             )
         for property_ids in components:
-            self._merge_component(property_ids, dry_run)
+            self._merge_component(property_ids, dry_run, options.get("canonical_id"))
         if not dry_run:
             cache.clear()
         suffix = "dry-run" if dry_run else "ejecutado"
@@ -208,7 +214,14 @@ class Command(BaseCommand):
         by_id = {property_obj.pk: property_obj for property_obj in properties}
         return [by_id[property_id] for property_id in property_ids]
 
-    def _choose_canonical(self, properties):
+    def _choose_canonical(self, properties, canonical_id=None):
+        if canonical_id is not None:
+            for property_obj in properties:
+                if property_obj.pk == canonical_id:
+                    return property_obj
+            raise CommandError(
+                f"La propiedad canonica #{canonical_id} no pertenece al componente."
+            )
         return sorted(properties, key=lambda item: (-self._score(item), item.pk))[0]
 
     def _score(self, property_obj):
@@ -241,9 +254,9 @@ class Command(BaseCommand):
             return False
         return True
 
-    def _merge_component(self, property_ids, dry_run):
+    def _merge_component(self, property_ids, dry_run, canonical_id=None):
         properties = self._get_properties(property_ids)
-        canonical = self._choose_canonical(properties)
+        canonical = self._choose_canonical(properties, canonical_id)
         duplicates = [property_obj for property_obj in properties if property_obj.pk != canonical.pk]
         component_policy = {
             "canonical_hidden": all(property_obj.is_hidden for property_obj in properties),

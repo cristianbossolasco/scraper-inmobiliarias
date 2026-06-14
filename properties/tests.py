@@ -39,6 +39,7 @@ from properties.services.normalization import (
     address_alias_variants,
     build_fingerprint,
     classify_address_precision,
+    infer_condition_category,
     is_plausible_property_address,
     known_neighborhood_name,
     locality_from_neighborhood,
@@ -257,6 +258,63 @@ class NormalizationTests(TestCase):
             source=source,
         )
         self.assertNotEqual(first, second)
+
+    def test_zonaprop_without_address_uses_strict_content_identity(self):
+        source = Source(slug="zonaprop", name="Zonaprop", base_url="https://www.zonaprop.com.ar")
+        base_data = {
+            "title": "Venta Lote 400 m2 Hurlingham",
+            "description": "Excelente lote en Hurlingham con salida rapida y medidas claras.",
+            "address": "",
+            "locality": "Hurlingham",
+            "property_type": Property.Type.LAND,
+            "operation": "sale",
+            "currency": "USD",
+            "price": Decimal("70000"),
+            "land_area": Decimal("400"),
+        }
+        first = build_fingerprint(
+            {
+                **base_data,
+                "external_id": "59337696-a",
+                "url": "https://www.zonaprop.com.ar/propiedades/clasificado/a.html",
+            },
+            source=source,
+        )
+        second = build_fingerprint(
+            {
+                **base_data,
+                "external_id": "59337696-b",
+                "url": "https://www.zonaprop.com.ar/propiedades/clasificado/b.html",
+            },
+            source=source,
+        )
+        different_price = build_fingerprint(
+            {
+                **base_data,
+                "external_id": "59337696-c",
+                "url": "https://www.zonaprop.com.ar/propiedades/clasificado/c.html",
+                "price": Decimal("72000"),
+            },
+            source=source,
+        )
+
+        self.assertEqual(first, second)
+        self.assertNotEqual(first, different_price)
+
+    def test_condition_category_inference(self):
+        self.assertEqual(
+            infer_condition_category("Casa a estrenar en Hurlingham"),
+            Property.ConditionCategory.NEW,
+        )
+        self.assertEqual(
+            infer_condition_category("Chalet a reciclar con gran lote"),
+            Property.ConditionCategory.NEEDS_WORK,
+        )
+        self.assertEqual(
+            infer_condition_category("Casa reciclada en excelente estado"),
+            Property.ConditionCategory.RENOVATED,
+        )
+        self.assertEqual(infer_condition_category("Casa en venta"), Property.ConditionCategory.UNKNOWN)
 
     def test_agency_name_normalization(self):
         self.assertEqual(
@@ -1806,6 +1864,220 @@ class MergePropertiesCommandTests(TestCase):
         self.assertEqual(noted.status, Property.Status.REMOVED)
         self.assertEqual(noted.listings.count(), 0)
 
+    def test_merge_properties_component_respects_canonical_id(self):
+        source = Source.objects.create(
+            slug="manual-canonical",
+            name="Manual Canonical",
+            base_url="https://example.com",
+        )
+        first = self.create_property("Casa primera", bedrooms=2)
+        middle = self.create_property("Casa media", bedrooms=3, is_favorite=True)
+        chosen = self.create_property("Casa elegida", bedrooms=1)
+        self.create_listing(source, first, "l1", "https://example.com/1")
+        self.create_listing(source, middle, "l2", "https://example.com/2")
+        self.create_listing(source, chosen, "l3", "https://example.com/3")
+
+        call_command(
+            "merge_properties",
+            "--component",
+            f"{first.pk},{middle.pk},{chosen.pk}",
+            "--canonical-id",
+            str(chosen.pk),
+            stdout=StringIO(),
+        )
+
+        first.refresh_from_db()
+        middle.refresh_from_db()
+        chosen.refresh_from_db()
+        self.assertFalse(chosen.is_hidden)
+        self.assertEqual(chosen.status, Property.Status.ACTIVE)
+        self.assertEqual(chosen.listings.count(), 3)
+        self.assertTrue(chosen.is_favorite)
+        self.assertTrue(first.is_hidden)
+        self.assertTrue(middle.is_hidden)
+
+
+class RepairMapapropStatusesCommandTests(TestCase):
+    class FakeAdapter:
+        def __init__(self, payloads):
+            self.payloads = payloads
+
+        def parse(self, url):
+            return self.payloads[url]
+
+    def create_mapaprop_listing(self, **property_overrides):
+        source, _ = Source.objects.get_or_create(
+            slug="mapaprop",
+            defaults={"name": "Mapaprop", "base_url": "https://www.mapaprop.com"},
+        )
+        defaults = {
+            "fingerprint": f"mapaprop-repair-{Property.objects.count()}",
+            "title": "Casa Mapaprop",
+            "operation": "sale",
+            "status": Property.Status.ACTIVE,
+            "property_type": Property.Type.HOUSE,
+            "currency": "USD",
+            "price": Decimal("1"),
+        }
+        defaults.update(property_overrides)
+        property_obj = Property.objects.create(**defaults)
+        listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id=f"repair-{property_obj.pk}",
+            url=f"https://www.mapaprop.com/en/property/repair-{property_obj.pk}",
+        )
+        return property_obj, listing
+
+    def test_repair_mapaprop_dry_run_does_not_write(self):
+        property_obj, listing = self.create_mapaprop_listing()
+        parsed = {
+            listing.url: {
+                "status": Property.Status.RESERVED,
+                "source_status": "reserved",
+                "price": None,
+                "currency": "",
+                "raw_data": {"mapaprop_price_hidden_reason": "placeholder_price_1"},
+            }
+        }
+
+        output = StringIO()
+        with patch(
+            "properties.management.commands.repair_mapaprop_statuses.get_adapter",
+            return_value=self.FakeAdapter(parsed),
+        ):
+            call_command(
+                "repair_mapaprop_statuses",
+                "--property-id",
+                str(property_obj.pk),
+                stdout=output,
+            )
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.status, Property.Status.ACTIVE)
+        self.assertEqual(property_obj.price, Decimal("1.00"))
+        self.assertEqual(property_obj.currency, "USD")
+        self.assertEqual(listing.source_status, "")
+        self.assertIn("ACTUALIZARIA", output.getvalue())
+
+    def test_repair_mapaprop_apply_updates_state_price_and_raw_data(self):
+        property_obj, listing = self.create_mapaprop_listing()
+        parsed = {
+            listing.url: {
+                "status": Property.Status.RESERVED,
+                "source_status": "reserved",
+                "price": None,
+                "currency": "",
+                "raw_data": {"mapaprop_price_hidden_reason": "placeholder_price_1"},
+            }
+        }
+
+        with patch(
+            "properties.management.commands.repair_mapaprop_statuses.get_adapter",
+            return_value=self.FakeAdapter(parsed),
+        ):
+            call_command(
+                "repair_mapaprop_statuses",
+                "--property-id",
+                str(property_obj.pk),
+                "--apply",
+                stdout=StringIO(),
+            )
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.status, Property.Status.RESERVED)
+        self.assertIsNone(property_obj.price)
+        self.assertEqual(property_obj.currency, "")
+        self.assertEqual(listing.source_status, "reserved")
+        self.assertEqual(listing.raw_data["mapaprop_price_hidden_reason"], "placeholder_price_1")
+        self.assertEqual(listing.raw_data["mapaprop_repair"]["status"], Property.Status.RESERVED)
+
+    def test_repair_mapaprop_preserves_manual_overrides(self):
+        property_obj, listing = self.create_mapaprop_listing(
+            price=Decimal("123000"),
+            currency="USD",
+            manual_overrides={"price": "manual", "status": "manual"},
+        )
+        parsed = {
+            listing.url: {
+                "status": Property.Status.SOLD,
+                "source_status": "sold",
+                "price": None,
+                "currency": "",
+                "raw_data": {"mapaprop_price_hidden_reason": "placeholder_price_1"},
+            }
+        }
+
+        with patch(
+            "properties.management.commands.repair_mapaprop_statuses.get_adapter",
+            return_value=self.FakeAdapter(parsed),
+        ):
+            call_command(
+                "repair_mapaprop_statuses",
+                "--property-id",
+                str(property_obj.pk),
+                "--apply",
+                stdout=StringIO(),
+            )
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.status, Property.Status.ACTIVE)
+        self.assertEqual(property_obj.price, Decimal("123000.00"))
+        self.assertEqual(property_obj.currency, "USD")
+        self.assertEqual(listing.source_status, "sold")
+        self.assertIn("status", listing.raw_data["mapaprop_repair"]["protected_fields"])
+        self.assertIn("price", listing.raw_data["mapaprop_repair"]["protected_fields"])
+        self.assertIn("currency", listing.raw_data["mapaprop_repair"]["protected_fields"])
+
+    def test_repair_mapaprop_keeps_valid_price_from_sibling_listing(self):
+        property_obj, first_listing = self.create_mapaprop_listing()
+        second_listing = Listing.objects.create(
+            source=first_listing.source,
+            property=property_obj,
+            external_id=f"repair-{property_obj.pk}-b",
+            url=f"https://www.mapaprop.com/en/property/repair-{property_obj.pk}-b",
+        )
+        parsed = {
+            first_listing.url: {
+                "status": Property.Status.SOLD,
+                "source_status": "sold",
+                "price": Decimal("230000"),
+                "currency": "USD",
+                "raw_data": {},
+            },
+            second_listing.url: {
+                "status": Property.Status.SOLD,
+                "source_status": "sold",
+                "price": None,
+                "currency": "",
+                "raw_data": {"mapaprop_price_hidden_reason": "placeholder_price_1"},
+            },
+        }
+
+        with patch(
+            "properties.management.commands.repair_mapaprop_statuses.get_adapter",
+            return_value=self.FakeAdapter(parsed),
+        ):
+            call_command(
+                "repair_mapaprop_statuses",
+                "--property-id",
+                str(property_obj.pk),
+                "--apply",
+                stdout=StringIO(),
+            )
+
+        property_obj.refresh_from_db()
+        first_listing.refresh_from_db()
+        second_listing.refresh_from_db()
+        self.assertEqual(property_obj.status, Property.Status.SOLD)
+        self.assertEqual(property_obj.price, Decimal("230000.00"))
+        self.assertEqual(property_obj.currency, "USD")
+        self.assertEqual(first_listing.source_status, "sold")
+        self.assertEqual(second_listing.source_status, "sold")
+
 
 class OperationRunnerTests(TestCase):
     def _location_geojson_path(self):
@@ -2503,6 +2775,78 @@ class ViewTests(TestCase):
         self.assertIn("price_buckets", chart_data)
         self.assertIn("crime", chart_data)
         self.assertIn("zone_insights", chart_data["crime"])
+
+    def test_stats_surface_trend_uses_real_comparable_groups(self):
+        source = self.listing.source
+        for index, area in enumerate((100, 110, 120, 130, 140), start=1):
+            ingest_listing(
+                source,
+                {
+                    "external_id": f"needs-work-{index}",
+                    "url": f"https://example.com/needs-work-{index}",
+                    "title": f"Casa a refaccionar comparable {index}",
+                    "address": f"Necochea {900 + index}",
+                    "locality": "Hurlingham",
+                    "property_type": Property.Type.HOUSE,
+                    "condition_category": Property.ConditionCategory.NEEDS_WORK,
+                    "age_years": 45,
+                    "currency": "USD",
+                    "price": area * 900,
+                    "covered_area": area,
+                },
+            )
+            ingest_listing(
+                source,
+                {
+                    "external_id": f"new-house-{index}",
+                    "url": f"https://example.com/new-house-{index}",
+                    "title": f"Casa a estrenar comparable {index}",
+                    "address": f"Roma {900 + index}",
+                    "locality": "Hurlingham",
+                    "property_type": Property.Type.HOUSE,
+                    "condition_category": Property.ConditionCategory.NEW,
+                    "age_years": 2,
+                    "currency": "USD",
+                    "price": area * 1800,
+                    "covered_area": area,
+                },
+            )
+            ingest_listing(
+                source,
+                {
+                    "external_id": f"land-{index}",
+                    "url": f"https://example.com/land-{index}",
+                    "title": f"Lote comparable {index}",
+                    "address": f"Paris {900 + index}",
+                    "locality": "Hurlingham",
+                    "property_type": Property.Type.LAND,
+                    "condition_category": Property.ConditionCategory.UNKNOWN,
+                    "age_years": None,
+                    "currency": "USD",
+                    "price": area * 350,
+                    "land_area": area,
+                },
+            )
+
+        response = self.client.get("/estadisticas/")
+        chart_data = json.loads(
+            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
+        )
+        surface_price = chart_data["surface_price"]
+        needs_work = [item for item in surface_price if item["title"].startswith("Casa a refaccionar")]
+        new_houses = [item for item in surface_price if item["title"].startswith("Casa a estrenar")]
+        land = [item for item in surface_price if item["title"].startswith("Lote comparable")]
+        singleton = next(item for item in surface_price if item["id"] == self.listing.property_id)
+
+        self.assertEqual({item["comparable_count"] for item in needs_work}, {5})
+        self.assertEqual({item["comparable_count"] for item in new_houses}, {5})
+        self.assertEqual({item["comparable_count"] for item in land}, {5})
+        self.assertTrue(all("A refaccionar" in item["comparable_group"] for item in needs_work))
+        self.assertTrue(all("A estrenar" in item["comparable_group"] for item in new_houses))
+        self.assertTrue(all("Terreno" in item["comparable_group"] for item in land))
+        self.assertTrue(all(item["discount"] is not None for item in needs_work + new_houses + land))
+        self.assertEqual(singleton["comparable_count"], 1)
+        self.assertIsNone(singleton["discount"])
 
     def test_crime_layers_api_returns_payload(self):
         with patch(
@@ -3303,6 +3647,63 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["covered_area"], Decimal("15000"))
         self.assertEqual(data["building_floors"], 1)
         self.assertEqual(data["garages"], 1)
+
+    def test_mapaprop_status_badges_hide_suspicious_prices(self):
+        cases = [
+            ("mapaprop_reserved_usd1.html", Property.Status.RESERVED, "reserved", "placeholder_price_1"),
+            ("mapaprop_sold_usd1.html", Property.Status.SOLD, "sold", "placeholder_price_1"),
+            ("mapaprop_suspended_usd1.html", Property.Status.SUSPENDED, "suspended", "placeholder_price_1"),
+            ("mapaprop_reserved_ars_old.html", Property.Status.RESERVED, "reserved", "non_active_ars_price"),
+        ]
+        for fixture_name, status, source_status, reason in cases:
+            with self.subTest(fixture=fixture_name):
+                data = self.parse_with_fixture(
+                    MapapropScraper,
+                    fixture_name,
+                    f"https://www.mapaprop.com/en/property/{fixture_name}",
+                )
+                self.assertEqual(data["status"], status)
+                self.assertEqual(data["source_status"], source_status)
+                self.assertIsNone(data["price"])
+                self.assertEqual(data["currency"], "")
+                self.assertEqual(data["raw_data"]["mapaprop_status_badge"], source_status)
+                self.assertEqual(data["raw_data"]["mapaprop_price_hidden_reason"], reason)
+                self.assertIn("mapaprop_public_price", data["raw_data"])
+
+    def test_mapaprop_missing_and_valid_prices(self):
+        missing = self.parse_with_fixture(
+            MapapropScraper,
+            "mapaprop_reserved_no_price.html",
+            "https://www.mapaprop.com/en/property/reserved-no-price",
+        )
+        self.assertEqual(missing["status"], Property.Status.RESERVED)
+        self.assertEqual(missing["source_status"], "reserved")
+        self.assertIsNone(missing["price"])
+        self.assertEqual(missing["currency"], "")
+
+        valid = self.parse_with_fixture(
+            MapapropScraper,
+            "mapaprop_active_valid_price.html",
+            "https://www.mapaprop.com/en/property/active-valid-price",
+        )
+        self.assertEqual(valid["status"], Property.Status.ACTIVE)
+        self.assertEqual(valid["source_status"], "")
+        self.assertEqual(valid["price"], Decimal("98000"))
+        self.assertEqual(valid["currency"], "USD")
+        self.assertNotIn("mapaprop_price_hidden_reason", valid.get("raw_data", {}))
+
+        ars_placeholder = self.parse_with_fixture(
+            MapapropScraper,
+            "mapaprop_active_ars_placeholder.html",
+            "https://www.mapaprop.com/en/property/active-ars-placeholder",
+        )
+        self.assertEqual(ars_placeholder["status"], Property.Status.ACTIVE)
+        self.assertIsNone(ars_placeholder["price"])
+        self.assertEqual(ars_placeholder["currency"], "")
+        self.assertEqual(
+            ars_placeholder["raw_data"]["mapaprop_price_hidden_reason"],
+            "ars_placeholder_price",
+        )
 
     def test_mapaprop_discovery_uses_offsets_and_declared_total(self):
         scraper = MapapropScraper()

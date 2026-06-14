@@ -28,6 +28,7 @@ BASE_RANGES = {
 
 LARGE_LAND_TYPES = {Property.Type.LAND, Property.Type.COUNTRY_HOUSE, Property.Type.OTHER}
 USD_PRICE_RANGE = (1000, 5000000)
+TREND_MIN_COMPARABLES = 5
 
 
 def folded_text(property_obj):
@@ -121,6 +122,51 @@ def valid_area(property_obj):
         if value:
             return value
     return None
+
+
+def valid_comparable_area(property_obj):
+    if property_obj.property_type == Property.Type.LAND:
+        return valid_value(property_obj, "land_area") or valid_value(property_obj, "total_area")
+    for field in ("covered_area", "total_area"):
+        value = valid_value(property_obj, field)
+        if value:
+            return value
+    return valid_value(property_obj, "land_area")
+
+
+def age_band_key(age_years):
+    if age_years is None:
+        return "unknown"
+    try:
+        age = int(age_years)
+    except (TypeError, ValueError):
+        return "unknown"
+    if age <= 5:
+        return "0-5"
+    if age <= 20:
+        return "6-20"
+    if age <= 40:
+        return "21-40"
+    return "41+"
+
+
+def age_band_label(age_years):
+    labels = {
+        "0-5": "0-5 anos",
+        "6-20": "6-20 anos",
+        "21-40": "21-40 anos",
+        "41+": "41+ anos",
+        "unknown": "antiguedad sin dato",
+    }
+    return labels[age_band_key(age_years)]
+
+
+def comparable_group_key(property_obj):
+    return (
+        property_obj.property_type or Property.Type.OTHER,
+        property_obj.condition_category or Property.ConditionCategory.UNKNOWN,
+        age_band_key(property_obj.age_years),
+    )
 
 
 def valid_price_per_m2(property_obj):

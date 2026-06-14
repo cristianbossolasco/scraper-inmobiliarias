@@ -45,10 +45,13 @@ from .services.operations import (
     start_operation_job,
 )
 from .services.data_quality import (
+    age_band_label,
+    comparable_group_key,
     curated_metric_values,
     curated_price_m2_values,
     curated_price_values,
     property_anomalies,
+    valid_comparable_area,
     valid_area,
     valid_price,
     valid_price_per_m2,
@@ -141,6 +144,7 @@ EDITABLE_PROPERTY_FIELDS = {
     "lot_depth",
     "building_floors",
     "age_years",
+    "condition_category",
     "features",
 }
 
@@ -169,6 +173,7 @@ CHOICE_EDIT_FIELDS = {
     "property_type": Property.Type.values,
     "operation": ["sale", "rent"],
     "status": Property.Status.values,
+    "condition_category": Property.ConditionCategory.values,
 }
 
 
@@ -236,6 +241,7 @@ def _serialize_property_edit(property_obj):
         "lot_depth": str(property_obj.lot_depth) if property_obj.lot_depth is not None else "",
         "building_floors": property_obj.building_floors,
         "age_years": property_obj.age_years,
+        "condition_category": property_obj.condition_category,
         "features": property_obj.features or [],
         "manual_overrides": property_obj.manual_overrides or {},
         "data_manually_corrected_at": property_obj.data_manually_corrected_at.isoformat()
@@ -303,6 +309,7 @@ def _canonical_display_locality(property_obj):
 def filter_context(params):
     multi_keys = (
         "property_type",
+        "condition_category",
         "currency",
         "locality",
         "neighborhood",
@@ -324,6 +331,7 @@ def filter_context(params):
         "agencies": Agency.objects.filter(listings__isnull=False).distinct().order_by("name"),
         "sources": Source.objects.exclude(slug__in=BLOCKED_SOURCE_SLUGS).order_by("name"),
         "property_types": Property.Type.choices,
+        "condition_categories": Property.ConditionCategory.choices,
         "statuses": Property.Status.choices,
         "location_confidences": Property.LocationConfidence.choices,
         "security_levels": _security_level_options(),
@@ -532,6 +540,9 @@ TABLE_FILTER_KEYS = {
     "covered_max",
     "land_min",
     "land_max",
+    "age_min",
+    "age_max",
+    "condition_category",
     "price_m2_min",
     "price_m2_max",
     "security_coverage_min",
@@ -728,6 +739,7 @@ def filtered_properties(params, include_listings=True):
         "operation": "operation",
         "currency": "currency",
         "status": "status",
+        "condition_category": "condition_category",
         "security_level": "security_level",
         "security_zone": "security_zone_label",
         "location_value_level": "location_intelligence__level",
@@ -832,6 +844,8 @@ def filtered_properties(params, include_listings=True):
         ("bathrooms_min", "bathrooms__gte", _decimal),
         ("bathrooms_max", "bathrooms__lte", _decimal),
         ("garages_min", "garages__gte", _int),
+        ("age_min", "age_years__gte", _int),
+        ("age_max", "age_years__lte", _int),
     )
     for parameter, lookup, parser in ranges:
         value = parser(params.get(parameter))
@@ -1212,6 +1226,7 @@ def _detail_facts(property_obj):
         ("Fondo", _format_area(property_obj.lot_depth)),
         ("Plantas", property_obj.building_floors),
         ("Antiguedad", f"{property_obj.age_years} anos" if property_obj.age_years else ""),
+        ("Condicion", property_obj.get_condition_category_display()),
         ("USD/m2", f"USD {_format_number(price_m2)}" if price_m2 is not None else ""),
         ("Calidad ubicacion", property_obj.get_location_confidence_display()),
     ]
@@ -1259,6 +1274,13 @@ def _property_edit_sections(property_obj):
                     property_obj.status,
                     "select",
                     _choice_options(Property.Status.choices),
+                ),
+                _edit_field(
+                    "condition_category",
+                    "Condicion",
+                    property_obj.condition_category,
+                    "select",
+                    _choice_options(Property.ConditionCategory.choices),
                 ),
             ],
         },
@@ -1780,6 +1802,8 @@ EXPORT_COLUMNS = (
     "id",
     "titulo",
     "tipo",
+    "condicion",
+    "antiguedad",
     "precio",
     "moneda",
     "precio_m2",
@@ -1826,6 +1850,8 @@ def _export_rows(properties):
             "id": property_obj.pk,
             "titulo": property_obj.title,
             "tipo": property_obj.get_property_type_display(),
+            "condicion": property_obj.get_condition_category_display(),
+            "antiguedad": property_obj.age_years,
             "precio": valid_price(property_obj),
             "moneda": property_obj.currency,
             "precio_m2": valid_price_per_m2(property_obj),
@@ -2070,6 +2096,10 @@ def _chart_property_payload(property_obj, request_query, stats_path):
         ),
         "property_type": property_obj.property_type,
         "property_type_label": property_obj.get_property_type_display(),
+        "condition_category": property_obj.condition_category,
+        "condition_category_label": property_obj.get_condition_category_display(),
+        "age_years": property_obj.age_years,
+        "age_band": age_band_label(property_obj.age_years),
         "price_m2": float(price_m2) if price_m2 is not None else None,
         "quality_score": _quality_score(property_obj),
         "location_confidence": property_obj.location_confidence,
@@ -2116,6 +2146,10 @@ def _compact_location_property_payload(property_obj, record, request_query, stat
             or property_obj.inferred_neighborhood
         ),
         "price_m2": float(price_m2) if price_m2 is not None else None,
+        "condition_category": property_obj.condition_category,
+        "condition_category_label": property_obj.get_condition_category_display(),
+        "age_years": property_obj.age_years,
+        "age_band": age_band_label(property_obj.age_years),
         "location_value_score": record.overall_score,
         "location_value_level": record.level,
         "location_value_zone": record.zone_name,
@@ -2489,7 +2523,11 @@ def _location_value_summary(properties, request_query, stats_path):
                 stats_path,
                 item["price_m2"],
             ),
-            "x": item["record"].overall_score,
+            "territorial_score": item["record"].overall_score,
+            "x": max(
+                0,
+                min(100, item["record"].overall_score + ((item["property"].pk % 9) - 4) * 0.08),
+            ),
             "y": float(item["price_m2"]),
         }
         for item in ranked
@@ -2732,6 +2770,91 @@ def _percentile(sorted_values, percentile):
     return sorted_values[lower] * (1 - weight) + sorted_values[upper] * weight
 
 
+def _linear_regression(points, min_count=5):
+    if len(points) < min_count:
+        return None
+    sum_x = sum(point[0] for point in points)
+    sum_y = sum(point[1] for point in points)
+    sum_xy = sum(point[0] * point[1] for point in points)
+    sum_xx = sum(point[0] * point[0] for point in points)
+    count = len(points)
+    denominator = count * sum_xx - sum_x * sum_x
+    if not denominator:
+        return None
+    slope = (count * sum_xy - sum_x * sum_y) / denominator
+    intercept = (sum_y - slope * sum_x) / count
+
+    def predict(x):
+        return slope * x + intercept
+
+    residuals = [price - predict(area) for area, price in points]
+    std = statistics.stdev(residuals) if len(residuals) > 1 else 0
+    return {
+        "slope": slope,
+        "intercept": intercept,
+        "predict": predict,
+        "std": std,
+        "count": count,
+    }
+
+
+def _comparable_group_label(property_obj):
+    return " / ".join(
+        [
+            property_obj.get_property_type_display(),
+            property_obj.get_condition_category_display(),
+            age_band_label(property_obj.age_years),
+        ]
+    )
+
+
+def _surface_price_points(properties, request_query, stats_path):
+    grouped = {}
+    candidates = []
+    for property_obj in properties:
+        if property_obj.currency != "USD":
+            continue
+        price = valid_price(property_obj)
+        area = valid_comparable_area(property_obj)
+        if price is None or area is None:
+            continue
+        area_float = float(area)
+        price_float = float(price)
+        if area_float <= 0 or price_float <= 0:
+            continue
+        key = comparable_group_key(property_obj)
+        grouped.setdefault(key, []).append((area_float, price_float))
+        candidates.append((property_obj, key, area_float, price_float))
+
+    regressions = {
+        key: regression
+        for key, points in grouped.items()
+        for regression in [_linear_regression(points)]
+        if regression
+    }
+
+    rows = []
+    for property_obj, key, area, price in candidates:
+        regression = regressions.get(key)
+        expected = regression["predict"](area) if regression else None
+        discount = ((expected - price) / expected * 100) if expected and expected > 0 else None
+        payload = _chart_property_payload(property_obj, request_query, stats_path)
+        payload["price_m2"] = round(price / area, 2)
+        rows.append(
+            {
+                **payload,
+                "x": area,
+                "y": price,
+                "expected_price": round(expected, 2) if expected and expected > 0 else None,
+                "discount": round(discount, 2) if discount is not None else None,
+                "comparable_count": len(grouped.get(key, [])),
+                "comparable_group": _comparable_group_label(property_obj),
+                "trend_std": round(regression["std"], 2) if regression else None,
+            }
+        )
+    return rows[:500]
+
+
 def _advanced_anomaly_rows(properties, request_query, stats_path):
     rows = []
     grouped = {}
@@ -2780,41 +2903,49 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
                     }
                 )
 
-    points = [
-        (property_obj, float(valid_area(property_obj)), float(valid_price(property_obj)))
-        for property_obj in properties
-        if valid_area(property_obj) is not None and valid_price(property_obj) is not None
-    ]
-    if len(points) >= 8:
-        sum_x = sum(point[1] for point in points)
-        sum_y = sum(point[2] for point in points)
-        sum_xy = sum(point[1] * point[2] for point in points)
-        sum_xx = sum(point[1] * point[1] for point in points)
-        count = len(points)
-        denominator = count * sum_xx - sum_x * sum_x
-        if denominator:
-            slope = (count * sum_xy - sum_x * sum_y) / denominator
-            intercept = (sum_y - slope * sum_x) / count
-            residuals = [price - (slope * area + intercept) for _property, area, price in points]
-            std = statistics.stdev(residuals) if len(residuals) > 1 else 0
-            if std:
-                for (property_obj, area, price), residual in zip(points, residuals):
-                    if abs(residual) >= std * 1.8:
-                        direction = "por debajo" if residual < 0 else "por encima"
-                        severity = _anomaly_severity(ratio=abs(residual) / max(1, std * 3))
-                        rows.append(
-                            {
-                                "property": property_obj,
-                                "listing": _primary_listing(property_obj),
-                                "field": "regresion superficie-precio",
-                                "value": round(residual),
-                                "reason": f"precio {direction} de la banda esperada",
-                                "model_key": "regression",
-                                "model_label": "Regresion superficie-precio",
-                                "severity": severity,
-                                "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
-                            }
-                        )
+    comparable_groups = {}
+    comparable_points = []
+    for property_obj in properties:
+        if property_obj.currency != "USD":
+            continue
+        area = valid_comparable_area(property_obj)
+        price = valid_price(property_obj)
+        if area is None or price is None:
+            continue
+        area_float = float(area)
+        price_float = float(price)
+        key = comparable_group_key(property_obj)
+        comparable_groups.setdefault(key, []).append((area_float, price_float))
+        comparable_points.append((property_obj, key, area_float, price_float))
+
+    regressions = {
+        key: regression
+        for key, points in comparable_groups.items()
+        for regression in [_linear_regression(points)]
+        if regression and regression["std"]
+    }
+    for property_obj, key, area, price in comparable_points:
+        regression = regressions.get(key)
+        if not regression:
+            continue
+        expected = regression["predict"](area)
+        residual = price - expected
+        if abs(residual) >= regression["std"] * 1.8:
+            direction = "por debajo" if residual < 0 else "por encima"
+            severity = _anomaly_severity(ratio=abs(residual) / max(1, regression["std"] * 3))
+            rows.append(
+                {
+                    "property": property_obj,
+                    "listing": _primary_listing(property_obj),
+                    "field": "regresion comparable",
+                    "value": round(residual),
+                    "reason": f"precio {direction} de comparables: {_comparable_group_label(property_obj)}",
+                    "model_key": "regression",
+                    "model_label": "Regresion por comparables",
+                    "severity": severity,
+                    "detail_url": build_detail_url(property_obj.pk, request_query, stats_path),
+                }
+            )
 
     deduped = {}
     for row in rows:
@@ -2995,7 +3126,7 @@ def market_stats(request):
         "heatmap_points": _heatmap_points(properties, request.GET),
         "surfaces": _numbers(
             [
-                valid_value(item, "land_area") or valid_value(item, "total_area")
+                valid_comparable_area(item)
                 for item in properties
             ]
         )[:500],
@@ -3008,15 +3139,7 @@ def market_stats(request):
             for item in properties
             if valid_value(item, "bedrooms") is not None and valid_price(item) is not None
         ][:500],
-        "surface_price": [
-            {
-                **_chart_property_payload(item, request.GET, stats_path),
-                "x": float(valid_area(item)),
-                "y": float(valid_price(item)),
-            }
-            for item in properties
-            if valid_area(item) is not None and valid_price(item) is not None
-        ][:500],
+        "surface_price": _surface_price_points(properties, request.GET, stats_path),
     }
     cache.set(cache_key, context, 120)
     context.update(filter_context(request.GET))

@@ -35,6 +35,23 @@ Fecha: 6 de junio de 2026.
 5. Ejecutar `python manage.py audit_sources` antes de habilitar una fuente nueva.
 6. No se automatizan sesiones personales, logins, captchas ni grupos privados. Las fuentes sociales se incorporan por importacion manual o APIs oficiales con permisos.
 
+## Incidentes corregidos
+
+### Zonaprop #5233/#5234/#5235
+
+- Fecha de correccion: 14 de junio de 2026.
+- Las tres fichas entraron por Zonaprop en ScrapeJob #176 y se fusionaron dejando #5235 como canonica.
+- Causa raiz: las fichas no tenian direccion confiable; el fingerprint anterior cayo a `source + external_id + url`. Como Zonaprop puede publicar la misma oportunidad con URL/external_id distinto, se crearon propiedades separadas.
+- Prevencion: para Zonaprop sin direccion se intenta primero una firma estricta de contenido con fuente, tipo, operacion, moneda, precio, superficie y titulo/descripcion normalizados. Si faltan esos campos fuertes, recien se usa el fallback por listing.
+- Correccion operativa: `python manage.py merge_properties --component 5233,5234,5235 --canonical-id 5235`.
+
+### Mapaprop estados y precios
+
+- Fecha de correccion: 14 de junio de 2026.
+- Mapaprop muestra badges `Reserved`, `Sold` y `Suspended` cerca del titulo, no siempre como campo `Status`; el parser ahora los detecta con whitespace flexible y los guarda en `Property.status` y `Listing.source_status`.
+- Los precios publicos sospechosos (`USD/ARS 1`, precio no identificable, o ARS en ficha no activa) se preservan en `Listing.raw_data` y se ocultan de `Property.price/currency`.
+- Correccion operativa: `python manage.py repair_mapaprop_statuses` audita en dry-run; `--apply` escribe cambios. `--property-id` limita a propiedades concretas y `--all` permite barrer todo Mapaprop si se necesita buscar casos activos con precio aparentemente valido pero badge no activo.
+
 ## MercadoLibre API
 
 - El adaptador `mercadolibre` usa `https://api.mercadolibre.com/sites/MLA/search` y detalle `https://api.mercadolibre.com/items/{id}`.

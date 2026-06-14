@@ -19,6 +19,7 @@ from .location_enrichment import enrich_location_data
 from .agency_normalization import normalize_agency_name
 from .normalization import (
     build_fingerprint,
+    infer_condition_category,
     infer_property_type,
     is_plausible_property_address,
     known_neighborhood_name,
@@ -57,6 +58,7 @@ PROPERTY_FIELDS = (
     "lot_depth",
     "building_floors",
     "age_years",
+    "condition_category",
     "features",
     "status",
     "detected_locality",
@@ -139,6 +141,12 @@ def canonicalize_listing_data(data, source=None):
     data["property_type"] = data.get("property_type") or infer_property_type(
         data.get("title"), data.get("description")
     )
+    data["condition_category"] = data.get("condition_category") or infer_condition_category(
+        data.get("title"),
+        data.get("description"),
+        data.get("features") or [],
+        (data.get("raw_data") or {}).get("condition"),
+    )
     for numeric_field in (
         "price",
         "covered_area",
@@ -207,6 +215,7 @@ def ingest_listing(source, data):
                 lot_depth=data.get("lot_depth"),
                 building_floors=data.get("building_floors"),
                 age_years=data.get("age_years"),
+                condition_category=data.get("condition_category") or Property.ConditionCategory.UNKNOWN,
                 features=data.get("features") or [],
                 status=data.get("status") or Property.Status.ACTIVE,
                 detected_locality=data.get("detected_locality") or "",

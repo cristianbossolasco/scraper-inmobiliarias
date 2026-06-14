@@ -52,6 +52,13 @@ class Property(models.Model):
         SUSPENDED = "suspended", "Suspendida"
         REMOVED = "removed", "Retirada"
 
+    class ConditionCategory(models.TextChoices):
+        NEW = "new", "A estrenar"
+        RENOVATED = "renovated", "Refaccionada"
+        USED = "used", "Usada"
+        NEEDS_WORK = "needs_work", "A refaccionar"
+        UNKNOWN = "unknown", "Sin dato"
+
     class LocationSource(models.TextChoices):
         LISTING = "listing", "Listado"
         DETAIL = "detail", "Detalle"
@@ -111,6 +118,12 @@ class Property(models.Model):
     )
     building_floors = models.PositiveSmallIntegerField(null=True, blank=True)
     age_years = models.PositiveSmallIntegerField(null=True, blank=True)
+    condition_category = models.CharField(
+        max_length=20,
+        choices=ConditionCategory.choices,
+        default=ConditionCategory.UNKNOWN,
+        db_index=True,
+    )
     features = models.JSONField(default=list, blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.ACTIVE, db_index=True

@@ -1168,24 +1168,29 @@
   function buildSurfaceOutlierRows(items, regression) {
     const outlierContainer = document.getElementById("surface-outliers");
     if (!outlierContainer) return;
-    if (!regression) {
+    const comparableItems = items
+      .filter((item) =>
+        Number.isFinite(Number(item.x))
+        && Number.isFinite(Number(item.y))
+        && Number.isFinite(Number(item.expected_price))
+        && Number(item.comparable_count || 0) >= 5
+      );
+    if (!comparableItems.length) {
       outlierContainer.innerHTML = `
-        <div class="audit-note">No hay suficientes puntos para calcular la tendencia.</div>
+        <div class="audit-note">No hay suficientes comparables para calcular la tendencia.</div>
       `;
       return;
     }
-    const baseline = regression.predict;
-    const outliers = items
-      .filter((item) => Number.isFinite(item.x) && Number.isFinite(item.y) && item.x > 0 && item.y > 0)
+    const outliers = comparableItems
       .map((item) => {
-        const expected = baseline(item.x);
+        const expected = Number(item.expected_price);
         return {
           item,
-          delta: item.y - expected,
+          delta: Number(item.y) - expected,
           expected
         };
       })
-      .filter((entry) => entry.delta < -Math.max(1, regression.std * 0.25))
+      .filter((entry) => Number(entry.item.discount) > 3)
       .sort((a, b) => a.delta - b.delta)
       .slice(0, 80);
 
@@ -1203,6 +1208,7 @@
           <td>${Math.round(entry.item.y).toLocaleString("es-AR")}</td>
           <td>${Math.round(entry.expected).toLocaleString("es-AR")}</td>
           <td>${Math.round(entry.delta).toLocaleString("es-AR")}</td>
+          <td>${escapeHtml(entry.item.comparable_group || "-")} (${Math.round(Number(entry.item.comparable_count) || 0)})</td>
           <td><button class="text-button property-preview-trigger" type="button" data-property-id="${entry.item.id}">Abrir ficha</button></td>
         </tr>
       `).join("");
@@ -1217,6 +1223,8 @@
               <th>Precio</th>
               <th>Precio esperado</th>
               <th>Desvío</th>
+              <th>Comparables</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -1226,9 +1234,9 @@
   }
 
   function scatterWithRegression(id, label, values, xTitle) {
-    const chart = scatter(id, label, values, xTitle, { withRegression: true });
+    const chart = scatter(id, label, values, xTitle, { withRegression: id !== "surface-price-chart" });
     const validItems = values.filter((item) => Number.isFinite(item.x) && Number.isFinite(item.y));
-    surfaceRegression = drawRegressionLine(validItems);
+    surfaceRegression = id === "surface-price-chart" ? null : drawRegressionLine(validItems);
     if (id === "surface-price-chart") {
       buildSurfaceOutlierRows(validItems, surfaceRegression);
     }
@@ -2316,13 +2324,15 @@
     return trimmed.length >= 3 ? trimmed : coordinates;
   }
 
-  function opportunityRows(values, regression) {
-    if (!regression) return [];
+  function opportunityRows(values) {
     return values
-      .filter((item) => Number.isFinite(item.x) && Number.isFinite(item.y) && item.x > 0 && item.y > 0)
+      .filter((item) =>
+        Number.isFinite(Number(item.discount))
+        && Number(item.discount) > 3
+        && Number(item.comparable_count || 0) >= 5
+      )
       .map((item) => {
-        const expected = regression.predict(item.x);
-        const discount = expected > 0 ? (expected - item.y) / expected * 100 : 0;
+        const discount = Number(item.discount);
         const priceM2Bonus = Number.isFinite(Number(item.price_m2)) ? Math.max(0, 1100 - Number(item.price_m2)) / 35 : 0;
         const locationBonus = ["high", "medium"].includes(item.location_confidence) ? 8 : 0;
         const qualityBonus = Number(item.quality_score || 0) / 12;
@@ -2342,14 +2352,12 @@
           : "";
         return {
           ...item,
-          expected,
           discount,
           securityTag,
           territoryTag,
           opportunity_score: discount + priceM2Bonus + locationBonus + qualityBonus + securityBonus + negotiationBonus + territoryBonus + floodPenalty
         };
       })
-      .filter((item) => item.discount > 3)
       .sort((a, b) => b.opportunity_score - a.opportunity_score)
       .slice(0, 12);
   }
@@ -2357,7 +2365,7 @@
   function renderOpportunityPanel() {
     const container = document.getElementById("opportunity-list");
     if (!container) return;
-    const rows = opportunityRows(data.surface_price || [], surfaceRegression);
+    const rows = opportunityRows(data.surface_price || []);
     if (!rows.length) {
       container.innerHTML = '<div class="audit-note">No hay oportunidades claras con los filtros actuales. Probá ampliar zona, superficie o incluir ocultas.</div>';
       return;
@@ -2372,6 +2380,8 @@
           <p>${escapeHtml(item.address || item.zone || "")}</p>
           <div class="opportunity-metrics">
             <span>${Math.round(item.discount)}% bajo tendencia</span>
+            <span>${escapeHtml(item.comparable_group || "Comparables")}</span>
+            <span>${Math.round(Number(item.comparable_count) || 0)} comps</span>
             <span>${item.price_m2 ? `${Math.round(item.price_m2).toLocaleString("es-AR")} /m2` : "Sin m2"}</span>
             <span>${escapeHtml(item.securityTag)}</span>
             ${item.territoryTag ? `<span>${escapeHtml(item.territoryTag)}</span>` : ""}

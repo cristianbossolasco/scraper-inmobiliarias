@@ -165,6 +165,26 @@
         </div>
       </div>
 
+      <div class="filter-section three-cols">
+        <div>
+          <label for="age_min">Antig. min.</label>
+          <input id="age_min" name="age_min" type="number" min="0" value="{{ query_params.age_min }}">
+        </div>
+        <div>
+          <label for="age_max">Antig. max.</label>
+          <input id="age_max" name="age_max" type="number" min="0" value="{{ query_params.age_max }}">
+        </div>
+        <div>
+          <label for="condition_category">CondiciÃ³n</label>
+          <select id="condition_category" name="condition_category" multiple size="4">
+            <option value="">Todas</option>
+            {% for value, label in condition_categories %}
+              <option value="{{ value }}" {% if value in selected_filters.condition_category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
         </div>
       </details>
 

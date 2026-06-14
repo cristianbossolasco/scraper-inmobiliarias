@@ -161,6 +161,23 @@
         <label for="stats-covered-max">Cubierta max.</label>
         <input id="stats-covered-max" name="covered_max" inputmode="numeric" value="{{ query_params.covered_max }}">
       </div>
+      <div class="stats-filter-field">
+        <label for="stats-age-min">Antig. min.</label>
+        <input id="stats-age-min" name="age_min" type="number" min="0" value="{{ query_params.age_min }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-age-max">Antig. max.</label>
+        <input id="stats-age-max" name="age_max" type="number" min="0" value="{{ query_params.age_max }}">
+      </div>
+      <div class="stats-filter-field">
+        <label for="stats-condition">CondiciÃ³n <small>Ctrl/Cmd para varias</small></label>
+        <select id="stats-condition" name="condition_category" multiple size="4">
+          <option value="">Todas</option>
+          {% for value, label in condition_categories %}
+            <option value="{{ value }}" {% if value in selected_filters.condition_category %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
         </div>
       </details>
