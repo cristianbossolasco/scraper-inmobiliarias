@@ -325,15 +325,97 @@ def extract_argencasas_address_from_text(text):
     return ""
 
 
-def enrich_from_common_text(data, text, default_locality="Hurlingham"):
-    address = normalize_argencasas_address(data.get("address")) or text_value(
+def extract_zonaprop_address_from_text(text):
+    if not text:
+        return ""
+    property_words = r"\b(?:venta|alquiler|departamento|casa|duplex|d[úu]plex|ph|lote|terreno|local|ambientes?|propiedad)\b"
+
+    def clean_candidate(value):
+        pieces = re.split(property_words, value, flags=re.I)
+        candidate = pieces[-1] if pieces else value
+        candidate = clean_text(candidate).strip(" ,.-")
+        candidate = re.sub(
+            r"^(?:en\s+)?(?:hurlingham|villa\s+tesei|william(?:\s+c\.?)?\s+morris|buenos\s+aires|argentina)\s+",
+            "",
+            candidate,
+            flags=re.I,
+        )
+        return clean_detected_address(candidate)
+
+    candidates = []
+    for match in re.finditer(
+        r"\b([^,|]{3,90}?\s+(?:al\s+)?\d{2,5})\s*,\s*(?:Hurlingham|Villa\s+Tesei|William(?:\s+C\.?)?\s+Morris)\b",
         text,
-        [
-            r"(?:Direccion|Direcci??n|Ubicacion|Ubicaci??n)\s*:?\s*(.+?)(?:Venta|USD|U\$S|US\$|ARS|\$|Caracteristicas|Caracter??sticas|Descripcion|Descripci??n)",
-            r"^(.+?,\s*(?:Hurlingham|Villa Tesei|William Morris)[^\.]*)",
-        ],
-    )
-    address = normalize_argencasas_address(address)
+        re.I,
+    ):
+        candidates.append(match.group(1))
+    for candidate in candidates:
+        address = clean_candidate(candidate)
+        if address:
+            return address
+    for match in re.finditer(
+        r"\b([^,|]{3,60}?)\s*,\s*(?:B\d{4}\s+[^,]+,\s*)?(?:(?:Provincia\s+de\s+Buenos\s+Aires|Buenos\s+Aires|Argentina)\.?\s*,\s*){0,3}(?:Hurlingham|Villa\s+Tesei|William(?:\s+C\.?)?\s+Morris)\b",
+        text,
+        re.I,
+    ):
+        candidate = clean_candidate(match.group(1))
+        folded = fold_text(candidate)
+        if re.search(property_words, folded, re.I):
+            continue
+        address = clean_detected_address(candidate)
+        if address:
+            return address
+    return ""
+
+
+def parse_zonaprop_highlights(data, text):
+    highlights = {}
+
+    def set_highlight(field, value, raw):
+        if value in (None, ""):
+            return
+        highlights[field] = raw
+        evidence_set(data, field, value, "zonaprop_highlights", raw)
+
+    total = text_value(text, [r"([\d.,]+)\s*m(?:2|Â²|²)?\s*tot\.?"], parse_decimal)
+    covered = text_value(text, [r"([\d.,]+)\s*m(?:2|Â²|²)?\s*cub\.?"], parse_decimal)
+    rooms = text_value(text, [r"(\d+)\s*amb\.?"], parse_int)
+    bathrooms = text_value(text, [r"(\d+(?:[.,]\d+)?)\s*ba(?:n|ñ|Ã±)o?s?\.?"], parse_decimal)
+    garages = text_value(text, [r"(\d+)\s*coch\.?"], parse_int)
+    bedrooms = text_value(text, [r"(\d+)\s*dorm\.?"], parse_int)
+    age = text_value(text, [r"(\d+)\s*a(?:n|ñ|Ã±)os?\b"], parse_int)
+
+    set_highlight("total_area", total, f"{total} m² tot." if total is not None else "")
+    set_highlight("covered_area", covered, f"{covered} m² cub." if covered is not None else "")
+    set_highlight("rooms", rooms, f"{rooms} amb." if rooms is not None else "")
+    set_highlight("bathrooms", bathrooms, f"{bathrooms} baño" if bathrooms is not None else "")
+    set_highlight("garages", garages, f"{garages} coch." if garages is not None else "")
+    set_highlight("bedrooms", bedrooms, f"{bedrooms} dorm." if bedrooms is not None else "")
+    set_highlight("age_years", age, f"{age} años" if age is not None else "")
+
+    if re.search(r"\ba\s+estrenar\b", text, re.I):
+        set_highlight("age_years", 0, "A estrenar")
+        data["condition_category"] = Property.ConditionCategory.NEW
+        data.setdefault("raw_data", {})["condition"] = "A estrenar"
+
+    if highlights:
+        data.setdefault("raw_data", {})["zonaprop_highlights"] = highlights
+    return data
+
+
+def enrich_from_common_text(data, text, default_locality="Hurlingham"):
+    address = normalize_argencasas_address(data.get("address"))
+    if not address:
+        address = extract_zonaprop_address_from_text(text)
+    if not address:
+        candidate = text_value(
+            text,
+            [
+                r"(?:Direccion|Direcci??n|Ubicacion|Ubicaci??n)\s*:?\s*(.+?)(?:Venta|USD|U\$S|US\$|ARS|\$|Caracteristicas|Caracter??sticas|Descripcion|Descripci??n)",
+                r"^(.+?,\s*(?:Hurlingham|Villa Tesei|William Morris)[^\.]*)",
+            ],
+        )
+        address = normalize_argencasas_address(candidate)
     if address:
         data["address"] = address[:250]
     elif data.get("address") and ADDRESS_FALSE_POSITIVE_RE.search(str(data.get("address"))):
@@ -436,6 +518,9 @@ class CommonDetailScraper(BaseScraper):
         if not data.get("images"):
             data["images"] = absolute_images(self, soup)
         data["agency"] = self.definition.name
+        return self.enrich_common_data(data, text, soup)
+
+    def enrich_common_data(self, data, text, soup):
         return enrich_from_common_text(data, text, self.default_locality)
 
 
@@ -2352,3 +2437,7 @@ class ZonapropScraper(CommonDetailScraper):
                 canonical,
             )
         return data
+
+    def enrich_common_data(self, data, text, soup):
+        data = super().enrich_common_data(data, text, soup)
+        return parse_zonaprop_highlights(data, text)

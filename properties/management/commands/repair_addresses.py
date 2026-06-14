@@ -38,6 +38,12 @@ KNOWN_ADDRESS_CORRECTIONS = {
     1093: {"address": "José Batlle y Ordoñez esquina Lima", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
     1086: {"address": "Ginebra esquina Atuel", "locality": "Hurlingham"},
     1085: {"address": "Cañuelas esquina Dolores de Huici", "locality": "William C. Morris"},
+    5542: {"address": "Doctor Delfor Díaz 1700", "locality": "Hurlingham"},
+    713: {"address": "José Garibaldi 3000", "locality": "William C. Morris"},
+    720: {"address": "Dip. Hector Finochietto 1700", "locality": "Hurlingham"},
+    979: {"address": "Isabel del Maestro 3500", "locality": "William C. Morris"},
+    1037: {"address": "Adrián de Rosario Luna 800", "locality": "Hurlingham"},
+    4507: {"address": "Argerich esquina Marqués de Avilés", "locality": "Hurlingham"},
 }
 
 
@@ -53,6 +59,14 @@ STREET_METADATA_RULES = (
     ("jose batlle y ordonez", {"locality": "Villa Tesei", "neighborhood": "Santos Tesei"}),
     ("canuelas esquina dolores de huici", {"locality": "William C. Morris"}),
     ("ginebra esquina atuel", {"locality": "Hurlingham"}),
+    ("doctor delfor diaz", {"locality": "Hurlingham"}),
+    ("jose garibaldi", {"locality": "William C. Morris"}),
+    ("gral jose garibaldi", {"locality": "William C. Morris"}),
+    ("isabel del maestro", {"locality": "William C. Morris"}),
+    ("dip hector finochietto", {"locality": "Hurlingham"}),
+    ("finochietto", {"locality": "Hurlingham"}),
+    ("adrian de rosario luna", {"locality": "Hurlingham"}),
+    ("argerich esquina marques de aviles", {"locality": "Hurlingham"}),
 )
 
 
@@ -97,7 +111,7 @@ class Command(BaseCommand):
             if detected_cleaned and detected_cleaned != property_obj.detected_address:
                 updates["detected_address"] = detected_cleaned
             if known.get("address"):
-                cleaned_known = clean_detected_address(known["address"])
+                cleaned_known = str(known["address"]).strip()
                 updates["address"] = cleaned_known
                 updates["detected_address"] = cleaned_known
                 updates["normalized_address"] = normalize_address(cleaned_known)

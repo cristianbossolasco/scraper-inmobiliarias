@@ -5,14 +5,18 @@ from pathlib import Path
 
 from django.conf import settings
 
+from properties.services.canonical_zones import canonicalize_zone_features
+
 
 DEFAULT_CRIME_SUMMARY = Path(settings.BASE_DIR) / "data" / "geo" / "crime_summary_hurlingham.json"
-DEFAULT_CRIME_ZONES = Path(settings.BASE_DIR) / "data" / "geo" / "crime_zones_hurlingham.geojson"
+DEFAULT_CRIME_ZONES = (
+    Path(settings.BASE_DIR) / "data" / "geo" / "crime" / "crime_zones_hurlingham.geojson"
+)
 DEFAULT_CRIME_HOMICIDE_POINTS = (
-    Path(settings.BASE_DIR) / "data" / "geo" / "crime_homicide_radio_points_hurlingham.geojson"
+    Path(settings.BASE_DIR) / "data" / "geo" / "crime" / "crime_homicide_radio_points_hurlingham.geojson"
 )
 DEFAULT_CRIME_TIMESERIES = (
-    Path(settings.BASE_DIR) / "data" / "geo" / "crime_hurlingham_municipality_timeseries.csv"
+    Path(settings.BASE_DIR) / "data" / "geo" / "crime" / "crime_hurlingham_municipality_timeseries.csv"
 )
 
 CRIME_METHOD_NOTES = {
@@ -36,6 +40,7 @@ def crime_context_signature():
         ":".join(str(part) for part in _file_signature(path))
         for path in (
             DEFAULT_CRIME_SUMMARY,
+            Path(settings.ZONE_GEOJSON_PATH),
             DEFAULT_CRIME_ZONES,
             DEFAULT_CRIME_HOMICIDE_POINTS,
             DEFAULT_CRIME_TIMESERIES,
@@ -357,9 +362,17 @@ def crime_layers_payload(
     point_dataset = _feature_collection(point_path or DEFAULT_CRIME_HOMICIDE_POINTS)
     timeseries = timeseries_payload(timeseries_path)
 
-    zones = [_sanitize_zone(feature) for feature in zone_dataset["features"]]
+    zone_features = zone_dataset["features"]
+    if zone_path is None:
+        zone_features, canonical_dataset = canonicalize_zone_features(zone_features)
+        zone_path_value = canonical_dataset["path"]
+        zone_configured = canonical_dataset.get("configured", False)
+    else:
+        zone_path_value = zone_dataset.get("path")
+        zone_configured = zone_dataset.get("configured", False)
+    zones = [_sanitize_zone(feature) for feature in zone_features]
     points = [_sanitize_homicide_point(feature) for feature in point_dataset["features"][:max_points]]
-    configured = bool(summary.get("configured") and zone_dataset.get("configured"))
+    configured = bool(summary.get("configured") and zone_configured)
     error = ""
     if not configured:
         error = summary.get("error") or zone_dataset.get("error") or "missing"
@@ -368,7 +381,7 @@ def crime_layers_payload(
         "configured": configured,
         "paths": {
             "summary": summary.get("path"),
-            "zones": zone_dataset.get("path"),
+            "zones": zone_path_value,
             "homicide_points": point_dataset.get("path"),
             "timeseries": timeseries.get("path"),
         },

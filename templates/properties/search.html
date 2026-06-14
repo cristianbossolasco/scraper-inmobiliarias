@@ -120,6 +120,10 @@
         <input id="zone-search" class="zone-search" type="search" autocomplete="off" placeholder="Buscar zona">
         <div class="zone-selected" aria-live="polite"></div>
         <div class="zone-options" data-empty-label="Escribi 3 caracteres">
+          <label class="zone-option" data-zone-name="sin zona" data-selected="{% if query_params.zone_missing == '1' %}1{% else %}0{% endif %}">
+            <input type="checkbox" name="zone_missing" value="1" {% if query_params.zone_missing == "1" %}checked{% endif %}>
+            <span>Sin zona</span>
+          </label>
           {% for option in neighborhood_options %}
             <label class="zone-option" data-zone-name="{{ option.name|lower }}" data-selected="{% if option.name in selected_filters.neighborhood %}1{% else %}0{% endif %}">
               <input type="checkbox" name="neighborhood" value="{{ option.name }}" {% if option.name in selected_filters.neighborhood %}checked{% endif %}>
@@ -175,7 +179,7 @@
           <input id="age_max" name="age_max" type="number" min="0" value="{{ query_params.age_max }}">
         </div>
         <div>
-          <label for="condition_category">CondiciÃ³n</label>
+          <label for="condition_category">Condición</label>
           <select id="condition_category" name="condition_category" multiple size="4">
             <option value="">Todas</option>
             {% for value, label in condition_categories %}
@@ -216,10 +220,16 @@
         </div>
         <div>
           <label for="view">Vista</label>
-          <select id="view" name="view">
-            <option value="cards" {% if view_mode != "table" %}selected{% endif %}>Tarjetas</option>
-            <option value="table" {% if view_mode == "table" %}selected{% endif %}>Tabla</option>
-          </select>
+          <div class="segmented-control" role="group" aria-label="Vista de resultados">
+            <label>
+              <input type="radio" name="view" value="cards" {% if view_mode != "table" %}checked{% endif %}>
+              <span><i data-lucide="layout-grid"></i> Tarjetas</span>
+            </label>
+            <label>
+              <input type="radio" name="view" value="table" {% if view_mode == "table" %}checked{% endif %}>
+              <span><i data-lucide="table-2"></i> Tabla</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -234,13 +244,10 @@
       </div>
 
       <div class="filter-section two-cols">
-        <div>
-          <label for="favorite">Favoritas</label>
-          <select id="favorite" name="favorite" multiple size="2">
-            <option value="">Todas</option>
-            <option value="1" {% if "1" in selected_filters.favorite %}selected{% endif %}>Solo favoritas</option>
-          </select>
-        </div>
+        <label class="compact-checkbox">
+          <input id="favorite" type="checkbox" name="favorite" value="1" {% if "1" in selected_filters.favorite %}checked{% endif %}>
+          <span><i data-lucide="star"></i> Solo favoritas</span>
+        </label>
         <div>
           <label for="review_state">Revisión</label>
           <select id="review_state" name="review_state" multiple size="3">
@@ -261,13 +268,10 @@
             <option value="detected" {% if "detected" in selected_filters.location_quality %}selected{% endif %}>Detectada</option>
           </select>
         </div>
-        <div>
-          <label for="show_hidden">Ocultas</label>
-          <select id="show_hidden" name="show_hidden" multiple size="2">
-            <option value="">Ocultar descartadas</option>
-            <option value="1" {% if "1" in selected_filters.show_hidden %}selected{% endif %}>Mostrar ocultas</option>
-          </select>
-        </div>
+        <label class="compact-checkbox">
+          <input id="show_hidden" type="checkbox" name="show_hidden" value="1" {% if "1" in selected_filters.show_hidden %}checked{% endif %}>
+          <span><i data-lucide="eye"></i> Mostrar ocultas</span>
+        </label>
       </div>
 
       <div class="filter-section two-cols">

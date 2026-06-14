@@ -6,6 +6,10 @@ from pathlib import Path
 
 from django.conf import settings
 
+from properties.services.canonical_zones import (
+    canonical_zones_signature,
+    canonicalize_zone_features,
+)
 from properties.services.spatial import (
     haversine_km,
     point_in_polygon,
@@ -97,6 +101,7 @@ def location_intelligence_signature(zone_path=None):
     return "|".join(
         ":".join(str(part) for part in _file_signature(path))
         for path in (
+            Path(settings.ZONE_GEOJSON_PATH),
             zone_path or DEFAULT_INTEGRATED_ZONES,
             DEFAULT_FLOOD_RISK,
             DEFAULT_RENABAP,
@@ -577,11 +582,21 @@ def _sanitize_point_feature(feature, kind):
 def location_intelligence_layers_payload(zone_path=None, include=None, max_features=1200):
     include = set(include or [])
     zone_dataset = load_location_zones(zone_path)
-    zones = [_sanitize_zone_feature(feature) for feature in zone_dataset["features"]]
+    metric_features = zone_dataset["features"]
+    if zone_path is None:
+        metric_features, canonical_dataset = canonicalize_zone_features(metric_features)
+        zone_path_value = canonical_dataset["path"]
+        zone_signature = f"{canonical_zones_signature()}|{zone_dataset['signature']}"
+        configured = bool(canonical_dataset["configured"])
+    else:
+        zone_path_value = zone_dataset["path"]
+        zone_signature = zone_dataset["signature"]
+        configured = zone_dataset["configured"]
+    zones = [_sanitize_zone_feature(feature) for feature in metric_features]
     payload = {
-        "configured": zone_dataset["configured"],
-        "path": zone_dataset["path"],
-        "signature": zone_dataset["signature"],
+        "configured": configured,
+        "path": zone_path_value,
+        "signature": zone_signature,
         "zones": {"type": "FeatureCollection", "features": zones},
         "layers": {},
         "notes": {

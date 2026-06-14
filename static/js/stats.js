@@ -1,7 +1,7 @@
 ﻿(() => {
   const dataNode = document.getElementById("chart-data");
   if (!dataNode?.textContent) return;
-  const data = JSON.parse(dataNode.textContent);
+  let data = JSON.parse(dataNode.textContent);
   const colors = ["#176b4d", "#d6a528", "#d95d45", "#386f8f", "#6f5d8f", "#4f7c67"];
   const statusColors = {
     pending: "#176b4d",
@@ -32,6 +32,8 @@
   let crimeChartsRendered = false;
   let surfaceRegression = null;
   let dashboardPayloadRendered = false;
+  let dashboardDataPromise = null;
+  let dashboardRenderPromise = null;
 
   const priceFormatter = new Intl.NumberFormat("es-AR");
   const zoneStorageKey = "stats.filterSectionCollapsed";
@@ -95,14 +97,14 @@
         panel.classList.toggle("active", panel.dataset.tabContent === tabName);
       });
       localStorage.setItem(tabStorageKey, tabName);
-      if (tabName !== "overview") {
-        renderDashboardDeferred();
-      }
+      const renderPromise = tabName === "overview" ? Promise.resolve(data) : renderDashboardDeferred();
       if (tabName === "spatial") {
-        initPriceHeatmap();
-        initLocationValueMap();
-        initSecurityMaps();
-        initCrimeMap();
+        renderPromise.then(() => {
+          initPriceHeatmap();
+          initLocationValueMap();
+          initSecurityMaps();
+          initCrimeMap();
+        }).catch(() => {});
       }
       if (tabName === "models") {
         setTimeout(() => {
@@ -224,6 +226,32 @@
       throw new Error(payload.error || "No se pudo completar la acción.");
     }
     return payload;
+  }
+
+  async function loadDashboardData() {
+    if (data.loaded || !data.data_url) return data;
+    if (!dashboardDataPromise) {
+      dashboardDataPromise = fetch(data.data_url, { headers: { "Accept": "application/json" } })
+        .then(async (response) => {
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(payload.error || "No se pudieron cargar los datos del dashboard.");
+          }
+          data = { ...data, ...payload, loaded: true };
+          return data;
+        })
+        .catch((error) => {
+          dashboardDataPromise = null;
+          document.querySelectorAll(".chart-panel canvas").forEach((canvas) => {
+            const panel = canvas.closest(".chart-panel");
+            if (panel && !panel.querySelector(".chart-empty-note")) {
+              panel.insertAdjacentHTML("beforeend", `<p class="audit-note chart-empty-note">${escapeHtml(error.message)}</p>`);
+            }
+          });
+          throw error;
+        });
+    }
+    return dashboardDataPromise;
   }
 
   function previewNoteBackupKey(propertyId) {
@@ -1262,6 +1290,23 @@
     return bounds.isEmpty() ? null : bounds;
   }
 
+  function upsertGeoJsonSource(map, sourceId, data) {
+    const source = map.getSource(sourceId);
+    if (source && typeof source.setData === "function") {
+      source.setData(data);
+      return;
+    }
+    if (!source) {
+      map.addSource(sourceId, { type: "geojson", data });
+    }
+  }
+
+  function addLayerIfMissing(map, layer) {
+    if (!map.getLayer(layer.id)) {
+      map.addLayer(layer);
+    }
+  }
+
   function securityFillColor(mode) {
     const property = mode === "risk" ? "risk_score" : "coverage_score";
     if (mode === "risk") {
@@ -1327,9 +1372,9 @@
       securityMaps[containerId] = map;
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
       map.once("load", () => {
-        map.addSource(`${containerId}-zones`, { type: "geojson", data: zones });
-        map.addSource(`${containerId}-points`, { type: "geojson", data: points });
-        map.addLayer({
+        upsertGeoJsonSource(map, `${containerId}-zones`, zones);
+        upsertGeoJsonSource(map, `${containerId}-points`, points);
+        addLayerIfMissing(map, {
           id: `${containerId}-zone-fill`,
           type: "fill",
           source: `${containerId}-zones`,
@@ -1338,7 +1383,7 @@
             "fill-opacity": 0.54
           }
         });
-        map.addLayer({
+        addLayerIfMissing(map, {
           id: `${containerId}-zone-line`,
           type: "line",
           source: `${containerId}-zones`,
@@ -1348,7 +1393,7 @@
             "line-opacity": 0.75
           }
         });
-        map.addLayer({
+        addLayerIfMissing(map, {
           id: `${containerId}-points`,
           type: "circle",
           source: `${containerId}-points`,
@@ -1369,43 +1414,46 @@
         });
         const bounds = securityMapBounds(zones);
         if (bounds) map.fitBounds(bounds, { padding: 30, duration: 0 });
-        map.on("click", `${containerId}-zone-fill`, (event) => {
-          const feature = event.features?.[0];
-          if (!feature) return;
-          const props = feature.properties || {};
-          const score = mode === "risk" ? props.risk_score : props.coverage_score;
-          if (securityMapPopup) securityMapPopup.remove();
-          securityMapPopup = new maplibregl.Popup({ offset: 10 })
-            .setLngLat(event.lngLat)
-            .setHTML(`
-              <div class="map-popup">
-                <strong>${escapeHtml(props.label || "Zona")}</strong>
-                <p>${mode === "risk" ? "Riesgo relativo" : "Cobertura"}: ${Math.round(Number(score) || 0)}/100</p>
-                <small>${escapeHtml(props.security_level || "")} · ${escapeHtml(props.source || "")}</small>
-              </div>
-            `)
-            .addTo(map);
-        });
-        map.on("click", `${containerId}-points`, (event) => {
-          const feature = event.features?.[0];
-          if (!feature) return;
-          const props = feature.properties || {};
-          if (securityMapPopup) securityMapPopup.remove();
-          securityMapPopup = new maplibregl.Popup({ offset: 10 })
-            .setLngLat(feature.geometry.coordinates)
-            .setHTML(`
-              <div class="map-popup">
-                <strong>${escapeHtml(props.name || "Infraestructura")}</strong>
-                <p>${escapeHtml(props.security_type || "seguridad")}</p>
-                <small>${escapeHtml(props.zone || "")}</small>
-              </div>
-            `)
-            .addTo(map);
-        });
-        [`${containerId}-zone-fill`, `${containerId}-points`].forEach((layerId) => {
-          map.on("mouseenter", layerId, () => { map.getCanvas().style.cursor = "pointer"; });
-          map.on("mouseleave", layerId, () => { map.getCanvas().style.cursor = ""; });
-        });
+        if (!map._radarHandlersBound) {
+          map._radarHandlersBound = true;
+          map.on("click", `${containerId}-zone-fill`, (event) => {
+            const feature = event.features?.[0];
+            if (!feature) return;
+            const props = feature.properties || {};
+            const score = mode === "risk" ? props.risk_score : props.coverage_score;
+            if (securityMapPopup) securityMapPopup.remove();
+            securityMapPopup = new maplibregl.Popup({ offset: 10 })
+              .setLngLat(event.lngLat)
+              .setHTML(`
+                <div class="map-popup">
+                  <strong>${escapeHtml(props.label || "Zona")}</strong>
+                  <p>${mode === "risk" ? "Riesgo relativo" : "Cobertura"}: ${Math.round(Number(score) || 0)}/100</p>
+                  <small>${escapeHtml(props.security_level || "")} · ${escapeHtml(props.source || "")}</small>
+                </div>
+              `)
+              .addTo(map);
+          });
+          map.on("click", `${containerId}-points`, (event) => {
+            const feature = event.features?.[0];
+            if (!feature) return;
+            const props = feature.properties || {};
+            if (securityMapPopup) securityMapPopup.remove();
+            securityMapPopup = new maplibregl.Popup({ offset: 10 })
+              .setLngLat(feature.geometry.coordinates)
+              .setHTML(`
+                <div class="map-popup">
+                  <strong>${escapeHtml(props.name || "Infraestructura")}</strong>
+                  <p>${escapeHtml(props.security_type || "seguridad")}</p>
+                  <small>${escapeHtml(props.zone || "")}</small>
+                </div>
+              `)
+              .addTo(map);
+          });
+          [`${containerId}-zone-fill`, `${containerId}-points`].forEach((layerId) => {
+            map.on("mouseenter", layerId, () => { map.getCanvas().style.cursor = "pointer"; });
+            map.on("mouseleave", layerId, () => { map.getCanvas().style.cursor = ""; });
+          });
+        }
         map.resize();
       });
     }).catch(() => {
@@ -1480,8 +1528,8 @@
           });
           locationValueMap.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
           locationValueMap.once("load", () => {
-            locationValueMap.addSource("location-value-zones", { type: "geojson", data: zones });
-            locationValueMap.addLayer({
+            upsertGeoJsonSource(locationValueMap, "location-value-zones", zones);
+            addLayerIfMissing(locationValueMap, {
               id: "location-value-fill",
               type: "fill",
               source: "location-value-zones",
@@ -1490,7 +1538,7 @@
                 "fill-opacity": 0.58
               }
             });
-            locationValueMap.addLayer({
+            addLayerIfMissing(locationValueMap, {
               id: "location-value-line",
               type: "line",
               source: "location-value-zones",
@@ -1502,25 +1550,28 @@
             });
             const bounds = securityMapBounds(zones);
             if (bounds) locationValueMap.fitBounds(bounds, { padding: 30, duration: 0 });
-            locationValueMap.on("click", "location-value-fill", (event) => {
-              const feature = event.features?.[0];
-              if (!feature) return;
-              const props = feature.properties || {};
-              if (locationValueMapPopup) locationValueMapPopup.remove();
-              locationValueMapPopup = new maplibregl.Popup({ offset: 10 })
-                .setLngLat(event.lngLat)
-                .setHTML(`
-                  <div class="map-popup">
-                    <strong>${escapeHtml(props.zone_name || "Zona")}</strong>
-                    <p>Score territorial: ${formatScoreCell(props.overall_score)}</p>
-                    <small>Transporte ${formatScoreCell(props.transport_score)} · Educación ${formatScoreCell(props.education_score)} · Salud ${formatScoreCell(props.health_score)}</small><br>
-                    <small>Riesgo hídrico ${props.in_flood_risk_zone ? "sí" : "no"} · RENABAP ${formatMeters(props.nearest_renabap_m)}</small>
-                  </div>
-                `)
-                .addTo(locationValueMap);
-            });
-            locationValueMap.on("mouseenter", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = "pointer"; });
-            locationValueMap.on("mouseleave", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = ""; });
+            if (!locationValueMap._radarHandlersBound) {
+              locationValueMap._radarHandlersBound = true;
+              locationValueMap.on("click", "location-value-fill", (event) => {
+                const feature = event.features?.[0];
+                if (!feature) return;
+                const props = feature.properties || {};
+                if (locationValueMapPopup) locationValueMapPopup.remove();
+                locationValueMapPopup = new maplibregl.Popup({ offset: 10 })
+                  .setLngLat(event.lngLat)
+                  .setHTML(`
+                    <div class="map-popup">
+                      <strong>${escapeHtml(props.zone_name || "Zona")}</strong>
+                      <p>Score territorial: ${formatScoreCell(props.overall_score)}</p>
+                      <small>Transporte ${formatScoreCell(props.transport_score)} · Educación ${formatScoreCell(props.education_score)} · Salud ${formatScoreCell(props.health_score)}</small><br>
+                      <small>Riesgo hídrico ${props.in_flood_risk_zone ? "sí" : "no"} · RENABAP ${formatMeters(props.nearest_renabap_m)}</small>
+                    </div>
+                  `)
+                  .addTo(locationValueMap);
+              });
+              locationValueMap.on("mouseenter", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = "pointer"; });
+              locationValueMap.on("mouseleave", "location-value-fill", () => { locationValueMap.getCanvas().style.cursor = ""; });
+            }
             locationValueMap.resize();
           });
         }).catch(() => {
@@ -1626,8 +1677,8 @@
     return canvas;
   }
 
-  function renderCrimeMonthlyChart(payload) {
-    const canvas = destroyCanvasChart("crime-monthly-chart");
+  function renderCrimeMonthlyChart(payload, canvasId = "crime-monthly-chart") {
+    const canvas = destroyCanvasChart(canvasId);
     if (!canvas || typeof Chart === "undefined") return null;
     const rows = payload.timeseries?.monthly || [];
     if (!rows.length) {
@@ -1678,7 +1729,10 @@
       }
     });
     canvas.chart = chart;
-    if (measureSelect && !measureSelect.dataset.bound) {
+    if (canvasId === "crime-monthly-chart") {
+      register(canvasId, "Crimen mensual SNIC", (targetCanvasId) => renderCrimeMonthlyChart(payload, targetCanvasId));
+    }
+    if (canvasId === "crime-monthly-chart" && measureSelect && !measureSelect.dataset.bound) {
       measureSelect.dataset.bound = "1";
       measureSelect.addEventListener("change", () => {
         loadCrimeLayers().then(renderCrimeMonthlyChart).catch(() => {});
@@ -1698,8 +1752,8 @@
     return annual;
   }
 
-  function renderCrimePropertyChart(payload) {
-    const canvas = destroyCanvasChart("crime-property-chart");
+  function renderCrimePropertyChart(payload, canvasId = "crime-property-chart") {
+    const canvas = destroyCanvasChart(canvasId);
     if (!canvas || typeof Chart === "undefined") return null;
     const rows = payload.timeseries?.property_monthly || [];
     if (!rows.length) {
@@ -1737,6 +1791,9 @@
       }
     });
     canvas.chart = chart;
+    if (canvasId === "crime-property-chart") {
+      register(canvasId, "SAT Propiedad", (targetCanvasId) => renderCrimePropertyChart(payload, targetCanvasId));
+    }
     return chart;
   }
 
@@ -1847,7 +1904,7 @@
 
   function updateCrimeMapSource(payload) {
     if (!crimeMap || !crimeMap.getSource("crime-homicide-points")) return;
-    crimeMap.getSource("crime-homicide-points").setData(filteredCrimePoints(payload));
+    upsertGeoJsonSource(crimeMap, "crime-homicide-points", filteredCrimePoints(payload));
   }
 
   function renderCrimeMapLegend(payload) {
@@ -1904,9 +1961,9 @@
           });
           crimeMap.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
           crimeMap.once("load", () => {
-            crimeMap.addSource("crime-zones", { type: "geojson", data: zones });
-            crimeMap.addSource("crime-homicide-points", { type: "geojson", data: filteredCrimePoints(payload) });
-            crimeMap.addLayer({
+            upsertGeoJsonSource(crimeMap, "crime-zones", zones);
+            upsertGeoJsonSource(crimeMap, "crime-homicide-points", filteredCrimePoints(payload));
+            addLayerIfMissing(crimeMap, {
               id: "crime-zone-fill",
               type: "fill",
               source: "crime-zones",
@@ -1915,7 +1972,7 @@
                 "fill-opacity": 0.42
               }
             });
-            crimeMap.addLayer({
+            addLayerIfMissing(crimeMap, {
               id: "crime-zone-line",
               type: "line",
               source: "crime-zones",
@@ -1925,7 +1982,7 @@
                 "line-opacity": 0.8
               }
             });
-            crimeMap.addLayer({
+            addLayerIfMissing(crimeMap, {
               id: "crime-homicide-points",
               type: "circle",
               source: "crime-homicide-points",
@@ -1946,44 +2003,47 @@
             });
             const bounds = securityMapBounds(zones);
             if (bounds) crimeMap.fitBounds(bounds, { padding: 30, duration: 0 });
-            crimeMap.on("click", "crime-zone-fill", (event) => {
-              const feature = event.features?.[0];
-              if (!feature) return;
-              const props = feature.properties || {};
-              if (crimeMapPopup) crimeMapPopup.remove();
-              crimeMapPopup = new maplibregl.Popup({ offset: 10 })
-                .setLngLat(event.lngLat)
-                .setHTML(`
-                  <div class="map-popup">
-                    <strong>${escapeHtml(props.label || "Zona")}</strong>
-                    <p>Total municipal: ${formatNumber(props.reported_crimes_total)}</p>
-                    <p>Propiedad: ${formatNumber(props.reported_property_crime_count)} · Homicidios: ${formatNumber(props.reported_homicide_count)}</p>
-                    <small>${escapeHtml(props.crime_data_scope || "municipio")} · precision ${escapeHtml(props.crime_spatial_precision || "low")}</small>
-                  </div>
-                `)
-                .addTo(crimeMap);
-            });
-            crimeMap.on("click", "crime-homicide-points", (event) => {
-              const feature = event.features?.[0];
-              if (!feature) return;
-              const props = feature.properties || {};
-              if (crimeMapPopup) crimeMapPopup.remove();
-              crimeMapPopup = new maplibregl.Popup({ offset: 10 })
-                .setLngLat(feature.geometry.coordinates)
-                .setHTML(`
-                  <div class="map-popup">
-                    <strong>SAT-HD ${escapeHtml(props.period_year || "")}</strong>
-                    <p>Victimas: ${formatNumber(props.victims_count)} · Zona: ${escapeHtml(props.assigned_zone_name || "")}</p>
-                    <p>${escapeHtml(props.tipo_lugar || "")} · ${escapeHtml(props.clase_arma || "")}</p>
-                    <small>Centroide de radio censal; ubicacion exacta: no.</small>
-                  </div>
-                `)
-                .addTo(crimeMap);
-            });
-            ["crime-zone-fill", "crime-homicide-points"].forEach((layerId) => {
-              crimeMap.on("mouseenter", layerId, () => { crimeMap.getCanvas().style.cursor = "pointer"; });
-              crimeMap.on("mouseleave", layerId, () => { crimeMap.getCanvas().style.cursor = ""; });
-            });
+            if (!crimeMap._radarHandlersBound) {
+              crimeMap._radarHandlersBound = true;
+              crimeMap.on("click", "crime-zone-fill", (event) => {
+                const feature = event.features?.[0];
+                if (!feature) return;
+                const props = feature.properties || {};
+                if (crimeMapPopup) crimeMapPopup.remove();
+                crimeMapPopup = new maplibregl.Popup({ offset: 10 })
+                  .setLngLat(event.lngLat)
+                  .setHTML(`
+                    <div class="map-popup">
+                      <strong>${escapeHtml(props.label || "Zona")}</strong>
+                      <p>Total municipal: ${formatNumber(props.reported_crimes_total)}</p>
+                      <p>Propiedad: ${formatNumber(props.reported_property_crime_count)} · Homicidios: ${formatNumber(props.reported_homicide_count)}</p>
+                      <small>${escapeHtml(props.crime_data_scope || "municipio")} · precision ${escapeHtml(props.crime_spatial_precision || "low")}</small>
+                    </div>
+                  `)
+                  .addTo(crimeMap);
+              });
+              crimeMap.on("click", "crime-homicide-points", (event) => {
+                const feature = event.features?.[0];
+                if (!feature) return;
+                const props = feature.properties || {};
+                if (crimeMapPopup) crimeMapPopup.remove();
+                crimeMapPopup = new maplibregl.Popup({ offset: 10 })
+                  .setLngLat(feature.geometry.coordinates)
+                  .setHTML(`
+                    <div class="map-popup">
+                      <strong>SAT-HD ${escapeHtml(props.period_year || "")}</strong>
+                      <p>Victimas: ${formatNumber(props.victims_count)} · Zona: ${escapeHtml(props.assigned_zone_name || "")}</p>
+                      <p>${escapeHtml(props.tipo_lugar || "")} · ${escapeHtml(props.clase_arma || "")}</p>
+                      <small>Centroide de radio censal; ubicacion exacta: no.</small>
+                    </div>
+                  `)
+                  .addTo(crimeMap);
+              });
+              ["crime-zone-fill", "crime-homicide-points"].forEach((layerId) => {
+                crimeMap.on("mouseenter", layerId, () => { crimeMap.getCanvas().style.cursor = "pointer"; });
+                crimeMap.on("mouseleave", layerId, () => { crimeMap.getCanvas().style.cursor = ""; });
+              });
+            }
             crimeMap.resize();
           });
         }).catch(() => {
@@ -2398,8 +2458,8 @@
     lucide.createIcons();
   }
 
-  function createLiquidityChart() {
-    const ctx = document.getElementById("liquidity-chart");
+  function createLiquidityChart(canvasId = "liquidity-chart") {
+    const ctx = document.getElementById(canvasId);
     const rows = Array.isArray(data.liquidity) ? data.liquidity : [];
     if (!ctx || !rows.length || typeof Chart === "undefined") return null;
     const chart = new Chart(ctx, {
@@ -2435,6 +2495,9 @@
       }
     });
     chart.canvas.chart = chart;
+    if (canvasId === "liquidity-chart") {
+      register(canvasId, "Liquidez del inventario", (targetCanvasId) => createLiquidityChart(targetCanvasId));
+    }
     return chart;
   }
 
@@ -2483,7 +2546,7 @@
     if (!security.configured) {
       container.innerHTML = `
         <div class="audit-note">
-          No hay capa fina cargada. Agregá polígonos o puntos a <strong>data/seguridad_hurlingham.geojson</strong> para cruzar seguridad con precio.
+          No hay capa fina cargada. Agregá polígonos o puntos a <strong>data/geo/security/security_zones_hurlingham.geojson</strong> para cruzar seguridad con precio.
         </div>
       `;
       return;
@@ -2725,23 +2788,28 @@
   }
 
   function renderDashboardDeferred() {
-    if (dashboardPayloadRendered) return;
-    dashboardPayloadRendered = true;
-    if (typeof Chart !== "undefined") {
-      try {
-        renderCharts();
-      } catch (error) {
-        console.error("No se pudieron renderizar los gráficos del dashboard.", error);
+    if (dashboardRenderPromise) return dashboardRenderPromise;
+    dashboardRenderPromise = loadDashboardData().then(() => {
+      if (dashboardPayloadRendered) return data;
+      dashboardPayloadRendered = true;
+      if (typeof Chart !== "undefined") {
+        try {
+          renderCharts();
+        } catch (error) {
+          console.error("No se pudieron renderizar los gráficos del dashboard.", error);
+        }
+      } else {
+        renderOpportunityPanel();
+        renderZoneTypeMatrix();
+        renderSecurityPanel();
+        renderSecurityArbitrage();
+        renderCrimeKpis();
+        renderCrimeZoneInsights();
+        renderCrimeAsyncPanels();
       }
-    } else {
-      renderOpportunityPanel();
-      renderZoneTypeMatrix();
-      renderSecurityPanel();
-      renderSecurityArbitrage();
-      renderCrimeKpis();
-      renderCrimeZoneInsights();
-      renderCrimeAsyncPanels();
-    }
+      return data;
+    });
+    return dashboardRenderPromise;
   }
 
   initTabs();
@@ -2823,15 +2891,63 @@
 
   const modal = document.getElementById("chart-modal");
   const close = document.getElementById("chart-modal-close");
+  const modalCanvas = document.getElementById("chart-modal-canvas");
+  const modalContent = document.getElementById("chart-modal-content");
   let modalChart = null;
+  const clearModalContent = () => {
+    if (modalChart) modalChart.destroy();
+    modalChart = null;
+    if (modalContent) {
+      modalContent.replaceChildren();
+      modalContent.hidden = true;
+    }
+    if (modalCanvas) modalCanvas.hidden = false;
+  };
   document.querySelectorAll(".chart-expand").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const panel = button.closest(".chart-panel");
       const canvas = panel?.querySelector("canvas");
+      const mapTarget = panel?.querySelector(".stats-heatmap-map");
+      const htmlTarget = panel?.querySelector(".crime-seasonality-panel");
+      if (mapTarget) {
+        try {
+          await renderDashboardDeferred();
+          await (panel.requestFullscreen ? panel.requestFullscreen() : mapTarget.requestFullscreen?.());
+          setTimeout(() => {
+            if (mapTarget.id === "price-heatmap-map") initPriceHeatmap();
+            if (mapTarget.id === "location-value-map") initLocationValueMap();
+            if (mapTarget.id === "security-coverage-map" || mapTarget.id === "security-risk-map") initSecurityMaps();
+            if (mapTarget.id === "crime-context-map") initCrimeMap();
+          }, 180);
+        } catch (_error) {}
+        return;
+      }
+      if (canvas && !charts.has(canvas.id)) {
+        try {
+          await renderDashboardDeferred();
+        } catch (_error) {
+          return;
+        }
+      }
+      if (!canvas && htmlTarget) {
+        try {
+          await renderDashboardDeferred();
+        } catch (_error) {
+          return;
+        }
+        if (!modal || !modalContent || !modalCanvas) return;
+        document.getElementById("chart-modal-title").textContent = panel?.querySelector("h2")?.textContent || "";
+        clearModalContent();
+        modalCanvas.hidden = true;
+        modalContent.hidden = false;
+        modalContent.appendChild(htmlTarget.cloneNode(true));
+        modal.showModal();
+        return;
+      }
       const config = canvas ? charts.get(canvas.id) : null;
       if (!config || !modal) return;
       document.getElementById("chart-modal-title").textContent = panel?.querySelector("h2")?.textContent || config.title || "";
-      if (modalChart) modalChart.destroy();
+      clearModalContent();
       modal.showModal();
       modalChart = config.build("chart-modal-canvas");
     });
@@ -2839,12 +2955,10 @@
   if (close) close.addEventListener("click", () => modal.close());
   if (modal) {
     modal.addEventListener("cancel", () => {
-      if (modalChart) modalChart.destroy();
-      modalChart = null;
+      clearModalContent();
     });
     modal.addEventListener("close", () => {
-      if (modalChart) modalChart.destroy();
-      modalChart = null;
+      clearModalContent();
     });
   }
 
@@ -2852,9 +2966,11 @@
     setTimeout(() => {
       const isSpatial = document.querySelector('.stats-tab[data-tab="spatial"].active');
       if (isSpatial) {
-        initPriceHeatmap();
-        initLocationValueMap();
-        initSecurityMaps();
+        renderDashboardDeferred().then(() => {
+          initPriceHeatmap();
+          initLocationValueMap();
+          initSecurityMaps();
+        }).catch(() => {});
       }
     }, 0);
   }

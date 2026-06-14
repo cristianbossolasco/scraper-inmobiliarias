@@ -123,11 +123,16 @@ class Geocoder:
         address_variants.extend(intersection_variants)
 
         candidates = []
-        localities = [locality]
-        if address_locality and address_locality not in localities:
-            localities.append(address_locality)
-        if locality != "Hurlingham":
-            localities.append("Hurlingham")
+        localities = []
+        for candidate in (
+            locality,
+            address_locality,
+            "Hurlingham",
+            "Villa Tesei",
+            "William C. Morris",
+        ):
+            if candidate and candidate not in localities:
+                localities.append(candidate)
         for variant in address_variants:
             folded_variant = fold_text(variant)
             for candidate_locality in localities:

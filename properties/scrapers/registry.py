@@ -3,7 +3,7 @@ import inspect
 from .aliased_sources import AUDIT_ONLY_SOURCES
 from .argenprop import ArgenpropScraper
 from .argencasas import ArgencasasScraper
-from .local_sites import AliagaScraper, BecerraScraper
+from .local_sites import AliagaScraper, BecerraScraper, FaellaScraper
 from .local_wordpress import MiglieriniScraper, OdriozolaScraper
 from .mapaprop import MapapropScraper
 from .mercadoprop import MercadoPropScraper
@@ -33,6 +33,7 @@ ADAPTERS = {
         ArgencasasScraper,
         ArgenpropScraper,
         MercadoPropScraper,
+        FaellaScraper,
         BecerraScraper,
         AliagaScraper,
         MiglieriniScraper,

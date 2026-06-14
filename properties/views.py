@@ -45,6 +45,8 @@ from .services.operations import (
     start_operation_job,
 )
 from .services.data_quality import (
+    BASE_RANGES,
+    USD_PRICE_RANGE,
     age_band_label,
     comparable_group_key,
     curated_metric_values,
@@ -57,6 +59,7 @@ from .services.data_quality import (
     valid_price_per_m2,
     valid_value,
 )
+from .services.canonical_zones import zone_key
 from .services.scraping import (
     ActiveScrapeJobError,
     create_scrape_job,
@@ -350,18 +353,38 @@ def filter_context(params):
 
 
 def _neighborhood_options():
-    counts = {}
-    for neighborhood, detected, inferred in Property.objects.values_list(
-        "neighborhood", "detected_neighborhood", "inferred_neighborhood"
+    canonical_names = _canonical_zone_names()
+    canonical_by_key = {zone_key(name): name for name in canonical_names}
+    counts = {name: 0 for name in canonical_names}
+    for inferred, location_zone in Property.objects.values_list(
+        "inferred_neighborhood",
+        "location_intelligence__zone_name",
     ):
-        for name in {neighborhood, detected, inferred}:
-            normalized = normalize_neighborhood_name(name)
-            if normalized:
-                counts[normalized] = counts.get(normalized, 0) + 1
+        raw = normalize_whitespace(location_zone or inferred)
+        name = canonical_by_key.get(zone_key(raw))
+        if not name:
+            name = canonical_by_key.get(zone_key(normalize_neighborhood_name(raw)))
+        if name:
+            counts[name] = counts.get(name, 0) + 1
     return [
         {"name": name, "count": count}
         for name, count in sorted(counts.items(), key=lambda item: (-item[1], item[0].lower()))
     ]
+
+
+def _canonical_zone_names():
+    try:
+        payload = json.loads(Path(settings.ZONE_GEOJSON_PATH).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    names = []
+    for feature in payload.get("features") or []:
+        props = feature.get("properties") or {}
+        raw_name = props.get("zone_name") or props.get("name") or props.get("label") or ""
+        name = normalize_whitespace(raw_name)
+        if name and name not in names:
+            names.append(name)
+    return names
 
 
 def _security_zone_options():
@@ -408,8 +431,9 @@ def _location_value_level_options():
 
 def _selected_neighborhoods(params):
     selected = []
+    canonical_by_key = {zone_key(name): name for name in _canonical_zone_names()}
     for value in _param_values(params, "neighborhood"):
-        normalized = normalize_neighborhood_name(value)
+        normalized = canonical_by_key.get(zone_key(value)) or normalize_neighborhood_name(value)
         if normalized and normalized not in selected:
             selected.append(normalized)
     return selected
@@ -712,7 +736,7 @@ def table_context(params):
     }
 
 
-def filtered_properties(params, include_listings=True):
+def filtered_property_queryset(params, include_listings=True):
     queryset = Property.objects.select_related("location", "location_intelligence")
     if include_listings:
         listing_queryset = Listing.objects.select_related("agency", "source")
@@ -761,22 +785,25 @@ def filtered_properties(params, include_listings=True):
 
     neighborhood_values = _selected_neighborhoods(params)
     if neighborhood_values:
-        aliases_by_value = {value: {value} for value in neighborhood_values}
-        for neighborhood, detected, inferred in Property.objects.values_list(
-            "neighborhood", "detected_neighborhood", "inferred_neighborhood"
-        ):
-            for raw_name in (neighborhood, detected, inferred):
-                normalized = normalize_neighborhood_name(raw_name)
-                if normalized in aliases_by_value and raw_name:
-                    aliases_by_value[normalized].add(raw_name)
         neighborhood_q = Q()
-        for aliases in aliases_by_value.values():
+        for value in neighborhood_values:
             neighborhood_q |= (
-                Q(neighborhood__in=aliases)
-                | Q(detected_neighborhood__in=aliases)
-                | Q(inferred_neighborhood__in=aliases)
+                Q(neighborhood=value)
+                | Q(detected_neighborhood=value)
+                | Q(inferred_neighborhood=value)
+                | Q(location_intelligence__zone_name=value)
             )
         queryset = queryset.filter(neighborhood_q)
+
+    if params.get("zone_missing") == "1":
+        queryset = queryset.filter(
+            (Q(inferred_neighborhood="") | Q(inferred_neighborhood__isnull=True))
+            & (
+                Q(location_intelligence__isnull=True)
+                | Q(location_intelligence__zone_name="")
+                | Q(location_intelligence__zone_name__isnull=True)
+            )
+        )
 
     if not params.get("operation") and params.get("show_non_sale") != "1":
         queryset = queryset.filter(operation="sale")
@@ -895,7 +922,63 @@ def filtered_properties(params, include_listings=True):
     if spatial_ids is not None:
         queryset = queryset.filter(pk__in=spatial_ids)
 
-    properties = list(queryset.distinct())
+    return queryset.distinct(), distances, {
+        "radius": (radius_lat, radius_lng, radius_km),
+        "polygon": polygon,
+    }
+
+
+PYTHON_ONLY_SORTS = {"agency", "source", "locality", "price_m2", "quality", "distance"}
+
+
+def _requires_python_post_filtering(params):
+    if params.get("quality_field") and params.get("quality_state") in {"present", "missing"}:
+        return True
+    if _decimal(params.get("price_m2_min")) is not None or _decimal(params.get("price_m2_max")) is not None:
+        return True
+    if None not in (
+        _float(params.get("radius_lat")),
+        _float(params.get("radius_lng")),
+        _float(params.get("radius_km")),
+    ):
+        return True
+    if params.get("polygon"):
+        return True
+    return False
+
+
+def _can_sort_in_db(params):
+    return not any(_sort_field(token) in PYTHON_ONLY_SORTS for token in _sort_tokens(params.get("sort")))
+
+
+def _apply_db_sort(queryset, params):
+    ordering = []
+    mapping = {
+        "price": "price",
+        "title": "title",
+        "bedrooms": "bedrooms",
+        "bathrooms": "bathrooms",
+        "covered_area": "covered_area",
+        "land_area": "land_area",
+        "area": "land_area",
+        "first_seen": "first_seen_at",
+        "last_seen": "last_seen_at",
+        "reviewed": "reviewed_at",
+    }
+    for token in _sort_tokens(params.get("sort")):
+        field = _sort_field(token)
+        db_field = mapping.get(field)
+        if not db_field:
+            continue
+        ordering.append(f"-{db_field}" if token.startswith("-") else db_field)
+    return queryset.order_by(*(ordering or ["-last_seen_at"]))
+
+
+def filtered_properties(params, include_listings=True):
+    queryset, distances, spatial_context = filtered_property_queryset(params, include_listings)
+    properties = list(queryset)
+    radius_lat, radius_lng, radius_km = spatial_context["radius"]
+    polygon = spatial_context["polygon"]
     quality_field = params.get("quality_field")
     quality_state = params.get("quality_state")
     if quality_field and quality_state in {"present", "missing"}:
@@ -1133,19 +1216,10 @@ def _serialize_map_property(property_obj, distance=None, current_query=None):
         "currency": property_obj.currency,
         "status": property_obj.status,
         "locality": property_obj.locality,
-        "neighborhood": (
-            property_obj.neighborhood
-            or property_obj.detected_neighborhood
-            or property_obj.inferred_neighborhood
-            or ""
-        ),
-        "zone": (
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-            or property_obj.locality
-            or ""
-        ),
+        "neighborhood": _declared_neighborhood(property_obj),
+        "declared_neighborhood": _declared_neighborhood(property_obj),
+        "geo_zone": _geo_zone(property_obj),
+        "zone": _geo_zone(property_obj) or property_obj.locality or "",
         "price_m2": float(price_m2) if price_m2 is not None else None,
         "latitude": location.latitude,
         "longitude": location.longitude,
@@ -1391,12 +1465,9 @@ def property_summary_api(request, pk):
             "price_m2": float(price_m2) if price_m2 is not None else None,
             "address": property_obj.address or property_obj.detected_address or "",
             "locality": property_obj.locality or property_obj.detected_locality or "",
-            "neighborhood": (
-                property_obj.neighborhood
-                or property_obj.detected_neighborhood
-                or property_obj.inferred_neighborhood
-                or ""
-            ),
+            "neighborhood": _declared_neighborhood(property_obj),
+            "declared_neighborhood": _declared_neighborhood(property_obj),
+            "geo_zone": _geo_zone(property_obj),
             "description": property_obj.description,
             "image": _listing_image_url(listing),
             "facts": _detail_facts(property_obj),
@@ -1505,10 +1576,21 @@ def search(request):
     active_filters = active_filter_context(request, reverse("properties:search"))
     if active_filters["redirect_url"]:
         return HttpResponseRedirect(active_filters["redirect_url"])
-    properties, distances = filtered_properties(request.GET, include_listings=False)
-    paginator = Paginator(properties, 24)
-    page = paginator.get_page(request.GET.get("page"))
-    page.object_list = _prefetch_property_details(page.object_list)
+    if _requires_python_post_filtering(request.GET) or not _can_sort_in_db(request.GET):
+        properties, distances = filtered_properties(request.GET, include_listings=False)
+        paginator = Paginator(properties, 24)
+        page = paginator.get_page(request.GET.get("page"))
+        total = len(properties)
+    else:
+        queryset, distances, _spatial_context = filtered_property_queryset(
+            request.GET,
+            include_listings=False,
+        )
+        queryset = _apply_db_sort(queryset, request.GET)
+        paginator = Paginator(queryset, 24)
+        page = paginator.get_page(request.GET.get("page"))
+        total = paginator.count
+    page.object_list = _prefetch_property_details(list(page.object_list))
     serialized = {
         item.pk: _serialize(item, distances.get(item.pk), request.GET)
         for item in page.object_list
@@ -1516,7 +1598,7 @@ def search(request):
     context = {
         "page": page,
         "serialized": serialized,
-        "total": len(properties),
+        "total": total,
         "agencies": Agency.objects.filter(listings__isnull=False).distinct().order_by("name"),
         "sources": Source.objects.order_by("name"),
         "property_types": Property.Type.choices,
@@ -1953,17 +2035,49 @@ def _safe_label(value):
     return value or "Sin dato"
 
 
+def _location_value_zone(property_obj):
+    record = _location_intelligence_record(property_obj)
+    return record.zone_name if record and record.zone_name else ""
+
+
+def _geo_zone(property_obj):
+    return _location_value_zone(property_obj) or property_obj.inferred_neighborhood
+
+
+def _declared_neighborhood(property_obj):
+    return property_obj.detected_neighborhood or property_obj.neighborhood
+
+
+def _display_zone(property_obj):
+    return _geo_zone(property_obj) or _declared_neighborhood(property_obj)
+
+
+def _zone_url(request_query, label, stats_path, extra=None):
+    extra = extra or {}
+    if label == "Sin dato":
+        overrides = {"zone_missing": "1", **extra}
+        return query_url(
+            request_query,
+            overrides,
+            remove=["neighborhood"],
+            path=stats_path,
+        )
+    overrides = {"neighborhood": label, **extra}
+    return query_url(
+        request_query,
+        overrides,
+        remove=["zone_missing"],
+        path=stats_path,
+    )
+
+
 def _zone_price_statistics(properties, request_query, stats_path):
     grouped = {}
     for property_obj in properties:
         price = valid_price(property_obj)
         if price is None:
             continue
-        label = _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-        )
+        label = _safe_label(_geo_zone(property_obj))
         grouped.setdefault(label, []).append(float(price))
     items = []
     for label, values in grouped.items():
@@ -1985,14 +2099,14 @@ def _zone_price_statistics(properties, request_query, stats_path):
                 "max": round(values[-1], 2),
                 "q1": round(q1, 2) if q1 is not None else None,
                 "q3": round(q3, 2) if q3 is not None else None,
-                "url": query_url(request_query, {"neighborhood": "" if label == "Sin dato" else label}, path=stats_path),
+                "url": _zone_url(request_query, label, stats_path),
             }
         )
     items.sort(key=lambda item: item["total"], reverse=True)
     return items[:20]
 
 
-def _heatmap_points(properties, request_query, max_points=1200):
+def _heatmap_points(properties, request_query, max_points=450):
     points = []
     for property_obj in properties:
         if len(points) >= max_points:
@@ -2015,11 +2129,9 @@ def _heatmap_points(properties, request_query, max_points=1200):
                 "price_m2": price_m2,
                 "area": float(area) if area else None,
                 "currency": property_obj.currency or "",
-                "zone": _safe_label(
-                    property_obj.detected_neighborhood
-                    or property_obj.neighborhood
-                    or property_obj.inferred_neighborhood
-                ),
+                "zone": _safe_label(_geo_zone(property_obj)),
+                "geo_zone": _geo_zone(property_obj),
+                "declared_neighborhood": _declared_neighborhood(property_obj),
                 "longitude": location.longitude,
                 "latitude": location.latitude,
                 "location_value_score": location_intelligence["overall_score"],
@@ -2089,11 +2201,9 @@ def _chart_property_payload(property_obj, request_query, stats_path):
         "price": float(property_obj.price) if property_obj.price is not None else None,
         "currency": property_obj.currency,
         "address": property_obj.address or property_obj.detected_address or property_obj.locality or "",
-        "zone": _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-        ),
+        "zone": _safe_label(_geo_zone(property_obj)),
+        "geo_zone": _geo_zone(property_obj),
+        "declared_neighborhood": _declared_neighborhood(property_obj),
         "property_type": property_obj.property_type,
         "property_type_label": property_obj.get_property_type_display(),
         "condition_category": property_obj.condition_category,
@@ -2130,6 +2240,44 @@ def _chart_property_payload(property_obj, request_query, stats_path):
     }
 
 
+def _visual_property_payload(property_obj, request_query, stats_path, price_m2=None):
+    listing = _primary_listing(property_obj)
+    record = _location_intelligence_record(property_obj)
+    if price_m2 is None:
+        price_m2 = valid_price_per_m2(property_obj)
+    return {
+        "id": property_obj.pk,
+        "title": property_obj.title,
+        "price": float(property_obj.price) if property_obj.price is not None else None,
+        "currency": property_obj.currency,
+        "address": property_obj.address or property_obj.detected_address or property_obj.locality or "",
+        "zone": _safe_label(_geo_zone(property_obj)),
+        "geo_zone": _geo_zone(property_obj),
+        "declared_neighborhood": _declared_neighborhood(property_obj),
+        "property_type": property_obj.property_type,
+        "property_type_label": property_obj.get_property_type_display(),
+        "condition_category": property_obj.condition_category,
+        "condition_category_label": property_obj.get_condition_category_display(),
+        "age_years": property_obj.age_years,
+        "age_band": age_band_label(property_obj.age_years),
+        "price_m2": float(price_m2) if price_m2 is not None else None,
+        "quality_score": _quality_score(property_obj),
+        "location_confidence": property_obj.location_confidence,
+        "security_coverage_score": property_obj.security_coverage_score,
+        "security_risk_score": property_obj.security_risk_score,
+        "security_level": property_obj.security_level,
+        "security_zone_label": property_obj.security_zone_label,
+        "location_value_score": record.overall_score if record else None,
+        "location_value_zone": record.zone_name if record else "",
+        "is_hidden": property_obj.is_hidden,
+        "is_favorite": property_obj.is_favorite,
+        "is_reviewed": property_obj.reviewed_at is not None,
+        "agency": listing.agency.name if listing and listing.agency else "",
+        "source": listing.source.name if listing and listing.source else "",
+        "url": build_detail_url(property_obj.pk, request_query, stats_path),
+    }
+
+
 def _compact_location_property_payload(property_obj, record, request_query, stats_path, price_m2=None):
     listing = _primary_listing(property_obj)
     if price_m2 is None:
@@ -2140,11 +2288,9 @@ def _compact_location_property_payload(property_obj, record, request_query, stat
         "price": float(property_obj.price) if property_obj.price is not None else None,
         "currency": property_obj.currency,
         "address": property_obj.address or property_obj.detected_address or property_obj.locality or "",
-        "zone": _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-        ),
+        "zone": _safe_label(_geo_zone(property_obj)),
+        "geo_zone": _geo_zone(property_obj),
+        "declared_neighborhood": _declared_neighborhood(property_obj),
         "price_m2": float(price_m2) if price_m2 is not None else None,
         "condition_category": property_obj.condition_category,
         "condition_category_label": property_obj.get_condition_category_display(),
@@ -2171,11 +2317,7 @@ def _zone_type_matrix(properties, request_query, stats_path):
         price_m2 = valid_price_per_m2(property_obj)
         if price is None and price_m2 is None:
             continue
-        zone = _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-        )
+        zone = _safe_label(_geo_zone(property_obj))
         key = (zone, property_obj.property_type)
         grouped.setdefault(key, {"prices": [], "prices_m2": [], "count": 0})
         grouped[key]["count"] += 1
@@ -2199,13 +2341,11 @@ def _zone_type_matrix(properties, request_query, stats_path):
                 "avg_price_m2": price_m2_summary["avg"],
                 "median_price_m2": price_m2_summary["median"],
                 "std_price_m2": price_m2_summary["std"],
-                "url": query_url(
+                "url": _zone_url(
                     request_query,
-                    {
-                        "neighborhood": "" if zone == "Sin dato" else zone,
-                        "property_type": property_type,
-                    },
-                    path=stats_path,
+                    zone,
+                    stats_path,
+                    {"property_type": property_type},
                 ),
             }
         )
@@ -2251,7 +2391,7 @@ def _liquidity_buckets(properties):
 
 
 def _load_security_features():
-    path = Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
+    path = Path(settings.BASE_DIR) / "data" / "geo" / "security" / "security_zones_hurlingham.geojson"
     if not path.exists():
         return {"path": str(path), "features": [], "configured": False}
     try:
@@ -2295,8 +2435,8 @@ def _security_match(location, features):
 
 
 def _security_price_summary(properties, request_query, stats_path):
-    zone_path = Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
-    points_path = Path(settings.BASE_DIR) / "data" / "geo" / "security_points_hurlingham.geojson"
+    zone_path = Path(settings.BASE_DIR) / "data" / "geo" / "security" / "security_zones_hurlingham.geojson"
+    points_path = Path(settings.BASE_DIR) / "data" / "geo" / "security" / "security_points_hurlingham.geojson"
     located = [item for item in properties if hasattr(item, "location")]
     rows = []
     for property_obj in properties:
@@ -2313,7 +2453,7 @@ def _security_price_summary(properties, request_query, stats_path):
             continue
         rows.append(
             {
-                **_chart_property_payload(property_obj, request_query, stats_path),
+                **_visual_property_payload(property_obj, request_query, stats_path, price_m2),
                 "latitude": location.latitude,
                 "longitude": location.longitude,
                 "security_score": property_obj.security_coverage_score,
@@ -2330,7 +2470,7 @@ def _security_price_summary(properties, request_query, stats_path):
         }
         for item in scored
         if item.get("security_risk_score") is not None and item.get("price_m2") is not None
-    ][:500]
+    ][:120]
     return {
         "configured": zone_path.exists(),
         "path": str(zone_path),
@@ -2344,7 +2484,7 @@ def _security_price_summary(properties, request_query, stats_path):
                 -(item.get("price_m2") or 0),
             ),
             reverse=True,
-        )[:250],
+        )[:120],
         "risk_price": risk_price,
         "arbitrage": _security_arbitrage(properties, request_query, stats_path),
     }
@@ -2353,11 +2493,7 @@ def _security_price_summary(properties, request_query, stats_path):
 def _crime_zone_insights(properties, request_query, stats_path):
     grouped = {}
     for property_obj in properties:
-        zone = _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-        )
+        zone = _safe_label(_geo_zone(property_obj))
         row = grouped.setdefault(
             zone,
             {
@@ -2408,11 +2544,7 @@ def _crime_zone_insights(properties, request_query, stats_path):
                 "crime_data_scope": "municipio",
                 "crime_spatial_precision": "low",
                 "precision_note": "Crimen municipal; centroides SAT-HD por radio censal, no ubicacion exacta.",
-                "url": query_url(
-                    request_query,
-                    {"neighborhood": "" if zone == "Sin dato" else zone},
-                    path=stats_path,
-                ),
+                "url": _zone_url(request_query, zone, stats_path),
             }
         )
     rows.sort(
@@ -2458,7 +2590,7 @@ def _security_arbitrage(properties, request_query, stats_path):
             continue
         rows.append(
             {
-                **_chart_property_payload(property_obj, request_query, stats_path),
+                **_visual_property_payload(property_obj, request_query, stats_path, price_m2),
                 "kind": kind,
                 "priority": priority,
                 "median_price_m2": round(median_m2),
@@ -2532,7 +2664,7 @@ def _location_value_summary(properties, request_query, stats_path):
         }
         for item in ranked
         if item["record"].overall_score is not None and item["price_m2"] is not None
-    ][:180]
+    ][:120]
     return {
         "configured": bool(candidates),
         "scored_count": len(candidates),
@@ -2704,6 +2836,291 @@ def _stats_cache_key(request):
     return "stats:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+def _stats_shell_context_from_db(request, stats_path):
+    queryset, _distances, _spatial_context = filtered_property_queryset(
+        request.GET,
+        include_listings=False,
+    )
+    total = queryset.count()
+    latest_job = ScrapeJob.objects.filter(finished_at__isnull=False).order_by("-finished_at").first()
+    latest_started = latest_job.started_at if latest_job else None
+
+    def count_filtered(condition):
+        return queryset.filter(condition).count()
+
+    def metric_in_range(field, value):
+        if value in (None, ""):
+            return False
+        minimum, maximum = BASE_RANGES[field]
+        return minimum <= float(value) <= maximum
+
+    def shell_valid_price(row):
+        price = row["price"]
+        if price is None or price <= 0:
+            return None
+        if row["currency"] == "USD":
+            price_float = float(price)
+            if not USD_PRICE_RANGE[0] <= price_float <= USD_PRICE_RANGE[1]:
+                return None
+        return float(price)
+
+    def shell_valid_area(row):
+        for field in ("covered_area", "total_area", "land_area"):
+            if metric_in_range(field, row[field]):
+                return float(row[field])
+        return None
+
+    price_values = []
+    rows = queryset.values(
+        "price",
+        "covered_area",
+        "total_area",
+        "land_area",
+        "bedrooms",
+        "bathrooms",
+        "currency",
+        "normalized_address",
+        "detected_address",
+        "location_confidence",
+        "inferred_neighborhood",
+        "location_intelligence__zone_name",
+    )
+    price_m2_values = []
+    total_area_values = []
+    covered_area_values = []
+    bedroom_values = []
+    bathroom_values = []
+    duplicate_keys = {}
+    by_neighborhood_counts = {}
+    by_currency_counts = {}
+    weak_location = 0
+    for row in rows:
+        price = shell_valid_price(row)
+        area = shell_valid_area(row)
+        if price is not None:
+            price_values.append(price)
+        if price is not None and area:
+            price_m2_values.append(price / area)
+        land_or_total = row["land_area"] if metric_in_range("land_area", row["land_area"]) else row["total_area"]
+        if land_or_total and metric_in_range("total_area", land_or_total):
+            total_area_values.append(float(land_or_total))
+        if metric_in_range("covered_area", row["covered_area"]):
+            covered_area_values.append(float(row["covered_area"]))
+        if metric_in_range("bedrooms", row["bedrooms"]):
+            bedroom_values.append(float(row["bedrooms"]))
+        if metric_in_range("bathrooms", row["bathrooms"]):
+            bathroom_values.append(float(row["bathrooms"]))
+        key = row["normalized_address"] or (row["detected_address"] or "").lower()
+        if key:
+            duplicate_keys[key] = duplicate_keys.get(key, 0) + 1
+        zone = row["location_intelligence__zone_name"] or row["inferred_neighborhood"] or "Sin dato"
+        by_neighborhood_counts[zone] = by_neighborhood_counts.get(zone, 0) + 1
+        currency = row["currency"] or "Sin dato"
+        by_currency_counts[currency] = by_currency_counts.get(currency, 0) + 1
+        if row["location_confidence"] not in {
+            Property.LocationConfidence.HIGH,
+            Property.LocationConfidence.MEDIUM,
+        }:
+            weak_location += 1
+
+    quality = {
+        "price": count_filtered(Q(price__isnull=False) & ~Q(price__lte=0)),
+        "surface": count_filtered(
+            Q(land_area__isnull=False) | Q(total_area__isnull=False) | Q(covered_area__isnull=False)
+        ),
+        "address": count_filtered(
+            (Q(detected_address__isnull=False) & ~Q(detected_address=""))
+            | (Q(address__isnull=False) & ~Q(address=""))
+        ),
+        "location": queryset.filter(location__isnull=False).count(),
+        "image": queryset.filter(listings__images__isnull=False).distinct().count(),
+        "link": queryset.filter(listings__isnull=False).distinct().count(),
+        "agency": queryset.filter(listings__agency__isnull=False).distinct().count(),
+    }
+    possible_duplicates = sum(count for count in duplicate_keys.values() if count > 1)
+    anomaly_q = Q()
+    for field, (minimum, maximum) in BASE_RANGES.items():
+        anomaly_q |= Q(**{f"{field}__lt": minimum}) | Q(**{f"{field}__gt": maximum})
+    anomaly_q |= (
+        Q(currency="USD")
+        & Q(price__isnull=False)
+        & (Q(price__lt=USD_PRICE_RANGE[0]) | Q(price__gt=USD_PRICE_RANGE[1]))
+    )
+    anomaly_q |= Q(operation__isnull=False) & ~Q(operation="") & ~Q(operation="sale")
+    anomaly_q |= Q(listings__source_status="metric_conflict_review")
+    anomaly_rows = []
+    for item in queryset.filter(anomaly_q).prefetch_related("listings").distinct()[:120]:
+        listing = _primary_listing(item)
+        for anomaly in property_anomalies(item):
+            model = _anomaly_model_for_category(anomaly.category)
+            anomaly_rows.append(
+                {
+                    "property": item,
+                    "listing": listing,
+                    "field": anomaly.field,
+                    "value": anomaly.value,
+                    "reason": anomaly.reason,
+                    "model_key": model["key"],
+                    "model_label": model["label"],
+                    "severity": _anomaly_severity(default=70 if anomaly.category in {"price", "range"} else 55),
+                    "detail_url": build_detail_url(item.pk, request.GET, stats_path),
+                }
+            )
+            if len(anomaly_rows) >= 120:
+                break
+        if len(anomaly_rows) >= 120:
+            break
+    anomaly_model_summary = _anomaly_model_summary(anomaly_rows)
+    inconsistent = len({row["property"].pk for row in anomaly_rows}) + queryset.exclude(location_notes="").count()
+    return {
+        "total": total,
+        "query_params": request.GET,
+        "by_locality": list(
+            queryset.values_list("locality")
+            .annotate(count=Count("pk"))
+            .order_by("-count", "locality")
+        ),
+        "by_neighborhood": sorted(by_neighborhood_counts.items(), key=lambda pair: (-pair[1], pair[0])),
+        "by_currency": sorted(by_currency_counts.items(), key=lambda pair: (-pair[1], pair[0])),
+        "by_agency": list(
+            queryset.filter(listings__agency__isnull=False)
+            .values_list("listings__agency__name")
+            .annotate(count=Count("pk", distinct=True))
+            .order_by("-count", "listings__agency__name")[:12]
+        ),
+        "by_source": list(
+            queryset.filter(listings__source__isnull=False)
+            .values_list("listings__source__name")
+            .annotate(count=Count("pk", distinct=True))
+            .order_by("-count", "listings__source__name")[:12]
+        ),
+        "price_stats": _summary(price_values),
+        "price_m2_stats": _summary(price_m2_values),
+        "total_area_stats": _summary(total_area_values),
+        "covered_area_stats": _summary(covered_area_values),
+        "bedroom_stats": _summary(bedroom_values),
+        "bathroom_stats": _summary(bathroom_values),
+        "with_detected_address": quality["address"],
+        "with_map_location": quality["location"],
+        "without_reliable_location": weak_location,
+        "possible_duplicates": possible_duplicates,
+        "new_since_last_scrape": queryset.filter(first_seen_at__gte=latest_started).count() if latest_started else 0,
+        "quality": quality,
+        "quality_percent": {
+            key: round(value / total * 100) if total else 0 for key, value in quality.items()
+        },
+        "quality_links": {
+            key: {
+                "present": query_url(request.GET, {"quality_field": key, "quality_state": "present"}, path=stats_path),
+                "missing": query_url(request.GET, {"quality_field": key, "quality_state": "missing"}, path=stats_path),
+            }
+            for key in quality
+        },
+        "incomplete": 0,
+        "inconsistent": inconsistent,
+        "anomaly_rows": anomaly_rows,
+        "anomaly_count": len(anomaly_rows),
+        "anomaly_model_options": ANOMALY_MODEL_OPTIONS,
+        "anomaly_model_summary": anomaly_model_summary,
+    }
+
+
+def _stats_shell_context_from_properties(properties, request_query, stats_path):
+    latest_job = ScrapeJob.objects.filter(finished_at__isnull=False).order_by("-finished_at").first()
+    latest_started = latest_job.started_at if latest_job else None
+    listings = [listing for property_obj in properties for listing in _listings(property_obj)]
+    duplicate_keys = {}
+    for property_obj in properties:
+        key = property_obj.normalized_address or property_obj.detected_address.lower()
+        if key:
+            duplicate_keys.setdefault(key, 0)
+            duplicate_keys[key] += 1
+    possible_duplicates = sum(count for count in duplicate_keys.values() if count > 1)
+    total = len(properties)
+    anomaly_rows = []
+    for item in properties:
+        listing = _primary_listing(item)
+        for anomaly in property_anomalies(item):
+            model = _anomaly_model_for_category(anomaly.category)
+            anomaly_rows.append(
+                {
+                    "property": item,
+                    "listing": listing,
+                    "field": anomaly.field,
+                    "value": anomaly.value,
+                    "reason": anomaly.reason,
+                    "model_key": model["key"],
+                    "model_label": model["label"],
+                    "severity": _anomaly_severity(default=70 if anomaly.category in {"price", "range"} else 55),
+                    "detail_url": build_detail_url(item.pk, request_query, stats_path),
+                }
+            )
+    anomaly_rows.extend(_advanced_anomaly_rows(properties, request_query, stats_path))
+    anomaly_model_summary = _anomaly_model_summary(anomaly_rows)
+    quality = {
+        "price": sum(1 for item in properties if valid_price(item) is not None),
+        "surface": sum(1 for item in properties if valid_area(item) is not None),
+        "address": sum(1 for item in properties if item.detected_address or item.address),
+        "location": sum(1 for item in properties if hasattr(item, "location")),
+        "image": sum(1 for item in properties if any(_listing_image_url(listing) for listing in _listings(item))),
+        "link": sum(1 for item in properties if _listings(item)),
+        "agency": sum(1 for item in properties if any(listing.agency_id for listing in _listings(item))),
+    }
+    incomplete = sum(1 for item in properties if _quality_score(item) < 70)
+    inconsistent = len({row["property"].pk for row in anomaly_rows}) + sum(1 for item in properties if item.location_notes)
+    price_m2_values = curated_price_m2_values(properties)
+    return {
+        "total": total,
+        "query_params": request_query,
+        "by_locality": _counter(properties, _canonical_display_locality),
+        "by_neighborhood": _counter(properties, _geo_zone),
+        "by_currency": _counter(properties, lambda item: item.currency),
+        "by_agency": _counter(listings, lambda item: item.agency.name if item.agency else ""),
+        "by_source": _counter(listings, lambda item: item.source.name),
+        "price_stats": _summary(curated_price_values(properties)),
+        "price_m2_stats": _summary(price_m2_values),
+        "total_area_stats": _summary(
+            [
+                valid_value(item, "land_area") or valid_value(item, "total_area")
+                for item in properties
+                if valid_value(item, "land_area") or valid_value(item, "total_area")
+            ]
+        ),
+        "covered_area_stats": _summary(curated_metric_values(properties, "covered_area")),
+        "bedroom_stats": _summary(curated_metric_values(properties, "bedrooms")),
+        "bathroom_stats": _summary(curated_metric_values(properties, "bathrooms")),
+        "with_detected_address": quality["address"],
+        "with_map_location": quality["location"],
+        "without_reliable_location": sum(
+            1
+            for item in properties
+            if item.location_confidence not in {
+                Property.LocationConfidence.HIGH,
+                Property.LocationConfidence.MEDIUM,
+            }
+        ),
+        "possible_duplicates": possible_duplicates,
+        "new_since_last_scrape": sum(1 for item in properties if latest_started and item.first_seen_at >= latest_started),
+        "quality": quality,
+        "quality_percent": {
+            key: round(value / total * 100) if total else 0 for key, value in quality.items()
+        },
+        "quality_links": {
+            key: {
+                "present": query_url(request_query, {"quality_field": key, "quality_state": "present"}, path=stats_path),
+                "missing": query_url(request_query, {"quality_field": key, "quality_state": "missing"}, path=stats_path),
+            }
+            for key in quality
+        },
+        "incomplete": incomplete,
+        "inconsistent": inconsistent,
+        "anomaly_rows": anomaly_rows[:120],
+        "anomaly_count": len(anomaly_rows),
+        "anomaly_model_options": ANOMALY_MODEL_OPTIONS,
+        "anomaly_model_summary": anomaly_model_summary,
+    }
+
+
 ANOMALY_MODEL_OPTIONS = (
     {"key": "rules", "label": "Reglas de calidad"},
     {"key": "iqr_mad", "label": "IQR/MAD por zona/tipo"},
@@ -2838,7 +3255,7 @@ def _surface_price_points(properties, request_query, stats_path):
         regression = regressions.get(key)
         expected = regression["predict"](area) if regression else None
         discount = ((expected - price) / expected * 100) if expected and expected > 0 else None
-        payload = _chart_property_payload(property_obj, request_query, stats_path)
+        payload = _visual_property_payload(property_obj, request_query, stats_path, round(price / area, 2))
         payload["price_m2"] = round(price / area, 2)
         rows.append(
             {
@@ -2852,7 +3269,92 @@ def _surface_price_points(properties, request_query, stats_path):
                 "trend_std": round(regression["std"], 2) if regression else None,
             }
         )
-    return rows[:500]
+    return rows[:220]
+
+
+CHART_HELP = {
+    "sat": "SAT Propiedad es una serie oficial de delitos contra la propiedad; se usa como contexto municipal, no como score.",
+    "snic": "SNIC es el Sistema Nacional de Informacion Criminal. La serie mensual esta agregada a nivel municipal.",
+    "seasonality": "Estacionalidad muestra patrones por mes y anio para delitos contra la propiedad.",
+    "crime_map": "Los puntos visibles son centroides SAT-HD de radios censales; el total municipal no equivale a puntos exactos.",
+    "territorial_score": "El score territorial es zonal: muchas propiedades dentro de la misma zona comparten valor redondeado.",
+}
+
+
+def _price_buckets(properties, request_query, stats_path):
+    price_values = _numbers(curated_price_values(properties))[:500]
+    min_price = min(price_values) if price_values else 0
+    max_price = max(price_values) if price_values else 0
+    step = max((max_price - min_price) / 8, 1) if price_values else 1
+    buckets = []
+    for index in range(8):
+        start = min_price + step * index
+        end = min_price + step * (index + 1)
+        bucket_properties = [
+            item
+            for item in properties
+            if valid_price(item) is not None
+            and float(valid_price(item)) >= start
+            and (float(valid_price(item)) <= end if index == 7 else float(valid_price(item)) < end)
+        ]
+        buckets.append(
+            {
+                "label": f"{round(start):,}".replace(",", "."),
+                "value": len(bucket_properties),
+                "total": len(bucket_properties),
+                "favorites": sum(1 for item in bucket_properties if item.is_favorite),
+                "reviewed": sum(1 for item in bucket_properties if item.reviewed_at and not item.is_favorite),
+                "pending": sum(1 for item in bucket_properties if not item.reviewed_at and not item.is_favorite),
+                "url": query_url(request_query, {"price_min": round(start), "price_max": round(end)}, path=stats_path),
+            }
+        )
+    return price_values, buckets
+
+
+def _stats_chart_data(properties, request_query, stats_path):
+    price_values, price_buckets = _price_buckets(properties, request_query, stats_path)
+    return {
+        "loaded": True,
+        "chart_help": CHART_HELP,
+        "by_locality": _series(
+            properties,
+            _canonical_display_locality,
+            lambda item, label: query_url(request_query, {"locality": label if label != "Sin dato" else ""}, path=stats_path),
+        ),
+        "by_neighborhood": _series(
+            properties,
+            _geo_zone,
+            lambda item, label: _zone_url(request_query, label, stats_path),
+        )[:12],
+        "by_agency": _series(
+            [listing for property_obj in properties for listing in _listings(property_obj)],
+            lambda item: item.agency.name if item.agency else "",
+            lambda item, label: query_url(request_query, {"agency": item.agency_id if item.agency_id else ""}, path=stats_path),
+        )[:12],
+        "price_buckets": price_buckets,
+        "prices": price_values,
+        "zone_price_volatility": _zone_price_statistics(properties, request_query, stats_path),
+        "zone_type_matrix": _zone_type_matrix(properties, request_query, stats_path),
+        "liquidity": _liquidity_buckets(properties),
+        "location_intelligence": _location_value_summary(properties, request_query, stats_path),
+        "security": _security_price_summary(properties, request_query, stats_path),
+        "crime": {
+            **crime_dashboard_summary(),
+            "zone_insights": _crime_zone_insights(properties, request_query, stats_path),
+        },
+        "heatmap_points": _heatmap_points(properties, request_query),
+        "surfaces": _numbers([valid_comparable_area(item) for item in properties])[:500],
+        "bedrooms_price": [
+            {
+                **_visual_property_payload(item, request_query, stats_path),
+                "x": valid_value(item, "bedrooms"),
+                "y": float(valid_price(item)),
+            }
+            for item in properties
+            if valid_value(item, "bedrooms") is not None and valid_price(item) is not None
+        ][:220],
+        "surface_price": _surface_price_points(properties, request_query, stats_path),
+    }
 
 
 def _advanced_anomaly_rows(properties, request_query, stats_path):
@@ -2862,13 +3364,7 @@ def _advanced_anomaly_rows(properties, request_query, stats_path):
         price_m2 = valid_price_per_m2(property_obj)
         if price_m2 is None:
             continue
-        zone = (
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
-            or property_obj.locality
-            or "Sin zona"
-        )
+        zone = _geo_zone(property_obj) or property_obj.locality or "Sin zona"
         key = (zone, property_obj.property_type or "")
         grouped.setdefault(key, []).append((property_obj, float(price_m2)))
 
@@ -2967,183 +3463,38 @@ def market_stats(request):
         context.update(filter_context(request.GET))
         return render(request, "properties/stats.html", context)
 
-    properties, _ = filtered_properties(request.GET)
     stats_path = reverse("properties:stats")
-    latest_job = ScrapeJob.objects.filter(finished_at__isnull=False).order_by("-finished_at").first()
-    latest_started = latest_job.started_at if latest_job else None
-    listings = [listing for property_obj in properties for listing in _listings(property_obj)]
-    duplicate_keys = {}
-    for property_obj in properties:
-        key = property_obj.normalized_address or property_obj.detected_address.lower()
-        if key:
-            duplicate_keys.setdefault(key, 0)
-            duplicate_keys[key] += 1
-    possible_duplicates = sum(count for count in duplicate_keys.values() if count > 1)
-    total = len(properties)
-    anomaly_rows = []
-    for item in properties:
-        listing = _primary_listing(item)
-        for anomaly in property_anomalies(item):
-            model = _anomaly_model_for_category(anomaly.category)
-            anomaly_rows.append(
-                {
-                    "property": item,
-                    "listing": listing,
-                    "field": anomaly.field,
-                    "value": anomaly.value,
-                    "reason": anomaly.reason,
-                    "model_key": model["key"],
-                    "model_label": model["label"],
-                    "severity": _anomaly_severity(default=70 if anomaly.category in {"price", "range"} else 55),
-                    "detail_url": build_detail_url(item.pk, request.GET, stats_path),
-                }
-            )
-    anomaly_rows.extend(_advanced_anomaly_rows(properties, request.GET, stats_path))
-    anomaly_model_summary = _anomaly_model_summary(anomaly_rows)
-    quality = {
-        "price": sum(1 for item in properties if valid_price(item) is not None),
-        "surface": sum(1 for item in properties if valid_area(item) is not None),
-        "address": sum(1 for item in properties if item.detected_address or item.address),
-        "location": sum(1 for item in properties if hasattr(item, "location")),
-        "image": sum(1 for item in properties if any(_listing_image_url(listing) for listing in _listings(item))),
-        "link": sum(1 for item in properties if _listings(item)),
-        "agency": sum(1 for item in properties if any(listing.agency_id for listing in _listings(item))),
-    }
-    incomplete = sum(1 for item in properties if _quality_score(item) < 70)
-    inconsistent = len({row["property"].pk for row in anomaly_rows}) + sum(1 for item in properties if item.location_notes)
-    price_m2_values = curated_price_m2_values(properties)
-    context = {
-        "total": total,
-        "query_params": request.GET,
-        "by_locality": _counter(properties, _canonical_display_locality),
-        "by_neighborhood": _counter(
-            properties,
-            lambda item: item.detected_neighborhood
-            or item.neighborhood
-            or item.inferred_neighborhood,
-        ),
-        "by_currency": _counter(properties, lambda item: item.currency),
-        "by_agency": _counter(listings, lambda item: item.agency.name if item.agency else ""),
-        "by_source": _counter(listings, lambda item: item.source.name),
-        "price_stats": _summary(curated_price_values(properties)),
-        "price_m2_stats": _summary(price_m2_values),
-        "total_area_stats": _summary(
-            [
-                valid_value(item, "land_area") or valid_value(item, "total_area")
-                for item in properties
-                if valid_value(item, "land_area") or valid_value(item, "total_area")
-            ]
-        ),
-        "covered_area_stats": _summary(curated_metric_values(properties, "covered_area")),
-        "bedroom_stats": _summary(curated_metric_values(properties, "bedrooms")),
-        "bathroom_stats": _summary(curated_metric_values(properties, "bathrooms")),
-        "with_detected_address": sum(1 for item in properties if item.detected_address or item.address),
-        "with_map_location": sum(1 for item in properties if hasattr(item, "location")),
-        "without_reliable_location": sum(
-            1
-            for item in properties
-            if item.location_confidence not in {
-                Property.LocationConfidence.HIGH,
-                Property.LocationConfidence.MEDIUM,
-            }
-        ),
-        "possible_duplicates": possible_duplicates,
-        "new_since_last_scrape": sum(1 for item in properties if latest_started and item.first_seen_at >= latest_started),
-        "quality": quality,
-        "quality_percent": {
-            key: round(value / total * 100) if total else 0 for key, value in quality.items()
-        },
-        "quality_links": {
-            key: {
-                "present": query_url(request.GET, {"quality_field": key, "quality_state": "present"}, path=stats_path),
-                "missing": query_url(request.GET, {"quality_field": key, "quality_state": "missing"}, path=stats_path),
-            }
-            for key in quality
-        },
-        "incomplete": incomplete,
-        "inconsistent": inconsistent,
-        "anomaly_rows": anomaly_rows[:120],
-        "anomaly_count": len(anomaly_rows),
-        "anomaly_model_options": ANOMALY_MODEL_OPTIONS,
-        "anomaly_model_summary": anomaly_model_summary,
-    }
+    if _requires_python_post_filtering(request.GET):
+        properties, _ = filtered_properties(request.GET)
+        context = _stats_shell_context_from_properties(properties, request.GET, stats_path)
+    else:
+        context = _stats_shell_context_from_db(request, stats_path)
     context.update(active_filters["context"])
-    price_values = _numbers(curated_price_values(properties))[:500]
-    min_price = min(price_values) if price_values else 0
-    max_price = max(price_values) if price_values else 0
-    step = max((max_price - min_price) / 8, 1) if price_values else 1
-    price_buckets = []
-    for index in range(8):
-        start = min_price + step * index
-        end = min_price + step * (index + 1)
-        bucket_properties = [
-            item
-            for item in properties
-            if valid_price(item) is not None
-            and float(valid_price(item)) >= start
-            and (float(valid_price(item)) <= end if index == 7 else float(valid_price(item)) < end)
-        ]
-        price_buckets.append(
-            {
-                "label": f"{round(start):,}".replace(",", "."),
-                "value": len(bucket_properties),
-                "total": len(bucket_properties),
-                "favorites": sum(1 for item in bucket_properties if item.is_favorite),
-                "reviewed": sum(1 for item in bucket_properties if item.reviewed_at and not item.is_favorite),
-                "pending": sum(1 for item in bucket_properties if not item.reviewed_at and not item.is_favorite),
-                "url": query_url(request.GET, {"price_min": round(start), "price_max": round(end)}, path=stats_path),
-            }
-        )
     context["chart_data"] = {
-        "by_locality": _series(
-            properties,
-            _canonical_display_locality,
-            lambda item, label: query_url(request.GET, {"locality": label if label != "Sin dato" else ""}, path=stats_path),
+        "loaded": False,
+        "data_url": query_url(
+            request.GET,
+            path=reverse("properties:stats_data", args=["all"]),
         ),
-        "by_neighborhood": _series(
-            properties,
-            lambda item: item.detected_neighborhood
-            or item.neighborhood
-            or item.inferred_neighborhood,
-            lambda item, label: query_url(request.GET, {"neighborhood": label if label != "Sin dato" else ""}, path=stats_path),
-        )[:12],
-        "by_agency": _series(
-            listings,
-            lambda item: item.agency.name if item.agency else "",
-            lambda item, label: query_url(request.GET, {"agency": item.agency_id if item.agency_id else ""}, path=stats_path),
-        )[:12],
-        "price_buckets": price_buckets,
-        "prices": price_values,
-        "zone_price_volatility": _zone_price_statistics(properties, request.GET, stats_path),
-        "zone_type_matrix": _zone_type_matrix(properties, request.GET, stats_path),
-        "liquidity": _liquidity_buckets(properties),
-        "location_intelligence": _location_value_summary(properties, request.GET, stats_path),
-        "security": _security_price_summary(properties, request.GET, stats_path),
-        "crime": {
-            **crime_dashboard_summary(),
-            "zone_insights": _crime_zone_insights(properties, request.GET, stats_path),
-        },
-        "heatmap_points": _heatmap_points(properties, request.GET),
-        "surfaces": _numbers(
-            [
-                valid_comparable_area(item)
-                for item in properties
-            ]
-        )[:500],
-        "bedrooms_price": [
-            {
-                **_chart_property_payload(item, request.GET, stats_path),
-                "x": valid_value(item, "bedrooms"),
-                "y": float(valid_price(item)),
-            }
-            for item in properties
-            if valid_value(item, "bedrooms") is not None and valid_price(item) is not None
-        ][:500],
-        "surface_price": _surface_price_points(properties, request.GET, stats_path),
+        "chart_help": CHART_HELP,
     }
     cache.set(cache_key, context, 120)
     context.update(filter_context(request.GET))
     return render(request, "properties/stats.html", context)
+
+
+@require_GET
+def stats_data_api(request, panel="all"):
+    stats_path = reverse("properties:stats")
+    cache_key = f"{_stats_cache_key(request)}:data:{panel}"
+    cached = cache.get(cache_key)
+    if cached:
+        return JsonResponse(cached)
+    properties, _ = filtered_properties(request.GET)
+    payload = _stats_chart_data(properties, request.GET, stats_path)
+    payload["panel"] = panel
+    cache.set(cache_key, payload, 120)
+    return JsonResponse(payload)
 
 
 @ensure_csrf_cookie

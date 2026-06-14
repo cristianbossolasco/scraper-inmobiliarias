@@ -8,6 +8,7 @@ app_name = "properties"
 urlpatterns = [
     path("", views.search, name="search"),
     path("estadisticas/", views.market_stats, name="stats"),
+    path("estadisticas/data/<str:panel>/", views.stats_data_api, name="stats_data"),
     path("scraping/", views.scraping_dashboard, name="scraping"),
     path("propiedad/<int:pk>/", views.detail, name="detail"),
     path("export/properties.csv", views.export_properties_csv, name="export_csv"),

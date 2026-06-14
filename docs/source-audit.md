@@ -8,6 +8,7 @@ Fecha: 6 de junio de 2026.
 | Argencasas / SIBA | Mas de 100 casas y agencias locales | JSON-LD `RealEstateListing`, fichas detalladas, paginacion | `Crawl-delay: 2`; `/motor/` prohibido | Habilitada |
 | Argenprop | Busqueda publica muestra mas de 1.000 casas en el partido | Listados HTML y fichas con JSON-LD `House`; sin coordenadas nativas | Paginacion publica permitida; el scraper toma el maximo publicado por el HTML | Habilitada |
 | MercadoProp | Sitemap AR contiene unas 45 URLs con Hurlingham/Villa Tesei/William Morris | JSON-LD `RealEstateListing`, proveedor, direccion, imagenes y coordenadas frecuentes | `robots.txt` permite el sitio y declara sitemap | Habilitada |
+| Faella Propiedades | 36 ventas publicas en Hurlingham | Vidriera HTML publica con tarjetas propias y enlaces externos a MercadoLibre; se parsean solo las tarjetas de Faella | `robots.txt` permite `/`; no se consulta MercadoLibre | Habilitada |
 | Miglierini | Listado local con varias casas de Hurlingham, Villa Club y Villa Tesei | WordPress con enlaces `/propiedad/` y sitemap propio | `Crawl-delay: 10` | Adaptador incluido, deshabilitado |
 | Odriozola | Listado local con 20+ fichas residenciales | HTML de fichas y coordenadas embebidas en varias publicaciones | Robots intermitente; requiere fixtures mas completos | Adaptador incluido, deshabilitado |
 | Beaudroit | Inmobiliaria local de Hurlingham | Home grande, fichas no expuestas de forma directa en auditoria inicial | Permitido por `robots.txt` | Auditoria profunda pendiente |

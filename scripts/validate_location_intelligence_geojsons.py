@@ -6,7 +6,9 @@ import argparse
 import csv
 import json
 import math
+import re
 import sys
+import unicodedata
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -55,7 +57,31 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def validate_geojson(path: Path) -> dict[str, Any]:
+def zone_key(value: str) -> str:
+    text = unicodedata.normalize("NFKD", str(value or "").strip().lower())
+    text = "".join(char for char in text if not unicodedata.combining(char))
+    return re.sub(r"[^a-z0-9]+", "", text)
+
+
+def feature_zone_labels(features: list[dict[str, Any]]) -> set[str]:
+    labels = set()
+    for feature in features:
+        props = feature.get("properties") or {}
+        label = props.get("zone_name") or props.get("name") or props.get("label") or ""
+        if label:
+            labels.add(zone_key(label))
+    return labels
+
+
+def canonical_zone_feature_count() -> int | None:
+    path = Path("data/geo/zones/zones_hurlingham.geojson")
+    if not path.exists():
+        return None
+    payload = read_json(path)
+    return len(payload.get("features") or [])
+
+
+def validate_geojson(path: Path, required_zones: list[str] | None = None) -> dict[str, Any]:
     payload = read_json(path)
     errors: list[str] = []
     warnings: list[str] = []
@@ -94,8 +120,9 @@ def validate_geojson(path: Path) -> dict[str, Any]:
     if not features:
         warnings.append("empty_feature_collection")
     if path.name == "integrated_location_value_zones_hurlingham.geojson":
-        if len(features) != 42:
-            errors.append(f"integrated_expected_42_features_got_{len(features)}")
+        expected_zone_count = canonical_zone_feature_count()
+        if expected_zone_count is not None and len(features) != expected_zone_count:
+            errors.append(f"integrated_expected_{expected_zone_count}_features_got_{len(features)}")
         for idx, feature in enumerate(features):
             props = feature.get("properties") or {}
             score = props.get("overall_location_value_score")
@@ -103,6 +130,11 @@ def validate_geojson(path: Path) -> dict[str, Any]:
                 errors.append(f"invalid_overall_score_feature_{idx}:{score}")
             if props.get("crime_spatial_precision") not in {None, "low"}:
                 errors.append(f"unexpected_crime_precision_feature_{idx}:{props.get('crime_spatial_precision')}")
+    if required_zones and "zones" in path.stem and "hurlingham" in path.stem:
+        labels = feature_zone_labels(features)
+        for zone in required_zones:
+            if zone_key(zone) not in labels:
+                errors.append(f"missing_required_zone:{zone}")
     return {
         "path": str(path),
         "feature_count": len(features),
@@ -181,6 +213,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate generated location-intelligence GeoJSON files.")
     parser.add_argument("--report", default="docs/data_quality_report.md")
     parser.add_argument("--catalog", default="docs/data_catalog.csv")
+    parser.add_argument("--require-zone", action="append", default=[])
     parser.add_argument("paths", nargs="*", default=EXPECTED_GEOJSONS)
     args = parser.parse_args()
 
@@ -191,7 +224,7 @@ def main() -> int:
         if not path.exists():
             missing.append(str(path))
             continue
-        results.append(validate_geojson(path))
+        results.append(validate_geojson(path, args.require_zone))
     if missing:
         results.append(
             {

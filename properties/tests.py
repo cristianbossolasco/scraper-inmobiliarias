@@ -64,6 +64,7 @@ from properties.services.location_intelligence import (
     score_property_location_intelligence,
 )
 from properties.services.crime_context import crime_layers_payload, homicide_counts_by_zone
+from properties.services.canonical_zones import missing_required_zones
 from properties.services.spatial import haversine_km, point_in_polygon
 from properties.services.zone_inference import (
     apply_zone_inference,
@@ -80,7 +81,7 @@ from properties.scrapers.local_wordpress import (
     is_miglierini_detail_url,
     is_odriozola_detail_url,
 )
-from properties.scrapers.local_sites import AliagaScraper, BecerraScraper
+from properties.scrapers.local_sites import AliagaScraper, BecerraScraper, FaellaScraper
 from properties.scrapers.mapaprop import MapapropScraper
 from properties.scrapers.mercadoprop import MercadoPropScraper
 from properties.scrapers.pending_sources import (
@@ -143,6 +144,18 @@ class NormalizationTests(TestCase):
             "Maestra A. González de Hecht 1200",
             address_alias_variants("Maestra A Gonzalez De Hecht 1200"),
         )
+        self.assertIn(
+            "Catalina de Pizzagalli 700",
+            address_alias_variants("Maestra Catalina G. de Pizzagalli 700"),
+        )
+        self.assertIn(
+            "Pizzagalli 700",
+            address_alias_variants("Maestra Catalina G. de Pizzagalli 700"),
+        )
+        self.assertIn("Isabel Maestro 3500", address_alias_variants("Isabel del Maestro 3500"))
+        self.assertIn("Isabel de Maestro 3500", address_alias_variants("Isabel del Maestro 3500"))
+        self.assertIn("Dip. Hector Finochietto 1700", address_alias_variants("Finocchieto 1700"))
+        self.assertIn("Finochietto 1700", address_alias_variants("Finocchieto 1700"))
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -166,6 +179,33 @@ class NormalizationTests(TestCase):
             normalize_street_number_address("Albari\u00c3\u00b1os al 1700"),
             "Albariños 1700",
         )
+
+    def test_public_ui_files_do_not_contain_mojibake(self):
+        pattern = re.compile(r"(?:Ã.|Â.|�)")
+        offenders = []
+        for root in (Path("templates"), Path("static")):
+            for path in root.rglob("*"):
+                if path.suffix.lower() not in {".html", ".css", ".js"}:
+                    continue
+                if pattern.search(path.read_text(encoding="utf-8")):
+                    offenders.append(str(path))
+        self.assertEqual(offenders, [])
+
+    def test_required_canonical_zone_guardrail_detects_missing_geojson_feature(self):
+        with TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "zones.geojson"
+            payload = {
+                "type": "FeatureCollection",
+                "features": [{"type": "Feature", "properties": {"zone_name": "Hurlingham Centro"}}],
+            }
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            self.assertEqual(missing_required_zones(path), ["Barrio Inglés"])
+
+            payload["features"].append(
+                {"type": "Feature", "properties": {"zone_name": "Barrio Inglés"}}
+            )
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            self.assertEqual(missing_required_zones(path), [])
 
     def test_precision_classification(self):
         self.assertEqual(classify_address_precision("Gurruchaga 1733"), "exact")
@@ -836,15 +876,15 @@ class ZoneInferenceTests(TestCase):
         path = self._geojson_path()
 
         inside = infer_zone_for_point(-34.6005, -58.6405, path, max_distance_m=100)
-        self.assertEqual(inside["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(inside["zone"], "Barrio Ingles")
         self.assertEqual(inside["method"], "polygon")
 
         boundary = infer_zone_for_point(-34.6000, -58.6405, path, max_distance_m=100)
-        self.assertEqual(boundary["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(boundary["zone"], "Barrio Ingles")
         self.assertEqual(boundary["method"], "polygon")
 
         nearby = infer_zone_for_point(-34.5997, -58.6405, path, max_distance_m=100)
-        self.assertEqual(nearby["zone"], "Barrio Ingl\u00e9s")
+        self.assertEqual(nearby["zone"], "Barrio Ingles")
         self.assertEqual(nearby["method"], "nearest")
 
         far = infer_zone_for_point(-34.5980, -58.6405, path, max_distance_m=20)
@@ -854,11 +894,11 @@ class ZoneInferenceTests(TestCase):
     def test_zone_loader_rebuilds_closed_osm_relation_and_reports_incomplete(self):
         index = load_zone_index(self._geojson_path())
         names = {polygon.name for polygon in index.polygons}
-        self.assertIn("Barrio Cartero", names)
+        self.assertIn("Cartero", names)
         self.assertIn("300", index.skipped_relations)
 
         result = infer_zone_for_point(-34.6025, -58.6425, self._geojson_path())
-        self.assertEqual(result["zone"], "Barrio Cartero")
+        self.assertEqual(result["zone"], "Cartero")
 
     def test_inference_uses_cached_geocode_without_external_call(self):
         path = self._geojson_path()
@@ -880,7 +920,7 @@ class ZoneInferenceTests(TestCase):
 
         result = infer_property_zone(property_obj, geojson_path=path)
 
-        self.assertEqual(result.inferred_neighborhood, "Barrio Ingl\u00e9s")
+        self.assertEqual(result.inferred_neighborhood, "Barrio Ingles")
         self.assertEqual(result.geocoding_status, "cache_hit")
         property_obj.refresh_from_db()
         self.assertTrue(hasattr(property_obj, "location"))
@@ -938,7 +978,7 @@ class ZoneInferenceTests(TestCase):
 
         property_obj.refresh_from_db()
         self.assertEqual(property_obj.neighborhood, "Villa Club")
-        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingl\u00e9s")
+        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingles")
         self.assertTrue(property_obj.zone_conflict)
 
     def test_infer_zones_command_dry_run_and_apply(self):
@@ -980,7 +1020,7 @@ class ZoneInferenceTests(TestCase):
             stdout=StringIO(),
         )
         property_obj.refresh_from_db()
-        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingl\u00e9s")
+        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingles")
 
 
 class IngestionTests(TestCase):
@@ -1244,6 +1284,31 @@ class IngestionTests(TestCase):
         self.assertIn(
             "General Mariano Necochea 1300, Hurlingham, Buenos Aires, Argentina",
             candidates,
+        )
+
+    def test_geocoder_candidates_try_hurlingham_tesei_and_morris(self):
+        garibaldi = Property.objects.create(
+            fingerprint="geo-candidates-garibaldi",
+            title="Casa Garibaldi",
+            address="Gral Jose Garibaldi 3000",
+            locality="Hurlingham",
+        )
+        garibaldi_candidates = Geocoder().query_candidates(garibaldi)
+        self.assertIn(
+            "Gral Jose Garibaldi 3000, William C. Morris, Buenos Aires, Argentina",
+            garibaldi_candidates,
+        )
+
+        finochietto = Property.objects.create(
+            fingerprint="geo-candidates-finochietto",
+            title="Casa Finochietto",
+            address="Finocchieto 1700",
+            locality="Hurlingham",
+        )
+        finochietto_candidates = Geocoder().query_candidates(finochietto)
+        self.assertIn(
+            "Dip. Hector Finochietto 1700, Hurlingham, Buenos Aires, Argentina",
+            finochietto_candidates,
         )
 
     def test_geocoder_candidates_clean_embedded_barrio_and_postal_suffixes(self):
@@ -1897,6 +1962,97 @@ class MergePropertiesCommandTests(TestCase):
         self.assertTrue(middle.is_hidden)
 
 
+class RepairZonapropDetailsCommandTests(TestCase):
+    def create_zonaprop_listing(self, property_id=5368, **property_overrides):
+        source, _ = Source.objects.get_or_create(
+            slug="zonaprop",
+            defaults={"name": "Zonaprop", "base_url": "https://www.zonaprop.com.ar"},
+        )
+        defaults = {
+            "id": property_id,
+            "fingerprint": f"zonaprop-repair-{property_id}",
+            "title": "Casa Zonaprop",
+            "operation": "sale",
+            "status": Property.Status.ACTIVE,
+            "property_type": Property.Type.HOUSE,
+            "locality": "Hurlingham",
+        }
+        defaults.update(property_overrides)
+        property_obj = Property.objects.create(**defaults)
+        listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id=f"zp-{property_id}",
+            url=f"https://www.zonaprop.com.ar/propiedades/clasificado/test-{property_id}.html",
+        )
+        return property_obj, listing
+
+    def test_repair_zonaprop_details_dry_run_does_not_write(self):
+        property_obj, listing = self.create_zonaprop_listing()
+
+        output = StringIO()
+        call_command(
+            "repair_zonaprop_details",
+            "--property-id",
+            str(property_obj.pk),
+            "--skip-live",
+            stdout=output,
+        )
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.address, "")
+        self.assertEqual(property_obj.total_area, None)
+        self.assertEqual(listing.raw_data, {})
+        self.assertIn("dry-run", output.getvalue())
+
+    def test_repair_zonaprop_details_apply_updates_known_case_and_raw_data(self):
+        property_obj, listing = self.create_zonaprop_listing()
+
+        call_command(
+            "repair_zonaprop_details",
+            "--property-id",
+            str(property_obj.pk),
+            "--skip-live",
+            "--apply",
+            stdout=StringIO(),
+        )
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.address, "Williams 2328")
+        self.assertEqual(property_obj.detected_address, "Williams 2328")
+        self.assertEqual(property_obj.total_area, Decimal("217"))
+        self.assertEqual(property_obj.covered_area, Decimal("100"))
+        self.assertEqual(property_obj.rooms, 3)
+        self.assertEqual(property_obj.bedrooms, 2)
+        self.assertEqual(property_obj.age_years, 30)
+        self.assertEqual(
+            listing.raw_data["zonaprop_repair"]["fields"]["address"],
+            "Williams 2328",
+        )
+
+    def test_repair_zonaprop_details_preserves_manual_overrides(self):
+        property_obj, _listing = self.create_zonaprop_listing(
+            property_id=5371,
+            address="Manual 123",
+            manual_overrides={"address": "Manual 123"},
+        )
+
+        call_command(
+            "repair_zonaprop_details",
+            "--property-id",
+            str(property_obj.pk),
+            "--skip-live",
+            "--apply",
+            stdout=StringIO(),
+        )
+
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.address, "Manual 123")
+        self.assertEqual(property_obj.total_area, Decimal("186"))
+
+
 class RepairMapapropStatusesCommandTests(TestCase):
     class FakeAdapter:
         def __init__(self, payloads):
@@ -2202,6 +2358,16 @@ class ViewTests(TestCase):
             },
         )
 
+    def _dashboard_payload(self, response):
+        chart_data = json.loads(
+            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
+        )
+        self.assertFalse(chart_data["loaded"])
+        self.assertIn("data_url", chart_data)
+        data_response = self.client.get(chart_data["data_url"])
+        self.assertEqual(data_response.status_code, 200)
+        return data_response.json()
+
     def test_search_and_geojson_filters(self):
         response = self.client.get("/", {"q": "pileta", "bedrooms_min": 3})
         self.assertContains(response, "Casa con pileta")
@@ -2320,7 +2486,8 @@ class ViewTests(TestCase):
 
         response = self.client.get("/estadisticas/")
         self.assertContains(response, "Score territorial + precio")
-        self.assertContains(response, "location_intelligence")
+        payload = self._dashboard_payload(response)
+        self.assertIn("location_intelligence", payload)
 
     def test_default_filters_show_only_active_status(self):
         Property.objects.create(
@@ -2768,9 +2935,7 @@ class ViewTests(TestCase):
         self.assertContains(response, "Mediana precio/m2")
         self.assertContains(response, "Crimen reportado")
         self.assertContains(response, "quality_field=surface")
-        chart_data = json.loads(
-            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
-        )
+        chart_data = self._dashboard_payload(response)
         self.assertIn("url", chart_data["by_locality"][0])
         self.assertIn("price_buckets", chart_data)
         self.assertIn("crime", chart_data)
@@ -2829,9 +2994,7 @@ class ViewTests(TestCase):
             )
 
         response = self.client.get("/estadisticas/")
-        chart_data = json.loads(
-            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
-        )
+        chart_data = self._dashboard_payload(response)
         surface_price = chart_data["surface_price"]
         needs_work = [item for item in surface_price if item["title"].startswith("Casa a refaccionar")]
         new_houses = [item for item in surface_price if item["title"].startswith("Casa a estrenar")]
@@ -2913,9 +3076,7 @@ class ViewTests(TestCase):
             locality="Parque Johnston",
         )
         response = self.client.get("/estadisticas/")
-        chart_data = json.loads(
-            BeautifulSoup(response.content, "lxml").find(id="chart-data").string
-        )
+        chart_data = self._dashboard_payload(response)
         labels = {item["label"] for item in chart_data["by_locality"]}
         self.assertIn("Hurlingham", labels)
         self.assertNotIn("Parque Johnston", labels)
@@ -3753,6 +3914,92 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["latitude"], -34.590339)
         self.assertEqual(data["longitude"], -58.638686)
 
+    def test_faella_discovery_uses_public_card_pagination(self):
+        scraper = FaellaScraper(max_pages=2)
+        calls = []
+
+        def fake_soup(url):
+            calls.append(url)
+            if "page=2" in url:
+                return BeautifulSoup(
+                    """
+                    <html><body>
+                      <span class="results-count"><strong>36</strong> propiedades encontradas</span>
+                      <div class="card">
+                        <a class="card-link" href="https://casa.mercadolibre.com.ar/MLA-222-venta-casa-hurlingham-_JM">
+                          <div class="card-price">U$S 100.000</div>
+                          <h3 class="card-title">Venta Casa Hurlingham</h3>
+                          <span class="feature">100 m2</span>
+                          <div class="card-location">Hurlingham, Bs.As. G.B.A. Oeste</div>
+                        </a>
+                      </div>
+                    </body></html>
+                    """,
+                    "lxml",
+                )
+            return fixture_soup("faella_listing.html")
+
+        scraper.soup = fake_soup
+        urls = list(scraper.discover())
+        self.assertEqual(
+            urls,
+            [
+                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219",
+                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA3243981582",
+                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham&page=2#MLA222",
+            ],
+        )
+        self.assertEqual(scraper.discovery_stats["declared_total"], 36)
+        self.assertEqual(scraper.discovery_stats["pages_seen"], 2)
+        self.assertTrue(scraper.discovery_stats["limited_by_max_pages"])
+        self.assertTrue(any("page=2" in url for url in calls))
+
+    def test_faella_discovery_respects_max_listings(self):
+        scraper = FaellaScraper(max_listings=1)
+        scraper.soup = lambda _url: fixture_soup("faella_listing.html")
+        urls = list(scraper.discover())
+        self.assertEqual(
+            urls,
+            ["https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219"],
+        )
+        self.assertEqual(scraper.discovery_stats["declared_total"], 36)
+        self.assertTrue(scraper.discovery_stats["limited_by_max_listings"])
+
+    def test_faella_parser_reads_listing_card(self):
+        data = self.parse_with_fixture(
+            FaellaScraper,
+            "faella_listing.html",
+            "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219",
+        )
+        self.assertEqual(data["external_id"], "MLA1831365219")
+        self.assertEqual(
+            data["url"],
+            "https://casa.mercadolibre.com.ar/MLA-1831365219-venta-casa-hurlingham-parque-johnston-lote-jardin-pileta-_JM",
+        )
+        self.assertEqual(data["agency"], "Faella Propiedades")
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["price"], Decimal("220000"))
+        self.assertEqual(data["title"], "Venta Casa Hurlingham Parque Johnston Lote Jardin Pileta")
+        self.assertEqual(data["property_type"], Property.Type.HOUSE)
+        self.assertEqual(data["total_area"], Decimal("295"))
+        self.assertEqual(data["bedrooms"], 3)
+        self.assertEqual(data["bathrooms"], Decimal("2"))
+        self.assertEqual(data["locality"], "Hurlingham")
+        self.assertEqual(data["neighborhood"], "Parque Johnston")
+        self.assertEqual(
+            data["images"],
+            ["https://http2.mlstatic.com/D_831095-MLA111917360290_062026-O.jpg"],
+        )
+        self.assertEqual(data["raw_data"]["faella_page"], FaellaScraper.definition.search_url)
+        self.assertIn("295 m2", data["raw_data"]["feature_texts"])
+
+        tesei = self.parse_with_fixture(
+            FaellaScraper,
+            "faella_listing.html",
+            "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA3243981582",
+        )
+        self.assertEqual(tesei["locality"], "Villa Tesei")
+
     def test_local_parsers_fixture(self):
         miglierini = self.parse_with_fixture(
             MiglieriniScraper,
@@ -4158,6 +4405,79 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["price"], Decimal("122000"))
         self.assertEqual(data["operation"], "sale")
         self.assertEqual(data["url"], "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-57923940.html")
+
+    def test_zonaprop_detail_extracts_visible_address_and_highlights(self):
+        scraper = ZonapropScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa PH 3 Ambientes</h1>
+              <div>WILLIAMS 2328, Hurlingham, Hurlingham</div>
+              <div>USD 110.000</div>
+              <section>217 m² tot. 100 m² cub. 3 amb. 1 baño 2 dorm. 30 años</section>
+            </body></html>
+            """,
+            "lxml",
+        )
+
+        data = scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclphin-casa-ph-3-ambientes-55363642.html"
+        )
+
+        self.assertEqual(data["address"], "WILLIAMS 2328")
+        self.assertEqual(data["total_area"], Decimal("217"))
+        self.assertEqual(data["covered_area"], Decimal("100"))
+        self.assertEqual(data["rooms"], 3)
+        self.assertEqual(data["bathrooms"], Decimal("1"))
+        self.assertEqual(data["bedrooms"], 2)
+        self.assertEqual(data["age_years"], 30)
+        self.assertIn("zonaprop_highlights", data["raw_data"])
+
+    def test_zonaprop_detail_extracts_street_only_address_with_postal_context(self):
+        scraper = ZonapropScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa 3 ambientes en Hurlingham</h1>
+              <div>
+                Atuel, B1686 Hurlingham, Provincia de Buenos Aires, Argentina,
+                Hurlingham, Buenos Aires, Argentina., Hurlingham, Hurlingham
+              </div>
+              <section>192 m² tot. 80 m² cub. 3 amb. 1 baño 1 coch. 2 dorm. 55 años</section>
+            </body></html>
+            """,
+            "lxml",
+        )
+
+        data = scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-3-ambientes-en-hurlingham-acepta-permuta-y-59107781.html"
+        )
+
+        self.assertEqual(data["address"], "Atuel")
+        self.assertEqual(data["location_precision"], "street")
+        self.assertEqual(data["garages"], 1)
+        self.assertEqual(data["age_years"], 55)
+
+    def test_zonaprop_detail_marks_a_estrenar_as_new_condition(self):
+        scraper = ZonapropScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa tipo PH de 3 ambientes Hurlingham</h1>
+              <div>Combate de Pavón 2330, Hurlingham, Hurlingham</div>
+              <section>75 m² tot. 70 m² cub. 3 amb. 1 baño 2 dorm. A estrenar</section>
+            </body></html>
+            """,
+            "lxml",
+        )
+
+        data = scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclphin-casa-tipo-ph-de-3-ambiientes-hurlingham.-58163192.html"
+        )
+
+        self.assertEqual(data["address"], "Combate de Pavón 2330")
+        self.assertEqual(data["age_years"], 0)
+        self.assertEqual(data["condition_category"], Property.ConditionCategory.NEW)
 
     def test_zonaprop_parse_rejects_non_sale_links(self):
         scraper = ZonapropScraper()
@@ -4660,6 +4980,11 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["latitude"], -34.59)
         self.assertEqual(data["agency"], "MercadoLibre seller 55")
+
+    def test_faella_source_is_registered_enabled(self):
+        slugs = {adapter.definition.slug for adapter in get_adapter_classes()}
+        self.assertIn("faella", slugs)
+        self.assertTrue(get_adapter("faella").definition.enabled)
 
     def test_pending_sources_are_registered_disabled_by_default(self):
         slugs = {adapter.definition.slug for adapter in get_adapter_classes()}

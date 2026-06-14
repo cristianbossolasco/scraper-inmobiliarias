@@ -250,6 +250,8 @@ STREET_ALIAS_PATTERNS = (
     (r"\bMaestra\s+A\.?\s+Gonzalez\s+De\s+Hecht\b", "Maestra A. González de Hecht"),
     (r"\bMaestra\s+Gonzalez\s+de\s+Hecht\b", "Maestra A. González de Hecht"),
     (r"\bMaestra\s+Hecht\b", "Maestra A. González de Hecht"),
+    (r"\bMaestra\s+Catalina\s+G\.?\s+de\s+Pizzagalli\b", "Catalina de Pizzagalli"),
+    (r"\bMaestra\s+Catalina\s+G\.?\s+de\s+Pizzagalli\b", "Pizzagalli"),
     (r"\bJ\.?\s+Batlle\s+y\s+Ordo(?:ñ|n)ez\b", "José Batlle y Ordoñez"),
     (r"(?<!José\s)\bBatlle\s+y\s+Ordo(?:ñ|n)ez\b", "José Batlle y Ordoñez"),
     (r"\bJ\.?\s+De\s+Andonaegui\b", "José de Andonaegui"),
@@ -257,10 +259,14 @@ STREET_ALIAS_PATTERNS = (
     (r"\bGral\.?\s+Mariano\s+Necochea\b", "General Mariano Necochea"),
     (r"(?<!Esteban\s)\bBonorino\b", "Esteban Bonorino"),
     (r"(?<!Mariano\s)\bNecochea\b", "General Mariano Necochea"),
+    (r"\bIsabel\s+del\s+Maestro\b", "Isabel Maestro"),
+    (r"\bIsabel\s+del\s+Maestro\b", "Isabel de Maestro"),
     (r"\bDip\.?\s+Hector\s+Finochietto\b", "Finochietto"),
     (r"\bDiputado\s+Hector\s+Finochietto\b", "Finochietto"),
     (r"\bDoctor\s+Finochietto\b", "Finochietto"),
     (r"\bDr\.?\s+Finochietto\b", "Finochietto"),
+    (r"\bFinocchieto\b", "Dip. Hector Finochietto"),
+    (r"\bFinocchieto\b", "Finochietto"),
 )
 
 

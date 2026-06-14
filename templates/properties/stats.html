@@ -114,6 +114,10 @@
         <input id="stats-zone-search" class="zone-search" type="search" autocomplete="off" placeholder="Buscar zona">
         <div class="zone-selected" aria-live="polite"></div>
         <div class="zone-options" data-empty-label="Sin coincidencias">
+          <label class="zone-option" data-zone-name="sin zona" data-selected="{% if query_params.zone_missing == '1' %}1{% else %}0{% endif %}">
+            <input type="checkbox" name="zone_missing" value="1" {% if query_params.zone_missing == "1" %}checked{% endif %}>
+            <span>Sin zona</span>
+          </label>
           {% for option in neighborhood_options %}
             <label class="zone-option" data-zone-name="{{ option.name|lower }}" data-selected="{% if option.name in selected_filters.neighborhood %}1{% else %}0{% endif %}">
               <input type="checkbox" name="neighborhood" value="{{ option.name }}" {% if option.name in selected_filters.neighborhood %}checked{% endif %}>
@@ -170,7 +174,7 @@
         <input id="stats-age-max" name="age_max" type="number" min="0" value="{{ query_params.age_max }}">
       </div>
       <div class="stats-filter-field">
-        <label for="stats-condition">CondiciÃ³n <small>Ctrl/Cmd para varias</small></label>
+        <label for="stats-condition">Condición <small>Ctrl/Cmd para varias</small></label>
         <select id="stats-condition" name="condition_category" multiple size="4">
           <option value="">Todas</option>
           {% for value, label in condition_categories %}
@@ -209,11 +213,10 @@
       </div>
 
       <div class="stats-filter-field">
-        <label for="stats-favorite">Favoritas <small>Ctrl/Cmd para varias</small></label>
-        <select id="stats-favorite" name="favorite" multiple size="2">
-          <option value="">Todas</option>
-          <option value="1" {% if "1" in selected_filters.favorite %}selected{% endif %}>Solo favoritas</option>
-        </select>
+        <label class="compact-checkbox">
+          <input id="stats-favorite" type="checkbox" name="favorite" value="1" {% if "1" in selected_filters.favorite %}checked{% endif %}>
+          <span><i data-lucide="star"></i> Solo favoritas</span>
+        </label>
       </div>
       <div class="stats-filter-field">
         <label for="stats-review">Revisión <small>Ctrl/Cmd para varias</small></label>
@@ -322,11 +325,10 @@
       </div>
 
       <div class="stats-filter-field">
-        <label for="stats-hidden">Ocultas <small>Ctrl/Cmd para varias</small></label>
-        <select id="stats-hidden" name="show_hidden" multiple size="2">
-          <option value="">Ocultar descartadas</option>
-          <option value="1" {% if "1" in selected_filters.show_hidden %}selected{% endif %}>Mostrar ocultas</option>
-        </select>
+        <label class="compact-checkbox">
+          <input id="stats-hidden" type="checkbox" name="show_hidden" value="1" {% if "1" in selected_filters.show_hidden %}checked{% endif %}>
+          <span><i data-lucide="eye"></i> Mostrar ocultas</span>
+        </label>
       </div>
       <div class="stats-filter-field">
         <label for="stats-feature">Característica <small>Ctrl/Cmd para varias</small></label>
@@ -517,6 +519,8 @@
         <canvas id="bedrooms-price-chart"></canvas>
       </div>
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <button class="icon-button small chart-help-button" type="button" title="SNIC es el Sistema Nacional de Informacion Criminal; esta serie es municipal y no barrial." aria-label="Ayuda"><i data-lucide="circle-help"></i></button>
         <h2>Crimen mensual SNIC</h2>
         <div class="crime-chart-toolbar">
           <label>
@@ -528,23 +532,28 @@
           </label>
         </div>
         <canvas id="crime-monthly-chart"></canvas>
-        <p class="audit-note">Serie municipal; no diferencia barrios ni propiedades.</p>
+        <p class="audit-note">SNIC es el Sistema Nacional de Informacion Criminal. Serie municipal; no diferencia barrios ni propiedades.</p>
       </div>
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <button class="icon-button small chart-help-button" type="button" title="SAT Propiedad es la serie oficial de delitos contra la propiedad usada como contexto municipal." aria-label="Ayuda"><i data-lucide="circle-help"></i></button>
         <h2>SAT Propiedad</h2>
         <canvas id="crime-property-chart"></canvas>
-        <p class="audit-note">Robos, hurtos y vehiculos reportados para lectura contextual inmobiliaria.</p>
+        <p class="audit-note">SAT Propiedad resume delitos contra la propiedad; sirve como contexto municipal, no como score de una ficha.</p>
       </div>
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
+        <button class="icon-button small chart-help-button" type="button" title="Estacionalidad muestra como se distribuyen los delitos contra la propiedad por mes y anio." aria-label="Ayuda"><i data-lucide="circle-help"></i></button>
         <h2>Estacionalidad propiedad</h2>
         <div id="crime-seasonality-panel" class="crime-seasonality-panel"></div>
-        <p class="audit-note">Heatmap mes x anio con hechos contra la propiedad.</p>
+        <p class="audit-note">Heatmap mes x anio con hechos contra la propiedad para detectar patrones temporales.</p>
       </div>
     </div>
   </section>
 
   <section class="stats-panel stats-tab-panel" data-tab-content="spatial">
     <div class="chart-panel chart-panel--expanded">
+      <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
       <div class="section-heading price-map-heading">
         <div>
           <h2>Mapa de precios</h2>
@@ -566,6 +575,7 @@
       <p id="price-heatmap-empty" class="audit-note" hidden>No hay propiedades con precio y ubicación para este filtro.</p>
     </div>
     <div class="chart-panel chart-panel--expanded">
+      <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
       <div class="section-heading price-map-heading">
         <div>
           <h2>Valor territorial</h2>
@@ -577,17 +587,20 @@
     </div>
     <div class="stats-grid security-map-grid">
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
         <h2>Cobertura de seguridad</h2>
         <p class="audit-note">Proxy de infraestructura: cámaras, paradas seguras, lectores y cercanía policial. No representa tasa real de delitos.</p>
         <div id="security-coverage-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
         <h2>Riesgo relativo</h2>
         <p class="audit-note">Inverso de la cobertura: útil para detectar zonas donde el precio debería tener descuento o margen de negociación.</p>
         <div id="security-risk-map" class="stats-heatmap-map stats-security-map"></div>
       </div>
     </div>
     <div class="chart-panel chart-panel--expanded">
+      <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
       <div class="section-heading price-map-heading">
         <div>
           <h2>Crimen reportado</h2>
@@ -616,6 +629,7 @@
     <div id="opportunity-list" class="opportunity-grid"></div>
     <div class="stats-grid">
       <div class="chart-panel">
+        <button class="icon-button small chart-expand" type="button" title="Maximizar"><i data-lucide="maximize-2"></i></button>
         <h2>Liquidez del inventario</h2>
         <canvas id="liquidity-chart"></canvas>
       </div>
@@ -721,6 +735,7 @@
     <button class="icon-button small" type="button" id="chart-modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
     <h2 id="chart-modal-title"></h2>
     <canvas id="chart-modal-canvas"></canvas>
+    <div id="chart-modal-content" class="chart-modal-content" hidden></div>
   </dialog>
   <dialog class="property-preview-modal" id="property-preview-modal">
     <button class="icon-button small" type="button" id="property-preview-close" aria-label="Cerrar"><i data-lucide="x"></i></button>

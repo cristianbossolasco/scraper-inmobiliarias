@@ -191,6 +191,14 @@ class Property(models.Model):
                 fields=["operation", "covered_area"],
                 name="properties__operat_86aa71_idx",
             ),
+            models.Index(
+                fields=["operation", "status", "is_hidden", "last_seen_at"],
+                name="prop_op_status_hidden_seen_idx",
+            ),
+            models.Index(
+                fields=["property_type", "condition_category", "age_years"],
+                name="prop_type_cond_age_idx",
+            ),
         ]
 
     def __str__(self):
@@ -352,6 +360,10 @@ class Listing(models.Model):
             models.Index(
                 fields=["source", "active"],
                 name="properties__source__e7ad06_idx",
+            ),
+            models.Index(
+                fields=["source", "source_status", "active"],
+                name="listing_src_status_active_idx",
             ),
         ]
 

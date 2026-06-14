@@ -4,15 +4,18 @@ from pathlib import Path
 
 from django.conf import settings
 
+from properties.services.canonical_zones import canonicalize_zone_features
 from properties.services.spatial import haversine_km, point_in_polygon
 
 
-DEFAULT_SECURITY_GEOJSON = Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
+DEFAULT_SECURITY_GEOJSON = (
+    Path(settings.BASE_DIR) / "data" / "geo" / "security" / "security_zones_hurlingham.geojson"
+)
 FALLBACK_SECURITY_GEOJSON = (
-    Path(settings.BASE_DIR) / "data" / "geo" / "security_zones_hurlingham.geojson"
+    Path(settings.BASE_DIR) / "data" / "seguridad_hurlingham.geojson"
 )
 DEFAULT_SECURITY_POINTS_GEOJSON = (
-    Path(settings.BASE_DIR) / "data" / "geo" / "security_points_hurlingham.geojson"
+    Path(settings.BASE_DIR) / "data" / "geo" / "security" / "security_points_hurlingham.geojson"
 )
 
 
@@ -239,8 +242,16 @@ SECURITY_UPDATE_FIELDS = [
 def security_layers_payload(zone_path=None, point_path=None, max_points=1200):
     zone_dataset = load_security_zones(zone_path)
     point_dataset = load_security_points(point_path)
+    zone_features = zone_dataset["features"]
+    if zone_path is None:
+        zone_features, canonical_dataset = canonicalize_zone_features(zone_features)
+        zone_path_value = canonical_dataset["path"]
+        configured = bool(canonical_dataset["configured"])
+    else:
+        zone_path_value = zone_dataset["path"]
+        configured = zone_dataset["configured"]
     zones = []
-    for feature in zone_dataset["features"]:
+    for feature in zone_features:
         props = feature.get("properties") or {}
         coverage = _feature_score(props)
         zones.append(
@@ -275,8 +286,8 @@ def security_layers_payload(zone_path=None, point_path=None, max_points=1200):
             }
         )
     return {
-        "configured": zone_dataset["configured"],
-        "path": zone_dataset["path"],
+        "configured": configured,
+        "path": zone_path_value,
         "points_path": point_dataset["path"],
         "zones": {"type": "FeatureCollection", "features": zones},
         "points": {"type": "FeatureCollection", "features": points},
