@@ -20,6 +20,7 @@ urlpatterns = [
     path("api/propiedad/<int:pk>/nota/", views.update_property_note, name="update_property_note"),
     path("api/propiedad/<int:pk>/datos/", views.update_property_data, name="update_property_data"),
     path("api/propiedad/<int:pk>/ubicacion/", views.update_location, name="update_location"),
+    path("api/propiedad/<int:pk>/inferir-territorio/", views.infer_property_territory_api, name="infer_property_territory"),
     path("api/configuracion-mapa/", views.map_config, name="map_config"),
     path("api/jerarquia-geografica/capas/", views.geo_hierarchy_layers_api, name="geo_hierarchy_layers"),
     path("api/seguridad/capas/", views.security_layers_api, name="security_layers"),

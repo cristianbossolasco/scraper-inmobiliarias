@@ -73,8 +73,11 @@ from .services.scraping import (
 )
 from .services.security_scoring import security_layers_payload
 from .services.location_intelligence import (
+    apply_location_intelligence_score,
+    load_location_zones,
     location_intelligence_layers_payload,
     location_intelligence_signature,
+    score_property_location_intelligence,
 )
 from .services.crime_context import (
     crime_context_signature,
@@ -104,6 +107,10 @@ from .services.zone_names import (
     UNIFIED_HURLINGHAM_CENTRO_ALIASES,
     UNIFIED_HURLINGHAM_CENTRO_ZONE,
     canonicalize_unified_zone_name,
+)
+from .services.territory_hierarchy import (
+    apply_territory_inference,
+    infer_property_territory,
 )
 
 
@@ -1666,6 +1673,8 @@ def search(request):
         "features": ["Pileta", "Quincho", "Jardín", "Parrilla", "Apto crédito"],
         "query_params": request.GET,
         "view_mode": request.GET.get("view") or "cards",
+        "view_cards_url": query_url(request.GET, {"view": "cards"}, remove=["page"]),
+        "view_table_url": query_url(request.GET, {"view": "table"}, remove=["page"]),
         "pagination_urls": {
             "first": query_url(request.GET, {"page": 1}),
             "last": query_url(request.GET, {"page": page.paginator.num_pages}),
@@ -1896,6 +1905,56 @@ def update_location(request, pk):
             "longitude": location.longitude,
             "precision": location.precision,
             "outside_target": outside,
+        }
+    )
+
+
+@require_POST
+def infer_property_territory_api(request, pk):
+    property_obj = get_object_or_404(
+        Property.objects.select_related("location", "location_intelligence"),
+        pk=pk,
+    )
+    if not hasattr(property_obj, "location"):
+        return JsonResponse(
+            {"error": "La propiedad no tiene coordenadas para inferir zona."},
+            status=400,
+        )
+
+    result = infer_property_territory(property_obj)
+    apply_territory_inference(property_obj, result)
+    property_obj.refresh_from_db()
+
+    score_record = None
+    dataset = load_location_zones()
+    if dataset["configured"]:
+        score = score_property_location_intelligence(
+            property_obj,
+            zones=dataset["features"],
+            source_signature=dataset["signature"],
+        )
+        score_record = apply_location_intelligence_score(property_obj, score)
+
+    if score_record is not None:
+        property_obj.location_intelligence = score_record
+    message_parts = []
+    if result.zone:
+        message_parts.append(f"Zona inferida: {result.zone}.")
+    elif result.locality:
+        message_parts.append(f"Localidad inferida: {result.locality}; sin zona final.")
+    else:
+        message_parts.append("No se pudo inferir una zona dentro del partido.")
+    if result.needs_review:
+        message_parts.append("Requiere revision.")
+    if not dataset["configured"]:
+        message_parts.append("Score territorial no configurado.")
+
+    return JsonResponse(
+        {
+            "ok": True,
+            "message": " ".join(message_parts),
+            "territory": _territory_payload(property_obj),
+            "location_intelligence": _location_intelligence_payload(property_obj, include_evidence=False),
         }
     )
 

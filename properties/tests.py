@@ -6,6 +6,7 @@ from pathlib import Path
 from decimal import Decimal
 from io import StringIO
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
@@ -2702,6 +2703,83 @@ class ViewTests(TestCase):
 
         self.assertContains(response, 'id="property-preview-modal"')
         self.assertContains(response, 'src="/static/js/property-preview.js"')
+
+    def test_search_export_and_view_controls_are_in_results_toolbar(self):
+        response = self.client.get("/", {"view": "table", "q": "pileta"})
+        soup = BeautifulSoup(response.content, "lxml")
+
+        export_menu = soup.select_one(".header-actions .export-menu")
+        self.assertIsNotNone(export_menu)
+        self.assertEqual(len(export_menu.select('a[href*="/export/properties.csv"]')), 1)
+        self.assertEqual(len(export_menu.select('a[href*="/export/properties.xlsx"]')), 1)
+        self.assertFalse(soup.select('#search-form input[type="radio"][name="view"]'))
+        self.assertIsNotNone(soup.select_one("#results-pane .results-view-toggle"))
+
+    def test_infer_property_territory_api_updates_territory_and_score(self):
+        property_obj = self.listing.property
+        territory_result = SimpleNamespace(
+            partido="Partido de Hurlingham",
+            locality="Hurlingham",
+            zone="Parque Johnston",
+            confidence="medium_high",
+            source_method="test",
+            needs_review=False,
+            evidence={"signature": "test"},
+        )
+        score_result = SimpleNamespace(
+            overall_score=71,
+            level="media_alta",
+            zone_name="Parque Johnston",
+            match_method="polygon",
+            confidence="medium_high",
+            transport_score=70,
+            education_score=72,
+            health_score=73,
+            flood_penalty_score=0,
+            urban_informality_score=0,
+            environmental_penalty_score=0,
+            development_potential_score=64,
+            in_flood_risk_zone=False,
+            nearest_renabap_m=None,
+            nearest_sube_point_m=180,
+            nearest_school_m=260,
+            nearest_health_center_m=420,
+            components={"test": True},
+            risks={},
+            evidence={"source": "test"},
+            source_signature="score-test",
+        )
+
+        with patch("properties.views.infer_property_territory", return_value=territory_result), patch(
+            "properties.views.load_location_zones",
+            return_value={"configured": True, "features": [], "signature": "score-test"},
+        ), patch("properties.views.score_property_location_intelligence", return_value=score_result):
+            response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
+
+        self.assertEqual(response.status_code, 200)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.inferred_partido, "Partido de Hurlingham")
+        self.assertEqual(property_obj.inferred_locality, "Hurlingham")
+        self.assertEqual(property_obj.inferred_zone, "Parque Johnston")
+        intelligence = property_obj.location_intelligence
+        self.assertEqual(intelligence.overall_score, 71)
+        self.assertEqual(intelligence.zone_name, "Parque Johnston")
+        payload = response.json()
+        self.assertEqual(payload["territory"]["zone"], "Parque Johnston")
+        self.assertEqual(payload["location_intelligence"]["overall_score"], 71)
+
+    def test_infer_property_territory_api_requires_coordinates(self):
+        property_obj = Property.objects.create(
+            fingerprint="without-location",
+            title="Sin ubicacion",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+        )
+
+        response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("coordenadas", response.json()["error"])
 
     def test_security_filters_are_applied_to_geojson_api(self):
         primary = self.listing.property

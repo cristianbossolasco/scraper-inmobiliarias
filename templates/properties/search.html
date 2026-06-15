@@ -11,12 +11,15 @@
     <a class="icon-button" href="{{ active_stats_url }}" title="Estadisticas" aria-label="Estadisticas">
       <i data-lucide="bar-chart-3"></i>
     </a>
-    <a class="icon-button" href="{{ active_export_csv_url }}" title="Exportar CSV" aria-label="Exportar CSV">
-      <i data-lucide="file-down"></i>
-    </a>
-    <a class="icon-button" href="{{ active_export_xlsx_url }}" title="Exportar Excel" aria-label="Exportar Excel">
-      <i data-lucide="sheet"></i>
-    </a>
+    <details class="export-menu">
+      <summary class="icon-button" title="Exportar" aria-label="Exportar">
+        <i data-lucide="download"></i>
+      </summary>
+      <div class="export-menu-options">
+        <a href="{{ active_export_csv_url }}"><i data-lucide="file-down"></i> CSV</a>
+        <a href="{{ active_export_xlsx_url }}"><i data-lucide="sheet"></i> Excel</a>
+      </div>
+    </details>
     <a class="icon-button" href="{% url 'properties:scraping' %}" title="Scraping a demanda" aria-label="Scraping a demanda">
       <i data-lucide="play"></i>
     </a>
@@ -208,7 +211,7 @@
         </select>
       </div>
 
-      <div class="filter-section two-cols">
+      <div class="filter-section">
         <div>
           <label for="source">Fuente</label>
           <select id="source" name="source" multiple size="5">
@@ -217,19 +220,6 @@
               <option value="{{ source.pk }}" {% if source.pk|stringformat:"s" in selected_filters.source %}selected{% endif %}>{{ source.name }}</option>
             {% endfor %}
           </select>
-        </div>
-        <div>
-          <label for="view">Vista</label>
-          <div class="segmented-control" role="group" aria-label="Vista de resultados">
-            <label>
-              <input type="radio" name="view" value="cards" {% if view_mode != "table" %}checked{% endif %}>
-              <span><i data-lucide="layout-grid"></i> Tarjetas</span>
-            </label>
-            <label>
-              <input type="radio" name="view" value="table" {% if view_mode == "table" %}checked{% endif %}>
-              <span><i data-lucide="table-2"></i> Tabla</span>
-            </label>
-          </div>
         </div>
       </div>
 
@@ -350,6 +340,7 @@
       <input type="hidden" name="radius_lng" value="{{ query_params.radius_lng }}">
       <input type="hidden" name="radius_km" value="{{ query_params.radius_km|default:'2' }}">
       <input type="hidden" name="polygon" value="{{ query_params.polygon }}">
+      <input type="hidden" name="view" value="{{ view_mode }}">
 
       <div class="filter-actions">
         <button class="secondary-button" type="button" id="clear-filters">
@@ -364,7 +355,27 @@
 
   <section class="results" id="results-pane">
     <div class="results-toolbar">
-      <strong>{{ total }} resultados</strong>
+      <div class="results-toolbar-main">
+        <strong>{{ total }} resultados</strong>
+        <div class="segmented-control results-view-toggle" role="group" aria-label="Vista de resultados">
+          <a class="{% if view_mode != 'table' %}active{% endif %}" href="{{ view_cards_url }}"
+             hx-get="{{ view_cards_url }}"
+             hx-target="#results-pane"
+             hx-select="#results-pane"
+             hx-swap="outerHTML"
+             hx-push-url="true">
+            <i data-lucide="layout-grid"></i> Tarjetas
+          </a>
+          <a class="{% if view_mode == 'table' %}active{% endif %}" href="{{ view_table_url }}"
+             hx-get="{{ view_table_url }}"
+             hx-target="#results-pane"
+             hx-select="#results-pane"
+             hx-swap="outerHTML"
+             hx-push-url="true">
+            <i data-lucide="table-2"></i> Tabla
+          </a>
+        </div>
+      </div>
       <div class="geo-tools" role="group" aria-label="Filtros geográficos">
         <button class="tool-button" type="button" id="bounds-filter" title="Filtrar por área visible">
           <i data-lucide="frame"></i><span>Área visible</span>

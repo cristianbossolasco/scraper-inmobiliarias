@@ -223,6 +223,12 @@
 
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".smart-select")) closePopovers();
+    const viewLink = event.target.closest(".results-view-toggle a[href]");
+    if (viewLink) {
+      const view = new URL(viewLink.href, window.location.href).searchParams.get("view") || "cards";
+      const viewInput = document.querySelector('#search-form input[name="view"]');
+      if (viewInput) viewInput.value = view;
+    }
   });
   document.body.addEventListener("htmx:afterRequest", (event) => {
     const form = event.detail?.elt?.closest?.("form");

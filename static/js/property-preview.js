@@ -167,6 +167,9 @@
           <button class="secondary-button" type="button" data-preview-save-location>
             <i data-lucide="map-pin-check"></i> Guardar ubicacion
           </button>
+          <button class="secondary-button" type="button" data-preview-infer-territory>
+            <i data-lucide="map"></i> Inferir zona
+          </button>
         </div>
         <div id="property-preview-map" class="property-preview-map"></div>
       </div>
@@ -295,7 +298,19 @@
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
-    if (statusNode) statusNode.textContent = "Ubicacion guardada.";
+    if (statusNode) statusNode.textContent = "Ubicacion guardada. Podes inferir zona.";
+  }
+
+  async function inferPreviewTerritory(propertyId, statusNode) {
+    if (statusNode) statusNode.textContent = "Infiriendo zona y score territorial...";
+    const payload = await requestJson(`/api/propiedad/${propertyId}/inferir-territorio/`, {
+      method: "POST",
+      body: JSON.stringify({})
+    });
+    await loadPropertyPreview(propertyId);
+    const { propertyModalContent } = elements();
+    const refreshedStatus = propertyModalContent?.querySelector("[data-preview-status]");
+    if (refreshedStatus) refreshedStatus.textContent = payload.message || "Zona inferida.";
   }
 
   function initPropertyPreviewMap(property) {
@@ -420,6 +435,7 @@
       const stateButton = event.target.closest("[data-preview-state]");
       const notesButton = event.target.closest("[data-preview-save-notes]");
       const locationButton = event.target.closest("[data-preview-save-location]");
+      const territoryButton = event.target.closest("[data-preview-infer-territory]");
       const statusNode = layout.querySelector("[data-preview-status]");
       try {
         if (stateButton) {
@@ -429,6 +445,8 @@
           await savePreviewNotes(propertyId, layout.querySelector("#property-preview-notes")?.value || "", statusNode);
         } else if (locationButton) {
           await savePreviewLocation(propertyId, statusNode);
+        } else if (territoryButton) {
+          await inferPreviewTerritory(propertyId, statusNode);
         }
       } catch (error) {
         if (statusNode) statusNode.textContent = error.message;
