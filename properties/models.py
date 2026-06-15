@@ -136,6 +136,14 @@ class Property(models.Model):
     inferred_neighborhood = models.CharField(max_length=120, blank=True, db_index=True)
     inferred_neighborhood_method = models.CharField(max_length=40, blank=True)
     inferred_neighborhood_distance_m = models.FloatField(null=True, blank=True)
+    inferred_partido = models.CharField(max_length=120, blank=True, db_index=True)
+    inferred_locality = models.CharField(max_length=100, blank=True, db_index=True)
+    inferred_zone = models.CharField(max_length=120, blank=True, db_index=True)
+    territory_confidence = models.CharField(max_length=40, blank=True, db_index=True)
+    territory_source_method = models.CharField(max_length=80, blank=True)
+    territory_needs_review = models.BooleanField(default=False, db_index=True)
+    territory_evidence = models.JSONField(default=dict, blank=True)
+    territory_inferred_at = models.DateTimeField(null=True, blank=True)
     zone_conflict = models.BooleanField(default=False, db_index=True)
     zone_needs_review = models.BooleanField(default=False, db_index=True)
     zone_inference_evidence = models.JSONField(default=dict, blank=True)
@@ -174,6 +182,7 @@ class Property(models.Model):
             models.Index(fields=["property_type", "status"]),
             models.Index(fields=["locality", "neighborhood"]),
             models.Index(fields=["detected_locality", "detected_neighborhood"]),
+            models.Index(fields=["inferred_locality", "inferred_zone"], name="prop_inferred_loc_zone_idx"),
             models.Index(fields=["is_hidden", "is_favorite", "reviewed_at"]),
             models.Index(
                 fields=["operation", "is_hidden", "last_seen_at"],
@@ -268,6 +277,8 @@ class PropertyLocationIntelligence(models.Model):
     )
     overall_score = models.FloatField(null=True, blank=True, db_index=True)
     level = models.CharField(max_length=20, blank=True, db_index=True)
+    partido_name = models.CharField(max_length=120, blank=True, db_index=True)
+    locality_name = models.CharField(max_length=100, blank=True, db_index=True)
     zone_name = models.CharField(max_length=120, blank=True, db_index=True)
     match_method = models.CharField(
         max_length=20, choices=MatchMethod.choices, default=MatchMethod.NONE, db_index=True
@@ -301,6 +312,10 @@ class PropertyLocationIntelligence(models.Model):
             models.Index(
                 fields=["zone_name", "overall_score"],
                 name="properties__locati_79cf14_idx",
+            ),
+            models.Index(
+                fields=["partido_name", "locality_name", "zone_name"],
+                name="locintel_territory_idx",
             ),
         ]
 

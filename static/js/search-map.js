@@ -227,7 +227,7 @@
       .setHTML(
         `<div class="map-popup"><strong>${price}</strong>` +
         `<p>${escapeHtml(p.title)}</p><small>${escapeHtml(p.precision_label)}</small>` +
-        `<br><a href="${p.detail_url}">Ver propiedad</a></div>`
+        `<br><a href="${p.detail_url}" data-property-preview-id="${p.id}">Abrir ficha</a></div>`
       ).addTo(map);
   }
 

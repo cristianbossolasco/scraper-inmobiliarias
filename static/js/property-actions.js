@@ -216,7 +216,12 @@
       selectItem(items[Math.max(index - 1, 0)]);
     } else if (event.key === "Enter" && current) {
       const link = current.querySelector(".card-link, .table-title");
-      if (link) window.location.href = link.href;
+      if (window.RadarPropertyPreview && current.dataset.propertyId) {
+        event.preventDefault();
+        window.RadarPropertyPreview.open(current.dataset.propertyId);
+      } else if (link) {
+        window.location.href = link.href;
+      }
     } else if (["f", "F", "v", "V", "h", "H"].includes(event.key) && current) {
       const action = event.key.toLowerCase() === "f" ? "favorite" : event.key.toLowerCase() === "v" ? "reviewed" : "hidden";
       const button = current.querySelector(`.property-action[data-action="${action}"]`);

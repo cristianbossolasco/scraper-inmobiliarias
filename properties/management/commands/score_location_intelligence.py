@@ -12,6 +12,8 @@ from properties.services.location_intelligence import (
 UPDATE_FIELDS = [
     "overall_score",
     "level",
+    "partido_name",
+    "locality_name",
     "zone_name",
     "match_method",
     "confidence",
@@ -130,7 +132,9 @@ class Command(BaseCommand):
         values = {
             "overall_score": score.overall_score,
             "level": score.level or "",
-            "zone_name": score.zone_name or "",
+            "partido_name": score.partido_name or property_obj.inferred_partido or "",
+            "locality_name": score.locality_name or property_obj.inferred_locality or "",
+            "zone_name": score.zone_name or property_obj.inferred_zone or "",
             "match_method": score.match_method or "none",
             "confidence": score.confidence or "",
             "transport_score": score.transport_score,

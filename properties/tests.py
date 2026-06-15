@@ -75,6 +75,10 @@ from properties.services.zone_inference import (
     infer_zone_for_point,
     load_zone_index,
 )
+from properties.services.territory_hierarchy import (
+    infer_property_territory,
+    infer_territory_for_point,
+)
 from properties.scrapers.argenprop import ArgenpropScraper
 from properties.scrapers.base import ROBOTS_CACHE
 from properties.scrapers.argencasas import ArgencasasScraper
@@ -1187,6 +1191,155 @@ class ZoneInferenceTests(TestCase):
         self.assertEqual(property_obj.zone_inference_evidence["source_zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(record.zone_name, UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(record.evidence["matched_zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
+
+
+class TerritoryHierarchyInferenceTests(TestCase):
+    def _geo_dir(self):
+        temp_dir = TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        base = Path(temp_dir.name)
+
+        def write(name, features):
+            (base / name).write_text(
+                json.dumps({"type": "FeatureCollection", "features": features}),
+                encoding="utf-8",
+            )
+
+        def polygon(feature_id, props, ring):
+            return {
+                "type": "Feature",
+                "id": feature_id,
+                "properties": props,
+                "geometry": {"type": "Polygon", "coordinates": [ring]},
+            }
+
+        partido = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]]
+        locality = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]]
+        zone = [[0, 0], [5, 0], [5, 5], [0, 5], [0, 0]]
+        write(
+            "01_partido_hurlingham.geojson",
+            [
+                polygon(
+                    "partido-1",
+                    {"canonical_name": "Partido de Hurlingham", "source_confidence": "high"},
+                    partido,
+                )
+            ],
+        )
+        write(
+            "02_localidades_hurlingham.geojson",
+            [
+                polygon(
+                    "localidad-1",
+                    {"canonical_name": "Hurlingham", "source_confidence": "high"},
+                    locality,
+                )
+            ],
+        )
+        write(
+            "03_zonas_hurlingham_final.geojson",
+            [
+                polygon(
+                    "zona-1",
+                    {
+                        "canonical_name": "Hurlingham Centro",
+                        "parent_locality": "Hurlingham",
+                        "source_confidence": "medium",
+                        "source_method": "manual",
+                    },
+                    zone,
+                )
+            ],
+        )
+        return base
+
+    def test_point_inference_returns_three_layers_and_canonical_alias(self):
+        result = infer_territory_for_point(1, 1, geo_dir=self._geo_dir(), coordinate_source="test")
+
+        self.assertEqual(result.partido, "Partido de Hurlingham")
+        self.assertEqual(result.locality, "Hurlingham")
+        self.assertEqual(result.zone, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertFalse(result.needs_review)
+        self.assertEqual(result.evidence["coordinate_source"], "test")
+
+    def test_point_inside_locality_without_zone_keeps_hierarchy_and_marks_review(self):
+        result = infer_territory_for_point(8, 8, geo_dir=self._geo_dir())
+
+        self.assertEqual(result.partido, "Partido de Hurlingham")
+        self.assertEqual(result.locality, "Hurlingham")
+        self.assertEqual(result.zone, "")
+        self.assertTrue(result.needs_review)
+
+    def test_property_manual_location_is_used_before_detected_coordinates(self):
+        prop = Property.objects.create(
+            fingerprint="territory-priority",
+            title="Casa prioridad manual",
+            detected_latitude=8,
+            detected_longitude=8,
+        )
+        PropertyLocation.objects.create(
+            property=prop,
+            latitude=1,
+            longitude=1,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+
+        result = infer_property_territory(prop, geo_dir=self._geo_dir())
+
+        self.assertEqual(result.zone, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(result.evidence["coordinate_source"], "location")
+
+    def test_backfill_command_dry_run_and_apply_preserve_manual_fields(self):
+        corrected_at = timezone.now() - timedelta(days=1)
+        prop = Property.objects.create(
+            fingerprint="territory-backfill",
+            title="Casa backfill territorio",
+            manual_overrides={"neighborhood": "Barrio Ingles"},
+            data_manually_corrected_at=corrected_at,
+        )
+        PropertyLocation.objects.create(
+            property=prop,
+            latitude=1,
+            longitude=1,
+            precision=PropertyLocation.Precision.EXACT,
+        )
+        geo_dir = self._geo_dir()
+
+        call_command(
+            "backfill_territory_hierarchy",
+            "--dry-run",
+            "--quiet",
+            "--property-id",
+            str(prop.pk),
+            "--geo-dir",
+            str(geo_dir),
+            stdout=StringIO(),
+        )
+        prop.refresh_from_db()
+        self.assertEqual(prop.inferred_zone, "")
+        self.assertEqual(prop.manual_overrides, {"neighborhood": "Barrio Ingles"})
+        self.assertEqual(prop.data_manually_corrected_at, corrected_at)
+
+        call_command(
+            "backfill_territory_hierarchy",
+            "--apply",
+            "--quiet",
+            "--property-id",
+            str(prop.pk),
+            "--geo-dir",
+            str(geo_dir),
+            stdout=StringIO(),
+        )
+        prop.refresh_from_db()
+        intelligence = prop.location_intelligence
+        self.assertEqual(prop.inferred_partido, "Partido de Hurlingham")
+        self.assertEqual(prop.inferred_locality, "Hurlingham")
+        self.assertEqual(prop.inferred_zone, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(intelligence.partido_name, "Partido de Hurlingham")
+        self.assertEqual(intelligence.locality_name, "Hurlingham")
+        self.assertEqual(intelligence.zone_name, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(prop.manual_overrides, {"neighborhood": "Barrio Ingles"})
+        self.assertEqual(prop.data_manually_corrected_at, corrected_at)
 
 
 class IngestionTests(TestCase):
@@ -2544,6 +2697,12 @@ class ViewTests(TestCase):
         payload = response.json()
         self.assertEqual(len(payload["features"]), 1)
 
+    def test_search_renders_property_preview_modal(self):
+        response = self.client.get("/")
+
+        self.assertContains(response, 'id="property-preview-modal"')
+        self.assertContains(response, 'src="/static/js/property-preview.js"')
+
     def test_security_filters_are_applied_to_geojson_api(self):
         primary = self.listing.property
         primary.security_coverage_score = 72
@@ -2645,6 +2804,10 @@ class ViewTests(TestCase):
         payload = response.json()
         self.assertEqual(payload["location_intelligence"]["overall_score"], 74)
         self.assertEqual(payload["location_intelligence"]["zone_name"], "Zona Alta")
+        self.assertIn("facts", payload)
+        self.assertIn("edit_sections", payload)
+        self.assertIn("map_config", payload)
+        self.assertIn("detail_url", payload)
 
         response = self.client.get("/export/properties.csv")
         self.assertContains(response, "score_territorial")

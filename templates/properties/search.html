@@ -651,6 +651,12 @@
       <output id="radius-output">{{ query_params.radius_km|default:"2" }} km</output>
     </div>
   </section>
+  <dialog class="property-preview-modal" id="property-preview-modal">
+    <button class="icon-button small" type="button" id="property-preview-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <div id="property-preview-content" class="property-preview-content">
+      <div class="audit-note">Cargando propiedad...</div>
+    </div>
+  </dialog>
 </main>
 {% endblock %}
 {% block scripts %}
@@ -658,6 +664,7 @@
   window.RADAR_INITIAL_QUERY = "{{ request.GET.urlencode|escapejs }}";
   window.RADAR_CLEAR_FILTERS_URL = "{{ clear_filters_url|escapejs }}";
 </script>
+<script src="{% static 'js/property-preview.js' %}"></script>
 <script src="{% static 'js/search-map.js' %}"></script>
 <script src="{% static 'js/zone-filter.js' %}"></script>
 <script src="{% static 'js/filter-panel.js' %}"></script>

@@ -64,6 +64,8 @@ NEAREST_FIELDS = (
 class LocationIntelligenceScore:
     overall_score: float | None = None
     level: str = ""
+    partido_name: str = ""
+    locality_name: str = ""
     zone_name: str = ""
     match_method: str = "none"
     confidence: str = ""
@@ -410,6 +412,8 @@ def _payload_from_props(props, match_method, source_signature, exact_context=Non
     return LocationIntelligenceScore(
         overall_score=overall,
         level=_level(overall, props.get("location_value_level") or ""),
+        partido_name=props.get("parent_partido") or props.get("partido_name") or "",
+        locality_name=props.get("parent_locality") or props.get("locality_name") or props.get("locality") or "",
         zone_name=zone_name,
         match_method=match_method,
         confidence=props.get("data_confidence") or "",
@@ -478,6 +482,8 @@ def location_intelligence_values(record):
     return {
         "overall_score": record.overall_score,
         "level": record.level,
+        "partido_name": getattr(record, "partido_name", ""),
+        "locality_name": getattr(record, "locality_name", ""),
         "zone_name": record.zone_name,
         "match_method": record.match_method,
         "transport_score": record.transport_score,

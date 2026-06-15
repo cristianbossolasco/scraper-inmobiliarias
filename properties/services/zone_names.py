@@ -26,6 +26,14 @@ UNIFIED_HURLINGHAM_CENTRO_ALIASES = (
 HURLINGHAM_CENTRO_ALIAS_KEYS = {
     zone_text_key(alias) for alias in UNIFIED_HURLINGHAM_CENTRO_ALIASES
 }
+ZONE_CANONICAL_ALIASES = {
+    "Parque Johnston": ("Parque Johnston", "Parque Jhonston", "Johnston", "Jhonston"),
+}
+ZONE_CANONICAL_BY_KEY = {
+    zone_text_key(alias): canonical
+    for canonical, aliases in ZONE_CANONICAL_ALIASES.items()
+    for alias in aliases
+}
 
 
 def is_unified_hurlingham_centro_alias(value):
@@ -35,4 +43,5 @@ def is_unified_hurlingham_centro_alias(value):
 def canonicalize_unified_zone_name(value):
     if is_unified_hurlingham_centro_alias(value):
         return UNIFIED_HURLINGHAM_CENTRO_ZONE
-    return str(value or "").strip()
+    text = str(value or "").strip()
+    return ZONE_CANONICAL_BY_KEY.get(zone_text_key(text), text)

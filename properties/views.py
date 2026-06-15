@@ -103,6 +103,7 @@ from .services.spatial import (
 from .services.zone_names import (
     UNIFIED_HURLINGHAM_CENTRO_ALIASES,
     UNIFIED_HURLINGHAM_CENTRO_ZONE,
+    canonicalize_unified_zone_name,
 )
 
 
@@ -305,10 +306,12 @@ def _param_values(params, key):
 
 def _canonical_display_locality(property_obj):
     return (
-        normalize_locality(property_obj.detected_locality)
+        normalize_locality(property_obj.inferred_locality)
+        or normalize_locality(property_obj.detected_locality)
         or normalize_locality(property_obj.locality)
         or locality_from_neighborhood(property_obj.detected_neighborhood)
         or locality_from_neighborhood(property_obj.neighborhood)
+        or locality_from_neighborhood(property_obj.inferred_zone)
         or locality_from_neighborhood(property_obj.inferred_neighborhood)
         or "Sin dato"
     )
@@ -361,11 +364,12 @@ def _neighborhood_options():
     canonical_names = _canonical_zone_names()
     canonical_by_key = {zone_key(name): name for name in canonical_names}
     counts = {name: 0 for name in canonical_names}
-    for inferred, location_zone in Property.objects.values_list(
+    for inferred_zone, inferred, location_zone in Property.objects.values_list(
+        "inferred_zone",
         "inferred_neighborhood",
         "location_intelligence__zone_name",
     ):
-        raw = normalize_whitespace(location_zone or inferred)
+        raw = normalize_whitespace(inferred_zone or location_zone or inferred)
         name = canonical_by_key.get(zone_key(raw))
         if not name:
             name = canonical_by_key.get(zone_key(normalize_neighborhood_name(raw)))
@@ -378,15 +382,17 @@ def _neighborhood_options():
 
 
 def _canonical_zone_names():
+    hierarchy_path = Path(settings.BASE_DIR) / "data" / "geo" / "03_zonas_hurlingham_final.geojson"
     try:
-        payload = json.loads(Path(settings.ZONE_GEOJSON_PATH).read_text(encoding="utf-8"))
+        path = hierarchy_path if hierarchy_path.exists() else Path(settings.ZONE_GEOJSON_PATH)
+        payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return []
     names = []
     for feature in payload.get("features") or []:
         props = feature.get("properties") or {}
         raw_name = props.get("zone_name") or props.get("name") or props.get("label") or ""
-        name = normalize_whitespace(raw_name)
+        name = canonicalize_unified_zone_name(normalize_whitespace(raw_name))
         if name and name not in names:
             names.append(name)
     return names
@@ -414,13 +420,17 @@ def _security_level_options():
 
 
 def _location_value_zone_options():
-    return [
-        value
-        for value in PropertyLocationIntelligence.objects.exclude(zone_name="")
+    values = set(
+        Property.objects.exclude(inferred_zone="")
+        .values_list("inferred_zone", flat=True)
+        .distinct()
+    )
+    values.update(
+        PropertyLocationIntelligence.objects.exclude(zone_name="")
         .values_list("zone_name", flat=True)
         .distinct()
-        .order_by("zone_name")
-    ]
+    )
+    return sorted(value for value in values if value)
 
 
 def _location_value_level_options():
@@ -778,7 +788,6 @@ def filtered_property_queryset(params, include_listings=True):
         "security_level": "security_level",
         "security_zone": "security_zone_label",
         "location_value_level": "location_intelligence__level",
-        "location_value_zone": "location_intelligence__zone_name",
     }
     for parameter, field in filters.items():
         values = _param_values(params, parameter)
@@ -788,7 +797,16 @@ def filtered_property_queryset(params, include_listings=True):
     locality_values = _param_values(params, "locality")
     if locality_values:
         queryset = queryset.filter(
-            Q(locality__in=locality_values) | Q(detected_locality__in=locality_values)
+            Q(inferred_locality__in=locality_values)
+            | Q(locality__in=locality_values)
+            | Q(detected_locality__in=locality_values)
+        )
+
+    location_value_zone_values = _param_values(params, "location_value_zone")
+    if location_value_zone_values:
+        queryset = queryset.filter(
+            Q(inferred_zone__in=location_value_zone_values)
+            | Q(location_intelligence__zone_name__in=location_value_zone_values)
         )
 
     if not _param_values(params, "status"):
@@ -800,7 +818,8 @@ def filtered_property_queryset(params, include_listings=True):
         for value in neighborhood_values:
             values = _neighborhood_filter_values(value)
             neighborhood_q |= (
-                Q(neighborhood__in=values)
+                Q(inferred_zone__in=values)
+                | Q(neighborhood__in=values)
                 | Q(detected_neighborhood__in=values)
                 | Q(inferred_neighborhood__in=values)
                 | Q(location_intelligence__zone_name__in=values)
@@ -809,7 +828,8 @@ def filtered_property_queryset(params, include_listings=True):
 
     if params.get("zone_missing") == "1":
         queryset = queryset.filter(
-            (Q(inferred_neighborhood="") | Q(inferred_neighborhood__isnull=True))
+            (Q(inferred_zone="") | Q(inferred_zone__isnull=True))
+            & (Q(inferred_neighborhood="") | Q(inferred_neighborhood__isnull=True))
             & (
                 Q(location_intelligence__isnull=True)
                 | Q(location_intelligence__zone_name="")
@@ -1112,6 +1132,8 @@ def _location_intelligence_payload(property_obj, *, include_evidence=True):
         payload = {
             "configured": False,
             "overall_score": None,
+            "partido_name": "",
+            "locality_name": "",
             "level": "",
             "zone_name": "",
             "match_method": "none",
@@ -1124,6 +1146,8 @@ def _location_intelligence_payload(property_obj, *, include_evidence=True):
     payload = {
         "configured": record.overall_score is not None,
         "overall_score": record.overall_score,
+        "partido_name": record.partido_name,
+        "locality_name": record.locality_name,
         "level": record.level,
         "zone_name": record.zone_name,
         "match_method": record.match_method,
@@ -1153,6 +1177,18 @@ def _location_intelligence_payload(property_obj, *, include_evidence=True):
     return payload
 
 
+def _territory_payload(property_obj):
+    return {
+        "partido": property_obj.inferred_partido or "Partido de Hurlingham",
+        "locality": property_obj.inferred_locality or _canonical_display_locality(property_obj),
+        "zone": property_obj.inferred_zone or _geo_zone(property_obj),
+        "confidence": property_obj.territory_confidence or "",
+        "source_method": property_obj.territory_source_method or "",
+        "needs_review": bool(property_obj.territory_needs_review or property_obj.zone_needs_review),
+        "inferred_at": property_obj.territory_inferred_at.isoformat() if property_obj.territory_inferred_at else "",
+    }
+
+
 def _serialize(property_obj, distance=None, current_query=None):
     location = property_obj.location if hasattr(property_obj, "location") else None
     has_detected_address = bool(property_obj.address or property_obj.detected_address)
@@ -1166,6 +1202,7 @@ def _serialize(property_obj, distance=None, current_query=None):
     image = _listing_image_url(listing)
     price_m2 = valid_price_per_m2(property_obj)
     location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
+    territory = _territory_payload(property_obj)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
@@ -1176,6 +1213,11 @@ def _serialize(property_obj, distance=None, current_query=None):
         "locality": property_obj.locality,
         "neighborhood": property_obj.neighborhood,
         "inferred_neighborhood": property_obj.inferred_neighborhood,
+        "territory": territory,
+        "inferred_partido": property_obj.inferred_partido,
+        "inferred_locality": property_obj.inferred_locality,
+        "inferred_zone": property_obj.inferred_zone,
+        "territory_needs_review": property_obj.territory_needs_review,
         "zone_conflict": property_obj.zone_conflict,
         "zone_needs_review": property_obj.zone_needs_review,
         "security_coverage_score": property_obj.security_coverage_score,
@@ -1221,6 +1263,7 @@ def _serialize_map_property(property_obj, distance=None, current_query=None):
         return None
     price_m2 = valid_price_per_m2(property_obj)
     location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
+    territory = _territory_payload(property_obj)
     return {
         "id": property_obj.pk,
         "title": property_obj.title,
@@ -1228,10 +1271,13 @@ def _serialize_map_property(property_obj, distance=None, current_query=None):
         "currency": property_obj.currency,
         "status": property_obj.status,
         "locality": property_obj.locality,
+        "territory": territory,
+        "territory_locality": territory["locality"],
+        "territory_zone": territory["zone"],
         "neighborhood": _declared_neighborhood(property_obj),
         "declared_neighborhood": _declared_neighborhood(property_obj),
-        "geo_zone": _geo_zone(property_obj),
-        "zone": _geo_zone(property_obj) or property_obj.locality or "",
+        "geo_zone": territory["zone"],
+        "zone": territory["zone"] or property_obj.locality or "",
         "price_m2": float(price_m2) if price_m2 is not None else None,
         "latitude": location.latitude,
         "longitude": location.longitude,
@@ -1910,21 +1956,29 @@ EXPORT_COLUMNS = (
     "precio",
     "moneda",
     "precio_m2",
-    "direccion",
-    "localidad",
-    "barrio",
-    "localidad_detectada",
-    "barrio_detectado",
-    "barrio_inferido",
-    "conflicto_zona",
-    "zona_requiere_revision",
+        "direccion",
+        "localidad",
+        "barrio",
+        "localidad_detectada",
+        "barrio_detectado",
+        "barrio_inferido",
+        "partido_territorial",
+        "localidad_territorial",
+        "zona_territorial_operativa",
+        "confianza_territorial",
+        "revision_territorial",
+        "metodo_territorial",
+        "conflicto_zona",
+        "zona_requiere_revision",
     "direccion_detectada",
     "fuente_localizacion",
     "confianza_localizacion",
-    "score_territorial",
-    "nivel_territorial",
-    "zona_territorial",
-    "match_territorial",
+        "score_territorial",
+        "nivel_territorial",
+        "zona_territorial",
+        "partido_inteligencia",
+        "localidad_inteligencia",
+        "match_territorial",
     "score_transporte",
     "score_educacion",
     "score_salud",
@@ -1949,6 +2003,7 @@ def _export_rows(properties):
     for property_obj in properties:
         listing = _primary_listing(property_obj)
         location_intelligence = _location_intelligence_payload(property_obj, include_evidence=False)
+        territory = _territory_payload(property_obj)
         yield {
             "id": property_obj.pk,
             "titulo": property_obj.title,
@@ -1964,6 +2019,12 @@ def _export_rows(properties):
             "localidad_detectada": property_obj.detected_locality,
             "barrio_detectado": property_obj.detected_neighborhood,
             "barrio_inferido": property_obj.inferred_neighborhood,
+            "partido_territorial": territory["partido"],
+            "localidad_territorial": territory["locality"],
+            "zona_territorial_operativa": territory["zone"],
+            "confianza_territorial": territory["confidence"],
+            "revision_territorial": "Si" if territory["needs_review"] else "No",
+            "metodo_territorial": territory["source_method"],
             "conflicto_zona": "Si" if property_obj.zone_conflict else "No",
             "zona_requiere_revision": "Si" if property_obj.zone_needs_review else "No",
             "direccion_detectada": property_obj.detected_address,
@@ -1972,6 +2033,8 @@ def _export_rows(properties):
             "score_territorial": location_intelligence["overall_score"],
             "nivel_territorial": location_intelligence["level"],
             "zona_territorial": location_intelligence["zone_name"],
+            "partido_inteligencia": location_intelligence["partido_name"],
+            "localidad_inteligencia": location_intelligence["locality_name"],
             "match_territorial": location_intelligence["match_method"],
             "score_transporte": location_intelligence.get("transport_score"),
             "score_educacion": location_intelligence.get("education_score"),
@@ -2062,7 +2125,7 @@ def _location_value_zone(property_obj):
 
 
 def _geo_zone(property_obj):
-    return _location_value_zone(property_obj) or property_obj.inferred_neighborhood
+    return property_obj.inferred_zone or _location_value_zone(property_obj) or property_obj.inferred_neighborhood
 
 
 def _declared_neighborhood(property_obj):
@@ -2289,7 +2352,7 @@ def _visual_property_payload(property_obj, request_query, stats_path, price_m2=N
         "security_level": property_obj.security_level,
         "security_zone_label": property_obj.security_zone_label,
         "location_value_score": record.overall_score if record else None,
-        "location_value_zone": record.zone_name if record else "",
+        "location_value_zone": _geo_zone(property_obj) if record else property_obj.inferred_zone,
         "is_hidden": property_obj.is_hidden,
         "is_favorite": property_obj.is_favorite,
         "is_reviewed": property_obj.reviewed_at is not None,
@@ -2319,7 +2382,7 @@ def _compact_location_property_payload(property_obj, record, request_query, stat
         "age_band": age_band_label(property_obj.age_years),
         "location_value_score": record.overall_score,
         "location_value_level": record.level,
-        "location_value_zone": record.zone_name,
+        "location_value_zone": record.zone_name or property_obj.inferred_zone,
         "location_transport_score": record.transport_score,
         "location_flood_penalty_score": record.flood_penalty_score,
         "is_hidden": property_obj.is_hidden,
@@ -2702,10 +2765,8 @@ def _location_zone_matrix(properties, request_query, stats_path):
         record = _location_intelligence_record(property_obj)
         if not record:
             continue
-        zone = record.zone_name or _safe_label(
-            property_obj.detected_neighborhood
-            or property_obj.neighborhood
-            or property_obj.inferred_neighborhood
+        zone = _geo_zone(property_obj) or _safe_label(
+            property_obj.detected_neighborhood or property_obj.neighborhood
         )
         row = grouped.setdefault(
             zone,
@@ -2996,11 +3057,7 @@ def _stats_shell_context_from_db(request, stats_path):
     return {
         "total": total,
         "query_params": request.GET,
-        "by_locality": list(
-            queryset.values_list("locality")
-            .annotate(count=Count("pk"))
-            .order_by("-count", "locality")
-        ),
+        "by_locality": _counter(list(queryset), _canonical_display_locality),
         "by_neighborhood": sorted(by_neighborhood_counts.items(), key=lambda pair: (-pair[1], pair[0])),
         "by_currency": sorted(by_currency_counts.items(), key=lambda pair: (-pair[1], pair[0])),
         "by_agency": list(
