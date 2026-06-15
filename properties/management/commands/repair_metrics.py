@@ -4,11 +4,17 @@ from urllib.parse import urlparse
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
-from properties.models import Listing, Property
+from properties.models import Listing, Property, PropertyLocation
 from properties.scrapers.registry import get_adapter
 from properties.services.data_quality import is_listing_url, is_rental_url
-from properties.services.ingestion import canonicalize_listing_data
+from properties.services.ingestion import canonicalize_listing_data, manual_override_fields
+from properties.services.location_intelligence import (
+    apply_location_intelligence_score,
+    load_location_zones,
+    score_property_location_intelligence,
+)
 from properties.services.normalization import normalize_address, normalize_locality
+from properties.services.territory_hierarchy import apply_territory_inference, infer_property_territory
 
 
 REPAIR_FIELDS = (
@@ -53,6 +59,10 @@ NON_ACTIVE_PROPERTY_STATUSES = {
 }
 
 CLEARABLE_EMPTY_FIELDS = {"currency"}
+CONTAMINATED_ADDRESS_RE = re.compile(
+    r"(@|contacto|m[oó]vil|tel[eé]fono|av\.\s*vergara|giselariquelme|011\s*\d)",
+    re.I,
+)
 
 
 class Command(BaseCommand):
@@ -61,6 +71,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--source", action="append", required=True)
         parser.add_argument("--dry-run", action="store_true")
+        parser.add_argument("--apply", action="store_true", help="Alias explicito del comportamiento por defecto.")
         parser.add_argument("--max-listings", type=int)
         parser.add_argument("--property-id", action="append", type=int)
         parser.add_argument("--timeout", type=int, default=20)
@@ -68,12 +79,18 @@ class Command(BaseCommand):
         parser.add_argument("--mark-non-sale", action="store_true")
         parser.add_argument("--mark-listing-pages", action="store_true")
         parser.add_argument("--classify-only", action="store_true")
+        parser.add_argument("--infer-location", action="store_true")
+        parser.add_argument("--infer-territory", action="store_true")
+        parser.add_argument("--score-territory", action="store_true")
 
     def handle(self, *args, **options):
         if options["max_listings"] is not None and options["max_listings"] < 1:
             raise CommandError("--max-listings debe ser positivo.")
+        if options["dry_run"] and options["apply"]:
+            raise CommandError("Usa --dry-run o --apply, no ambos.")
         total_changes = 0
         touched_properties = set()
+        scored_dataset = load_location_zones() if options["score_territory"] else None
         for slug in options["source"]:
             adapter = get_adapter(slug, request_timeout=options["timeout"])
             if options["crawl_delay"] is not None:
@@ -112,6 +129,7 @@ class Command(BaseCommand):
                     self.stdout.write(self._safe_line(f"  OMITIDA id={listing.property_id}: parser sin datos"))
                     continue
                 data = canonicalize_listing_data(data, source=listing.source)
+                data = self._apply_source_specific_repair_flags(data)
                 data = self._apply_property_status_policy(listing, data)
                 changes = self._changes(listing.property, data)
                 changes.extend(self._classification_changes(listing, data, options))
@@ -119,10 +137,12 @@ class Command(BaseCommand):
                 if not changes:
                     if not options["dry_run"]:
                         self._apply_listing_data(listing, data)
+                        self._post_repair_enrichment(listing.property, listing, data, options, scored_dataset)
                     continue
                 if listing.property_id in touched_properties:
                     if not options["dry_run"]:
                         self._apply_listing_data(listing, data)
+                        self._post_repair_enrichment(listing.property, listing, data, options, scored_dataset)
                     continue
                 total_changes += len(changes)
                 rendered = "; ".join(
@@ -133,14 +153,30 @@ class Command(BaseCommand):
                 if not options["dry_run"]:
                     self._apply_changes(listing.property, changes)
                     self._apply_listing_data(listing, data)
+                    listing.property.refresh_from_db()
+                    self._post_repair_enrichment(listing.property, listing, data, options, scored_dataset)
         suffix = " (dry-run)" if options["dry_run"] else ""
         self.stdout.write(self.style.SUCCESS(f"{total_changes} cambios detectados{suffix}"))
 
     def _safe_line(self, value):
         return str(value).encode("cp1252", errors="replace").decode("cp1252")
 
+    def _apply_source_specific_repair_flags(self, data):
+        raw_data = data.get("raw_data") or {}
+        if raw_data.get("riquelme_address_untrusted"):
+            data["address"] = ""
+            data["detected_address"] = ""
+            evidence = data.get("location_evidence") or {}
+            listing_evidence = evidence.get("listing") or {}
+            listing_evidence["address"] = ""
+            evidence["listing"] = listing_evidence
+            evidence["detected_references"] = []
+            data["location_evidence"] = evidence
+        return data
+
     def _changes(self, property_obj, data):
         changes = []
+        protected_fields = manual_override_fields(property_obj)
         address_downgrade = self._is_address_downgrade(
             property_obj.address,
             data.get("address"),
@@ -151,6 +187,8 @@ class Command(BaseCommand):
         for field in REPAIR_FIELDS:
             if field not in data:
                 continue
+            if field in protected_fields:
+                continue
             if address_downgrade and field in {
                 "address",
                 "detected_address",
@@ -159,9 +197,14 @@ class Command(BaseCommand):
                 "location_notes",
                 "location_evidence",
             }:
-                continue
+                if not (field in {"address", "detected_address"} and self._should_clear_contaminated_address(old=getattr(property_obj, field), new=data.get(field))):
+                    continue
             new = data.get(field)
-            if new == "" and field not in CLEARABLE_EMPTY_FIELDS:
+            if (
+                new == ""
+                and field not in CLEARABLE_EMPTY_FIELDS
+                and not (field in {"address", "detected_address"} and self._should_clear_contaminated_address(old=getattr(property_obj, field), new=new))
+            ):
                 continue
             old = getattr(property_obj, field)
             if str(old) != str(new):
@@ -178,6 +221,9 @@ class Command(BaseCommand):
         if old_has_number and not new_has_number:
             return True
         return len(old_text) >= len(new_text) + 18 and "," in old_text
+
+    def _should_clear_contaminated_address(self, old, new):
+        return not str(new or "").strip() and bool(CONTAMINATED_ADDRESS_RE.search(str(old or "")))
 
     def _dedupe_changes(self, changes):
         deduped = {}
@@ -268,8 +314,51 @@ class Command(BaseCommand):
         if "source_status" in data and listing.source_status != (data.get("source_status") or ""):
             listing.source_status = data.get("source_status") or ""
             update_fields.append("source_status")
-        if data.get("raw_data") and listing.raw_data != data["raw_data"]:
-            listing.raw_data = data["raw_data"]
-            update_fields.append("raw_data")
+        if data.get("raw_data"):
+            merged_raw = {**(listing.raw_data or {}), **data["raw_data"]}
+            if listing.raw_data != merged_raw:
+                listing.raw_data = merged_raw
+                update_fields.append("raw_data")
         if update_fields:
             listing.save(update_fields=update_fields)
+
+    def _post_repair_enrichment(self, property_obj, listing, data, options, scored_dataset):
+        if options["infer_location"]:
+            self._apply_source_location(property_obj, listing, data)
+        if options["infer_territory"]:
+            result = infer_property_territory(property_obj)
+            apply_territory_inference(property_obj, result)
+        if options["score_territory"]:
+            dataset = scored_dataset or load_location_zones()
+            score = score_property_location_intelligence(
+                property_obj,
+                zones=dataset["features"],
+                source_signature=dataset["signature"],
+            )
+            apply_location_intelligence_score(property_obj, score)
+
+    def _apply_source_location(self, property_obj, listing, data):
+        latitude = data.get("latitude")
+        longitude = data.get("longitude")
+        if latitude is None or longitude is None:
+            return
+        current = getattr(property_obj, "location", None)
+        if current and current.manually_corrected:
+            return
+        precision = data.get("location_precision") or PropertyLocation.Precision.EXACT
+        valid_precisions = {choice[0] for choice in PropertyLocation.Precision.choices}
+        if precision not in valid_precisions:
+            precision = PropertyLocation.Precision.EXACT
+        PropertyLocation.objects.update_or_create(
+            property=property_obj,
+            defaults={
+                "latitude": float(latitude),
+                "longitude": float(longitude),
+                "precision": precision,
+                "query": data.get("address") or listing.url,
+                "provider": listing.source.slug,
+                "confidence": 0.95,
+                "manually_corrected": False,
+                "outside_target": False,
+            },
+        )

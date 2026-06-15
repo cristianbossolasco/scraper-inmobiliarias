@@ -4273,6 +4273,127 @@ class ScraperParserTests(TestCase):
             "ars_placeholder_price",
         )
 
+    def test_riquelme_status_badges_and_clean_address(self):
+        cases = [
+            ("<button class='btn-danger'>Suspendido / No disponible</button>", Property.Status.SUSPENDED, "suspended"),
+            ("<div class='search-item-status search-item-reserved'></div>", Property.Status.RESERVED, "reserved"),
+        ]
+        for badge_html, expected_status, expected_source_status in cases:
+            with self.subTest(expected_source_status=expected_source_status):
+                scraper = RiquelmeScraper()
+                scraper.soup = lambda _url, badge_html=badge_html: BeautifulSoup(
+                    f"""
+                    <html><body>
+                      <h1>Casa en Hurlingham</h1>
+                      <main class="property-description">
+                        {badge_html}
+                        <p>Venta de casa en Hurlingham</p>
+                      </main>
+                      <footer>011 4452-1000 Av. Vergara N° 3090</footer>
+                    </body></html>
+                    """,
+                    "lxml",
+                )
+                data = scraper.parse(
+                    "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-134229"
+                )
+                self.assertEqual(data["status"], expected_status)
+                self.assertEqual(data["source_status"], expected_source_status)
+                self.assertEqual(data["raw_data"]["riquelme_status_badge"], expected_source_status)
+                self.assertEqual(data["address"], "")
+                self.assertNotIn("Vergara", data.get("detected_address") or "")
+
+    def test_century21_detail_json_parses_metrics_and_coordinates(self):
+        scraper = Century21Scraper()
+
+        class FakeResponse:
+            def json(self):
+                return {
+                    "entity": {
+                        "id": 108737,
+                        "titulo": "Departamento en venta",
+                        "tipoOperacion": "venta",
+                        "moneda": "USD",
+                        "precioVenta": "93000",
+                        "ambientes": 2,
+                        "recamaras": 1,
+                        "banios": 1,
+                        "m2T": "62.0",
+                        "m2C": "47.0",
+                        "antiguedad": 2026,
+                        "lat": "-34.590000000000000",
+                        "lon": "-58.627000000000000",
+                    },
+                    "amenitiesTxt": ["Pileta", "Gimnasio"],
+                    "fotos": [{"url": "https://example.com/foto.jpg"}],
+                }
+
+        scraper.get = lambda url: FakeResponse()
+        data = scraper.parse("https://century21.com.ar/propiedad/108737_departamento-en-venta")
+        self.assertEqual(data["external_id"], "108737")
+        self.assertEqual(data["property_type"], Property.Type.APARTMENT)
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["price"], Decimal("93000"))
+        self.assertEqual(data["total_area"], Decimal("62.0"))
+        self.assertEqual(data["covered_area"], Decimal("47.0"))
+        self.assertEqual(data["rooms"], 2)
+        self.assertEqual(data["bedrooms"], 1)
+        self.assertEqual(data["bathrooms"], Decimal("1"))
+        self.assertEqual(data["age_years"], 0)
+        self.assertEqual(data["latitude"], -34.59)
+        self.assertEqual(data["longitude"], -58.627)
+        self.assertIn("Gimnasio", data["features"])
+
+    def test_zonaprop_detail_extracts_price_address_type_and_currency_rule(self):
+        cases = [
+            (
+                "Casa PH con Lote",
+                "$ 70.000",
+                "ARGERICH , Hurlingham, Hurlingham",
+                "https://www.zonaprop.com.ar/propiedades/clasificado/veclphin-casa-ph-con-lote-56491769.html",
+                "PH · 40m² · 2 ambientes · 1 cochera 120 m² tot. 40 m² cub. 2 amb. 1 baño 1 coch. 1 dorm. 20 años",
+                Property.Type.PH,
+                "USD",
+                Decimal("70000"),
+                Decimal("120"),
+                Decimal("40"),
+            ),
+            (
+                "Venta fondo de comercio vivero",
+                "$ 26.000.000",
+                "Teniente General Julio A. Roca 579, Hurlingham, Hurlingham",
+                "https://www.zonaprop.com.ar/propiedades/clasificado/veclfcin-venta-fondo-de-comercio-vivero-en-hurlingham-sobre-av-59216053.html",
+                "Fondo de Comercio · 1m² 1 m² tot. 1 m² cub. 10 años",
+                Property.Type.OTHER,
+                "ARS",
+                Decimal("26000000"),
+                Decimal("1"),
+                Decimal("1"),
+            ),
+        ]
+        for title, price, address, url, highlights, property_type, currency, amount, total_area, covered_area in cases:
+            with self.subTest(title=title):
+                scraper = ZonapropScraper()
+                scraper.soup = lambda _url, title=title, price=price, address=address: BeautifulSoup(
+                    f"""
+                    <html><body>
+                      <h1>{title}</h1>
+                      <div class="price-value">venta <span>{price}</span></div>
+                      <div class="article-map-container"><h4>{address}</h4></div>
+                      <section>{highlights}</section>
+                    </body></html>
+                    """,
+                    "lxml",
+                )
+                data = scraper.parse(url)
+                self.assertEqual(data["property_type"], property_type)
+                self.assertEqual(data["currency"], currency)
+                self.assertEqual(data["price"], amount)
+                self.assertTrue(data["address"].startswith(address.split(",")[0].strip()))
+                self.assertEqual(data["total_area"], total_area)
+                self.assertEqual(data["covered_area"], covered_area)
+                self.assertEqual(data["raw_data"]["zonaprop_currency_inference"]["inferred_currency"], currency)
+
     def test_mapaprop_discovery_uses_offsets_and_declared_total(self):
         scraper = MapapropScraper()
         calls = []
@@ -5330,6 +5451,159 @@ class ScraperParserTests(TestCase):
         self.assertIsNone(property_obj.price)
         self.assertEqual(listing.source_status, "sold")
         self.assertEqual(listing.raw_data["patagonprop_status_badge"], "Vendida")
+
+    def test_repair_metrics_apply_preserves_manual_overrides_and_merges_raw_data(self):
+        source = Source.objects.create(
+            slug="riquelme",
+            name="Riquelme",
+            base_url="https://www.riquelmepropiedades.com.ar",
+        )
+        property_obj = Property.objects.create(
+            fingerprint="riquelme-repair-override",
+            title="Titulo manual",
+            property_type=Property.Type.HOUSE,
+            operation="sale",
+            address="Manual 123",
+            locality="Hurlingham",
+            currency="USD",
+            price=Decimal("120000"),
+            manual_overrides={"price": True, "address": True},
+        )
+        listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="riquelme-1",
+            url="https://www.riquelmepropiedades.com.ar/propiedad/demo",
+            raw_data={"existing": "kept"},
+        )
+
+        class FakeAdapter:
+            definition = type("Definition", (), {"crawl_delay": 0})()
+
+            def parse(self, url):
+                return {
+                    "external_id": "riquelme-1",
+                    "url": url,
+                    "title": "Casa reparada",
+                    "property_type": Property.Type.HOUSE,
+                    "operation": "sale",
+                    "address": "Nueva 456",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": Decimal("90000"),
+                    "status": Property.Status.RESERVED,
+                    "source_status": "reserved",
+                    "raw_data": {"riquelme_status_badge": "reserved"},
+                }
+
+        with patch("properties.management.commands.repair_metrics.get_adapter", return_value=FakeAdapter()):
+            call_command("repair_metrics", "--source", "riquelme", "--apply", "--property-id", str(property_obj.pk), stdout=StringIO())
+
+        property_obj.refresh_from_db()
+        listing.refresh_from_db()
+        self.assertEqual(property_obj.price, Decimal("120000"))
+        self.assertEqual(property_obj.address, "Manual 123")
+        self.assertEqual(property_obj.status, Property.Status.RESERVED)
+        self.assertEqual(listing.source_status, "reserved")
+        self.assertEqual(listing.raw_data["existing"], "kept")
+        self.assertEqual(listing.raw_data["riquelme_status_badge"], "reserved")
+
+    def test_repair_metrics_can_apply_native_coordinates_and_recompute_territory(self):
+        source = Source.objects.create(
+            slug="century21-hurlingham",
+            name="Century 21",
+            base_url="https://century21.com.ar",
+        )
+        property_obj = Property.objects.create(
+            fingerprint="century21-repair-location",
+            title="Departamento",
+            property_type=Property.Type.APARTMENT,
+            operation="sale",
+            locality="Hurlingham",
+        )
+        Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="108737",
+            url="https://century21.com.ar/propiedad/108737_departamento-en-venta",
+        )
+
+        class FakeAdapter:
+            definition = type("Definition", (), {"crawl_delay": 0})()
+
+            def parse(self, url):
+                return {
+                    "external_id": "108737",
+                    "url": url,
+                    "title": "Departamento",
+                    "property_type": Property.Type.APARTMENT,
+                    "operation": "sale",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": Decimal("93000"),
+                    "latitude": -34.59,
+                    "longitude": -58.627,
+                    "location_precision": "exact",
+                    "status": Property.Status.ACTIVE,
+                    "raw_data": {"century21_entity": {"id": 108737}},
+                }
+
+        territory_result = SimpleNamespace(
+            partido="Partido de Hurlingham",
+            locality="Hurlingham",
+            zone="Hurlingham Centro (Barrio Ingles)",
+            confidence="high",
+            source_method="test",
+            needs_review=False,
+            evidence={},
+        )
+        score = SimpleNamespace(
+            overall_score=80,
+            level="alto",
+            zone_name="Hurlingham Centro (Barrio Ingles)",
+            match_method="coordinates",
+            confidence="high",
+            transport_score=None,
+            education_score=None,
+            health_score=None,
+            flood_penalty_score=None,
+            urban_informality_score=None,
+            environmental_penalty_score=None,
+            development_potential_score=None,
+            in_flood_risk_zone=None,
+            nearest_renabap_m=None,
+            nearest_sube_point_m=None,
+            nearest_school_m=None,
+            nearest_health_center_m=None,
+            components={},
+            risks={},
+            evidence={},
+            source_signature="test",
+        )
+        with (
+            patch("properties.management.commands.repair_metrics.get_adapter", return_value=FakeAdapter()),
+            patch("properties.management.commands.repair_metrics.infer_property_territory", return_value=territory_result),
+            patch("properties.management.commands.repair_metrics.load_location_zones", return_value={"features": [], "signature": "test"}),
+            patch("properties.management.commands.repair_metrics.score_property_location_intelligence", return_value=score),
+        ):
+            call_command(
+                "repair_metrics",
+                "--source",
+                "century21-hurlingham",
+                "--apply",
+                "--infer-location",
+                "--infer-territory",
+                "--score-territory",
+                "--property-id",
+                str(property_obj.pk),
+                stdout=StringIO(),
+            )
+
+        property_obj.refresh_from_db()
+        self.assertAlmostEqual(property_obj.location.latitude, -34.59)
+        self.assertEqual(property_obj.inferred_locality, "Hurlingham")
+        self.assertEqual(property_obj.inferred_zone, "Hurlingham Centro (Barrio Ingles)")
+        self.assertEqual(property_obj.location_intelligence.zone_name, "Hurlingham Centro (Barrio Ingles)")
 
     def test_remax_datawork_does_not_ingest_category_pages(self):
         scraper = RemaxDataworkScraper()

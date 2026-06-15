@@ -5,6 +5,7 @@ from math import ceil
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
+from django.utils import timezone
 
 from properties.models import Property
 from properties.services.normalization import (
@@ -403,6 +404,68 @@ def parse_zonaprop_highlights(data, text):
     return data
 
 
+def zonaprop_currency_from_price(displayed_currency, amount):
+    displayed = (displayed_currency or "").strip()
+    normalized = normalize_currency(displayed)
+    if displayed == "$" and amount is not None:
+        if amount < 5000000:
+            return "USD", {
+                "displayed_currency": displayed,
+                "amount": str(amount),
+                "inferred_currency": "USD",
+                "rule": "zonaprop_ambiguous_sale_price_below_5000000",
+            }
+        return "ARS", {
+            "displayed_currency": displayed,
+            "amount": str(amount),
+            "inferred_currency": "ARS",
+            "rule": "zonaprop_ambiguous_sale_price_at_or_above_5000000",
+        }
+    return normalized, {
+        "displayed_currency": displayed,
+        "amount": str(amount) if amount is not None else "",
+        "inferred_currency": normalized,
+        "rule": "explicit_currency",
+    }
+
+
+def _zonaprop_price_from_soup(soup, text):
+    price_node = soup.select_one(".price-value")
+    candidates = []
+    if price_node:
+        candidates.append(clean_text(price_node.get_text(" ", strip=True)))
+    candidates.append(text[:2000])
+    for candidate in candidates:
+        match = re.search(r"\bventa\s+(USD|U\$S|US\$|ARS|\$)\s*([\d.,]+)", candidate, re.I)
+        if not match:
+            match = re.search(r"\b(USD|U\$S|US\$|ARS|\$)\s*([\d.,]+)", candidate, re.I)
+        if match:
+            amount = parse_decimal(match.group(2))
+            currency, evidence = zonaprop_currency_from_price(match.group(1), amount)
+            return currency, amount, evidence
+    return "", None, {}
+
+
+def _zonaprop_address_from_soup(soup):
+    selectors = (
+        ".article-map-container h4",
+        "[data-qa='posting-map-address']",
+        ".section-location h4",
+        "h4",
+    )
+    for selector in selectors:
+        for node in soup.select(selector):
+            candidate = clean_text(node.get_text(" ", strip=True))
+            if not re.search(r"\b(Hurlingham|Villa\s+Tesei|William(?:\s+C\.?)?\s+Morris)\b", candidate, re.I):
+                continue
+            candidate = re.sub(r"^(?:venta|ubicaci(?:o|ó)n)\s+", "", candidate, flags=re.I).strip()
+            candidate = re.sub(r"\b(?:USD|U\$S|US\$|ARS|\$)\s*[\d.,]+\b", "", candidate, flags=re.I).strip(" ,.-")
+            address = clean_detected_address(candidate)
+            if address and not ADDRESS_FALSE_POSITIVE_RE.search(address):
+                return address[:250]
+    return ""
+
+
 def enrich_from_common_text(data, text, default_locality="Hurlingham"):
     address = normalize_argencasas_address(data.get("address"))
     if not address:
@@ -779,6 +842,103 @@ class RiquelmeScraper(CommonDetailScraper):
             self._listing_urls,
             fallback_max_pages=20,
         )
+
+    def parse(self, url):
+        soup = self.soup(url)
+        data = super().parse(url)
+        if not data:
+            return None
+        text = visible_text(soup)
+        status_badge = self._status_badge(soup, text)
+        raw_data = data.setdefault("raw_data", {})
+        if status_badge:
+            raw_data["riquelme_status_badge"] = status_badge
+            if status_badge == "reserved":
+                data["status"] = Property.Status.RESERVED
+                data["source_status"] = "reserved"
+            elif status_badge == "suspended":
+                data["status"] = Property.Status.SUSPENDED
+                data["source_status"] = "suspended"
+            if data.get("currency") == "ARS" and not data.get("price"):
+                data["currency"] = ""
+        else:
+            data["source_status"] = ""
+        title = self._detail_title(soup)
+        if title:
+            data["title"] = title[:300]
+        address = self._detail_address(soup, text)
+        if address:
+            data["address"] = address[:250]
+            data["detected_address"] = address[:250]
+        else:
+            data["address"] = ""
+            data["detected_address"] = ""
+            raw_data["riquelme_address_untrusted"] = True
+        detail_fields = parse_labeled_fields(
+            text,
+            {
+                "covered_area": [r"Sup\.?\s*Cubierta", r"Cubierta"],
+                "land_area": [r"Terreno", r"Lote"],
+            },
+        )
+        if detail_fields:
+            raw_data["riquelme_detail_fields"] = detail_fields
+        data["locality"] = (
+            "William C. Morris"
+            if re.search(r"william\s+(?:c\.\s*)?morris", text, re.I)
+            else "Villa Tesei"
+            if re.search(r"villa\s+(?:santos\s+)?tesei", text, re.I)
+            else "Hurlingham"
+        )
+        data["location_precision"] = classify_address_precision(data.get("address"))
+        return data
+
+    def _status_badge(self, soup, text):
+        status_nodes = " ".join(
+            clean_text(node.get_text(" ", strip=True))
+            for node in soup.select(".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended']")
+        )
+        status_markup = " ".join(
+            " ".join(node.get("class") or [])
+            for node in soup.select(".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended']")
+        )
+        status_folded = fold_text(f"{status_nodes} {status_markup}")
+        if re.search(r"reservad|search-item-reserved", status_folded, re.I):
+            return "reserved"
+        if re.search(r"suspendido|no\s+disponible|search-item-suspended", status_folded, re.I):
+            return "suspended"
+        return ""
+
+    def _detail_title(self, soup):
+        for selector in ("h1", ".property-title", ".property-description h3", ".detail-title"):
+            node = soup.select_one(selector)
+            if not node:
+                continue
+            title = clean_text(node.get_text(" ", strip=True))
+            if title and not re.search(r"buscador\s+de\s+propiedades", title, re.I):
+                return title
+        return ""
+
+    def _detail_address(self, soup, text):
+        nodes = soup.select(".property-description, .property-detail, .property-info, main")
+        scoped_text = visible_text(nodes[0]) if nodes else text[:3000]
+        candidate = text_value(
+            scoped_text,
+            [
+                r"(?:Direcci(?:o|ó)n|Ubicaci(?:o|ó)n)\s*:?\s*(.+?)(?:\s+Ambientes|\s+Dormitorios|\s+Ba(?:ñ|n)os|\s+Superficie|\s+Precio|\s+Descripción)",
+            ],
+        )
+        if candidate:
+            candidate = clean_detected_address(candidate)
+            folded = fold_text(candidate)
+            if (
+                candidate
+                and re.search(r"\d{2,5}", candidate)
+                and not ADDRESS_FALSE_POSITIVE_RE.search(candidate)
+                and not re.search(r"\bcasa\b|refaccion|proxima|estacion|ambientes?", folded, re.I)
+            ):
+                return candidate
+        return ""
 
 
 class FincasScraper(CommonDetailScraper):
@@ -1971,6 +2131,168 @@ class Century21Scraper(CommonDetailScraper):
             "limited_by_max_pages": self.max_pages is not None,
         }
 
+    def _detail_json_url(self, url):
+        return f"{url}{'&' if '?' in url else '?'}json=true"
+
+    def parse(self, url):
+        payload = self.get(self._detail_json_url(url)).json()
+        entity = payload.get("entity") or payload.get("propiedad") or payload
+        if not isinstance(entity, dict):
+            return None
+        title = (
+            entity.get("titulo")
+            or entity.get("title")
+            or payload.get("title")
+            or entity.get("encabezado")
+            or "Century 21 Hurlingham"
+        )
+        features = self._features(payload, entity)
+        latitude = parse_decimal(entity.get("lat") or entity.get("latitude"))
+        longitude = parse_decimal(entity.get("lon") or entity.get("lng") or entity.get("longitude"))
+        age = parse_int(
+            self._feature_value(entity, "Antiguedad")
+            or self._feature_value(entity, "Antigüedad")
+            or first_present(entity.get("antiguedad"), entity.get("antigüedad"), entity.get("edad"))
+        )
+        raw_age = age
+        if age is not None and age < 0:
+            age = None
+        if age and 1900 <= age <= 2100:
+            age = 0 if age <= timezone.now().year + 1 else None
+        data = {
+            "external_id": str(entity.get("id") or external_id_from_url(url)),
+            "url": url,
+            "title": clean_text(title)[:300],
+            "description": clean_text(entity.get("descripcion") or entity.get("description") or ""),
+            "address": clean_text(
+                first_present(
+                    entity.get("direccion"),
+                    entity.get("direccionFormat"),
+                    entity.get("displayAddress"),
+                    entity.get("calleNumOfna"),
+                    entity.get("calle"),
+                )
+            )[:250],
+            "locality": self._locality(entity),
+            "agency": self.definition.name,
+            "agency_url": self.definition.base_url,
+            "property_type": infer_property_type(title, entity.get("tipoPropiedadTxt"), entity.get("tipoInmuebleTxt")),
+            "operation": "sale",
+            "currency": normalize_currency(entity.get("moneda") or entity.get("currency") or ""),
+            "price": parse_decimal(entity.get("precioVenta") or entity.get("precio") or entity.get("price")),
+            "rooms": parse_int(entity.get("ambientes") or self._feature_value(entity, "Ambientes")),
+            "bedrooms": parse_int(
+                entity.get("dormitorios")
+                or entity.get("recamaras")
+                or entity.get("habitaciones")
+                or self._feature_value(entity, "Dormitorios Totales")
+                or self._feature_value(entity, "Dormitorio")
+            ),
+            "bathrooms": parse_decimal(
+                entity.get("banios")
+                or entity.get("banos")
+                or entity.get("bathrooms")
+                or self._feature_value(entity, "Baños Completos")
+                or self._feature_value(entity, "Bano")
+            ),
+            "covered_area": parse_decimal(entity.get("m2C") or entity.get("superficieCubierta") or self._feature_value(entity, "Superficie Construcción") or self._feature_value(entity, "Superficie cubierta")),
+            "total_area": parse_decimal(entity.get("m2T") or entity.get("superficieTotal") or self._feature_value(entity, "Superficie Terreno/Total") or self._feature_value(entity, "Superficie total")),
+            "land_area": parse_decimal(entity.get("m2T") or entity.get("superficieTotal") or self._feature_value(entity, "Superficie Terreno/Total")),
+            "age_years": age,
+            "features": features,
+            "images": self._images(payload),
+            "status": Property.Status.ACTIVE,
+            "source_status": "",
+            "location_precision": "exact" if latitude is not None and longitude is not None else classify_address_precision(entity.get("direccion") or ""),
+            "raw_data": {
+                "century21_entity": entity,
+                "century21_amenities": payload.get("amenities") or [],
+                "century21_amenities_text": payload.get("amenitiesTxt") or [],
+                "century21_age_raw": raw_age,
+            },
+        }
+        if latitude is not None and longitude is not None:
+            data["latitude"] = float(latitude)
+            data["longitude"] = float(longitude)
+            data["location_source"] = Property.LocationSource.MAP
+            data["location_confidence"] = Property.LocationConfidence.HIGH
+            data["location_evidence"] = {"source": "century21_json", "lat": str(latitude), "lon": str(longitude)}
+        return data
+
+    def _feature_value(self, entity, label):
+        haystacks = []
+        for key in ("caracteristicasJSON", "caracteristicas", "features"):
+            value = entity.get(key)
+            if value:
+                haystacks.append(value)
+        for haystack in haystacks:
+            if isinstance(haystack, str):
+                try:
+                    haystack = json.loads(haystack)
+                except json.JSONDecodeError:
+                    value = text_value(haystack, [rf"{re.escape(label)}\s*:?\s*([^,\n]+)"])
+                    if value:
+                        return value
+                    continue
+            if isinstance(haystack, dict):
+                for key, value in haystack.items():
+                    if fold_text(str(key)) == fold_text(label):
+                        return value
+                if isinstance(haystack.get("campos"), list):
+                    haystack = haystack["campos"]
+            if isinstance(haystack, list):
+                for item in haystack:
+                    if not isinstance(item, dict):
+                        continue
+                    names = [item.get("label"), item.get("nombre"), item.get("name"), item.get("key")]
+                    if any(name and fold_text(str(name)).endswith(fold_text(label)) for name in names):
+                        return item.get("valor") or item.get("value")
+        return None
+
+    def _features(self, payload, entity):
+        features = []
+        amenities_text = payload.get("amenitiesTxt") or []
+        if isinstance(amenities_text, str):
+            amenities_text = re.split(r"[,;\n]+", amenities_text)
+        for value in amenities_text:
+            if isinstance(value, str):
+                features.append(clean_text(value))
+        for value in payload.get("amenities") or []:
+            if isinstance(value, dict):
+                features.append(clean_text(value.get("nombre") or value.get("name") or value.get("title") or ""))
+            elif isinstance(value, str):
+                features.append(clean_text(value))
+        for value in entity.get("amenidades") or entity.get("amenities") or []:
+            if isinstance(value, str):
+                features.append(clean_text(value))
+        raw_features = entity.get("caracteristicasJSON")
+        if isinstance(raw_features, str):
+            try:
+                raw_features = json.loads(raw_features)
+            except json.JSONDecodeError:
+                raw_features = {}
+        for item in (raw_features or {}).get("campos", []) if isinstance(raw_features, dict) else []:
+            if isinstance(item, dict) and item.get("valor") is True:
+                features.append(clean_text(item.get("label") or item.get("nombre") or ""))
+        return [item for item in dict.fromkeys(features) if item]
+
+    def _images(self, payload):
+        images = []
+        for photo in payload.get("fotos") or payload.get("images") or []:
+            if isinstance(photo, str):
+                images.append(photo)
+            elif isinstance(photo, dict):
+                images.append(photo.get("url") or photo.get("src") or photo.get("fotoPath") or photo.get("path"))
+        return [image for image in images if image][:30]
+
+    def _locality(self, entity):
+        text = json.dumps(entity, ensure_ascii=False)
+        if re.search(r"william\s+(?:c\.\s*)?morris", text, re.I):
+            return "William C. Morris"
+        if re.search(r"villa\s+(?:santos\s+)?tesei", text, re.I):
+            return "Villa Tesei"
+        return normalize_locality(entity.get("municipio") or entity.get("localidad") or "Hurlingham")
+
 
 class MercadoLibreScraper(CommonDetailScraper):
     definition = SourceDefinition(
@@ -2440,4 +2762,22 @@ class ZonapropScraper(CommonDetailScraper):
 
     def enrich_common_data(self, data, text, soup):
         data = super().enrich_common_data(data, text, soup)
-        return parse_zonaprop_highlights(data, text)
+        data = parse_zonaprop_highlights(data, text)
+        raw_data = data.setdefault("raw_data", {})
+        address = _zonaprop_address_from_soup(soup)
+        if address:
+            data["address"] = address
+            data["detected_address"] = address
+            data["location_precision"] = classify_address_precision(address)
+            raw_data["zonaprop_address_source"] = "map_heading"
+        currency, amount, evidence = _zonaprop_price_from_soup(soup, text)
+        if amount is not None:
+            data["currency"] = currency
+            data["price"] = amount
+            raw_data["zonaprop_currency_inference"] = evidence
+        folded = fold_text(" ".join([data.get("title") or "", data.get("description") or "", data.get("url") or "", text[:700]]))
+        if re.search(r"\bph\b|veclph", folded, re.I):
+            data["property_type"] = Property.Type.PH
+        elif re.search(r"local\s+comercial|fondo\s+de\s+comercio|vecllc|veclfc", folded, re.I):
+            data["property_type"] = Property.Type.OTHER
+        return data
