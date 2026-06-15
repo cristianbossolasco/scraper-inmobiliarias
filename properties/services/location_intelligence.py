@@ -15,6 +15,7 @@ from properties.services.spatial import (
     point_in_polygon,
     point_to_polygon_distance_m,
 )
+from properties.services.zone_names import canonicalize_unified_zone_name
 
 
 DEFAULT_INTEGRATED_ZONES = (
@@ -176,6 +177,10 @@ def _plain(value):
     return "".join(char for char in text if not unicodedata.combining(char))
 
 
+def _zone_label(value):
+    return canonicalize_unified_zone_name(value)
+
+
 def _zone_candidates(property_obj):
     names = [
         getattr(property_obj, "detected_neighborhood", ""),
@@ -184,7 +189,7 @@ def _zone_candidates(property_obj):
         getattr(property_obj, "locality", ""),
         getattr(property_obj, "detected_locality", ""),
     ]
-    return {_plain(name) for name in names if _plain(name)}
+    return {_plain(_zone_label(name)) for name in names if _plain(_zone_label(name))}
 
 
 def _geometry_contains(latitude, longitude, geometry):
@@ -285,7 +290,7 @@ def _best_zone_match(property_obj, features):
         return None
     for feature in features or []:
         props = feature.get("properties") or {}
-        if _plain(props.get("zone_name") or props.get("label") or props.get("name")) in candidates:
+        if _plain(_zone_label(props.get("zone_name") or props.get("label") or props.get("name"))) in candidates:
             return feature
     return None
 
@@ -315,12 +320,12 @@ def _exact_risk_context(latitude, longitude, zone_name=""):
     renabap_dataset = load_geojson(DEFAULT_RENABAP)
     flood_matches = []
     flood_features = flood_dataset["features"]
-    normalized_zone = _plain(zone_name)
+    normalized_zone = _plain(_zone_label(zone_name))
     if normalized_zone:
         zoned_features = [
             feature
             for feature in flood_features
-            if _plain((feature.get("properties") or {}).get("assigned_zone_name")) == normalized_zone
+            if _plain(_zone_label((feature.get("properties") or {}).get("assigned_zone_name"))) == normalized_zone
         ]
         if zoned_features:
             flood_features = zoned_features
@@ -356,6 +361,7 @@ def _exact_risk_context(latitude, longitude, zone_name=""):
 
 
 def _payload_from_props(props, match_method, source_signature, exact_context=None):
+    zone_name = _zone_label(props.get("zone_name") or "")
     overall = _score(props.get("overall_location_value_score"))
     components = {
         public_key: _score(props.get(source_key))
@@ -379,7 +385,7 @@ def _payload_from_props(props, match_method, source_signature, exact_context=Non
         risks["exact_nearest_renabap"] = exact_context["nearest_renabap"]
 
     evidence = {
-        "matched_zone": props.get("zone_name") or "",
+        "matched_zone": zone_name,
         "match_method": match_method,
         "source_name": "Local generated integration",
         "source_path": str(DEFAULT_INTEGRATED_ZONES),
@@ -404,7 +410,7 @@ def _payload_from_props(props, match_method, source_signature, exact_context=Non
     return LocationIntelligenceScore(
         overall_score=overall,
         level=_level(overall, props.get("location_value_level") or ""),
-        zone_name=props.get("zone_name") or "",
+        zone_name=zone_name,
         match_method=match_method,
         confidence=props.get("data_confidence") or "",
         transport_score=components.get("transport_score"),
@@ -534,7 +540,7 @@ def _sanitize_zone_feature(feature):
         "type": "Feature",
         "geometry": feature.get("geometry"),
         "properties": {
-            "zone_name": props.get("zone_name") or "",
+            "zone_name": _zone_label(props.get("zone_name") or ""),
             "overall_score": _score(props.get("overall_location_value_score")),
             "level": _level(
                 props.get("overall_location_value_score"),
@@ -571,7 +577,7 @@ def _sanitize_point_feature(feature, kind):
         "properties": {
             "kind": kind,
             "label": props.get(primary) or props.get(secondary) or "",
-            "zone": props.get("assigned_zone_name") or "",
+            "zone": _zone_label(props.get("assigned_zone_name") or ""),
             "source": props.get("source_name") or "",
             "data_confidence": props.get("data_confidence") or "",
             "risk_score": props.get("risk_score"),

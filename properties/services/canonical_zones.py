@@ -7,8 +7,10 @@ from pathlib import Path
 
 from django.conf import settings
 
+from properties.services.zone_names import UNIFIED_HURLINGHAM_CENTRO_ZONE
 
-REQUIRED_CANONICAL_ZONES = ("Barrio Inglés",)
+
+REQUIRED_CANONICAL_ZONES = (UNIFIED_HURLINGHAM_CENTRO_ZONE,)
 
 
 def zone_label(props):

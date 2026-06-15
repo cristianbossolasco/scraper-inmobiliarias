@@ -65,7 +65,10 @@ from properties.services.location_intelligence import (
 )
 from properties.services.crime_context import crime_layers_payload, homicide_counts_by_zone
 from properties.services.canonical_zones import missing_required_zones
+from properties.services.geo_hierarchy import geo_hierarchy_payload
+from properties.services.hurlingham_centro_backfill import backfill_hurlingham_centro_zone
 from properties.services.spatial import haversine_km, point_in_polygon
+from properties.services.zone_names import UNIFIED_HURLINGHAM_CENTRO_ZONE
 from properties.services.zone_inference import (
     apply_zone_inference,
     infer_property_zone,
@@ -199,10 +202,10 @@ class NormalizationTests(TestCase):
                 "features": [{"type": "Feature", "properties": {"zone_name": "Hurlingham Centro"}}],
             }
             path.write_text(json.dumps(payload), encoding="utf-8")
-            self.assertEqual(missing_required_zones(path), ["Barrio Inglés"])
+            self.assertEqual(missing_required_zones(path), [UNIFIED_HURLINGHAM_CENTRO_ZONE])
 
             payload["features"].append(
-                {"type": "Feature", "properties": {"zone_name": "Barrio Inglés"}}
+                {"type": "Feature", "properties": {"zone_name": UNIFIED_HURLINGHAM_CENTRO_ZONE}}
             )
             path.write_text(json.dumps(payload), encoding="utf-8")
             self.assertEqual(missing_required_zones(path), [])
@@ -223,8 +226,9 @@ class NormalizationTests(TestCase):
             )
         )
         self.assertTrue(is_plausible_property_address("Uspallata, Hurlingham"))
-        self.assertEqual(normalize_neighborhood_name("Barrio Ingles"), "Barrio Ingl\u00e9s")
-        self.assertEqual(normalize_neighborhood_name("Ingl\u00e9s"), "Barrio Ingl\u00e9s")
+        self.assertEqual(normalize_neighborhood_name("Barrio Ingles"), UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(normalize_neighborhood_name("Ingl\u00e9s"), UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(normalize_neighborhood_name("Hurlingham Centro"), UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(normalize_neighborhood_name("Morris"), "William C. Morris")
         self.assertEqual(normalize_neighborhood_name("5 esquinas, Hurlingham Centro"), "5 esquinas")
         self.assertEqual(
@@ -806,6 +810,129 @@ class CrimeContextTests(TestCase):
         self.assertFalse(payload["timeseries"]["configured"])
 
 
+class GeoHierarchyTests(TestCase):
+    def _feature_collection(self, features):
+        return {
+            "type": "FeatureCollection",
+            "metadata": {"crs": "EPSG:4326"},
+            "features": features,
+        }
+
+    def _polygon_feature(self, feature_id, props, ring):
+        return {
+            "type": "Feature",
+            "id": feature_id,
+            "properties": props,
+            "geometry": {"type": "Polygon", "coordinates": [ring]},
+        }
+
+    def _write_geojson(self, base, filename, features):
+        (base / filename).write_text(
+            json.dumps(self._feature_collection(features)),
+            encoding="utf-8",
+        )
+
+    def test_geo_hierarchy_payload_builds_tree_and_anonymized_evidence(self):
+        with TemporaryDirectory() as tmpdir:
+            base = Path(tmpdir)
+            partido_ring = [
+                [-58.70, -34.66],
+                [-58.60, -34.66],
+                [-58.60, -34.55],
+                [-58.70, -34.55],
+                [-58.70, -34.66],
+            ]
+            zone_ring = [
+                [-58.64, -34.61],
+                [-58.62, -34.61],
+                [-58.62, -34.58],
+                [-58.64, -34.58],
+                [-58.64, -34.61],
+            ]
+            self._write_geojson(
+                base,
+                "01_partido_hurlingham.geojson",
+                [
+                    self._polygon_feature(
+                        "partido_hurlingham",
+                        {"level": 1, "canonical_name": "Partido de Hurlingham", "level_name": "partido"},
+                        partido_ring,
+                    )
+                ],
+            )
+            self._write_geojson(
+                base,
+                "02_localidades_hurlingham.geojson",
+                [
+                    self._polygon_feature(
+                        "locality_hurlingham",
+                        {"level": 2, "canonical_name": "Hurlingham", "locality_name": "Hurlingham", "level_name": "localidad"},
+                        partido_ring,
+                    )
+                ],
+            )
+            self._write_geojson(
+                base,
+                "03_zonas_hurlingham_final.geojson",
+                [
+                    self._polygon_feature(
+                        "zone_hurlinghamcentro",
+                        {
+                            "level": 3,
+                            "canonical_name": UNIFIED_HURLINGHAM_CENTRO_ZONE,
+                            "zone_name": UNIFIED_HURLINGHAM_CENTRO_ZONE,
+                            "parent_locality": "Hurlingham",
+                            "level_name": "zona",
+                        },
+                        zone_ring,
+                    )
+                ],
+            )
+            self._write_geojson(
+                base,
+                "03b_microzonas_hurlingham_final.geojson",
+                [],
+            )
+            self._write_geojson(
+                base,
+                "04_gaps_zonas_hurlingham_final.geojson",
+                [
+                    self._polygon_feature(
+                        "gap_001",
+                        {"level": 99, "canonical_name": "Gap 001", "gap_id": "GAP_001", "level_name": "gap_diagnostico"},
+                        zone_ring,
+                    )
+                ],
+            )
+            evidence = self._feature_collection([])
+            (base / "03b_microzonas_hurlingham_evidence_points.geojson").write_text(
+                json.dumps(evidence),
+                encoding="utf-8",
+            )
+
+            payload = geo_hierarchy_payload(base_dir=base)
+
+        self.assertTrue(payload["configured"])
+        hurlingham = payload["tree"]["children"][0]
+        self.assertEqual(hurlingham["label"], "Hurlingham")
+        zone = hurlingham["children"][0]
+        self.assertEqual(zone["label"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(zone["children"], [])
+        self.assertEqual(payload["evidence"]["barrio_ingles_points"]["features"], [])
+
+    def test_territory_view_and_layers_api_respond(self):
+        page = self.client.get("/territorio/")
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "territory-map")
+
+        response = self.client.get("/api/jerarquia-geografica/capas/")
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertIn("tree", payload)
+        self.assertIn("layers", payload)
+        self.assertIn("barrio_ingles_points", payload["evidence"])
+
+
 class ZoneInferenceTests(TestCase):
     def _geojson_path(self):
         temp_dir = TemporaryDirectory()
@@ -859,7 +986,7 @@ class ZoneInferenceTests(TestCase):
             [-58.6430, -34.6030],
         ]
         features = [
-            polygon("Barrio Ingles", direct_ring),
+            polygon("Hurlingham Centro", direct_ring),
             line(200, "Cartero", [relation_ring[0], relation_ring[1]]),
             line(200, "Cartero", [relation_ring[1], relation_ring[2]]),
             line(200, "Cartero", [relation_ring[2], relation_ring[3]]),
@@ -876,15 +1003,15 @@ class ZoneInferenceTests(TestCase):
         path = self._geojson_path()
 
         inside = infer_zone_for_point(-34.6005, -58.6405, path, max_distance_m=100)
-        self.assertEqual(inside["zone"], "Barrio Ingles")
+        self.assertEqual(inside["zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(inside["method"], "polygon")
 
         boundary = infer_zone_for_point(-34.6000, -58.6405, path, max_distance_m=100)
-        self.assertEqual(boundary["zone"], "Barrio Ingles")
+        self.assertEqual(boundary["zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(boundary["method"], "polygon")
 
         nearby = infer_zone_for_point(-34.5997, -58.6405, path, max_distance_m=100)
-        self.assertEqual(nearby["zone"], "Barrio Ingles")
+        self.assertEqual(nearby["zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(nearby["method"], "nearest")
 
         far = infer_zone_for_point(-34.5980, -58.6405, path, max_distance_m=20)
@@ -920,7 +1047,7 @@ class ZoneInferenceTests(TestCase):
 
         result = infer_property_zone(property_obj, geojson_path=path)
 
-        self.assertEqual(result.inferred_neighborhood, "Barrio Ingles")
+        self.assertEqual(result.inferred_neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(result.geocoding_status, "cache_hit")
         property_obj.refresh_from_db()
         self.assertTrue(hasattr(property_obj, "location"))
@@ -978,7 +1105,7 @@ class ZoneInferenceTests(TestCase):
 
         property_obj.refresh_from_db()
         self.assertEqual(property_obj.neighborhood, "Villa Club")
-        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingles")
+        self.assertEqual(property_obj.inferred_neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertTrue(property_obj.zone_conflict)
 
     def test_infer_zones_command_dry_run_and_apply(self):
@@ -1020,7 +1147,46 @@ class ZoneInferenceTests(TestCase):
             stdout=StringIO(),
         )
         property_obj.refresh_from_db()
-        self.assertEqual(property_obj.inferred_neighborhood, "Barrio Ingles")
+        self.assertEqual(property_obj.inferred_neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+
+    def test_hurlingham_centro_backfill_updates_aliases_without_touching_manual_timestamp(self):
+        corrected_at = timezone.now()
+        property_obj = Property.objects.create(
+            fingerprint="zone-backfill",
+            title="Casa Barrio Ingles",
+            neighborhood="Barrio Inglés",
+            detected_neighborhood="Hurlingham Centro",
+            inferred_neighborhood="Barrio Ingles",
+            manual_overrides={
+                "neighborhood": "Barrio Inglés",
+                "address": corrected_at.isoformat(),
+            },
+            data_manually_corrected_at=corrected_at,
+            zone_inference_evidence={
+                "source_zone": "Barrio Ingles",
+                "inferred_zone": "Hurlingham Centro",
+            },
+        )
+        PropertyLocationIntelligence.objects.create(
+            property=property_obj,
+            zone_name="Hurlingham Centro",
+            evidence={"matched_zone": "Barrio Ingles"},
+        )
+
+        result = backfill_hurlingham_centro_zone()
+
+        property_obj.refresh_from_db()
+        record = property_obj.location_intelligence
+        self.assertEqual(result["counts"]["properties"], 1)
+        self.assertEqual(property_obj.neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(property_obj.detected_neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(property_obj.inferred_neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(property_obj.manual_overrides["neighborhood"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(property_obj.manual_overrides["address"], corrected_at.isoformat())
+        self.assertEqual(property_obj.data_manually_corrected_at, corrected_at)
+        self.assertEqual(property_obj.zone_inference_evidence["source_zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(record.zone_name, UNIFIED_HURLINGHAM_CENTRO_ZONE)
+        self.assertEqual(record.evidence["matched_zone"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
 
 
 class IngestionTests(TestCase):
@@ -2611,7 +2777,7 @@ class ViewTests(TestCase):
         self.assertEqual(property_obj.address, "Rolland 1200")
         self.assertEqual(property_obj.normalized_address, "rolland 1200")
         self.assertEqual(property_obj.price, Decimal("160000"))
-        self.assertEqual(property_obj.neighborhood, "Barrio Inglés")
+        self.assertEqual(property_obj.neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(property_obj.bedrooms, 4)
         self.assertIn("address", property_obj.manual_overrides)
         self.assertIn("price", property_obj.manual_overrides)
@@ -2685,7 +2851,7 @@ class ViewTests(TestCase):
                 "price": 100000,
             },
         )
-        listing.property.inferred_neighborhood = "Barrio Ingl\u00e9s"
+        listing.property.inferred_neighborhood = UNIFIED_HURLINGHAM_CENTRO_ZONE
         listing.property.save(update_fields=["inferred_neighborhood"])
 
         response = self.client.get("/", {"neighborhood": "Barrio Ingl\u00e9s"})
@@ -4233,7 +4399,7 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["front_width"], Decimal("10"))
         self.assertEqual(data["lot_depth"], Decimal("25"))
         self.assertFalse(data.get("address"))
-        self.assertEqual(data["neighborhood"], "Barrio Ingl\u00e9s")
+        self.assertEqual(data["neighborhood"], UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(
             data["images"],
             [

@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.search, name="search"),
     path("estadisticas/", views.market_stats, name="stats"),
     path("estadisticas/data/<str:panel>/", views.stats_data_api, name="stats_data"),
+    path("territorio/", views.territory_map, name="territory"),
     path("scraping/", views.scraping_dashboard, name="scraping"),
     path("propiedad/<int:pk>/", views.detail, name="detail"),
     path("export/properties.csv", views.export_properties_csv, name="export_csv"),
@@ -20,6 +21,7 @@ urlpatterns = [
     path("api/propiedad/<int:pk>/datos/", views.update_property_data, name="update_property_data"),
     path("api/propiedad/<int:pk>/ubicacion/", views.update_location, name="update_location"),
     path("api/configuracion-mapa/", views.map_config, name="map_config"),
+    path("api/jerarquia-geografica/capas/", views.geo_hierarchy_layers_api, name="geo_hierarchy_layers"),
     path("api/seguridad/capas/", views.security_layers_api, name="security_layers"),
     path("api/crimen/capas/", views.crime_layers_api, name="crime_layers"),
     path(

@@ -4,6 +4,7 @@ import unicodedata
 from decimal import Decimal, InvalidOperation
 
 from properties.models import Property
+from properties.services.zone_names import UNIFIED_HURLINGHAM_CENTRO_ZONE
 
 
 LOCALITY_ALIASES = {
@@ -18,6 +19,7 @@ LOCALITY_ALIASES = {
 VALID_LOCALITIES = tuple(sorted(set(LOCALITY_ALIASES.values())))
 
 NEIGHBORHOOD_LOCALITY_MAP = {
+    UNIFIED_HURLINGHAM_CENTRO_ZONE: "Hurlingham",
     "Villa Tesei": "Villa Tesei",
     "Villa Tesei Centro": "Villa Tesei",
     "Santos Tesei": "Villa Tesei",
@@ -145,6 +147,16 @@ NEIGHBORHOOD_NOISE_PATTERNS = (
 )
 
 NEIGHBORHOOD_ALIASES = (
+    (
+        UNIFIED_HURLINGHAM_CENTRO_ZONE,
+        (
+            r"\bhurlingham\s+centro(?:\s*\(\s*barrio\s+ingles\s*\))?\b",
+            r"\bhurlingham\s+centro\s+barrio\s+ingles\b",
+            r"\bbarrio\s+ingles\b",
+            r"\bb\s+ingles\b",
+            r"\bingles\b",
+        ),
+    ),
     ("Barrio Inglés", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
     ("William C. Morris", (r"\bwilliam\s+c\.?\s*morris\b", r"\bwilliam\s+morris\b", r"^morris$")),
     ("Santos Tesei", (r"\bvilla\s+santos\s+tes", r"\bsantos\s+tesei\b")),
@@ -171,6 +183,16 @@ NEIGHBORHOOD_ALIASES = (
 KNOWN_NEIGHBORHOODS = tuple(canonical for canonical, _patterns in NEIGHBORHOOD_ALIASES)
 
 ADDRESS_NEIGHBORHOOD_RULES = (
+    (
+        UNIFIED_HURLINGHAM_CENTRO_ZONE,
+        (
+            r"\bhurlingham\s+centro(?:\s*\(\s*barrio\s+ingles\s*\))?\b",
+            r"\bhurlingham\s+centro\s+barrio\s+ingles\b",
+            r"\bbarrio\s+ingles\b",
+            r"\bb\s+ingles\b",
+            r"\bingles\b",
+        ),
+    ),
     ("Santos Tesei", (r"\bveragua\b",)),
     ("Villa Club", (r"\bvilla\s+club\b",)),
     ("Barrio Ingl\u00e9s", (r"\bbarrio\s+ingles\b", r"\bingles\b")),

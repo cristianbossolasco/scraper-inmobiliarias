@@ -1,0 +1,14 @@
+{
+  "type": "FeatureCollection",
+  "name": "03b_microzonas_hurlingham_evidence_points",
+  "metadata": {
+    "generated_at": "2026-06-15T02:04:23.824601+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "No active Barrio Ingles microzone evidence",
+    "privacy": "No property-level evidence exported.",
+    "data_confidence": "not_applicable",
+    "notes": "Former Barrio Ingles evidence is suppressed because it is now an alias of `Hurlingham Centro (Barrio Ingles)`."
+  },
+  "features": []
+}

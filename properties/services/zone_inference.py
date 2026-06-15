@@ -10,6 +10,7 @@ from properties.models import GeocodeCache
 
 from .geocoding import Geocoder
 from .normalization import normalize_neighborhood_name, normalize_whitespace
+from .zone_names import canonicalize_unified_zone_name
 from .spatial import point_in_polygon, point_to_polygon_distance_m
 
 
@@ -90,7 +91,7 @@ def _load_zone_index_cached(path, _mtime):
         geometry_type = geometry.get("type")
         if geometry_type in {"Polygon", "MultiPolygon"}:
             raw_name = properties.get("name") or ""
-            name = normalize_whitespace(raw_name)
+            name = canonicalize_unified_zone_name(normalize_whitespace(raw_name))
             if not name:
                 continue
             relation_id = _relation_number(properties.get("@id"))
@@ -127,7 +128,7 @@ def _load_zone_index_cached(path, _mtime):
         if relation_id in direct_relation_ids:
             continue
         raw_name = relation_names.get(relation_id) or ""
-        name = normalize_whitespace(raw_name)
+        name = canonicalize_unified_zone_name(normalize_whitespace(raw_name))
         if not name:
             skipped[relation_id] = "missing_name"
             continue
@@ -316,7 +317,7 @@ def _result(
     evidence,
     geocoding_status,
 ):
-    inferred = normalize_whitespace(inferred_neighborhood)
+    inferred = canonicalize_unified_zone_name(normalize_whitespace(inferred_neighborhood))
     source = property_source_zone(property_obj)
     return ZoneInferenceResult(
         inferred_neighborhood=inferred,

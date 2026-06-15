@@ -82,6 +82,7 @@ from .services.crime_context import (
     crime_layers_payload,
     homicide_counts_by_zone,
 )
+from .services.geo_hierarchy import geo_hierarchy_payload
 from .services.geocoding import address_number, street_key
 from .services.normalization import (
     clean_address_for_storage,
@@ -98,6 +99,10 @@ from .services.spatial import (
     point_in_polygon,
     radius_bbox,
     rtree_property_ids,
+)
+from .services.zone_names import (
+    UNIFIED_HURLINGHAM_CENTRO_ALIASES,
+    UNIFIED_HURLINGHAM_CENTRO_ZONE,
 )
 
 
@@ -437,6 +442,12 @@ def _selected_neighborhoods(params):
         if normalized and normalized not in selected:
             selected.append(normalized)
     return selected
+
+
+def _neighborhood_filter_values(value):
+    if value == UNIFIED_HURLINGHAM_CENTRO_ZONE:
+        return list(dict.fromkeys(UNIFIED_HURLINGHAM_CENTRO_ALIASES))
+    return [value]
 
 
 def query_url(params, overrides=None, remove=None, path="/"):
@@ -787,11 +798,12 @@ def filtered_property_queryset(params, include_listings=True):
     if neighborhood_values:
         neighborhood_q = Q()
         for value in neighborhood_values:
+            values = _neighborhood_filter_values(value)
             neighborhood_q |= (
-                Q(neighborhood=value)
-                | Q(detected_neighborhood=value)
-                | Q(inferred_neighborhood=value)
-                | Q(location_intelligence__zone_name=value)
+                Q(neighborhood__in=values)
+                | Q(detected_neighborhood__in=values)
+                | Q(inferred_neighborhood__in=values)
+                | Q(location_intelligence__zone_name__in=values)
             )
         queryset = queryset.filter(neighborhood_q)
 
@@ -1854,6 +1866,15 @@ def map_config_payload():
 
 def map_config(request):
     return JsonResponse(map_config_payload())
+
+
+def territory_map(request):
+    return render(request, "properties/territory.html")
+
+
+@require_GET
+def geo_hierarchy_layers_api(request):
+    return JsonResponse(geo_hierarchy_payload())
 
 
 @require_GET

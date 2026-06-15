@@ -2783,8 +2783,8 @@
       "type": "Feature",
       "properties": {
         "id": "osm_relation_19399629",
-        "zone_name": "Hurlingham Centro",
-        "name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
+        "name": "Hurlingham Centro (Barrio Ingles)",
         "locality": null,
         "osm_relation_id": 19399629,
         "source_url": "https://www.openstreetmap.org/relation/19399629",

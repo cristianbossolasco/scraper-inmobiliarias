@@ -1,142 +1,46 @@
 {
   "type": "FeatureCollection",
+  "name": "03_zonas_hurlingham_final",
   "metadata": {
-    "generated_at": "2026-06-12T14:15:36.288159+00:00",
+    "generated_at": "2026-06-15T02:04:23.824601+00:00",
     "crs": "EPSG:4326",
-    "source_name": "OpenStreetMap Overpass API",
-    "overpass_endpoint": "https://overpass-api.de/api/interpreter",
-    "requested_relation_ids": [
-      19399338,
-      19399339,
-      19399340,
-      19399341,
-      19399342,
-      19399343,
-      19399344,
-      19399345,
-      19399346,
-      19399347,
-      19399348,
-      19399349,
-      19399350,
-      19399351,
-      19399352,
-      19399353,
-      19399354,
-      19399482,
-      19399483,
-      19399484,
-      19399485,
-      19399486,
-      19399628,
-      19399629,
-      19399630,
-      19399631,
-      19399632,
-      19399633,
-      19399634,
-      19399635,
-      19399746,
-      19399747,
-      19399748,
-      19399749,
-      19399750,
-      19399751,
-      19399752,
-      19399753,
-      19399754,
-      19399755,
-      19399756,
-      19399757,
-      19399758,
-      19400449
-    ],
-    "returned_relation_ids": [
-      19399338,
-      19399339,
-      19399340,
-      19399341,
-      19399342,
-      19399343,
-      19399344,
-      19399345,
-      19399346,
-      19399347,
-      19399348,
-      19399349,
-      19399350,
-      19399351,
-      19399352,
-      19399353,
-      19399354,
-      19399482,
-      19399483,
-      19399484,
-      19399485,
-      19399486,
-      19399628,
-      19399629,
-      19399630,
-      19399631,
-      19399632,
-      19399633,
-      19399634,
-      19399635,
-      19399746,
-      19399747,
-      19399748,
-      19399749,
-      19399751,
-      19399752,
-      19399753,
-      19399754,
-      19399755,
-      19399756,
-      19399757,
-      19399758,
-      19400449
-    ],
-    "missing_relation_ids": [
-      19399750
-    ],
-    "polygonize_failures": [
-      {
-        "relation_id": 19399747,
-        "name": "Los Troncos",
-        "reason": "polygonize_failed"
-      }
-    ]
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "Merged canonical repo zones plus hierarchy package audit",
+    "source_zip": "C:\\Users\\corebi\\Downloads\\hurlingham_geo_hierarchy_package.zip",
+    "zone_count": 42,
+    "data_confidence": "mixed",
+    "notes": "Final audit layer; production ZONE_GEOJSON_PATH is intentionally unchanged."
   },
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399345",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Asunción",
         "zone_name": "Asunción",
-        "name": "Asunción",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399345,
         "osm_relation_id": 19399345,
         "source_url": "https://www.openstreetmap.org/relation/19399345",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.392885,
+        "feature_id": "zone_asuncion"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6257937,
-              -34.6324185
-            ],
-            [
-              -58.6269413,
-              -34.6324307
-            ],
-            [
-              -58.6269685,
-              -34.6320298
-            ],
             [
               -58.6269769,
               -34.6317636
@@ -246,20 +150,24 @@
               -34.62662
             ],
             [
-              -58.6199188,
-              -34.6275351
+              -58.619737503,
+              -34.626791798
             ],
             [
-              -58.6202,
-              -34.6284704
+              -58.619737513,
+              -34.626791838
             ],
             [
-              -58.6202028,
-              -34.6285257
+              -58.61993,
+              -34.627552
             ],
             [
-              -58.6201696,
-              -34.6286069
+              -58.620243,
+              -34.62853
+            ],
+            [
+              -58.620099359,
+              -34.628706897
             ],
             [
               -58.6200511,
@@ -274,40 +182,56 @@
               -34.628867
             ],
             [
-              -58.6197406,
-              -34.6289837
+              -58.619872222,
+              -34.628908808
             ],
             [
-              -58.6198996,
-              -34.6295948
+              -58.61976,
+              -34.628983
+            ],
+            [
+              -58.619907,
+              -34.62961
+            ],
+            [
+              -58.620066377,
+              -34.630225527
             ],
             [
               -58.6201994,
               -34.6307286
             ],
             [
-              -58.6203543,
-              -34.6312979
+              -58.620223239,
+              -34.630816215
             ],
             [
-              -58.6203667,
-              -34.6313235
+              -58.620230429,
+              -34.63083984
+            ],
+            [
+              -58.620240706,
+              -34.630873604
+            ],
+            [
+              -58.620382443,
+              -34.631339311
+            ],
+            [
+              -58.620382443,
+              -34.631339312
             ],
             [
               -58.6203896,
               -34.6313465
             ],
             [
-              -58.6205666,
-              -34.6318644
+              -58.620412163,
+              -34.631412518
             ],
             [
-              -58.6207032,
-              -34.6318992
-            ],
-            [
-              -58.6208391,
-              -34.6319627
+              -58.620846602,
+              -34.631966788
             ],
             [
               -58.6213836,
@@ -364,40 +288,53 @@
             [
               -58.6257937,
               -34.6324185
+            ],
+            [
+              -58.6269413,
+              -34.6324307
+            ],
+            [
+              -58.6269685,
+              -34.6320298
+            ],
+            [
+              -58.6269769,
+              -34.6317636
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_asuncion"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399343",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Atepam Italia",
         "zone_name": "Atepam Italia",
-        "name": "Atepam Italia",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399343,
         "osm_relation_id": 19399343,
         "source_url": "https://www.openstreetmap.org/relation/19399343",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.153637,
+        "feature_id": "zone_atepamitalia"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6310774,
-              -34.6279894
-            ],
-            [
-              -58.6309722,
-              -34.6279807
-            ],
-            [
-              -58.6308954,
-              -34.6279759
-            ],
             [
               -58.6307786,
               -34.6279686
@@ -601,40 +538,53 @@
             [
               -58.6310774,
               -34.6279894
+            ],
+            [
+              -58.6309722,
+              -34.6279807
+            ],
+            [
+              -58.6308954,
+              -34.6279759
+            ],
+            [
+              -58.6307786,
+              -34.6279686
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_atepamitalia"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399757",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Belgrano",
         "zone_name": "Belgrano",
-        "name": "Belgrano",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399757,
         "osm_relation_id": 19399757,
         "source_url": "https://www.openstreetmap.org/relation/19399757",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.297013,
+        "feature_id": "zone_belgrano"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6582466,
-              -34.5823543
-            ],
-            [
-              -58.6591,
-              -34.5817654
-            ],
-            [
-              -58.6591631,
-              -34.5817238
-            ],
             [
               -58.6600713,
               -34.5811245
@@ -758,40 +708,53 @@
             [
               -58.6582466,
               -34.5823543
+            ],
+            [
+              -58.6591,
+              -34.5817654
+            ],
+            [
+              -58.6591631,
+              -34.5817238
+            ],
+            [
+              -58.6600713,
+              -34.5811245
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_belgrano"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399339",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Carola Lorenzini",
         "zone_name": "Carola Lorenzini",
-        "name": "Carola Lorenzini",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399339,
         "osm_relation_id": 19399339,
         "source_url": "https://www.openstreetmap.org/relation/19399339",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.3932,
+        "feature_id": "zone_carolalorenzini"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6558705,
-              -34.6207361
-            ],
-            [
-              -58.6551482,
-              -34.6213149
-            ],
-            [
-              -58.6542501,
-              -34.6220557
-            ],
             [
               -58.6534928,
               -34.6226844
@@ -833,28 +796,60 @@
               -34.6279884
             ],
             [
-              -58.6556442,
-              -34.6287247
+              -58.655638574,
+              -34.628719972
+            ],
+            [
+              -58.655960602,
+              -34.628463664
+            ],
+            [
+              -58.656458548,
+              -34.628067339
             ],
             [
               -58.6564638,
               -34.6280631
             ],
             [
-              -58.6566407,
-              -34.627926
+              -58.656464352,
+              -34.628062672
+            ],
+            [
+              -58.656624,
+              -34.627914
+            ],
+            [
+              -58.6572328,
+              -34.627441578
+            ],
+            [
+              -58.657232805,
+              -34.627441574
             ],
             [
               -58.6573198,
               -34.6273704
             ],
             [
-              -58.6580563,
-              -34.6267578
+              -58.657393648,
+              -34.627308975
             ],
             [
-              -58.6589928,
-              -34.6259937
+              -58.657393654,
+              -34.62730897
+            ],
+            [
+              -58.657963,
+              -34.626816
+            ],
+            [
+              -58.658966,
+              -34.626007
+            ],
+            [
+              -58.659551484,
+              -34.625526379
             ],
             [
               -58.6597957,
@@ -887,40 +882,53 @@
             [
               -58.6558705,
               -34.6207361
+            ],
+            [
+              -58.6551482,
+              -34.6213149
+            ],
+            [
+              -58.6542501,
+              -34.6220557
+            ],
+            [
+              -58.6534928,
+              -34.6226844
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_carolalorenzini"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399634",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Cartero",
         "zone_name": "Cartero",
-        "name": "Cartero",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399634,
         "osm_relation_id": 19399634,
         "source_url": "https://www.openstreetmap.org/relation/19399634",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium_low",
+        "candidate_source_confidence": "",
+        "strict_source_available": false,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.079382,
+        "feature_id": "zone_cartero"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6502292,
-              -34.5928266
-            ],
-            [
-              -58.6499512,
-              -34.5926023
-            ],
-            [
-              -58.649704,
-              -34.5923953
-            ],
             [
               -58.6494569,
               -34.5921883
@@ -1028,40 +1036,53 @@
             [
               -58.6502292,
               -34.5928266
+            ],
+            [
+              -58.6499512,
+              -34.5926023
+            ],
+            [
+              -58.649704,
+              -34.5923953
+            ],
+            [
+              -58.6494569,
+              -34.5921883
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_cartero"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399630",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Cosmopolita",
         "zone_name": "Cosmopolita",
-        "name": "Cosmopolita",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399630,
         "osm_relation_id": 19399630,
         "source_url": "https://www.openstreetmap.org/relation/19399630",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "global_boundary_polygonized_from_label",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "global_boundary_polygonized_from_label",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.322258,
+        "feature_id": "zone_cosmopolita"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6392712,
-              -34.5840642
-            ],
-            [
-              -58.63864,
-              -34.5859475
-            ],
-            [
-              -58.6382204,
-              -34.5872121
-            ],
             [
               -58.6381215,
               -34.5875147
@@ -1197,40 +1218,53 @@
             [
               -58.6392712,
               -34.5840642
+            ],
+            [
+              -58.63864,
+              -34.5859475
+            ],
+            [
+              -58.6382204,
+              -34.5872121
+            ],
+            [
+              -58.6381215,
+              -34.5875147
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_cosmopolita"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399633",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Curapaytí",
         "zone_name": "Curapaytí",
-        "name": "Curapaytí",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399633,
         "osm_relation_id": 19399633,
         "source_url": "https://www.openstreetmap.org/relation/19399633",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.709305,
+        "feature_id": "zone_curapayti"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6502292,
-              -34.5928266
-            ],
-            [
-              -58.6508429,
-              -34.5923364
-            ],
-            [
-              -58.6514226,
-              -34.5918545
-            ],
             [
               -58.652096,
               -34.5913203
@@ -1466,40 +1500,53 @@
             [
               -58.6502292,
               -34.5928266
+            ],
+            [
+              -58.6508429,
+              -34.5923364
+            ],
+            [
+              -58.6514226,
+              -34.5918545
+            ],
+            [
+              -58.652096,
+              -34.5913203
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_curapayti"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399338",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Dos de Abril",
         "zone_name": "Dos de Abril",
-        "name": "Dos de Abril",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399338,
         "osm_relation_id": 19399338,
         "source_url": "https://www.openstreetmap.org/relation/19399338",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.413316,
+        "feature_id": "zone_dosdeabril"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6626393,
-              -34.6177819
-            ],
-            [
-              -58.6617443,
-              -34.6170431
-            ],
-            [
-              -58.6610375,
-              -34.616471
-            ],
             [
               -58.6599732,
               -34.6173509
@@ -1553,40 +1600,20 @@
               -34.6245827
             ],
             [
-              -58.6614972,
-              -34.6239375
+              -58.66097487,
+              -34.624357342
             ],
             [
-              -58.6622024,
-              -34.6233617
+              -58.662174,
+              -34.62337
             ],
             [
-              -58.6622715,
-              -34.6233021
+              -58.665775,
+              -34.62043
             ],
             [
-              -58.6623132,
-              -34.6232661
-            ],
-            [
-              -58.6636799,
-              -34.6221477
-            ],
-            [
-              -58.6647206,
-              -34.6212969
-            ],
-            [
-              -58.6653918,
-              -34.6207456
-            ],
-            [
-              -58.6654377,
-              -34.6207064
-            ],
-            [
-              -58.665812,
-              -34.6204025
+              -58.665809958,
+              -34.620400811
             ],
             [
               -58.6641776,
@@ -1599,40 +1626,53 @@
             [
               -58.6626393,
               -34.6177819
+            ],
+            [
+              -58.6617443,
+              -34.6170431
+            ],
+            [
+              -58.6610375,
+              -34.616471
+            ],
+            [
+              -58.6599732,
+              -34.6173509
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_dosdeabril"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399751",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "El Destino",
         "zone_name": "El Destino",
-        "name": "El Destino",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399751,
         "osm_relation_id": 19399751,
         "source_url": "https://www.openstreetmap.org/relation/19399751",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.587212,
+        "feature_id": "zone_eldestino"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6683778,
-              -34.5908323
-            ],
-            [
-              -58.6669098,
-              -34.5895344
-            ],
-            [
-              -58.6647789,
-              -34.5912451
-            ],
             [
               -58.6636658,
               -34.5921405
@@ -1764,40 +1804,53 @@
             [
               -58.6683778,
               -34.5908323
+            ],
+            [
+              -58.6669098,
+              -34.5895344
+            ],
+            [
+              -58.6647789,
+              -34.5912451
+            ],
+            [
+              -58.6636658,
+              -34.5921405
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_eldestino"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399340",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "El Libertador",
         "zone_name": "El Libertador",
-        "name": "El Libertador",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399340,
         "osm_relation_id": 19399340,
         "source_url": "https://www.openstreetmap.org/relation/19399340",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.674059,
+        "feature_id": "zone_ellibertador"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6375021,
-              -34.6316976
-            ],
-            [
-              -58.6396111,
-              -34.6315268
-            ],
-            [
-              -58.6408056,
-              -34.6314253
-            ],
             [
               -58.6412187,
               -34.6313902
@@ -1919,8 +1972,16 @@
               -34.630038
             ],
             [
-              -58.6540022,
-              -34.6301007
+              -58.654001894,
+              -34.630100626
+            ],
+            [
+              -58.654159568,
+              -34.629965159
+            ],
+            [
+              -58.654159983,
+              -34.629964803
             ],
             [
               -58.6544427,
@@ -1935,8 +1996,20 @@
               -34.6291993
             ],
             [
-              -58.6556442,
-              -34.6287247
+              -58.655403906,
+              -34.628923382
+            ],
+            [
+              -58.655403914,
+              -34.628923375
+            ],
+            [
+              -58.655582,
+              -34.628765
+            ],
+            [
+              -58.655638574,
+              -34.628719972
             ],
             [
               -58.654768,
@@ -2057,40 +2130,53 @@
             [
               -58.6375021,
               -34.6316976
+            ],
+            [
+              -58.6396111,
+              -34.6315268
+            ],
+            [
+              -58.6408056,
+              -34.6314253
+            ],
+            [
+              -58.6412187,
+              -34.6313902
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_ellibertador"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399346",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "El Palanco",
         "zone_name": "El Palanco",
-        "name": "El Palanco",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399346,
         "osm_relation_id": 19399346,
         "source_url": "https://www.openstreetmap.org/relation/19399346",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.659679,
+        "feature_id": "zone_elpalanco"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6306867,
-              -34.6247972
-            ],
-            [
-              -58.6308186,
-              -34.6247735
-            ],
-            [
-              -58.6315714,
-              -34.6246465
-            ],
             [
               -58.6323251,
               -34.6245194
@@ -2200,8 +2286,20 @@
               -34.6261623
             ],
             [
-              -58.6195313,
-              -34.6264147
+              -58.619479033,
+              -34.626209216
+            ],
+            [
+              -58.619479035,
+              -34.626209221
+            ],
+            [
+              -58.61954,
+              -34.62641
+            ],
+            [
+              -58.619556933,
+              -34.626426933
             ],
             [
               -58.6196038,
@@ -2212,8 +2310,16 @@
               -34.626474
             ],
             [
-              -58.6196604,
-              -34.6265254
+              -58.619662769,
+              -34.626518991
+            ],
+            [
+              -58.619682,
+              -34.626534
+            ],
+            [
+              -58.61969304,
+              -34.62661312
             ],
             [
               -58.6196956,
@@ -2282,40 +2388,53 @@
             [
               -58.6306867,
               -34.6247972
+            ],
+            [
+              -58.6308186,
+              -34.6247735
+            ],
+            [
+              -58.6315714,
+              -34.6246465
+            ],
+            [
+              -58.6323251,
+              -34.6245194
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_elpalanco"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399341",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "El Porvenir",
         "zone_name": "El Porvenir",
-        "name": "El Porvenir",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399341,
         "osm_relation_id": 19399341,
         "source_url": "https://www.openstreetmap.org/relation/19399341",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.537053,
+        "feature_id": "zone_elporvenir"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6341046,
-              -34.6285795
-            ],
-            [
-              -58.6343069,
-              -34.629297
-            ],
-            [
-              -58.6343213,
-              -34.6293717
-            ],
             [
               -58.6344241,
               -34.630326
@@ -2543,40 +2662,53 @@
             [
               -58.6341046,
               -34.6285795
+            ],
+            [
+              -58.6343069,
+              -34.629297
+            ],
+            [
+              -58.6343213,
+              -34.6293717
+            ],
+            [
+              -58.6344241,
+              -34.630326
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_elporvenir"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399350",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "El Progreso",
         "zone_name": "El Progreso",
-        "name": "El Progreso",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399350,
         "osm_relation_id": 19399350,
         "source_url": "https://www.openstreetmap.org/relation/19399350",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.15723,
+        "feature_id": "zone_elprogreso"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6458907,
-              -34.6232932
-            ],
-            [
-              -58.6452809,
-              -34.6227777
-            ],
-            [
-              -58.6450908,
-              -34.622617
-            ],
             [
               -58.6446986,
               -34.6222854
@@ -2664,40 +2796,53 @@
             [
               -58.6458907,
               -34.6232932
+            ],
+            [
+              -58.6452809,
+              -34.6227777
+            ],
+            [
+              -58.6450908,
+              -34.622617
+            ],
+            [
+              -58.6446986,
+              -34.6222854
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_elprogreso"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19400449",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Federal",
         "zone_name": "Federal",
-        "name": "Federal",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19400449,
         "osm_relation_id": 19400449,
         "source_url": "https://www.openstreetmap.org/relation/19400449",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.157663,
+        "feature_id": "zone_federal"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6531548,
-              -34.6229634
-            ],
-            [
-              -58.653273,
-              -34.6228669
-            ],
-            [
-              -58.6534928,
-              -34.6226844
-            ],
             [
               -58.6542501,
               -34.6220557
@@ -2773,40 +2918,53 @@
             [
               -58.6531548,
               -34.6229634
+            ],
+            [
+              -58.653273,
+              -34.6228669
+            ],
+            [
+              -58.6534928,
+              -34.6226844
+            ],
+            [
+              -58.6542501,
+              -34.6220557
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_federal"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399629",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Hurlingham Centro (Barrio Ingles)",
         "zone_name": "Hurlingham Centro (Barrio Ingles)",
-        "name": "Hurlingham Centro (Barrio Ingles)",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399629,
         "osm_relation_id": 19399629,
         "source_url": "https://www.openstreetmap.org/relation/19399629",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium_low",
+        "candidate_source_confidence": "",
+        "strict_source_available": false,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 1.258484,
+        "feature_id": "zone_hurlinghamcentrobarrioingles"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6379082,
-              -34.5882163
-            ],
-            [
-              -58.6379246,
-              -34.5881656
-            ],
-            [
-              -58.6379406,
-              -34.5881077
-            ],
             [
               -58.6381215,
               -34.5875147
@@ -3210,40 +3368,53 @@
             [
               -58.6379082,
               -34.5882163
+            ],
+            [
+              -58.6379246,
+              -34.5881656
+            ],
+            [
+              -58.6379406,
+              -34.5881077
+            ],
+            [
+              -58.6381215,
+              -34.5875147
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_hurlinghamcentrobarrioingles"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399628",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Jorge Newbery",
         "zone_name": "Jorge Newbery",
-        "name": "Jorge Newbery",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399628,
         "osm_relation_id": 19399628,
         "source_url": "https://www.openstreetmap.org/relation/19399628",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.466118,
+        "feature_id": "zone_jorgenewbery"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6174585,
-              -34.5872389
-            ],
-            [
-              -58.6179252,
-              -34.5876545
-            ],
-            [
-              -58.6179865,
-              -34.5877254
-            ],
             [
               -58.6185657,
               -34.5881113
@@ -3421,32 +3592,44 @@
               -34.5840195
             ],
             [
-              -58.6211871,
-              -34.583956
+              -58.621238785,
+              -34.583998185
             ],
             [
-              -58.6210553,
-              -34.5840629
+              -58.62112,
+              -34.5841
             ],
             [
-              -58.6203922,
-              -34.5846576
+              -58.620197,
+              -34.584892
             ],
             [
-              -58.6203513,
-              -34.5847325
+              -58.619799239,
+              -34.585232315
             ],
             [
-              -58.6201873,
-              -34.5848836
+              -58.619799232,
+              -34.585232321
             ],
             [
               -58.6196557,
               -34.5853613
             ],
             [
-              -58.6185626,
-              -34.5862974
+              -58.618669014,
+              -34.58620627
+            ],
+            [
+              -58.618668998,
+              -34.586206284
+            ],
+            [
+              -58.618565,
+              -34.586296
+            ],
+            [
+              -58.618528011,
+              -34.5863269
             ],
             [
               -58.6183383,
@@ -3459,40 +3642,53 @@
             [
               -58.6174585,
               -34.5872389
+            ],
+            [
+              -58.6179252,
+              -34.5876545
+            ],
+            [
+              -58.6179865,
+              -34.5877254
+            ],
+            [
+              -58.6185657,
+              -34.5881113
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_jorgenewbery"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399632",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Juan B. de Lasalle",
         "zone_name": "Juan B. de Lasalle",
-        "name": "Juan B. de Lasalle",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399632,
         "osm_relation_id": 19399632,
         "source_url": "https://www.openstreetmap.org/relation/19399632",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.348792,
+        "feature_id": "zone_juanbdelasalle"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6525628,
-              -34.5688903
-            ],
-            [
-              -58.6522249,
-              -34.5688352
-            ],
-            [
-              -58.6520061,
-              -34.5687995
-            ],
             [
               -58.6509436,
               -34.5686376
@@ -3712,40 +3908,53 @@
             [
               -58.6525628,
               -34.5688903
+            ],
+            [
+              -58.6522249,
+              -34.5688352
+            ],
+            [
+              -58.6520061,
+              -34.5687995
+            ],
+            [
+              -58.6509436,
+              -34.5686376
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_juanbdelasalle"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399347",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "La Juanita",
         "zone_name": "La Juanita",
-        "name": "La Juanita",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399347,
         "osm_relation_id": 19399347,
         "source_url": "https://www.openstreetmap.org/relation/19399347",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.45218,
+        "feature_id": "zone_lajuanita"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6336482,
-              -34.6210127
-            ],
-            [
-              -58.6336818,
-              -34.6209165
-            ],
-            [
-              -58.6337292,
-              -34.620768
-            ],
             [
               -58.6336515,
               -34.6206701
@@ -3815,8 +4024,16 @@
               -34.6188281
             ],
             [
-              -58.6183102,
-              -34.6191633
+              -58.618326939,
+              -34.619135203
+            ],
+            [
+              -58.61831,
+              -34.619164
+            ],
+            [
+              -58.618297584,
+              -34.619189008
             ],
             [
               -58.618101,
@@ -3881,40 +4098,53 @@
             [
               -58.6336482,
               -34.6210127
+            ],
+            [
+              -58.6336818,
+              -34.6209165
+            ],
+            [
+              -58.6337292,
+              -34.620768
+            ],
+            [
+              -58.6336515,
+              -34.6206701
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_lajuanita"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399752",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "La Leonor",
         "zone_name": "La Leonor",
-        "name": "La Leonor",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399752,
         "osm_relation_id": 19399752,
         "source_url": "https://www.openstreetmap.org/relation/19399752",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.69042,
+        "feature_id": "zone_laleonor"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6669098,
-              -34.5895344
-            ],
-            [
-              -58.6658447,
-              -34.5886518
-            ],
-            [
-              -58.6653172,
-              -34.5882041
-            ],
             [
               -58.6652692,
               -34.5881779
@@ -4082,40 +4312,53 @@
             [
               -58.6669098,
               -34.5895344
+            ],
+            [
+              -58.6658447,
+              -34.5886518
+            ],
+            [
+              -58.6653172,
+              -34.5882041
+            ],
+            [
+              -58.6652692,
+              -34.5881779
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_laleonor"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399749",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Los Patitos",
         "zone_name": "Los Patitos",
-        "name": "Los Patitos",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399749,
         "osm_relation_id": 19399749,
         "source_url": "https://www.openstreetmap.org/relation/19399749",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized_with_small_gap_closure",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized_with_small_gap_closure",
+        "source_confidence": "medium_low",
+        "candidate_source_confidence": "",
+        "strict_source_available": false,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.293726,
+        "feature_id": "zone_lospatitos"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6554802,
-              -34.5987577
-            ],
-            [
-              -58.6569172,
-              -34.5999914
-            ],
-            [
-              -58.6577804,
-              -34.6007451
-            ],
             [
               -58.6586511,
               -34.6014968
@@ -4235,40 +4478,53 @@
             [
               -58.6554802,
               -34.5987577
+            ],
+            [
+              -58.6569172,
+              -34.5999914
+            ],
+            [
+              -58.6577804,
+              -34.6007451
+            ],
+            [
+              -58.6586511,
+              -34.6014968
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_lospatitos"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399353",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Los Pinos",
         "zone_name": "Los Pinos",
-        "name": "Los Pinos",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399353,
         "osm_relation_id": 19399353,
         "source_url": "https://www.openstreetmap.org/relation/19399353",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.088451,
+        "feature_id": "zone_lospinos"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.645788,
-              -34.6088656
-            ],
-            [
-              -58.6466085,
-              -34.6082042
-            ],
-            [
-              -58.6470979,
-              -34.6078037
-            ],
             [
               -58.6473397,
               -34.6075969
@@ -4336,40 +4592,53 @@
             [
               -58.645788,
               -34.6088656
+            ],
+            [
+              -58.6466085,
+              -34.6082042
+            ],
+            [
+              -58.6470979,
+              -34.6078037
+            ],
+            [
+              -58.6473397,
+              -34.6075969
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_lospinos"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399354",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Luna",
         "zone_name": "Luna",
-        "name": "Luna",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399354,
         "osm_relation_id": 19399354,
         "source_url": "https://www.openstreetmap.org/relation/19399354",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.719782,
+        "feature_id": "zone_luna"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6412917,
-              -34.6024689
-            ],
-            [
-              -58.641205,
-              -34.6025332
-            ],
-            [
-              -58.6404919,
-              -34.6030623
-            ],
             [
               -58.6396983,
               -34.6037209
@@ -4573,40 +4842,53 @@
             [
               -58.6412917,
               -34.6024689
+            ],
+            [
+              -58.641205,
+              -34.6025332
+            ],
+            [
+              -58.6404919,
+              -34.6030623
+            ],
+            [
+              -58.6396983,
+              -34.6037209
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_luna"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399344",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Militar",
         "zone_name": "Militar",
-        "name": "Militar",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399344,
         "osm_relation_id": 19399344,
         "source_url": "https://www.openstreetmap.org/relation/19399344",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.177169,
+        "feature_id": "zone_militar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6323251,
-              -34.6245194
-            ],
-            [
-              -58.6315714,
-              -34.6246465
-            ],
-            [
-              -58.6308186,
-              -34.6247735
-            ],
             [
               -58.6306867,
               -34.6247972
@@ -4750,40 +5032,53 @@
             [
               -58.6323251,
               -34.6245194
+            ],
+            [
+              -58.6315714,
+              -34.6246465
+            ],
+            [
+              -58.6308186,
+              -34.6247735
+            ],
+            [
+              -58.6306867,
+              -34.6247972
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_militar"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399351",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Mitre",
         "zone_name": "Mitre",
-        "name": "Mitre",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399351,
         "osm_relation_id": 19399351,
         "source_url": "https://www.openstreetmap.org/relation/19399351",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 1.5379,
+        "feature_id": "zone_mitre"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.637036,
-              -34.6135878
-            ],
-            [
-              -58.6377011,
-              -34.6141247
-            ],
-            [
-              -58.6383632,
-              -34.6146639
-            ],
             [
               -58.6384285,
               -34.6147275
@@ -5063,40 +5358,53 @@
             [
               -58.637036,
               -34.6135878
+            ],
+            [
+              -58.6377011,
+              -34.6141247
+            ],
+            [
+              -58.6383632,
+              -34.6146639
+            ],
+            [
+              -58.6384285,
+              -34.6147275
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_mitre"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399485",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Nueve de Julio",
         "zone_name": "Nueve de Julio",
-        "name": "Nueve de Julio",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399485,
         "osm_relation_id": 19399485,
         "source_url": "https://www.openstreetmap.org/relation/19399485",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.4924,
+        "feature_id": "zone_nuevedejulio"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6205222,
-              -34.6051423
-            ],
-            [
-              -58.6209541,
-              -34.6048282
-            ],
-            [
-              -58.6215162,
-              -34.6043775
-            ],
             [
               -58.6219523,
               -34.6040301
@@ -5194,12 +5502,20 @@
               -34.5969059
             ],
             [
-              -58.619134,
-              -34.5976883
+              -58.619134269,
+              -34.597688167
             ],
             [
-              -58.6194042,
-              -34.5983711
+              -58.619404,
+              -34.59837
+            ],
+            [
+              -58.619542788,
+              -34.598632751
+            ],
+            [
+              -58.619542884,
+              -34.598632932
             ],
             [
               -58.6204933,
@@ -5210,6 +5526,22 @@
               -34.6012808
             ],
             [
+              -58.62110538,
+              -34.60151056
+            ],
+            [
+              -58.62111,
+              -34.601517
+            ],
+            [
+              -58.621110376,
+              -34.601517734
+            ],
+            [
+              -58.621110377,
+              -34.601517737
+            ],
+            [
               -58.6211107,
               -34.6015182
             ],
@@ -5218,8 +5550,20 @@
               -34.6018617
             ],
             [
-              -58.621348,
-              -34.6019891
+              -58.6213307,
+              -34.601948286
+            ],
+            [
+              -58.62135,
+              -34.601986
+            ],
+            [
+              -58.621352333,
+              -34.602009076
+            ],
+            [
+              -58.621352333,
+              -34.602009078
             ],
             [
               -58.6213865,
@@ -5242,12 +5586,20 @@
               -34.6045131
             ],
             [
-              -58.6206405,
-              -34.604624
+              -58.620646655,
+              -34.604617386
             ],
             [
-              -58.6204388,
-              -34.6047715
+              -58.620646654,
+              -34.604617387
+            ],
+            [
+              -58.62064,
+              -34.604626
+            ],
+            [
+              -58.620438863,
+              -34.60477179
             ],
             [
               -58.6204846,
@@ -5256,44 +5608,53 @@
             [
               -58.6205222,
               -34.6051423
+            ],
+            [
+              -58.6209541,
+              -34.6048282
+            ],
+            [
+              -58.6215162,
+              -34.6043775
+            ],
+            [
+              -58.6219523,
+              -34.6040301
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_nuevedejulio"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399484",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Nuevo Parque Quirno",
         "zone_name": "Nuevo Parque Quirno",
-        "name": "Nuevo Parque Quirno",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399484,
         "osm_relation_id": 19399484,
         "source_url": "https://www.openstreetmap.org/relation/19399484",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.184836,
+        "feature_id": "zone_nuevoparquequirno"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6204388,
-              -34.6047715
-            ],
-            [
-              -58.6201944,
-              -34.6049477
-            ],
-            [
-              -58.6198286,
-              -34.6054919
-            ],
-            [
-              -58.619772,
-              -34.6056627
-            ],
             [
               -58.6198023,
               -34.606478
@@ -5315,8 +5676,20 @@
               -34.6092409
             ],
             [
-              -58.6205635,
-              -34.6094786
+              -58.620476247,
+              -34.609375621
+            ],
+            [
+              -58.620476309,
+              -34.609375693
+            ],
+            [
+              -58.620564,
+              -34.609478
+            ],
+            [
+              -58.620833774,
+              -34.609743865
             ],
             [
               -58.6213242,
@@ -5495,38 +5868,63 @@
               -34.6049821
             ],
             [
-              -58.6204388,
-              -34.6047715
+              -58.620438863,
+              -34.60477179
+            ],
+            [
+              -58.620193,
+              -34.60495
+            ],
+            [
+              -58.620180778,
+              -34.604967965
+            ],
+            [
+              -58.6198286,
+              -34.6054919
+            ],
+            [
+              -58.619772,
+              -34.6056627
+            ],
+            [
+              -58.6198023,
+              -34.606478
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_nuevoparquequirno"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399482",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Parque Jhonston",
         "zone_name": "Parque Jhonston",
-        "name": "Parque Jhonston",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399482,
         "osm_relation_id": 19399482,
         "source_url": "https://www.openstreetmap.org/relation/19399482",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 1.358419,
+        "feature_id": "zone_parquejhonston"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6353524,
-              -34.6035358
-            ],
-            [
-              -58.6353283,
-              -34.6038346
-            ],
             [
               -58.6352744,
               -34.6044555
@@ -5826,40 +6224,49 @@
             [
               -58.6353524,
               -34.6035358
+            ],
+            [
+              -58.6353283,
+              -34.6038346
+            ],
+            [
+              -58.6352744,
+              -34.6044555
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_parquejhonston"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399483",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Parque Quirno",
         "zone_name": "Parque Quirno",
-        "name": "Parque Quirno",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399483,
         "osm_relation_id": 19399483,
         "source_url": "https://www.openstreetmap.org/relation/19399483",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 1.100831,
+        "feature_id": "zone_parquequirno"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6209541,
-              -34.6048282
-            ],
-            [
-              -58.6205222,
-              -34.6051423
-            ],
-            [
-              -58.6205352,
-              -34.6051976
-            ],
             [
               -58.6206685,
               -34.6056518
@@ -6203,36 +6610,53 @@
             [
               -58.6209541,
               -34.6048282
+            ],
+            [
+              -58.6205222,
+              -34.6051423
+            ],
+            [
+              -58.6205352,
+              -34.6051976
+            ],
+            [
+              -58.6206685,
+              -34.6056518
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_parquequirno"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399342",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Prensa",
         "zone_name": "Prensa",
-        "name": "Prensa",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399342,
         "osm_relation_id": 19399342,
         "source_url": "https://www.openstreetmap.org/relation/19399342",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.224303,
+        "feature_id": "zone_prensa"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6341046,
-              -34.6285795
-            ],
-            [
-              -58.6344081,
-              -34.6285191
-            ],
             [
               -58.6341631,
               -34.6276885
@@ -6412,40 +6836,49 @@
             [
               -58.6341046,
               -34.6285795
+            ],
+            [
+              -58.6344081,
+              -34.6285191
+            ],
+            [
+              -58.6341631,
+              -34.6276885
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_prensa"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399753",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Primero de Mayo",
         "zone_name": "Primero de Mayo",
-        "name": "Primero de Mayo",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399753,
         "osm_relation_id": 19399753,
         "source_url": "https://www.openstreetmap.org/relation/19399753",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.315736,
+        "feature_id": "zone_primerodemayo"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.658523,
-              -34.5825646
-            ],
-            [
-              -58.6583083,
-              -34.5824012
-            ],
-            [
-              -58.6582466,
-              -34.5823543
-            ],
             [
               -58.6575088,
               -34.5828627
@@ -6581,40 +7014,53 @@
             [
               -58.658523,
               -34.5825646
+            ],
+            [
+              -58.6583083,
+              -34.5824012
+            ],
+            [
+              -58.6582466,
+              -34.5823543
+            ],
+            [
+              -58.6575088,
+              -34.5828627
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_primerodemayo"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399352",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Rimoldi",
         "zone_name": "Rimoldi",
-        "name": "Rimoldi",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399352,
         "osm_relation_id": 19399352,
         "source_url": "https://www.openstreetmap.org/relation/19399352",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.100435,
+        "feature_id": "zone_rimoldi"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6518662,
-              -34.6077339
-            ],
-            [
-              -58.6513368,
-              -34.6072795
-            ],
-            [
-              -58.6507762,
-              -34.6067933
-            ],
             [
               -58.650186,
               -34.6062933
@@ -6690,40 +7136,53 @@
             [
               -58.6518662,
               -34.6077339
+            ],
+            [
+              -58.6513368,
+              -34.6072795
+            ],
+            [
+              -58.6507762,
+              -34.6067933
+            ],
+            [
+              -58.650186,
+              -34.6062933
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_rimoldi"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399756",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Roca 1",
         "zone_name": "Roca 1",
-        "name": "Roca 1",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399756,
         "osm_relation_id": 19399756,
         "source_url": "https://www.openstreetmap.org/relation/19399756",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.551466,
+        "feature_id": "zone_roca1"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6569493,
-              -34.5728081
-            ],
-            [
-              -58.6561893,
-              -34.5721284
-            ],
-            [
-              -58.655341,
-              -34.5714013
-            ],
             [
               -58.6548786,
               -34.5709946
@@ -6939,40 +7398,53 @@
             [
               -58.6569493,
               -34.5728081
+            ],
+            [
+              -58.6561893,
+              -34.5721284
+            ],
+            [
+              -58.655341,
+              -34.5714013
+            ],
+            [
+              -58.6548786,
+              -34.5709946
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_roca1"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399755",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Roca 2",
         "zone_name": "Roca 2",
-        "name": "Roca 2",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399755,
         "osm_relation_id": 19399755,
         "source_url": "https://www.openstreetmap.org/relation/19399755",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.819824,
+        "feature_id": "zone_roca2"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.646317,
-              -34.5838633
-            ],
-            [
-              -58.6507734,
-              -34.5815362
-            ],
-            [
-              -58.653125,
-              -34.5803176
-            ],
             [
               -58.6554969,
               -34.5790484
@@ -7172,40 +7644,53 @@
             [
               -58.646317,
               -34.5838633
+            ],
+            [
+              -58.6507734,
+              -34.5815362
+            ],
+            [
+              -58.653125,
+              -34.5803176
+            ],
+            [
+              -58.6554969,
+              -34.5790484
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_roca2"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399748",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "San Alberto",
         "zone_name": "San Alberto",
-        "name": "San Alberto",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399748,
         "osm_relation_id": 19399748,
         "source_url": "https://www.openstreetmap.org/relation/19399748",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.190633,
+        "feature_id": "zone_sanalberto"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
-            [
-              -58.6592066,
-              -34.6019764
-            ],
-            [
-              -58.6586511,
-              -34.6014968
-            ],
             [
               -58.6577804,
               -34.6007451
@@ -7293,40 +7778,53 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
+            ],
+            [
+              -58.6586511,
+              -34.6014968
+            ],
+            [
+              -58.6577804,
+              -34.6007451
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_sanalberto"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399758",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "San Damián",
         "zone_name": "San Damián",
-        "name": "San Damián",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399758,
         "osm_relation_id": 19399758,
         "source_url": "https://www.openstreetmap.org/relation/19399758",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "very_low",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.91019,
+        "feature_id": "zone_sandamian"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6669098,
-              -34.5895344
-            ],
-            [
-              -58.6683778,
-              -34.5908323
-            ],
-            [
-              -58.6684722,
-              -34.5907372
-            ],
             [
               -58.6709845,
               -34.5887383
@@ -7546,36 +8044,53 @@
             [
               -58.6669098,
               -34.5895344
+            ],
+            [
+              -58.6683778,
+              -34.5908323
+            ],
+            [
+              -58.6684722,
+              -34.5907372
+            ],
+            [
+              -58.6709845,
+              -34.5887383
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_sandamian"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399754",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Santa Clara",
         "zone_name": "Santa Clara",
-        "name": "Santa Clara",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399754,
         "osm_relation_id": 19399754,
         "source_url": "https://www.openstreetmap.org/relation/19399754",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "existing_polygon",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.450097,
+        "feature_id": "zone_santaclara"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.658001,
-              -34.5821614
-            ],
-            [
-              -58.657028,
-              -34.5808877
-            ],
             [
               -58.6563353,
               -34.5799853
@@ -7691,40 +8206,49 @@
             [
               -58.658001,
               -34.5821614
+            ],
+            [
+              -58.657028,
+              -34.5808877
+            ],
+            [
+              -58.6563353,
+              -34.5799853
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_santaclara"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399746",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Santa Leonor",
         "zone_name": "Santa Leonor",
-        "name": "Santa Leonor",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399746,
         "osm_relation_id": 19399746,
         "source_url": "https://www.openstreetmap.org/relation/19399746",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.407642,
+        "feature_id": "zone_santaleonor"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6540381,
-              -34.5972125
-            ],
-            [
-              -58.6548671,
-              -34.5978832
-            ],
-            [
-              -58.6556854,
-              -34.5985816
-            ],
             [
               -58.6561312,
               -34.5982245
@@ -7880,40 +8404,53 @@
             [
               -58.6540381,
               -34.5972125
+            ],
+            [
+              -58.6548671,
+              -34.5978832
+            ],
+            [
+              -58.6556854,
+              -34.5985816
+            ],
+            [
+              -58.6561312,
+              -34.5982245
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_santaleonor"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399348",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Scholnik",
         "zone_name": "Scholnik",
-        "name": "Scholnik",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399348,
         "osm_relation_id": 19399348,
         "source_url": "https://www.openstreetmap.org/relation/19399348",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.544929,
+        "feature_id": "zone_scholnik"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6210018,
-              -34.6124855
-            ],
-            [
-              -58.6201958,
-              -34.613768
-            ],
-            [
-              -58.6201343,
-              -34.6142601
-            ],
             [
               -58.6201934,
               -34.6145498
@@ -8069,39 +8606,64 @@
             [
               -58.6210018,
               -34.6124855
+            ],
+            [
+              -58.6201958,
+              -34.613768
+            ],
+            [
+              -58.6201343,
+              -34.6142601
+            ],
+            [
+              -58.6201934,
+              -34.6145498
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_scholnik"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399486",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Villa Alemania",
         "zone_name": "Villa Alemania",
-        "name": "Villa Alemania",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399486,
         "osm_relation_id": 19399486,
         "source_url": "https://www.openstreetmap.org/relation/19399486",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.504816,
+        "feature_id": "zone_villaalemania"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
             [
-              -58.6164103,
-              -34.5880037
+              -58.616463,
+              -34.59036
             ],
             [
-              -58.6164122,
-              -34.5887518
+              -58.616484172,
+              -34.590518213
             ],
             [
-              -58.6164629,
-              -34.5903613
+              -58.616484198,
+              -34.59051841
             ],
             [
               -58.6165938,
@@ -8124,20 +8686,48 @@
               -34.5957407
             ],
             [
-              -58.6180393,
-              -34.5961922
+              -58.617927368,
+              -34.596031611
             ],
             [
-              -58.6183308,
-              -34.5964752
+              -58.61792737,
+              -34.596031614
+            ],
+            [
+              -58.61804,
+              -34.59619
+            ],
+            [
+              -58.61833,
+              -34.596474
+            ],
+            [
+              -58.618540087,
+              -34.596672302
+            ],
+            [
+              -58.61854038,
+              -34.596672578
             ],
             [
               -58.6188461,
               -34.5969605
             ],
             [
-              -58.619134,
-              -34.5976883
+              -58.61884651,
+              -34.596961537
+            ],
+            [
+              -58.618846511,
+              -34.596961538
+            ],
+            [
+              -58.618847,
+              -34.596962
+            ],
+            [
+              -58.619134269,
+              -34.597688167
             ],
             [
               -58.620717,
@@ -8240,89 +8830,134 @@
               -34.5877872
             ],
             [
-              -58.6164103,
-              -34.5880037
+              -58.616429146,
+              -34.587994874
+            ],
+            [
+              -58.616429137,
+              -34.587994879
+            ],
+            [
+              -58.616410303,
+              -34.58800484
+            ],
+            [
+              -58.616410822,
+              -34.588209165
+            ],
+            [
+              -58.616413,
+              -34.58875
+            ],
+            [
+              -58.616463,
+              -34.59036
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_villaalemania"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399631",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Villa Club",
         "zone_name": "Villa Club",
-        "name": "Villa Club",
-        "locality": null,
+        "locality": "Hurlingham",
+        "parent_locality": "Hurlingham",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399631,
         "osm_relation_id": 19399631,
         "source_url": "https://www.openstreetmap.org/relation/19399631",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "polygonized_relation_lines",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": true,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 2.599492,
+        "feature_id": "zone_villaclub"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
             [
-              -58.6475704,
-              -34.5681331
+              -58.641316118,
+              -34.567199164
             ],
             [
-              -58.6461957,
-              -34.5679316
+              -58.641316117,
+              -34.567199164
             ],
             [
-              -58.6434958,
-              -34.567533
+              -58.639297,
+              -34.56883
             ],
             [
-              -58.6412145,
-              -34.5671836
+              -58.638283,
+              -34.569633
             ],
             [
-              -58.6411332,
-              -34.5671712
+              -58.6373,
+              -34.57046
             ],
             [
-              -58.6391331,
-              -34.5688216
+              -58.636383,
+              -34.571217
             ],
             [
-              -58.6390748,
-              -34.568871
+              -58.635628,
+              -34.571857
             ],
             [
-              -58.6355869,
-              -34.5718066
+              -58.63486,
+              -34.57251
             ],
             [
-              -58.6348056,
-              -34.5724628
+              -58.634125,
+              -34.573166
             ],
             [
-              -58.6342742,
-              -34.5729168
+              -58.632687,
+              -34.574375
             ],
             [
-              -58.6326161,
-              -34.5743185
+              -58.631523,
+              -34.575348
             ],
             [
-              -58.6289048,
-              -34.5774639
+              -58.63041,
+              -34.576286
             ],
             [
-              -58.6241632,
-              -34.5814657
+              -58.62895,
+              -34.577507
             ],
             [
-              -58.6213092,
-              -34.5838598
+              -58.628426,
+              -34.57794
             ],
             [
-              -58.6211871,
-              -34.583956
+              -58.62794,
+              -34.57835
+            ],
+            [
+              -58.62392,
+              -34.58172
+            ],
+            [
+              -58.621246,
+              -34.583992
+            ],
+            [
+              -58.621238785,
+              -34.583998185
             ],
             [
               -58.6212649,
@@ -8587,40 +9222,53 @@
             [
               -58.6475704,
               -34.5681331
+            ],
+            [
+              -58.6461957,
+              -34.5679316
+            ],
+            [
+              -58.6434958,
+              -34.567533
+            ],
+            [
+              -58.641316118,
+              -34.567199164
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_villaclub"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399349",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Villa Tesei Centro",
         "zone_name": "Villa Tesei Centro",
-        "name": "Villa Tesei Centro",
-        "locality": null,
+        "locality": "Villa Tesei",
+        "parent_locality": "Villa Tesei",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399349,
         "osm_relation_id": 19399349,
         "source_url": "https://www.openstreetmap.org/relation/19399349",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium_high",
+        "candidate_source_confidence": "medium_high",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 1.855967,
+        "feature_id": "zone_villateseicentro"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6426326,
-              -34.6201477
-            ],
-            [
-              -58.6421393,
-              -34.619549
-            ],
-            [
-              -58.6417689,
-              -34.6190831
-            ],
             [
               -58.6415829,
               -34.6188524
@@ -8992,40 +9640,53 @@
             [
               -58.6426326,
               -34.6201477
+            ],
+            [
+              -58.6421393,
+              -34.619549
+            ],
+            [
+              -58.6417689,
+              -34.6190831
+            ],
+            [
+              -58.6415829,
+              -34.6188524
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_villateseicentro"
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "osm_relation_19399635",
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Virgen Esperanza",
         "zone_name": "Virgen Esperanza",
-        "name": "Virgen Esperanza",
-        "locality": null,
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399635,
         "osm_relation_id": 19399635,
         "source_url": "https://www.openstreetmap.org/relation/19399635",
         "source_name": "OpenStreetMap Overpass API",
-        "zone_extraction_method": "relation_members_polygonized",
-        "generated_at": "2026-06-12T14:15:36.288159+00:00"
+        "source_method": "relation_members_polygonized",
+        "source_confidence": "medium",
+        "candidate_source_confidence": "medium",
+        "strict_source_available": false,
+        "needs_manual_review": false,
+        "topology_normalized": true,
+        "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
+        "generated_at": "2026-06-15T02:04:23.824601+00:00",
+        "area_km2": 0.266832,
+        "feature_id": "zone_virgenesperanza"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6472003,
-              -34.5952628
-            ],
-            [
-              -58.6478421,
-              -34.5960723
-            ],
-            [
-              -58.6484609,
-              -34.5968487
-            ],
             [
               -58.6489326,
               -34.5974221
@@ -9161,10 +9822,23 @@
             [
               -58.6472003,
               -34.5952628
+            ],
+            [
+              -58.6478421,
+              -34.5960723
+            ],
+            [
+              -58.6484609,
+              -34.5968487
+            ],
+            [
+              -58.6489326,
+              -34.5974221
             ]
           ]
         ]
-      }
+      },
+      "id": "zone_virgenesperanza"
     }
   ]
 }

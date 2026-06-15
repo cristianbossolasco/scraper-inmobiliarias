@@ -1,6 +1,7 @@
 import re
 
 from properties.models import Property
+from properties.services.zone_names import UNIFIED_HURLINGHAM_CENTRO_ZONE
 from .normalization import (
     clean_address_for_storage,
     extract_embedded_neighborhood,
@@ -23,7 +24,16 @@ LOCALITY_PATTERNS = (
 NEIGHBORHOOD_PATTERNS = (
     ("Santos Tesei", (r"\bsantos\s+tesei\b",)),
     ("Parque Johnston", (r"\bparque\s+johnston\b", r"\bjohnston\b")),
-    ("Barrio Inglés", (r"\bbarrio\s+ingles\b", r"\bingles\b")),
+    (
+        UNIFIED_HURLINGHAM_CENTRO_ZONE,
+        (
+            r"\bhurlingham\s+centro(?:\s*\(\s*barrio\s+ingles\s*\))?\b",
+            r"\bhurlingham\s+centro\s+barrio\s+ingles\b",
+            r"\bbarrio\s+ingles\b",
+            r"\bb\s+ingles\b",
+            r"\bingles\b",
+        ),
+    ),
 )
 
 REFERENCE_PATTERNS = (

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Territorio | Radar Hurlingham{% endblock %}
+{% block body %}
+<header class="app-header">
+  <div>
+    <a class="brand" href="{% url 'properties:search' %}">Radar Hurlingham</a>
+    <span class="count">Jerarquía territorial</span>
+  </div>
+  <div class="header-actions">
+    <a class="icon-button" href="{% url 'properties:stats' %}" title="Dashboard" aria-label="Dashboard">
+      <i data-lucide="bar-chart-3"></i>
+    </a>
+    <a class="icon-button" href="{% url 'properties:search' %}" title="Resultados" aria-label="Resultados">
+      <i data-lucide="list"></i>
+    </a>
+  </div>
+</header>
+
+<main class="territory-page">
+  <aside class="territory-sidebar">
+    <section class="territory-panel territory-panel-heading">
+      <div>
+        <h1>Jerarquía territorial</h1>
+        <p>Partido, localidades, zonas y gaps de cobertura.</p>
+      </div>
+      <span id="territory-status" class="status-pill neutral">Cargando</span>
+    </section>
+
+    <section class="territory-panel">
+      <label for="territory-search">Buscar</label>
+      <div class="territory-search-row">
+        <input id="territory-search" type="search" autocomplete="off" placeholder="Zona o localidad">
+        <button class="icon-button" id="territory-clear-search" type="button" title="Limpiar" aria-label="Limpiar búsqueda">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="territory-layer-toggles" aria-label="Capas">
+        <label><input type="checkbox" data-layer-toggle="partido" checked><span>Partido</span></label>
+        <label><input type="checkbox" data-layer-toggle="localidades" checked><span>Localidades</span></label>
+        <label><input type="checkbox" data-layer-toggle="zonas" checked><span>Zonas</span></label>
+        <label><input type="checkbox" data-layer-toggle="gaps" checked><span>Gaps</span></label>
+      </div>
+    </section>
+
+    <section class="territory-panel territory-tree-panel">
+      <div id="territory-tree" class="territory-tree"></div>
+    </section>
+  </aside>
+
+  <section class="territory-map-shell">
+    <div id="territory-map" class="territory-map"></div>
+    <div id="territory-map-legend" class="territory-map-legend">
+      <span><i class="legend-swatch partido"></i>Partido</span>
+      <span><i class="legend-swatch localidad"></i>Localidad</span>
+      <span><i class="legend-swatch zona"></i>Zona</span>
+      <span><i class="legend-swatch gap"></i>Gap</span>
+    </div>
+  </section>
+
+  <aside class="territory-detail territory-panel" id="territory-detail">
+    <p class="eyebrow">Selección</p>
+    <h2>Partido de Hurlingham</h2>
+    <dl>
+      <div><dt>Nivel</dt><dd>Partido</dd></div>
+      <div><dt>Confianza</dt><dd>-</dd></div>
+      <div><dt>Área</dt><dd>-</dd></div>
+      <div><dt>Revisión</dt><dd>-</dd></div>
+    </dl>
+    <p class="audit-note">Seleccioná una localidad, zona o gap para auditar su evidencia.</p>
+  </aside>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/territory-map.js' %}"></script>
+{% endblock %}

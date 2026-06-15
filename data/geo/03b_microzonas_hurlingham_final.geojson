@@ -1,0 +1,14 @@
+{
+  "type": "FeatureCollection",
+  "name": "03b_microzonas_hurlingham_final",
+  "metadata": {
+    "generated_at": "2026-06-15T02:04:23.824601+00:00",
+    "crs": "EPSG:4326",
+    "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
+    "source_name": "No active microzones",
+    "source_zip": "C:\\Users\\corebi\\Downloads\\hurlingham_geo_hierarchy_package.zip",
+    "data_confidence": "not_applicable",
+    "notes": "Barrio Ingles and Hurlingham Centro are unified as zone `Hurlingham Centro (Barrio Ingles)`."
+  },
+  "features": []
+}

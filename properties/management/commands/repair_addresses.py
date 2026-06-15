@@ -7,6 +7,7 @@ from properties.services.normalization import (
     extract_embedded_neighborhood,
     normalize_address,
 )
+from properties.services.zone_names import UNIFIED_HURLINGHAM_CENTRO_ZONE
 
 
 def same_geocoding_target(before, after):
@@ -23,7 +24,7 @@ KNOWN_ADDRESS_CORRECTIONS = {
     2987: {"address": "Rossini 2000", "locality": "Hurlingham"},
     1068: {"address": "GRANADA 500"},
     845: {"address": "Bonorino 634", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
-    2792: {"address": "NECOCHEA 1300", "locality": "Hurlingham", "neighborhood": "Barrio Inglés"},
+    2792: {"address": "NECOCHEA 1300", "locality": "Hurlingham", "neighborhood": UNIFIED_HURLINGHAM_CENTRO_ZONE},
     698: {"address": "José de Andonaegui 2600", "locality": "William C. Morris"},
     4409: {"address": "Las Araucarias 1900", "locality": "Hurlingham", "neighborhood": "Los Troncos"},
     4548: {"address": "Juan Díaz de Solís 1686", "locality": "William C. Morris"},
