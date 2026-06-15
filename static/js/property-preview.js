@@ -69,7 +69,7 @@
   }
 
   function previewNoteBackupKey(propertyId) {
-    return `radar.propertyPreview.${propertyId}.draftNote`;
+    return `radar.property.${propertyId}.draftNote`;
   }
 
   function renderEditField(field) {
@@ -162,7 +162,7 @@
         <div class="property-preview-map-heading">
           <div>
             <h3>Ubicacion</h3>
-            <p class="audit-note">Move el marcador o hace clic en el mapa para corregir la ubicacion.</p>
+            <p class="audit-note">Mueve el marcador o hace clic en el mapa para corregir la ubicacion.</p>
           </div>
           <button class="secondary-button" type="button" data-preview-save-location>
             <i data-lucide="map-pin-check"></i> Guardar ubicacion
@@ -288,7 +288,7 @@
 
   async function savePreviewLocation(propertyId, statusNode) {
     if (!propertyPreviewLocationDraft) {
-      if (statusNode) statusNode.textContent = "Move el marcador o hace clic en el mapa antes de guardar.";
+      if (statusNode) statusNode.textContent = "Mueve el marcador o hace clic en el mapa antes de guardar.";
       return;
     }
     await requestJson(`/api/propiedad/${propertyId}/ubicacion/`, {
@@ -395,6 +395,9 @@
     propertyModalClose?.addEventListener("click", close);
     propertyModal.addEventListener("click", (event) => {
       if (event.target === propertyModal) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && propertyModal.open) close();
     });
     document.addEventListener("click", (event) => {
       const previewButton = event.target.closest(".property-preview-trigger,[data-map-preview-id],[data-property-preview-id]");
