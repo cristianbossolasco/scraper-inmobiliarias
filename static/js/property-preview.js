@@ -294,11 +294,15 @@
       if (statusNode) statusNode.textContent = "Mueve el marcador o hace clic en el mapa antes de guardar.";
       return;
     }
-    await requestJson(`/api/propiedad/${propertyId}/ubicacion/`, {
+    const payload = await requestJson(`/api/propiedad/${propertyId}/ubicacion/`, {
       method: "POST",
       body: JSON.stringify(propertyPreviewLocationDraft)
     });
-    if (statusNode) statusNode.textContent = "Ubicacion guardada. Podes inferir zona.";
+    if (statusNode) {
+      statusNode.textContent = payload.territory_ready
+        ? "Ubicacion guardada. Podes inferir zona."
+        : "Ubicacion guardada fuera del area objetivo; revisala antes de inferir zona.";
+    }
   }
 
   async function inferPreviewTerritory(propertyId, statusNode) {
@@ -388,6 +392,7 @@
   }
 
   function open(propertyId) {
+    setSelectedPreviewItem(propertyId);
     loadPropertyPreview(propertyId);
   }
 
@@ -403,6 +408,50 @@
     return true;
   }
 
+  function isEditableTarget(target) {
+    return Boolean(target?.closest?.("input, textarea, select, [contenteditable='true'], [contenteditable='']"));
+  }
+
+  function visiblePreviewItems() {
+    return Array.from(document.querySelectorAll(".property-card[data-property-id], .property-table tbody tr[data-property-id]"))
+      .filter((item) => item.offsetParent !== null);
+  }
+
+  function currentPreviewPropertyId() {
+    const { propertyModalContent } = elements();
+    return propertyModalContent?.querySelector(".property-preview-layout")?.dataset.propertyId || "";
+  }
+
+  function setSelectedPreviewItem(propertyId) {
+    if (!propertyId) return;
+    document.querySelectorAll(".property-card.is-selected, .property-table tbody tr.is-selected").forEach((item) => {
+      item.classList.remove("is-selected");
+    });
+    const escapedId = CSS.escape(String(propertyId));
+    const item = document.querySelector(
+      `.property-card[data-property-id="${escapedId}"], .property-table tbody tr[data-property-id="${escapedId}"]`
+    );
+    if (!item) return;
+    item.classList.add("is-selected");
+    item.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+
+  function navigatePreview(direction) {
+    const { propertyModal } = elements();
+    if (!propertyModal?.open) return false;
+    const items = visiblePreviewItems();
+    if (!items.length) return false;
+    const currentId = currentPreviewPropertyId();
+    let index = items.findIndex((item) => item.dataset.propertyId === currentId);
+    if (index < 0) index = Math.max(0, items.findIndex((item) => item.classList.contains("is-selected")));
+    const nextIndex = index + direction;
+    if (nextIndex < 0 || nextIndex >= items.length) return false;
+    const nextId = items[nextIndex].dataset.propertyId;
+    if (!nextId || nextId === currentId) return false;
+    open(nextId);
+    return true;
+  }
+
   function install() {
     const { propertyModal, propertyModalClose, propertyModalContent } = elements();
     if (!propertyModal || propertyModal.dataset.previewBound) return;
@@ -412,7 +461,14 @@
       if (event.target === propertyModal) close();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && propertyModal.open) close();
+      if (!propertyModal.open) return;
+      if (event.key === "Escape") {
+        close();
+        return;
+      }
+      if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && !isEditableTarget(event.target)) {
+        if (navigatePreview(event.key === "ArrowRight" ? 1 : -1)) event.preventDefault();
+      }
     });
     document.addEventListener("click", (event) => {
       const previewButton = event.target.closest(".property-preview-trigger,[data-map-preview-id],[data-property-preview-id]");

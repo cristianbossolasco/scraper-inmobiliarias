@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from properties.models import Property
 from properties.services.normalization import (
+    canonical_address_alias,
     classify_address_precision,
     extract_embedded_neighborhood,
     fold_text,
@@ -341,7 +342,8 @@ def extract_zonaprop_address_from_text(text):
             candidate,
             flags=re.I,
         )
-        return clean_detected_address(candidate)
+        address = clean_detected_address(candidate)
+        return canonical_address_alias(address) if address else ""
 
     candidates = []
     for match in re.finditer(
@@ -363,7 +365,7 @@ def extract_zonaprop_address_from_text(text):
         folded = fold_text(candidate)
         if re.search(property_words, folded, re.I):
             continue
-        address = clean_detected_address(candidate)
+        address = canonical_address_alias(clean_detected_address(candidate))
         if address:
             return address
     return ""
@@ -460,7 +462,7 @@ def _zonaprop_address_from_soup(soup):
                 continue
             candidate = re.sub(r"^(?:venta|ubicaci(?:o|ó)n)\s+", "", candidate, flags=re.I).strip()
             candidate = re.sub(r"\b(?:USD|U\$S|US\$|ARS|\$)\s*[\d.,]+\b", "", candidate, flags=re.I).strip(" ,.-")
-            address = clean_detected_address(candidate)
+            address = canonical_address_alias(clean_detected_address(candidate))
             if address and not ADDRESS_FALSE_POSITIVE_RE.search(address):
                 return address[:250]
     return ""
@@ -685,7 +687,8 @@ class AnaliaFernandezScraper(TokkoSearchScraper):
             ],
         )
         if address:
-            data["address"] = clean_detected_address(address)[:250]
+            cleaned_address = clean_detected_address(address)
+            data["address"] = canonical_address_alias(cleaned_address)[:250]
         data["location_precision"] = classify_address_precision(data.get("address"))
         data["raw_data"] = data.get("raw_data") or {}
         data["raw_data"]["analia_fields"] = fields
@@ -859,6 +862,9 @@ class RiquelmeScraper(CommonDetailScraper):
             elif status_badge == "suspended":
                 data["status"] = Property.Status.SUSPENDED
                 data["source_status"] = "suspended"
+            elif status_badge == "sold":
+                data["status"] = Property.Status.SOLD
+                data["source_status"] = "sold"
             if data.get("currency") == "ARS" and not data.get("price"):
                 data["currency"] = ""
         else:
@@ -896,13 +902,19 @@ class RiquelmeScraper(CommonDetailScraper):
     def _status_badge(self, soup, text):
         status_nodes = " ".join(
             clean_text(node.get_text(" ", strip=True))
-            for node in soup.select(".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended']")
+            for node in soup.select(
+                ".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended'], [class*='sold']"
+            )
         )
         status_markup = " ".join(
             " ".join(node.get("class") or [])
-            for node in soup.select(".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended']")
+            for node in soup.select(
+                ".btn-danger, .search-item-status, [class*='reserved'], [class*='suspended'], [class*='sold']"
+            )
         )
         status_folded = fold_text(f"{status_nodes} {status_markup}")
+        if re.search(r"vendid|search-item-sold", status_folded, re.I):
+            return "sold"
         if re.search(r"reservad|search-item-reserved", status_folded, re.I):
             return "reserved"
         if re.search(r"suspendido|no\s+disponible|search-item-suspended", status_folded, re.I):

@@ -162,8 +162,22 @@ class NormalizationTests(TestCase):
         )
         self.assertIn("Isabel Maestro 3500", address_alias_variants("Isabel del Maestro 3500"))
         self.assertIn("Isabel de Maestro 3500", address_alias_variants("Isabel del Maestro 3500"))
+        self.assertIn("El Maestro Argentino 1900", address_alias_variants("Maestra Argentino 1900"))
+        self.assertIn("El Maestro Argentino 3100", address_alias_variants("Maestro Argentino 3100"))
+        self.assertIn("Gral. Simón Bolívar 1700", address_alias_variants("Gral Simon Bolivar 1700"))
+        self.assertIn("Gral. Simón Bolívar 1738", address_alias_variants("Simón Bolívar 1738"))
+        self.assertIn("Dip. Hector Finochietto 2000", address_alias_variants("Diputado Finochietto 2000"))
         self.assertIn("Dip. Hector Finochietto 1700", address_alias_variants("Finocchieto 1700"))
         self.assertIn("Finochietto 1700", address_alias_variants("Finocchieto 1700"))
+        self.assertIn("Vasco Núñez de Balboa 379", address_alias_variants("BALBOA 379"))
+        self.assertIn("Gral. Martín Güemes 1668", address_alias_variants("GUEMES 1668"))
+        self.assertIn("Tte. Gral. Julio Argentino Roca 1940", address_alias_variants("Av.Julio A Roca 1940"))
+        self.assertIn("Tte. Gral. Pablo Ricchieri 1400", address_alias_variants("Richieri 1400"))
+        self.assertIn("Nilda Figueira 1400", address_alias_variants("Nilda Figueiras 1400"))
+        self.assertIn("Diego de Carvajal 800", address_alias_variants("Diego de Carabajal 800"))
+        self.assertIn("José Garibaldi 2600", address_alias_variants("Garibaldi 2600"))
+        self.assertIn("Av. Gdor. Vergara 3604", address_alias_variants("avenida vergara 3604"))
+        self.assertIn("Eva Perón 2200 esquina Guevara", address_alias_variants("J. Bustamante y Guevara 2200"))
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -411,6 +425,10 @@ class NormalizationTests(TestCase):
         self.assertEqual(
             clean_detected_address("Carhue 391. Entre Maestra Salinas y Las Provincias"),
             "Carhué 391",
+        )
+        self.assertEqual(
+            clean_detected_address("Hurlingham-conscripto Bernardi 1900"),
+            "Conscripto Bernardi 1900",
         )
 
 
@@ -1991,6 +2009,33 @@ class IngestionTests(TestCase):
             (1093, "J. Batlle y Ordoñez e/ Lima y Misserere", "Villa Tesei", "Villa Tesei"),
             (1086, "Ginebra e/ Atuel y Solís", "Hurlingham", "Hurlingham"),
             (1085, "Lavalle e/ Cañuelas y Dolores de Huici", "William C. Morris", "William C. Morris"),
+            (37, "El Maestro Argentino 1800", "Hurlingham", "William C. Morris"),
+            (163, "Diputado Finochietto 2000", "Hurlingham", "Hurlingham"),
+            (719, "Gral Simon Bolivar 1700", "Hurlingham", "Hurlingham"),
+            (1400, "Diputado Finochietto 2000", "Hurlingham", "Hurlingham"),
+            (3758, "Maestra Argentino 1900", "Hurlingham", "William C. Morris"),
+            (5693, "BALBOA 379", "Hurlingham", "Villa Tesei"),
+            (5692, "General Pedro Díaz 2400", "Hurlingham", "William C. Morris"),
+            (5680, "Félix Frías 2500", "Hurlingham", "Hurlingham"),
+            (5679, "Valentín Alsina 2400", "Hurlingham", "Hurlingham"),
+            (5678, "Guemes 1000", "Hurlingham", "Hurlingham"),
+            (5677, "Av.Julio A Roca 1940", "Hurlingham", "Hurlingham"),
+            (5674, "Tte. Gral. Julio Argentino Roca 1276", "Hurlingham", "Hurlingham"),
+            (5643, "Francisco Miranda 1700", "Hurlingham", "Hurlingham"),
+            (5630, "Richieri 1400", "Hurlingham", "Hurlingham"),
+            (5623, "Hurlingham-conscripto Bernardi 1900", "Hurlingham", "Hurlingham"),
+            (5616, "Teniente General Julio Argentino Roca 2700", "Hurlingham", "William C. Morris"),
+            (5613, "Nilda Figueiras 1400", "Hurlingham", "Hurlingham"),
+            (5611, "Tte. Gral. Julio Argentino Roca 1686", "Hurlingham", "Hurlingham"),
+            (5566, "Manuel A. Ocampo 1900", "Hurlingham", "Hurlingham"),
+            (5563, "General Bernardo O'Higgins 1918", "Hurlingham", "Hurlingham"),
+            (5561, "Diego de Carabajal 800", "Hurlingham", "Hurlingham"),
+            (5558, "Maestra A. González de Hecht 1100", "Hurlingham", "Villa Tesei"),
+            (5544, "Pablo Pizzurno 441", "Hurlingham", "Hurlingham"),
+            (5543, "Garibaldi 2600", "Hurlingham", "William C. Morris"),
+            (5540, "avenida vergara 3604", "Hurlingham", "Hurlingham"),
+            (5539, "GUEMES 1668", "Hurlingham", "Hurlingham"),
+            (5537, "J. Bustamante y Guevara 2200", "Hurlingham", "Hurlingham"),
         ]
         for property_id, address, locality, _expected_locality in cases:
             Property.objects.create(
@@ -2022,6 +2067,33 @@ class IngestionTests(TestCase):
             1093: ("José Batlle y Ordoñez esquina Lima", "Villa Tesei", "Santos Tesei"),
             1086: ("Ginebra esquina Atuel", "Hurlingham", ""),
             1085: ("Cañuelas esquina Dolores de Huici", "William C. Morris", ""),
+            37: ("El Maestro Argentino 1800", "William C. Morris", ""),
+            163: ("Dip. Hector Finochietto 2000", "Hurlingham", "Parque Johnston"),
+            719: ("Gral. Simón Bolívar 1700", "Hurlingham", "Parque Johnston"),
+            1400: ("Dip. Hector Finochietto 2000", "Hurlingham", "Parque Johnston"),
+            3758: ("El Maestro Argentino 1900", "William C. Morris", ""),
+            5693: ("Vasco Núñez de Balboa 379", "Villa Tesei", ""),
+            5692: ("Gral. Pedro Díaz 2400", "William C. Morris", ""),
+            5680: ("Félix Frías 2500", "Hurlingham", ""),
+            5679: ("Valentín Alsina 2400", "Hurlingham", ""),
+            5678: ("Gral. Martín Güemes 1000", "Hurlingham", ""),
+            5677: ("Tte. Gral. Julio Argentino Roca 1940", "Hurlingham", ""),
+            5674: ("Tte. Gral. Julio Argentino Roca 1276", "Hurlingham", ""),
+            5643: ("Gral. Francisco Miranda 1700", "Hurlingham", ""),
+            5630: ("Tte. Gral. Pablo Ricchieri 1400", "Hurlingham", ""),
+            5623: ("Conscripto Bernardi 1900", "Hurlingham", ""),
+            5616: ("Tte. Gral. Julio Argentino Roca 2700", "William C. Morris", ""),
+            5613: ("Nilda Figueira 1400", "Hurlingham", ""),
+            5611: ("Tte. Gral. Julio Argentino Roca 1686", "Hurlingham", ""),
+            5566: ("Manuel A. Ocampo 1900", "Hurlingham", ""),
+            5563: ("Gral. Bernardo O'Higgins 1918", "Hurlingham", ""),
+            5561: ("Diego de Carvajal 800", "Hurlingham", "Parque Quirno"),
+            5558: ("Maestra A. González de Hecht 1100", "Villa Tesei", "Santos Tesei"),
+            5544: ("Pablo Pizzurno 441", "Hurlingham", ""),
+            5543: ("José Garibaldi 2600", "William C. Morris", ""),
+            5540: ("Av. Gdor. Vergara 3604", "Hurlingham", ""),
+            5539: ("Gral. Martín Güemes 1668", "Hurlingham", ""),
+            5537: ("Eva Perón 2200 esquina Guevara", "Hurlingham", ""),
         }
         for property_id, (address, locality, neighborhood) in expected.items():
             property_obj = Property.objects.get(pk=property_id)
@@ -2029,8 +2101,8 @@ class IngestionTests(TestCase):
             self.assertEqual(property_obj.locality, locality)
             if neighborhood:
                 self.assertEqual(property_obj.neighborhood, neighborhood)
-        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 10)
-        self.assertIn("10 direcciones corregidas", output.getvalue())
+        self.assertEqual(geocoder_cls.return_value.geocode_property.call_count, 37)
+        self.assertIn("37 direcciones corregidas", output.getvalue())
 
     def test_repair_addresses_preserves_location_when_only_metadata_changes(self):
         property_obj = Property.objects.create(
@@ -2139,6 +2211,87 @@ class IngestionTests(TestCase):
         self.assertNotEqual(second.property_id, property_obj.pk)
         self.assertEqual(property_obj.address, "Necochea 900")
         self.assertEqual(second.property.address, "Padre Torello 2600")
+        self.assertIn("1 publicaciones separadas", output.getvalue())
+
+    @patch("properties.management.commands.repair_merged_listings.get_adapter")
+    def test_repair_merged_listings_splits_riquelme_active_and_sold(self, get_adapter):
+        source = Source.objects.create(
+            slug="riquelme",
+            name="Riquelme Propiedades",
+            base_url="https://www.riquelmepropiedades.com.ar",
+        )
+        property_obj = Property.objects.create(
+            fingerprint="merged-riquelme",
+            title="Hurlingham: Villa Tesei. 2 chalet de 4 amb. A terminar",
+            address="Bizet",
+            locality="Villa Tesei",
+            currency="USD",
+            price=125000,
+        )
+        active_listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-93836",
+            url="https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-93836",
+        )
+        sold_listing = Listing.objects.create(
+            source=source,
+            property=property_obj,
+            external_id="venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-8505",
+            url="https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-8505",
+        )
+
+        class FakeAdapter:
+            def parse(self, url):
+                if url.endswith("93836"):
+                    return {
+                        "external_id": "venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-93836",
+                        "url": url,
+                        "title": "Hurlingham: Villa Tesei. 2 chalet de 4 amb. A terminar",
+                        "address": "Bizet",
+                        "locality": "Villa Tesei",
+                        "property_type": "house",
+                        "currency": "USD",
+                        "price": 125000,
+                        "status": Property.Status.ACTIVE,
+                        "source_status": "",
+                    }
+                return {
+                    "external_id": "venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-8505",
+                    "url": url,
+                    "title": "Casa en Venta en Villa Tesei, Hurlingham, Buenos Aires Camargo",
+                    "address": "Camargo",
+                    "locality": "Villa Tesei",
+                    "property_type": "house",
+                    "currency": "USD",
+                    "price": 90000,
+                    "status": Property.Status.SOLD,
+                    "source_status": "sold",
+                    "raw_data": {"riquelme_status_badge": "sold"},
+                }
+
+        get_adapter.return_value = FakeAdapter()
+
+        output = StringIO()
+        call_command(
+            "repair_merged_listings",
+            "--property-id",
+            str(property_obj.pk),
+            "--source",
+            "riquelme",
+            stdout=output,
+        )
+
+        active_listing.refresh_from_db()
+        sold_listing.refresh_from_db()
+        property_obj.refresh_from_db()
+        self.assertEqual(active_listing.property_id, property_obj.pk)
+        self.assertEqual(property_obj.status, Property.Status.ACTIVE)
+        self.assertEqual(active_listing.source_status, "")
+        self.assertNotEqual(sold_listing.property_id, property_obj.pk)
+        self.assertEqual(sold_listing.source_status, "sold")
+        self.assertEqual(sold_listing.property.status, Property.Status.SOLD)
+        self.assertEqual(sold_listing.raw_data["riquelme_status_badge"], "sold")
         self.assertIn("1 publicaciones separadas", output.getvalue())
 
 
@@ -3077,6 +3230,78 @@ class ViewTests(TestCase):
             self.listing.property.location.precision,
             PropertyLocation.Precision.MANUAL,
         )
+        self.assertTrue(response.json()["has_location"])
+        self.assertTrue(response.json()["territory_ready"])
+
+    def test_manual_location_then_infer_territory_uses_saved_pin(self):
+        listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "manual-pin-infer",
+                "url": "https://example.com/manual-pin-infer",
+                "title": "Casa con pin manual",
+                "address": "Gral. Pedro Díaz 2400",
+                "locality": "William C. Morris",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 120000,
+            },
+        )
+        PropertyLocation.objects.filter(property=listing.property).delete()
+        location_response = self.client.post(
+            f"/api/propiedad/{listing.property_id}/ubicacion/",
+            data=json.dumps({"latitude": -34.606, "longitude": -58.648}),
+            content_type="application/json",
+        )
+        self.assertEqual(location_response.status_code, 200)
+        self.assertTrue(location_response.json()["has_location"])
+
+        territory_result = SimpleNamespace(
+            partido="Partido de Hurlingham",
+            locality="William C. Morris",
+            zone="Los Patitos",
+            confidence="medium_high",
+            source_method="manual_pin_test",
+            needs_review=False,
+            evidence={"source": "manual_pin"},
+        )
+        score_result = SimpleNamespace(
+            overall_score=68,
+            level="media",
+            zone_name="Los Patitos",
+            match_method="polygon",
+            confidence="medium_high",
+            transport_score=60,
+            education_score=70,
+            health_score=66,
+            flood_penalty_score=0,
+            urban_informality_score=0,
+            environmental_penalty_score=0,
+            development_potential_score=62,
+            in_flood_risk_zone=False,
+            nearest_renabap_m=None,
+            nearest_sube_point_m=200,
+            nearest_school_m=300,
+            nearest_health_center_m=500,
+            components={},
+            risks={},
+            evidence={"source": "manual_pin"},
+            source_signature="score-test",
+        )
+
+        with patch("properties.views.infer_property_territory", return_value=territory_result) as infer_mock, patch(
+            "properties.views.load_location_zones",
+            return_value={"configured": True, "features": [], "signature": "score-test"},
+        ), patch("properties.views.score_property_location_intelligence", return_value=score_result):
+            response = self.client.post(f"/api/propiedad/{listing.property_id}/inferir-territorio/")
+
+        self.assertEqual(response.status_code, 200)
+        infer_mock.assert_called_once()
+        inferred_property = infer_mock.call_args.args[0]
+        self.assertEqual(inferred_property.location.precision, PropertyLocation.Precision.MANUAL)
+        listing.property.refresh_from_db()
+        self.assertEqual(listing.property.inferred_locality, "William C. Morris")
+        self.assertEqual(listing.property.inferred_zone, "Los Patitos")
 
     def test_neighborhood_filter_uses_inferred_zone_as_fallback(self):
         listing, _ = ingest_listing(
@@ -4277,6 +4502,8 @@ class ScraperParserTests(TestCase):
         cases = [
             ("<button class='btn-danger'>Suspendido / No disponible</button>", Property.Status.SUSPENDED, "suspended"),
             ("<div class='search-item-status search-item-reserved'></div>", Property.Status.RESERVED, "reserved"),
+            ("<button class='btn-danger'>Vendido</button>", Property.Status.SOLD, "sold"),
+            ("<div class='search-item-status search-item-sold'></div>", Property.Status.SOLD, "sold"),
         ]
         for badge_html, expected_status, expected_source_status in cases:
             with self.subTest(expected_source_status=expected_source_status):
@@ -4302,6 +4529,25 @@ class ScraperParserTests(TestCase):
                 self.assertEqual(data["raw_data"]["riquelme_status_badge"], expected_source_status)
                 self.assertEqual(data["address"], "")
                 self.assertNotIn("Vergara", data.get("detected_address") or "")
+
+        scraper = RiquelmeScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa en Hurlingham</h1>
+              <main class="property-description">
+                <p>Venta de casa en Hurlingham</p>
+              </main>
+              <footer>Todos los derechos Reservados Av. Vergara N° 3090</footer>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse(
+            "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-buenos-aires-708-34472"
+        )
+        self.assertEqual(data["source_status"], "")
+        self.assertNotIn("riquelme_status_badge", data["raw_data"])
 
     def test_century21_detail_json_parses_metrics_and_coordinates(self):
         scraper = Century21Scraper()
@@ -4357,6 +4603,7 @@ class ScraperParserTests(TestCase):
                 Decimal("70000"),
                 Decimal("120"),
                 Decimal("40"),
+                "ARGERICH",
             ),
             (
                 "Venta fondo de comercio vivero",
@@ -4369,9 +4616,48 @@ class ScraperParserTests(TestCase):
                 Decimal("26000000"),
                 Decimal("1"),
                 Decimal("1"),
+                "Tte. Gral. Julio Argentino Roca 579",
+            ),
+            (
+                "Casa en Hurlingham",
+                "USD 150.000",
+                "GUEMES 1668, Hurlingham, Hurlingham",
+                "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-59000000.html",
+                "Casa · 100m² 100 m² tot. 80 m² cub. 4 amb. 2 baños 3 dorm. 20 años",
+                Property.Type.HOUSE,
+                "USD",
+                Decimal("150000"),
+                Decimal("100"),
+                Decimal("80"),
+                "Gral. Martín Güemes 1668",
+            ),
+            (
+                "Casa Conscripto Bernardi",
+                "USD 120.000",
+                "Hurlingham-conscripto Bernardi 1900, Hurlingham, Hurlingham",
+                "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-59000001.html",
+                "Casa · 90m² 90 m² tot. 70 m² cub. 3 amb. 1 baño 2 dorm. 20 años",
+                Property.Type.HOUSE,
+                "USD",
+                Decimal("120000"),
+                Decimal("90"),
+                Decimal("70"),
+                "Conscripto Bernardi 1900",
             ),
         ]
-        for title, price, address, url, highlights, property_type, currency, amount, total_area, covered_area in cases:
+        for (
+            title,
+            price,
+            address,
+            url,
+            highlights,
+            property_type,
+            currency,
+            amount,
+            total_area,
+            covered_area,
+            expected_address,
+        ) in cases:
             with self.subTest(title=title):
                 scraper = ZonapropScraper()
                 scraper.soup = lambda _url, title=title, price=price, address=address: BeautifulSoup(
@@ -4389,7 +4675,7 @@ class ScraperParserTests(TestCase):
                 self.assertEqual(data["property_type"], property_type)
                 self.assertEqual(data["currency"], currency)
                 self.assertEqual(data["price"], amount)
-                self.assertTrue(data["address"].startswith(address.split(",")[0].strip()))
+                self.assertTrue(data["address"].startswith(expected_address))
                 self.assertEqual(data["total_area"], total_area)
                 self.assertEqual(data["covered_area"], covered_area)
                 self.assertEqual(data["raw_data"]["zonaprop_currency_inference"]["inferred_currency"], currency)
@@ -4589,7 +4875,7 @@ class ScraperParserTests(TestCase):
             "analia_fernandez_full_detail.html",
             "https://www.fernandezpropiedades.com.ar/p/4743235-Casa-en-Venta-en-Hurlingham-Diego-Carabajal-al-500",
         )
-        self.assertEqual(data["address"], "Diego Carabajal 500")
+        self.assertEqual(data["address"], "Diego de Carvajal 500")
         self.assertEqual(data["rooms"], 4)
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["bathrooms"], Decimal("1"))

@@ -1901,6 +1901,8 @@ def update_location(request, pk):
     return JsonResponse(
         {
             "ok": True,
+            "has_location": True,
+            "territory_ready": not outside,
             "latitude": location.latitude,
             "longitude": location.longitude,
             "precision": location.precision,

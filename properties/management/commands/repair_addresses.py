@@ -42,9 +42,36 @@ KNOWN_ADDRESS_CORRECTIONS = {
     5542: {"address": "Doctor Delfor Díaz 1700", "locality": "Hurlingham"},
     713: {"address": "José Garibaldi 3000", "locality": "William C. Morris"},
     720: {"address": "Dip. Hector Finochietto 1700", "locality": "Hurlingham"},
+    37: {"address": "El Maestro Argentino 1800", "locality": "William C. Morris"},
+    163: {"address": "Dip. Hector Finochietto 2000", "locality": "Hurlingham", "neighborhood": "Parque Johnston"},
+    719: {"address": "Gral. Simón Bolívar 1700", "locality": "Hurlingham", "neighborhood": "Parque Johnston"},
+    1400: {"address": "Dip. Hector Finochietto 2000", "locality": "Hurlingham", "neighborhood": "Parque Johnston"},
+    3758: {"address": "El Maestro Argentino 1900", "locality": "William C. Morris"},
     979: {"address": "Isabel del Maestro 3500", "locality": "William C. Morris"},
     1037: {"address": "Adrián de Rosario Luna 800", "locality": "Hurlingham"},
     4507: {"address": "Argerich esquina Marqués de Avilés", "locality": "Hurlingham"},
+    5693: {"address": "Vasco Núñez de Balboa 379", "locality": "Villa Tesei"},
+    5692: {"address": "Gral. Pedro Díaz 2400", "locality": "William C. Morris"},
+    5680: {"address": "Félix Frías 2500", "locality": "Hurlingham"},
+    5679: {"address": "Valentín Alsina 2400", "locality": "Hurlingham"},
+    5678: {"address": "Gral. Martín Güemes 1000", "locality": "Hurlingham"},
+    5677: {"address": "Tte. Gral. Julio Argentino Roca 1940", "locality": "Hurlingham"},
+    5674: {"address": "Tte. Gral. Julio Argentino Roca 1276", "locality": "Hurlingham"},
+    5643: {"address": "Gral. Francisco Miranda 1700", "locality": "Hurlingham"},
+    5630: {"address": "Tte. Gral. Pablo Ricchieri 1400", "locality": "Hurlingham"},
+    5623: {"address": "Conscripto Bernardi 1900", "locality": "Hurlingham"},
+    5616: {"address": "Tte. Gral. Julio Argentino Roca 2700", "locality": "William C. Morris"},
+    5613: {"address": "Nilda Figueira 1400", "locality": "Hurlingham"},
+    5611: {"address": "Tte. Gral. Julio Argentino Roca 1686", "locality": "Hurlingham"},
+    5566: {"address": "Manuel A. Ocampo 1900", "locality": "Hurlingham"},
+    5563: {"address": "Gral. Bernardo O'Higgins 1918", "locality": "Hurlingham"},
+    5561: {"address": "Diego de Carvajal 800", "locality": "Hurlingham", "neighborhood": "Parque Quirno"},
+    5558: {"address": "Maestra A. González de Hecht 1100", "locality": "Villa Tesei", "neighborhood": "Santos Tesei"},
+    5544: {"address": "Pablo Pizzurno 441", "locality": "Hurlingham"},
+    5543: {"address": "José Garibaldi 2600", "locality": "William C. Morris"},
+    5540: {"address": "Av. Gdor. Vergara 3604", "locality": "Hurlingham"},
+    5539: {"address": "Gral. Martín Güemes 1668", "locality": "Hurlingham"},
+    5537: {"address": "Eva Perón 2200 esquina Guevara", "locality": "Hurlingham"},
 }
 
 
@@ -64,10 +91,14 @@ STREET_METADATA_RULES = (
     ("jose garibaldi", {"locality": "William C. Morris"}),
     ("gral jose garibaldi", {"locality": "William C. Morris"}),
     ("isabel del maestro", {"locality": "William C. Morris"}),
+    ("el maestro argentino", {"locality": "William C. Morris"}),
+    ("maestro argentino", {"locality": "William C. Morris"}),
+    ("maestra argentino", {"locality": "William C. Morris"}),
     ("dip hector finochietto", {"locality": "Hurlingham"}),
     ("finochietto", {"locality": "Hurlingham"}),
     ("adrian de rosario luna", {"locality": "Hurlingham"}),
     ("argerich esquina marques de aviles", {"locality": "Hurlingham"}),
+    ("vasco nunez de balboa", {"locality": "Villa Tesei"}),
 )
 
 
@@ -113,16 +144,22 @@ class Command(BaseCommand):
                 updates["detected_address"] = detected_cleaned
             if known.get("address"):
                 cleaned_known = str(known["address"]).strip()
-                updates["address"] = cleaned_known
-                updates["detected_address"] = cleaned_known
-                updates["normalized_address"] = normalize_address(cleaned_known)
+                normalized_known = normalize_address(cleaned_known)
+                if updates.get("address", property_obj.address) != cleaned_known:
+                    updates["address"] = cleaned_known
+                if updates.get("detected_address", property_obj.detected_address) != cleaned_known:
+                    updates["detected_address"] = cleaned_known
+                if updates.get("normalized_address", property_obj.normalized_address) != normalized_known:
+                    updates["normalized_address"] = normalized_known
             if known.get("locality"):
-                updates["locality"] = known["locality"]
-                if property_obj.detected_locality:
+                if updates.get("locality", property_obj.locality) != known["locality"]:
+                    updates["locality"] = known["locality"]
+                if property_obj.detected_locality and updates.get("detected_locality", property_obj.detected_locality) != known["locality"]:
                     updates["detected_locality"] = known["locality"]
             if known.get("neighborhood"):
-                updates["neighborhood"] = known["neighborhood"]
-                if property_obj.detected_neighborhood:
+                if updates.get("neighborhood", property_obj.neighborhood) != known["neighborhood"]:
+                    updates["neighborhood"] = known["neighborhood"]
+                if property_obj.detected_neighborhood and updates.get("detected_neighborhood", property_obj.detected_neighborhood) != known["neighborhood"]:
                     updates["detected_neighborhood"] = known["neighborhood"]
             elif embedded_neighborhood and property_obj.neighborhood in {"", "Hurlingham"}:
                 updates["neighborhood"] = embedded_neighborhood

@@ -75,6 +75,12 @@ def clean_detected_address(value):
         return ""
     text = ADDRESS_STOP_PATTERN.split(text, maxsplit=1)[0]
     text = re.sub(r"^(?:Direccion|Direcci(?:on|ón)|Ubicaci(?:on|ón))\s*:?\s*", "", text, flags=re.I)
+    text = re.sub(
+        r"^(?:hurlingham|villa\s+tesei|william(?:\s+c\.?)?\s+morris)\s*[-–]\s*",
+        "",
+        text,
+        flags=re.I,
+    )
     text = clean_address_for_storage(text.strip(" -–|,")) or normalize_street_number_address(text.strip(" -–|,"))
     return text if is_plausible_property_address(text) else ""
 
