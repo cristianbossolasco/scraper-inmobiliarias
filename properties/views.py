@@ -86,7 +86,7 @@ from .services.crime_context import (
     homicide_counts_by_zone,
 )
 from .services.geo_hierarchy import geo_hierarchy_payload
-from .services.geocoding import address_number, street_key
+from .services.geocoding import Geocoder, address_number, street_key
 from .services.normalization import (
     clean_address_for_storage,
     locality_from_neighborhood,
@@ -220,7 +220,7 @@ def _coerce_edit_value(field, value):
     if field == "address":
         return clean_address_for_storage(value) or normalize_whitespace(value)
     if field == "locality":
-        return normalize_locality(value or "")
+        return normalize_locality(value or "") or normalize_whitespace(value)
     if field == "neighborhood":
         return normalize_neighborhood_name(value or "") or normalize_whitespace(value)
     if field == "currency":
@@ -1387,6 +1387,49 @@ def _choice_options(choices):
     return [{"value": value, "label": label} for value, label in choices]
 
 
+def _locality_edit_options():
+    names = {
+        "Hurlingham",
+        "Villa Tesei",
+        "William C. Morris",
+    }
+    names.update(
+        normalize_whitespace(value)
+        for value in Property.objects.exclude(locality="")
+        .values_list("locality", flat=True)
+        .distinct()
+        if normalize_whitespace(value)
+    )
+    names.update(
+        normalize_whitespace(value)
+        for value in Property.objects.exclude(detected_locality="")
+        .values_list("detected_locality", flat=True)
+        .distinct()
+        if normalize_whitespace(value)
+    )
+    names.update(
+        normalize_whitespace(value)
+        for value in Property.objects.exclude(inferred_locality="")
+        .values_list("inferred_locality", flat=True)
+        .distinct()
+        if normalize_whitespace(value)
+    )
+    return [{"value": name, "label": name} for name in sorted(names)]
+
+
+def _zone_edit_options():
+    names = set(_canonical_zone_names())
+    for field in ("neighborhood", "detected_neighborhood", "inferred_neighborhood", "inferred_zone"):
+        names.update(
+            normalize_whitespace(value)
+            for value in Property.objects.exclude(**{field: ""})
+            .values_list(field, flat=True)
+            .distinct()
+            if normalize_whitespace(value)
+        )
+    return [{"value": name, "label": name} for name in sorted(names)]
+
+
 def _property_edit_sections(property_obj):
     return [
         {
@@ -1434,8 +1477,8 @@ def _property_edit_sections(property_obj):
             "title": "Ubicacion",
             "fields": [
                 _edit_field("address", "Direccion", property_obj.address),
-                _edit_field("locality", "Localidad", property_obj.locality),
-                _edit_field("neighborhood", "Zona", property_obj.neighborhood),
+                _edit_field("locality", "Localidad", property_obj.locality, "combo", _locality_edit_options()),
+                _edit_field("neighborhood", "Zona", property_obj.neighborhood, "combo", _zone_edit_options()),
             ],
         },
         {
@@ -1918,10 +1961,13 @@ def infer_property_territory_api(request, pk):
         pk=pk,
     )
     if not hasattr(property_obj, "location"):
-        return JsonResponse(
-            {"error": "La propiedad no tiene coordenadas para inferir zona."},
-            status=400,
-        )
+        location = Geocoder().geocode_property(property_obj)
+        if not location:
+            return JsonResponse(
+                {"error": "La propiedad no tiene coordenadas y no se pudo geocodificar con direccion/localidad."},
+                status=400,
+            )
+        property_obj.location = location
 
     result = infer_property_territory(property_obj)
     apply_territory_inference(property_obj, result)

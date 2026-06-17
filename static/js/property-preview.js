@@ -72,6 +72,10 @@
     return `radar.property.${propertyId}.draftNote`;
   }
 
+  function optionListId(field) {
+    return `preview-${field.field}-options`;
+  }
+
   function renderEditField(field) {
     const value = field.value ?? "";
     const wide = field.input_type === "textarea" || ["title", "address", "description", "features"].includes(field.field);
@@ -92,6 +96,20 @@
               <option value="${escapeHtml(choice.value)}" ${String(choice.value) === String(value) ? "selected" : ""}>${escapeHtml(choice.label)}</option>
             `).join("")}
           </select>
+        </label>
+      `;
+    }
+    if (field.input_type === "combo") {
+      const listId = optionListId(field);
+      return `
+        <label class="${wide ? "wide" : ""}">
+          <span>${escapeHtml(field.label)}</span>
+          <input name="${escapeHtml(field.field)}" type="text" value="${escapeHtml(value)}" list="${escapeHtml(listId)}">
+          <datalist id="${escapeHtml(listId)}">
+            ${(field.choices || []).map((choice) => `
+              <option value="${escapeHtml(choice.value)}">${escapeHtml(choice.label)}</option>
+            `).join("")}
+          </datalist>
         </label>
       `;
     }
@@ -175,8 +193,15 @@
       </div>
     ` : `
       <div class="property-preview-map-panel">
-        <h3>Ubicacion</h3>
-        <p class="audit-note">Esta propiedad todavia no tiene coordenadas para mostrar en el mapa.</p>
+        <div class="property-preview-map-heading">
+          <div>
+            <h3>Ubicacion</h3>
+            <p class="audit-note">Esta propiedad todavia no tiene coordenadas para mostrar en el mapa.</p>
+          </div>
+          <button class="secondary-button" type="button" data-preview-infer-territory>
+            <i data-lucide="map"></i> Inferir zona
+          </button>
+        </div>
       </div>
     `;
     propertyModalContent.innerHTML = `
@@ -303,9 +328,15 @@
         ? "Ubicacion guardada. Podes inferir zona."
         : "Ubicacion guardada fuera del area objetivo; revisala antes de inferir zona.";
     }
+    propertyPreviewLocationDraft = null;
+    return payload;
   }
 
   async function inferPreviewTerritory(propertyId, statusNode) {
+    if (propertyPreviewLocationDraft) {
+      if (statusNode) statusNode.textContent = "Guardando ubicacion antes de inferir...";
+      await savePreviewLocation(propertyId, statusNode);
+    }
     if (statusNode) statusNode.textContent = "Infiriendo zona y score territorial...";
     const payload = await requestJson(`/api/propiedad/${propertyId}/inferir-territorio/`, {
       method: "POST",
@@ -334,7 +365,7 @@
       ? Promise.resolve(property.map_config)
       : fetch("/api/configuracion-mapa/").then((response) => response.json());
     configPromise.then((config) => {
-      propertyPreviewLocationDraft = { latitude, longitude };
+      propertyPreviewLocationDraft = null;
       propertyPreviewMap = new maplibregl.Map({
         container: "property-preview-map",
         style: {

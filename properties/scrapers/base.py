@@ -25,6 +25,7 @@ class SourceDefinition:
     crawl_delay: int = 2
     enabled: bool = True
     notes: str = ""
+    respect_robots: bool = True
 
 
 class BaseScraper(ABC):
@@ -91,6 +92,8 @@ class BaseScraper(ABC):
         return parser
 
     def allowed(self, url):
+        if not getattr(self.definition, "respect_robots", True):
+            return True
         return self.robots().can_fetch(USER_AGENT, url)
 
     def get(self, url):

@@ -36,6 +36,36 @@
   }
 
   function bindActions(root = document) {
+    root.querySelectorAll(".property-infer-zone:not([data-bound])").forEach((button) => {
+      button.dataset.bound = "1";
+      button.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const id = propertyId(button);
+        if (!id) return;
+        const oldTitle = button.title;
+        button.disabled = true;
+        button.title = "Infiriendo zona...";
+        try {
+          const response = await fetch(`/api/propiedad/${id}/inferir-territorio/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": csrf() },
+            body: JSON.stringify({})
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(data.error || "No se pudo inferir zona");
+          button.classList.add("active");
+          button.title = data.message || "Zona inferida";
+        } catch (error) {
+          button.title = error.message;
+          alert(error.message);
+        } finally {
+          button.disabled = false;
+          setTimeout(() => { button.title = oldTitle; }, 2200);
+        }
+      });
+    });
+
     root.querySelectorAll(".property-action:not([data-bound])").forEach((button) => {
       button.dataset.bound = "1";
       button.addEventListener("click", async () => {

@@ -146,6 +146,7 @@
               <strong>{{ source.name }}</strong>
               <small>{{ source.slug }}{% if not source.enabled %} · deshabilitado en scrape --all{% endif %}</small>
               {% if source.notes %}<small class="source-note">{{ source.notes }}</small>{% endif %}
+              <span class="source-run-summary" data-source-last-run="{{ source.slug }}"></span>
             </span>
           </label>
           <label class="worker-field">
@@ -377,6 +378,7 @@
   </section>
 </main>
 {{ operation_catalog|json_script:"operation-catalog" }}
+{{ sources|json_script:"source-catalog" }}
 {{ operation_jobs|json_script:"initial-operation-jobs" }}
 {{ jobs|json_script:"initial-scrape-jobs" }}
 {% endblock %}

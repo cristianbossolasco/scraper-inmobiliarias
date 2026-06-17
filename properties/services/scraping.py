@@ -201,6 +201,19 @@ def active_scrape_job():
 
 def source_catalog(include_disabled=True):
     adapters = get_adapter_classes(enabled_only=not include_disabled)
+    slugs = [
+        adapter.definition.slug
+        for adapter in adapters
+        if adapter.definition.slug not in BLOCKED_SOURCE_SLUGS
+    ]
+    last_runs = {}
+    for job_source in (
+        ScrapeJobSource.objects.select_related("job")
+        .filter(slug__in=slugs, started_at__isnull=False)
+        .order_by("slug", "-started_at", "-id")
+    ):
+        if job_source.slug not in last_runs:
+            last_runs[job_source.slug] = serialize_job_source(job_source, job=job_source.job, include_logs=False)
     return [
         {
             "slug": adapter.definition.slug,
@@ -208,6 +221,7 @@ def source_catalog(include_disabled=True):
             "enabled": adapter.definition.enabled,
             "crawl_delay": adapter.definition.crawl_delay,
             "notes": adapter.definition.notes,
+            "last_run": last_runs.get(adapter.definition.slug),
         }
         for adapter in adapters
         if adapter.definition.slug not in BLOCKED_SOURCE_SLUGS
@@ -244,6 +258,66 @@ def elapsed_seconds(started_at, finished_at=None):
     return max(round((end - started_at).total_seconds()), 0)
 
 
+def serialize_job_source(source, job=None, include_logs=True):
+    job = job or getattr(source, "job", None)
+    percent = 0
+    if source.total_to_process:
+        percent = round((source.processed / source.total_to_process) * 100, 1)
+    payload = {
+        "job_id": source.job_id,
+        "slug": source.slug,
+        "name": source.name,
+        "status": source.status,
+        "status_label": source.get_status_display(),
+        "workers": source.workers,
+        "total_discovered": source.total_discovered,
+        "total_to_process": source.total_to_process,
+        "processed": source.processed,
+        "created": source.created,
+        "updated": source.updated,
+        "skipped": source.skipped,
+        "errors": source.errors,
+        "geocode_pending": source.geocode_pending,
+        "geocoded": source.geocoded,
+        "geocode_failed": source.geocode_failed,
+        "current_url": source.current_url if include_logs else "",
+        "error_urls": (source.error_urls or []) if include_logs else [],
+        "logs": source.logs if include_logs else "",
+        "percent": percent,
+        "started_at": source.started_at.isoformat() if source.started_at else None,
+        "finished_at": source.finished_at.isoformat() if source.finished_at else None,
+        "discovery_started_at": source.discovery_started_at.isoformat() if source.discovery_started_at else None,
+        "discovery_finished_at": source.discovery_finished_at.isoformat() if source.discovery_finished_at else None,
+        "processing_started_at": source.processing_started_at.isoformat() if source.processing_started_at else None,
+        "processing_finished_at": source.processing_finished_at.isoformat() if source.processing_finished_at else None,
+        "geocoding_started_at": source.geocoding_started_at.isoformat() if source.geocoding_started_at else None,
+        "geocoding_finished_at": source.geocoding_finished_at.isoformat() if source.geocoding_finished_at else None,
+        "elapsed_seconds": elapsed_seconds(source.started_at, source.finished_at),
+        "discovery_seconds": elapsed_seconds(source.discovery_started_at, source.discovery_finished_at),
+        "processing_seconds": elapsed_seconds(source.processing_started_at, source.processing_finished_at),
+        "geocoding_seconds": elapsed_seconds(source.geocoding_started_at, source.geocoding_finished_at),
+    }
+    if job is not None:
+        payload.update(
+            {
+                "job_status": job.status,
+                "job_status_label": job.get_status_display(),
+                "runner": job.runner,
+                "runner_label": job.get_runner_display(),
+                "scrape_mode": job.scrape_mode,
+                "scrape_mode_label": job.get_scrape_mode_display(),
+                "max_pages": job.max_pages,
+                "start_page": job.start_page,
+                "max_listings": job.max_listings,
+                "geocode_limit": job.geocode_limit,
+                "mark_missing": job.mark_missing,
+                "request_timeout_seconds": job.request_timeout_seconds,
+                "max_errors_per_source": job.max_errors_per_source,
+            }
+        )
+    return payload
+
+
 def record_source_error(job_source, url, exc):
     entry = {
         "url": url,
@@ -255,39 +329,21 @@ def record_source_error(job_source, url, exc):
     job_source.error_urls = errors[-200:]
 
 
+def finish_source_phase(job_source, phase, finished_at=None):
+    started_field = f"{phase}_started_at"
+    finished_field = f"{phase}_finished_at"
+    if getattr(job_source, started_field) and not getattr(job_source, finished_field):
+        setattr(job_source, finished_field, finished_at or timezone.now())
+        return True
+    return False
+
+
 def serialize_job(job):
     job.refresh_from_db()
-    sources = []
-    for source in job.sources.select_related("source").order_by("name"):
-        percent = 0
-        if source.total_to_process:
-            percent = round((source.processed / source.total_to_process) * 100, 1)
-        sources.append(
-            {
-                "slug": source.slug,
-                "name": source.name,
-                "status": source.status,
-                "status_label": source.get_status_display(),
-                "workers": source.workers,
-                "total_discovered": source.total_discovered,
-                "total_to_process": source.total_to_process,
-                "processed": source.processed,
-                "created": source.created,
-                "updated": source.updated,
-                "skipped": source.skipped,
-                "errors": source.errors,
-                "geocode_pending": source.geocode_pending,
-                "geocoded": source.geocoded,
-                "geocode_failed": source.geocode_failed,
-                "current_url": source.current_url,
-                "error_urls": source.error_urls or [],
-                "logs": source.logs,
-                "percent": percent,
-                "started_at": source.started_at.isoformat() if source.started_at else None,
-                "finished_at": source.finished_at.isoformat() if source.finished_at else None,
-                "elapsed_seconds": elapsed_seconds(source.started_at, source.finished_at),
-            }
-        )
+    sources = [
+        serialize_job_source(source, job=job)
+        for source in job.sources.select_related("source").order_by("name")
+    ]
     return {
         "id": job.pk,
         "status": job.status,
@@ -565,9 +621,11 @@ def run_scrape_job_source(job_id, slug):
             append_source_log(job_source, f"Fuente bloqueada permanentemente: {slug}.")
             db_write(lambda: job_source.save(update_fields=["status", "errors"]))
             return
+        phase_started_at = timezone.now()
         job_source.status = ScrapeJobSource.Status.DISCOVERING
-        job_source.started_at = timezone.now()
-        db_write(lambda: job_source.save(update_fields=["status", "started_at"]))
+        job_source.started_at = phase_started_at
+        job_source.discovery_started_at = phase_started_at
+        db_write(lambda: job_source.save(update_fields=["status", "started_at", "discovery_started_at"]))
         append_source_log(job_source, "Descubriendo URLs...")
         if using_sqlite():
             append_source_log(job_source, "Modo seguro SQLite activo: escrituras serializadas por cola.")
@@ -632,8 +690,26 @@ def run_scrape_job_source(job_id, slug):
         if job.max_listings is not None:
             discovered_urls = discovered_urls[: job.max_listings]
         job_source.total_to_process = len(discovered_urls)
-        job_source.status = ScrapeJobSource.Status.RUNNING
-        db_write(lambda: job_source.save(update_fields=["total_discovered", "total_to_process", "status"]))
+        finish_source_phase(job_source, "discovery")
+        if discovered_urls:
+            job_source.status = ScrapeJobSource.Status.RUNNING
+            job_source.processing_started_at = timezone.now()
+            update_fields = [
+                "total_discovered",
+                "total_to_process",
+                "status",
+                "discovery_finished_at",
+                "processing_started_at",
+            ]
+        else:
+            job_source.status = ScrapeJobSource.Status.SUCCESS
+            update_fields = [
+                "total_discovered",
+                "total_to_process",
+                "status",
+                "discovery_finished_at",
+            ]
+        db_write(lambda: job_source.save(update_fields=update_fields))
         declared_total = discovery_stats.get("declared_total")
         coverage_ratio = discovery_stats.get("coverage_ratio")
         coverage_complete = discovery_stats.get("coverage_complete", True)
@@ -667,7 +743,6 @@ def run_scrape_job_source(job_id, slug):
         )
 
         if not discovered_urls:
-            job_source.status = ScrapeJobSource.Status.SUCCESS
             return
 
         with ThreadPoolExecutor(max_workers=job_source.workers) as executor:
@@ -840,6 +915,9 @@ def run_scrape_job_source(job_id, slug):
                                 if pending_future.cancel():
                                     pending.pop(pending_future, None)
 
+        if finish_source_phase(job_source, "processing"):
+            db_write(lambda: job_source.save(update_fields=["processing_finished_at"]))
+
         job.refresh_from_db()
         if job.cancel_requested:
             job_source.status = ScrapeJobSource.Status.CANCELLED
@@ -918,7 +996,21 @@ def run_scrape_job_source(job_id, slug):
     finally:
         now = timezone.now()
         job_source.finished_at = now
-        db_write(lambda: job_source.save(update_fields=["status", "errors", "finished_at", "logs"]))
+        phase_fields = []
+        for phase in ("discovery", "processing", "geocoding"):
+            if finish_source_phase(job_source, phase, now):
+                phase_fields.append(f"{phase}_finished_at")
+        db_write(
+            lambda: job_source.save(
+                update_fields=[
+                    "status",
+                    "errors",
+                    "finished_at",
+                    "logs",
+                    *phase_fields,
+                ]
+            )
+        )
         if run is not None:
             run.status = ScrapeRun.Status.PARTIAL if run.errors else ScrapeRun.Status.SUCCESS
             if job_source.status == ScrapeJobSource.Status.FAILED:
@@ -941,41 +1033,46 @@ def geocode_source_candidates(job, job_source, property_ids):
         return
 
     job_source.geocode_pending = len(properties)
-    db_write(lambda: job_source.save(update_fields=["geocode_pending"]))
+    job_source.geocoding_started_at = timezone.now()
+    db_write(lambda: job_source.save(update_fields=["geocode_pending", "geocoding_started_at"]))
     append_source_log(
         job_source,
         f"Geocodificando {len(properties)} propiedades con direccion detectada en modo seguro Nominatim (1 hilo, rate limit global)...",
     )
     geocoder = Geocoder()
     started = monotonic()
-    for index, property_obj in enumerate(properties, start=1):
-        if job_cancelled(job.pk):
-            append_source_log(job_source, "Geocodificacion detenida por cancelacion.")
-            break
-        try:
-            job_source.current_url = f"propiedad #{property_obj.pk}"
-            if geocoder.geocode_property(property_obj):
-                job_source.geocoded += 1
-            else:
+    try:
+        for index, property_obj in enumerate(properties, start=1):
+            if job_cancelled(job.pk):
+                append_source_log(job_source, "Geocodificacion detenida por cancelacion.")
+                break
+            try:
+                job_source.current_url = f"propiedad #{property_obj.pk}"
+                if geocoder.geocode_property(property_obj):
+                    job_source.geocoded += 1
+                else:
+                    job_source.geocode_failed += 1
+            except Exception as exc:
                 job_source.geocode_failed += 1
-        except Exception as exc:
-            job_source.geocode_failed += 1
-            append_source_log(job_source, f"GEOCODE ERROR propiedad {property_obj.pk}: {exc}")
-        finally:
-            db_write(
-                lambda: job_source.save(
-                    update_fields=["geocoded", "geocode_failed", "current_url", "logs"]
+                append_source_log(job_source, f"GEOCODE ERROR propiedad {property_obj.pk}: {exc}")
+            finally:
+                db_write(
+                    lambda: job_source.save(
+                        update_fields=["geocoded", "geocode_failed", "current_url", "logs"]
+                    )
                 )
-            )
-            if index == 1 or index == len(properties) or index % 5 == 0:
-                append_source_log(
-                    job_source,
-                    f"Geocodificacion progreso: {index}/{len(properties)} en {monotonic() - started:.1f}s.",
-                )
-    append_source_log(
-        job_source,
-        f"Geocodificacion: {job_source.geocoded} ubicadas, {job_source.geocode_failed} sin resultado/error.",
-    )
+                if index == 1 or index == len(properties) or index % 5 == 0:
+                    append_source_log(
+                        job_source,
+                        f"Geocodificacion progreso: {index}/{len(properties)} en {monotonic() - started:.1f}s.",
+                    )
+        append_source_log(
+            job_source,
+            f"Geocodificacion: {job_source.geocoded} ubicadas, {job_source.geocode_failed} sin resultado/error.",
+        )
+    finally:
+        finish_source_phase(job_source, "geocoding")
+        db_write(lambda: job_source.save(update_fields=["geocoding_finished_at", "logs"]))
 
 
 def _mark_missing_atomic(source, seen):

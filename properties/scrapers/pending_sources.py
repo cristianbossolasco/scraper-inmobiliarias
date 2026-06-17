@@ -837,7 +837,8 @@ class ValentiScraper(CommonDetailScraper):
         search_url="https://www.valentipropiedades.com.ar/casas-venta-hurlingham-partido",
         crawl_delay=2,
         enabled=False,
-        notes="Argencasas/SIBA propio con 111 casas del partido; paginacion publica por /motor/props.php.",
+        notes="Argencasas/SIBA propio con 111 casas del partido; /motor/props.php se consulta con bypass explicito de robots.",
+        respect_robots=False,
     )
     detail_patterns = (r"/propiedad-[^/]+-\d+-\d+$",)
     fallback_max_pages = 15

@@ -57,6 +57,7 @@ from properties.services.scraping import (
     create_scrape_job,
     db_writer_snapshot,
     run_scrape_job,
+    serialize_job,
     source_catalog,
 )
 from properties.services.security_scoring import risk_from_coverage, score_coordinates
@@ -81,7 +82,7 @@ from properties.services.territory_hierarchy import (
     infer_territory_for_point,
 )
 from properties.scrapers.argenprop import ArgenpropScraper
-from properties.scrapers.base import ROBOTS_CACHE
+from properties.scrapers.base import BaseScraper, ROBOTS_CACHE, SourceDefinition
 from properties.scrapers.argencasas import ArgencasasScraper
 from properties.scrapers.local_wordpress import (
     MiglieriniScraper,
@@ -2865,6 +2866,10 @@ class ViewTests(TestCase):
 
         self.assertContains(response, 'id="property-preview-modal"')
         self.assertContains(response, 'src="/static/js/property-preview.js"')
+        self.assertContains(response, 'class="icon-button small property-infer-zone"', count=1)
+
+        table_response = self.client.get("/", {"view": "table"})
+        self.assertContains(table_response, 'class="icon-button small property-infer-zone"', count=1)
 
     def test_search_export_and_view_controls_are_in_results_toolbar(self):
         response = self.client.get("/", {"view": "table", "q": "pileta"})
@@ -2938,10 +2943,56 @@ class ViewTests(TestCase):
             property_type=Property.Type.HOUSE,
         )
 
-        response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
+        with patch("properties.views.Geocoder") as geocoder_cls:
+            geocoder_cls.return_value.geocode_property.return_value = None
+            response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("coordenadas", response.json()["error"])
+
+    def test_infer_property_territory_api_geocodes_missing_coordinates(self):
+        property_obj = Property.objects.create(
+            fingerprint="without-location-geocode",
+            title="Sin ubicacion con direccion",
+            address="Rolland 1200",
+            locality="Hurlingham",
+            status=Property.Status.ACTIVE,
+            property_type=Property.Type.HOUSE,
+        )
+        location = PropertyLocation(
+            property=property_obj,
+            latitude=-34.591,
+            longitude=-58.641,
+            precision=PropertyLocation.Precision.EXACT,
+            provider="nominatim",
+            confidence=0.8,
+        )
+        territory_result = SimpleNamespace(
+            partido="Partido de Hurlingham",
+            locality="Hurlingham",
+            zone="Parque Johnston",
+            confidence="medium_high",
+            source_method="geocode_test",
+            needs_review=False,
+            evidence={"source": "geocode"},
+        )
+
+        with patch("properties.views.Geocoder") as geocoder_cls, patch(
+            "properties.views.infer_property_territory",
+            return_value=territory_result,
+        ) as infer_mock, patch(
+            "properties.views.load_location_zones",
+            return_value={"configured": False, "features": [], "signature": ""},
+        ):
+            geocoder_cls.return_value.geocode_property.return_value = location
+            response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
+
+        self.assertEqual(response.status_code, 200)
+        geocoder_cls.return_value.geocode_property.assert_called_once()
+        inferred_property = infer_mock.call_args.args[0]
+        self.assertEqual(inferred_property.location.latitude, -34.591)
+        property_obj.refresh_from_db()
+        self.assertEqual(property_obj.inferred_zone, "Parque Johnston")
 
     def test_security_filters_are_applied_to_geojson_api(self):
         primary = self.listing.property
@@ -3117,6 +3168,8 @@ class ViewTests(TestCase):
         self.assertContains(response, 'id="property-data-form"')
         self.assertContains(response, 'name="property_type"')
         self.assertContains(response, 'name="covered_area"')
+        self.assertContains(response, 'list="property-locality-options"')
+        self.assertContains(response, 'list="property-neighborhood-options"')
         self.assertContains(response, 'id="property-edit-payload"')
 
     def test_active_filters_persist_from_radar_to_dashboard(self):
@@ -3167,6 +3220,7 @@ class ViewTests(TestCase):
             data=json.dumps(
                 {
                     "address": "Rolland al 1.200",
+                    "locality": "Nueva Localidad Manual",
                     "price": "160000",
                     "neighborhood": "Barrio Ingles",
                     "bedrooms": "4",
@@ -3179,10 +3233,12 @@ class ViewTests(TestCase):
         property_obj.refresh_from_db()
         self.assertEqual(property_obj.address, "Rolland 1200")
         self.assertEqual(property_obj.normalized_address, "rolland 1200")
+        self.assertEqual(property_obj.locality, "Nueva Localidad Manual")
         self.assertEqual(property_obj.price, Decimal("160000"))
         self.assertEqual(property_obj.neighborhood, UNIFIED_HURLINGHAM_CENTRO_ZONE)
         self.assertEqual(property_obj.bedrooms, 4)
         self.assertIn("address", property_obj.manual_overrides)
+        self.assertIn("locality", property_obj.manual_overrides)
         self.assertIn("price", property_obj.manual_overrides)
         self.assertFalse(PropertyLocation.objects.filter(property=property_obj).exists())
 
@@ -4436,6 +4492,77 @@ class ScraperParserTests(TestCase):
         self.assertEqual(first_session.calls, 1)
         self.assertEqual(second_session.calls, 0)
         ROBOTS_CACHE.clear()
+
+    def test_base_scraper_can_bypass_robots_when_source_allows_it(self):
+        class FakeResponse:
+            ok = True
+            text = "<html><body>ok</body></html>"
+
+            def raise_for_status(self):
+                return None
+
+        class FakeSession:
+            def __init__(self):
+                self.headers = {}
+                self.calls = []
+
+            def get(self, url, timeout=None):
+                self.calls.append(url)
+                if url.endswith("/robots.txt"):
+                    raise AssertionError("robots.txt should not be fetched")
+                return FakeResponse()
+
+        class FakeScraper(BaseScraper):
+            definition = SourceDefinition(
+                slug="fake-no-robots",
+                name="Fake No Robots",
+                base_url="https://example.com",
+                search_url="https://example.com/private",
+                crawl_delay=0,
+                respect_robots=False,
+            )
+
+            def discover(self):
+                return []
+
+            def parse(self, url):
+                return None
+
+        session = FakeSession()
+        scraper = FakeScraper(session=session)
+
+        response = scraper.get("https://example.com/private")
+
+        self.assertEqual(response.text, "<html><body>ok</body></html>")
+        self.assertEqual(session.calls, ["https://example.com/private"])
+
+    def test_valenti_bypasses_robots_for_motor_pagination(self):
+        class FakeResponse:
+            ok = True
+            text = '<html><body><a href="/propiedad-casa-venta-hurlingham-143-16">Casa</a></body></html>'
+
+            def raise_for_status(self):
+                return None
+
+        class FakeSession:
+            def __init__(self):
+                self.headers = {}
+                self.calls = []
+
+            def get(self, url, timeout=None):
+                self.calls.append(url)
+                if url.endswith("/robots.txt"):
+                    raise AssertionError("Valenti should bypass robots.txt")
+                return FakeResponse()
+
+        scraper = ValentiScraper(session=FakeSession())
+        page_url = scraper._page_url(2)
+
+        self.assertFalse(scraper.definition.respect_robots)
+        self.assertIn("/motor/props.php", page_url)
+        soup = scraper.soup(page_url)
+        self.assertEqual(soup.get_text(" ", strip=True), "Casa")
+        self.assertEqual(scraper.session.calls, [page_url])
 
     def test_mapaprop_highlights_parser(self):
         data = self.parse_with_fixture(
@@ -6808,6 +6935,118 @@ class ScrapeCommandTests(TransactionTestCase):
         self.assertIn("2/2 procesadas", output.getvalue())
         self.assertIn("3 URLs descubiertas; 2 a procesar", output.getvalue())
         self.assertIn("no se marcan ausentes", output.getvalue())
+
+    def test_scrape_job_source_serializes_phase_durations(self):
+        Path(".scrape.lock").unlink(missing_ok=True)
+
+        class FakeDefinition:
+            slug = "fake"
+            name = "Fake Source"
+            base_url = "https://example.com"
+            enabled = False
+            crawl_delay = 0
+            notes = ""
+
+        class FakeAdapter:
+            definition = FakeDefinition()
+            discovery_stats = {"urls_discovered": 1}
+
+            def discover(self):
+                return ["https://example.com/1"]
+
+            def parse(self, url):
+                return {
+                    "external_id": "1",
+                    "url": url,
+                    "title": "Casa 1",
+                    "address": "Calle 1 100",
+                    "locality": "Hurlingham",
+                    "currency": "USD",
+                    "price": "100000",
+                }
+
+        with patch("properties.services.scraping.get_adapter", return_value=FakeAdapter()):
+            job = create_scrape_job(
+                ["fake"],
+                {"fake": 1},
+                geocode_limit=0,
+                mark_missing=False,
+            )
+            run_scrape_job(job.pk)
+
+        job.refresh_from_db()
+        source = job.sources.get(slug="fake")
+        self.assertIsNotNone(source.discovery_started_at)
+        self.assertIsNotNone(source.discovery_finished_at)
+        self.assertIsNotNone(source.processing_started_at)
+        self.assertIsNotNone(source.processing_finished_at)
+        self.assertIsNone(source.geocoding_started_at)
+        payload = serialize_job(job)
+        source_payload = payload["sources"][0]
+        self.assertIn("discovery_seconds", source_payload)
+        self.assertIn("processing_seconds", source_payload)
+        self.assertEqual(source_payload["geocoding_seconds"], 0)
+        self.assertEqual(source_payload["processed"], 1)
+
+    def test_source_catalog_exposes_last_run_metrics(self):
+        source = Source.objects.create(
+            slug="valenti",
+            name="Valenti Propiedades",
+            base_url="https://www.valentipropiedades.com.ar",
+        )
+        started_at = timezone.now() - timedelta(minutes=12)
+        discovery_started = started_at
+        discovery_finished = started_at + timedelta(seconds=20)
+        processing_started = discovery_finished
+        processing_finished = processing_started + timedelta(seconds=50)
+        finished_at = processing_finished
+        job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.SUCCESS,
+            selected_sources=["valenti"],
+            worker_config={"valenti": 2},
+            scrape_mode=ScrapeJob.Mode.TRIAL,
+            max_pages=2,
+            max_listings=10,
+            geocode_limit=0,
+            mark_missing=False,
+            started_at=started_at,
+            finished_at=finished_at,
+        )
+        ScrapeJobSource.objects.create(
+            job=job,
+            source=source,
+            slug="valenti",
+            name="Valenti Propiedades",
+            status=ScrapeJobSource.Status.SUCCESS,
+            workers=2,
+            total_discovered=20,
+            total_to_process=10,
+            processed=10,
+            created=3,
+            updated=7,
+            skipped=1,
+            errors=0,
+            started_at=started_at,
+            discovery_started_at=discovery_started,
+            discovery_finished_at=discovery_finished,
+            processing_started_at=processing_started,
+            processing_finished_at=processing_finished,
+            finished_at=finished_at,
+        )
+
+        catalog = {item["slug"]: item for item in source_catalog(include_disabled=True)}
+        last_run = catalog["valenti"]["last_run"]
+
+        self.assertEqual(last_run["job_id"], job.pk)
+        self.assertEqual(last_run["processed"], 10)
+        self.assertEqual(last_run["created"], 3)
+        self.assertEqual(last_run["updated"], 7)
+        self.assertEqual(last_run["skipped"], 1)
+        self.assertEqual(last_run["discovery_seconds"], 20)
+        self.assertEqual(last_run["processing_seconds"], 50)
+        self.assertEqual(last_run["scrape_mode"], ScrapeJob.Mode.TRIAL)
+        self.assertEqual(last_run["max_pages"], 2)
+        self.assertFalse(last_run["mark_missing"])
 
     def test_early_source_failure_does_not_leave_pending_or_success_job(self):
         Path(".scrape.lock").unlink(missing_ok=True)

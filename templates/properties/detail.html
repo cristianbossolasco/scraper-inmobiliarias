@@ -95,6 +95,13 @@
                         <option value="{{ option.value }}" {% if option.value == field.value %}selected{% endif %}>{{ option.label }}</option>
                       {% endfor %}
                     </select>
+                  {% elif field.input_type == "combo" %}
+                    <input name="{{ field.field }}" type="text" value="{{ field.value }}" list="property-{{ field.field }}-options" disabled>
+                    <datalist id="property-{{ field.field }}-options">
+                      {% for option in field.choices %}
+                        <option value="{{ option.value }}">{{ option.label }}</option>
+                      {% endfor %}
+                    </datalist>
                   {% elif field.input_type == "textarea" %}
                     <textarea name="{{ field.field }}" rows="{{ field.rows|default:4 }}" disabled>{{ field.value }}</textarea>
                   {% else %}

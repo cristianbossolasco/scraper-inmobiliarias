@@ -538,6 +538,7 @@
                 <button class="icon-button small property-action {% if property.is_favorite %}active{% endif %}" type="button" data-action="favorite" data-value="{% if property.is_favorite %}0{% else %}1{% endif %}" title="Favorita" aria-label="Favorita"><i data-lucide="star"></i></button>
                 <button class="icon-button small property-action {% if property.reviewed_at %}active{% endif %}" type="button" data-action="reviewed" data-value="{% if property.reviewed_at %}0{% else %}1{% endif %}" title="Marcar revisada" aria-label="Marcar revisada"><i data-lucide="check-circle"></i></button>
                 <button class="icon-button small property-action {% if property.is_hidden %}active danger{% endif %}" type="button" data-action="hidden" data-value="{% if property.is_hidden %}0{% else %}1{% endif %}" title="Ocultar o descartar" aria-label="Ocultar o descartar"><i data-lucide="eye-off"></i></button>
+                <button class="icon-button small property-infer-zone" type="button" title="Inferir zona" aria-label="Inferir zona"><i data-lucide="map"></i></button>
               </td>
               <td>{% if property.price %}{{ property.currency }} {{ property.price|floatformat:0 }}{% else %}Consultar{% endif %}</td>
               <td><a class="table-title" href="{{ item.detail_url }}">{{ property.title|truncatechars:64 }}</a></td>
@@ -606,6 +607,9 @@
             </button>
             <button class="icon-button small property-action {% if property.is_hidden %}active danger{% endif %}" type="button" data-action="hidden" data-value="{% if property.is_hidden %}0{% else %}1{% endif %}" title="Ocultar o descartar" aria-label="Ocultar o descartar">
               <i data-lucide="eye-off"></i>
+            </button>
+            <button class="icon-button small property-infer-zone" type="button" title="Inferir zona" aria-label="Inferir zona">
+              <i data-lucide="map"></i>
             </button>
             {% with listing=property.primary_listing %}
               {% if listing %}

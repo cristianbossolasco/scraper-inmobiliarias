@@ -11,6 +11,7 @@
   const jobsList = document.getElementById("jobs-list");
   const initialOperations = readJsonScript("initial-operation-jobs", []);
   const initialScrapes = readJsonScript("initial-scrape-jobs", []);
+  const sourceCatalog = readJsonScript("source-catalog", []);
   const stepLabels = {
     scrape: "Scraping",
     geocode: "Geocoding",
@@ -68,6 +69,7 @@
   initialScrapes
     .filter((job) => !initialNestedScrapeIds.has(Number(job.id)) && isActive(job))
     .forEach(scheduleLegacyPoll);
+  renderSourceLastRuns();
   sortJobCards();
   updateActionButtons();
 
@@ -369,6 +371,63 @@
       clearInterval(timers.get(job.id));
       timers.delete(job.id);
     }
+  }
+
+  function renderSourceLastRuns() {
+    const sourceBySlug = new Map(sourceCatalog.map((source) => [source.slug, source]));
+    document.querySelectorAll("[data-source-last-run]").forEach((node) => {
+      const source = sourceBySlug.get(node.dataset.sourceLastRun);
+      node.innerHTML = renderSourceLastRun(source ? source.last_run : null);
+    });
+  }
+
+  function renderSourceLastRun(run) {
+    if (!run) {
+      return `<span class="source-run-empty">Sin ejecuciones registradas</span>`;
+    }
+    const when = run.started_at ? new Date(run.started_at).toLocaleString() : "sin fecha";
+    const total = Number(run.total_to_process || run.total_discovered || 0);
+    const processed = Number(run.processed || 0);
+    const phaseLine = sourceRunPhases(run);
+    const details = sourceRunDetails(run);
+    return `
+      <span class="source-run-main">
+        <span>Ultima ${escapeHtml(when)}</span>
+        <span class="status-pill ${escapeAttribute(run.status || "")}">${escapeHtml(run.status_label || run.status || "")}</span>
+      </span>
+      <span class="source-run-kpis">
+        <span>${processed}/${total} procesadas</span>
+        <span>${Number(run.created || 0)} nuevas</span>
+        <span>${Number(run.updated || 0)} actualizadas</span>
+        <span>${Number(run.skipped || 0)} omitidas</span>
+        <span>${Number(run.errors || 0)} errores</span>
+        <span>${formatDuration(run.elapsed_seconds)}</span>
+      </span>
+      ${phaseLine ? `<span class="source-run-phases">${phaseLine}</span>` : ""}
+      ${details ? `<span class="source-run-details">${details}</span>` : ""}
+    `;
+  }
+
+  function sourceRunPhases(run) {
+    return [
+      run.discovery_started_at ? `discovery ${formatDuration(run.discovery_seconds)}` : "",
+      run.processing_started_at ? `procesamiento ${formatDuration(run.processing_seconds)}` : "",
+      run.geocoding_started_at ? `geocoding ${formatDuration(run.geocoding_seconds)}` : "",
+    ].filter(Boolean).map(escapeHtml).join(" · ");
+  }
+
+  function sourceRunDetails(run) {
+    const items = [
+      run.job_id ? `ScrapeJob #${run.job_id}` : "",
+      run.scrape_mode_label || "",
+      `${Number(run.workers || 1)} worker${Number(run.workers || 1) === 1 ? "" : "s"}`,
+      run.max_pages ? `max paginas ${run.max_pages}` : "",
+      run.start_page ? `desde pagina ${run.start_page}` : "",
+      run.max_listings ? `max fichas ${run.max_listings}` : "",
+      run.geocode_limit !== null && run.geocode_limit !== undefined ? `geocode ${run.geocode_limit}` : "",
+      run.mark_missing ? "marca ausentes" : "liviano",
+    ].filter(Boolean);
+    return items.map(escapeHtml).join(" · ");
   }
 
   function renderOperationStep(step) {

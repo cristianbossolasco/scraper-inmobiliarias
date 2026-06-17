@@ -553,6 +553,12 @@ class ScrapeJobSource(models.Model):
     error_urls = models.JSONField(default=list, blank=True)
     logs = models.TextField(blank=True)
     started_at = models.DateTimeField(null=True, blank=True)
+    discovery_started_at = models.DateTimeField(null=True, blank=True)
+    discovery_finished_at = models.DateTimeField(null=True, blank=True)
+    processing_started_at = models.DateTimeField(null=True, blank=True)
+    processing_finished_at = models.DateTimeField(null=True, blank=True)
+    geocoding_started_at = models.DateTimeField(null=True, blank=True)
+    geocoding_finished_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
