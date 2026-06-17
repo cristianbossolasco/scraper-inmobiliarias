@@ -455,7 +455,9 @@ def _selected_neighborhoods(params):
     selected = []
     canonical_by_key = {zone_key(name): name for name in _canonical_zone_names()}
     for value in _param_values(params, "neighborhood"):
-        normalized = canonical_by_key.get(zone_key(value)) or normalize_neighborhood_name(value)
+        normalized = canonical_by_key.get(zone_key(value)) or canonical_by_key.get(
+            zone_key(normalize_neighborhood_name(value))
+        )
         if normalized and normalized not in selected:
             selected.append(normalized)
     return selected
@@ -832,6 +834,8 @@ def filtered_property_queryset(params, include_listings=True):
                 | Q(location_intelligence__zone_name__in=values)
             )
         queryset = queryset.filter(neighborhood_q)
+    elif _param_values(params, "neighborhood"):
+        queryset = queryset.none()
 
     if params.get("zone_missing") == "1":
         queryset = queryset.filter(
@@ -1417,17 +1421,13 @@ def _locality_edit_options():
     return [{"value": name, "label": name} for name in sorted(names)]
 
 
-def _zone_edit_options():
-    names = set(_canonical_zone_names())
-    for field in ("neighborhood", "detected_neighborhood", "inferred_neighborhood", "inferred_zone"):
-        names.update(
-            normalize_whitespace(value)
-            for value in Property.objects.exclude(**{field: ""})
-            .values_list(field, flat=True)
-            .distinct()
-            if normalize_whitespace(value)
-        )
-    return [{"value": name, "label": name} for name in sorted(names)]
+def _zone_edit_options(current_value=""):
+    names = _canonical_zone_names()
+    options = [{"value": name, "label": name} for name in sorted(names)]
+    current = normalize_whitespace(current_value)
+    if current and zone_key(current) not in {zone_key(name) for name in names}:
+        options.append({"value": current, "label": f"{current} (actual/manual)"})
+    return options
 
 
 def _property_edit_sections(property_obj):
@@ -1478,7 +1478,13 @@ def _property_edit_sections(property_obj):
             "fields": [
                 _edit_field("address", "Direccion", property_obj.address),
                 _edit_field("locality", "Localidad", property_obj.locality, "combo", _locality_edit_options()),
-                _edit_field("neighborhood", "Zona", property_obj.neighborhood, "combo", _zone_edit_options()),
+                _edit_field(
+                    "neighborhood",
+                    "Zona declarada/manual",
+                    property_obj.neighborhood,
+                    "combo",
+                    _zone_edit_options(property_obj.neighborhood),
+                ),
             ],
         },
         {

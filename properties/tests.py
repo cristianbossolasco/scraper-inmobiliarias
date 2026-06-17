@@ -3170,7 +3170,31 @@ class ViewTests(TestCase):
         self.assertContains(response, 'name="covered_area"')
         self.assertContains(response, 'list="property-locality-options"')
         self.assertContains(response, 'list="property-neighborhood-options"')
+        self.assertContains(response, "Zona declarada/manual")
+        self.assertContains(response, 'value="El Destino"')
+        self.assertContains(response, 'value="Cartero"')
+        self.assertContains(response, 'value="Parque Johnston"')
+        self.assertNotContains(response, "Casa en Venta en Hurlingham")
+        self.assertNotContains(response, "Chalet en Venta")
         self.assertContains(response, 'id="property-edit-payload"')
+
+    def test_detail_zone_datalist_keeps_current_manual_value_only(self):
+        property_obj = self.listing.property
+        property_obj.neighborhood = "Zona Manual Nueva"
+        property_obj.save(update_fields=["neighborhood"])
+        Property.objects.create(
+            fingerprint="dirty-zone-option",
+            title="Propiedad con zona sucia",
+            neighborhood="Casa en Venta en Hurlingham",
+            property_type=Property.Type.HOUSE,
+            status=Property.Status.ACTIVE,
+        )
+
+        response = self.client.get(f"/propiedad/{property_obj.pk}/")
+
+        self.assertContains(response, 'value="Zona Manual Nueva"')
+        self.assertContains(response, "Zona Manual Nueva (actual/manual)")
+        self.assertNotContains(response, "Casa en Venta en Hurlingham")
 
     def test_active_filters_persist_from_radar_to_dashboard(self):
         self.client.get("/", {"price_max": "200000", "sort": "price"})
@@ -3388,6 +3412,37 @@ class ViewTests(TestCase):
         response = self.client.get("/", {"neighborhood": "Barrio Ingl\u00e9s"})
 
         self.assertContains(response, "Casa con zona inferida")
+
+    def test_neighborhood_filter_ignores_noncanonical_dirty_values(self):
+        clean_listing, _ = ingest_listing(
+            self.listing.source,
+            {
+                "external_id": "inferred-clean-zone",
+                "url": "https://example.com/inferred-clean-zone",
+                "title": "Casa limpia por zona",
+                "address": "Uspallata",
+                "locality": "Hurlingham",
+                "property_type": "house",
+                "currency": "USD",
+                "price": 100000,
+            },
+        )
+        clean_listing.property.inferred_zone = "El Destino"
+        clean_listing.property.neighborhood = ""
+        clean_listing.property.save(update_fields=["inferred_zone", "neighborhood"])
+        dirty = Property.objects.create(
+            fingerprint="dirty-filter-zone",
+            title="Propiedad con zona sucia",
+            neighborhood="Casa en Venta en Hurlingham",
+            property_type=Property.Type.HOUSE,
+            status=Property.Status.ACTIVE,
+        )
+
+        response = self.client.get("/", {"neighborhood": "El Destino"})
+        self.assertContains(response, "Casa limpia por zona")
+
+        dirty_response = self.client.get("/", {"neighborhood": dirty.neighborhood})
+        self.assertNotContains(dirty_response, "Propiedad con zona sucia")
 
     def test_detail_allows_manual_location_without_existing_pin(self):
         listing, _ = ingest_listing(
