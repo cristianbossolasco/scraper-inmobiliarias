@@ -2,7 +2,7 @@ import json
 import os
 import re
 from math import ceil
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from django.utils import timezone
@@ -692,6 +692,780 @@ class AnaliaFernandezScraper(TokkoSearchScraper):
         data["location_precision"] = classify_address_precision(data.get("address"))
         data["raw_data"] = data.get("raw_data") or {}
         data["raw_data"]["analia_fields"] = fields
+        return data
+
+
+def _safe_float(value):
+    parsed = parse_decimal(value)
+    return float(parsed) if parsed is not None else None
+
+
+def _price_from_text(value):
+    match = re.search(r"\b(USD|U\$S|U\$D|US\$|ARS|\$)\s*([\d.,]+)", value or "", re.I)
+    if not match:
+        return "", None
+    return normalize_currency(match.group(1)), parse_decimal(match.group(2))
+
+
+def _locality_from_text(text, default="Hurlingham"):
+    if re.search(r"william\s+(?:c\.\s*)?morris", text or "", re.I):
+        return "William C. Morris"
+    if re.search(r"villa\s+(?:santos\s+)?tesei|ciudad\s+tesei", text or "", re.I):
+        return "Villa Tesei"
+    if re.search(r"hurlingham", text or "", re.I):
+        return "Hurlingham"
+    return default
+
+
+def _clean_description(value):
+    return clean_text(BeautifulSoup(value or "", "lxml").get_text(" ", strip=True))
+
+
+def _page_url_with_page(search_url, page):
+    if page <= 1:
+        return search_url
+    parsed = urlparse(search_url)
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    query["page"] = str(page)
+    return urlunparse(parsed._replace(query=urlencode(query)))
+
+
+class PixelAdScraper(CommonDetailScraper):
+    detail_patterns = (r"/ad/",)
+    fallback_max_pages = 20
+    require_target_text = False
+
+    def _page_url(self, page):
+        return _page_url_with_page(self.definition.search_url, page)
+
+    def _listing_urls(self, soup):
+        yield from links_matching(self, soup, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=self.fallback_max_pages,
+        )
+
+    def parse(self, url):
+        if is_listing_page_url(url):
+            return None
+        soup = self.soup(url)
+        text = visible_text(soup)
+        if not is_target_zone(text):
+            return None
+        data = basic_html_data(soup, url)
+        code = text_value(text, [r"C(?:o|ó|Ã³)digo\s*:?\s*([A-Za-z0-9-]+)"])
+        address = text_value(
+            text,
+            [
+                r"C(?:o|ó|Ã³)digo\s*:?\s*[A-Za-z0-9-]+\s+(.+?),\s*(?:Hurlingham|Villa\s+(?:Santos\s+)?Tesei|William\s+C\.?\s+Morris)\b",
+            ],
+        )
+        if address:
+            data["address"] = clean_detected_address(address)[:250]
+        currency, price = _price_from_text(text)
+        if price is not None:
+            data["currency"] = currency
+            data["price"] = price
+        metrics = {
+            "bedrooms": text_value(text, [r"Dormitorios?\s+(\d+)"], parse_int),
+            "rooms": text_value(text, [r"Ambientes?\s+(\d+)"], parse_int),
+            "bathrooms": text_value(text, [r"Ba(?:ñ|n|Ã±)os?\s+(\d+(?:[.,]\d+)?)"], parse_decimal),
+            "total_area": text_value(text, [r"M(?:2|²|Â²)?\s+Totales\s+([\d.,]+)"], parse_decimal),
+            "covered_area": text_value(text, [r"M(?:2|²|Â²)?\s+Cubiertos\s+([\d.,]+)"], parse_decimal),
+        }
+        for field, value in metrics.items():
+            evidence_set(data, field, value, "pixel_ad_detail")
+        data["external_id"] = code or external_id_from_url(url)
+        data["agency"] = self.definition.name
+        data["operation"] = "sale"
+        data["locality"] = _locality_from_text(text)
+        data["property_type"] = infer_property_type(data.get("title"), text[:700])
+        data["images"] = absolute_images(self, soup)
+        data["status"] = Property.Status.ACTIVE
+        data["location_precision"] = classify_address_precision(data.get("address"))
+        data["raw_data"] = {
+            "source_engine": "pixel_listing_ad",
+            "source_code": code or "",
+        }
+        return data
+
+
+class HollmannArielScraper(PixelAdScraper):
+    definition = SourceDefinition(
+        slug="hollmann-ariel",
+        name="Hollmann Ariel Propiedades",
+        base_url="https://www.hollmannarielpropiedades.com.ar",
+        search_url=(
+            "https://www.hollmannarielpropiedades.com.ar/listing?"
+            "state=1&city=12460&purpose=sale&type=&beds=-&q=&user_id=1212"
+            "&shortBy=null&min_price=&max_price="
+        ),
+        crawl_delay=3,
+        enabled=False,
+        notes="Motor publico Pixel con fichas /ad para ventas en Hurlingham; deshabilitado hasta trial limitado.",
+    )
+    fallback_max_pages = 5
+
+
+class OscarDahbarScraper(PixelAdScraper):
+    definition = SourceDefinition(
+        slug="oscar-dahbar",
+        name="Oscar Dahbar Propiedades",
+        base_url="https://oscardahbarpropiedades.com.ar",
+        search_url=(
+            "https://oscardahbarpropiedades.com.ar/listing?"
+            "state=1&city=&purpose=sale&type=&beds=-&q=&user_id=638"
+            "&shortBy=null&min_price=&max_price=&page=1"
+        ),
+        crawl_delay=3,
+        enabled=False,
+        notes="Motor publico Pixel con unas 9 paginas de ventas; se filtra a Hurlingham/Villa Tesei/Morris.",
+    )
+    fallback_max_pages = 12
+
+
+class ValentiScraper(CommonDetailScraper):
+    definition = SourceDefinition(
+        slug="valenti",
+        name="Valenti Propiedades",
+        base_url="https://www.valentipropiedades.com.ar",
+        search_url="https://www.valentipropiedades.com.ar/casas-venta-hurlingham-partido",
+        crawl_delay=2,
+        enabled=False,
+        notes="Argencasas/SIBA propio con 111 casas del partido; paginacion publica por /motor/props.php.",
+    )
+    detail_patterns = (r"/propiedad-[^/]+-\d+-\d+$",)
+    fallback_max_pages = 15
+
+    def _page_url(self, page):
+        if page <= 1:
+            return self.definition.search_url
+        return f"{self.definition.base_url}/motor/props.php?supertipo=0&superoper=0&zona=441&page={page}"
+
+    def _listing_urls(self, soup):
+        yield from links_matching(self, soup, self.detail_patterns)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self._page_url(1),
+            self._page_url,
+            self._listing_urls,
+            fallback_max_pages=self.fallback_max_pages,
+        )
+
+    def parse(self, url):
+        soup = self.soup(url)
+        text = visible_text(soup)
+        data = basic_html_data(soup, url)
+        payload = first_json_ld(soup, "RealEstateListing")
+        if payload:
+            offer = payload.get("offers") or {}
+            main_entity = payload.get("mainEntity") or {}
+            address_payload = main_entity.get("address") or {}
+            data["title"] = clean_text(payload.get("name") or data.get("title") or "")
+            data["description"] = _clean_description(payload.get("description") or "")
+            data["currency"] = normalize_currency(offer.get("priceCurrency") or data.get("currency") or "")
+            data["price"] = parse_decimal(offer.get("price")) or data.get("price")
+            data["agency"] = ((offer.get("seller") or {}).get("name") or self.definition.name)
+            if isinstance(address_payload, dict):
+                data["address"] = clean_detected_address(address_payload.get("streetAddress") or data.get("address") or "")[:250]
+                data["locality"] = _locality_from_text(address_payload.get("addressLocality") or text)
+            image = payload.get("image")
+            if isinstance(image, str):
+                data["images"] = [self.absolute(image)]
+            elif isinstance(image, list):
+                data["images"] = [self.absolute(item) for item in image if isinstance(item, str)]
+        if not data.get("address"):
+            address_node = soup.select_one(".calle_precio")
+            address_text = clean_text(address_node.get_text(" ", strip=True) if address_node else "")
+            address_text = re.split(r"\b(?:u\$s|usd|ars|\$)\s*[\d.,]+", address_text, maxsplit=1, flags=re.I)[0]
+            if address_text:
+                data["address"] = clean_detected_address(address_text)[:250]
+        if not data.get("images"):
+            data["images"] = absolute_images(self, soup)
+        code = text_value(str(soup), [r"var\s+code\s*=\s*['\"]([^'\"]+)"])
+        latitude = text_value(str(soup), [r"latitud\s*=\s*(-?[\d.]+)"], parse_decimal)
+        longitude = text_value(str(soup), [r"longitud\s*=\s*(-?[\d.]+)"], parse_decimal)
+        metrics = {
+            "rooms": text_value(text, [r"(\d+)\s+Ambientes?"], parse_int),
+            "bedrooms": text_value(text, [r"(\d+)\s+Dormitorios?"], parse_int),
+            "bathrooms": text_value(text, [r"(\d+(?:[.,]\d+)?)\s+Ba(?:ñ|n|Ã±)os?"], parse_decimal),
+            "covered_area": text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s+Sup\s+Cubierta"], parse_decimal),
+            "total_area": text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s+Sup\s+Total"], parse_decimal),
+            "uncovered_area": text_value(text, [r"([\d.,]+)\s*m(?:2|²|Â²)?\s+Sup\s+Libre"], parse_decimal),
+            "age_years": text_value(text, [r"(\d+)\s+A(?:ñ|n|Ã±)os"], parse_int),
+        }
+        for field, value in metrics.items():
+            evidence_set(data, field, value, "valenti_detail")
+        if latitude is not None and longitude is not None:
+            data["latitude"] = float(latitude)
+            data["longitude"] = float(longitude)
+        data["external_id"] = code or text_value(url, [r"-(\d+-\d+)$"]) or external_id_from_url(url)
+        data["agency"] = data.get("agency") or self.definition.name
+        data["operation"] = "sale"
+        data["locality"] = _locality_from_text(" ".join([data.get("title") or "", data.get("address") or "", text]))
+        neighborhood = normalize_neighborhood_name(data.get("title") or "")
+        if neighborhood and neighborhood != data["locality"]:
+            data["neighborhood"] = neighborhood
+        data["property_type"] = infer_property_type(data.get("title"), text[:700], url)
+        data["status"] = Property.Status.ACTIVE
+        data["location_precision"] = "exact" if data.get("latitude") is not None else classify_address_precision(data.get("address"))
+        data.setdefault("raw_data", {})["valenti_code"] = code or ""
+        return data
+
+
+class XintelApiScraper(BaseScraper):
+    xintel_api_url = "https://xintelapi.com.ar/"
+    xintel_inm = ""
+    xintel_search_api_key = ""
+    xintel_detail_api_key = "4m17zq256jvsm24wOnqbev43y"
+    xintel_global = "LU3AIKPR4F6ZSUY8GQODKWRO8"
+    order = "ultac"
+    page_size = 20
+    fallback_max_pages = 80
+
+    def _api_get(self, params):
+        self.throttle()
+        response = self.session.get(
+            self.xintel_api_url,
+            params=params,
+            timeout=self.request_timeout,
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def _search_params(self, page, **extra):
+        params = {
+            "json": "resultados.fichas",
+            "inm": self.xintel_inm,
+            "apiK": self.xintel_search_api_key,
+            "page": str(page),
+            "ordenar": self.order,
+            "rppagina": str(self.page_size),
+            "tipo_operacion": "V",
+            "localidades": "hurlingham",
+        }
+        params.update(extra)
+        return params
+
+    def _detail_params(self, external_id):
+        return {
+            "cache": timezone.now().strftime("%d%m%Y"),
+            "json": "fichas.propiedades",
+            "amaira": "",
+            "suc": self.xintel_inm,
+            "global": self.xintel_global,
+            "emprendimiento": "True",
+            "oppel": "",
+            "esweb": "",
+            "apiK": self.xintel_detail_api_key,
+            "id": str(external_id),
+            "compartida": "false",
+        }
+
+    def _is_target_ficha(self, ficha):
+        text = " ".join(
+            str(ficha.get(key) or "")
+            for key in ("in_loc", "in_bar", "titulo", "amigable", "in_cal")
+        )
+        return is_target_zone(text)
+
+    def _public_url(self, ficha):
+        amigable = str(ficha.get("amigable") or "").strip("/")
+        external_id = ficha.get("in_fic") or ficha.get("in_num") or ficha.get("id")
+        if amigable:
+            return f"{self.definition.base_url}/{amigable}"
+        return f"{self.definition.base_url}/ficha-{self.xintel_inm.lower()}{external_id}"
+
+    def _target_declared_total(self):
+        payload = self._api_get(self._search_params(1, sSearch="hurlingham"))
+        return parse_int(((payload.get("resultado") or {}).get("datos") or {}).get("cantidadFichas"))
+
+    def discover(self):
+        declared_total = None
+        try:
+            declared_total = self._target_declared_total()
+        except Exception:
+            declared_total = None
+
+        start_page = max(self.start_page or 1, 1)
+        max_page = start_page + self.max_pages - 1 if self.max_pages is not None else self.fallback_max_pages
+        seen = set()
+        pages_seen = 0
+        limited_by_listings = False
+        cancelled = False
+        broad_declared_total = None
+
+        for page in range(start_page, max_page + 1):
+            if self.should_cancel():
+                cancelled = True
+                break
+            payload = self._api_get(self._search_params(page))
+            result = payload.get("resultado") or {}
+            datos = result.get("datos") or {}
+            if broad_declared_total is None:
+                broad_declared_total = parse_int(datos.get("cantidadFichas"))
+                if self.max_pages is None:
+                    max_page = parse_int(datos.get("paginas")) or max_page
+            pages_seen += 1
+            fichas = result.get("fichas") or []
+            if not fichas:
+                break
+            for ficha in fichas:
+                if not self._is_target_ficha(ficha):
+                    continue
+                url = self._public_url(ficha)
+                if url in seen:
+                    continue
+                seen.add(url)
+                yield url
+                if self.max_listings is not None and len(seen) >= self.max_listings:
+                    limited_by_listings = True
+                    break
+                if declared_total and len(seen) >= declared_total:
+                    break
+            if limited_by_listings or (declared_total and len(seen) >= declared_total):
+                break
+
+        self.discovery_stats = {
+            "cancelled": cancelled,
+            "declared_total": declared_total,
+            "broad_declared_total": broad_declared_total,
+            "pages_seen": pages_seen,
+            "urls_discovered": len(seen),
+            "coverage_ratio": (
+                round((len(seen) / declared_total) * 100, 1)
+                if declared_total and self.max_pages is None and self.max_listings is None
+                else None
+            ),
+            "limited_by_max_listings": limited_by_listings,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
+
+    def _external_id_from_url(self, url):
+        match = re.search(r"ficha-[a-z]+(\d+)", url, re.I)
+        return match.group(1) if match else external_id_from_url(url)
+
+    def _surface_field(self, payload, label):
+        superficie = payload.get("superficie") or {}
+        titles = superficie.get("title") or []
+        values = superficie.get("dato") or []
+        for index, title in enumerate(titles):
+            if fold_text(title) == fold_text(label) and index < len(values):
+                return parse_decimal(values[index])
+        return None
+
+    def parse(self, url):
+        external_id = self._external_id_from_url(url)
+        payload = self._api_get(self._detail_params(external_id)).get("resultado") or {}
+        ficha = (payload.get("ficha") or [{}])[0]
+        if not ficha or ficha.get("in_ope") not in ("V", "Venta", None, ""):
+            return None
+        text = json.dumps(ficha, ensure_ascii=False)
+        if not self._is_target_ficha(ficha):
+            return None
+        currency, price = _price_from_text(ficha.get("precio") or "")
+        address = clean_text(" ".join(filter(None, [ficha.get("in_cal"), ficha.get("in_nro")]))).strip(" ,.-")
+        latitude = _safe_float(ficha.get("latitud"))
+        longitude = _safe_float(ficha.get("longitud"))
+        locality = _locality_from_text(" ".join([ficha.get("in_bar") or "", ficha.get("in_loc") or "", ficha.get("titulo") or ""]))
+        neighborhood = normalize_neighborhood_name(ficha.get("in_bar") or "")
+        if neighborhood == locality:
+            neighborhood = ""
+        data = {
+            "external_id": str(ficha.get("in_fic") or ficha.get("in_num") or external_id),
+            "url": url,
+            "title": clean_text(ficha.get("titulo") or f"{ficha.get('tipo') or ficha.get('in_tip') or 'Propiedad'} en venta")[:300],
+            "description": _clean_description(ficha.get("in_obs") or ficha.get("in_obm") or ""),
+            "address": clean_detected_address(address)[:250],
+            "locality": locality,
+            "neighborhood": neighborhood,
+            "agency": self.definition.name,
+            "agency_url": self.definition.base_url,
+            "property_type": infer_property_type(ficha.get("in_tip"), ficha.get("in_tpr"), ficha.get("tipo"), ficha.get("titulo")),
+            "operation": "sale",
+            "currency": currency,
+            "price": price,
+            "rooms": parse_int(ficha.get("cantidad_ambientes") or ficha.get("in_amb")),
+            "bedrooms": parse_int(ficha.get("cantidad_dormitorios") or ficha.get("ti_dor")),
+            "bathrooms": parse_decimal(ficha.get("in_bao")),
+            "garages": parse_garage_value(ficha.get("garage") or ficha.get("cochera")),
+            "covered_area": parse_decimal(ficha.get("in_scu") or ficha.get("in_cub")) or self._surface_field(payload, "Superficie cubierta"),
+            "total_area": parse_decimal(ficha.get("in_sto") or ficha.get("in_sup")) or self._surface_field(payload, "Total construido"),
+            "land_area": parse_decimal(ficha.get("in_sup")) or self._surface_field(payload, "Terreno"),
+            "images": [image for image in (payload.get("img") or []) if isinstance(image, str)][:30],
+            "features": [],
+            "status": Property.Status.ACTIVE,
+            "source_status": "",
+            "location_precision": "exact" if latitude is not None and longitude is not None else classify_address_precision(address),
+            "raw_data": {"xintel_ficha": ficha, "xintel_datos": payload.get("datos") or {}},
+        }
+        if latitude is not None and longitude is not None:
+            data["latitude"] = latitude
+            data["longitude"] = longitude
+        if data["covered_area"] and not data.get("total_area"):
+            data["total_area"] = data["covered_area"]
+        return data
+
+
+class GabrielParisScraper(XintelApiScraper):
+    definition = SourceDefinition(
+        slug="gabriel-paris",
+        name="Gabriel Paris",
+        base_url="https://gabrielparis.com.ar",
+        search_url="https://gabrielparis.com.ar/propiedades?ord=ultac&tipo=All&a1=All&loc=hurlingham&in_cal=&ope=V",
+        crawl_delay=3,
+        enabled=False,
+        notes="Sitio Xintel con 3 fichas Hurlingham; discovery filtra el payload publico por in_loc/in_bar.",
+    )
+    xintel_inm = "GPA"
+    xintel_search_api_key = "G4M8D89UMHTNUKS4ZUDGRZJ32"
+    order = "ultac"
+    fallback_max_pages = 20
+
+
+class HGranelliScraper(XintelApiScraper):
+    definition = SourceDefinition(
+        slug="hgranelli",
+        name="H. Granelli Propiedades",
+        base_url="https://www.hgranelli.com.ar",
+        search_url="https://www.hgranelli.com.ar/propiedades?ord=preciomenor&ope=V&tipo=All&loc=hurlingham&b1=All&a1=All&in_mov=&desde=&hasta=&cod=",
+        crawl_delay=3,
+        enabled=False,
+        notes="Sitio Xintel con 4 fichas Hurlingham; discovery filtra el payload publico por in_loc/in_bar.",
+    )
+    xintel_inm = "HGP"
+    xintel_search_api_key = "FTNRRQILMFHHNXJOBM9FAH6FU"
+    order = "preciomenor"
+    fallback_max_pages = 60
+
+
+class MudafyScraper(CommonDetailScraper):
+    definition = SourceDefinition(
+        slug="mudafy",
+        name="Mudafy",
+        base_url="https://mudafy.com.ar",
+        search_url="https://mudafy.com.ar/venta/propiedades/provincia-de-buenos-aires-gba-oeste-hurlingham-hurlingham",
+        crawl_delay=5,
+        enabled=False,
+        notes="Portal Next.js con HTML publico inicial y fichas /propiedades; deshabilitado por riesgo de duplicados.",
+    )
+    detail_patterns = (r"/propiedades/[^/]+-en-venta-[A-Za-z0-9]+$",)
+
+    def discover(self):
+        if self.start_page and self.start_page > 1:
+            self.discovery_stats = {
+                "declared_total": None,
+                "pages_seen": 0,
+                "urls_discovered": 0,
+                "coverage_ratio": None,
+                "limited_by_max_listings": False,
+                "limited_by_max_pages": True,
+            }
+            return
+        soup = self.soup(self.definition.search_url)
+        declared_total = declared_total_from_text(visible_text(soup))
+        seen = set()
+        for url in links_matching(self, soup, self.detail_patterns):
+            if url in seen:
+                continue
+            seen.add(url)
+            yield url
+            if self.max_listings is not None and len(seen) >= self.max_listings:
+                break
+        self.discovery_stats = {
+            "declared_total": declared_total,
+            "pages_seen": 1,
+            "urls_discovered": len(seen),
+            "coverage_ratio": round((len(seen) / declared_total) * 100, 1) if declared_total else None,
+            "limited_by_max_listings": self.max_listings is not None and len(seen) >= self.max_listings,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
+
+    def _embedded_number(self, markup, path):
+        key = re.escape(path[-1])
+        return text_value(
+            markup,
+            [
+                rf'\\"{key}\\"\s*:\s*(-?[\d.]+)',
+                rf'"{key}"\s*:\s*(-?[\d.]+)',
+            ],
+            parse_decimal,
+        )
+
+    def parse(self, url):
+        soup = self.soup(url)
+        text = visible_text(soup)
+        payload = first_json_ld(soup, "Product") or {}
+        offer = payload.get("offers") or {}
+        description = _clean_description(payload.get("description") or "")
+        address = clean_text(payload.get("name") or "")
+        if not address or not re.search(r"\d", address):
+            address = text_value(text, [r"VENTA\s+(?:USD|U\$S|US\$|ARS|\$)\s*[\d.,]+\s+(?:USD\s*[\d.,]+/m(?:2|²)\s+)?(.+?)\s+(?:Departamento|Casa|PH|Oficina|Terreno|Comercio)\s+en\s+venta"], clean_text) or ""
+        markup = str(soup)
+        latitude = self._embedded_number(markup, ["coordinates", "latitude"])
+        longitude = self._embedded_number(markup, ["coordinates", "longitude"])
+        data = {
+            "external_id": text_value(url, [r"-en-venta-([A-Za-z0-9]+)$"]) or external_id_from_url(url),
+            "url": url,
+            "title": clean_text(payload.get("name") or (soup.title.get_text(" ", strip=True) if soup.title else "Mudafy"))[:300],
+            "description": description,
+            "address": clean_detected_address(address)[:250],
+            "locality": _locality_from_text(" ".join([text, description])),
+            "agency": self.definition.name,
+            "agency_url": self.definition.base_url,
+            "property_type": infer_property_type(url, payload.get("name"), description, text[:700]),
+            "operation": "sale",
+            "currency": normalize_currency(offer.get("priceCurrency") or ""),
+            "price": parse_decimal(offer.get("price")),
+            "rooms": text_value(text, [r"Ambientes?\s*:?\s*(\d+)"], parse_int),
+            "bedrooms": text_value(text, [r"Dormitorios?\s*:?\s*(\d+)"], parse_int),
+            "bathrooms": text_value(text, [r"Ba(?:ñ|n|Ã±)os?\s*:?\s*(\d+(?:[.,]\d+)?)"], parse_decimal),
+            "covered_area": text_value(text, [r"Superficie\s+cubierta\s*:?\s*([\d.,]+)\s*m"], parse_decimal),
+            "total_area": text_value(text, [r"Superficie\s+total\s*:?\s*([\d.,]+)\s*m"], parse_decimal),
+            "land_area": text_value(text, [r"Superficie\s+terreno\s*:?\s*([\d.,]+)\s*m"], parse_decimal),
+            "images": [image for image in [payload.get("image")] if isinstance(image, str)],
+            "features": [],
+            "status": Property.Status.ACTIVE,
+            "source_status": "",
+            "location_precision": "exact" if latitude is not None and longitude is not None else classify_address_precision(address),
+            "raw_data": {"mudafy_product": payload},
+        }
+        if latitude is not None and longitude is not None:
+            data["latitude"] = float(latitude)
+            data["longitude"] = float(longitude)
+        if data.get("total_area") and not data.get("land_area") and data["property_type"] == Property.Type.LAND:
+            data["land_area"] = data["total_area"]
+        return data
+
+
+class MatiasSzpiraScraper(BaseScraper):
+    definition = SourceDefinition(
+        slug="matias-szpira",
+        name="Matias Szpira Bienes Raices",
+        base_url="https://www.matiasszpira.com.ar",
+        search_url=(
+            "https://www.matiasszpira.com.ar/resultados-de-busqueda?"
+            "tipo_operacion=V&tokko_region=gba-zona-oeste&sellocalidades=25973"
+            "&moneda=0&ordenar=preciomenor&rppagina=15&page=0"
+        ),
+        crawl_delay=3,
+        enabled=False,
+        notes="Astro/Tokko con endpoints publicos /api/results.json y /api/property.json para 15 ventas Hurlingham.",
+    )
+    api_page_size = 15
+
+    def _results_url(self, page):
+        api_page = max(page - 1, 0)
+        return (
+            f"{self.definition.base_url}/api/results.json?"
+            f"tipo_operacion=V&tokko_region=gba-zona-oeste&sellocalidades=25973"
+            f"&moneda=0&ordenar=preciomenor&rppagina={self.api_page_size}&page={api_page}"
+        )
+
+    def discover(self):
+        start_page = max(self.start_page or 1, 1)
+        max_page = start_page + self.max_pages - 1 if self.max_pages is not None else start_page
+        seen = set()
+        declared_total = None
+        pages_seen = 0
+        limited_by_listings = False
+        for page in range(start_page, max_page + 1):
+            if self.should_cancel():
+                break
+            payload = self.get(self._results_url(page)).json()
+            result = payload.get("resultado") or {}
+            datos = result.get("datos") or {}
+            fichas = result.get("fichas") or []
+            if declared_total is None:
+                declared_total = parse_int(datos.get("cantidadFichas")) or len(fichas)
+                if self.max_pages is None:
+                    max_page = start_page + max(parse_int(datos.get("paginas")) or 1, 1) - 1
+            pages_seen += 1
+            for ficha in fichas:
+                if ficha.get("in_ope") != "V":
+                    continue
+                url = f"{self.definition.base_url}/propiedad/{ficha.get('in_num') or ficha.get('id')}/"
+                if url in seen:
+                    continue
+                seen.add(url)
+                yield url
+                if self.max_listings is not None and len(seen) >= self.max_listings:
+                    limited_by_listings = True
+                    break
+            if limited_by_listings:
+                break
+        self.discovery_stats = {
+            "declared_total": declared_total,
+            "pages_seen": pages_seen,
+            "urls_discovered": len(seen),
+            "coverage_ratio": (
+                round((len(seen) / declared_total) * 100, 1)
+                if declared_total and self.max_pages is None and self.max_listings is None
+                else None
+            ),
+            "limited_by_max_listings": limited_by_listings,
+            "limited_by_max_pages": self.max_pages is not None,
+        }
+
+    def _property_url(self, external_id):
+        return f"{self.definition.base_url}/api/property.json?suc=TKO&id={external_id}&amaira=false"
+
+    def parse(self, url):
+        external_id = external_id_from_url(url)
+        payload = self.get(self._property_url(external_id)).json().get("resultado") or {}
+        ficha = (payload.get("ficha") or [{}])[0]
+        if not ficha or ficha.get("in_ope") != "V":
+            return None
+        currency, price = _price_from_text(ficha.get("precio") or "")
+        latitude = _safe_float(ficha.get("latitud"))
+        longitude = _safe_float(ficha.get("longitud"))
+        address = clean_detected_address(ficha.get("direccion") or ficha.get("direccion_completa") or ficha.get("in_cal") or "")[:250]
+        data = {
+            "external_id": str(ficha.get("in_num") or external_id),
+            "url": url,
+            "title": clean_text(ficha.get("titulo") or f"{ficha.get('tipo') or 'Propiedad'} en venta")[:300],
+            "description": _clean_description(ficha.get("in_obs") or ""),
+            "address": address,
+            "locality": _locality_from_text(" ".join([ficha.get("in_loc") or "", ficha.get("in_bar") or "", ficha.get("direccion_completa") or ""])),
+            "neighborhood": normalize_neighborhood_name(ficha.get("in_bar") or ""),
+            "agency": self.definition.name,
+            "agency_url": self.definition.base_url,
+            "property_type": infer_property_type(ficha.get("tipo"), ficha.get("in_tip"), ficha.get("in_tpr"), ficha.get("titulo")),
+            "operation": "sale",
+            "currency": currency,
+            "price": price,
+            "rooms": parse_int(ficha.get("in_amb")),
+            "bedrooms": parse_int(ficha.get("cantidad_dormitorios") or ficha.get("ti_dor")),
+            "bathrooms": parse_decimal(ficha.get("in_bao")),
+            "covered_area": parse_decimal(ficha.get("in_cub")),
+            "total_area": parse_decimal(ficha.get("in_sto")),
+            "land_area": parse_decimal(ficha.get("in_sup")),
+            "images": [image for image in (payload.get("img") or []) if isinstance(image, str)][:30],
+            "features": [],
+            "status": Property.Status.ACTIVE,
+            "source_status": "",
+            "location_precision": "exact" if latitude is not None and longitude is not None else classify_address_precision(address),
+            "raw_data": {"matias_szpira_ficha": ficha, "matias_szpira_datos": payload.get("datos") or {}},
+        }
+        if latitude is not None and longitude is not None:
+            data["latitude"] = latitude
+            data["longitude"] = longitude
+        if data["neighborhood"] == data["locality"]:
+            data["neighborhood"] = ""
+        return data
+
+
+class MatiasBarbieriScraper(CommonDetailScraper):
+    definition = SourceDefinition(
+        slug="matias-barbieri",
+        name="Matias Barbieri Propiedades",
+        base_url="https://barbieripropiedades.com.ar",
+        search_url="https://barbieripropiedades.com.ar/busqueda-propiedades/?location=hurlingham&status=venta",
+        crawl_delay=3,
+        enabled=False,
+        notes="WordPress/RealHomes con 4 resultados; fichas con '- NO DISPONIBLE -' se marcan suspendidas.",
+    )
+    detail_patterns = (r"/propiedad/[^/]+/$",)
+
+    def discover(self):
+        yield from paginated_discover(
+            self,
+            self.definition.search_url,
+            lambda page: self.definition.search_url,
+            lambda soup: links_matching(self, soup, self.detail_patterns),
+            fallback_max_pages=1,
+        )
+
+    def parse(self, url):
+        soup = self.soup(url)
+        title_node = soup.select_one("h1")
+        title = clean_text(title_node.get_text(" ", strip=True) if title_node else "Barbieri Propiedades")
+        title_block = soup.select_one(".rh_page__property_title")
+        title_text = clean_text(title_block.get_text(" ", strip=True) if title_block else "")
+        price_text = clean_text((soup.select_one(".rh_page__property_price .price") or soup.select_one(".rh_page__property_price")).get_text(" ", strip=True))
+        content_text = clean_text((soup.select_one(".rh_property__content") or soup).get_text(" ", strip=True))
+        meta_text = clean_text((soup.select_one(".rh_property__meta_wrap") or soup).get_text(" ", strip=True))
+        address = text_value(
+            title_text,
+            [rf"{re.escape(title)}\s+(.+?)(?:\s+Venta|\s+Alquiler|$)"],
+        )
+        map_json = text_value(str(soup), [r"propertyMapData\s*=\s*(\{.+?\});"])
+        latitude = longitude = None
+        if map_json:
+            try:
+                map_data = json.loads(map_json)
+                latitude = _safe_float(map_data.get("lat"))
+                longitude = _safe_float(map_data.get("lng"))
+            except json.JSONDecodeError:
+                map_data = {}
+        else:
+            map_data = {}
+        currency, price = _price_from_text(price_text)
+        inactive = bool(re.search(r"NO\s+DISPONIBLE", price_text, re.I))
+        external_id = text_value(content_text, [r"ID(?:\s+de\s+la\s+propiedad)?\s*:?\s*(ID-\d+)"]) or external_id_from_url(url)
+        data = {
+            "external_id": external_id,
+            "url": url,
+            "title": title,
+            "description": text_value(content_text, [r"Descripci(?:o|ó|Ã³)n\s+(.+?)(?:Caracter(?:i|í|Ã­)sticas|Propiedad\s+Mapa|$)"], clean_text) or "",
+            "address": clean_detected_address(address or "")[:250],
+            "locality": _locality_from_text(title_text),
+            "agency": self.definition.name,
+            "agency_url": self.definition.base_url,
+            "property_type": infer_property_type(title, content_text, url),
+            "operation": "sale",
+            "currency": "" if inactive else currency,
+            "price": None if inactive else price,
+            "rooms": text_value(meta_text, [r"Habitaciones\s+(\d+)"], parse_int),
+            "bedrooms": text_value(meta_text, [r"Habitaciones\s+(\d+)"], parse_int),
+            "bathrooms": text_value(meta_text, [r"Ba(?:ñ|n|Ã±)os?\s+(\d+(?:[.,]\d+)?)"], parse_decimal),
+            "garages": text_value(meta_text, [r"Garaje\s+(\d+)", r"Garages?\s+(\d+)"], parse_int),
+            "covered_area": text_value(meta_text, [r"Superficie\s+Cubierta\s+([\d.,]+)"], parse_decimal),
+            "total_area": text_value(meta_text, [r"Superficie\s+Total\s+([\d.,]+)"], parse_decimal),
+            "images": absolute_images(self, soup),
+            "features": [],
+            "status": Property.Status.SUSPENDED if inactive else Property.Status.ACTIVE,
+            "source_status": "no_disponible" if inactive else "",
+            "location_precision": "exact" if latitude is not None and longitude is not None else classify_address_precision(address),
+            "raw_data": {"barbieri_price_text": price_text, "barbieri_map": map_data},
+        }
+        if latitude is not None and longitude is not None:
+            data["latitude"] = latitude
+            data["longitude"] = longitude
+        neighborhood = normalize_neighborhood_name(" ".join([title_text, content_text[:500]]))
+        if neighborhood and neighborhood != data["locality"]:
+            data["neighborhood"] = neighborhood
+        return data
+
+
+class NerinaAlloScraper(AnaliaFernandezScraper):
+    definition = SourceDefinition(
+        slug="nerina-allo",
+        name="Nerina Allo Propiedades",
+        base_url="https://www.allopropiedades.com.ar",
+        search_url="https://www.allopropiedades.com.ar/Buscar?operation=1&locations=25973&o=2,2&1=1",
+        crawl_delay=3,
+        enabled=False,
+        notes="Motor Tokko publico con 6 resultados de venta en Hurlingham/Villa Santos Tesei.",
+    )
+    detail_patterns = (r"/p/\d+-",)
+    require_target_text = True
+    tokko_ajax_path = "/Buscar"
+    fallback_max_pages = 4
+
+    def parse(self, url):
+        data = super().parse(url)
+        if data:
+            raw_data = data.setdefault("raw_data", {})
+            if "analia_fields" in raw_data:
+                raw_data["nerina_allo_fields"] = raw_data.pop("analia_fields")
         return data
 
 

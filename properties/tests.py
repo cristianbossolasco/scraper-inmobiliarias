@@ -95,11 +95,19 @@ from properties.scrapers.mercadoprop import MercadoPropScraper
 from properties.scrapers.pending_sources import (
     AnaliaFernandezScraper,
     FincasScraper,
+    GabrielParisScraper,
     GuarnieriScraper,
+    HGranelliScraper,
+    HollmannArielScraper,
     InmueblesClarinScraper,
     LopezCombaScraper,
     MarceloRussoScraper,
+    MatiasBarbieriScraper,
+    MatiasSzpiraScraper,
     MercadoLibreScraper,
+    MudafyScraper,
+    NerinaAlloScraper,
+    OscarDahbarScraper,
     PatagonPropScraper,
     PaulaFossatiScraper,
     parse_dimension_value,
@@ -108,6 +116,7 @@ from properties.scrapers.pending_sources import (
     RemaxDataworkScraper,
     RiquelmeScraper,
     Century21Scraper,
+    ValentiScraper,
     ZonapropScraper,
 )
 from properties.scrapers.paginated import declared_total_from_text, max_page_from_markup
@@ -5489,7 +5498,7 @@ class ScraperParserTests(TestCase):
             self.assertEqual(scraper.discovery_stats["pages_seen"], 2)
 
     def test_tokko_sources_use_ajax_pagination_until_empty(self):
-        for scraper_cls in (LopezCombaScraper, AnaliaFernandezScraper, AliagaScraper):
+        for scraper_cls in (LopezCombaScraper, AnaliaFernandezScraper, AliagaScraper, NerinaAlloScraper):
             scraper = scraper_cls()
             calls = []
 
@@ -5508,6 +5517,253 @@ class ScraperParserTests(TestCase):
             self.assertEqual(len(urls), 2, scraper_cls.__name__)
             self.assertTrue(any("p=2" in url for url in calls), scraper_cls.__name__)
             self.assertEqual(scraper.discovery_stats["declared_total"], 30)
+
+    def test_pixel_ad_parser_extracts_detail_fields(self):
+        scraper = HollmannArielScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>PH al frente reciclado</h1>
+              <p>En Venta PH al frente reciclado Codigo: 127415 Tte. Origone 287,
+              Hurlingham, Buenos Aires, Argentina. USD80.000 PH Dormitorios 2
+              Ambientes 3 Banos 1 M2 Totales 130 M2 Cubiertos 80</p>
+              <img src="/foto.jpg">
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.hollmannarielpropiedades.com.ar/ad/ph-al-frente")
+        self.assertEqual(data["external_id"], "127415")
+        self.assertEqual(data["price"], Decimal("80000"))
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["address"], "Tte. Origone 287")
+        self.assertEqual(data["locality"], "Hurlingham")
+        self.assertEqual(data["rooms"], 3)
+        self.assertEqual(data["bedrooms"], 2)
+        self.assertEqual(data["bathrooms"], Decimal("1"))
+        self.assertEqual(data["total_area"], Decimal("130"))
+        self.assertEqual(data["covered_area"], Decimal("80"))
+
+    def test_valenti_parser_reads_json_ld_coordinates_and_metrics(self):
+        scraper = ValentiScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><head>
+              <script>var code='143-16', latitud=-34.595734427622, longitud=-58.629698753357;</script>
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "RealEstateListing",
+                "name": "Chalet en Venta en Barrio Ingles",
+                "description": "Distinguido chalet",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "350000",
+                  "priceCurrency": "USD",
+                  "seller": {"@type": "RealEstateAgent", "name": "VALENTI PROPIEDADES"}
+                }
+              }
+              </script>
+            </head><body>
+              <div class="calle_precio">NECOCHEA al 1400 <span>u$s 350.000</span></div>
+              <h1>Chalet venta Barrio Ingles</h1>
+              <p>5 Ambientes 3 Dormitorios 4 Banos 197 m2 Sup Cubierta 500 m2 Sup Total 25 Anos</p>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.valentipropiedades.com.ar/propiedad-chalet-venta-barrio-ingles-143-16")
+        self.assertEqual(data["external_id"], "143-16")
+        self.assertEqual(data["agency"], "VALENTI PROPIEDADES")
+        self.assertEqual(data["price"], Decimal("350000"))
+        self.assertEqual(data["address"], "General Mariano Necochea 1400")
+        self.assertEqual(data["rooms"], 5)
+        self.assertEqual(data["covered_area"], Decimal("197"))
+        self.assertEqual(data["total_area"], Decimal("500"))
+        self.assertAlmostEqual(data["latitude"], -34.595734427622)
+        self.assertEqual(data["location_precision"], "exact")
+
+    def test_xintel_api_discovery_and_parser_filter_hurlingham(self):
+        scraper = GabrielParisScraper()
+
+        def fake_api(params):
+            if params["json"] == "fichas.propiedades":
+                return {
+                    "resultado": {
+                        "datos": {"codigo_ficha": params["id"]},
+                        "img": ["https://img.example/gpa4383.jpg"],
+                        "ficha": [
+                            {
+                                "in_fic": "4383",
+                                "in_num": "4383",
+                                "in_ope": "V",
+                                "in_tip": "Casa",
+                                "in_tpr": "PH",
+                                "titulo": "Casa en venta Villa Tesei 3 ambientes",
+                                "in_loc": "Hurlingham",
+                                "in_bar": "Villa Tesei",
+                                "in_cal": "Juan Jofre",
+                                "in_nro": "330",
+                                "precio": "U$S 55.000",
+                                "in_val": "55000",
+                                "cantidad_ambientes": "3",
+                                "cantidad_dormitorios": "2",
+                                "in_bao": "2",
+                                "in_sto": "196.00",
+                                "latitud": "-34.6315826",
+                                "longitud": "-58.6299",
+                            }
+                        ],
+                    }
+                }
+            if params.get("sSearch") == "hurlingham":
+                return {"resultado": {"datos": {"cantidadFichas": 1}}}
+            return {
+                "resultado": {
+                    "datos": {"cantidadFichas": 2, "paginas": 1},
+                    "fichas": [
+                        {"in_num": "1", "in_loc": "Ituzaingo", "amigable": "casa-en-venta-ituzaingo-ficha-gpa1"},
+                        {
+                            "in_num": "4383",
+                            "in_loc": "Hurlingham",
+                            "in_bar": "Villa Tesei",
+                            "titulo": "Casa Villa Tesei",
+                            "amigable": "casa-en-venta-en-villa-tesei-ficha-gpa4383",
+                        },
+                    ],
+                }
+            }
+
+        scraper._api_get = fake_api
+        urls = list(scraper.discover())
+        self.assertEqual(urls, ["https://gabrielparis.com.ar/casa-en-venta-en-villa-tesei-ficha-gpa4383"])
+        self.assertEqual(scraper.discovery_stats["declared_total"], 1)
+        data = scraper.parse(urls[0])
+        self.assertEqual(data["external_id"], "4383")
+        self.assertEqual(data["locality"], "Villa Tesei")
+        self.assertEqual(data["price"], Decimal("55000"))
+        self.assertEqual(data["rooms"], 3)
+        self.assertEqual(data["latitude"], -34.6315826)
+
+    def test_mudafy_parser_reads_product_and_embedded_coordinates(self):
+        scraper = MudafyScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><head>
+              <title>Oficina en venta, USD 215.000 | Hurlingham | Mudafy</title>
+              <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": "Av. Tte. Gral. Julio A. Roca al 1200",
+                "description": "Venta de Oficina, Hurlingham",
+                "image": "https://img.example/mudafy.jpg",
+                "offers": {"@type": "Offer", "price": 215000, "priceCurrency": "USD"}
+              }
+              </script>
+            </head><body>
+              <p>VENTA USD 215.000 Av. Tte. Gral. Julio A. Roca al 1200 Oficina en venta en Hurlingham</p>
+              <p>Detalle Superficie total : 154 m2 Ambientes : 3 Banos : 1 Dormitorios : 2</p>
+              <script>self.__next_f.push([1, "{\\"address\\":{\\"coordinates\\":{\\"latitude\\":-34.5832725,\\"longitude\\":-58.6355559}}}"])</script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://mudafy.com.ar/propiedades/av-roca-oficina-en-venta-334867")
+        self.assertEqual(data["external_id"], "334867")
+        self.assertEqual(data["price"], Decimal("215000"))
+        self.assertEqual(data["address"], "Av. Tte. Gral. Julio Argentino Roca 1200")
+        self.assertEqual(data["property_type"], Property.Type.OTHER)
+        self.assertEqual(data["total_area"], Decimal("154"))
+        self.assertAlmostEqual(data["latitude"], -34.5832725)
+
+    def test_matias_szpira_api_discovery_and_parse(self):
+        scraper = MatiasSzpiraScraper()
+
+        class Response:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def json(self):
+                return self.payload
+
+        def fake_get(url):
+            if "/api/results.json" in url:
+                return Response(
+                    {
+                        "resultado": {
+                            "datos": {"cantidadFichas": 1, "paginas": 1},
+                            "fichas": [
+                                {
+                                    "in_num": "8067906",
+                                    "in_ope": "V",
+                                    "in_loc": "Hurlingham",
+                                    "precio": "USD 43000",
+                                }
+                            ],
+                        }
+                    }
+                )
+            return Response(
+                {
+                    "resultado": {
+                        "datos": {"codigo_ficha": "8067906"},
+                        "img": ["https://static.tokkobroker.com/pictures/8067906.jpg"],
+                        "ficha": [
+                            {
+                                "in_num": "8067906",
+                                "in_ope": "V",
+                                "tipo": "Departamento",
+                                "titulo": "Departamento",
+                                "precio": "USD 43000",
+                                "in_loc": "Hurlingham",
+                                "in_bar": "",
+                                "direccion": "Angel Acuna 1100, Hurlingham",
+                                "in_cub": "52.00",
+                                "in_sto": "52.00",
+                                "in_amb": "1",
+                                "ti_dor": "0",
+                                "in_bao": "1",
+                                "latitud": "-34.6216922",
+                                "longitud": "-58.6299204",
+                            }
+                        ],
+                    }
+                }
+            )
+
+        scraper.get = fake_get
+        urls = list(scraper.discover())
+        self.assertEqual(urls, ["https://www.matiasszpira.com.ar/propiedad/8067906/"])
+        data = scraper.parse(urls[0])
+        self.assertEqual(data["external_id"], "8067906")
+        self.assertEqual(data["price"], Decimal("43000"))
+        self.assertEqual(data["covered_area"], Decimal("52.00"))
+        self.assertAlmostEqual(data["longitude"], -58.6299204)
+
+    def test_barbieri_no_disponible_marks_suspended(self):
+        scraper = MatiasBarbieriScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>CASA EN VENTA - Hurlingham</h1>
+              <div class="rh_page__property_title">Inicio Hurlingham CASA EN VENTA - Hurlingham Lima 4686, Villa Tesei, Provincia de Buenos Aires, Argentina Venta</div>
+              <div class="rh_page__property_price"><p class="price">- NO DISPONIBLE - USD 120.000</p></div>
+              <div class="rh_property__content">ID de la propiedad : ID-8118 Habitaciones 2 Banos 2 Garaje 1 Superficie Cubierta 139 mts2 Superficie Total 209 mts2 Descripcion Linda casa en venta. Villa Tesei. Caracteristicas Electricidad</div>
+              <div class="rh_property__meta_wrap">Habitaciones 2 Banos 2 Garaje 1 Superficie Cubierta 139 mts2 Superficie Total 209 mts2</div>
+              <script>var propertyMapData = {"lat":"-34.6305082","lng":"-58.6323452"};</script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://barbieripropiedades.com.ar/propiedad/casa-en-venta-hurlingham/")
+        self.assertEqual(data["external_id"], "ID-8118")
+        self.assertEqual(data["status"], Property.Status.SUSPENDED)
+        self.assertEqual(data["source_status"], "no_disponible")
+        self.assertIsNone(data["price"])
+        self.assertEqual(data["currency"], "")
+        self.assertEqual(data["address"], "Lima 4686")
+        self.assertEqual(data["total_area"], Decimal("209"))
 
     def test_century21_json_discovery_uses_public_results_payload(self):
         class Response:
@@ -5968,6 +6224,15 @@ class ScraperParserTests(TestCase):
             "century21-hurlingham",
             "mercadolibre",
             "zonaprop",
+            "hollmann-ariel",
+            "valenti",
+            "oscar-dahbar",
+            "gabriel-paris",
+            "hgranelli",
+            "mudafy",
+            "matias-szpira",
+            "matias-barbieri",
+            "nerina-allo",
         }:
             self.assertIn(slug, slugs)
             self.assertFalse(get_adapter(slug).definition.enabled)
