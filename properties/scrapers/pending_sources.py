@@ -2947,7 +2947,7 @@ class Century21Scraper(CommonDetailScraper):
         if age and 1900 <= age <= 2100:
             age = 0 if age <= timezone.now().year + 1 else None
         data = {
-            "external_id": str(entity.get("id") or external_id_from_url(url)),
+            "external_id": external_id_from_url(url),
             "url": url,
             "title": clean_text(title)[:300],
             "description": clean_text(entity.get("descripcion") or entity.get("description") or ""),

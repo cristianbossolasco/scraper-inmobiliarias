@@ -4767,7 +4767,7 @@ class ScraperParserTests(TestCase):
 
         scraper.get = lambda url: FakeResponse()
         data = scraper.parse("https://century21.com.ar/propiedad/108737_departamento-en-venta")
-        self.assertEqual(data["external_id"], "108737")
+        self.assertEqual(data["external_id"], "108737_departamento-en-venta")
         self.assertEqual(data["property_type"], Property.Type.APARTMENT)
         self.assertEqual(data["currency"], "USD")
         self.assertEqual(data["price"], Decimal("93000"))
