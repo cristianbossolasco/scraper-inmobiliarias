@@ -5362,6 +5362,38 @@ class ScraperParserTests(TestCase):
         self.assertTrue(any("mas-100-dolar" in url for url in requested_urls))
         self.assertFalse(any("pagina-3" in url for url in requested_urls))
 
+    def test_zonaprop_segmented_discovery_allows_near_complete_global_coverage(self):
+        scraper = ZonapropScraper()
+        scraper.max_public_pages = 1
+
+        def urls(start, stop):
+            return [
+                f"https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-{item}.html"
+                for item in range(start, stop)
+            ]
+
+        scraper.soup = lambda _url: BeautifulSoup(
+            "<html><body><h1>100 Propiedades e inmuebles en venta</h1></body></html>",
+            "lxml",
+        )
+        scraper._build_price_segments = lambda: (
+            {"declared_total": 100, "first_page_urls": []},
+            [
+                {"min_price": None, "max_price": 100000, "declared_total": 50, "first_page_urls": urls(1, 50)},
+                {"min_price": 100000, "max_price": None, "declared_total": 50, "first_page_urls": urls(50, 100)},
+            ],
+            [],
+            150,
+            120,
+        )
+
+        discovered = list(scraper.discover())
+
+        self.assertEqual(len(discovered), 99)
+        self.assertEqual(scraper.discovery_stats["coverage_ratio"], 99.0)
+        self.assertTrue(scraper.discovery_stats["segments"][0]["incomplete"])
+        self.assertTrue(scraper.discovery_stats["coverage_complete"])
+
     def test_zonaprop_discovery_caps_public_pagination(self):
         requested_urls = []
 

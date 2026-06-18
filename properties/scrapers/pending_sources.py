@@ -3435,7 +3435,7 @@ class ZonapropScraper(CommonDetailScraper):
         seen = set()
         pages_seen = base_seed_pages
         segment_stats = []
-        coverage_complete = not incomplete_segments
+        segment_coverage_complete = not incomplete_segments
 
         if self.should_cancel():
             self.discovery_stats = {
@@ -3460,7 +3460,7 @@ class ZonapropScraper(CommonDetailScraper):
 
         for segment in segments:
             if self.should_cancel():
-                coverage_complete = False
+                segment_coverage_complete = False
                 break
 
             segment_urls = set(segment.get("first_page_urls") or [])
@@ -3468,7 +3468,7 @@ class ZonapropScraper(CommonDetailScraper):
             pages_seen += 1
             for page in range(2, page_count + 1):
                 if self.should_cancel():
-                    coverage_complete = False
+                    segment_coverage_complete = False
                     break
                 soup = self.soup(self._price_url(segment.get("min_price"), segment.get("max_price"), page=page))
                 pages_seen += 1
@@ -3476,9 +3476,9 @@ class ZonapropScraper(CommonDetailScraper):
 
             declared = segment.get("declared_total")
             if declared is not None and len(segment_urls) < declared:
-                coverage_complete = False
+                segment_coverage_complete = False
             if segment.get("incomplete"):
-                coverage_complete = False
+                segment_coverage_complete = False
 
             segment_stats.append(
                 {
@@ -3511,8 +3511,10 @@ class ZonapropScraper(CommonDetailScraper):
             if declared_total
             else None
         )
-        if declared_total and coverage_ratio < self.min_complete_coverage_ratio:
-            coverage_complete = False
+        if declared_total and coverage_ratio is not None:
+            coverage_complete = coverage_ratio >= self.min_complete_coverage_ratio
+        else:
+            coverage_complete = segment_coverage_complete
 
         self.discovery_stats = {
             "cancelled": self.should_cancel(),
