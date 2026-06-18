@@ -532,7 +532,7 @@
           <small>${source.workers} worker${source.workers === 1 ? "" : "s"} · ${formatDuration(source.elapsed_seconds)}</small>
         </div>
         <div class="progress-bar"><span style="width:${source.percent}%"></span></div>
-        <div class="job-meta">${source.processed}/${source.total_to_process || 0} procesadas · ${source.created} nuevas · ${source.updated} actualizadas · ${source.errors} errores</div>
+        <div class="job-meta">${source.processed}/${source.total_to_process || 0} procesadas · ${source.created} nuevas · ${source.updated} actualizadas · ${Number(source.skipped || 0)} retiradas · ${source.errors} errores</div>
         ${source.geocode_pending ? `<div class="job-meta">Geocodificacion: ${source.geocoded}/${source.geocode_pending} ubicadas · ${source.geocode_failed} sin resultado/error</div>` : ""}
         ${source.current_url ? `<div class="current-url">${escapeHtml(source.current_url)}</div>` : ""}
         ${errors.length ? renderSourceErrors(errors) : ""}
