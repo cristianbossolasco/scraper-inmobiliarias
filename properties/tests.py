@@ -5017,6 +5017,11 @@ class ScraperParserTests(TestCase):
             "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-3",
         )
         self.assertEqual(miglierini["agency"], "Miglierini Propiedades")
+        self.assertEqual(miglierini["latitude"], -34.596891378643)
+        self.assertEqual(miglierini["longitude"], -58.640695687162)
+        self.assertEqual(miglierini["location_precision"], "exact")
+        self.assertEqual(odriozola["address"], "Carhue 911, Villa Tesei, Partido de Hurlingham, Buenos Aires, Argentina")
+        self.assertEqual(odriozola["locality"], "Villa Tesei")
         self.assertEqual(odriozola["latitude"], -34.583046168811)
 
     def test_local_url_filters_exclude_categories(self):

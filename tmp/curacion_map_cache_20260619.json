@@ -1,0 +1,640 @@
+{
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/2-casas-en-terreno-individual": {
+    "address": "Manuel Bayllo 664, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.627911084694,
+    "longitude": -58.621383775596,
+    "status": 200,
+    "title_sample": "2 CASAS EN TERRENO INDIVIDUAL – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX –"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/2-viviendas-en-un-mismo": {
+    "address": "Gounod, Hurlingham, Partido de Hurlingham, Buenos Aires, 2355, Argentina",
+    "error": "",
+    "latitude": -34.604042479647,
+    "longitude": -58.633920342863,
+    "status": 200,
+    "title_sample": "2 VIVIENDAS EN UN MISMO LOTE – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – "
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-10": {
+    "address": "Carhué 911, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.624518248146,
+    "longitude": -58.641538023949,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-13": {
+    "address": "José Battle y Ordoñez 1514, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.629322639295,
+    "longitude": -58.650523424149,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-15": {
+    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='odriozolapropiedades.com.ar', port=443): Read timed out. (read timeout=35)\"))"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-17": {
+    "address": "Espínola 220, Villa Tesei, Partido de Hurlingham, Buenos Aires, Argentina",
+    "error": "",
+    "latitude": -34.630047029364,
+    "longitude": -58.62846493721,
+    "status": 200,
+    "title_sample": "CASA PH AL FRENTE – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS-"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-18": {
+    "address": "Waksman 806, Villa tesei",
+    "error": "",
+    "latitude": -34.629402092842,
+    "longitude": -58.620686531067,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-19": {
+    "address": "Jose Ortega y Gasset 885, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.6194578,
+    "longitude": -58.6279989,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-20": {
+    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='odriozolapropiedades.com.ar', port=443): Read timed out. (read timeout=35)\"))"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-23": {
+    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='odriozolapropiedades.com.ar', port=443): Read timed out. (read timeout=35)\"))"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-24": {
+    "address": "Teodoro Fels 187 , Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.615461727996,
+    "longitude": -58.632938861847,
+    "status": 200,
+    "title_sample": "CASA  + DEPARTAMENTO – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINT"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-26": {
+    "address": "Santa Ana 2588, Hurlingham, Partido de Hurlingham, Buenos Aires, B1686, Argentina",
+    "error": "",
+    "latitude": -34.594188857223,
+    "longitude": -58.648109336178,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-30": {
+    "address": "General Luzuriaga 892, Hurlingham, Partido de Hurlingham, Buenos Aires, 1687, Argentina",
+    "error": "",
+    "latitude": -34.590014707474,
+    "longitude": -58.622596263886,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-33": {
+    "address": "Coraceros 2603, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686, Argentina",
+    "error": "",
+    "latitude": -34.601037240452,
+    "longitude": -58.642315864563,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-4-locales": {
+    "address": "Adrián de Rosario Luna 1512, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686, Argentina",
+    "error": "",
+    "latitude": -34.601501359315,
+    "longitude": -58.646285533905,
+    "status": 200,
+    "title_sample": "CASA + 4 LOCALES – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- "
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-5": {
+    "address": "Albert Einstein 356, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.622631577607,
+    "longitude": -58.627606630325,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-7": {
+    "address": "Manuel Bayllo 189, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.631830768975,
+    "longitude": -58.622231530723,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-8": {
+    "address": "Vicente Camargo 1965, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.619638047744,
+    "longitude": -58.63274037838,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-9": {
+    "address": "Hurlingham, Partido de Hurlingham, Buenos Aires, Argentina",
+    "error": "",
+    "latitude": -34.600652600064,
+    "longitude": -58.653076887131,
+    "status": 200,
+    "title_sample": "CASA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-a-refaccionar": {
+    "address": "Stephan Zweig 2618, Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.611939105467,
+    "longitude": -58.627606071124,
+    "status": 200,
+    "title_sample": "CASA A REFACCIONAR – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-en-terreno-industrial": {
+    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='odriozolapropiedades.com.ar', port=443): Read timed out. (read timeout=35)\"))"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/casa-local-cochera": {
+    "address": "Antonio Cetrangolo 377 , Villa Tesei, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.618736980942,
+    "longitude": -58.626930713654,
+    "status": 200,
+    "title_sample": "CASA + LOCAL + COCHERA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUI"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/chalet-barrio-textil": {
+    "address": "Siria 563, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.613307748133,
+    "longitude": -58.641973695161,
+    "status": 200,
+    "title_sample": "CHALET BARRIO TEXTIL – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINT"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/chalet-en-entre-rios": {
+    "address": "Entre Ríos, Argentina",
+    "error": "",
+    "latitude": -33.914285837658,
+    "longitude": -58.873071670532,
+    "status": 200,
+    "title_sample": "CHALET (EN ENTRE RÍOS) – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUI"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/duplex-4": {
+    "address": "J. Bustamante y Guevara 2231, Hurlingham, Provincia de Buenos Aires",
+    "error": "",
+    "latitude": -34.592978876329,
+    "longitude": -58.649868965149,
+    "status": 200,
+    "title_sample": "DUPLEX – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CE"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/galpon-oficina": {
+    "address": " Pucaini 2218, Hurlingham, Partido de Hurlingham, Buenos Aires, 1688, Argentina",
+    "error": "",
+    "latitude": -34.608627779882,
+    "longitude": -58.626115322113,
+    "status": 200,
+    "title_sample": "AMPLIO LOCAL + DUPLEX – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUIN"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/local-mascagni-esq-malaspina": {
+    "address": "Mascagni, Hurlingham, Partido de Hurlingham, Buenos Aires, 1686, Argentina",
+    "error": "",
+    "latitude": -34.5978801,
+    "longitude": -58.6439098,
+    "status": 200,
+    "title_sample": "LOCAL Mascagni esq. Malaspina – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX –"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/lote": {
+    "address": "Juana Manuela Gorriti 3535, William C. Morris, Partido de Hurlingham, Buenos Aires, B1686IRT, Argentina",
+    "error": "",
+    "latitude": -34.588000422697,
+    "longitude": -58.671798706055,
+    "status": 200,
+    "title_sample": "LOTE – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIOS CERR"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/lote-4": {
+    "address": "Poeta Risso 2201, William C. Morris, Partido de Hurlingham, Buenos Aires, B1686IRT, Argentina",
+    "error": "",
+    "latitude": -34.597324127174,
+    "longitude": -58.653863463633,
+    "status": 200,
+    "title_sample": "FRACCION DE TERRENO CON VIVIENDA – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLE"
+  },
+  "https://odriozolapropiedades.com.ar/inmobiliaria/propiedades/ph": {
+    "address": "Avenida Gobernador Vergara 3050, Hurlingham, Partido de Hurlingham, Buenos Aires, B1686, Argentina",
+    "error": "",
+    "latitude": -34.606188628177,
+    "longitude": -58.635191917419,
+    "status": 200,
+    "title_sample": "PH INTERNO – Odriozola Propiedades CENTRAL - Villa Tesei Castellio 199 011.4450.9318 SUCURSAL - Hurlingham Av. Vergara 3078 L a V 9 a 12:30hs - 15:30 a 18:30hs Sáb 9 a 12:30 hs INICIO VENTA CASA – CHALETS DPTOS – DUPLEX – PH QUINTAS- BARRIO"
+  },
+  "https://www.miglieriniprop.com/propiedad/2-lotes-c-5-propiedades-juntos-o-separados-hurlingham-w-c-morris/": {
+    "address": "",
+    "error": "",
+    "latitude": 25.7308309,
+    "longitude": -80.444149,
+    "status": 200,
+    "title_sample": "2 Lotes C/5 Propiedades – Juntos O Separados – Hurlingham (w. C. Morris) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Loca"
+  },
+  "https://www.miglieriniprop.com/propiedad/aconcagua-2095/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5757899,
+    "longitude": -58.6369904,
+    "status": 200,
+    "title_sample": "Aconcagua (casi Granaderos) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendim"
+  },
+  "https://www.miglieriniprop.com/propiedad/atuel-entre-necochea-y-ohiggins/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5971027,
+    "longitude": -58.6323675,
+    "status": 200,
+    "title_sample": "Atuel entre Necochea y O´Higgins | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Empr"
+  },
+  "https://www.miglieriniprop.com/propiedad/ca3-amb-a-reciclar-hurlingham-km18/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.584146365224,
+    "longitude": -58.643989706986,
+    "status": 200,
+    "title_sample": "CASA 3 AMB A RECICLAR – HURLINGHAM (KM 18) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, "
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-a-reciclar-hurlingham-villa-club/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-dividida-en-2-deptos-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.574314676402,
+    "longitude": -58.63552478228,
+    "status": 200,
+    "title_sample": "CASA 3 AMB – dividida en 2 deptos – VILLA CLUB | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fraccion"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-local-hurlingham-centro-plaza/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-ambientes-hurlingham-w-morris/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.583572219506,
+    "longitude": -58.655759304563,
+    "status": 200,
+    "title_sample": "Casa 3 Ambientes – Hurlingham (w Morris) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, ca"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-4-amb-ph-villa-tesei-centro/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.607615867626,
+    "longitude": -58.628356458975,
+    "status": 200,
+    "title_sample": "Casa 4 Amb (ph) – Villa Tesei (centro) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, camp"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-5-amb-depto-2-amb-local-acepta-propiedad-menor-valor-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5971752,
+    "longitude": -58.6447856,
+    "status": 200,
+    "title_sample": "Casa 5 Amb + Depto 2 Amb + Local – Acepta Propiedad Menor Valor – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón "
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-amb-hurlingham-100-m-av-pedro-diaz/": {
+    "address": "",
+    "error": "",
+    "latitude": 25.7308309,
+    "longitude": -80.444149,
+    "status": 200,
+    "title_sample": "Casa Americana 3 Amb – Hurlingham (100 M Av. Pedro Diaz) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-ambientes-con-salida-a-2-calles-villa-tesei-bo-san-martin/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.6126667,
+    "longitude": -58.6381772,
+    "status": 200,
+    "title_sample": "Casa Americana – 3 Ambientes Con Salida A 2 Calles – Villa Tesei (bº San Martin) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Gal"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-ambientes-departamento-2-ambientes-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5761516,
+    "longitude": -58.6494946,
+    "status": 200,
+    "title_sample": "Casa Americana 3 Ambientes + Departamento 2 Ambientes – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Of"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-4-amb-depto-o-quincho-hurlingham-william-c-morris/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5832129,
+    "longitude": -58.6773981,
+    "status": 200,
+    "title_sample": "Casa Americana 4 Amb + Depto O Quincho – Hurlingham (william C. Morris) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-4-amb-zona-industrial-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.6123,
+    "longitude": -58.6297938,
+    "status": 200,
+    "title_sample": "Casa Americana 4 Amb – Zona Industrial – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fra"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-de-estilo-4-ambientes-villa-alemania/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5906891,
+    "longitude": -58.6214158,
+    "status": 200,
+    "title_sample": "Casa de estilo 4 ambientes – Villa Alemania | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones,"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-2-plantas-5-ambientes-hurlingham-villa-alemania/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5750928,
+    "longitude": -58.6362979,
+    "status": 200,
+    "title_sample": "Casa En 2 Plantas – 5 Ambientes – Hurlingham (Villa Alemania) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-bustamante-1884/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.589571,
+    "longitude": -58.6275502,
+    "status": 200,
+    "title_sample": "Casa en Bustamante 1884 | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimient"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-conscripto-sancti/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5753549,
+    "longitude": -58.6457934,
+    "status": 200,
+    "title_sample": "Casa en Conscripto Sancti | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimie"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-verdi-al-2200/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.6008374,
+    "longitude": -58.6355852,
+    "status": 200,
+    "title_sample": "Casa en Verdi al 2200 | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimientos"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-a-estrenar-3-amb-patio-hurlingham-villa-club-2/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.571995712392,
+    "longitude": -58.635626446648,
+    "status": 200,
+    "title_sample": "Casa Ph A Estrenar – 3 Amb – Patio – Hurlingham (villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina "
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-a-estrenar-3-amb-patio-hurlingham-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5743185,
+    "longitude": -58.6326161,
+    "status": 200,
+    "title_sample": "Casa Ph A Estrenar – 3 Amb – Patio – Hurlingham (Villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina "
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-fondo-3-amb-c-patio-hurlingham-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5873813,
+    "longitude": -58.6230968,
+    "status": 200,
+    "title_sample": "Casa Ph Fondo – 3 Amb C/patio – Hurlingham (villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote,"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-frente-3ambpermuta-acredito-hurlinghamzo-iglesia/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.586902209458,
+    "longitude": -58.635341867234,
+    "status": 200,
+    "title_sample": "CASA PH FRENTE – 3 AMB PERMUTA – A CREDITO – HURLINGHAM (Zº Iglesia) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y "
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-racionalista-5-amb-venta-por-viaje-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": 25.7308309,
+    "longitude": -80.444149,
+    "status": 200,
+    "title_sample": "Casa Racionalista – 5 Amb – Venta Por Viaje – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote"
+  },
+  "https://www.miglieriniprop.com/propiedad/casaamericana-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.605916809685,
+    "longitude": -58.641875978495,
+    "status": 200,
+    "title_sample": "Casa Americana – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendim"
+  },
+  "https://www.miglieriniprop.com/propiedad/casaphplantabaja-2amb-hurlinghamp-quirno/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.599593812139,
+    "longitude": -58.632005483425,
+    "status": 200,
+    "title_sample": "CASA PH PLANTA BAJA – 2 AMB – HURLINGHAM (P Quirno) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fra"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-3-amb-depto-1-1-2-amb-hurlingham-parque-johnston/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.592665338259,
+    "longitude": -58.636173013387,
+    "status": 200,
+    "title_sample": "Chalet 3 Amb + Depto 1 1/2 Amb – Hurlingham (parque Johnston) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-3-ambientes-dpto-2-amb-el-palomar-zo-aeropuerto/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.624441479916,
+    "longitude": -58.595044535202,
+    "status": 200,
+    "title_sample": "CHALET 3 AMBIENTES + DPTO 2 AMB – EL PALOMAR (Zº Aeropuerto) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina "
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-amb-a-reciclar-parque-johnston/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.596891378643,
+    "longitude": -58.640695687162,
+    "status": 200,
+    "title_sample": "Chalet 4 Amb A Reciclar – Parque Johnston | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, c"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-amb-c-pileta-hurlingham-v-alemania/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.589565498115,
+    "longitude": -58.625749980855,
+    "status": 200,
+    "title_sample": "CHALET 4 AMB C/PILETA – HURLINGHAM (V. Alemania) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracci"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-ambientes-hurlingham-jorge-newbery/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5870031,
+    "longitude": -58.6193633,
+    "status": 200,
+    "title_sample": "Chalet 4 Ambientes – Hurlingham (Jorge Newbery) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fraccio"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-ambientes-hurlingham-parque-johnston/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet4ambc-pileta-martin-coronado/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.587984482665,
+    "longitude": -58.60292940172,
+    "status": 200,
+    "title_sample": "CHALET 4 AMB C/PILETA – MARTIN CORONADO | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, cam"
+  },
+  "https://www.miglieriniprop.com/propiedad/delleva-2085/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5918305,
+    "longitude": -58.6464868,
+    "status": 200,
+    "title_sample": "Dell’Eva (M. de Avilés / Albania) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emp"
+  },
+  "https://www.miglieriniprop.com/propiedad/delleva-315/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/deparc-plaza/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5889924,
+    "longitude": -58.6282474,
+    "status": 200,
+    "title_sample": "Deparc Plaza | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimientos Notas de"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-amb-pa-a-estrenar-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.571916203907,
+    "longitude": -58.635760596888,
+    "status": 200,
+    "title_sample": "Departamento 2 amb. PA – a estrenar – Villa Club | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracci"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-amb-pb-c-cochera-a-estrenar-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.571885283921,
+    "longitude": -58.635792967182,
+    "status": 200,
+    "title_sample": "Departamento 2 amb. PB c/cochera – A estrenar – Villa Club | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lo"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-ambientes-con-cochera-permuta-hurlingham-parque-johnston/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5920881,
+    "longitude": -58.6446646,
+    "status": 200,
+    "title_sample": "Departamento 2 Ambientes Con Cochera – Permuta – Hurlingham (parque Johnston) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2amb-interno-hurlingham-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.573139742721,
+    "longitude": -58.640126045184,
+    "status": 200,
+    "title_sample": "DEPARTAMENTO 2 amb interno – HURLINGHAM (Villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fr"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-duplex-c-cochera-remedios-de-escalada/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5951545,
+    "longitude": -58.6262012,
+    "status": 200,
+    "title_sample": "Departamento Duplex c/cochera Remedios de Escalada | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, frac"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-monombiente-frente-1o-piso-hurlingham-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5757673,
+    "longitude": -58.6370588,
+    "status": 200,
+    "title_sample": "Departamento Monoambiente Frente – 1º Piso – Hurlingham (villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y "
+  },
+  "https://www.miglieriniprop.com/propiedad/depto2ambdeptomonoambiente-hurlingham-villa-club/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.582017589649,
+    "longitude": -58.636994357141,
+    "status": 200,
+    "title_sample": "DEPTO 2 AMB + DEPTO MONOAMBIENTE – HURLINGHAM (Villa Club) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lo"
+  },
+  "https://www.miglieriniprop.com/propiedad/dos-chalets-con-lotes-pedro-diaz/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5895455,
+    "longitude": -58.6668824,
+    "status": 200,
+    "title_sample": "Dos Chalets con Lotes Pedro Diaz | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Empr"
+  },
+  "https://www.miglieriniprop.com/propiedad/duplex-c-amplia-financiacion-hurlingham-z-iglesia/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/duplex-totalmente-reciclado-bo-cartero/": {
+    "address": "",
+    "error": "",
+    "latitude": 25.7308309,
+    "longitude": -80.444149,
+    "status": 200,
+    "title_sample": "Duplex Totalmente Reciclado – Bº Cartero | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, ca"
+  },
+  "https://www.miglieriniprop.com/propiedad/excelente-chalet-4-amb-c-piscina-climatizada-detalles-categoria-hurlingham/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5907863,
+    "longitude": -58.6215616,
+    "status": 200,
+    "title_sample": "Excelente Chalet 4 Amb C/piscina Climatizada – Detalles Categoria – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpó"
+  },
+  "https://www.miglieriniprop.com/propiedad/excelente-triplex-en-barrio-punta-chica-hurlingham-centro/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.588575986904,
+    "longitude": -58.636001922753,
+    "status": 200,
+    "title_sample": "Excelente Triplex En Barrio Punta Chica – Hurlingham Centro | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina L"
+  },
+  "https://www.miglieriniprop.com/propiedad/garay-1908/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5851013,
+    "longitude": -58.642863,
+    "status": 200,
+    "title_sample": "Garay (Victoria / Alsina) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimie"
+  },
+  "https://www.miglieriniprop.com/propiedad/hermosa-casa-de-4-amb-hurlingham-villa-alemania/": {
+    "address": "",
+    "error": "",
+    "latitude": 25.7308309,
+    "longitude": -80.444149,
+    "status": 200,
+    "title_sample": "Hermosa Casa De 4 Amb – Hurlingham (Villa Alemania) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fra"
+  },
+  "https://www.miglieriniprop.com/propiedad/liszt-1422/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.6005297,
+    "longitude": -58.643860700000005,
+    "status": 200,
+    "title_sample": "Liszt (Debussie / Bizet) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimien"
+  },
+  "https://www.miglieriniprop.com/propiedad/lote-en-mozart-parque-quirno/": {
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+  },
+  "https://www.miglieriniprop.com/propiedad/maestra-piovano-1-100-km-18/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5842585,
+    "longitude": -58.65026499999999,
+    "status": 200,
+    "title_sample": "Maestra Piovano 1.100 (KM 18) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprend"
+  },
+  "https://www.miglieriniprop.com/propiedad/mazzini-1617/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5841246,
+    "longitude": -58.6393834,
+    "status": 200,
+    "title_sample": "Mazzini (y Sto. Gomez) | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lote, fracciones, campo Emprendimiento"
+  },
+  "https://www.miglieriniprop.com/propiedad/nilda-figueira-al-1400-condominio-el-corralon/": {
+    "address": "",
+    "error": "",
+    "latitude": -34.5885928,
+    "longitude": -58.636204,
+    "status": 200,
+    "title_sample": "Casa 4 amb. en Condominio Cerrado El Corralón – Hurlingham | Miglierini Propiedades | Inmobiliaria 011 4665-8100 Iniciar sesión / Registrarse Menu Home Empresa Servicios Venta Casa y Chalet Departamento Duplex y PH Galpón Local y Oficina Lo"
+  }
+}
