@@ -151,6 +151,7 @@ class NormalizationTests(TestCase):
         self.assertEqual(normalize_street_number_address("solis al 2.800"), "solis 2800")
         self.assertEqual(normalize_street_number_address("Rolland al 1.200"), "Rolland 1200")
         self.assertEqual(normalize_street_number_address("GRANADA 500, Piso 0"), "GRANADA 500")
+        self.assertEqual(normalize_street_number_address("Esteban De Luca al 0"), "Esteban De Luca 100")
         self.assertEqual(normalize_street_number_address("Bonorino 634 , Piso 1"), "Bonorino 634")
         self.assertIn("José de Andonaegui 2600", address_alias_variants("J De Andonaegui 2600"))
         self.assertIn("Esteban Bonorino 634", address_alias_variants("Bonorino 634"))
@@ -188,6 +189,16 @@ class NormalizationTests(TestCase):
         self.assertIn("José Garibaldi 2600", address_alias_variants("Garibaldi 2600"))
         self.assertIn("Av. Gdor. Vergara 3604", address_alias_variants("avenida vergara 3604"))
         self.assertIn("Eva Perón 2200 esquina Guevara", address_alias_variants("J. Bustamante y Guevara 2200"))
+
+        variants = address_alias_variants("General T de Luzuriaga 1700")
+        self.assertTrue(any("Toribio" in item and "1700" in item for item in variants))
+        self.assertIn("Dip. Hector Finochietto 1900", address_alias_variants("Finochieto 1900"))
+        self.assertIn("Schubert 2400", address_alias_variants("Schubet 2400"))
+        self.assertTrue(any("Mart" in item and "1400" in item for item in address_alias_variants("Tte.Gral. GUEMES 1400")))
+        self.assertIn("Av. Rosas Castillo 2900", address_alias_variants("SGTO. ROSAS CASTILLO 2900"))
+        self.assertIn("Gutenberg 2100", address_alias_variants("Gutemberg 2100"))
+        self.assertTrue(any("Alfredo" in item and "1635" in item for item in address_alias_variants("Rodriguez 1635")))
+        self.assertTrue(any("100" in item for item in address_alias_variants("BUSTAMANTE al 0")))
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -4342,6 +4353,27 @@ class ScraperParserTests(TestCase):
                 self.assertAlmostEqual(data["latitude"], float(latitude))
                 self.assertAlmostEqual(data["longitude"], float(longitude))
 
+    def test_becerra_parser_prefers_visible_h3_and_ignores_header_noise(self):
+        scraper = BecerraScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>PH 3 ambientes en Venta en Hurlingham</h1>
+              <nav>Tel: 4662-2562 INICIO DESTACADOS EMPRENDIMIENTOS SERVICIOS QUIENES SOMOS CONTACTO</nav>
+              <h3>Juan DÃ­az de SolÃ­s al 1500</h3>
+              <main>G.B.A. Zona Oeste | Hurlingham | Venta USD 95.000</main>
+              <script>window.map = {"lat":"-34.5888949406","lng":"-58.639576753"};</script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://becerrapropiedades.com/ficha/6966002")
+        self.assertIn("Juan", data["address"])
+        self.assertIn("1500", data["address"])
+        self.assertNotIn("Tel:", data["address"])
+        self.assertAlmostEqual(data["latitude"], -34.5888949406)
+        self.assertAlmostEqual(data["longitude"], -58.639576753)
+
     def test_argenprop_parser_fixture(self):
         data = self.parse_with_fixture(
             ArgenpropScraper,
@@ -4548,7 +4580,8 @@ class ScraperParserTests(TestCase):
             "haurie_address_detail.html",
             "https://www.haurie.argencasas.com/propiedad-local-con-vivienda-venta-hurlingham-301-1082",
         )
-        self.assertEqual(data["address"], "BUSTAMANTE 2600")
+        self.assertTrue(data["address"].startswith("Eva Per"))
+        self.assertIn("2600", data["address"])
         self.assertNotEqual(data["address"].lower(), "salon de 17")
 
     def test_fincas_parser_rejects_description_as_address(self):
@@ -5125,6 +5158,27 @@ class ScraperParserTests(TestCase):
                 "https://www.miglieriniprop.com/propiedad-tipo/casa-chalet/"
             )
         )
+
+    def test_guarnieri_parser_extracts_data_map_coordinates(self):
+        scraper = GuarnieriScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <div class="elementor-location-single property">
+                <h1>DÃºplex 4 AMB a estrenar</h1>
+                <address class="item-address">Forest CASI SCHUMAN, Hurlingham,PCIA.BS.AS</address>
+                <div class="property-description-wrap"><div class="block-content-wrap">Parque Johnston</div></div>
+                <div data-map='{"latitude":"-34.590452874017","longitude":"-58.644783496857","address":"Forest CASI SCHUMAN, Hurlingham,PCIA.BS.AS"}'></div>
+              </div>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://guarnieripropiedades.com.ar/inmobiliaria/propiedad/duplex-4-amb")
+        self.assertAlmostEqual(data["latitude"], -34.590452874017)
+        self.assertAlmostEqual(data["longitude"], -58.644783496857)
+        self.assertEqual(data["location_precision"], "exact")
+        self.assertEqual(data["raw_data"]["guarnieri_map_coordinate"]["method"], "data-map")
 
     def test_pending_phase_one_scrapers_parse_common_fixture(self):
         for scraper_cls in (
@@ -5852,6 +5906,56 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["bathrooms"], Decimal("1"))
         self.assertEqual(data["total_area"], Decimal("130"))
         self.assertEqual(data["covered_area"], Decimal("80"))
+
+    def test_argencasas_parser_extracts_jsonld_geo_and_canonical_address(self):
+        scraper = ArgencasasScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <script type="application/ld+json">
+              {
+                "@type": "RealEstateListing",
+                "name": "Duplex en Venta en Hurlingham",
+                "mainEntity": {
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Richieri (el mirador) al 1500",
+                    "addressLocality": "Hurlingham"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "-34.587651022465",
+                    "longitude": "-58.636475811363"
+                  }
+                },
+                "offers": {"price": "130000", "priceCurrency": "USD", "seller": {"name": "FINCAS Propiedades"}}
+              }
+              </script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.argencasas.com/propiedad-duplex-venta-hurlingham-302-1314")
+        self.assertEqual(data["address"], "Tte. Gral. Pablo Ricchieri (el mirador) 1500")
+        self.assertAlmostEqual(data["latitude"], -34.587651022465)
+        self.assertAlmostEqual(data["longitude"], -58.636475811363)
+        self.assertEqual(data["location_precision"], "exact")
+        self.assertEqual(data["raw_data"]["argencasas_map_coordinate"]["method"], "jsonld_geo")
+
+    def test_argencasas_parser_marks_removed_text(self):
+        scraper = ArgencasasScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Error</h1>
+              <p>La propiedad ha sido retirada del sistema</p>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.argencasas.com/propiedad-chalet-venta-barrio-ingles-306-1235")
+        self.assertEqual(data["source_status"], "removed")
+        self.assertEqual(data["status"], Property.Status.REMOVED)
 
     def test_valenti_parser_reads_json_ld_coordinates_and_metrics(self):
         scraper = ValentiScraper()

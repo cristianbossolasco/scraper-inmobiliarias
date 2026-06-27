@@ -1,9 +1,11 @@
 import re
 
 from .base import BaseScraper, SourceDefinition
-from .parsing import basic_html_data, json_ld_objects
+from .parsing import basic_html_data, first_map_coordinate, json_ld_objects
 from .paginated import paginated_discover
 from properties.services.normalization import (
+    canonical_address_alias,
+    classify_address_precision,
     fold_text,
     infer_property_type,
     parse_decimal,
@@ -84,6 +86,10 @@ class ArgencasasScraper(BaseScraper):
         soup = self.soup(url)
         data = basic_html_data(soup, url)
         page_text = repair_mojibake_text(soup.get_text(" ", strip=True))
+        if re.search(r"propiedad\s+ha\s+sido\s+retirada\s+del\s+sistema|publicaci[oÃ³]n\s+retirada", page_text, re.I):
+            data["source_status"] = "removed"
+            data["status"] = "removed"
+            data.setdefault("raw_data", {})["argencasas_removed_text"] = True
         for payload in json_ld_objects(soup):
             if payload.get("@type") != "RealEstateListing":
                 continue
@@ -94,7 +100,8 @@ class ArgencasasScraper(BaseScraper):
                 {
                     "title": payload.get("name") or data["title"],
                     "description": payload.get("description") or "",
-                    "address": address.get("streetAddress") or "",
+                    "address": canonical_address_alias(address.get("streetAddress") or ""),
+                    "detected_address": canonical_address_alias(address.get("streetAddress") or ""),
                     "locality": address.get("addressLocality") or "Hurlingham",
                     "price": offer.get("price") or data["price"],
                     "currency": offer.get("priceCurrency") or data["currency"],
@@ -105,6 +112,12 @@ class ArgencasasScraper(BaseScraper):
             if image:
                 data["images"] = [self.absolute(image)]
             break
+        coordinate = first_map_coordinate(str(soup))
+        if coordinate:
+            data["latitude"] = coordinate["latitude"]
+            data["longitude"] = coordinate["longitude"]
+            data["location_precision"] = "exact"
+            data.setdefault("raw_data", {})["argencasas_map_coordinate"] = coordinate
 
         labels = [
             repair_mojibake_text(item.get_text(" ", strip=True))
@@ -147,4 +160,6 @@ class ArgencasasScraper(BaseScraper):
                 evidence[field] = str(value)
         if evidence:
             data.setdefault("raw_data", {})["argencasas_metrics"] = evidence
+        if data.get("address") and not data.get("location_precision"):
+            data["location_precision"] = classify_address_precision(data.get("address"))
         return data

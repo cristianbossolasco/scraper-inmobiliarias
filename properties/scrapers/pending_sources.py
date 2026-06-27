@@ -1988,6 +1988,7 @@ class GuarnieriScraper(MultiSearchScraper):
         detail_start = re.search(r"DATOS DE LA PROPIEDAD", page_text, re.I)
         detail_text = page_text[detail_start.start():] if detail_start else page_text
         details = self._detail_pairs(root)
+        coordinate = first_map_coordinate(str(soup))
         overview_text = clean_text(
             " ".join(
                 node.get_text(" ", strip=True)
@@ -2017,6 +2018,11 @@ class GuarnieriScraper(MultiSearchScraper):
             data["address"] = header_address
         if header_neighborhood:
             data["neighborhood"] = header_neighborhood
+        if coordinate:
+            data["latitude"] = coordinate["latitude"]
+            data["longitude"] = coordinate["longitude"]
+            data["location_precision"] = "exact"
+            data["raw_data"]["guarnieri_map_coordinate"] = coordinate
 
         description_node = root.select_one(".property-description-wrap .block-content-wrap")
         if description_node:
@@ -2080,7 +2086,8 @@ class GuarnieriScraper(MultiSearchScraper):
 
         if data.get("land_area") and not data.get("total_area"):
             data["total_area"] = data["land_area"]
-        data["location_precision"] = classify_address_precision(data.get("address"))
+        if not coordinate:
+            data["location_precision"] = classify_address_precision(data.get("address"))
         return data
 
     def _detail_pairs(self, root):

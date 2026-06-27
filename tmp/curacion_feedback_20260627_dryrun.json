@@ -1,0 +1,1762 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-26_feedback.xlsx",
+  "output_excel": "",
+  "feedback_decisions": {
+    "APROBADO": 21
+  },
+  "approved_found": [
+    1131,
+    1881,
+    1942,
+    2099,
+    2101,
+    2254,
+    2311,
+    2492,
+    2596,
+    2875,
+    2879,
+    2880,
+    2883,
+    2886,
+    2898,
+    2901,
+    3181,
+    3284,
+    3289,
+    4454,
+    5829
+  ],
+  "unexpected_approved": [],
+  "before": {
+    "sin_zona_operativa": 359,
+    "sin_direccion_util": 231,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 5
+      },
+      "analia-fernandez": {
+        "pendientes": 8,
+        "sin_zona": 8
+      },
+      "argencasas": {
+        "pendientes": 18,
+        "sin_zona": 18
+      },
+      "argenprop": {
+        "pendientes": 16,
+        "sin_zona": 16
+      },
+      "becerra": {
+        "pendientes": 51,
+        "sin_zona": 50,
+        "sin_direccion": 45
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 43,
+        "sin_zona": 43
+      },
+      "guarnieri": {
+        "pendientes": 10,
+        "sin_zona": 10
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "lopez-comba": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 53,
+        "sin_direccion": 46,
+        "sin_zona": 12
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 69,
+        "sin_zona": 67,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 4
+      },
+      "riquelme": {
+        "pendientes": 81,
+        "sin_direccion": 79,
+        "sin_zona": 11
+      },
+      "zonaprop": {
+        "pendientes": 73,
+        "sin_zona": 72,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "backup": "",
+  "address_updates": [
+    {
+      "id": 1131,
+      "to": "Gral. Toribio de Luzuriaga 1700"
+    },
+    {
+      "id": 1881,
+      "to": "Tte. Gral. Pablo Ricchieri (el mirador) 1500"
+    },
+    {
+      "id": 2099,
+      "to": "Esteban De Luca 100"
+    },
+    {
+      "id": 2101,
+      "to": "Dip. Hector Finochietto 1900"
+    },
+    {
+      "id": 2254,
+      "to": "Schubert 2400"
+    },
+    {
+      "id": 2311,
+      "to": "Esteban de Luca 100"
+    },
+    {
+      "id": 2492,
+      "to": "Eva Peron 100"
+    },
+    {
+      "id": 2596,
+      "to": "Gral. Martin Guemes 1400"
+    },
+    {
+      "id": 2880,
+      "to": "Av. Rosas Castillo 2900"
+    },
+    {
+      "id": 2898,
+      "to": "Jose de Andonaegui 1600"
+    },
+    {
+      "id": 2901,
+      "to": "Juan Diaz de Solis 1500"
+    },
+    {
+      "id": 3181,
+      "to": "Virriato Unia 2412"
+    },
+    {
+      "id": 3284,
+      "to": "Gutenberg 2100"
+    },
+    {
+      "id": 3289,
+      "to": "Gral. Alfredo Rodriguez 1635"
+    },
+    {
+      "id": 5829,
+      "to": "Schumann 1367"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 1131,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 1881,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2099,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2101,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2254,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2311,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2492,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2596,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2880,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2898,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 2901,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 3181,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 3284,
+      "to": "William C. Morris"
+    },
+    {
+      "id": 3289,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5829,
+      "to": "Hurlingham"
+    }
+  ],
+  "geocode_required": [
+    1131,
+    2099,
+    2101,
+    2254,
+    2311,
+    2492,
+    2596,
+    2880,
+    3181,
+    3284,
+    3289,
+    5829,
+    3253,
+    3454
+  ],
+  "location_updates": [
+    {
+      "id": 1881,
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2898,
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2901,
+      "provider": "becerra_map"
+    },
+    {
+      "id": 4454,
+      "provider": "guarnieri_map"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 1881,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2898,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2901,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 4454,
+      "zone": "Curapaytí",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 1906,
+      "zone": "Villa Club",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 1999,
+      "zone": "Parque Johnston",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2017,
+      "zone": "Cartero",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2077,
+      "zone": "La Leonor",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2629,
+      "zone": "Jorge Newbery",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2656,
+      "zone": "Villa Club",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2717,
+      "zone": "Luna",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2718,
+      "zone": "Villa Club",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2748,
+      "zone": "Cartero",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2803,
+      "zone": "Villa Club",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2858,
+      "zone": "Curapaytí",
+      "provider": "argencasas_map"
+    },
+    {
+      "id": 2894,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2903,
+      "zone": "Curapaytí",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2906,
+      "zone": "Santa Clara",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2909,
+      "zone": "Jorge Newbery",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2910,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2912,
+      "zone": "La Leonor",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2914,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2917,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2920,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2923,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2928,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2932,
+      "zone": "Curapaytí",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2935,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2937,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2946,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2957,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2960,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2964,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2966,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2971,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2976,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2980,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2984,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2990,
+      "zone": "Roca 2",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2994,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3003,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3013,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3018,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3025,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3029,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3034,
+      "zone": "Parque Quirno",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3037,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3042,
+      "zone": "Villa Tesei Centro",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3061,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3077,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3080,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3083,
+      "zone": "Villa Alemania",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3091,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3097,
+      "zone": "Roca 2",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3103,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3114,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3126,
+      "zone": "Villa Alemania",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3129,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3134,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3137,
+      "zone": "Parque Johnston",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3147,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3162,
+      "zone": "Villa Alemania",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3260,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3161,
+      "zone": "Villa Club",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4217,
+      "zone": "Parque Johnston",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4351,
+      "zone": "Villa Tesei Centro",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4352,
+      "zone": "Roca 2",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4393,
+      "zone": "Atepam Italia",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4431,
+      "zone": "Santa Leonor",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4440,
+      "zone": "Curapaytí",
+      "provider": "guarnieri_map"
+    },
+    {
+      "id": 4498,
+      "zone": "Villa Tesei Centro",
+      "provider": "guarnieri_map"
+    }
+  ],
+  "propagated_address_updates": [
+    {
+      "id": 3253,
+      "from": "GBA Oeste Hurlingham Hurlingham Hurlingham BUSTAMANTE 1700",
+      "to": "Eva Peron 1700",
+      "rule": "Bustamante -> Eva Peron"
+    },
+    {
+      "id": 3454,
+      "from": "GBA Oeste Hurlingham Hurlingham Hurlingham BUSTAMANTE 2600",
+      "to": "Eva Peron 2600",
+      "rule": "Bustamante -> Eva Peron"
+    }
+  ],
+  "removed": [
+    {
+      "id": 1942,
+      "listing_ids": [
+        2638
+      ],
+      "reason": "Argencasas 404 + propiedad retirada del sistema"
+    },
+    {
+      "id": 2274,
+      "listing_ids": [
+        2982
+      ],
+      "reason": "Argencasas 404 + propiedad retirada del sistema en barrido"
+    }
+  ],
+  "sweep_map_locations": [
+    {
+      "id": 1906,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 1999,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2017,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2077,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2629,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2656,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2717,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2718,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2748,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2803,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2858,
+      "source": "argencasas",
+      "method": "jsonld_geo"
+    },
+    {
+      "id": 2894,
+      "source": "becerra"
+    },
+    {
+      "id": 2903,
+      "source": "becerra"
+    },
+    {
+      "id": 2906,
+      "source": "becerra"
+    },
+    {
+      "id": 2909,
+      "source": "becerra"
+    },
+    {
+      "id": 2910,
+      "source": "becerra"
+    },
+    {
+      "id": 2912,
+      "source": "becerra"
+    },
+    {
+      "id": 2914,
+      "source": "becerra"
+    },
+    {
+      "id": 2917,
+      "source": "becerra"
+    },
+    {
+      "id": 2920,
+      "source": "becerra"
+    },
+    {
+      "id": 2923,
+      "source": "becerra"
+    },
+    {
+      "id": 2928,
+      "source": "becerra"
+    },
+    {
+      "id": 2932,
+      "source": "becerra"
+    },
+    {
+      "id": 2935,
+      "source": "becerra"
+    },
+    {
+      "id": 2937,
+      "source": "becerra"
+    },
+    {
+      "id": 2946,
+      "source": "becerra"
+    },
+    {
+      "id": 2957,
+      "source": "becerra"
+    },
+    {
+      "id": 2960,
+      "source": "becerra"
+    },
+    {
+      "id": 2964,
+      "source": "becerra"
+    },
+    {
+      "id": 2966,
+      "source": "becerra"
+    },
+    {
+      "id": 2971,
+      "source": "becerra"
+    },
+    {
+      "id": 2976,
+      "source": "becerra"
+    },
+    {
+      "id": 2980,
+      "source": "becerra"
+    },
+    {
+      "id": 2984,
+      "source": "becerra"
+    },
+    {
+      "id": 2990,
+      "source": "becerra"
+    },
+    {
+      "id": 2994,
+      "source": "becerra"
+    },
+    {
+      "id": 3003,
+      "source": "becerra"
+    },
+    {
+      "id": 3013,
+      "source": "becerra"
+    },
+    {
+      "id": 3018,
+      "source": "becerra"
+    },
+    {
+      "id": 3025,
+      "source": "becerra"
+    },
+    {
+      "id": 3029,
+      "source": "becerra"
+    },
+    {
+      "id": 3034,
+      "source": "becerra"
+    },
+    {
+      "id": 3037,
+      "source": "becerra"
+    },
+    {
+      "id": 3042,
+      "source": "becerra"
+    },
+    {
+      "id": 3061,
+      "source": "becerra"
+    },
+    {
+      "id": 3077,
+      "source": "becerra"
+    },
+    {
+      "id": 3080,
+      "source": "becerra"
+    },
+    {
+      "id": 3083,
+      "source": "becerra"
+    },
+    {
+      "id": 3091,
+      "source": "becerra"
+    },
+    {
+      "id": 3097,
+      "source": "becerra"
+    },
+    {
+      "id": 3103,
+      "source": "becerra"
+    },
+    {
+      "id": 3114,
+      "source": "becerra"
+    },
+    {
+      "id": 3126,
+      "source": "becerra"
+    },
+    {
+      "id": 3129,
+      "source": "becerra"
+    },
+    {
+      "id": 3134,
+      "source": "becerra"
+    },
+    {
+      "id": 3137,
+      "source": "becerra"
+    },
+    {
+      "id": 3147,
+      "source": "becerra"
+    },
+    {
+      "id": 3162,
+      "source": "becerra"
+    },
+    {
+      "id": 3260,
+      "source": "becerra"
+    },
+    {
+      "id": 3161,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4040,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4217,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4324,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4351,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4352,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4393,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4409,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4431,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4440,
+      "source": "guarnieri",
+      "method": "data-map"
+    },
+    {
+      "id": 4498,
+      "source": "guarnieri",
+      "method": "data-map"
+    }
+  ],
+  "source_fetch_errors": [
+    {
+      "id": 2952,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 2999,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 3046,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 3066,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 4166,
+      "source": "guarnieri",
+      "http_status": 404
+    }
+  ],
+  "zone_skipped": [
+    {
+      "id": 4040,
+      "reason": "sin_match_poligono"
+    },
+    {
+      "id": 4324,
+      "reason": "sin_match_poligono"
+    },
+    {
+      "id": 4409,
+      "reason": "sin_match_poligono"
+    }
+  ],
+  "reviewed_no_action": [
+    {
+      "id": 2875,
+      "note": "La publicacion no tiene domicilio ni coordenadas, no hay nada para hacer aquí. Como las puedes marcar a estas que apruebo para que no vuelvan a aparecer en el excel?"
+    },
+    {
+      "id": 2879,
+      "note": "La publicacion no tiene domicilio ni coordenadas, no hay nada para hacer aquí. Como las puedes marcar a estas que apruebo para que no vuelvan a aparecer en el excel?"
+    },
+    {
+      "id": 2883,
+      "note": "La publicacion no tiene domicilio ni coordenadas, no hay nada para hacer aquí. Como las puedes marcar a estas que apruebo para que no vuelvan a aparecer en el excel?"
+    },
+    {
+      "id": 2886,
+      "note": "La publicacion no tiene domicilio ni coordenadas, no hay nada para hacer aquí. Como las puedes marcar a estas que apruebo para que no vuelvan a aparecer en el excel?"
+    },
+    {
+      "id": 3301,
+      "note": "revisado manualmente, sin datos utiles publicados"
+    },
+    {
+      "id": 3330,
+      "note": "revisado manualmente, sin datos utiles publicados"
+    },
+    {
+      "id": 3349,
+      "note": "revisado manualmente, sin datos utiles publicados"
+    },
+    {
+      "id": 3402,
+      "note": "revisado manualmente, sin datos utiles publicados"
+    },
+    {
+      "id": 3503,
+      "note": "revisado manualmente, sin datos utiles publicados"
+    }
+  ],
+  "after": {
+    "sin_zona_operativa": 359,
+    "sin_direccion_util": 231,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 5
+      },
+      "analia-fernandez": {
+        "pendientes": 8,
+        "sin_zona": 8
+      },
+      "argencasas": {
+        "pendientes": 18,
+        "sin_zona": 18
+      },
+      "argenprop": {
+        "pendientes": 16,
+        "sin_zona": 16
+      },
+      "becerra": {
+        "pendientes": 51,
+        "sin_zona": 50,
+        "sin_direccion": 45
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 43,
+        "sin_zona": 43
+      },
+      "guarnieri": {
+        "pendientes": 10,
+        "sin_zona": 10
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "lopez-comba": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 53,
+        "sin_direccion": 46,
+        "sin_zona": 12
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 69,
+        "sin_zona": 67,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 4
+      },
+      "riquelme": {
+        "pendientes": 81,
+        "sin_direccion": 79,
+        "sin_zona": 11
+      },
+      "zonaprop": {
+        "pendientes": 73,
+        "sin_zona": 72,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "excel": null,
+  "excel_validation": null,
+  "sample": [
+    {
+      "id": 1131,
+      "address": "General T de Luzuriaga 1700",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "General T de Luzuriaga 1700, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        1190
+      ]
+    },
+    {
+      "id": 1881,
+      "address": "Richieri (el mirador) 1500",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Richieri (el mirador) 1500, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Hurlingham",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        2574
+      ]
+    },
+    {
+      "id": 1942,
+      "address": "Naciones Unidas 1300",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-16T02:57:16.443374+00:00"
+      },
+      "zone_evidence": {
+        "geocode_query": "NACIONES UNIDAS 1300, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Hurlingham Centro (Barrio Ingles)",
+        "inferred_zone": ""
+      },
+      "corrected": true,
+      "active_listings": [
+        2638
+      ]
+    },
+    {
+      "id": 2099,
+      "address": "Esteban De Luca al 0",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Esteban De Luca al 0, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        2800
+      ]
+    },
+    {
+      "id": 2101,
+      "address": "Finochieto 1900",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Finochieto 1900, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        2802
+      ]
+    },
+    {
+      "id": 2254,
+      "address": "Schubet 2400",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Schubet 2400, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        2962
+      ]
+    },
+    {
+      "id": 2311,
+      "address": "Esteban de Luca al 0",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Esteban de Luca al 0, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3020
+      ]
+    },
+    {
+      "id": 2492,
+      "address": "BUSTAMANTE al 0",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "BUSTAMANTE al 0, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Hurlingham",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3211
+      ]
+    },
+    {
+      "id": 2596,
+      "address": "Tte.Gral. GUEMES 1400",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Tte.Gral. GUEMES 1400, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Hurlingham",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3319
+      ]
+    },
+    {
+      "id": 2875,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3615
+      ]
+    },
+    {
+      "id": 2879,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3619
+      ]
+    },
+    {
+      "id": 2880,
+      "address": "SGTO. ROSAS CASTILLO 2900",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "SGTO. ROSAS CASTILLO 2900, Villa Tesei, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Santos Tesei",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3620
+      ]
+    },
+    {
+      "id": 2883,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3623
+      ]
+    },
+    {
+      "id": 2886,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3626
+      ]
+    },
+    {
+      "id": 2898,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3638
+      ]
+    },
+    {
+      "id": 2901,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3641
+      ]
+    },
+    {
+      "id": 3181,
+      "address": "Virriato Unía 2412 Esquina Sigmund Freud",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Virriato Unía 2412 Esquina Sigmund Freud, Villa Tesei, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Santos Tesei",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3958
+      ]
+    },
+    {
+      "id": 3284,
+      "address": "Gutemberg 2100",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Gutemberg 2100, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4078
+      ]
+    },
+    {
+      "id": 3289,
+      "address": "Rodriguez 1635 E/ Gaboto y Atuel",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Rodriguez 1635 E/ Gaboto y Atuel, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4085
+      ]
+    },
+    {
+      "id": 3301,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": true,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4101
+      ]
+    },
+    {
+      "id": 3330,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4136
+      ]
+    },
+    {
+      "id": 3349,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4158
+      ]
+    },
+    {
+      "id": 3402,
+      "address": "",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Villa Tesei: Casa 4 ambientes. APTO CREDITO Inicio Contacto giselariquelme@yahoo.com.ar 011 4459-0139 - 011 2199 8638 Móvil: +54 9 11 6442 5506 Av. Vergara N° 3090, Villa Tesei, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4314,
+        4266,
+        4215
+      ]
+    },
+    {
+      "id": 3503,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4351
+      ]
+    },
+    {
+      "id": 4454,
+      "address": "FOREST CASI SCHUMAN",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "FOREST CASI SCHUMAN, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        5619
+      ]
+    },
+    {
+      "id": 5829,
+      "address": "Schumann 1367",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7274
+      ]
+    }
+  ]
+}

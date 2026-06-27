@@ -13,12 +13,19 @@ from .paginated import (
 from .parsing import basic_html_data, clean_text, first_map_coordinate, text_value
 from properties.services.location_enrichment import clean_detected_address
 from properties.services.normalization import (
+    canonical_address_alias,
     classify_address_precision,
     infer_property_type,
     known_neighborhood_name,
     normalize_currency,
     parse_decimal,
     parse_int,
+)
+
+
+ADDRESS_NOISE_RE = re.compile(
+    r"\b(?:tel|inicio|destacados|emprendimientos|servicios|quienes\s+somos|contacto|ver\s+tel|whatsapp)\b",
+    re.I,
 )
 
 
@@ -76,7 +83,7 @@ class BecerraScraper(LinkDetailScraper):
         soup = self.soup(url)
         data = basic_html_data(soup, url)
         text = clean_text(soup.get_text(" ", strip=True))
-        address = self._address_from_text(data.get("title") or "", text)
+        address = self._address_from_soup(soup) or self._address_from_text(data.get("title") or "", text)
         if address:
             data["address"] = address[:250]
             data["detected_address"] = address[:250]
@@ -93,6 +100,21 @@ class BecerraScraper(LinkDetailScraper):
         data["operation"] = "sale"
         data["location_precision"] = classify_address_precision(data.get("address"))
         return data
+
+    def _clean_address_candidate(self, value):
+        address = clean_detected_address(value or "")
+        if not address or ADDRESS_NOISE_RE.search(address):
+            return ""
+        if len(address) > 90:
+            return ""
+        return canonical_address_alias(address)
+
+    def _address_from_soup(self, soup):
+        for node in soup.select("h3, .item-address, .property-address, .address"):
+            address = self._clean_address_candidate(node.get_text(" ", strip=True))
+            if address and re.search(r"\d{2,5}\b", address):
+                return address
+        return ""
 
     def _address_from_text(self, title, text):
         candidates = []
@@ -112,7 +134,7 @@ class BecerraScraper(LinkDetailScraper):
             if direct:
                 if title and direct.startswith(title):
                     direct = direct[len(title):]
-                address = clean_detected_address(direct)
+                address = self._clean_address_candidate(direct)
                 if address:
                     return address
             value = text_value(
@@ -123,7 +145,7 @@ class BecerraScraper(LinkDetailScraper):
                 ],
             )
             if value:
-                address = clean_detected_address(value)
+                address = self._clean_address_candidate(value)
                 if address:
                     return address
         return ""

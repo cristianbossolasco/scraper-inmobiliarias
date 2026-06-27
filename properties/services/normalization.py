@@ -253,6 +253,7 @@ def normalize_street_number_address(value):
     text = normalize_whitespace(value)
     if not text:
         return ""
+    text = re.sub(r"\s+\bal\s+0\b", " 100", text, flags=re.I)
     text = re.sub(r"\s*,?\s*\bpiso\s+(?:pb|bajo|\d+)\b\.?", "", text, flags=re.I)
     text = re.sub(r"\s*,?\s*\bp\.?\s*b\.?\b\.?", "", text, flags=re.I)
     text = re.sub(r"\s+\bal\s+(\d{1,2})[.,](\d{3})(?=\b)", r" \1\2", text, flags=re.I)
@@ -261,6 +262,22 @@ def normalize_street_number_address(value):
 
 
 STREET_ALIAS_PATTERNS = (
+    (r"\b(?:General|Gral\.?)\s+T\.?\s+de\s+Luzuriaga\b", "Gral. Toribio de Luzuriaga"),
+    (r"\b(?:T\.?|Toribio)\s+de\s+Luzuriaga\b", "Gral. Toribio de Luzuriaga"),
+    (r"\b(?:Tte\.?|Teniente)\.?\s*(?:Gral\.?|General)\.?\s+G(?:u|Ã¼)emes\b", "Gral. MartÃ­n GÃ¼emes"),
+    (r"\bFinochieto\b", "Dip. Hector Finochietto"),
+    (r"\bSchubet\b", "Schubert"),
+    (r"\bSgto\.?\s+Rosas\s+Castillo\b", "Av. Rosas Castillo"),
+    (r"\bAviador\s+Rosas\s+Castillo\b", "Av. Rosas Castillo"),
+    (r"\bAvenida\s+Rosas\s+Castillo\b", "Av. Rosas Castillo"),
+    (r"\bRosa\s+Castillo\b", "Av. Rosas Castillo"),
+    (r"\bGutemberg\b", "Gutenberg"),
+    (r"\bGral\.?\s+Alfredo\s+Rodriguez\b", "Gral. Alfredo RodrÃ­guez"),
+    (r"\bGeneral\s+Alfredo\s+Rodriguez\b", "Gral. Alfredo RodrÃ­guez"),
+    (r"(?<!Alvarez\s)(?<!Ãlvarez\s)(?<!Maestra\s)(?<!Alfredo\s)\bRodriguez\b(?!\s+Alvarez)", "Gral. Alfredo RodrÃ­guez"),
+    (r"\bJ\.?\s+Bustamante\s+y\s+Guevara\s+(\d{2,5})\b", r"Eva PerÃ³n \1 esquina Guevara"),
+    (r"\b(?:Jos(?:Ã©|e)\s+)?Bustamante\s+y\s+Guevara\s+(\d{2,5})\b", r"Eva PerÃ³n \1 esquina Guevara"),
+    (r"\b(?:Av\.?\s*)?Bustamante\s+(\d{2,5})\b", r"Eva PerÃ³n \1"),
     (r"\bAcevedo\s+Eduardo\b", "Eduardo Acevedo"),
     (r"(?<!Eduardo\s)\bAcevedo\b(?!\s+Eduardo)", "Eduardo Acevedo"),
     (r"\bCarhue\b", "Carhué"),
