@@ -10,7 +10,7 @@ from .paginated import (
     max_page_from_markup,
     paginated_discover,
 )
-from .parsing import basic_html_data, clean_text, text_value
+from .parsing import basic_html_data, clean_text, first_map_coordinate, text_value
 from properties.services.location_enrichment import clean_detected_address
 from properties.services.normalization import (
     classify_address_precision,
@@ -79,7 +79,16 @@ class BecerraScraper(LinkDetailScraper):
         address = self._address_from_text(data.get("title") or "", text)
         if address:
             data["address"] = address[:250]
+            data["detected_address"] = address[:250]
         data["locality"] = "Hurlingham"
+        neighborhood = known_neighborhood_name(text)
+        if neighborhood and neighborhood != data["locality"]:
+            data["neighborhood"] = neighborhood
+        coordinate = first_map_coordinate(str(soup))
+        if coordinate:
+            data["latitude"] = coordinate["latitude"]
+            data["longitude"] = coordinate["longitude"]
+            data.setdefault("raw_data", {})["becerra_map_coordinate"] = coordinate
         data["agency"] = self.definition.name
         data["operation"] = "sale"
         data["location_precision"] = classify_address_precision(data.get("address"))
@@ -93,6 +102,19 @@ class BecerraScraper(LinkDetailScraper):
             candidates.append(after_title[:240])
         candidates.append(text[:1200])
         for candidate in candidates:
+            direct = text_value(
+                candidate,
+                [
+                    r"([^|]{3,}?\s+(?:al\s+)?\d{2,5})\s+G\.?B\.?A\.?",
+                    r"([^|]{3,}?\s+(?:al\s+)?\d{2,5})\s*\|",
+                ],
+            )
+            if direct:
+                if title and direct.startswith(title):
+                    direct = direct[len(title):]
+                address = clean_detected_address(direct)
+                if address:
+                    return address
             value = text_value(
                 candidate,
                 [

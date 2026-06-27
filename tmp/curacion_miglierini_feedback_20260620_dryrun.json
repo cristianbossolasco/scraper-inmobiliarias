@@ -1,0 +1,392 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-19_filtros.xlsx",
+  "output_excel": "",
+  "backup": "",
+  "before": {
+    "sin_zona_operativa": 1018,
+    "sin_direccion_util": 350,
+    "miglierini_sin_zona_operativa": 38,
+    "miglierini_sin_direccion_util": 57,
+    "miglierini_pendientes": 87
+  },
+  "after": {
+    "sin_zona_operativa": 1018,
+    "sin_direccion_util": 350,
+    "miglierini_sin_zona_operativa": 38,
+    "miglierini_sin_direccion_util": 57,
+    "miglierini_pendientes": 87
+  },
+  "feedback": {
+    "excel_approved_ids": [
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823,
+      3829
+    ],
+    "approved_by_note_ids": [
+      3325
+    ],
+    "approved_applied_ids": [
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823
+    ],
+    "propagated_ids": [
+      3606
+    ],
+    "address_updates": [
+      {
+        "id": 3368,
+        "from": "M Aviles Y Vias",
+        "to": "Andrés Arguibel 2064"
+      },
+      {
+        "id": 3487,
+        "from": "Lote Esquina 367",
+        "to": "Gral. Simón Bolívar 2300"
+      },
+      {
+        "id": 3612,
+        "from": "Departamentos Av Roca 1400",
+        "to": "Tte. Gral. Julio Argentino Roca 1400"
+      },
+      {
+        "id": 3788,
+        "from": "P. de Mendoza 800",
+        "to": "Pedro de Mendoza 800"
+      },
+      {
+        "id": 3823,
+        "from": "M. de Aviles y Albania",
+        "to": "Basilio Delleva 2550"
+      },
+      {
+        "id": 3606,
+        "from": "Departamentos Av Roca 1400",
+        "to": "Tte. Gral. Julio Argentino Roca 1400",
+        "propagated": true
+      },
+      {
+        "id": 3325,
+        "from": "",
+        "to": "Barrio Cartero"
+      },
+      {
+        "id": 3829,
+        "from": "Dante 2225",
+        "to": "Barrio Cartero"
+      }
+    ],
+    "locality_updates": [],
+    "neighborhood_updates": [],
+    "manual_zone_ids": [
+      {
+        "id": 3487,
+        "zone": "Parque Johnston"
+      },
+      {
+        "id": 3325,
+        "zone": "Cartero"
+      },
+      {
+        "id": 3829,
+        "zone": "Cartero"
+      }
+    ],
+    "manual_zone_conflicts": [],
+    "locations_cleared": [
+      {
+        "id": 3301,
+        "provider": "miglierini_map",
+        "latitude": 25.7308309,
+        "longitude": -80.444149,
+        "reason": "coordenada_default_miami_invalida"
+      },
+      {
+        "id": 3311,
+        "provider": "miglierini_map",
+        "latitude": 25.7308309,
+        "longitude": -80.444149,
+        "reason": "coordenada_default_miami_invalida"
+      },
+      {
+        "id": 3325,
+        "provider": "miglierini_map",
+        "latitude": 25.7308309,
+        "longitude": -80.444149,
+        "reason": "coordenada_default_miami_invalida"
+      },
+      {
+        "id": 3330,
+        "provider": "miglierini_map",
+        "latitude": 25.7308309,
+        "longitude": -80.444149,
+        "reason": "coordenada_default_miami_invalida"
+      },
+      {
+        "id": 3356,
+        "provider": "miglierini_map",
+        "latitude": 25.7308309,
+        "longitude": -80.444149,
+        "reason": "coordenada_default_miami_invalida"
+      },
+      {
+        "id": 3829,
+        "provider": "nominatim",
+        "latitude": -34.5966719,
+        "longitude": -58.6420809,
+        "reason": "cartero_generico_no_geocodificar"
+      }
+    ],
+    "manual_location_preserved_ids": [],
+    "geocode_cache_ids": [
+      3368
+    ],
+    "geocode_api_required_ids": [
+      3487,
+      3612,
+      3674,
+      3788,
+      3823,
+      3606
+    ],
+    "geocode_api_ids": [],
+    "geocode_errors": [],
+    "no_geocode_query_ids": [],
+    "no_geocode_result_ids": [],
+    "zone_applied_ids": [
+      {
+        "id": 3368,
+        "zone": "Curapaytí"
+      }
+    ],
+    "zone_conflict_ids": [],
+    "zone_pending_ids": [
+      {
+        "id": 3612,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3674,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3788,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3823,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3606,
+        "reason": "sin_coordenadas"
+      }
+    ],
+    "miami_clear_ids": [
+      3301,
+      3311,
+      3325,
+      3330,
+      3356
+    ],
+    "missing_feedback_rows": [],
+    "missing_property_ids": [],
+    "notes_ids": [
+      3325,
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823,
+      3829
+    ]
+  },
+  "sample": [
+    {
+      "id": 3301,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": 25.7308309,
+        "lon": -80.444149,
+        "provider": "miglierini_map",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3311,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": 25.7308309,
+        "lon": -80.444149,
+        "provider": "miglierini_map",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3325,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": 25.7308309,
+        "lon": -80.444149,
+        "provider": "miglierini_map",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3330,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": 25.7308309,
+        "lon": -80.444149,
+        "provider": "miglierini_map",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3356,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "Villa Alemania",
+      "intel_zone": "Villa Alemania",
+      "location": {
+        "lat": 25.7308309,
+        "lon": -80.444149,
+        "provider": "miglierini_map",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3368,
+      "address": "M Aviles Y Vias",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3487,
+      "address": "Lote Esquina 367",
+      "locality": "Hurlingham",
+      "neighborhood": "Parque Johnston",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3606,
+      "address": "Departamentos Av Roca 1400",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3612,
+      "address": "Departamentos Av Roca 1400",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3674,
+      "address": "Mayor V. Bergami 1300",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3788,
+      "address": "P. de Mendoza 800",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3823,
+      "address": "M. de Aviles y Albania",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3829,
+      "address": "Dante 2225",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": -34.5966719,
+        "lon": -58.6420809,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-16T03:04:15.610718+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-16 03:04:15.610718+00:00"
+    }
+  ],
+  "excel": null,
+  "excel_validation": null
+}

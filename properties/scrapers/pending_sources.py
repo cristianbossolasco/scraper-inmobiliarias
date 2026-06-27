@@ -29,6 +29,7 @@ from .parsing import (
     basic_html_data,
     evidence_set,
     external_id_from_url,
+    first_map_coordinate,
     first_json_ld,
     first_present,
     parse_labeled_fields,
@@ -39,6 +40,10 @@ from .paginated import ajax_paginated_discover, declared_total_from_text, pagina
 
 
 TARGET_ZONES = ("hurlingham", "villa tesei", "villa santos tesei", "william morris")
+OUT_OF_TARGET_LOCALITY_RE = re.compile(
+    r"\b(?:bella\s+vista|castelar|mor[oó]n|caseros|san\s+miguel|haedo|ituzaing[oó]|ramos\s+mej[ií]a)\b",
+    re.I,
+)
 
 
 def clean_text(value):
@@ -53,6 +58,10 @@ def visible_text(soup):
 def is_target_zone(text):
     folded = (text or "").lower()
     return any(zone in folded for zone in TARGET_ZONES)
+
+
+def is_declared_out_of_target(text):
+    return bool(OUT_OF_TARGET_LOCALITY_RE.search(text or ""))
 
 
 def number_before_label(text, labels, cast=parse_decimal):
@@ -286,6 +295,7 @@ ADDRESS_FALSE_POSITIVE_RE = re.compile(
 
 def normalize_argencasas_address(value):
     text = clean_text(value or "")
+    text = re.sub(r"\s*\([^)]+\)\s*", " ", text)
     text = re.sub(
         r"^(?:direccion|direcci[o?]n|ubicacion|ubicaci[o?]n)\s*:?\s*",
         "",
@@ -305,6 +315,14 @@ def normalize_argencasas_address(value):
     )
     if match:
         street = clean_text(match.group(1)).strip(" ,.-")
+        street = re.sub(
+            r"^.*\b(?:hurlingham|villa\s+tesei|william\s+(?:c\.?\s*)?morris)\b\s+",
+            "",
+            street,
+            flags=re.I,
+        )
+        if "rio colorado" in fold_text(street):
+            street = "Río Colorado"
         text = f"{street} {match.group(2)}"
     text = clean_detected_address(text)
     if text and ADDRESS_FALSE_POSITIVE_RE.search(text):
@@ -317,6 +335,8 @@ def normalize_argencasas_address(value):
 def extract_argencasas_address_from_text(text):
     patterns = [
         r"(?:Direccion|Direcci[o?]n|Direcci??n|Ubicacion|Ubicaci[o?]n|Ubicaci??n)\s*:?\s*([A-Za-z?????????????? .'-]{3,60}\s+al\s+\d{2,5})",
+        r"(?:Hurlingham\s+){1,3}([A-Z][A-Z .()'-]{2,80}\s+al\s+\d{2,5})\b",
+        r"\b([A-Z][A-Z .()'-]{2,80}\s+al\s+\d{2,5})\b",
         r"\b([A-Z??????][A-Z?????? .'-]{2,60}\s+al\s+\d{2,5})\b",
     ]
     for pattern in patterns:
@@ -755,8 +775,13 @@ class PixelAdScraper(CommonDetailScraper):
             return None
         soup = self.soup(url)
         text = visible_text(soup)
+        coordinate = first_map_coordinate(str(soup))
         if not is_target_zone(text):
             return None
+        if coordinate:
+            data_coordinate = coordinate
+        else:
+            data_coordinate = None
         data = basic_html_data(soup, url)
         code = text_value(text, [r"C(?:o|ó|Ã³)digo\s*:?\s*([A-Za-z0-9-]+)"])
         address = text_value(
@@ -787,11 +812,18 @@ class PixelAdScraper(CommonDetailScraper):
         data["property_type"] = infer_property_type(data.get("title"), text[:700])
         data["images"] = absolute_images(self, soup)
         data["status"] = Property.Status.ACTIVE
+        if data_coordinate:
+            data["latitude"] = data_coordinate["latitude"]
+            data["longitude"] = data_coordinate["longitude"]
+            data["location_precision"] = "exact"
         data["location_precision"] = classify_address_precision(data.get("address"))
         data["raw_data"] = {
             "source_engine": "pixel_listing_ad",
             "source_code": code or "",
         }
+        if data_coordinate:
+            data["raw_data"]["map_coordinate"] = data_coordinate
+            data["location_precision"] = "exact"
         return data
 
 
@@ -1764,6 +1796,9 @@ class FincasScraper(CommonDetailScraper):
         if not data:
             return None
         text = visible_text(soup)
+        coordinate = first_map_coordinate(str(soup))
+        if is_declared_out_of_target(text) and not coordinate:
+            return None
         structured_address = self._structured_address(soup, text)
         if structured_address:
             data["address"] = structured_address[:250]
@@ -1782,9 +1817,15 @@ class FincasScraper(CommonDetailScraper):
             data["price"] = price
         free_area = number_before_label(text, [r"Sup\s*Libre"])
         data["raw_data"] = data.get("raw_data") or {}
+        if coordinate:
+            data["latitude"] = coordinate["latitude"]
+            data["longitude"] = coordinate["longitude"]
+            data["location_precision"] = "exact"
+            data["raw_data"]["haurie_map_coordinate"] = coordinate
         if free_area is not None:
             data["raw_data"]["free_area"] = str(free_area)
-        data["location_precision"] = classify_address_precision(data.get("address"))
+        if not coordinate:
+            data["location_precision"] = classify_address_precision(data.get("address"))
         return data
 
     def _structured_address(self, soup, text):

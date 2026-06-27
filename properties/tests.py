@@ -4304,6 +4304,44 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["locality"], "Hurlingham")
         self.assertEqual(data["location_precision"], "exact")
 
+    def test_becerra_parser_extracts_visible_gba_address_and_map(self):
+        cases = [
+            (
+                "Chalet en Venta en Hurlingham",
+                "Diego de Carvajal al 800",
+                "Diego de Carvajal 800",
+                "Parque Quirno",
+                "-34.6001003",
+                "-58.6345574",
+            ),
+            (
+                "Casa en venta de 5 ambientes en barrio cerrado El Pasaje - Hurlingham",
+                "Nilda Figueira al 1400",
+                "Nilda Figueira 1400",
+                "Barrio El Pasaje",
+                "-34.5869687",
+                "-58.6358693",
+            ),
+        ]
+        for title, source_address, expected_address, neighborhood, latitude, longitude in cases:
+            with self.subTest(address=source_address):
+                scraper = BecerraScraper()
+                scraper.soup = lambda _url, title=title, address=source_address, neighborhood=neighborhood, latitude=latitude, longitude=longitude: BeautifulSoup(
+                    f"""
+                    <html><body>
+                      <h1>{title}</h1>
+                      <main>{title} {address} G.B.A. Zona Oeste | Hurlingham | {neighborhood} Venta USD 295.000</main>
+                      <div data-latitude="{latitude}" data-longitude="{longitude}"></div>
+                    </body></html>
+                    """,
+                    "lxml",
+                )
+                data = scraper.parse("https://becerrapropiedades.com/ficha/7177687")
+                self.assertEqual(data["address"], expected_address)
+                self.assertEqual(data["detected_address"], expected_address)
+                self.assertAlmostEqual(data["latitude"], float(latitude))
+                self.assertAlmostEqual(data["longitude"], float(longitude))
+
     def test_argenprop_parser_fixture(self):
         data = self.parse_with_fixture(
             ArgenpropScraper,
@@ -4520,6 +4558,58 @@ class ScraperParserTests(TestCase):
             "https://www.haurie.argencasas.com/propiedad-casa-venta-hurlingham-301-1083",
         )
         self.assertFalse(data.get("address"))
+
+    def test_fincas_parser_handles_argencasas_xx_address_and_map(self):
+        scraper = FincasScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa para 2 Familias en Venta en Hurlingham</h1>
+              <main>
+                Todas Argentina GBA Oeste Hurlingham Hurlingham Hurlingham
+                RIO COLORADO (XX) al 2100 u$s 230.000 Casa para 2 Familias venta Hurlingham
+              </main>
+              <script>{"latitude":"-34.588521830213","longitude":"-58.64304371568"}</script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.haurie.argencasas.com/propiedad-casa-para-2-familias-venta-hurlingham-301-1073")
+        self.assertEqual(data["address"], "Río Colorado 2100")
+        self.assertEqual(data["detected_address"], "Río Colorado 2100")
+        self.assertAlmostEqual(data["latitude"], -34.588521830213)
+        self.assertAlmostEqual(data["longitude"], -58.64304371568)
+        self.assertEqual(data["location_precision"], "exact")
+
+    def test_fincas_parser_rejects_declared_out_of_target_without_target_map(self):
+        scraper = FincasScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Departamento en Venta en Castelar Norte</h1>
+              <main>Todas Argentina GBA Oeste Moron Castelar Castelar Norte Arredondo 2374 al 2300</main>
+            </body></html>
+            """,
+            "lxml",
+        )
+        self.assertIsNone(scraper.parse("https://www.haurie.argencasas.com/propiedad-departamento-venta-castelar-norte-301-997"))
+
+    def test_oscar_dahbar_parser_extracts_map_coordinates(self):
+        scraper = OscarDahbarScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>LIBRERIA EL SOL EN VENTA FRENTE A COLEGIO LINCOLN</h1>
+              <main>Venta Hurlingham Código: 175838 Dormitorios 1 M2 Totales 30</main>
+              <script>window.map = {"lat": "-34.58066609762967", "lng": "-58.64246672233726"};</script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://oscardahbarpropiedades.com.ar/ad/libreria-el-sol-en-venta-frente-a-colegio-lincoln")
+        self.assertAlmostEqual(data["latitude"], -34.58066609762967)
+        self.assertAlmostEqual(data["longitude"], -58.64246672233726)
+        self.assertEqual(data["location_precision"], "exact")
 
     def test_robots_txt_is_cached_across_scraper_instances(self):
         ROBOTS_CACHE.clear()

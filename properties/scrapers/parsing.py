@@ -1,7 +1,10 @@
 import json
 import re
+import html
 from urllib.parse import urlparse
 
+from bs4 import BeautifulSoup
+from django.conf import settings
 from properties.models import Property
 from properties.services.normalization import (
     infer_property_type,
@@ -55,6 +58,165 @@ def first_json_ld(soup, types):
                     return item
             elif item_type in wanted:
                 return item
+    return None
+
+
+def _map_float(value):
+    if value is None:
+        return None
+    try:
+        return float(str(value).replace(",", "."))
+    except (TypeError, ValueError):
+        return None
+
+
+def _inside_target_bounds(latitude, longitude):
+    if latitude is None or longitude is None:
+        return False
+    bounds = settings.HURLINGHAM_BOUNDS
+    return (
+        bounds["south"] <= latitude <= bounds["north"]
+        and bounds["west"] <= longitude <= bounds["east"]
+    )
+
+
+def _is_default_map_coordinate(latitude, longitude):
+    if latitude is None or longitude is None:
+        return False
+    defaults = ((25.7308309, -80.444149),)
+    return any(abs(latitude - lat) < 0.000001 and abs(longitude - lon) < 0.000001 for lat, lon in defaults)
+
+
+def _add_map_coordinate(candidates, method, latitude, longitude, address="", confidence="high", require_target_bounds=True):
+    lat = _map_float(latitude)
+    lon = _map_float(longitude)
+    if lat is None or lon is None or _is_default_map_coordinate(lat, lon):
+        return
+    outside_target = not _inside_target_bounds(lat, lon)
+    if require_target_bounds and outside_target:
+        return
+    candidates.append(
+        {
+            "method": method,
+            "latitude": lat,
+            "longitude": lon,
+            "address": clean_text(address),
+            "confidence": confidence,
+            "outside_target": outside_target,
+        }
+    )
+
+
+def extract_map_coordinates(markup, require_target_bounds=True):
+    """Extract source-published map coordinates from public listing HTML."""
+    soup = BeautifulSoup(markup or "", "html.parser")
+    candidates = []
+
+    for tag in soup.select("[data-latitude][data-longitude]"):
+        _add_map_coordinate(
+            candidates,
+            "data-latitude",
+            tag.get("data-latitude"),
+            tag.get("data-longitude"),
+            require_target_bounds=require_target_bounds,
+        )
+
+    for tag in soup.select("[data-map]"):
+        raw = html.unescape(tag.get("data-map") or "")
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, list):
+            payload = payload[0] if payload else {}
+        if not isinstance(payload, dict):
+            continue
+        _add_map_coordinate(
+            candidates,
+            "data-map",
+            payload.get("latitude") or payload.get("lat"),
+            payload.get("longitude") or payload.get("lng") or payload.get("lang") or payload.get("lon"),
+            payload.get("address") or "",
+            require_target_bounds=require_target_bounds,
+        )
+
+    for match in re.finditer(r"propertyMapData\s*=\s*(\{.*?\})\s*;", markup or "", re.S):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        _add_map_coordinate(
+            candidates,
+            "propertyMapData",
+            payload.get("latitude") or payload.get("lat"),
+            payload.get("longitude") or payload.get("lng") or payload.get("lang") or payload.get("lon"),
+            payload.get("address") or "",
+            require_target_bounds=require_target_bounds,
+        )
+
+    for payload in json_ld_objects(soup):
+        for item in walk_json_ld(payload):
+            geo = item.get("geo") if isinstance(item, dict) else None
+            if not isinstance(geo, dict):
+                continue
+            _add_map_coordinate(
+                candidates,
+                "jsonld_geo",
+                geo.get("latitude") or geo.get("lat"),
+                geo.get("longitude") or geo.get("lng") or geo.get("lon"),
+                require_target_bounds=require_target_bounds,
+            )
+
+    patterns = (
+        r'"latitude"\s*:\s*"?(?P<lat>-?\d+[\.,]\d+)"?.{0,180}?"longitude"\s*:\s*"?(?P<lon>-?\d+[\.,]\d+)"?',
+        r'"lat"\s*:\s*"?(?P<lat>-?\d+[\.,]\d+)"?.{0,180}?"lng"\s*:\s*"?(?P<lon>-?\d+[\.,]\d+)"?',
+        r"data-latitude\s*=\s*['\"](?P<lat>-?\d+[\.,]\d+)['\"].{0,180}?data-longitude\s*=\s*['\"](?P<lon>-?\d+[\.,]\d+)['\"]",
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, markup or "", re.I | re.S):
+            _add_map_coordinate(
+                candidates,
+                "regex_pair",
+                match.group("lat"),
+                match.group("lon"),
+                require_target_bounds=require_target_bounds,
+            )
+
+    latitudes = re.findall(r"-34[\.,]\d{4,}", markup or "")
+    longitudes = re.findall(r"-58[\.,]\d{4,}", markup or "")
+    if latitudes and longitudes:
+        _add_map_coordinate(
+            candidates,
+            "fallback_latlon",
+            latitudes[0],
+            longitudes[0],
+            confidence="medium",
+            require_target_bounds=require_target_bounds,
+        )
+
+    output = []
+    seen = set()
+    preference = {
+        "data-latitude": 0,
+        "propertyMapData": 1,
+        "data-map": 2,
+        "jsonld_geo": 3,
+        "regex_pair": 4,
+        "fallback_latlon": 5,
+    }
+    for item in sorted(candidates, key=lambda candidate: preference.get(candidate["method"], 99)):
+        key = (round(item["latitude"], 7), round(item["longitude"], 7))
+        if key in seen:
+            continue
+        seen.add(key)
+        output.append(item)
+    return output
+
+
+def first_map_coordinate(markup, allow_fallback=True, require_target_bounds=True):
+    for coordinate in extract_map_coordinates(markup, require_target_bounds=require_target_bounds):
+        if coordinate["method"] != "fallback_latlon" or allow_fallback:
+            return coordinate
     return None
 
 

@@ -1,0 +1,618 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-20_mapas.xlsx",
+  "output_excel": "",
+  "feedback_decisions": {
+    "RECHAZADO": 2,
+    "APROBADO": 14
+  },
+  "approved_found": [
+    3217,
+    3265,
+    3268,
+    3301,
+    3330,
+    3349,
+    3402,
+    3503,
+    5309,
+    5312,
+    5836,
+    5837,
+    5845,
+    6002
+  ],
+  "rejected_found": [
+    3333,
+    3578
+  ],
+  "before": {
+    "sin_zona_operativa": 368,
+    "sin_direccion_util": 236,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 5
+      },
+      "analia-fernandez": {
+        "pendientes": 8,
+        "sin_zona": 8
+      },
+      "argencasas": {
+        "pendientes": 18,
+        "sin_zona": 18
+      },
+      "argenprop": {
+        "pendientes": 16,
+        "sin_zona": 16
+      },
+      "becerra": {
+        "pendientes": 51,
+        "sin_zona": 50,
+        "sin_direccion": 45
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 36,
+        "sin_direccion": 34,
+        "sin_zona": 26
+      },
+      "fincas": {
+        "pendientes": 46,
+        "sin_zona": 46,
+        "sin_direccion": 1
+      },
+      "guarnieri": {
+        "pendientes": 10,
+        "sin_zona": 10
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "lopez-comba": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 53,
+        "sin_direccion": 46,
+        "sin_zona": 12
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 69,
+        "sin_zona": 69,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 4
+      },
+      "riquelme": {
+        "pendientes": 81,
+        "sin_direccion": 79,
+        "sin_zona": 11
+      },
+      "zonaprop": {
+        "pendientes": 75,
+        "sin_zona": 74,
+        "sin_direccion": 7
+      }
+    }
+  },
+  "backup": "",
+  "address_updates": [
+    {
+      "id": 3217,
+      "to": "Río Colorado 2100"
+    },
+    {
+      "id": 3265,
+      "to": "Diego de Carvajal al 800"
+    },
+    {
+      "id": 3268,
+      "to": "Nilda Figueira al 1400"
+    },
+    {
+      "id": 5845,
+      "to": "Concepción Arenal 2341"
+    },
+    {
+      "id": 6002,
+      "to": "Altolaguirre 2435"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 3217,
+      "to": "William C. Morris"
+    },
+    {
+      "id": 3265,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 3268,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5845,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 6002,
+      "to": "Hurlingham"
+    }
+  ],
+  "location_updates": [
+    {
+      "id": 3217,
+      "provider": "fincas_map"
+    },
+    {
+      "id": 3265,
+      "provider": "becerra_map"
+    },
+    {
+      "id": 3268,
+      "provider": "becerra_map"
+    },
+    {
+      "id": 5836,
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5837,
+      "provider": "oscar_dahbar_map"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 3217,
+      "zone": "Curapaytí",
+      "needs_review": false
+    },
+    {
+      "id": 3265,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "needs_review": true
+    },
+    {
+      "id": 3268,
+      "zone": "Villa Club",
+      "needs_review": true
+    },
+    {
+      "id": 5836,
+      "zone": "Cosmopolita",
+      "needs_review": false
+    },
+    {
+      "id": 5837,
+      "zone": "Parque Johnston",
+      "needs_review": false
+    }
+  ],
+  "geocode_required": [
+    5845,
+    6002
+  ],
+  "removed": [
+    {
+      "id": 5312,
+      "listing_ids": [
+        6677
+      ],
+      "reason": "Zonaprop 410 Gone"
+    },
+    {
+      "id": 3578,
+      "listing_ids": [
+        4444
+      ],
+      "reason": "fuera de zona por feedback manual"
+    },
+    {
+      "id": 3333,
+      "listing_ids": [
+        4140
+      ],
+      "reason": "fuera de zona por feedback manual"
+    },
+    {
+      "id": 5309,
+      "listing_ids": [
+        6674
+      ],
+      "reason": "Zonaprop 410 Gone"
+    },
+    {
+      "id": 3561,
+      "listing_ids": [
+        4422
+      ],
+      "reason": "fuera de zona detectado en Fincas/Argencasas"
+    }
+  ],
+  "fincas_outside_preserved_inside_map": [
+    {
+      "id": 3583,
+      "url": "https://www.haurie.argencasas.com/propiedad-local-venta-moron-centro-301-1070"
+    },
+    {
+      "id": 3613,
+      "url": "https://www.haurie.argencasas.com/propiedad-departamento-venta-moron-centro-301-1067"
+    },
+    {
+      "id": 3523,
+      "url": "https://www.haurie.argencasas.com/propiedad-departamento-venta-moron-centro-301-1068"
+    },
+    {
+      "id": 3510,
+      "url": "https://www.haurie.argencasas.com/propiedad-departamento-venta-moron-centro-301-982"
+    },
+    {
+      "id": 3447,
+      "url": "https://www.haurie.argencasas.com/propiedad-departamento-venta-castelar-norte-301-998"
+    },
+    {
+      "id": 3346,
+      "url": "https://www.haurie.argencasas.com/propiedad-chalet-venta-bella-vista-oeste-301-1008"
+    }
+  ],
+  "fincas_outside_candidates": [
+    {
+      "id": 3561,
+      "title": "Departamento en Venta en Caseros",
+      "url": "https://www.haurie.argencasas.com/propiedad-departamento-venta-caseros-301-1058",
+      "http_status": 200,
+      "error": ""
+    }
+  ],
+  "reviewed_no_data_left_pending": [
+    {
+      "id": 3301,
+      "note": "Nada que hacer, no hay datos en la publicacion"
+    },
+    {
+      "id": 3330,
+      "note": "Nada que hacer, no hay datos en la publicacion"
+    },
+    {
+      "id": 3349,
+      "note": "Nada que hacer, no hay datos en la publicacion"
+    },
+    {
+      "id": 3402,
+      "note": "Nada que hacer, no hay datos en la publicacion"
+    },
+    {
+      "id": 3503,
+      "note": "El anuncio dice \"Fue finalizado por el anunciante\", revisa si hay similares para zonaprop"
+    }
+  ],
+  "after": {
+    "sin_zona_operativa": 368,
+    "sin_direccion_util": 236,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 5
+      },
+      "analia-fernandez": {
+        "pendientes": 8,
+        "sin_zona": 8
+      },
+      "argencasas": {
+        "pendientes": 18,
+        "sin_zona": 18
+      },
+      "argenprop": {
+        "pendientes": 16,
+        "sin_zona": 16
+      },
+      "becerra": {
+        "pendientes": 51,
+        "sin_zona": 50,
+        "sin_direccion": 45
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 36,
+        "sin_direccion": 34,
+        "sin_zona": 26
+      },
+      "fincas": {
+        "pendientes": 46,
+        "sin_zona": 46,
+        "sin_direccion": 1
+      },
+      "guarnieri": {
+        "pendientes": 10,
+        "sin_zona": 10
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "lopez-comba": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 53,
+        "sin_direccion": 46,
+        "sin_zona": 12
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 69,
+        "sin_zona": 69,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 5,
+        "sin_zona": 5,
+        "sin_direccion": 4
+      },
+      "riquelme": {
+        "pendientes": 81,
+        "sin_direccion": 79,
+        "sin_zona": 11
+      },
+      "zonaprop": {
+        "pendientes": 75,
+        "sin_zona": 74,
+        "sin_direccion": 7
+      }
+    }
+  },
+  "excel": null,
+  "excel_validation": null,
+  "sample": [
+    {
+      "id": 3217,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": true,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        3999
+      ]
+    },
+    {
+      "id": 3265,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": true,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        4055
+      ]
+    },
+    {
+      "id": 3268,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": true,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        4060
+      ]
+    },
+    {
+      "id": 3333,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        4140
+      ]
+    },
+    {
+      "id": 3578,
+      "address": "MESES 02",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        4444
+      ]
+    },
+    {
+      "id": 5309,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        6674
+      ]
+    },
+    {
+      "id": 5312,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        6677
+      ]
+    },
+    {
+      "id": 5836,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        7281
+      ]
+    },
+    {
+      "id": 5837,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        7282
+      ]
+    },
+    {
+      "id": 5845,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        7291
+      ]
+    },
+    {
+      "id": 6002,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "location": null,
+      "manual_overrides": {},
+      "corrected": false,
+      "active_listings": [
+        7467
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3810 @@
+{
+  "https://departamento.mercadolibre.com.ar/MLA-3241169904-oficina-venta-hurlingham-centro-estrenar-_JM": {
+    "blocked": false,
+    "bytes": 20326,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://inmueble.mercadolibre.com.ar/MLA-1767900119-venta-local-hurlingham-centro-galeria-av-roca-_JM": {
+    "blocked": false,
+    "bytes": 20330,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/2460-ciudad-tesei/": {
+    "blocked": false,
+    "bytes": 169538,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6207685,
+        "longitude": -58.638432,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/2690-ciudad-tesei/": {
+    "blocked": false,
+    "bytes": 175820,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.631100010572,
+        "longitude": -58.62884186536,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/2822-hurlingham/": {
+    "blocked": false,
+    "bytes": 170767,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.588596780349,
+        "longitude": -58.636105850732,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/2850-hurlingham/": {
+    "blocked": false,
+    "bytes": 177856,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.588909352222,
+        "longitude": -58.622591263914,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/3006-ciudad-tesei/": {
+    "blocked": false,
+    "bytes": 170286,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.613502005263,
+        "longitude": -58.633475161249,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/3060-hurlingham/": {
+    "blocked": false,
+    "bytes": 166176,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.593166067532,
+        "longitude": -58.640202884886,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/3935-hurlingham/": {
+    "blocked": false,
+    "bytes": 177123,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.600662397205,
+        "longitude": -58.652314550095,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/3941-ciudad-tesei/": {
+    "blocked": false,
+    "bytes": 177872,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.621660394241,
+        "longitude": -58.629761644814,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/4049-hurlingham/": {
+    "blocked": false,
+    "bytes": 175439,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.592643258068,
+        "longitude": -58.64407438161,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/4294-william-morris/": {
+    "blocked": false,
+    "bytes": 173005,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.592643258068,
+        "longitude": -58.666229870352,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://marcelorussoprop.com.ar/property/4297-ciudad-tesei/": {
+    "blocked": false,
+    "bytes": 177828,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.613373972205,
+        "longitude": -58.63343250917,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://paulafossati.com.ar/site/properties/485946/venta-casa-a-refaccionar-3-amb-villa-tesei": {
+    "blocked": true,
+    "bytes": 101061,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.62942,
+        "longitude": -58.6446488,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-countries-y-barrios-cerrados-en-hurlingham-3-ambientes--19659667": {
+    "blocked": true,
+    "bytes": 297881,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham--15608085": {
+    "blocked": true,
+    "bytes": 292596,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59746,
+        "longitude": -58.64758,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham--16196485": {
+    "blocked": true,
+    "bytes": 288742,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59049,
+        "longitude": -58.63512,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham--6446733": {
+    "blocked": true,
+    "bytes": 290375,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.600197,
+        "longitude": -58.63137,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-2-ambientes--19634924": {
+    "blocked": true,
+    "bytes": 296376,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.57925,
+        "longitude": -58.62987,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--11072751": {
+    "blocked": true,
+    "bytes": 291623,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59379,
+        "longitude": -58.62369,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--12694869": {
+    "blocked": true,
+    "bytes": 296464,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59537,
+        "longitude": -58.64236,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--15390774": {
+    "blocked": true,
+    "bytes": 292135,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59975,
+        "longitude": -58.65162,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--17152069": {
+    "blocked": true,
+    "bytes": 293568,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60441,
+        "longitude": -58.62959,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--17394461": {
+    "blocked": true,
+    "bytes": 295019,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59298,
+        "longitude": -58.62135,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--18403763": {
+    "blocked": true,
+    "bytes": 297749,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58899,
+        "longitude": -58.62388,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--18629015": {
+    "blocked": true,
+    "bytes": 302851,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.57873,
+        "longitude": -58.63642,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--19861856": {
+    "blocked": true,
+    "bytes": 298640,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.57823,
+        "longitude": -58.63708,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--19867139": {
+    "blocked": true,
+    "bytes": 298354,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.57566,
+        "longitude": -58.63654,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-3-ambientes--19874535": {
+    "blocked": true,
+    "bytes": 291746,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62914,
+        "longitude": -58.64986,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--10850730": {
+    "blocked": true,
+    "bytes": 650407,
+    "coordinates": [],
+    "error": "",
+    "status": 410
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--10854740": {
+    "blocked": true,
+    "bytes": 292265,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59477,
+        "longitude": -58.6263,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--11530666": {
+    "blocked": true,
+    "bytes": 291300,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59215,
+        "longitude": -58.63143,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--11584664": {
+    "blocked": true,
+    "bytes": 291574,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60665,
+        "longitude": -58.62786,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--16551783": {
+    "blocked": true,
+    "bytes": 292582,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59382,
+        "longitude": -58.64277,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--17502486": {
+    "blocked": true,
+    "bytes": 300238,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.594,
+        "longitude": -58.629,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--18191326": {
+    "blocked": true,
+    "bytes": 306946,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60053,
+        "longitude": -58.63682,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--18945234": {
+    "blocked": true,
+    "bytes": 293057,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--18977670": {
+    "blocked": true,
+    "bytes": 299966,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.63101,
+        "longitude": -58.64073,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19484586": {
+    "blocked": true,
+    "bytes": 293839,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60093,
+        "longitude": -58.65218,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19553290": {
+    "blocked": true,
+    "bytes": 301334,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58857,
+        "longitude": -58.62321,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19667591": {
+    "blocked": true,
+    "bytes": 292089,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58957,
+        "longitude": -58.62755,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19861676": {
+    "blocked": true,
+    "bytes": 301301,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60334,
+        "longitude": -58.63987,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19862819": {
+    "blocked": true,
+    "bytes": 295442,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58466,
+        "longitude": -58.63688,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19874760": {
+    "blocked": true,
+    "bytes": 297334,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.63144,
+        "longitude": -58.62374,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19876610": {
+    "blocked": true,
+    "bytes": 296446,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5873,
+        "longitude": -58.63646,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--19876702": {
+    "blocked": true,
+    "bytes": 295739,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62951,
+        "longitude": -58.64913,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-4-ambientes--8446298": {
+    "blocked": true,
+    "bytes": 299052,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.589203,
+        "longitude": -58.6272,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--10850870": {
+    "blocked": true,
+    "bytes": 295291,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59979,
+        "longitude": -58.6344,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--10856077": {
+    "blocked": true,
+    "bytes": 291694,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58846,
+        "longitude": -58.62301,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--11054041": {
+    "blocked": true,
+    "bytes": 294881,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5969,
+        "longitude": -58.640053,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--11369607": {
+    "blocked": true,
+    "bytes": 295922,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.601982,
+        "longitude": -58.626377,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--11691478": {
+    "blocked": true,
+    "bytes": 291625,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59038,
+        "longitude": -58.63449,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--17021969": {
+    "blocked": true,
+    "bytes": 296494,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--17065743": {
+    "blocked": true,
+    "bytes": 296763,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.592934,
+        "longitude": -58.632034,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--18058301": {
+    "blocked": true,
+    "bytes": 294856,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--18295606": {
+    "blocked": true,
+    "bytes": 303086,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.57625,
+        "longitude": -58.65456,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--18489495": {
+    "blocked": true,
+    "bytes": 293900,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58294,
+        "longitude": -58.63588,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--19625948": {
+    "blocked": true,
+    "bytes": 302733,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5898,
+        "longitude": -58.62616,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-5-ambientes--9869554": {
+    "blocked": true,
+    "bytes": 294616,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.585957,
+        "longitude": -58.637184,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-6-ambientes--10861543": {
+    "blocked": true,
+    "bytes": 291734,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.58826,
+        "longitude": -58.63246,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-6-ambientes--19681071": {
+    "blocked": true,
+    "bytes": 299470,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-6-ambientes--19861670": {
+    "blocked": true,
+    "bytes": 298238,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5868,
+        "longitude": -58.63411,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-6-ambientes--19872775": {
+    "blocked": true,
+    "bytes": 300688,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59716,
+        "longitude": -58.63549,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-6-ambientes--19874954": {
+    "blocked": true,
+    "bytes": 304472,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60537,
+        "longitude": -58.63308,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-7-ambientes--16545131": {
+    "blocked": true,
+    "bytes": 297866,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60546,
+        "longitude": -58.63921,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-7-ambientes--18303968": {
+    "blocked": true,
+    "bytes": 296719,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5762,
+        "longitude": -58.64036,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-hurlingham-8-ambientes--19266166": {
+    "blocked": true,
+    "bytes": 299283,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60546,
+        "longitude": -58.63921,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-1-ambiente--17152006": {
+    "blocked": true,
+    "bytes": 296181,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6044,
+        "longitude": -58.62957,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--10850520": {
+    "blocked": true,
+    "bytes": 290389,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62267,
+        "longitude": -58.63008,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--11654363": {
+    "blocked": true,
+    "bytes": 291356,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62841,
+        "longitude": -58.62553,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--11962719": {
+    "blocked": true,
+    "bytes": 290757,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.61867,
+        "longitude": -58.63335,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--12612948": {
+    "blocked": true,
+    "bytes": 303090,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62347,
+        "longitude": -58.65864,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--18111270": {
+    "blocked": true,
+    "bytes": 299347,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62946,
+        "longitude": -58.64621,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--18154197": {
+    "blocked": true,
+    "bytes": 300630,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6107,
+        "longitude": -58.62796,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-3-ambientes--18400488": {
+    "blocked": true,
+    "bytes": 299577,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6148,
+        "longitude": -58.63039,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--12514664": {
+    "blocked": true,
+    "bytes": 293863,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6309,
+        "longitude": -58.641563,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--13635245": {
+    "blocked": true,
+    "bytes": 298482,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62549,
+        "longitude": -58.63528,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--15256009": {
+    "blocked": true,
+    "bytes": 295650,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.63034,
+        "longitude": -58.64653,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--18007908": {
+    "blocked": true,
+    "bytes": 302719,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62214,
+        "longitude": -58.625,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--18163432": {
+    "blocked": true,
+    "bytes": 304646,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.63078,
+        "longitude": -58.64266,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--18855823": {
+    "blocked": true,
+    "bytes": 297925,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.63,
+        "longitude": -58.629,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--19380395": {
+    "blocked": true,
+    "bytes": 298262,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.615,
+        "longitude": -58.631,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--19844160": {
+    "blocked": true,
+    "bytes": 300600,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59552,
+        "longitude": -58.63611,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--19867267": {
+    "blocked": true,
+    "bytes": 295778,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.61444,
+        "longitude": -58.63707,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-4-ambientes--19870582": {
+    "blocked": true,
+    "bytes": 299831,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60638,
+        "longitude": -58.6494,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-5-ambientes--12694858": {
+    "blocked": true,
+    "bytes": 295666,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62991,
+        "longitude": -58.63574,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-5-ambientes--15390810": {
+    "blocked": true,
+    "bytes": 650431,
+    "coordinates": [],
+    "error": "",
+    "status": 410
+  },
+  "https://www.argenprop.com/casa-en-venta-en-villa-santos-tesei-7-ambientes--15688094": {
+    "blocked": true,
+    "bytes": 303464,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.62966,
+        "longitude": -58.63549,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-william-morris-3-ambientes--17985563": {
+    "blocked": true,
+    "bytes": 291070,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-william-morris-3-ambientes--18714031": {
+    "blocked": true,
+    "bytes": 302799,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60816,
+        "longitude": -58.64964,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-william-morris-3-ambientes--8366823": {
+    "blocked": true,
+    "bytes": 294974,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59943,
+        "longitude": -58.65942,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-william-morris-5-ambientes--19329520": {
+    "blocked": true,
+    "bytes": 299046,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59322,
+        "longitude": -58.64207,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.argenprop.com/casa-en-venta-en-william-morris-5-ambientes--19329523": {
+    "blocked": true,
+    "bytes": 300511,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59211,
+        "longitude": -58.64175,
+        "method": "data-latitude"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.fernandezpropiedades.com.ar/p/6859269-Departamento-en-Venta-en-Villa-Santos-Tesei-Virriato-Unía-2412-": {
+    "blocked": false,
+    "bytes": 98148,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/2-lotes-c-5-propiedades-juntos-o-separados-hurlingham-w-c-morris/": {
+    "blocked": false,
+    "bytes": 133014,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/aconcagua-2095/": {
+    "blocked": false,
+    "bytes": 129892,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5757899,
+        "longitude": -58.6369904,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/atuel-entre-necochea-y-ohiggins/": {
+    "blocked": false,
+    "bytes": 128399,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5971027,
+        "longitude": -58.6323675,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/ca3-amb-a-reciclar-hurlingham-km18/": {
+    "blocked": false,
+    "bytes": 133700,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.584146365224,
+        "longitude": -58.643989706986,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-a-reciclar-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 133965,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5704212,
+        "longitude": -58.6391637,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-dividida-en-2-deptos-villa-club/": {
+    "blocked": false,
+    "bytes": 137719,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.574314676402,
+        "longitude": -58.63552478228,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-local-hurlingham-centro-plaza/": {
+    "blocked": false,
+    "bytes": 128781,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.589788792041,
+        "longitude": -58.627529717136,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-amb-sobre-lote-20x43-piscina-hurlingham/": {
+    "blocked": false,
+    "bytes": 132439,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-3-ambientes-hurlingham-w-morris/": {
+    "blocked": false,
+    "bytes": 133378,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.583572219506,
+        "longitude": -58.655759304563,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-4-amb-2-locales-ideal-inversor-frente-ffcc-urquiza-hurlingham-villa-alemania/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-4-amb-ph-villa-tesei-centro/": {
+    "blocked": false,
+    "bytes": 135591,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.607615867626,
+        "longitude": -58.628356458975,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-5-amb-depto-2-amb-local-acepta-propiedad-menor-valor-hurlingham/": {
+    "blocked": false,
+    "bytes": 136183,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5971752,
+        "longitude": -58.6447856,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-amb-hurlingham-100-m-av-pedro-diaz/": {
+    "blocked": false,
+    "bytes": 131048,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-ambientes-con-salida-a-2-calles-villa-tesei-bo-san-martin/": {
+    "blocked": false,
+    "bytes": 135980,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6126667,
+        "longitude": -58.6381772,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-3-ambientes-departamento-2-ambientes-hurlingham/": {
+    "blocked": false,
+    "bytes": 135805,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5761516,
+        "longitude": -58.6494946,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-4-amb-depto-o-quincho-hurlingham-william-c-morris/": {
+    "blocked": false,
+    "bytes": 132053,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5832129,
+        "longitude": -58.6773981,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-4-amb-hurlingham-villa-alemania-toma-inmueble-menor-precio-parte-de-pago/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-americana-4-amb-zona-industrial-hurlingham/": {
+    "blocked": false,
+    "bytes": 132349,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6123,
+        "longitude": -58.6297938,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-de-estilo-4-ambientes-villa-alemania/": {
+    "blocked": false,
+    "bytes": 136026,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5906891,
+        "longitude": -58.6214158,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-2-plantas-5-ambientes-hurlingham-villa-alemania/": {
+    "blocked": false,
+    "bytes": 133603,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5750928,
+        "longitude": -58.6362979,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-bustamante-1884/": {
+    "blocked": false,
+    "bytes": 135154,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.589571,
+        "longitude": -58.6275502,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-conscripto-sancti/": {
+    "blocked": false,
+    "bytes": 131238,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5753549,
+        "longitude": -58.6457934,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-en-verdi-al-2200/": {
+    "blocked": false,
+    "bytes": 131934,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6008374,
+        "longitude": -58.6355852,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-a-estrenar-3-amb-patio-hurlingham-villa-club-2/": {
+    "blocked": false,
+    "bytes": 135905,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.571995712392,
+        "longitude": -58.635626446648,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-a-estrenar-3-amb-patio-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 129386,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5743185,
+        "longitude": -58.6326161,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-fondo-3-amb-c-patio-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 134085,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5873813,
+        "longitude": -58.6230968,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-ph-frente-3ambpermuta-acredito-hurlinghamzo-iglesia/": {
+    "blocked": false,
+    "bytes": 137842,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.586902209458,
+        "longitude": -58.635341867234,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casa-racionalista-5-amb-venta-por-viaje-hurlingham/": {
+    "blocked": false,
+    "bytes": 134675,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casaamericana-hurlingham/": {
+    "blocked": false,
+    "bytes": 134701,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.605916809685,
+        "longitude": -58.641875978495,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/casaphplantabaja-2amb-hurlinghamp-quirno/": {
+    "blocked": false,
+    "bytes": 133246,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.599593812139,
+        "longitude": -58.632005483425,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-3-amb-depto-1-1-2-amb-hurlingham-parque-johnston/": {
+    "blocked": false,
+    "bytes": 134686,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.592665338259,
+        "longitude": -58.636173013387,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-3-ambientes-dpto-2-amb-el-palomar-zo-aeropuerto/": {
+    "blocked": false,
+    "bytes": 137455,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-amb-a-reciclar-parque-johnston/": {
+    "blocked": false,
+    "bytes": 132042,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.596891378643,
+        "longitude": -58.640695687162,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-amb-c-pileta-hurlingham-v-alemania/": {
+    "blocked": false,
+    "bytes": 138569,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.589565498115,
+        "longitude": -58.625749980855,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-ambientes-hurlingham-jorge-newbery/": {
+    "blocked": false,
+    "bytes": 135841,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5870031,
+        "longitude": -58.6193633,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-4-ambientes-hurlingham-parque-johnston/": {
+    "blocked": false,
+    "bytes": 131728,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-5-amb-a-reciclar-pizurno-800-mejor-zo-parque-quirno-hurlingham/": {
+    "blocked": false,
+    "bytes": 135237,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-en-2-plantas-villa-alemania/": {
+    "blocked": false,
+    "bytes": 137922,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5927959,
+        "longitude": -58.6209395,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet-en-luzuriaga-1062/": {
+    "blocked": false,
+    "bytes": 136694,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5887023,
+        "longitude": -58.6246182,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/chalet4ambc-pileta-martin-coronado/": {
+    "blocked": false,
+    "bytes": 140590,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/complejo-las-moras/": {
+    "blocked": false,
+    "bytes": 131455,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5939973,
+        "longitude": -58.6394276,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/delleva-2085/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/delleva-2573/": {
+    "blocked": false,
+    "bytes": 125494,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5879203,
+        "longitude": -58.6513313,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/delleva-315/": {
+    "blocked": false,
+    "bytes": 138205,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5933445,
+        "longitude": -58.6448627,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/deparc-plaza/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-amb-pa-a-estrenar-villa-club/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-amb-pb-c-cochera-a-estrenar-villa-club/": {
+    "blocked": false,
+    "bytes": 132288,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.571885283921,
+        "longitude": -58.635792967182,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2-ambientes-con-cochera-permuta-hurlingham-parque-johnston/": {
+    "blocked": false,
+    "bytes": 133948,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5920881,
+        "longitude": -58.6446646,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-2amb-interno-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 135659,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.573139742721,
+        "longitude": -58.640126045184,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-3-amb-c-cochera-5-esquinas-gaboto-1200-hurlingham-centro/": {
+    "blocked": false,
+    "bytes": 137256,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-duplex-c-cochera-remedios-de-escalada/": {
+    "blocked": false,
+    "bytes": 137426,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5951545,
+        "longitude": -58.6262012,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamento-monombiente-frente-1o-piso-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 134411,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5757673,
+        "longitude": -58.6370588,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamentos-av-roca-1400-frente-al-golf-2/": {
+    "blocked": false,
+    "bytes": 134285,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5867493,
+        "longitude": -58.6314289,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/departamentos-av-roca-1400-frente-al-golf/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/depto2ambdeptomonoambiente-hurlingham-villa-club/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/dos-chalets-con-lotes-pedro-diaz/": {
+    "blocked": false,
+    "bytes": 128751,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5895455,
+        "longitude": -58.6668824,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/duplex-c-amplia-financiacion-hurlingham-z-iglesia/": {
+    "blocked": false,
+    "bytes": 138580,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/duplex-en-construccion-mascagni-1900-hurlingham/": {
+    "blocked": false,
+    "bytes": 134607,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5946697,
+        "longitude": -58.64019399999999,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/excelente-chalet-4-amb-c-piscina-climatizada-detalles-categoria-hurlingham/": {
+    "blocked": false,
+    "bytes": 140423,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5907863,
+        "longitude": -58.6215616,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/excelente-lote-esquina-12x28-hurlingham-p-johnston/": {
+    "blocked": false,
+    "bytes": 130091,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/excelente-triplex-en-barrio-punta-chica-hurlingham-centro/": {
+    "blocked": false,
+    "bytes": 134720,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.588575986904,
+        "longitude": -58.636001922753,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/finochietto-entre-acassuso-y-schumann/": {
+    "blocked": false,
+    "bytes": 132478,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.59310780000001,
+        "longitude": -58.64370600000001,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/galpon-bernardi-563/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/galpon-bernardi-600/": {
+    "blocked": false,
+    "bytes": 129538,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5916576,
+        "longitude": -58.6181034,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/garay-1908/": {
+    "blocked": false,
+    "bytes": 129052,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5851013,
+        "longitude": -58.642863,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/guillermo-e-hudson-al-600/": {
+    "blocked": false,
+    "bytes": 127985,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.587521857021,
+        "longitude": -58.623001173511,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/hermosa-casa-de-4-amb-hurlingham-villa-alemania/": {
+    "blocked": false,
+    "bytes": 135007,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/hermoso-lote-de-535-m2-en-barrio-ingles-hurlingham/": {
+    "blocked": false,
+    "bytes": 127834,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5997556,
+        "longitude": -58.6273317,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/impecable-ph-fondo-c-cochera-y-jardin-venta-por-viaje-villa-tesei-hurlingham/": {
+    "blocked": false,
+    "bytes": 137908,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6194584,
+        "longitude": -58.620927,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/liszt-1422/": {
+    "blocked": false,
+    "bytes": 132340,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6005297,
+        "longitude": -58.643860700000005,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/local-comercial-en-avenida-vergara-al-3800/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/lote-en-mozart-parque-quirno/": {
+    "blocked": false,
+    "bytes": 129928,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.60624,
+        "longitude": -58.6315032,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/maestra-piovano-1-100-km-18/": {
+    "blocked": false,
+    "bytes": 134656,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5842585,
+        "longitude": -58.65026499999999,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/mayor-v-bergami-1300/": {
+    "blocked": false,
+    "bytes": 129947,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.599208,
+        "longitude": -58.62166000000002,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/mazzini-1617/": {
+    "blocked": false,
+    "bytes": 134696,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5841246,
+        "longitude": -58.6393834,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/nilda-figueira-al-1400-condominio-el-corralon/": {
+    "blocked": false,
+    "bytes": 135922,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5885928,
+        "longitude": -58.636204,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/obrien-al-800-entre-av-julio-a-roca-y-pedro-de-mendoza/": {
+    "blocked": false,
+    "bytes": 135676,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.5892369,
+        "longitude": -58.6267409,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/p-de-mendoza-800/": {
+    "blocked": false,
+    "bytes": 128722,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.591496,
+        "longitude": -58.6228625,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/perez-galdos-entre-mascagni-y-debussie/": {
+    "blocked": false,
+    "bytes": 135937,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.6034244,
+        "longitude": -58.645054000000016,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/terreno-252-m2-oficina-s-av-vergara-hurlingham/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.miglieriniprop.com/propiedad/vacca-900/": {
+    "blocked": false,
+    "bytes": 132714,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "high",
+        "latitude": -34.588778,
+        "longitude": -58.62296470000001,
+        "method": "propertyMapData"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.miglieriniprop.com/propiedad/virasoro-al-300/": {
+    "blocked": false,
+    "bytes": 0,
+    "coordinates": [],
+    "error": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))",
+    "status": "error"
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-buenos-aires-708-27742": {
+    "blocked": true,
+    "bytes": 100671,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-buenos-aires-708-34472": {
+    "blocked": true,
+    "bytes": 92785,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6050301,
+        "longitude": -58.63116839999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-buenos-aires-708-80050": {
+    "blocked": true,
+    "bytes": 82535,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5979614,
+        "longitude": -58.64389419999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-100608": {
+    "blocked": true,
+    "bytes": 104281,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5828419,
+        "longitude": -58.63790449999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-10221": {
+    "blocked": true,
+    "bytes": 84968,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59972,
+        "longitude": -58.6306267,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-10224": {
+    "blocked": true,
+    "bytes": 95458,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.600521097488794,
+        "longitude": -58.62946271896362,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-103487": {
+    "blocked": true,
+    "bytes": 89545,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6000069,
+        "longitude": -58.6428985,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-113169": {
+    "blocked": true,
+    "bytes": 84640,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5930768,
+        "longitude": -58.619763000000034,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-11463": {
+    "blocked": true,
+    "bytes": 97024,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.602040056834255,
+        "longitude": -58.628389835357666,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-11882": {
+    "blocked": true,
+    "bytes": 82457,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.60138655447435,
+        "longitude": -58.631157875061035,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-11885": {
+    "blocked": true,
+    "bytes": 83900,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59608769681831,
+        "longitude": -58.64004135131836,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-11889": {
+    "blocked": true,
+    "bytes": 83298,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5946617,
+        "longitude": -58.6266174,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-11934": {
+    "blocked": true,
+    "bytes": 82830,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5972176,
+        "longitude": -58.6448326,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-120734": {
+    "blocked": true,
+    "bytes": 95134,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6075289,
+        "longitude": -58.64172259999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-12445": {
+    "blocked": true,
+    "bytes": 85020,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5931015,
+        "longitude": -58.6291008,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-13107": {
+    "blocked": true,
+    "bytes": 87673,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.6340294,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-131333": {
+    "blocked": true,
+    "bytes": 88877,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-132555": {
+    "blocked": true,
+    "bytes": 91775,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-134229": {
+    "blocked": true,
+    "bytes": 85984,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-137526": {
+    "blocked": true,
+    "bytes": 114346,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.594688308854984,
+        "longitude": -58.63705318937991,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-137620": {
+    "blocked": true,
+    "bytes": 88183,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.57365376112479,
+        "longitude": -58.651689920715285,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-139221": {
+    "blocked": true,
+    "bytes": 95206,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.58799727464168,
+        "longitude": -58.63074245236203,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-139340": {
+    "blocked": true,
+    "bytes": 96326,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-140882": {
+    "blocked": true,
+    "bytes": 98429,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59376965605415,
+        "longitude": -58.65261090478515,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-15446": {
+    "blocked": true,
+    "bytes": 89238,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.6340294,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-17548": {
+    "blocked": true,
+    "bytes": 81817,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6081581,
+        "longitude": -58.63112639999997,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-17551": {
+    "blocked": true,
+    "bytes": 83338,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-19568": {
+    "blocked": true,
+    "bytes": 82726,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-19569": {
+    "blocked": true,
+    "bytes": 87014,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-24133": {
+    "blocked": true,
+    "bytes": 89002,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-24185": {
+    "blocked": true,
+    "bytes": 85363,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-253567": {
+    "blocked": true,
+    "bytes": 107221,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6011537,
+        "longitude": -58.6440513,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-2598997": {
+    "blocked": true,
+    "bytes": 84464,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6016968,
+        "longitude": -58.6419863,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-2599568": {
+    "blocked": true,
+    "bytes": 103751,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5974364,
+        "longitude": -58.6369787,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-2603312": {
+    "blocked": true,
+    "bytes": 93100,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6021609,
+        "longitude": -58.6469608,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-2605368": {
+    "blocked": true,
+    "bytes": 97869,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.603600739036416,
+        "longitude": -58.62834033467104,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-26904": {
+    "blocked": true,
+    "bytes": 89494,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-32426": {
+    "blocked": true,
+    "bytes": 83773,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-32577": {
+    "blocked": true,
+    "bytes": 89040,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5931015,
+        "longitude": -58.6291008,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-45529": {
+    "blocked": true,
+    "bytes": 82018,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-55714": {
+    "blocked": true,
+    "bytes": 84251,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5990715,
+        "longitude": -58.628200600000014,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-75927": {
+    "blocked": true,
+    "bytes": 93367,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6050301,
+        "longitude": -58.63116839999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-78078": {
+    "blocked": true,
+    "bytes": 93162,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5996914,
+        "longitude": -58.648586300000034,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-78276": {
+    "blocked": true,
+    "bytes": 92775,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5946617,
+        "longitude": -58.62661750000001,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-78822": {
+    "blocked": true,
+    "bytes": 93133,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-8404": {
+    "blocked": true,
+    "bytes": 83137,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6024996,
+        "longitude": -58.6330347,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-8519": {
+    "blocked": true,
+    "bytes": 83820,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6051979,
+        "longitude": -58.6301384,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-hurlingham-hurlingham-buenos-aires-708-90563": {
+    "blocked": true,
+    "bytes": 122928,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.58188425124643,
+        "longitude": -58.63878258149468,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-10367": {
+    "blocked": true,
+    "bytes": 83282,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.62681636501061,
+        "longitude": -58.63422632217407,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-110906": {
+    "blocked": true,
+    "bytes": 89786,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.608259,
+        "longitude": -58.63099119999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-116686": {
+    "blocked": true,
+    "bytes": 98356,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6149247,
+        "longitude": -58.644773799999996,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-116687": {
+    "blocked": true,
+    "bytes": 90533,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.617934,
+        "longitude": -58.63762489999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-11935": {
+    "blocked": true,
+    "bytes": 83562,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-127884": {
+    "blocked": true,
+    "bytes": 90246,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-134077": {
+    "blocked": true,
+    "bytes": 92388,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-139234": {
+    "blocked": true,
+    "bytes": 89695,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-139441": {
+    "blocked": true,
+    "bytes": 104329,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.61232110179233,
+        "longitude": -58.6513646910156,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-142805": {
+    "blocked": true,
+    "bytes": 94324,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-143578": {
+    "blocked": true,
+    "bytes": 92529,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6220511,
+        "longitude": -58.657459200000005,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-253571": {
+    "blocked": true,
+    "bytes": 83104,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6316128,
+        "longitude": -58.6239602,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-2604746": {
+    "blocked": true,
+    "bytes": 105335,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.61086194931158,
+        "longitude": -58.633422996295174,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-32409": {
+    "blocked": true,
+    "bytes": 82631,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6098862,
+        "longitude": -58.62693409999997,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-34464": {
+    "blocked": true,
+    "bytes": 83222,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6138763,
+        "longitude": -58.64392859999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-34469": {
+    "blocked": true,
+    "bytes": 93417,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5554276,
+        "longitude": -58.61282729999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-68672": {
+    "blocked": true,
+    "bytes": 87013,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6159668,
+        "longitude": -58.626194,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-80983": {
+    "blocked": true,
+    "bytes": 90892,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6180038,
+        "longitude": -58.6399002,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-84133": {
+    "blocked": true,
+    "bytes": 83748,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6072936,
+        "longitude": -58.63979499999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-8505": {
+    "blocked": true,
+    "bytes": 81788,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6087418,
+        "longitude": -58.6229668,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-9118": {
+    "blocked": true,
+    "bytes": 91892,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.613360727395104,
+        "longitude": -58.63686561584473,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-93836": {
+    "blocked": true,
+    "bytes": 81476,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5993514,
+        "longitude": -58.64211720000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-villa-tesei-hurlingham-buenos-aires-708-95265": {
+    "blocked": true,
+    "bytes": 92159,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6179807,
+        "longitude": -58.63989950000001,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-casa-en-william-c-morris-hurlingham-buenos-aires-708-17562": {
+    "blocked": true,
+    "bytes": 83095,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5943756,
+        "longitude": -58.645042399999966,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-hurlingham-hurlingham-buenos-aires-708-10358": {
+    "blocked": true,
+    "bytes": 84514,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59009958085857,
+        "longitude": -58.65351676940918,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-hurlingham-hurlingham-buenos-aires-708-137625": {
+    "blocked": true,
+    "bytes": 93405,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.60304224023481,
+        "longitude": -58.62627905695797,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-hurlingham-hurlingham-buenos-aires-708-191762": {
+    "blocked": true,
+    "bytes": 99124,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59323229905774,
+        "longitude": -58.654378343702746,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-hurlingham-hurlingham-buenos-aires-708-2608339": {
+    "blocked": true,
+    "bytes": 81312,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59996472742894,
+        "longitude": -58.64935095769667,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-11266": {
+    "blocked": true,
+    "bytes": 88360,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.61606262494542,
+        "longitude": -58.633882999420166,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-234370": {
+    "blocked": true,
+    "bytes": 109644,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.624997086953755,
+        "longitude": -58.63868794788513,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-255326": {
+    "blocked": true,
+    "bytes": 97384,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.62866198877994,
+        "longitude": -58.62981685375743,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-258799": {
+    "blocked": true,
+    "bytes": 90978,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6303492,
+        "longitude": -58.64340980000001,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-2605023": {
+    "blocked": true,
+    "bytes": 100683,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6255252,
+        "longitude": -58.6318561,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-52091": {
+    "blocked": true,
+    "bytes": 82327,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6111488,
+        "longitude": -58.63131329999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-departamento-en-villa-tesei-hurlingham-buenos-aires-708-8504": {
+    "blocked": true,
+    "bytes": 81548,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6254321,
+        "longitude": -58.6299343,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-duplex-en-hurlingham-hurlingham-buenos-aires-708-110394": {
+    "blocked": true,
+    "bytes": 92897,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6000811,
+        "longitude": -58.6286035,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-duplex-en-hurlingham-hurlingham-buenos-aires-708-91602": {
+    "blocked": true,
+    "bytes": 95701,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5943291,
+        "longitude": -58.645095200000014,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-duplex-en-villa-tesei-hurlingham-buenos-aires-708-143573": {
+    "blocked": true,
+    "bytes": 109953,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6110921,
+        "longitude": -58.63134209999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-galpon-en-hurlingham-hurlingham-buenos-aires-708-256616": {
+    "blocked": true,
+    "bytes": 80896,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59939888332251,
+        "longitude": -58.62201448058374,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-local-comercial-en-villa-tesei-hurlingham-buenos-aires-708-159927": {
+    "blocked": true,
+    "bytes": 82715,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.61288321556779,
+        "longitude": -58.64981425082533,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-buenos-aires-708-52705": {
+    "blocked": true,
+    "bytes": 81153,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.5863304,
+        "longitude": -58.64691160000001,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-103329": {
+    "blocked": true,
+    "bytes": 113862,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-113050": {
+    "blocked": true,
+    "bytes": 88770,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.578919,
+        "longitude": -58.63786619999996,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-120732": {
+    "blocked": true,
+    "bytes": 104395,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6075289,
+        "longitude": -58.64172259999998,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-145023": {
+    "blocked": true,
+    "bytes": 89479,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-154421": {
+    "blocked": true,
+    "bytes": 97107,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.588218,
+        "longitude": -58.63366300000001,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-2603097": {
+    "blocked": true,
+    "bytes": 105695,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6071587,
+        "longitude": -58.6394341,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-hurlingham-hurlingham-buenos-aires-708-37901": {
+    "blocked": true,
+    "bytes": 93674,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-villa-tesei-hurlingham-buenos-aires-708-242938": {
+    "blocked": true,
+    "bytes": 116747,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6123718,
+        "longitude": -58.6325569,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-villa-tesei-hurlingham-buenos-aires-708-32437": {
+    "blocked": true,
+    "bytes": 81745,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.59869,
+        "longitude": -58.63402940000003,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-villa-tesei-hurlingham-buenos-aires-708-8501": {
+    "blocked": true,
+    "bytes": 78916,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.619347166266756,
+        "longitude": -58.62549304962158,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-ph-en-villa-tesei-hurlingham-buenos-aires-708-95208": {
+    "blocked": true,
+    "bytes": 84842,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6210488,
+        "longitude": -58.62627020000002,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-terreno-en-hurlingham-hurlingham-buenos-aires-708-136517": {
+    "blocked": true,
+    "bytes": 80303,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.riquelmepropiedades.com.ar/propiedad/venta-de-terreno-en-villa-tesei-hurlingham-buenos-aires-708-251571": {
+    "blocked": true,
+    "bytes": 80445,
+    "coordinates": [
+      {
+        "address": "",
+        "confidence": "medium",
+        "latitude": -34.6188906,
+        "longitude": -58.66093099999999,
+        "method": "fallback_latlon"
+      }
+    ],
+    "error": "",
+    "status": 200
+  },
+  "https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-departamento-en-villa-santos-tesei-59014406.html?n_src=Listado&n_pg=1&n_pos=15": {
+    "blocked": false,
+    "bytes": 535864,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  },
+  "https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-venta-monoambiente-hurlingham-56909927.html?n_src=Listado&n_pg=1&n_pos=1": {
+    "blocked": false,
+    "bytes": 511168,
+    "coordinates": [],
+    "error": "",
+    "status": 200
+  }
+}

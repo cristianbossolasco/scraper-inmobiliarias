@@ -1,0 +1,383 @@
+{
+  "mode": "apply",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-19_filtros.xlsx",
+  "output_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-20.xlsx",
+  "backup": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\db.sqlite3.backup_curacion_miglierini_20260620",
+  "before": {
+    "sin_zona_operativa": 1014,
+    "sin_direccion_util": 349,
+    "miglierini_sin_zona_operativa": 34,
+    "miglierini_sin_direccion_util": 56,
+    "miglierini_pendientes": 83
+  },
+  "after": {
+    "sin_zona_operativa": 1014,
+    "sin_direccion_util": 349,
+    "miglierini_sin_zona_operativa": 34,
+    "miglierini_sin_direccion_util": 56,
+    "miglierini_pendientes": 83
+  },
+  "feedback": {
+    "excel_approved_ids": [
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823,
+      3829
+    ],
+    "approved_by_note_ids": [
+      3325
+    ],
+    "approved_applied_ids": [
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823
+    ],
+    "propagated_ids": [
+      3606
+    ],
+    "address_updates": [
+      {
+        "id": 3606,
+        "from": "Tte. Gral. Julio Argentino Roca 1400",
+        "to": "Tte. Gral. Julio Argentino Roca 1400",
+        "propagated": true
+      }
+    ],
+    "locality_updates": [],
+    "neighborhood_updates": [],
+    "manual_zone_ids": [
+      {
+        "id": 3487,
+        "zone": "Parque Johnston"
+      },
+      {
+        "id": 3325,
+        "zone": "Cartero"
+      },
+      {
+        "id": 3829,
+        "zone": "Cartero"
+      }
+    ],
+    "manual_zone_conflicts": [],
+    "locations_cleared": [],
+    "manual_location_preserved_ids": [],
+    "geocode_cache_ids": [
+      3368,
+      3788
+    ],
+    "geocode_api_required_ids": [
+      3487,
+      3612,
+      3674,
+      3823,
+      3606
+    ],
+    "geocode_api_ids": [],
+    "geocode_errors": [],
+    "no_geocode_query_ids": [],
+    "no_geocode_result_ids": [
+      3487,
+      3612,
+      3674,
+      3823,
+      3606
+    ],
+    "zone_applied_ids": [
+      {
+        "id": 3368,
+        "zone": "Curapaytí"
+      }
+    ],
+    "zone_conflict_ids": [
+      {
+        "id": 3788,
+        "zone": "Villa Club"
+      }
+    ],
+    "zone_pending_ids": [
+      {
+        "id": 3612,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3674,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3823,
+        "reason": "sin_coordenadas"
+      },
+      {
+        "id": 3606,
+        "reason": "sin_coordenadas"
+      }
+    ],
+    "miami_clear_ids": [],
+    "missing_feedback_rows": [],
+    "missing_property_ids": [],
+    "notes_ids": [
+      3325,
+      3368,
+      3487,
+      3612,
+      3674,
+      3788,
+      3823,
+      3829
+    ]
+  },
+  "sample": [
+    {
+      "id": 3301,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3311,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3325,
+      "address": "Barrio Cartero",
+      "locality": "Hurlingham",
+      "neighborhood": "Cartero",
+      "inferred_zone": "Cartero",
+      "intel_zone": "Cartero",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "neighborhood": "2026-06-19T23:51:11.375680+00:00",
+        "inferred_zone": "2026-06-19T23:51:11.375680+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.375680+00:00"
+    },
+    {
+      "id": 3330,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3356,
+      "address": "",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "Villa Alemania",
+      "intel_zone": "Villa Alemania",
+      "location": null,
+      "manual_overrides": {},
+      "data_manually_corrected_at": null
+    },
+    {
+      "id": 3368,
+      "address": "Andrés Arguibel 2064",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "Curapaytí",
+      "intel_zone": "Curapaytí",
+      "location": {
+        "lat": -34.586283,
+        "lon": -58.6419722,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3487,
+      "address": "Gral. Simón Bolívar 2300",
+      "locality": "Hurlingham",
+      "neighborhood": "Parque Johnston",
+      "inferred_zone": "Parque Johnston",
+      "intel_zone": "Parque Johnston",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "neighborhood": "2026-06-19T23:51:11.332655+00:00",
+        "inferred_zone": "2026-06-19T23:51:11.332655+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.332655+00:00"
+    },
+    {
+      "id": 3606,
+      "address": "Tte. Gral. Julio Argentino Roca 1400",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3612,
+      "address": "Tte. Gral. Julio Argentino Roca 1400",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3674,
+      "address": "Mayor V. Bergami 1300",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3788,
+      "address": "Pedro de Mendoza 800",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": {
+        "lat": -34.5799309,
+        "lon": -58.6381927,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3823,
+      "address": "Basilio Delleva 2550",
+      "locality": "Hurlingham",
+      "neighborhood": "",
+      "inferred_zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.292035+00:00"
+    },
+    {
+      "id": 3829,
+      "address": "Barrio Cartero",
+      "locality": "Hurlingham",
+      "neighborhood": "Cartero",
+      "inferred_zone": "Cartero",
+      "intel_zone": "Cartero",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-19T23:51:11.292035+00:00",
+        "neighborhood": "2026-06-19T23:51:11.379683+00:00",
+        "inferred_zone": "2026-06-19T23:51:11.379683+00:00",
+        "locality": "2026-06-19T23:51:11.292035+00:00"
+      },
+      "data_manually_corrected_at": "2026-06-19 23:51:11.379683+00:00"
+    }
+  ],
+  "excel": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-20.xlsx",
+    "pending_rows": 1101,
+    "columns": [
+      "id_propiedad",
+      "titulo",
+      "descripcion_resumen",
+      "domicilio_actual",
+      "direccion_detectada",
+      "direccion_normalizada",
+      "localidad_actual",
+      "localidad_detectada",
+      "barrio_actual",
+      "barrio_detectado",
+      "zona_actual",
+      "zona_inteligencia",
+      "latitud",
+      "longitud",
+      "fuente_coordenadas",
+      "fuente",
+      "inmobiliaria",
+      "url_publicacion",
+      "motivo_url",
+      "estado_publicacion",
+      "tipo_propiedad",
+      "operacion",
+      "moneda",
+      "precio",
+      "ambientes",
+      "dormitorios",
+      "banos",
+      "superficie_cubierta",
+      "superficie_total",
+      "fecha_ultima_vista",
+      "motivo_pendiente",
+      "evidencia",
+      "decision_manual",
+      "notas_manual"
+    ]
+  },
+  "excel_validation": {
+    "sheets": [
+      "Pendientes",
+      "Resumen"
+    ],
+    "rows": 1101,
+    "auto_filter": "A1:AH1102",
+    "tables": [
+      "PendientesTable"
+    ],
+    "freeze_panes": "A2",
+    "price_types": {
+      "int": 1029,
+      "NoneType": 72
+    },
+    "nonblank_decisions": 0,
+    "nonblank_notes": 0,
+    "missing_columns": []
+  }
+}
