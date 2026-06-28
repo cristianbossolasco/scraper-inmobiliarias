@@ -1,0 +1,1791 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter4.xlsx",
+  "output_excel": "",
+  "feedback_decisions": {
+    "APROBADO": 4,
+    "RECHAZADO": 2
+  },
+  "approved_found": [
+    5327,
+    5423,
+    5703,
+    5705
+  ],
+  "rejected_found": [
+    5419,
+    5480
+  ],
+  "unexpected_approved": [],
+  "unexpected_rejected": [],
+  "ignored_out_of_scope_decisions": {
+    "approved": [],
+    "rejected": []
+  },
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "before": {
+    "sin_zona_operativa": 133,
+    "sin_direccion_util": 216,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 11,
+        "sin_zona": 11
+      },
+      "becerra": {
+        "pendientes": 38,
+        "sin_direccion": 38
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 33,
+        "sin_direccion": 32,
+        "sin_zona": 23
+      },
+      "fincas": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "inmuebles-clarin": {
+        "pendientes": 4,
+        "sin_zona": 4
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 46,
+        "sin_direccion": 42,
+        "sin_zona": 6
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 8,
+        "sin_direccion": 8
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 60,
+        "sin_zona": 59,
+        "sin_direccion": 8
+      }
+    }
+  },
+  "backup": "",
+  "address_updates": [
+    {
+      "id": 5703,
+      "to": "Pablo Pizzurno 1035"
+    },
+    {
+      "id": 5705,
+      "to": "Tte. Gral. Julio Argentino Roca 1650"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 5703,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5705,
+      "to": "Hurlingham"
+    }
+  ],
+  "geocode_required": [
+    5703,
+    5705
+  ],
+  "source_checked": [
+    {
+      "id": 5703,
+      "source": "faella",
+      "http_status": 200
+    },
+    {
+      "id": 5705,
+      "source": "faella",
+      "http_status": 200
+    },
+    {
+      "id": 5327,
+      "source": "zonaprop",
+      "http_status": 200
+    },
+    {
+      "id": 5423,
+      "source": "zonaprop",
+      "http_status": 200
+    }
+  ],
+  "source_map_miss": [
+    {
+      "id": 5703,
+      "source": "faella"
+    },
+    {
+      "id": 5705,
+      "source": "faella"
+    }
+  ],
+  "sweep_map_locations": [
+    {
+      "id": 5327,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5423,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 2894,
+      "source": "becerra"
+    },
+    {
+      "id": 2903,
+      "source": "becerra"
+    },
+    {
+      "id": 2906,
+      "source": "becerra"
+    },
+    {
+      "id": 2909,
+      "source": "becerra"
+    },
+    {
+      "id": 2912,
+      "source": "becerra"
+    },
+    {
+      "id": 2914,
+      "source": "becerra"
+    },
+    {
+      "id": 2917,
+      "source": "becerra"
+    },
+    {
+      "id": 2923,
+      "source": "becerra"
+    },
+    {
+      "id": 5194,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5195,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5216,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5217,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5257,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5268,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5320,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5354,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5433,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5469,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5491,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5518,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5536,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5548,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5566,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5587,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5614,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5628,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 5640,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6064,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6067,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6076,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6079,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6082,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6084,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6085,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6086,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6087,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6088,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6089,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6090,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6092,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6093,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6094,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6095,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6096,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6100,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6101,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6102,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6104,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6105,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6106,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6107,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6108,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6109,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6116,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6117,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6118,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6119,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6120,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    },
+    {
+      "id": 6121,
+      "source": "zonaprop",
+      "method": "zonaprop_parser"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 5327,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5423,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 2894,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2903,
+      "zone": "Curapaytí",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2906,
+      "zone": "Santa Clara",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2909,
+      "zone": "Jorge Newbery",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2912,
+      "zone": "La Leonor",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2914,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2917,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2923,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 5194,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5195,
+      "zone": "El Porvenir",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5216,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5217,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5257,
+      "zone": "Juan B. de Lasalle",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5268,
+      "zone": "Nueve de Julio",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5320,
+      "zone": "Curapaytí",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5354,
+      "zone": "Parque Quirno",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5433,
+      "zone": "Santa Leonor",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5469,
+      "zone": "Villa Tesei Centro",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5491,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5518,
+      "zone": "Nueve de Julio",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5536,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5548,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5566,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5587,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5614,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5628,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 5640,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6064,
+      "zone": "Mitre",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6067,
+      "zone": "Parque Quirno",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6076,
+      "zone": "Villa Tesei Centro",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6079,
+      "zone": "Carola Lorenzini",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6082,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6084,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6085,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6086,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6087,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6088,
+      "zone": "Luna",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6089,
+      "zone": "Villa Tesei Centro",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6090,
+      "zone": "Cosmopolita",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6092,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6093,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6094,
+      "zone": "Cosmopolita",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6095,
+      "zone": "Belgrano",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6096,
+      "zone": "Cosmopolita",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6100,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6101,
+      "zone": "Villa Alemania",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6102,
+      "zone": "Cartero",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6104,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6105,
+      "zone": "Parque Quirno",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6106,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6107,
+      "zone": "Villa Alemania",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6108,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6109,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6116,
+      "zone": "Carola Lorenzini",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6117,
+      "zone": "Parque Quirno",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6118,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6119,
+      "zone": "Mitre",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6120,
+      "zone": "Parque Johnston",
+      "provider": "zonaprop_map"
+    },
+    {
+      "id": 6121,
+      "zone": "Villa Club",
+      "provider": "zonaprop_map"
+    }
+  ],
+  "removed": [
+    {
+      "id": 5419,
+      "listing_ids": [
+        6806
+      ],
+      "reason": "Dice \"Fue finalizado por el anunciante\" revisa el resto de zonaprop por si acaso"
+    },
+    {
+      "id": 5480,
+      "listing_ids": [
+        6880
+      ],
+      "reason": "Dice \"Este aviso ya no está publicado\" revisa el resto de zonaprop por si acaso"
+    },
+    {
+      "id": 5223,
+      "listing_ids": [
+        6565
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5422,
+      "listing_ids": [
+        6809
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5485,
+      "listing_ids": [
+        6885
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5673,
+      "listing_ids": [
+        7110
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 6091,
+      "listing_ids": [
+        7580
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 6103,
+      "listing_ids": [
+        7593
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 6115,
+      "listing_ids": [
+        7626
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    }
+  ],
+  "fincas_prefix_candidates": [
+    {
+      "count": 0,
+      "ids": []
+    }
+  ],
+  "becerra_pending_checked": [
+    {
+      "count": 38,
+      "selected_ids": [
+        2894,
+        2903,
+        2906,
+        2909,
+        2912,
+        2914,
+        2917,
+        2923
+      ],
+      "skipped_count": 30,
+      "skipped_ids": [
+        2928,
+        2932,
+        2935,
+        2946,
+        2957,
+        2960,
+        2964,
+        2966,
+        2971,
+        2976,
+        2980,
+        2984,
+        2990,
+        2994,
+        3003,
+        3013,
+        3034,
+        3037,
+        3042,
+        3077,
+        3080,
+        3083,
+        3091,
+        3103,
+        3114,
+        3126,
+        3129,
+        3134,
+        3137,
+        3162
+      ]
+    }
+  ],
+  "zonaprop_pending_checked": [
+    {
+      "count": 64,
+      "selected_ids": [
+        5327,
+        5419,
+        5423,
+        5480,
+        5194,
+        5195,
+        5216,
+        5217,
+        5223,
+        5257,
+        5268,
+        5320,
+        5354,
+        5422,
+        5433,
+        5469,
+        5485,
+        5491,
+        5518,
+        5536,
+        5548,
+        5566,
+        5587,
+        5606,
+        5614,
+        5628,
+        5640,
+        5673,
+        6064,
+        6067,
+        6076,
+        6079,
+        6082,
+        6084,
+        6085,
+        6086,
+        6087,
+        6088,
+        6089,
+        6090,
+        6091,
+        6092,
+        6093,
+        6094,
+        6095,
+        6096,
+        6100,
+        6101,
+        6102,
+        6103,
+        6104,
+        6105,
+        6106,
+        6107,
+        6108,
+        6109,
+        6115,
+        6116,
+        6117,
+        6118,
+        6119,
+        6120,
+        6121
+      ],
+      "skipped_count": 0,
+      "skipped_ids": []
+    }
+  ],
+  "zonaprop_source_address_updates": [
+    {
+      "id": 5354,
+      "to": "Gra Gral. Alfredo Rodríguez 2081"
+    },
+    {
+      "id": 5518,
+      "to": "GENERAL Gral. Alfredo Rodríguez"
+    }
+  ],
+  "zonaprop_map_miss": [
+    5606
+  ],
+  "faella_pending_checked": [
+    {
+      "count": 33,
+      "selected_ids": [
+        5703,
+        5705,
+        5701,
+        5702,
+        5704,
+        5706,
+        5707,
+        5708,
+        5709,
+        5710,
+        5711,
+        5712,
+        5713,
+        5714,
+        5715,
+        5716,
+        5717,
+        5718,
+        5719,
+        5720,
+        5721,
+        5722,
+        5723,
+        5724,
+        5725,
+        5726,
+        5727,
+        5728,
+        5729,
+        5730,
+        5731,
+        5733,
+        5735
+      ],
+      "skipped_count": 0,
+      "skipped_ids": []
+    }
+  ],
+  "faella_map_miss": [
+    5701,
+    5702,
+    5704,
+    5706,
+    5707,
+    5708,
+    5709,
+    5710,
+    5711,
+    5712,
+    5713,
+    5714,
+    5715,
+    5716,
+    5717,
+    5718,
+    5719,
+    5720,
+    5721,
+    5722,
+    5723,
+    5724,
+    5725,
+    5726,
+    5727,
+    5728,
+    5729,
+    5730,
+    5731,
+    5733,
+    5735
+  ],
+  "after": {
+    "sin_zona_operativa": 133,
+    "sin_direccion_util": 216,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 11,
+        "sin_zona": 11
+      },
+      "becerra": {
+        "pendientes": 38,
+        "sin_direccion": 38
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 33,
+        "sin_direccion": 32,
+        "sin_zona": 23
+      },
+      "fincas": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "inmuebles-clarin": {
+        "pendientes": 4,
+        "sin_zona": 4
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 46,
+        "sin_direccion": 42,
+        "sin_zona": 6
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 8,
+        "sin_direccion": 8
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 60,
+        "sin_zona": 59,
+        "sin_direccion": 8
+      }
+    }
+  },
+  "excel": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter5.xlsx",
+    "pending_rows": 302,
+    "columns": [
+      "id_propiedad",
+      "titulo",
+      "descripcion_resumen",
+      "domicilio_actual",
+      "direccion_detectada",
+      "direccion_sugerida",
+      "direccion_normalizada",
+      "localidad_actual",
+      "localidad_detectada",
+      "barrio_actual",
+      "barrio_detectado",
+      "zona_actual",
+      "zona_sugerida",
+      "zona_inteligencia",
+      "confianza",
+      "motivo",
+      "estado",
+      "latitud",
+      "longitud",
+      "fuente_coordenadas",
+      "fuente",
+      "inmobiliaria",
+      "url_publicacion",
+      "motivo_url",
+      "estado_publicacion",
+      "tipo_propiedad",
+      "operacion",
+      "moneda",
+      "precio",
+      "ambientes",
+      "dormitorios",
+      "banos",
+      "superficie_cubierta",
+      "superficie_total",
+      "fecha_ultima_vista",
+      "motivo_pendiente",
+      "evidencia",
+      "decision_manual",
+      "notas_manual"
+    ]
+  },
+  "excel_validation": {
+    "sheets": [
+      "Pendientes",
+      "Resumen"
+    ],
+    "rows": 302,
+    "auto_filter": "A1:AM303",
+    "tables": [
+      "PendientesFeedback20260627Iter5"
+    ],
+    "freeze_panes": "A2",
+    "price_types": {
+      "int": 271,
+      "NoneType": 31
+    },
+    "nonblank_decisions": 0,
+    "nonblank_notes": 0,
+    "validations": [
+      {
+        "type": "list",
+        "formula1": "\"APROBADO,RECHAZADO\"",
+        "sqref": "AL2:AL303"
+      }
+    ],
+    "missing_columns": []
+  },
+  "sample": [
+    {
+      "id": 5327,
+      "address": "Amplio con Parrilla Hurlingham Ver más en",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6695
+      ]
+    },
+    {
+      "id": 5419,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6806
+      ]
+    },
+    {
+      "id": 5423,
+      "address": "Amplio con Parrilla Hurlingham Ver más en",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6810
+      ]
+    },
+    {
+      "id": 5480,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6880
+      ]
+    },
+    {
+      "id": 5703,
+      "address": "Pablo Pizzurno 1035",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-16T03:04:15.610718+00:00"
+      },
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "Hurlingham Centro (Barrio Ingles)",
+        "inferred_zone": ""
+      },
+      "corrected": true,
+      "active_listings": [
+        7142
+      ]
+    },
+    {
+      "id": 5704,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        7143
+      ]
+    },
+    {
+      "id": 5705,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7144
+      ]
+    },
+    {
+      "id": 5706,
+      "address": "Dormitorios Y Patio Con Parrilla Hurlingham",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7145
+      ]
+    },
+    {
+      "id": 5707,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7146
+      ]
+    },
+    {
+      "id": 5708,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7147
+      ]
+    },
+    {
+      "id": 5709,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7148
+      ]
+    },
+    {
+      "id": 5710,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7149
+      ]
+    },
+    {
+      "id": 5711,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7150
+      ]
+    },
+    {
+      "id": 5713,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7152
+      ]
+    },
+    {
+      "id": 5714,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7153
+      ]
+    },
+    {
+      "id": 5715,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7154
+      ]
+    },
+    {
+      "id": 5716,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7155
+      ]
+    },
+    {
+      "id": 5718,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7157
+      ]
+    },
+    {
+      "id": 5719,
+      "address": "",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7158
+      ]
+    },
+    {
+      "id": 5720,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7159
+      ]
+    },
+    {
+      "id": 5721,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7160
+      ]
+    },
+    {
+      "id": 5722,
+      "address": "",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7161
+      ]
+    },
+    {
+      "id": 5723,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7162
+      ]
+    },
+    {
+      "id": 5724,
+      "address": "",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7163
+      ]
+    },
+    {
+      "id": 5725,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7164
+      ]
+    },
+    {
+      "id": 5726,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7165
+      ]
+    },
+    {
+      "id": 5728,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7167
+      ]
+    },
+    {
+      "id": 5729,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7168
+      ]
+    },
+    {
+      "id": 5731,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7170
+      ]
+    },
+    {
+      "id": 5733,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7172
+      ]
+    },
+    {
+      "id": 5735,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7174
+      ]
+    }
+  ]
+}

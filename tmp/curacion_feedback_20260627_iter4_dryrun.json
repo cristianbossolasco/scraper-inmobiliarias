@@ -1,0 +1,1592 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter3.xlsx",
+  "output_excel": "",
+  "feedback_decisions": {
+    "APROBADO": 16,
+    "RECHAZADO": 10
+  },
+  "approved_found": [
+    500,
+    961,
+    3087,
+    3181,
+    3316,
+    3356,
+    3543,
+    3581,
+    5106,
+    5327,
+    5383,
+    5700,
+    5739,
+    5854,
+    6064,
+    6127
+  ],
+  "rejected_found": [
+    2952,
+    2999,
+    3046,
+    3066,
+    3346,
+    3616,
+    5107,
+    5129,
+    5801,
+    5813
+  ],
+  "unexpected_approved": [],
+  "unexpected_rejected": [],
+  "ignored_out_of_scope_decisions": {
+    "approved": [],
+    "rejected": []
+  },
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "before": {
+    "sin_zona_operativa": 161,
+    "sin_direccion_util": 219,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 13,
+        "sin_zona": 13
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 10,
+        "sin_direccion": 8,
+        "sin_zona": 2
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "backup": "",
+  "reviewed_no_action": [
+    {
+      "id": 500,
+      "note": "Marcala para que no aparezca mas en el excel, en la publicacion no hay datos sobre el domicilio"
+    },
+    {
+      "id": 961,
+      "note": "Marcala para que no aparezca mas en el excel, en la publicacion no hay datos sobre el domicilio"
+    },
+    {
+      "id": 3316,
+      "note": "Marcala para que no aparezca mas en el excel, en la publicacion no hay datos sobre el domicilio"
+    },
+    {
+      "id": 3356,
+      "note": "Marcala para que no aparezca mas en el excel, en la publicacion no hay datos sobre el domicilio"
+    },
+    {
+      "id": 5854,
+      "note": "No hay datos del domicilio ni de la geolocalizacion. Marcala para que no vuelva a aparecer en el excel"
+    }
+  ],
+  "address_updates": [
+    {
+      "id": 3087,
+      "to": "German Argerich 1300"
+    },
+    {
+      "id": 3181,
+      "to": "Virriato Unia 2412"
+    },
+    {
+      "id": 3543,
+      "to": "Isabel del Maestro 3500"
+    },
+    {
+      "id": 3581,
+      "to": "Conscripto Bernardi 587"
+    },
+    {
+      "id": 5106,
+      "to": "Coraceros 2400"
+    },
+    {
+      "id": 5383,
+      "to": "Tte. Gral. Julio Argentino Roca 1099"
+    },
+    {
+      "id": 5700,
+      "to": "Acassuso 1925"
+    },
+    {
+      "id": 5739,
+      "to": "Tte. Manuel Origone 287"
+    },
+    {
+      "id": 6064,
+      "to": "Jose de Malarredo e/ Paganini y Handys"
+    },
+    {
+      "id": 6127,
+      "to": "Coraceros 3115"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 3087,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 3181,
+      "to": "Villa Tesei"
+    },
+    {
+      "id": 3543,
+      "to": "William C. Morris"
+    },
+    {
+      "id": 3581,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5106,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5383,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5700,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5739,
+      "to": "Villa Tesei"
+    },
+    {
+      "id": 6064,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 6127,
+      "to": "Hurlingham"
+    }
+  ],
+  "geocode_required": [
+    3087,
+    3181,
+    3543,
+    3581,
+    5106,
+    5383,
+    5700,
+    5739,
+    6064,
+    6127
+  ],
+  "source_checked": [
+    {
+      "id": 3087,
+      "source": "becerra",
+      "http_status": 200
+    },
+    {
+      "id": 3181,
+      "source": "analia-fernandez",
+      "http_status": 200
+    },
+    {
+      "id": 3543,
+      "source": "fincas",
+      "http_status": 200
+    },
+    {
+      "id": 3581,
+      "source": "miglierini",
+      "http_status": 200
+    },
+    {
+      "id": 5106,
+      "source": "zonaprop",
+      "http_status": 200
+    },
+    {
+      "id": 5383,
+      "source": "zonaprop",
+      "http_status": 200
+    },
+    {
+      "id": 5700,
+      "source": "faella",
+      "http_status": 200
+    },
+    {
+      "id": 5739,
+      "source": "hollmann-ariel",
+      "http_status": 200
+    },
+    {
+      "id": 6064,
+      "source": "zonaprop",
+      "http_status": 200
+    },
+    {
+      "id": 6127,
+      "source": "argenprop",
+      "http_status": 200
+    },
+    {
+      "id": 5327,
+      "source": "zonaprop",
+      "http_status": 200
+    }
+  ],
+  "source_map_miss": [
+    {
+      "id": 3087,
+      "source": "becerra"
+    },
+    {
+      "id": 3181,
+      "source": "analia-fernandez"
+    },
+    {
+      "id": 5106,
+      "source": "zonaprop"
+    },
+    {
+      "id": 5383,
+      "source": "zonaprop"
+    },
+    {
+      "id": 5700,
+      "source": "faella"
+    },
+    {
+      "id": 6064,
+      "source": "zonaprop"
+    },
+    {
+      "id": 5327,
+      "source": "zonaprop"
+    }
+  ],
+  "sweep_map_locations": [
+    {
+      "id": 3543,
+      "source": "fincas",
+      "method": "fincas_parser"
+    },
+    {
+      "id": 3581,
+      "source": "miglierini",
+      "method": "propertyMapData"
+    },
+    {
+      "id": 5739,
+      "source": "hollmann-ariel",
+      "method": "fallback_latlon"
+    },
+    {
+      "id": 6127,
+      "source": "argenprop",
+      "method": "data-latitude"
+    },
+    {
+      "id": 2894,
+      "source": "becerra"
+    },
+    {
+      "id": 2903,
+      "source": "becerra"
+    },
+    {
+      "id": 2906,
+      "source": "becerra"
+    },
+    {
+      "id": 2909,
+      "source": "becerra"
+    },
+    {
+      "id": 2912,
+      "source": "becerra"
+    },
+    {
+      "id": 2914,
+      "source": "becerra"
+    },
+    {
+      "id": 2917,
+      "source": "becerra"
+    },
+    {
+      "id": 2923,
+      "source": "becerra"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 3543,
+      "zone": "El Destino",
+      "provider": "fincas_map"
+    },
+    {
+      "id": 3581,
+      "zone": "Villa Alemania",
+      "provider": "miglierini_map"
+    },
+    {
+      "id": 5739,
+      "zone": "Villa Tesei Centro",
+      "provider": "hollmann-ariel_map"
+    },
+    {
+      "id": 6127,
+      "zone": "Luna",
+      "provider": "argenprop_map"
+    },
+    {
+      "id": 2894,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2903,
+      "zone": "Curapaytí",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2906,
+      "zone": "Santa Clara",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2909,
+      "zone": "Jorge Newbery",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2912,
+      "zone": "La Leonor",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2914,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2917,
+      "zone": "Villa Club",
+      "provider": "becerra_map"
+    },
+    {
+      "id": 2923,
+      "zone": "Luna",
+      "provider": "becerra_map"
+    }
+  ],
+  "property_type_updates": [
+    {
+      "id": 3581,
+      "to": "other",
+      "evidence": "La fuente declara Tipo Galpon; se usa other porque el modelo no tiene tipo galpon."
+    }
+  ],
+  "map_only_pending": [
+    5327
+  ],
+  "removed": [
+    {
+      "id": 2952,
+      "listing_ids": [
+        3697
+      ],
+      "reason": "Si entras al enlace te da un error \"Whoops! We seem to have hit a snag. Please try again later…\" Lo que interpreto como que la publicacion fue dada de baja Deberas validar las de becerra, tal vez encuentres mas en esta situacion"
+    },
+    {
+      "id": 2999,
+      "listing_ids": [
+        3748
+      ],
+      "reason": "Si entras al enlace te da un error \"Whoops! We seem to have hit a snag. Please try again later…\" Lo que interpreto como que la publicacion fue dada de baja Deberas validar las de becerra, tal vez encuentres mas en esta situacion"
+    },
+    {
+      "id": 3046,
+      "listing_ids": [
+        3799
+      ],
+      "reason": "Si entras al enlace te da un error \"Whoops! We seem to have hit a snag. Please try again later…\" Lo que interpreto como que la publicacion fue dada de baja Deberas validar las de becerra, tal vez encuentres mas en esta situacion"
+    },
+    {
+      "id": 3066,
+      "listing_ids": [
+        3824
+      ],
+      "reason": "Si entras al enlace te da un error \"Whoops! We seem to have hit a snag. Please try again later…\" Lo que interpreto como que la publicacion fue dada de baja Deberas validar las de becerra, tal vez encuentres mas en esta situacion"
+    },
+    {
+      "id": 3346,
+      "listing_ids": [
+        4154
+      ],
+      "reason": "Eliminar. En la publicacion dice \"Chalet venta Bella Vista Oeste\" por lo cual esta en Bella Vista, no en Hurlingham"
+    },
+    {
+      "id": 3616,
+      "listing_ids": [
+        4490
+      ],
+      "reason": "Eliminar. Enla publicacion dice \"Departamento venta San Bernardo\", por lo tanto no es de Hurlingham"
+    },
+    {
+      "id": 5107,
+      "listing_ids": [
+        6409
+      ],
+      "reason": "Si entras al link dice \"Este aviso ya no está publicado\", asi que dala de baja"
+    },
+    {
+      "id": 5129,
+      "listing_ids": [
+        6439
+      ],
+      "reason": "Si entras al link dice \"Este aviso ya no está publicado\", asi que dala de baja. Revisa las que te quedan de https://www.zonaprop.com.ar/ para darlas de baja si estan en la misma situacion"
+    },
+    {
+      "id": 5801,
+      "listing_ids": [
+        7246
+      ],
+      "reason": "Esta es de Caseros, no es de Hurlingham. Lo dice clarito en la publicacion \" stephenson 2900, Caseros, Buenos Aires, Argentina.\""
+    },
+    {
+      "id": 5813,
+      "listing_ids": [
+        7258
+      ],
+      "reason": "Eliminala, en realidad es una casa en Caseros, no es Hurlingham"
+    },
+    {
+      "id": 394,
+      "listing_ids": [
+        428
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 413,
+      "listing_ids": [
+        450
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 503,
+      "listing_ids": [
+        554
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5130,
+      "listing_ids": [
+        6440
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5143,
+      "listing_ids": [
+        6456
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5177,
+      "listing_ids": [
+        6500
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5181,
+      "listing_ids": [
+        6504
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5182,
+      "listing_ids": [
+        6505
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5190,
+      "listing_ids": [
+        6526,
+        6525,
+        6524,
+        6523,
+        6522,
+        6521,
+        6520,
+        6519,
+        6518,
+        6517,
+        6516,
+        6515,
+        6514,
+        6513
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    },
+    {
+      "id": 5191,
+      "listing_ids": [
+        6527
+      ],
+      "reason": "Zonaprop aviso retirado/410/404 confirmado por fuente"
+    }
+  ],
+  "fincas_prefix_candidates": [
+    {
+      "count": 0,
+      "ids": []
+    }
+  ],
+  "becerra_pending_checked": [
+    {
+      "count": 43,
+      "selected_ids": [
+        2952,
+        2999,
+        3046,
+        3066,
+        3087,
+        2894,
+        2903,
+        2906,
+        2909,
+        2912,
+        2914,
+        2917,
+        2923
+      ],
+      "skipped_count": 30,
+      "skipped_ids": [
+        2928,
+        2932,
+        2935,
+        2946,
+        2957,
+        2960,
+        2964,
+        2966,
+        2971,
+        2976,
+        2980,
+        2984,
+        2990,
+        2994,
+        3003,
+        3013,
+        3034,
+        3037,
+        3042,
+        3077,
+        3080,
+        3083,
+        3091,
+        3103,
+        3114,
+        3126,
+        3129,
+        3134,
+        3137,
+        3162
+      ]
+    }
+  ],
+  "source_fetch_errors": [
+    {
+      "id": 2952,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 2999,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 3046,
+      "source": "becerra",
+      "http_status": 500
+    },
+    {
+      "id": 3066,
+      "source": "becerra",
+      "http_status": 500
+    }
+  ],
+  "zonaprop_pending_checked": [
+    {
+      "count": 78,
+      "selected_ids": [
+        5106,
+        5107,
+        5129,
+        5327,
+        5383,
+        6064,
+        394,
+        413,
+        503,
+        5130,
+        5143,
+        5177,
+        5181,
+        5182,
+        5190,
+        5191
+      ],
+      "skipped_count": 61,
+      "skipped_ids": [
+        5194,
+        5195,
+        5216,
+        5217,
+        5223,
+        5257,
+        5268,
+        5320,
+        5354,
+        5419,
+        5422,
+        5423,
+        5433,
+        5469,
+        5480,
+        5485,
+        5491,
+        5518,
+        5536,
+        5548,
+        5566,
+        5587,
+        5606,
+        5614,
+        5628,
+        5640,
+        5673,
+        6067,
+        6076,
+        6079,
+        6082,
+        6084,
+        6085,
+        6086,
+        6087,
+        6088,
+        6089,
+        6090,
+        6091,
+        6092,
+        6093,
+        6094,
+        6095,
+        6096,
+        6100,
+        6101,
+        6102,
+        6103,
+        6104,
+        6105,
+        6106,
+        6107,
+        6108,
+        6109,
+        6115,
+        6116,
+        6117,
+        6118,
+        6119,
+        6120,
+        6121
+      ]
+    }
+  ],
+  "faella_pending_checked": [
+    {
+      "count": 34,
+      "selected_ids": [
+        5700,
+        5701,
+        5702,
+        5703,
+        5704,
+        5705,
+        5706
+      ],
+      "skipped_count": 27,
+      "skipped_ids": [
+        5707,
+        5708,
+        5709,
+        5710,
+        5711,
+        5712,
+        5713,
+        5714,
+        5715,
+        5716,
+        5717,
+        5718,
+        5719,
+        5720,
+        5721,
+        5722,
+        5723,
+        5724,
+        5725,
+        5726,
+        5727,
+        5728,
+        5729,
+        5730,
+        5731,
+        5733,
+        5735
+      ]
+    }
+  ],
+  "faella_map_miss": [
+    5701,
+    5702,
+    5703,
+    5704,
+    5705,
+    5706
+  ],
+  "after": {
+    "sin_zona_operativa": 161,
+    "sin_direccion_util": 219,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 13,
+        "sin_zona": 13
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 10,
+        "sin_direccion": 8,
+        "sin_zona": 2
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "excel": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter4.xlsx",
+    "pending_rows": 331,
+    "columns": [
+      "id_propiedad",
+      "titulo",
+      "descripcion_resumen",
+      "domicilio_actual",
+      "direccion_detectada",
+      "direccion_sugerida",
+      "direccion_normalizada",
+      "localidad_actual",
+      "localidad_detectada",
+      "barrio_actual",
+      "barrio_detectado",
+      "zona_actual",
+      "zona_sugerida",
+      "zona_inteligencia",
+      "confianza",
+      "motivo",
+      "estado",
+      "latitud",
+      "longitud",
+      "fuente_coordenadas",
+      "fuente",
+      "inmobiliaria",
+      "url_publicacion",
+      "motivo_url",
+      "estado_publicacion",
+      "tipo_propiedad",
+      "operacion",
+      "moneda",
+      "precio",
+      "ambientes",
+      "dormitorios",
+      "banos",
+      "superficie_cubierta",
+      "superficie_total",
+      "fecha_ultima_vista",
+      "motivo_pendiente",
+      "evidencia",
+      "decision_manual",
+      "notas_manual"
+    ]
+  },
+  "excel_validation": {
+    "sheets": [
+      "Pendientes",
+      "Resumen"
+    ],
+    "rows": 331,
+    "auto_filter": "A1:AM332",
+    "tables": [
+      "PendientesFeedback20260627Iter4"
+    ],
+    "freeze_panes": "A2",
+    "price_types": {
+      "int": 300,
+      "NoneType": 31
+    },
+    "nonblank_decisions": 0,
+    "nonblank_notes": 0,
+    "validations": [
+      {
+        "type": "list",
+        "formula1": "\"APROBADO,RECHAZADO\"",
+        "sqref": "AL2:AL332"
+      }
+    ],
+    "missing_columns": []
+  },
+  "sample": [
+    {
+      "id": 500,
+      "address": "360 Mensaje al anunciante Terrenos · 225m² · 7 ambientes · 2 cocheras",
+      "locality": "Villa Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "360 Mensaje al anunciante Terrenos · 225m² · 7 ambientes · 2 cocheras, Villa Tesei, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        551
+      ]
+    },
+    {
+      "id": 961,
+      "address": "husares villa tessei",
+      "locality": "William C. Morris",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "husares villa tessei, William C. Morris, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        1018,
+        1897
+      ]
+    },
+    {
+      "id": 2952,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3697
+      ]
+    },
+    {
+      "id": 2999,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3748
+      ]
+    },
+    {
+      "id": 3046,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3799
+      ]
+    },
+    {
+      "id": 3066,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3824
+      ]
+    },
+    {
+      "id": 3087,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        3850
+      ]
+    },
+    {
+      "id": 3181,
+      "address": "Virriato Unia 2412",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-27T19:48:33.838154+00:00",
+        "locality": "2026-06-27T19:48:33.838154+00:00"
+      },
+      "zone_evidence": {
+        "geocode_query": "Virriato Unía 2412 Esquina Sigmund Freud, Villa Tesei, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "Santos Tesei",
+        "inferred_zone": ""
+      },
+      "corrected": true,
+      "active_listings": [
+        3958
+      ]
+    },
+    {
+      "id": 3316,
+      "address": "Amb Sobre Lote 20",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Amb Sobre Lote 20, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4120
+      ]
+    },
+    {
+      "id": 3346,
+      "address": "garage-quincho muy amplio con parrilla y asador",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "garage-quincho muy amplio con parrilla y asador, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4154
+      ]
+    },
+    {
+      "id": 3356,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "Villa Alemania",
+      "intel_zone": "Villa Alemania",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": "",
+        "excel_curation": {
+          "reason": "Zona aprobada sin dirección disponible.",
+          "evidence": {},
+          "applied_at": "2026-06-16T03:04:15.610718+00:00"
+        }
+      },
+      "corrected": false,
+      "active_listings": [
+        4166
+      ]
+    },
+    {
+      "id": 3543,
+      "address": "Oeste Hurlingham Hurlingham Hurlingham Isabel Maestro 3500",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Oeste Hurlingham Hurlingham Hurlingham ISABEL DEL MAESTRO 3500, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4401
+      ]
+    },
+    {
+      "id": 3581,
+      "address": "Av Márquez Y Roca",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Av Márquez Y Roca, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4447
+      ]
+    },
+    {
+      "id": 3616,
+      "address": "Todas Argentina Zona Atlantica San Bernardo Avda.Costanera 2700",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Todas Argentina Zona Atlantica San Bernardo Avda.Costanera 2700, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        4490
+      ]
+    },
+    {
+      "id": 5106,
+      "address": "Caroceros 2400",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Caroceros 2400, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6408
+      ]
+    },
+    {
+      "id": 5107,
+      "address": "José de Malarredo e/ Paganini y Handys",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "José de Malarredo e/ Paganini y Handys, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6409
+      ]
+    },
+    {
+      "id": 5129,
+      "address": "Hudson e/ Avenida Roca y Pedro de Mendoza",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Hudson e/ Avenida Roca y Pedro de Mendoza, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6439
+      ]
+    },
+    {
+      "id": 5327,
+      "address": "Amplio con Parrilla Hurlingham Ver más en",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6695
+      ]
+    },
+    {
+      "id": 5383,
+      "address": "Lsh.tte",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "Lsh.tte, Hurlingham, Buenos Aires, Argentina",
+        "coordinate_source": "",
+        "source_zone": "",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        6760
+      ]
+    },
+    {
+      "id": 5700,
+      "address": "",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {
+        "geocode_query": "",
+        "coordinate_source": "",
+        "source_zone": "Parque Johnston",
+        "inferred_zone": ""
+      },
+      "corrected": false,
+      "active_listings": [
+        7139
+      ]
+    },
+    {
+      "id": 5739,
+      "address": "Tte. Origone 287",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7180
+      ]
+    },
+    {
+      "id": 5801,
+      "address": "stephenson 2900",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:39.266512+00:00"
+      },
+      "zone_evidence": {},
+      "corrected": true,
+      "active_listings": [
+        7246
+      ]
+    },
+    {
+      "id": 5813,
+      "address": "wenceslao del tata 4599",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:39.266512+00:00"
+      },
+      "zone_evidence": {},
+      "corrected": true,
+      "active_listings": [
+        7258
+      ]
+    },
+    {
+      "id": 5854,
+      "address": "EL GAUCHO",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7300
+      ]
+    },
+    {
+      "id": 6064,
+      "address": "José de Malarredo e/ Paganini y Handys",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7547
+      ]
+    },
+    {
+      "id": 6127,
+      "address": "CORACERO 3115",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7652
+      ]
+    }
+  ]
+}

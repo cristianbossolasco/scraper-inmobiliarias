@@ -252,6 +252,11 @@
         <button class="secondary-button" id="edit-location" type="button">
           <i data-lucide="move"></i> {% if property_location.has_location %}Corregir pin{% else %}Ubicar manualmente{% endif %}
         </button>
+        {% if property_location.can_geocode_from_address %}
+        <button class="secondary-button" id="geocode-location" type="button" title="Usar direccion: {{ property_location.geocode_address_label }}">
+          <i data-lucide="map-pin"></i> Ubicar por direccion
+        </button>
+        {% endif %}
         <button class="primary-button" id="save-location" type="button" hidden>
           <i data-lucide="check"></i> Guardar
         </button>

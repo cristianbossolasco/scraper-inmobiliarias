@@ -1,0 +1,1806 @@
+{
+  "mode": "apply",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter2.xlsx",
+  "output_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter3.xlsx",
+  "feedback_decisions": {
+    "APROBADO": 27,
+    "RECHAZADO": 2
+  },
+  "approved_found": [
+    5749,
+    5752,
+    5778,
+    5779,
+    5780,
+    5781,
+    5783,
+    5784,
+    5786,
+    5787,
+    5789,
+    5790,
+    5791,
+    5792,
+    5793,
+    5794,
+    5795,
+    5798,
+    5799
+  ],
+  "rejected_found": [
+    5782,
+    5822
+  ],
+  "unexpected_approved": [
+    3181,
+    5106,
+    5177,
+    5216,
+    5217,
+    5548,
+    5703,
+    5739
+  ],
+  "unexpected_rejected": [],
+  "ignored_out_of_scope_decisions": {
+    "approved": [
+      3181,
+      5106,
+      5177,
+      5216,
+      5217,
+      5548,
+      5703,
+      5739
+    ],
+    "rejected": []
+  },
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "before": {
+    "sin_zona_operativa": 161,
+    "sin_direccion_util": 218,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 13,
+        "sin_zona": 13
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 10,
+        "sin_direccion": 8,
+        "sin_zona": 2
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "backup_created": false,
+  "backup": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\db.sqlite3.backup_curacion_feedback_20260627_iter3_oscar",
+  "address_updates": [
+    {
+      "id": 5749,
+      "to": "Gral. Toribio de Luzuriaga 2100"
+    },
+    {
+      "id": 5752,
+      "to": "Manuel A. Padilla 1200"
+    },
+    {
+      "id": 5778,
+      "to": "Pueyrredon 2036"
+    },
+    {
+      "id": 5779,
+      "to": "Uspallata 1931"
+    },
+    {
+      "id": 5780,
+      "to": "Plumerillos 1957"
+    },
+    {
+      "id": 5781,
+      "to": "Pablo Pizzurno 686"
+    },
+    {
+      "id": 5783,
+      "to": "Tte. Gral. Pablo Ricchieri 1259"
+    },
+    {
+      "id": 5784,
+      "to": "Jorge Daniel Thevenin y John F. Kennedy"
+    },
+    {
+      "id": 5786,
+      "to": "Santa Ana 230"
+    },
+    {
+      "id": 5787,
+      "to": "Juan de Garay 1951"
+    },
+    {
+      "id": 5789,
+      "to": "Epecuen 351"
+    },
+    {
+      "id": 5790,
+      "to": "Aconcagua 2000"
+    },
+    {
+      "id": 5791,
+      "to": "Quintino Bocayuva 218"
+    },
+    {
+      "id": 5792,
+      "to": "Plumerillos 1895"
+    },
+    {
+      "id": 5793,
+      "to": "Cjal. Enrique Recagno 700"
+    },
+    {
+      "id": 5794,
+      "to": "Canada de Gomez 544"
+    },
+    {
+      "id": 5795,
+      "to": "Tte. Gral. Julio Argentino Roca 2100"
+    },
+    {
+      "id": 5798,
+      "to": "Granaderos 334"
+    },
+    {
+      "id": 5799,
+      "to": "Granaderos 289"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 5749,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5752,
+      "to": "Villa Tesei"
+    },
+    {
+      "id": 5778,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5779,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5780,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5781,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5783,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5784,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5786,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5787,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5789,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5790,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5791,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5792,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5793,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5794,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5795,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5798,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5799,
+      "to": "Hurlingham"
+    }
+  ],
+  "geocode_required": [
+    5749,
+    5752,
+    5778,
+    5779,
+    5780,
+    5781,
+    5783,
+    5784,
+    5786,
+    5787,
+    5789,
+    5790,
+    5791,
+    5792,
+    5793,
+    5794,
+    5795,
+    5798,
+    5799,
+    5801,
+    5813
+  ],
+  "geocode_skipped_already_resolved": [
+    5749,
+    5752,
+    5778,
+    5779,
+    5780,
+    5781,
+    5783,
+    5784,
+    5786,
+    5787,
+    5789,
+    5790,
+    5791,
+    5792,
+    5793,
+    5794,
+    5795,
+    5798,
+    5799
+  ],
+  "oscar_propagated_addresses": [
+    {
+      "id": 5785,
+      "from": "marques de aviles 2800",
+      "to": "marques de aviles 2800"
+    },
+    {
+      "id": 5788,
+      "from": "Dr. Delfor Díaz 2100",
+      "to": "Dr. Delfor Díaz 2100"
+    },
+    {
+      "id": 5796,
+      "from": "Tte. Gral. Julio Argentino Roca 2838",
+      "to": "Tte. Gral. Julio Argentino Roca 2838"
+    },
+    {
+      "id": 5797,
+      "from": "Paso Morales 90",
+      "to": "Paso Morales 90"
+    },
+    {
+      "id": 5800,
+      "from": "Nilda Figueira 1262",
+      "to": "Nilda Figueira 1262"
+    },
+    {
+      "id": 5801,
+      "from": "stephenson 2900",
+      "to": "stephenson 2900"
+    },
+    {
+      "id": 5802,
+      "from": "Kennedy 450",
+      "to": "Kennedy 450"
+    },
+    {
+      "id": 5803,
+      "from": "Quintino Bocayuva 360",
+      "to": "Quintino Bocayuva 360"
+    },
+    {
+      "id": 5804,
+      "from": "Tte. Gral. Julio Argentino Roca 2737",
+      "to": "Tte. Gral. Julio Argentino Roca 2737"
+    },
+    {
+      "id": 5805,
+      "from": "Pasaje Cintra 1361",
+      "to": "Pasaje Cintra 1361"
+    },
+    {
+      "id": 5806,
+      "from": "Juan De Garay 3099",
+      "to": "Juan De Garay 3099"
+    },
+    {
+      "id": 5807,
+      "from": "Remedios de Escalada 1450",
+      "to": "Remedios de Escalada 1450"
+    },
+    {
+      "id": 5808,
+      "from": "Granaderos 399",
+      "to": "Granaderos 399"
+    },
+    {
+      "id": 5809,
+      "from": "Guardia Vieja 1843",
+      "to": "Guardia Vieja 1843"
+    },
+    {
+      "id": 5810,
+      "from": "Santa Ana 505",
+      "to": "Santa Ana 505"
+    },
+    {
+      "id": 5811,
+      "from": "El Maestro Argentino 1876",
+      "to": "El Maestro Argentino 1876"
+    },
+    {
+      "id": 5812,
+      "from": "Pueyrredón 1851",
+      "to": "Pueyrredón 1851"
+    },
+    {
+      "id": 5813,
+      "from": "wenceslao del tata 4599",
+      "to": "wenceslao del tata 4599"
+    },
+    {
+      "id": 5814,
+      "from": "Cañada De Gómez 255",
+      "to": "Cañada De Gómez 255"
+    },
+    {
+      "id": 5815,
+      "from": "Plumerillos 2242",
+      "to": "Plumerillos 2242"
+    },
+    {
+      "id": 5816,
+      "from": "Quintino Bocayuva 431",
+      "to": "Quintino Bocayuva 431"
+    },
+    {
+      "id": 5817,
+      "from": "Albeniz y Asamblea",
+      "to": "Albeniz y Asamblea"
+    },
+    {
+      "id": 5819,
+      "from": "Basilio Delleva 1964",
+      "to": "Basilio Delleva 1964"
+    },
+    {
+      "id": 5820,
+      "from": "Granaderos 599",
+      "to": "Granaderos 599"
+    },
+    {
+      "id": 5823,
+      "from": "Aconcagua 1900",
+      "to": "Aconcagua 1900"
+    },
+    {
+      "id": 5824,
+      "from": "Jorge Daniel Thevenin 1748",
+      "to": "Jorge Daniel Thevenin 1748"
+    },
+    {
+      "id": 5825,
+      "from": "Asamblea Año XIII 231",
+      "to": "Asamblea Año XIII 231"
+    },
+    {
+      "id": 5826,
+      "from": "Quintino Bocayuva 200",
+      "to": "Quintino Bocayuva 200"
+    },
+    {
+      "id": 5827,
+      "from": "Tte. Gral. Julio Argentino Roca 2410",
+      "to": "Tte. Gral. Julio Argentino Roca 2410"
+    },
+    {
+      "id": 5828,
+      "from": "Epecuén 400",
+      "to": "Epecuén 400"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 5785,
+      "zone": "Curapaytí",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5788,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5796,
+      "zone": "Juan B. de Lasalle",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5797,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5800,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5802,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5803,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5804,
+      "zone": "Juan B. de Lasalle",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5805,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5806,
+      "zone": "Roca 1",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5807,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5808,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5809,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5810,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5811,
+      "zone": "Santa Clara",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5812,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5814,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5815,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5816,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5817,
+      "zone": "Curapaytí",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5819,
+      "zone": "Parque Johnston",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5820,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5823,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5824,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5825,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5826,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5827,
+      "zone": "Roca 2",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5828,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5818,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5839,
+      "zone": "Parque Johnston",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5840,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5841,
+      "zone": "Roca 2",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5842,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5843,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5844,
+      "zone": "Belgrano",
+      "provider": "nominatim"
+    },
+    {
+      "id": 6124,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 6125,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5830,
+      "zone": "Parque Johnston",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5831,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5832,
+      "zone": "Villa Tesei Centro",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5833,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5834,
+      "zone": "Nueve de Julio",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5835,
+      "zone": "Roca 2",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5836,
+      "zone": "Cosmopolita",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5837,
+      "zone": "Parque Johnston",
+      "provider": "oscar_dahbar_map"
+    }
+  ],
+  "geocode_cache_local_miss": [
+    5801,
+    5813
+  ],
+  "existing_coordinate_zones": [
+    {
+      "id": 5818,
+      "lat": -34.5873583,
+      "lon": -58.6319342,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5839,
+      "lat": -34.6004326,
+      "lon": -58.6369584,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5840,
+      "lat": -34.5909931,
+      "lon": -58.6281654,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5841,
+      "lat": -34.5798888,
+      "lon": -58.6458701,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5842,
+      "lat": -34.5788696,
+      "lon": -58.6333382,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5843,
+      "lat": -34.576947,
+      "lon": -58.6390735,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5844,
+      "lat": -34.5809427,
+      "lon": -58.6583671,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6124,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6125,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    }
+  ],
+  "sweep_map_locations": [
+    {
+      "id": 5830,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5831,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5832,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5833,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5834,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5835,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5836,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5837,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    }
+  ],
+  "oscar_bad_address_cleared": [
+    {
+      "id": 5832,
+      "address": "dormitorios y parque",
+      "detected_address": "dormitorios y parque"
+    }
+  ],
+  "removed": [
+    {
+      "id": 5782,
+      "listing_ids": [],
+      "reason": "en la publicacion dice \" Hipolito Yrigoyen 431, Mar De Ajo, Buenos Aires, Argentina.\" o sea es de Mar de Ajo, eliminala y revisa"
+    },
+    {
+      "id": 5822,
+      "listing_ids": [],
+      "reason": "Eliminar, es de caseros.. En la publicacion dice claramente \"Gral J J De Urquiza 4773, Caseros, Buenos Aires, Argentina.\""
+    },
+    {
+      "id": 5821,
+      "listing_ids": [],
+      "reason": "Oscar Dahbar fuera del partido confirmado por URL/titulo/fuente"
+    },
+    {
+      "id": 5838,
+      "listing_ids": [],
+      "reason": "Oscar Dahbar fuera del partido confirmado por URL/titulo/fuente"
+    }
+  ],
+  "oscar_remove_candidate_checked": [
+    {
+      "id": 5821,
+      "http_status": 200
+    },
+    {
+      "id": 5838,
+      "http_status": 200
+    }
+  ],
+  "after": {
+    "sin_zona_operativa": 161,
+    "sin_direccion_util": 219,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 13,
+        "sin_zona": 13
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 10,
+        "sin_direccion": 8,
+        "sin_zona": 2
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "excel": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter3.xlsx",
+    "pending_rows": 331,
+    "columns": [
+      "id_propiedad",
+      "titulo",
+      "descripcion_resumen",
+      "domicilio_actual",
+      "direccion_detectada",
+      "direccion_sugerida",
+      "direccion_normalizada",
+      "localidad_actual",
+      "localidad_detectada",
+      "barrio_actual",
+      "barrio_detectado",
+      "zona_actual",
+      "zona_sugerida",
+      "zona_inteligencia",
+      "confianza",
+      "motivo",
+      "estado",
+      "latitud",
+      "longitud",
+      "fuente_coordenadas",
+      "fuente",
+      "inmobiliaria",
+      "url_publicacion",
+      "motivo_url",
+      "estado_publicacion",
+      "tipo_propiedad",
+      "operacion",
+      "moneda",
+      "precio",
+      "ambientes",
+      "dormitorios",
+      "banos",
+      "superficie_cubierta",
+      "superficie_total",
+      "fecha_ultima_vista",
+      "motivo_pendiente",
+      "evidencia",
+      "decision_manual",
+      "notas_manual"
+    ]
+  },
+  "excel_validation": {
+    "sheets": [
+      "Pendientes",
+      "Resumen"
+    ],
+    "rows": 331,
+    "auto_filter": "A1:AM332",
+    "tables": [
+      "PendientesFeedback20260627Iter3Oscar"
+    ],
+    "freeze_panes": "A2",
+    "price_types": {
+      "int": 300,
+      "NoneType": 31
+    },
+    "nonblank_decisions": 0,
+    "nonblank_notes": 0,
+    "validations": [
+      {
+        "type": "list",
+        "formula1": "\"APROBADO,RECHAZADO\"",
+        "sqref": "AL2:AL332"
+      }
+    ],
+    "missing_columns": []
+  },
+  "sample": [
+    {
+      "id": 5749,
+      "address": "Gral. Toribio de Luzuriaga 2100",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5776349,
+        "lon": -58.6396499,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5776349,
+        "longitude": -58.6396499,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7190
+      ]
+    },
+    {
+      "id": 5752,
+      "address": "Manuel A. Padilla 1200",
+      "locality": "Villa Tesei",
+      "zone": "Los Pinos",
+      "intel_zone": "Los Pinos",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.6065013,
+        "lon": -58.647377,
+        "provider": "oscar_dahbar_map",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.6065013,
+        "longitude": -58.647377,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_villatesei",
+        "zone_feature_id": "zone_lospinos",
+        "zone_relation_id": "19399353",
+        "nearest_zone": "Los Pinos",
+        "nearest_zone_distance_m": 0,
+        "provider": "oscar_dahbar_map",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7193
+      ]
+    },
+    {
+      "id": 5778,
+      "address": "Pueyrredon 2036",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5775049,
+        "lon": -58.6316195,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5775049,
+        "longitude": -58.6316195,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7221
+      ]
+    },
+    {
+      "id": 5779,
+      "address": "Uspallata 1931",
+      "locality": "Hurlingham",
+      "zone": "Villa Alemania",
+      "intel_zone": "Villa Alemania",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5915552,
+        "lon": -58.618215,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5915552,
+        "longitude": -58.618215,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaalemania",
+        "zone_relation_id": "19399486",
+        "nearest_zone": "Villa Alemania",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7222
+      ]
+    },
+    {
+      "id": 5780,
+      "address": "Plumerillos 1957",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.576947,
+        "lon": -58.6390735,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.576947,
+        "longitude": -58.6390735,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7223
+      ]
+    },
+    {
+      "id": 5781,
+      "address": "Pablo Pizzurno 686",
+      "locality": "Hurlingham",
+      "zone": "Parque Quirno",
+      "intel_zone": "Parque Quirno",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.6002775,
+        "lon": -58.6299376,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.6002775,
+        "longitude": -58.6299376,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_parquequirno",
+        "zone_relation_id": "19399483",
+        "nearest_zone": "Parque Quirno",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7225
+      ]
+    },
+    {
+      "id": 5782,
+      "address": "Hipolito Yrigoyen 431",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "removed",
+      "is_hidden": true,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": []
+    },
+    {
+      "id": 5783,
+      "address": "Tte. Gral. Pablo Ricchieri 1259",
+      "locality": "Hurlingham",
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "intel_zone": "Hurlingham Centro (Barrio Ingles)",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5919559,
+        "lon": -58.629238,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5919559,
+        "longitude": -58.629238,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_hurlinghamcentrobarrioingles",
+        "zone_relation_id": "19399629",
+        "nearest_zone": "Hurlingham Centro (Barrio Ingles)",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7227
+      ]
+    },
+    {
+      "id": 5784,
+      "address": "Jorge Daniel Thevenin y John F. Kennedy",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5764645,
+        "lon": -58.6317741,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5764645,
+        "longitude": -58.6317741,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7228
+      ]
+    },
+    {
+      "id": 5795,
+      "address": "Tte. Gral. Julio Argentino Roca 2100",
+      "locality": "Hurlingham",
+      "zone": "Roca 2",
+      "intel_zone": "Roca 2",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.57922649450821,
+        "lon": -58.64128213692606,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.57922649450821,
+        "longitude": -58.64128213692606,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_williamcmorris",
+        "zone_feature_id": "zone_roca2",
+        "zone_relation_id": "19399755",
+        "nearest_zone": "Roca 2",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7239
+      ]
+    },
+    {
+      "id": 5799,
+      "address": "Granaderos 289",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5779641,
+        "lon": -58.6396047,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:38.292320+00:00",
+        "locality": "2026-06-27T23:25:38.292320+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5779641,
+        "longitude": -58.6396047,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "feedback aprobado + direccion curada"
+      },
+      "corrected": true,
+      "active_listings": [
+        7244
+      ]
+    },
+    {
+      "id": 5800,
+      "address": "Nilda Figueira 1262",
+      "locality": "Hurlingham",
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "intel_zone": "Hurlingham Centro (Barrio Ingles)",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.588381,
+        "lon": -58.635949,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:39.266512+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.588381,
+        "longitude": -58.635949,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_hurlinghamcentrobarrioingles",
+        "zone_relation_id": "19399629",
+        "nearest_zone": "Hurlingham Centro (Barrio Ingles)",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar Dahbar propagado con ubicacion existente"
+      },
+      "corrected": true,
+      "active_listings": [
+        7245
+      ]
+    },
+    {
+      "id": 5817,
+      "address": "Albeniz y Asamblea",
+      "locality": "Hurlingham",
+      "zone": "Curapaytí",
+      "intel_zone": "Curapaytí",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5920766,
+        "lon": -58.649351,
+        "provider": "oscar_dahbar_map",
+        "manual": false
+      },
+      "manual_overrides": {
+        "address": "2026-06-27T23:25:39.266512+00:00"
+      },
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5920766,
+        "longitude": -58.649351,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_curapayti",
+        "zone_relation_id": "19399633",
+        "nearest_zone": "Curapaytí",
+        "nearest_zone_distance_m": 0,
+        "provider": "oscar_dahbar_map",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar Dahbar propagado con ubicacion existente"
+      },
+      "corrected": true,
+      "active_listings": [
+        7262
+      ]
+    },
+    {
+      "id": 5818,
+      "address": "Tambo Nuevo y Tte. Gral. Pablo Ricchieri",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5873583,
+        "lon": -58.6319342,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5873583,
+        "longitude": -58.6319342,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "local_reference",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar/Argenprop con coordenada existente sin zona"
+      },
+      "corrected": false,
+      "active_listings": [
+        7290,
+        7263
+      ]
+    },
+    {
+      "id": 5821,
+      "address": "Av B Mitre 4885",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "removed",
+      "is_hidden": true,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": []
+    },
+    {
+      "id": 5822,
+      "address": "Gral J J De Urquiza 4773",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "removed",
+      "is_hidden": true,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": []
+    },
+    {
+      "id": 5838,
+      "address": "Mar de Ajó",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "removed",
+      "is_hidden": true,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": []
+    },
+    {
+      "id": 5839,
+      "address": "Pedro Sáenz de Cavia 3327",
+      "locality": "Hurlingham",
+      "zone": "Parque Johnston",
+      "intel_zone": "Parque Johnston",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.6004326,
+        "lon": -58.6369584,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.6004326,
+        "longitude": -58.6369584,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_parquejhonston",
+        "zone_relation_id": "19399482",
+        "nearest_zone": "Parque Johnston",
+        "nearest_zone_distance_m": 0,
+        "provider": "nominatim",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar/Argenprop con coordenada existente sin zona"
+      },
+      "corrected": false,
+      "active_listings": [
+        7284
+      ]
+    },
+    {
+      "id": 5844,
+      "address": "Planes 2149",
+      "locality": "William C. Morris",
+      "zone": "Belgrano",
+      "intel_zone": "Belgrano",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5809427,
+        "lon": -58.6583671,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5809427,
+        "longitude": -58.6583671,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_williamcmorris",
+        "zone_feature_id": "zone_belgrano",
+        "zone_relation_id": "19399757",
+        "nearest_zone": "Belgrano",
+        "nearest_zone_distance_m": 0,
+        "provider": "nominatim",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar/Argenprop con coordenada existente sin zona"
+      },
+      "corrected": false,
+      "active_listings": [
+        7289
+      ]
+    },
+    {
+      "id": 6124,
+      "address": "Aconcagua 2200",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5761455,
+        "lon": -58.6365546,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5761455,
+        "longitude": -58.6365546,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "nominatim",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar/Argenprop con coordenada existente sin zona"
+      },
+      "corrected": false,
+      "active_listings": [
+        7649
+      ]
+    },
+    {
+      "id": 6125,
+      "address": "aconcagua 2000",
+      "locality": "Hurlingham",
+      "zone": "Villa Club",
+      "intel_zone": "Villa Club",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5761455,
+        "lon": -58.6365546,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {
+        "coordinate_source": "",
+        "latitude": -34.5761455,
+        "longitude": -58.6365546,
+        "signature": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\01_partido_hurlingham.geojson:1781489063851934600:20487|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\02_localidades_hurlingham.geojson:1781489063900763600:60718|C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\data\\geo\\03_zonas_hurlingham_final.geojson:1781489064574585500:230454",
+        "source_zone": "",
+        "source_locality": "",
+        "partido_feature_id": "partido_hurlingham",
+        "locality_feature_id": "locality_hurlingham",
+        "zone_feature_id": "zone_villaclub",
+        "zone_relation_id": "19399631",
+        "nearest_zone": "Villa Club",
+        "nearest_zone_distance_m": 0,
+        "provider": "nominatim",
+        "curacion": "curacion_feedback_20260627_iter3_oscar",
+        "reason": "Oscar/Argenprop con coordenada existente sin zona"
+      },
+      "corrected": false,
+      "active_listings": [
+        7650
+      ]
+    }
+  ]
+}

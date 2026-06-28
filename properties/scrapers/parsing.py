@@ -1,4 +1,5 @@
 import json
+import base64
 import re
 import html
 from urllib.parse import urlparse
@@ -107,6 +108,13 @@ def _add_map_coordinate(candidates, method, latitude, longitude, address="", con
     )
 
 
+def _decode_base64_text(value):
+    try:
+        return base64.b64decode(str(value), validate=True).decode("utf-8")
+    except (ValueError, UnicodeDecodeError):
+        return ""
+
+
 def extract_map_coordinates(markup, require_target_bounds=True):
     """Extract source-published map coordinates from public listing HTML."""
     soup = BeautifulSoup(markup or "", "html.parser")
@@ -151,6 +159,19 @@ def extract_map_coordinates(markup, require_target_bounds=True):
             payload.get("latitude") or payload.get("lat"),
             payload.get("longitude") or payload.get("lng") or payload.get("lang") or payload.get("lon"),
             payload.get("address") or "",
+            require_target_bounds=require_target_bounds,
+        )
+
+    for match in re.finditer(
+        r"mapLatOf\s*=\s*['\"](?P<lat>[A-Za-z0-9+/=]+)['\"].{0,240}?mapLngOf\s*=\s*['\"](?P<lon>[A-Za-z0-9+/=]+)['\"]",
+        markup or "",
+        re.I | re.S,
+    ):
+        _add_map_coordinate(
+            candidates,
+            "zonaprop_base64_map",
+            _decode_base64_text(match.group("lat")),
+            _decode_base64_text(match.group("lon")),
             require_target_bounds=require_target_bounds,
         )
 
@@ -200,9 +221,10 @@ def extract_map_coordinates(markup, require_target_bounds=True):
         "data-latitude": 0,
         "propertyMapData": 1,
         "data-map": 2,
-        "jsonld_geo": 3,
-        "regex_pair": 4,
-        "fallback_latlon": 5,
+        "zonaprop_base64_map": 3,
+        "jsonld_geo": 4,
+        "regex_pair": 5,
+        "fallback_latlon": 6,
     }
     for item in sorted(candidates, key=lambda candidate: preference.get(candidate["method"], 99)):
         key = (round(item["latitude"], 7), round(item["longitude"], 7))

@@ -27,6 +27,10 @@ ADDRESS_NOISE_RE = re.compile(
     r"\b(?:tel|inicio|destacados|emprendimientos|servicios|quienes\s+somos|contacto|ver\s+tel|whatsapp)\b",
     re.I,
 )
+BECERRA_RETIRED_RE = re.compile(
+    r"whoops!\s+we\s+seem\s+to\s+have\s+hit\s+a\s+snag|propiedad\s+(?:retirada|no\s+disponible)",
+    re.I,
+)
 
 
 class LinkDetailScraper(BaseScraper):
@@ -83,6 +87,13 @@ class BecerraScraper(LinkDetailScraper):
         soup = self.soup(url)
         data = basic_html_data(soup, url)
         text = clean_text(soup.get_text(" ", strip=True))
+        if BECERRA_RETIRED_RE.search(text):
+            data["status"] = Property.Status.REMOVED
+            data["source_status"] = "removed"
+            data.setdefault("raw_data", {})["becerra_retired_text"] = True
+            data["agency"] = self.definition.name
+            data["operation"] = "sale"
+            return data
         address = self._address_from_soup(soup) or self._address_from_text(data.get("title") or "", text)
         if address:
             data["address"] = address[:250]
@@ -341,6 +352,15 @@ class FaellaScraper(BaseScraper):
             return "Villa Tesei"
         return "Hurlingham"
 
+    def _address_from_location_text(self, text):
+        candidate = clean_detected_address(text or "")
+        if not candidate or not re.search(r"\d{2,5}\b", candidate):
+            return ""
+        if not re.search(r"\b(Hurlingham|Villa\s+Tesei|William\s+(?:C\.?\s*)?Morris)\b", text or "", re.I):
+            return ""
+        address = canonical_address_alias(candidate)
+        return address[:250] if address and not ADDRESS_NOISE_RE.search(address) else ""
+
     def parse(self, url):
         page, card, anchor = self._card_for_url(url)
         href = anchor.get("href", "")
@@ -374,12 +394,15 @@ class FaellaScraper(BaseScraper):
         locality = self._locality_from_text(f"{title} {location_text}")
         if neighborhood == locality or neighborhood == "Hurlingham":
             neighborhood = ""
+        address = self._address_from_location_text(location_text)
 
-        return {
+        data = {
             "external_id": self._meli_id(href),
             "url": href,
             "title": title or "Propiedad Faella",
             "description": "",
+            "address": address,
+            "detected_address": address,
             "agency": self.definition.name,
             "property_type": infer_property_type(title),
             "operation": "sale",
@@ -394,7 +417,7 @@ class FaellaScraper(BaseScraper):
             "features": [],
             "images": list(dict.fromkeys(image_urls))[:30],
             "status": Property.Status.ACTIVE,
-            "location_precision": classify_address_precision(""),
+            "location_precision": classify_address_precision(address),
             "raw_data": {
                 "faella_page": self._page_url(page),
                 "faella_synthetic_url": url,
@@ -404,3 +427,4 @@ class FaellaScraper(BaseScraper):
                 "price_text": price_text,
             },
         }
+        return data

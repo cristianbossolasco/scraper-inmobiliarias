@@ -41,9 +41,12 @@ from .paginated import ajax_paginated_discover, declared_total_from_text, pagina
 
 TARGET_ZONES = ("hurlingham", "villa tesei", "villa santos tesei", "william morris")
 OUT_OF_TARGET_LOCALITY_RE = re.compile(
-    r"\b(?:bella\s+vista|castelar|mor[oó]n|caseros|san\s+miguel|haedo|ituzaing[oó]|ramos\s+mej[ií]a)\b",
+    r"\b(?:bella\s+vista|castelar|mor[oó]n|caseros|san\s+miguel|haedo|ituzaing[oó]|ramos\s+mej[ií]a|merlo|el\s+palomar|palomar)\b",
     re.I,
 )
+
+
+OUT_OF_TARGET_EXTRA_RE = re.compile(r"\bmar\s+de\s+aj[oÃ³]\b", re.I)
 
 
 def clean_text(value):
@@ -61,7 +64,7 @@ def is_target_zone(text):
 
 
 def is_declared_out_of_target(text):
-    return bool(OUT_OF_TARGET_LOCALITY_RE.search(text or ""))
+    return bool(OUT_OF_TARGET_LOCALITY_RE.search(text or "") or OUT_OF_TARGET_EXTRA_RE.search(text or ""))
 
 
 def number_before_label(text, labels, cast=parse_decimal):
@@ -293,6 +296,21 @@ ADDRESS_FALSE_POSITIVE_RE = re.compile(
 )
 
 
+def strip_argencasas_location_prefix(value):
+    text = clean_text(value or "")
+    text = re.sub(
+        r"^(?:sur\s+)?(?:todas\s+)?(?:argentina\s+)?gba\s+oeste\s+",
+        "",
+        text,
+        flags=re.I,
+    )
+    text = re.sub(r"^(?:hurlingham\s+){1,3}", "", text, flags=re.I)
+    text = re.sub(r"^(?:villa\s+tesei\s+){1,3}", "", text, flags=re.I)
+    text = re.sub(r"^(?:william\s+c\.?\s*morris\s+){1,3}", "", text, flags=re.I)
+    text = re.sub(r"^barrio\s+luna\s+", "", text, flags=re.I)
+    return clean_text(text)
+
+
 def normalize_argencasas_address(value):
     text = clean_text(value or "")
     text = re.sub(r"\s*\([^)]+\)\s*", " ", text)
@@ -308,6 +326,7 @@ def normalize_argencasas_address(value):
         maxsplit=1,
         flags=re.I,
     )[0]
+    text = strip_argencasas_location_prefix(text)
     match = re.search(
         r"\b([A-Za-z?????????????? .'-]{3,60}?)\s+al\s+(\d{2,5})\b",
         text,
@@ -325,6 +344,9 @@ def normalize_argencasas_address(value):
             street = "Río Colorado"
         text = f"{street} {match.group(2)}"
     text = clean_detected_address(text)
+    text = strip_argencasas_location_prefix(text)
+    if text:
+        text = canonical_address_alias(text)
     if text and ADDRESS_FALSE_POSITIVE_RE.search(text):
         return ""
     if text and not re.search(r"\d{2,5}|\b(?:y|esquina|entre)\b", text, re.I):
@@ -334,6 +356,7 @@ def normalize_argencasas_address(value):
 
 def extract_argencasas_address_from_text(text):
     patterns = [
+        r"((?:Sur\s+)?(?:Todas\s+)?(?:Argentina\s+)?GBA\s+Oeste\s+(?:(?:Hurlingham|Villa\s+Tesei|William\s+C\.?\s*Morris|Barrio\s+Luna)\s+){1,4}[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ .'-]{2,70}\s+\d{2,5})",
         r"(?:Direccion|Direcci[o?]n|Direcci??n|Ubicacion|Ubicaci[o?]n|Ubicaci??n)\s*:?\s*([A-Za-z?????????????? .'-]{3,60}\s+al\s+\d{2,5})",
         r"(?:Hurlingham\s+){1,3}([A-Z][A-Z .()'-]{2,80}\s+al\s+\d{2,5})\b",
         r"\b([A-Z][A-Z .()'-]{2,80}\s+al\s+\d{2,5})\b",
@@ -344,7 +367,7 @@ def extract_argencasas_address_from_text(text):
         address = normalize_argencasas_address(candidate)
         if address:
             return address
-    return ""
+    return normalize_argencasas_address(text)
 
 
 def extract_zonaprop_address_from_text(text):
@@ -737,6 +760,17 @@ def _locality_from_text(text, default="Hurlingham"):
     return default
 
 
+def _pixel_declared_address_locality(text):
+    match = re.search(
+        r"C(?:o|Ã³|ÃƒÂ³)digo\s*:?\s*[A-Za-z0-9-]+\s+(.{3,160}?),\s*([^,]{3,80}?),\s*Buenos\s+Aires\b",
+        text or "",
+        re.I,
+    )
+    if not match:
+        return "", ""
+    return clean_text(match.group(1)), clean_text(match.group(2))
+
+
 def _clean_description(value):
     return clean_text(BeautifulSoup(value or "", "lxml").get_text(" ", strip=True))
 
@@ -776,6 +810,11 @@ class PixelAdScraper(CommonDetailScraper):
         soup = self.soup(url)
         text = visible_text(soup)
         coordinate = first_map_coordinate(str(soup))
+        declared_address, declared_locality = _pixel_declared_address_locality(text)
+        title_node = soup.select_one("h1") or soup.select_one("title")
+        title_text = clean_text(title_node.get_text(" ", strip=True) if title_node else "")
+        if is_declared_out_of_target(" ".join([url or "", title_text, declared_address, declared_locality])):
+            return None
         if not is_target_zone(text):
             return None
         if coordinate:
@@ -784,14 +823,14 @@ class PixelAdScraper(CommonDetailScraper):
             data_coordinate = None
         data = basic_html_data(soup, url)
         code = text_value(text, [r"C(?:o|ó|Ã³)digo\s*:?\s*([A-Za-z0-9-]+)"])
-        address = text_value(
+        address = declared_address or text_value(
             text,
             [
                 r"C(?:o|ó|Ã³)digo\s*:?\s*[A-Za-z0-9-]+\s+(.+?),\s*(?:Hurlingham|Villa\s+(?:Santos\s+)?Tesei|William\s+C\.?\s+Morris)\b",
             ],
         )
         if address:
-            data["address"] = clean_detected_address(address)[:250]
+            data["address"] = canonical_address_alias(clean_detected_address(address))[:250]
         currency, price = _price_from_text(text)
         if price is not None:
             data["currency"] = currency
@@ -808,7 +847,7 @@ class PixelAdScraper(CommonDetailScraper):
         data["external_id"] = code or external_id_from_url(url)
         data["agency"] = self.definition.name
         data["operation"] = "sale"
-        data["locality"] = _locality_from_text(text)
+        data["locality"] = normalize_locality(declared_locality) or _locality_from_text(text)
         data["property_type"] = infer_property_type(data.get("title"), text[:700])
         data["images"] = absolute_images(self, soup)
         data["status"] = Property.Status.ACTIVE
@@ -3607,6 +3646,12 @@ class ZonapropScraper(CommonDetailScraper):
             data["detected_address"] = address
             data["location_precision"] = classify_address_precision(address)
             raw_data["zonaprop_address_source"] = "map_heading"
+        coordinate = first_map_coordinate(str(soup))
+        if coordinate:
+            data["latitude"] = coordinate["latitude"]
+            data["longitude"] = coordinate["longitude"]
+            data["location_precision"] = "exact"
+            raw_data["zonaprop_map_coordinate"] = coordinate
         currency, amount, evidence = _zonaprop_price_from_soup(soup, text)
         if amount is not None:
             data["currency"] = currency

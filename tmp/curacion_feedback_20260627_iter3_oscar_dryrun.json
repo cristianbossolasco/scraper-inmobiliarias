@@ -1,0 +1,1242 @@
+{
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-27_feedback_iter2.xlsx",
+  "output_excel": "",
+  "feedback_decisions": {
+    "APROBADO": 27,
+    "RECHAZADO": 2
+  },
+  "approved_found": [
+    5749,
+    5752,
+    5778,
+    5779,
+    5780,
+    5781,
+    5783,
+    5784,
+    5786,
+    5787,
+    5789,
+    5790,
+    5791,
+    5792,
+    5793,
+    5794,
+    5795,
+    5798,
+    5799
+  ],
+  "rejected_found": [
+    5782,
+    5822
+  ],
+  "unexpected_approved": [
+    3181,
+    5106,
+    5177,
+    5216,
+    5217,
+    5548,
+    5703,
+    5739
+  ],
+  "unexpected_rejected": [],
+  "ignored_out_of_scope_decisions": {
+    "approved": [
+      3181,
+      5106,
+      5177,
+      5216,
+      5217,
+      5548,
+      5703,
+      5739
+    ],
+    "rejected": []
+  },
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "before": {
+    "sin_zona_operativa": 227,
+    "sin_direccion_util": 218,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 15,
+        "sin_zona": 15
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 68,
+        "sin_zona": 66,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "backup": "",
+  "address_updates": [
+    {
+      "id": 5749,
+      "to": "Gral. Toribio de Luzuriaga 2100"
+    },
+    {
+      "id": 5752,
+      "to": "Manuel A. Padilla 1200"
+    },
+    {
+      "id": 5778,
+      "to": "Pueyrredon 2036"
+    },
+    {
+      "id": 5779,
+      "to": "Uspallata 1931"
+    },
+    {
+      "id": 5780,
+      "to": "Plumerillos 1957"
+    },
+    {
+      "id": 5781,
+      "to": "Pablo Pizzurno 686"
+    },
+    {
+      "id": 5783,
+      "to": "Tte. Gral. Pablo Ricchieri 1259"
+    },
+    {
+      "id": 5784,
+      "to": "Jorge Daniel Thevenin y John F. Kennedy"
+    },
+    {
+      "id": 5786,
+      "to": "Santa Ana 230"
+    },
+    {
+      "id": 5787,
+      "to": "Juan de Garay 1951"
+    },
+    {
+      "id": 5789,
+      "to": "Epecuen 351"
+    },
+    {
+      "id": 5790,
+      "to": "Aconcagua 2000"
+    },
+    {
+      "id": 5791,
+      "to": "Quintino Bocayuva 218"
+    },
+    {
+      "id": 5792,
+      "to": "Plumerillos 1895"
+    },
+    {
+      "id": 5793,
+      "to": "Cjal. Enrique Recagno 700"
+    },
+    {
+      "id": 5794,
+      "to": "Canada de Gomez 544"
+    },
+    {
+      "id": 5795,
+      "to": "Tte. Gral. Julio Argentino Roca 2100"
+    },
+    {
+      "id": 5798,
+      "to": "Granaderos 334"
+    },
+    {
+      "id": 5799,
+      "to": "Granaderos 289"
+    }
+  ],
+  "locality_updates": [
+    {
+      "id": 5749,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5752,
+      "to": "Villa Tesei"
+    },
+    {
+      "id": 5778,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5779,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5780,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5781,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5783,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5784,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5786,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5787,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5789,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5790,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5791,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5792,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5793,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5794,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5795,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5798,
+      "to": "Hurlingham"
+    },
+    {
+      "id": 5799,
+      "to": "Hurlingham"
+    }
+  ],
+  "geocode_required": [
+    5749,
+    5752,
+    5778,
+    5779,
+    5780,
+    5781,
+    5783,
+    5784,
+    5786,
+    5787,
+    5789,
+    5790,
+    5791,
+    5792,
+    5793,
+    5794,
+    5795,
+    5798,
+    5799,
+    5785,
+    5788,
+    5796,
+    5797,
+    5800,
+    5801,
+    5802,
+    5803,
+    5804,
+    5805,
+    5806,
+    5807,
+    5808,
+    5809,
+    5810,
+    5811,
+    5812,
+    5813,
+    5814,
+    5815,
+    5816,
+    5817,
+    5819,
+    5820,
+    5823,
+    5824,
+    5825,
+    5826,
+    5827,
+    5828
+  ],
+  "oscar_propagated_addresses": [
+    {
+      "id": 5785,
+      "from": "marques de aviles 2800",
+      "to": "marques de aviles 2800"
+    },
+    {
+      "id": 5788,
+      "from": "Delfor Díaz 2100",
+      "to": "Dr. Delfor Díaz 2100"
+    },
+    {
+      "id": 5796,
+      "from": "Tte. Gral. Julio Argentino Roca 2838",
+      "to": "Tte. Gral. Julio Argentino Roca 2838"
+    },
+    {
+      "id": 5797,
+      "from": "Paso Morales 90",
+      "to": "Paso Morales 90"
+    },
+    {
+      "id": 5800,
+      "from": "Nilda Figueira 1262",
+      "to": "Nilda Figueira 1262"
+    },
+    {
+      "id": 5801,
+      "from": "stephenson 2900",
+      "to": "stephenson 2900"
+    },
+    {
+      "id": 5802,
+      "from": "Kennedy 450",
+      "to": "Kennedy 450"
+    },
+    {
+      "id": 5803,
+      "from": "Quintino Bocayuva 360",
+      "to": "Quintino Bocayuva 360"
+    },
+    {
+      "id": 5804,
+      "from": "Tte. Gral. Julio Argentino Roca 2737",
+      "to": "Tte. Gral. Julio Argentino Roca 2737"
+    },
+    {
+      "id": 5805,
+      "from": "Pasaje Cintra 1361",
+      "to": "Pasaje Cintra 1361"
+    },
+    {
+      "id": 5806,
+      "from": "Juan De Garay 3099",
+      "to": "Juan De Garay 3099"
+    },
+    {
+      "id": 5807,
+      "from": "Remedios de Escalada 1450",
+      "to": "Remedios de Escalada 1450"
+    },
+    {
+      "id": 5808,
+      "from": "Granaderos 399",
+      "to": "Granaderos 399"
+    },
+    {
+      "id": 5809,
+      "from": "Guardia Vieja 1843",
+      "to": "Guardia Vieja 1843"
+    },
+    {
+      "id": 5810,
+      "from": "Santa Ana 505",
+      "to": "Santa Ana 505"
+    },
+    {
+      "id": 5811,
+      "from": "El Maestro Argentino 1876",
+      "to": "El Maestro Argentino 1876"
+    },
+    {
+      "id": 5812,
+      "from": "Pueyrredón 1851",
+      "to": "Pueyrredón 1851"
+    },
+    {
+      "id": 5813,
+      "from": "wenceslao del tata 4599",
+      "to": "wenceslao del tata 4599"
+    },
+    {
+      "id": 5814,
+      "from": "Cañada De Gómez 255",
+      "to": "Cañada De Gómez 255"
+    },
+    {
+      "id": 5815,
+      "from": "Plumerillos 2242",
+      "to": "Plumerillos 2242"
+    },
+    {
+      "id": 5816,
+      "from": "Quintino Bocayuva 431",
+      "to": "Quintino Bocayuva 431"
+    },
+    {
+      "id": 5817,
+      "from": "Albeniz y Asamblea",
+      "to": "Albeniz y Asamblea"
+    },
+    {
+      "id": 5819,
+      "from": "Dell eva 1964",
+      "to": "Basilio Delleva 1964"
+    },
+    {
+      "id": 5820,
+      "from": "Granaderos 599",
+      "to": "Granaderos 599"
+    },
+    {
+      "id": 5823,
+      "from": "Aconcagua 1900",
+      "to": "Aconcagua 1900"
+    },
+    {
+      "id": 5824,
+      "from": "Jorge Daniel Thevenin 1748",
+      "to": "Jorge Daniel Thevenin 1748"
+    },
+    {
+      "id": 5825,
+      "from": "Asamblea Año XIII 231",
+      "to": "Asamblea Año XIII 231"
+    },
+    {
+      "id": 5826,
+      "from": "Bocayuba 200",
+      "to": "Quintino Bocayuva 200"
+    },
+    {
+      "id": 5827,
+      "from": "Tte. Gral. Julio Argentino Roca 2410",
+      "to": "Tte. Gral. Julio Argentino Roca 2410"
+    },
+    {
+      "id": 5828,
+      "from": "Epecuén 400",
+      "to": "Epecuén 400"
+    }
+  ],
+  "existing_coordinate_zones": [
+    {
+      "id": 5818,
+      "lat": -34.5873583,
+      "lon": -58.6319342,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5839,
+      "lat": -34.6004326,
+      "lon": -58.6369584,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5840,
+      "lat": -34.5909931,
+      "lon": -58.6281654,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5841,
+      "lat": -34.5798888,
+      "lon": -58.6458701,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5842,
+      "lat": -34.5788696,
+      "lon": -58.6333382,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5843,
+      "lat": -34.576947,
+      "lon": -58.6390735,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5844,
+      "lat": -34.5809427,
+      "lon": -58.6583671,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6124,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6125,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 5818,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5839,
+      "zone": "Parque Johnston",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5840,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5841,
+      "zone": "Roca 2",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5842,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5843,
+      "zone": "Villa Club",
+      "provider": "local_reference"
+    },
+    {
+      "id": 5844,
+      "zone": "Belgrano",
+      "provider": "nominatim"
+    },
+    {
+      "id": 6124,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 6125,
+      "zone": "Villa Club",
+      "provider": "nominatim"
+    },
+    {
+      "id": 5830,
+      "zone": "Parque Johnston",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5831,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5832,
+      "zone": "Villa Tesei Centro",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5833,
+      "zone": "Villa Club",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5834,
+      "zone": "Nueve de Julio",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5835,
+      "zone": "Roca 2",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5836,
+      "zone": "Cosmopolita",
+      "provider": "oscar_dahbar_map"
+    },
+    {
+      "id": 5837,
+      "zone": "Parque Johnston",
+      "provider": "oscar_dahbar_map"
+    }
+  ],
+  "sweep_map_locations": [
+    {
+      "id": 5830,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5831,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5832,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5833,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5834,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5835,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5836,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    },
+    {
+      "id": 5837,
+      "source": "oscar-dahbar",
+      "method": "oscar_parser"
+    }
+  ],
+  "removed": [
+    {
+      "id": 5782,
+      "listing_ids": [
+        7226
+      ],
+      "reason": "en la publicacion dice \" Hipolito Yrigoyen 431, Mar De Ajo, Buenos Aires, Argentina.\" o sea es de Mar de Ajo, eliminala y revisa"
+    },
+    {
+      "id": 5822,
+      "listing_ids": [
+        7267
+      ],
+      "reason": "Eliminar, es de caseros.. En la publicacion dice claramente \"Gral J J De Urquiza 4773, Caseros, Buenos Aires, Argentina.\""
+    },
+    {
+      "id": 5821,
+      "listing_ids": [
+        7266
+      ],
+      "reason": "Oscar Dahbar fuera del partido confirmado por URL/titulo/fuente"
+    },
+    {
+      "id": 5838,
+      "listing_ids": [
+        7283
+      ],
+      "reason": "Oscar Dahbar fuera del partido confirmado por URL/titulo/fuente"
+    }
+  ],
+  "oscar_remove_candidate_checked": [
+    {
+      "id": 5821,
+      "http_status": 200
+    },
+    {
+      "id": 5838,
+      "http_status": 200
+    }
+  ],
+  "after": {
+    "sin_zona_operativa": 227,
+    "sin_direccion_util": 218,
+    "pendientes_por_fuente": {
+      "aliaga": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "analia-fernandez": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "argenprop": {
+        "pendientes": 15,
+        "sin_zona": 15
+      },
+      "becerra": {
+        "pendientes": 43,
+        "sin_direccion": 43,
+        "sin_zona": 5
+      },
+      "century21-hurlingham": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "faella": {
+        "pendientes": 34,
+        "sin_direccion": 32,
+        "sin_zona": 24
+      },
+      "fincas": {
+        "pendientes": 6,
+        "sin_zona": 6
+      },
+      "guarnieri": {
+        "pendientes": 3,
+        "sin_zona": 3
+      },
+      "hollmann-ariel": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "inmuebles-clarin": {
+        "pendientes": 5,
+        "sin_zona": 5
+      },
+      "mapaprop": {
+        "pendientes": 6,
+        "sin_zona": 6,
+        "sin_direccion": 1
+      },
+      "marcelo-russo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "matias-szpira": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "miglierini": {
+        "pendientes": 49,
+        "sin_direccion": 43,
+        "sin_zona": 8
+      },
+      "mudafy": {
+        "pendientes": 2,
+        "sin_zona": 2
+      },
+      "nerina-allo": {
+        "pendientes": 1,
+        "sin_zona": 1
+      },
+      "odriozola": {
+        "pendientes": 5,
+        "sin_zona": 2,
+        "sin_direccion": 5
+      },
+      "oscar-dahbar": {
+        "pendientes": 68,
+        "sin_zona": 66,
+        "sin_direccion": 7
+      },
+      "patagonprop": {
+        "pendientes": 6,
+        "sin_zona": 4,
+        "sin_direccion": 3
+      },
+      "remax-datawork": {
+        "pendientes": 1,
+        "sin_zona": 1,
+        "sin_direccion": 1
+      },
+      "riquelme": {
+        "pendientes": 80,
+        "sin_direccion": 78,
+        "sin_zona": 10
+      },
+      "zonaprop": {
+        "pendientes": 71,
+        "sin_zona": 70,
+        "sin_direccion": 5
+      }
+    }
+  },
+  "excel": null,
+  "excel_validation": null,
+  "sample": [
+    {
+      "id": 5749,
+      "address": "T De Luzuriaga 2100",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7190
+      ]
+    },
+    {
+      "id": 5752,
+      "address": "Cnel M A Padilla 1200",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7193
+      ]
+    },
+    {
+      "id": 5778,
+      "address": "Pueyrredon 2036",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7221
+      ]
+    },
+    {
+      "id": 5779,
+      "address": "Uspallata 1931",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7222
+      ]
+    },
+    {
+      "id": 5780,
+      "address": "Plumerillos 1957",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7223
+      ]
+    },
+    {
+      "id": 5781,
+      "address": "Pizzurno 686",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7225
+      ]
+    },
+    {
+      "id": 5782,
+      "address": "Hipolito Yrigoyen 431",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7226
+      ]
+    },
+    {
+      "id": 5783,
+      "address": "Tte. Gral. Pablo Ricchieri 1259",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7227
+      ]
+    },
+    {
+      "id": 5784,
+      "address": "Kennedy y Thevening",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7228
+      ]
+    },
+    {
+      "id": 5795,
+      "address": "Av. Roca 2100",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7239
+      ]
+    },
+    {
+      "id": 5799,
+      "address": "Granaderos 289",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7244
+      ]
+    },
+    {
+      "id": 5800,
+      "address": "Nilda Figueira 1262",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7245
+      ]
+    },
+    {
+      "id": 5817,
+      "address": "Albeniz y Asamblea",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7262
+      ]
+    },
+    {
+      "id": 5818,
+      "address": "Tambo Nuevo y Tte. Gral. Pablo Ricchieri",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5873583,
+        "lon": -58.6319342,
+        "provider": "local_reference",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7290,
+        7263
+      ]
+    },
+    {
+      "id": 5821,
+      "address": "Av B Mitre 4885",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7266
+      ]
+    },
+    {
+      "id": 5822,
+      "address": "Gral J J De Urquiza 4773",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7267
+      ]
+    },
+    {
+      "id": 5838,
+      "address": "Mar de Ajó",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": null,
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7283
+      ]
+    },
+    {
+      "id": 5839,
+      "address": "Pedro Sáenz de Cavia 3327",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.6004326,
+        "lon": -58.6369584,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7284
+      ]
+    },
+    {
+      "id": 5844,
+      "address": "Planes 2149",
+      "locality": "William C. Morris",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5809427,
+        "lon": -58.6583671,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7289
+      ]
+    },
+    {
+      "id": 6124,
+      "address": "Aconcagua 2200",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5761455,
+        "lon": -58.6365546,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7649
+      ]
+    },
+    {
+      "id": 6125,
+      "address": "aconcagua 2000",
+      "locality": "Hurlingham",
+      "zone": "",
+      "intel_zone": "",
+      "status": "active",
+      "is_hidden": false,
+      "reviewed_at": null,
+      "location": {
+        "lat": -34.5761455,
+        "lon": -58.6365546,
+        "provider": "nominatim",
+        "manual": false
+      },
+      "manual_overrides": {},
+      "zone_evidence": {},
+      "corrected": false,
+      "active_listings": [
+        7650
+      ]
+    }
+  ]
+}

@@ -86,7 +86,13 @@ from .services.crime_context import (
     homicide_counts_by_zone,
 )
 from .services.geo_hierarchy import geo_hierarchy_payload
-from .services.geocoding import Geocoder, address_number, street_key
+from .services.geocoding import (
+    Geocoder,
+    address_number,
+    best_address,
+    has_geocodable_address,
+    street_key,
+)
 from .services.normalization import (
     clean_address_for_storage,
     locality_from_neighborhood,
@@ -1750,18 +1756,11 @@ def detail(request, pk):
         ),
         pk=pk,
     )
-    location = getattr(property_obj, "location", None)
     return_to = safe_return_to(request)
     parsed = urlparse(return_to)
     return_label = "Estadisticas" if parsed.path == reverse("properties:stats") else "Resultados"
     previous_url, next_url = _detail_navigation(property_obj, return_to)
-    location_payload = {
-        "id": property_obj.pk,
-        "latitude": location.latitude if location else None,
-        "longitude": location.longitude if location else None,
-        "precision": location.precision if location else "",
-        "has_location": bool(location),
-    }
+    location_payload = _property_location_payload(property_obj)
     source_links = _source_links(property_obj)
     return render(
         request,
@@ -1960,13 +1959,36 @@ def update_location(request, pk):
     )
 
 
+def _property_location_payload(property_obj):
+    location = getattr(property_obj, "location", None)
+    geocode_address = best_address(property_obj)
+    return {
+        "id": property_obj.pk,
+        "latitude": location.latitude if location else None,
+        "longitude": location.longitude if location else None,
+        "precision": location.precision if location else "",
+        "provider": location.provider if location else "",
+        "outside_target": location.outside_target if location else False,
+        "manually_corrected": location.manually_corrected if location else False,
+        "has_location": bool(location),
+        "can_geocode_from_address": bool(geocode_address),
+        "geocode_address_label": geocode_address,
+    }
+
+
 @require_POST
 def infer_property_territory_api(request, pk):
     property_obj = get_object_or_404(
         Property.objects.select_related("location", "location_intelligence"),
         pk=pk,
     )
-    if not hasattr(property_obj, "location"):
+    location = getattr(property_obj, "location", None)
+    if not location:
+        if not has_geocodable_address(property_obj):
+            return JsonResponse(
+                {"error": "La propiedad no tiene coordenadas ni direccion util para geocodificar."},
+                status=400,
+            )
         location = Geocoder().geocode_property(property_obj)
         if not location:
             return JsonResponse(
@@ -2007,6 +2029,7 @@ def infer_property_territory_api(request, pk):
         {
             "ok": True,
             "message": " ".join(message_parts),
+            "location": _property_location_payload(property_obj),
             "territory": _territory_payload(property_obj),
             "location_intelligence": _location_intelligence_payload(property_obj, include_evidence=False),
         }

@@ -183,6 +183,12 @@ class NormalizationTests(TestCase):
         self.assertIn("Vasco Núñez de Balboa 379", address_alias_variants("BALBOA 379"))
         self.assertIn("Gral. Martín Güemes 1668", address_alias_variants("GUEMES 1668"))
         self.assertIn("Tte. Gral. Julio Argentino Roca 1940", address_alias_variants("Av.Julio A Roca 1940"))
+        self.assertIn("Manuel A. Padilla 1200", address_alias_variants("Cnel M A Padilla 1200"))
+        self.assertIn("Pablo Pizzurno 686", address_alias_variants("Pizzurno 686"))
+        self.assertIn("Cjal. Enrique Recagno 700", address_alias_variants("Recagno 700"))
+        self.assertIn("Tte. Gral. Julio Argentino Roca 2100", address_alias_variants("Av. Roca 2100"))
+        self.assertIn("Quintino Bocayuva 218", address_alias_variants("Bocayuba 218"))
+        self.assertIn("Kennedy y Jorge Daniel Thevenin", address_alias_variants("Kennedy y Thevening"))
         self.assertIn("Tte. Gral. Pablo Ricchieri 1400", address_alias_variants("Richieri 1400"))
         self.assertIn("Nilda Figueira 1400", address_alias_variants("Nilda Figueiras 1400"))
         self.assertIn("Diego de Carvajal 800", address_alias_variants("Diego de Carabajal 800"))
@@ -199,6 +205,20 @@ class NormalizationTests(TestCase):
         self.assertIn("Gutenberg 2100", address_alias_variants("Gutemberg 2100"))
         self.assertTrue(any("Alfredo" in item and "1635" in item for item in address_alias_variants("Rodriguez 1635")))
         self.assertTrue(any("100" in item for item in address_alias_variants("BUSTAMANTE al 0")))
+        self.assertIn("Vicente Camargo 2900", address_alias_variants("Avenida Vicente Camargo 2900"))
+        self.assertIn("Virriato Unia 2412", address_alias_variants("Virriato Unía 2412"))
+        self.assertIn("Dr. Delfor Díaz 2600", address_alias_variants("DELFOR DIAZ 2600"))
+        self.assertIn("Basilio Delleva 1500", address_alias_variants("DELL EVA 1500"))
+        self.assertIn("Gral. Francisco Miranda 1500", address_alias_variants("Miranda 1500"))
+        self.assertIn("José de Minoguye 2400", address_alias_variants("Minoguyen 2400"))
+        self.assertIn("Av. Rosas Castillo 2400", address_alias_variants("Rosa Castilllo 2400"))
+        self.assertIn("Bombero Celiz 200", address_alias_variants("Bomberos Celiz 200"))
+        self.assertIn("Gral. Toribio de Luzuriaga 1700", address_alias_variants("General Toribio Luzuriaga 1700"))
+        self.assertIn("German Argerich 1300", address_alias_variants("Argerich 1300"))
+        self.assertIn("Conscripto Bernardi 587", address_alias_variants("Bernardi 587"))
+        self.assertIn("Coraceros 2400", address_alias_variants("Caroceros 2400"))
+        self.assertIn("Coraceros 3115", address_alias_variants("CORACERO 3115"))
+        self.assertIn("Tte. Manuel Origone 287", address_alias_variants("Tte. Origone 287"))
 
     def test_decimal_formats(self):
         self.assertEqual(parse_decimal("USD 169.000"), Decimal("169000"))
@@ -2945,6 +2965,9 @@ class ViewTests(TestCase):
         payload = response.json()
         self.assertEqual(payload["territory"]["zone"], "Parque Johnston")
         self.assertEqual(payload["location_intelligence"]["overall_score"], 71)
+        self.assertEqual(payload["location"]["latitude"], property_obj.location.latitude)
+        self.assertEqual(payload["location"]["longitude"], property_obj.location.longitude)
+        self.assertEqual(payload["location"]["precision"], PropertyLocation.Precision.EXACT)
 
     def test_infer_property_territory_api_requires_coordinates(self):
         property_obj = Property.objects.create(
@@ -2960,6 +2983,8 @@ class ViewTests(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("coordenadas", response.json()["error"])
+        geocoder_cls.return_value.geocode_property.assert_not_called()
+        self.assertFalse(PropertyLocation.objects.filter(property=property_obj).exists())
 
     def test_infer_property_territory_api_geocodes_missing_coordinates(self):
         property_obj = Property.objects.create(
@@ -2969,14 +2994,6 @@ class ViewTests(TestCase):
             locality="Hurlingham",
             status=Property.Status.ACTIVE,
             property_type=Property.Type.HOUSE,
-        )
-        location = PropertyLocation(
-            property=property_obj,
-            latitude=-34.591,
-            longitude=-58.641,
-            precision=PropertyLocation.Precision.EXACT,
-            provider="nominatim",
-            confidence=0.8,
         )
         territory_result = SimpleNamespace(
             partido="Partido de Hurlingham",
@@ -2995,7 +3012,17 @@ class ViewTests(TestCase):
             "properties.views.load_location_zones",
             return_value={"configured": False, "features": [], "signature": ""},
         ):
-            geocoder_cls.return_value.geocode_property.return_value = location
+            def geocode_property(prop):
+                return PropertyLocation.objects.create(
+                    property=prop,
+                    latitude=-34.591,
+                    longitude=-58.641,
+                    precision=PropertyLocation.Precision.EXACT,
+                    provider="nominatim",
+                    confidence=0.8,
+                )
+
+            geocoder_cls.return_value.geocode_property.side_effect = geocode_property
             response = self.client.post(f"/api/propiedad/{property_obj.pk}/inferir-territorio/")
 
         self.assertEqual(response.status_code, 200)
@@ -3004,6 +3031,10 @@ class ViewTests(TestCase):
         self.assertEqual(inferred_property.location.latitude, -34.591)
         property_obj.refresh_from_db()
         self.assertEqual(property_obj.inferred_zone, "Parque Johnston")
+        payload = response.json()
+        self.assertEqual(payload["location"]["latitude"], -34.591)
+        self.assertEqual(payload["location"]["longitude"], -58.641)
+        self.assertEqual(payload["location"]["provider"], "nominatim")
 
     def test_security_filters_are_applied_to_geojson_api(self):
         primary = self.listing.property
@@ -3389,16 +3420,20 @@ class ViewTests(TestCase):
             source_signature="score-test",
         )
 
-        with patch("properties.views.infer_property_territory", return_value=territory_result) as infer_mock, patch(
+        with patch("properties.views.Geocoder") as geocoder_cls, patch(
+            "properties.views.infer_property_territory", return_value=territory_result
+        ) as infer_mock, patch(
             "properties.views.load_location_zones",
             return_value={"configured": True, "features": [], "signature": "score-test"},
         ), patch("properties.views.score_property_location_intelligence", return_value=score_result):
             response = self.client.post(f"/api/propiedad/{listing.property_id}/inferir-territorio/")
 
         self.assertEqual(response.status_code, 200)
+        geocoder_cls.return_value.geocode_property.assert_not_called()
         infer_mock.assert_called_once()
         inferred_property = infer_mock.call_args.args[0]
         self.assertEqual(inferred_property.location.precision, PropertyLocation.Precision.MANUAL)
+        self.assertTrue(response.json()["location"]["manually_corrected"])
         listing.property.refresh_from_db()
         self.assertEqual(listing.property.inferred_locality, "William C. Morris")
         self.assertEqual(listing.property.inferred_zone, "Los Patitos")
@@ -3471,7 +3506,11 @@ class ViewTests(TestCase):
         )
         response = self.client.get(f"/propiedad/{listing.property_id}/")
         self.assertContains(response, "Ubicar manualmente")
+        self.assertContains(response, "Ubicar por direccion")
         self.assertContains(response, '"has_location": false')
+        payload = json.loads(BeautifulSoup(response.content, "lxml").find(id="property-location").string)
+        self.assertTrue(payload["can_geocode_from_address"])
+        self.assertEqual(payload["geocode_address_label"], "Uspallata")
 
         response = self.client.post(
             f"/api/propiedad/{listing.property_id}/ubicacion/",
@@ -3482,6 +3521,24 @@ class ViewTests(TestCase):
         listing.property.refresh_from_db()
         self.assertEqual(listing.property.location.provider, "manual")
         self.assertTrue(listing.property.location.manually_corrected)
+
+    def test_detail_hides_geocode_button_without_useful_address(self):
+        property_obj = Property.objects.create(
+            fingerprint="no-address-no-pin",
+            title="Casa sin direccion ni pin",
+            locality="Hurlingham",
+            property_type=Property.Type.HOUSE,
+            status=Property.Status.ACTIVE,
+        )
+
+        response = self.client.get(f"/propiedad/{property_obj.pk}/")
+
+        self.assertContains(response, "Ubicar manualmente")
+        self.assertNotContains(response, "Ubicar por direccion")
+        payload = json.loads(BeautifulSoup(response.content, "lxml").find(id="property-location").string)
+        self.assertFalse(payload["has_location"])
+        self.assertFalse(payload["can_geocode_from_address"])
+        self.assertEqual(payload["geocode_address_label"], "")
 
     def test_detail_collapses_equal_price_history_segments(self):
         listing, _ = ingest_listing(
@@ -4374,6 +4431,22 @@ class ScraperParserTests(TestCase):
         self.assertAlmostEqual(data["latitude"], -34.5888949406)
         self.assertAlmostEqual(data["longitude"], -58.639576753)
 
+    def test_becerra_parser_marks_terminal_error_as_removed(self):
+        scraper = BecerraScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Whoops! We seem to have hit a snag.</h1>
+              <p>La ficha ya no esta disponible.</p>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://becerrapropiedades.com/ficha/9999999")
+        self.assertEqual(data["status"], Property.Status.REMOVED)
+        self.assertEqual(data["source_status"], "removed")
+        self.assertTrue(data["raw_data"]["becerra_retired_text"])
+
     def test_argenprop_parser_fixture(self):
         data = self.parse_with_fixture(
             ArgenpropScraper,
@@ -4614,6 +4687,24 @@ class ScraperParserTests(TestCase):
         self.assertAlmostEqual(data["longitude"], -58.64304371568)
         self.assertEqual(data["location_precision"], "exact")
 
+    def test_fincas_parser_strips_territory_breadcrumb_from_direct_address(self):
+        scraper = FincasScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Chalet en Venta en Hurlingham</h1>
+              <main>
+                Argentina GBA Oeste Hurlingham Hurlingham Hurlingham
+                Miranda 1500 u$s 120.000 Chalet venta Hurlingham
+              </main>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://www.haurie.argencasas.com/propiedad-chalet-venta-hurlingham-301-1043")
+        self.assertEqual(data["address"], "Gral. Francisco Miranda 1500")
+        self.assertEqual(data["detected_address"], "Gral. Francisco Miranda 1500")
+
     def test_fincas_parser_rejects_declared_out_of_target_without_target_map(self):
         scraper = FincasScraper()
         scraper.soup = lambda _url: BeautifulSoup(
@@ -4643,6 +4734,19 @@ class ScraperParserTests(TestCase):
         self.assertAlmostEqual(data["latitude"], -34.58066609762967)
         self.assertAlmostEqual(data["longitude"], -58.64246672233726)
         self.assertEqual(data["location_precision"], "exact")
+
+    def test_oscar_dahbar_parser_rejects_declared_out_of_target_listing(self):
+        scraper = OscarDahbarScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Monoambiente en Mar de Ajo</h1>
+              <main>Venta Hurlingham Código: 175999 Hipolito Yrigoyen 431, Mar De Ajo, Buenos Aires, Argentina</main>
+            </body></html>
+            """,
+            "lxml",
+        )
+        self.assertIsNone(scraper.parse("https://oscardahbarpropiedades.com.ar/ad/monoambiente-en-mar-de-ajo"))
 
     def test_robots_txt_is_cached_across_scraper_instances(self):
         ROBOTS_CACHE.clear()
@@ -4917,7 +5021,7 @@ class ScraperParserTests(TestCase):
                 Decimal("70000"),
                 Decimal("120"),
                 Decimal("40"),
-                "ARGERICH",
+                "German Argerich",
             ),
             (
                 "Venta fondo de comercio vivero",
@@ -4993,6 +5097,48 @@ class ScraperParserTests(TestCase):
                 self.assertEqual(data["total_area"], total_area)
                 self.assertEqual(data["covered_area"], covered_area)
                 self.assertEqual(data["raw_data"]["zonaprop_currency_inference"]["inferred_currency"], currency)
+
+    def test_zonaprop_detail_extracts_embedded_map_coordinates(self):
+        scraper = ZonapropScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Casa en venta</h1>
+              <div class="price-value">venta USD 120.000</div>
+              <div class="article-map-container"><h4>Coraceros 3115, Hurlingham, Hurlingham</h4></div>
+              <div data-latitude="-34,59123" data-longitude="-58,64123"></div>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclcain-casa-en-venta-en-hurlingham-59999999.html"
+        )
+        self.assertAlmostEqual(data["latitude"], -34.59123)
+        self.assertAlmostEqual(data["longitude"], -58.64123)
+        self.assertEqual(data["location_precision"], "exact")
+        self.assertEqual(data["raw_data"]["zonaprop_map_coordinate"]["method"], "data-latitude")
+
+        base64_scraper = ZonapropScraper()
+        base64_scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <h1>Departamento en venta</h1>
+              <div class="price-value">venta USD 90.000</div>
+              <script>
+                const mapLatOf = "LTM0LjU4Mjk5OTk5OTk5OTk5OA==";
+                const mapLngOf = "LTU4LjYzNzAwMDAwMDAwMDAwMA==";
+              </script>
+            </body></html>
+            """,
+            "lxml",
+        )
+        encoded = base64_scraper.parse(
+            "https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-departamento-en-venta-en-hurlingham-57401637.html"
+        )
+        self.assertAlmostEqual(encoded["latitude"], -34.583)
+        self.assertAlmostEqual(encoded["longitude"], -58.637)
+        self.assertEqual(encoded["raw_data"]["zonaprop_map_coordinate"]["method"], "zonaprop_base64_map")
 
     def test_mapaprop_discovery_uses_offsets_and_declared_total(self):
         scraper = MapapropScraper()
@@ -5128,6 +5274,28 @@ class ScraperParserTests(TestCase):
         )
         self.assertEqual(tesei["locality"], "Villa Tesei")
 
+    def test_faella_parser_keeps_public_card_address(self):
+        scraper = FaellaScraper()
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <div class="card">
+                <a class="card-link" href="https://casa.mercadolibre.com.ar/MLA-111-venta-casa-_JM">
+                  <div class="card-price">U$S 100.000</div>
+                  <h3 class="card-title">Venta Casa Hurlingham</h3>
+                  <span class="feature">100 m2</span>
+                  <div class="card-location">Acassuso 1925, Hurlingham, Hurlingham</div>
+                </a>
+              </div>
+            </body></html>
+            """,
+            "lxml",
+        )
+        data = scraper.parse("https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA111")
+        self.assertEqual(data["address"], "Acassuso 1925")
+        self.assertEqual(data["detected_address"], "Acassuso 1925")
+        self.assertEqual(data["location_precision"], "exact")
+
     def test_local_parsers_fixture(self):
         miglierini = self.parse_with_fixture(
             MiglieriniScraper,
@@ -5143,9 +5311,11 @@ class ScraperParserTests(TestCase):
         self.assertEqual(miglierini["latitude"], -34.596891378643)
         self.assertEqual(miglierini["longitude"], -58.640695687162)
         self.assertEqual(miglierini["location_precision"], "exact")
+        self.assertEqual(miglierini["raw_data"]["miglierini_map_coordinate"]["method"], "propertyMapData")
         self.assertEqual(odriozola["address"], "Carhue 911, Villa Tesei, Partido de Hurlingham, Buenos Aires, Argentina")
         self.assertEqual(odriozola["locality"], "Villa Tesei")
         self.assertEqual(odriozola["latitude"], -34.583046168811)
+        self.assertEqual(odriozola["raw_data"]["odriozola_map_coordinate"]["method"], "data-map")
 
     def test_local_url_filters_exclude_categories(self):
         self.assertTrue(
@@ -5899,7 +6069,7 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["external_id"], "127415")
         self.assertEqual(data["price"], Decimal("80000"))
         self.assertEqual(data["currency"], "USD")
-        self.assertEqual(data["address"], "Tte. Origone 287")
+        self.assertEqual(data["address"], "Tte. Manuel Origone 287")
         self.assertEqual(data["locality"], "Hurlingham")
         self.assertEqual(data["rooms"], 3)
         self.assertEqual(data["bedrooms"], 2)

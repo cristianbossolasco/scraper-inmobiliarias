@@ -1,0 +1,591 @@
+{
+  "mode": "dry_run",
+  "script": "geolocalizar_manual_20260628",
+  "ids": [
+    3181,
+    5711,
+    5714,
+    5715,
+    5716,
+    5720,
+    5722,
+    5725,
+    5728,
+    5733,
+    5735
+  ],
+  "started_at": "2026-06-28T04:23:42.726369+00:00",
+  "missing_ids": [],
+  "before": [
+    {
+      "id": 3181,
+      "title": "Analía Fernández, Servicios Inmobiliarios - Departamento en Venta en Villa Santos Tesei - Virriato Unía 2412 Esquina Sigmund Freud",
+      "address": "Virriato Unia 2412",
+      "detected_address": "Virriato Unía 2412 Esquina Sigmund Freud",
+      "locality": "Hurlingham",
+      "detected_locality": "Villa Tesei",
+      "neighborhood": "Santos Tesei",
+      "detected_neighborhood": "Santos Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5711,
+      "title": "Venta Hurlingham Duplex Estrenar Pileta Villa Club",
+      "address": "Miguela Amoroso 351",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:10:15.017927+00:00"
+      },
+      "corrected_at": "2026-06-28T04:10:15.017927+00:00"
+    },
+    {
+      "id": 5714,
+      "title": "Casa Venta Hurlingham Villa Alemania Lote Multifamiliar",
+      "address": "Pedro de Mendoza 956",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Alemania",
+      "detected_neighborhood": "Villa Alemania",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:11:46.678138+00:00"
+      },
+      "corrected_at": "2026-06-28T04:11:46.678138+00:00"
+    },
+    {
+      "id": 5715,
+      "title": "Venta Casa Hurlingham Villa Club Reciclar Jardín Parque",
+      "address": "Aconcagua 2552",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:13:23.013865+00:00"
+      },
+      "corrected_at": "2026-06-28T04:13:23.013865+00:00"
+    },
+    {
+      "id": 5716,
+      "title": "Casa En Venta En Hurlingham",
+      "address": "Int. Mustoni 2063",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "",
+      "detected_neighborhood": "",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5720,
+      "title": "Venta Casa Hurlingham 3 Dorm Jardin Villa Alemania",
+      "address": "Pedro de Mendoza 847",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Alemania",
+      "detected_neighborhood": "Villa Alemania",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:14:25.471276+00:00"
+      },
+      "corrected_at": "2026-06-28T04:14:25.471276+00:00"
+    },
+    {
+      "id": 5722,
+      "title": "Venta Casa Tesei Hurlingham Apto Credito",
+      "address": "De La Trinidad y R. Prack",
+      "detected_address": "",
+      "locality": "Villa Tesei",
+      "detected_locality": "Villa Tesei",
+      "neighborhood": "",
+      "detected_neighborhood": "",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5725,
+      "title": "Venta Hurlingham Parque Quirno Casa 2 Dormitorios Jardin",
+      "address": "Mayor Victor Bergami 2192",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Parque Quirno",
+      "detected_neighborhood": "Parque Quirno",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:15:52.327486+00:00"
+      },
+      "corrected_at": "2026-06-28T04:15:52.327486+00:00"
+    },
+    {
+      "id": 5728,
+      "title": "Venta Departamento Villa Club Hurlingham 4 Amb.",
+      "address": "Granaderos 462",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:16:18.502065+00:00"
+      },
+      "corrected_at": "2026-06-28T04:16:18.502065+00:00"
+    },
+    {
+      "id": 5733,
+      "title": "Casa En Venta En Hurlingham Villa Club Con Pileta",
+      "address": "Aconcagua 2036",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:16:54.056100+00:00"
+      },
+      "corrected_at": "2026-06-28T04:16:54.056100+00:00"
+    },
+    {
+      "id": 5735,
+      "title": "Venta Casa Parque Quirno Hurlingham 2 Dormitorios",
+      "address": "Handel 1725",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Parque Quirno",
+      "detected_neighborhood": "Parque Quirno",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:17:25.790345+00:00"
+      },
+      "corrected_at": "2026-06-28T04:17:25.790345+00:00"
+    }
+  ],
+  "query_candidates": [
+    {
+      "id": 3181,
+      "queries": [
+        "Virriato Unia 2412, Hurlingham, Buenos Aires, Argentina",
+        "Virriato Unia 2412, Villa Tesei, Buenos Aires, Argentina",
+        "Virriato Unia 2412, William C. Morris, Buenos Aires, Argentina",
+        "Virriato Unía 2412 Esquina Sigmund Freud, Hurlingham, Buenos Aires, Argentina",
+        "Virriato Unía 2412 Esquina Sigmund Freud, Villa Tesei, Buenos Aires, Argentina",
+        "Virriato Unía 2412 Esquina Sigmund Freud, William C. Morris, Buenos Aires, Argentina",
+        "Virriato Unia 2412 Esquina Sigmund Freud, Hurlingham, Buenos Aires, Argentina",
+        "Virriato Unia 2412 Esquina Sigmund Freud, Villa Tesei, Buenos Aires, Argentina",
+        "Virriato Unia 2412 Esquina Sigmund Freud, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5711,
+      "queries": [
+        "Miguela Amoroso 351, Hurlingham, Buenos Aires, Argentina",
+        "Miguela Amoroso 351, Villa Tesei, Buenos Aires, Argentina",
+        "Miguela Amoroso 351, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5714,
+      "queries": [
+        "Pedro de Mendoza 956, Hurlingham, Buenos Aires, Argentina",
+        "Pedro de Mendoza 956, Villa Tesei, Buenos Aires, Argentina",
+        "Pedro de Mendoza 956, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5715,
+      "queries": [
+        "Aconcagua 2552, Hurlingham, Buenos Aires, Argentina",
+        "Aconcagua 2552, Villa Tesei, Buenos Aires, Argentina",
+        "Aconcagua 2552, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5716,
+      "queries": [
+        "Int. Mustoni 2063, Hurlingham, Buenos Aires, Argentina",
+        "Int. Mustoni 2063, Villa Tesei, Buenos Aires, Argentina",
+        "Int. Mustoni 2063, William C. Morris, Buenos Aires, Argentina",
+        "Intendente Mustoni 2063, Hurlingham, Buenos Aires, Argentina",
+        "Intendente Mustoni 2063, Villa Tesei, Buenos Aires, Argentina",
+        "Intendente Mustoni 2063, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5720,
+      "queries": [
+        "Pedro de Mendoza 847, Hurlingham, Buenos Aires, Argentina",
+        "Pedro de Mendoza 847, Villa Tesei, Buenos Aires, Argentina",
+        "Pedro de Mendoza 847, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5722,
+      "queries": [
+        "De La Trinidad y R. Prack, Villa Tesei, Buenos Aires, Argentina",
+        "De La Trinidad y R. Prack, Hurlingham, Buenos Aires, Argentina",
+        "De La Trinidad y R. Prack, William C. Morris, Buenos Aires, Argentina",
+        "De La Trinidad esquina R. Prack, Villa Tesei, Buenos Aires, Argentina",
+        "De La Trinidad esquina R. Prack, Hurlingham, Buenos Aires, Argentina",
+        "De La Trinidad esquina R. Prack, William C. Morris, Buenos Aires, Argentina",
+        "De La Trinidad y Roberto Prack, Villa Tesei, Buenos Aires, Argentina",
+        "De La Trinidad y Roberto Prack, Hurlingham, Buenos Aires, Argentina",
+        "De La Trinidad y Roberto Prack, William C. Morris, Buenos Aires, Argentina",
+        "De La Trinidad esquina Roberto Prack, Villa Tesei, Buenos Aires, Argentina",
+        "De La Trinidad esquina Roberto Prack, Hurlingham, Buenos Aires, Argentina",
+        "De La Trinidad esquina Roberto Prack, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5725,
+      "queries": [
+        "Mayor Victor Bergami 2192, Hurlingham, Buenos Aires, Argentina",
+        "Mayor Victor Bergami 2192, Villa Tesei, Buenos Aires, Argentina",
+        "Mayor Victor Bergami 2192, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5728,
+      "queries": [
+        "Granaderos 462, Hurlingham, Buenos Aires, Argentina",
+        "Granaderos 462, Villa Tesei, Buenos Aires, Argentina",
+        "Granaderos 462, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5733,
+      "queries": [
+        "Aconcagua 2036, Hurlingham, Buenos Aires, Argentina",
+        "Aconcagua 2036, Villa Tesei, Buenos Aires, Argentina",
+        "Aconcagua 2036, William C. Morris, Buenos Aires, Argentina"
+      ]
+    },
+    {
+      "id": 5735,
+      "queries": [
+        "Handel 1725, Hurlingham, Buenos Aires, Argentina",
+        "Handel 1725, Villa Tesei, Buenos Aires, Argentina",
+        "Handel 1725, William C. Morris, Buenos Aires, Argentina"
+      ]
+    }
+  ],
+  "geocode_external_required": [
+    3181,
+    5716,
+    5722
+  ],
+  "local_reference_candidate": [
+    {
+      "id": 5711,
+      "reference_id": 5842,
+      "reference_address": "Miguela Amoroso 300",
+      "delta_number": 51,
+      "lat": -34.5788696,
+      "lon": -58.6333382,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5714,
+      "reference_id": 4297,
+      "reference_address": "Pedro de Mendoza 986 esq. O'higgins",
+      "delta_number": 30,
+      "lat": -34.5926161,
+      "lon": -58.6214358,
+      "provider": "local_reference"
+    },
+    {
+      "id": 5715,
+      "reference_id": 2692,
+      "reference_address": "ACONCAGUA 2600",
+      "delta_number": 48,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5720,
+      "reference_id": 2080,
+      "reference_address": "Pedro De Mendoza 868",
+      "delta_number": 21,
+      "lat": -34.5912579,
+      "lon": -58.62346679999999,
+      "provider": "mapaprop"
+    },
+    {
+      "id": 5725,
+      "reference_id": 3926,
+      "reference_address": "Mayor Victor Bergami 2164",
+      "delta_number": 28,
+      "lat": -34.6092319,
+      "lon": -58.6326038,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5728,
+      "reference_id": 2625,
+      "reference_address": "Granaderos 460",
+      "delta_number": 2,
+      "lat": -34.5751209,
+      "lon": -58.6363642,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5733,
+      "reference_id": 888,
+      "reference_address": "Aconcagua 2072",
+      "delta_number": 36,
+      "lat": -34.5761455,
+      "lon": -58.6365546,
+      "provider": "nominatim"
+    },
+    {
+      "id": 5735,
+      "reference_id": 5432,
+      "reference_address": "HANDEL 1720",
+      "delta_number": 5,
+      "lat": -34.600672,
+      "lon": -58.6301339,
+      "provider": "local_reference"
+    }
+  ],
+  "after": [
+    {
+      "id": 3181,
+      "title": "Analía Fernández, Servicios Inmobiliarios - Departamento en Venta en Villa Santos Tesei - Virriato Unía 2412 Esquina Sigmund Freud",
+      "address": "Virriato Unia 2412",
+      "detected_address": "Virriato Unía 2412 Esquina Sigmund Freud",
+      "locality": "Hurlingham",
+      "detected_locality": "Villa Tesei",
+      "neighborhood": "Santos Tesei",
+      "detected_neighborhood": "Santos Tesei",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5711,
+      "title": "Venta Hurlingham Duplex Estrenar Pileta Villa Club",
+      "address": "Miguela Amoroso 351",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:10:15.017927+00:00"
+      },
+      "corrected_at": "2026-06-28T04:10:15.017927+00:00"
+    },
+    {
+      "id": 5714,
+      "title": "Casa Venta Hurlingham Villa Alemania Lote Multifamiliar",
+      "address": "Pedro de Mendoza 956",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Alemania",
+      "detected_neighborhood": "Villa Alemania",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:11:46.678138+00:00"
+      },
+      "corrected_at": "2026-06-28T04:11:46.678138+00:00"
+    },
+    {
+      "id": 5715,
+      "title": "Venta Casa Hurlingham Villa Club Reciclar Jardín Parque",
+      "address": "Aconcagua 2552",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:13:23.013865+00:00"
+      },
+      "corrected_at": "2026-06-28T04:13:23.013865+00:00"
+    },
+    {
+      "id": 5716,
+      "title": "Casa En Venta En Hurlingham",
+      "address": "Int. Mustoni 2063",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "",
+      "detected_neighborhood": "",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5720,
+      "title": "Venta Casa Hurlingham 3 Dorm Jardin Villa Alemania",
+      "address": "Pedro de Mendoza 847",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Alemania",
+      "detected_neighborhood": "Villa Alemania",
+      "zone": "",
+      "intel_zone": "Villa Alemania",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:14:25.471276+00:00"
+      },
+      "corrected_at": "2026-06-28T04:14:25.471276+00:00"
+    },
+    {
+      "id": 5722,
+      "title": "Venta Casa Tesei Hurlingham Apto Credito",
+      "address": "De La Trinidad y R. Prack",
+      "detected_address": "",
+      "locality": "Villa Tesei",
+      "detected_locality": "Villa Tesei",
+      "neighborhood": "",
+      "detected_neighborhood": "",
+      "zone": "",
+      "intel_zone": "",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T03:20:25.271043+00:00",
+        "locality": "2026-06-28T03:20:25.271043+00:00"
+      },
+      "corrected_at": "2026-06-28T03:20:25.271043+00:00"
+    },
+    {
+      "id": 5725,
+      "title": "Venta Hurlingham Parque Quirno Casa 2 Dormitorios Jardin",
+      "address": "Mayor Victor Bergami 2192",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Parque Quirno",
+      "detected_neighborhood": "Parque Quirno",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:15:52.327486+00:00"
+      },
+      "corrected_at": "2026-06-28T04:15:52.327486+00:00"
+    },
+    {
+      "id": 5728,
+      "title": "Venta Departamento Villa Club Hurlingham 4 Amb.",
+      "address": "Granaderos 462",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:16:18.502065+00:00"
+      },
+      "corrected_at": "2026-06-28T04:16:18.502065+00:00"
+    },
+    {
+      "id": 5733,
+      "title": "Casa En Venta En Hurlingham Villa Club Con Pileta",
+      "address": "Aconcagua 2036",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Villa Club",
+      "detected_neighborhood": "Villa Club",
+      "zone": "",
+      "intel_zone": "Villa Club",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:16:54.056100+00:00"
+      },
+      "corrected_at": "2026-06-28T04:16:54.056100+00:00"
+    },
+    {
+      "id": 5735,
+      "title": "Venta Casa Parque Quirno Hurlingham 2 Dormitorios",
+      "address": "Handel 1725",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "detected_locality": "Hurlingham",
+      "neighborhood": "Parque Quirno",
+      "detected_neighborhood": "Parque Quirno",
+      "zone": "",
+      "intel_zone": "Parque Quirno",
+      "location": null,
+      "manual_overrides": {
+        "address": "2026-06-28T04:17:25.790345+00:00"
+      },
+      "corrected_at": "2026-06-28T04:17:25.790345+00:00"
+    }
+  ],
+  "finished_at": "2026-06-28T04:25:12.297595+00:00"
+}
