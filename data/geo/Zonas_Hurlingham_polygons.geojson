@@ -105,6 +105,18 @@
         "name": "Los Troncos",
         "reason": "polygonize_failed"
       }
+    ],
+    "manual_updated_at": "2026-06-29T00:07:53+00:00",
+    "manual_zone_additions": [
+      {
+        "zone_name": "Los Troncos",
+        "osm_relation_id": 19399747,
+        "osm_label_node_id": 13031943325,
+        "source_method": "manual_operational_polygon_from_user_boundary",
+        "source_confidence": "medium_low",
+        "needs_manual_review": true,
+        "notes": "OSM relation has only a label node; polygon digitized from user-marked red perimeter and clipped to William C. Morris."
+      }
     ]
   },
   "features": [
@@ -4243,6 +4255,62 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "manual_zone_lostroncos",
+        "zone_name": "Los Troncos",
+        "name": "Los Troncos",
+        "locality": "William C. Morris",
+        "osm_relation_id": 19399747,
+        "source_url": "https://www.openstreetmap.org/relation/19399747",
+        "source_name": "Manual audit from OSM label and user boundary",
+        "zone_extraction_method": "manual_operational_polygon_from_user_boundary",
+        "source_confidence": "medium_low",
+        "needs_manual_review": true,
+        "generated_at": "2026-06-29T00:07:53+00:00",
+        "manual_boundary_basis": "User-marked red perimeter; OSM relation 19399747 has only label node 13031943325."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "id": "osm_relation_19399353",
         "zone_name": "Los Pinos",
         "name": "Los Pinos",
@@ -7195,10 +7263,6 @@
         "coordinates": [
           [
             [
-              -58.6597902,
-              -34.6024623
-            ],
-            [
               -58.6592066,
               -34.6019764
             ],
@@ -7219,32 +7283,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7293,6 +7333,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]

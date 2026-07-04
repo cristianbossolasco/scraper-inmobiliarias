@@ -793,7 +793,12 @@ class PixelAdScraper(CommonDetailScraper):
         return _page_url_with_page(self.definition.search_url, page)
 
     def _listing_urls(self, soup):
-        yield from links_matching(self, soup, self.detail_patterns)
+        yield from links_matching(
+            self,
+            soup,
+            self.detail_patterns,
+            require_target_text=self.require_target_text,
+        )
 
     def discover(self):
         yield from paginated_discover(
@@ -898,6 +903,7 @@ class OscarDahbarScraper(PixelAdScraper):
         notes="Motor publico Pixel con unas 9 paginas de ventas; se filtra a Hurlingham/Villa Tesei/Morris.",
     )
     fallback_max_pages = 12
+    require_target_text = True
 
 
 class ValentiScraper(CommonDetailScraper):
@@ -920,7 +926,12 @@ class ValentiScraper(CommonDetailScraper):
         return f"{self.definition.base_url}/motor/props.php?supertipo=0&superoper=0&zona=441&page={page}"
 
     def _listing_urls(self, soup):
-        yield from links_matching(self, soup, self.detail_patterns)
+        yield from links_matching(
+            self,
+            soup,
+            self.detail_patterns,
+            require_target_text=self.require_target_text,
+        )
 
     def discover(self):
         yield from paginated_discover(
@@ -930,6 +941,9 @@ class ValentiScraper(CommonDetailScraper):
             self._listing_urls,
             fallback_max_pages=self.fallback_max_pages,
         )
+
+    def discovery_external_id_from_url(self, url):
+        return text_value(url, [r"-(\d+-\d+)$"]) or external_id_from_url(url)
 
     def parse(self, url):
         soup = self.soup(url)
@@ -1124,6 +1138,9 @@ class XintelApiScraper(BaseScraper):
         match = re.search(r"ficha-[a-z]+(\d+)", url, re.I)
         return match.group(1) if match else external_id_from_url(url)
 
+    def discovery_external_id_from_url(self, url):
+        return self._external_id_from_url(url)
+
     def _surface_field(self, payload, label):
         superficie = payload.get("superficie") or {}
         titles = superficie.get("title") or []
@@ -1259,6 +1276,9 @@ class MudafyScraper(CommonDetailScraper):
             "limited_by_max_listings": self.max_listings is not None and len(seen) >= self.max_listings,
             "limited_by_max_pages": self.max_pages is not None,
         }
+
+    def discovery_external_id_from_url(self, url):
+        return text_value(url, [r"-en-venta-([A-Za-z0-9]+)$"]) or external_id_from_url(url)
 
     def _embedded_number(self, markup, path):
         key = re.escape(path[-1])
@@ -1818,7 +1838,12 @@ class FincasScraper(CommonDetailScraper):
         return f"{self.definition.search_url}?page={page}"
 
     def _listing_urls(self, soup):
-        yield from links_matching(self, soup, self.detail_patterns)
+        yield from links_matching(
+            self,
+            soup,
+            self.detail_patterns,
+            require_target_text=self.require_target_text,
+        )
 
     def discover(self):
         yield from paginated_discover(
@@ -2804,7 +2829,14 @@ class RemaxArgentinaScraper(BaseScraper):
         entity_id = item.get("entityId") or item.get("id")
         return f"{self.definition.base_url}/listings/{entity_id}"
 
+    def _item_external_id(self, item):
+        return item.get("id") or item.get("entityId") or item.get("internalId")
+
+    def discovery_external_id_from_url(self, url):
+        return getattr(self, "_discovery_external_ids", {}).get(url) or external_id_from_url(url)
+
     def discover(self):
+        self._discovery_external_ids = {}
         start_page = max((self.start_page or 1) - 1, 0)
         declared_total = None
         total_pages = None
@@ -2836,6 +2868,9 @@ class RemaxArgentinaScraper(BaseScraper):
                 if url in seen:
                     continue
                 seen.add(url)
+                external_id = self._item_external_id(item)
+                if external_id:
+                    self._discovery_external_ids[url] = str(external_id)
                 yield url
                 if self.max_listings is not None and len(seen) >= self.max_listings:
                     self.discovery_stats = {
@@ -2872,7 +2907,34 @@ class RemaxArgentinaScraper(BaseScraper):
         else:
             slug = path.rsplit("/", 1)[-1]
             payload = self._api_get(f"listings/findBySlug/{slug}")
-        return payload.get("data") or {}
+        item = payload.get("data") or {}
+        if item:
+            return item
+        return self._item_from_search_payload(url)
+
+    def _item_from_search_payload(self, url):
+        path = urlparse(url).path.strip("/")
+        identifier = path.rsplit("/", 1)[-1]
+        if not identifier:
+            return {}
+        total_pages = None
+        page = 0
+        while total_pages is None or page < total_pages:
+            payload = self._find_all(page)
+            data = payload.get("data") or {}
+            items = data.get("data") or []
+            if total_pages is None:
+                total_pages = parse_int(data.get("totalPages")) or 1
+            for item in items:
+                if path.startswith("listingsByInternalId/"):
+                    if str(item.get("internalId") or "") == identifier:
+                        return item
+                elif (item.get("slug") or "") == identifier:
+                    return item
+            if not items:
+                break
+            page += 1
+        return {}
 
     def _image_url(self, image):
         value = (image.get("value") or image.get("rawValue")) if isinstance(image, dict) else image
@@ -2909,7 +2971,7 @@ class RemaxArgentinaScraper(BaseScraper):
         if item.get("aptCredit"):
             features.append("Apto credito")
         data = {
-            "external_id": item.get("id") or item.get("entityId") or item.get("internalId"),
+            "external_id": self._item_external_id(item),
             "url": url,
             "title": item.get("title") or "RE/MAX Argentina",
             "description": item.get("description") or "",
@@ -3008,10 +3070,57 @@ class Century21Scraper(CommonDetailScraper):
     def _detail_json_url(self, url):
         return f"{url}{'&' if '?' in url else '?'}json=true"
 
+    def _detail_payload(self, url):
+        try:
+            return self.get(self._detail_json_url(url)).json()
+        except Exception:
+            return {}
+
+    def _entity_from_payload(self, payload):
+        if not isinstance(payload, dict):
+            return {}
+        entity = payload.get("entity") or payload.get("propiedad")
+        if isinstance(entity, dict) and entity:
+            return entity
+        ignored_payload_keys = {"code", "error", "errors", "message", "statusCode"}
+        if any(key in payload for key in ignored_payload_keys) and not any(
+            key in payload for key in ("id", "idPropiedadesDB", "urlCorrectaPropiedad", "encabezado", "titulo", "title")
+        ):
+            return {}
+        return payload if payload else {}
+
+    def _search_result_url(self, item):
+        href = item.get("urlCorrectaPropiedad") or item.get("url") or item.get("permalink")
+        return self.absolute(href).rstrip("/") if href else ""
+
+    def _listing_id_from_url(self, url):
+        path = urlparse(url).path.rstrip("/")
+        match = re.search(r"/propiedad/([^_/?#]+)", path)
+        return match.group(1) if match else ""
+
+    def _search_entity_from_url(self, url):
+        target_url = url.rstrip("/")
+        target_id = self._listing_id_from_url(url)
+        try:
+            payload = self._payload()
+        except Exception:
+            return {}
+        for item in payload.get("results") or payload.get("data") or []:
+            if not isinstance(item, dict):
+                continue
+            item_url = self._search_result_url(item)
+            item_id = str(item.get("id") or item.get("idPropiedadesDB") or "")
+            if item_url == target_url or (target_id and item_id == target_id):
+                return item
+        return {}
+
     def parse(self, url):
-        payload = self.get(self._detail_json_url(url)).json()
-        entity = payload.get("entity") or payload.get("propiedad") or payload
-        if not isinstance(entity, dict):
+        payload = self._detail_payload(url)
+        entity = self._entity_from_payload(payload)
+        if not entity:
+            entity = self._search_entity_from_url(url)
+            payload = {"entity": entity}
+        if not isinstance(entity, dict) or not entity:
             return None
         title = (
             entity.get("titulo")

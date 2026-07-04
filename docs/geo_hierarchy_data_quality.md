@@ -1,6 +1,6 @@
 # Geo Hierarchy Data Quality
 
-Generated at: 2026-06-15T03:39:16.350146+00:00
+Generated at: 2026-06-29T00:26:22.883508+00:00
 
 ## Summary
 
@@ -24,9 +24,9 @@ Generated at: 2026-06-15T03:39:16.350146+00:00
 
 ### OK `03_zonas_hurlingham_final.geojson`
 
-- Features/rows: 42
-- Area km2: 24.445764
-- Geometry types: {'Polygon': 42}
+- Features/rows: 43
+- Area km2: 24.526828
+- Geometry types: {'Polygon': 43}
 
 ### OK `03b_microzonas_hurlingham_final.geojson`
 
@@ -36,9 +36,9 @@ Generated at: 2026-06-15T03:39:16.350146+00:00
 ### OK `04_gaps_zonas_hurlingham_final.geojson`
 
 - Features/rows: 16
-- Area km2: 10.440653
-- Geometry types: {'Polygon': 16}
+- Area km2: 10.359588
+- Geometry types: {'MultiPolygon': 1, 'Polygon': 15}
 
 ### OK `zone_aliases_hurlingham.csv`
 
-- Features/rows: 26
+- Features/rows: 27

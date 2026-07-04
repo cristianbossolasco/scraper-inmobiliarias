@@ -7,9 +7,21 @@
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Merged canonical repo zones plus hierarchy package audit",
     "source_zip": "C:\\Users\\corebi\\Downloads\\hurlingham_geo_hierarchy_package.zip",
-    "zone_count": 42,
+    "zone_count": 43,
     "data_confidence": "mixed",
-    "notes": "Final audit layer; production ZONE_GEOJSON_PATH is intentionally unchanged."
+    "notes": "Final audit layer; production ZONE_GEOJSON_PATH is intentionally unchanged.",
+    "manual_updated_at": "2026-06-29T00:07:53+00:00",
+    "manual_zone_additions": [
+      {
+        "zone_name": "Los Troncos",
+        "osm_relation_id": 19399747,
+        "osm_label_node_id": 13031943325,
+        "source_method": "manual_operational_polygon_from_user_boundary",
+        "source_confidence": "medium_low",
+        "needs_manual_review": true,
+        "notes": "OSM relation has only a label node; polygon digitized from user-marked red perimeter and clipped to William C. Morris."
+      }
+    ]
   },
   "features": [
     {
@@ -4498,6 +4510,72 @@
     },
     {
       "type": "Feature",
+      "id": "zone_lostroncos",
+      "properties": {
+        "level": 3,
+        "level_name": "zona",
+        "canonical_name": "Los Troncos",
+        "zone_name": "Los Troncos",
+        "locality": "William C. Morris",
+        "parent_locality": "William C. Morris",
+        "parent_partido": "Partido de Hurlingham",
+        "relation_id": 19399747,
+        "osm_relation_id": 19399747,
+        "source_url": "https://www.openstreetmap.org/relation/19399747",
+        "source_name": "Manual audit from OSM label and user boundary",
+        "source_method": "manual_operational_polygon_from_user_boundary",
+        "source_confidence": "medium_low",
+        "candidate_source_confidence": "",
+        "strict_source_available": false,
+        "needs_manual_review": true,
+        "topology_normalized": true,
+        "topology_rule": "manual_boundary_clipped_to_parent_locality_and_difference_from_existing_zones",
+        "generated_at": "2026-06-29T00:07:53+00:00",
+        "area_km2": 0.081326,
+        "feature_id": "zone_lostroncos"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "properties": {
         "level": 3,
         "level_name": "zona",
@@ -7684,17 +7762,13 @@
         "topology_normalized": true,
         "topology_rule": "clipped_to_locality_and_difference_by_source_priority",
         "generated_at": "2026-06-15T02:04:23.824601+00:00",
-        "area_km2": 0.190633,
+        "area_km2": 0.190371,
         "feature_id": "zone_sanalberto"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6577804,
-              -34.6007451
-            ],
             [
               -58.6569172,
               -34.5999914
@@ -7704,32 +7778,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7790,6 +7840,10 @@
             [
               -58.6577804,
               -34.6007451
+            ],
+            [
+              -58.6569172,
+              -34.5999914
             ]
           ]
         ]

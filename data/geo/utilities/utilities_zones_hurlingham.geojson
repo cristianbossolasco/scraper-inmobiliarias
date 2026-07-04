@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "utilities_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
@@ -24,7 +24,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -287,7 +287,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -526,7 +526,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -685,7 +685,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -816,7 +816,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -959,7 +959,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -1130,7 +1130,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -1401,7 +1401,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -1536,7 +1536,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -1703,7 +1703,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -1998,7 +1998,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -2225,7 +2225,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -2488,7 +2488,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -2611,7 +2611,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -2713,7 +2713,7 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
         "gas_segment_count": null,
         "gas_users_total": null,
@@ -2722,7 +2722,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -3161,7 +3161,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -3412,7 +3412,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -3667,7 +3667,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -3838,7 +3838,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -4041,7 +4041,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -4187,6 +4187,61 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "gas_segment_count": null,
+        "gas_users_total": null,
+        "gas_network_proxy": null,
+        "utility_quality_score": null,
+        "source_note": "Gas official resource was listed but unavailable at build time.",
+        "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
+        "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
+        "data_confidence": "none"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
         "gas_segment_count": null,
@@ -4196,7 +4251,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -4299,7 +4354,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -4538,7 +4593,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -4717,7 +4772,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -5032,7 +5087,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -5227,7 +5282,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -5470,7 +5525,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -5801,7 +5856,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -6180,7 +6235,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -6391,7 +6446,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -6562,7 +6617,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -6673,7 +6728,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -6924,7 +6979,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -7151,7 +7206,7 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
+        "area_km2": 0.1904,
         "gas_segment_count": null,
         "gas_users_total": null,
         "gas_network_proxy": null,
@@ -7159,17 +7214,13 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7191,32 +7242,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7265,6 +7292,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7282,7 +7313,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -7537,7 +7568,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -7684,7 +7715,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -7875,7 +7906,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -8066,7 +8097,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -8241,7 +8272,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -8588,7 +8619,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {
@@ -8995,7 +9026,7 @@
         "source_note": "Gas official resource was listed but unavailable at build time.",
         "source_name": "Secretaria de Energia - Usuarios de gas por segmento de calle",
         "source_url": "https://datos.gob.ar/dataset/energia-cantidad-usuarios-gas-natural-red-por-segmento-calle",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "none"
       },
       "geometry": {

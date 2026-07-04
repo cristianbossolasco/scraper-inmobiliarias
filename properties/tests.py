@@ -26,6 +26,7 @@ from properties.models import (
     PropertyLocationIntelligence,
     PropertyLocation,
     ScrapeJob,
+    ScrapeJobListing,
     ScrapeJobSource,
     ScrapeRun,
     Source,
@@ -121,6 +122,7 @@ from properties.scrapers.pending_sources import (
     ZonapropScraper,
 )
 from properties.scrapers.paginated import declared_total_from_text, max_page_from_markup
+from properties.scrapers import registry as scraper_registry
 from properties.scrapers.registry import get_adapter, get_adapter_classes
 
 
@@ -3959,6 +3961,28 @@ class ViewTests(TestCase):
         job.refresh_from_db()
         self.assertTrue(job.cancel_requested)
 
+    def test_scraping_api_process_new_infers_latest_discovery(self):
+        with patch("properties.views.start_scrape_job") as starter:
+            response = self.client.post(
+                "/api/scraping/jobs/",
+                data=json.dumps(
+                    {
+                        "sources": ["mapaprop"],
+                        "workers": {"mapaprop": 1},
+                        "phases": [ScrapeJob.Phase.PROCESS_NEW],
+                        "geocode_limit": 0,
+                    }
+                ),
+                content_type="application/json",
+            )
+
+        self.assertEqual(response.status_code, 201)
+        starter.assert_called_once()
+        job = ScrapeJob.objects.get()
+        self.assertEqual(job.phases, [ScrapeJob.Phase.PROCESS_NEW])
+        self.assertTrue(job.from_latest_discovery)
+        self.assertTrue(response.json()["from_latest_discovery"])
+
     def test_operation_api_creates_job_and_catalog(self):
         catalog = self.client.get("/api/operations/catalog/")
         self.assertEqual(catalog.status_code, 200)
@@ -4354,6 +4378,731 @@ class ViewTests(TestCase):
         self.assertEqual(retried.worker_config, {"mapaprop": 2})
         self.assertEqual(retried.retry_urls, {"mapaprop": ["https://example.com/bad"]})
         self.assertEqual(retried.scrape_mode, ScrapeJob.Mode.TRIAL)
+
+
+class ScrapePipelinePhaseTests(TransactionTestCase):
+    class FakePipelineScraper(BaseScraper):
+        definition = SourceDefinition(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+            search_url="https://fake.example/list",
+            crawl_delay=0,
+        )
+        urls = []
+        parsed_urls = []
+        identity_overrides = {}
+
+        def discover(self):
+            yield from self.urls
+
+        def discovery_external_id_from_url(self, url):
+            return self.identity_overrides.get(url, url.rstrip("/").rsplit("/", 1)[-1])
+
+        def parse(self, url):
+            self.parsed_urls.append(url)
+            external_id = self.identity_overrides.get(url, url.rstrip("/").rsplit("/", 1)[-1])
+            return {
+                "external_id": external_id,
+                "url": url,
+                "title": f"Casa {external_id}",
+                "description": "Casa con jardin",
+                "property_type": Property.Type.HOUSE,
+                "operation": "sale",
+                "locality": "Hurlingham",
+                "address": f"Fake {external_id} 100",
+                "currency": "USD",
+                "price": 100000,
+                "covered_area": 80,
+                "status": Property.Status.ACTIVE,
+            }
+
+    def setUp(self):
+        self.original_adapter = scraper_registry.ADAPTERS.get("fake-pipeline")
+        scraper_registry.ADAPTERS["fake-pipeline"] = self.FakePipelineScraper
+        self.FakePipelineScraper.urls = []
+        self.FakePipelineScraper.parsed_urls = []
+        self.FakePipelineScraper.identity_overrides = {}
+
+    def tearDown(self):
+        if self.original_adapter is None:
+            scraper_registry.ADAPTERS.pop("fake-pipeline", None)
+        else:
+            scraper_registry.ADAPTERS["fake-pipeline"] = self.original_adapter
+
+    def test_discover_phase_persists_snapshot_without_parse(self):
+        self.FakePipelineScraper.urls = [
+            "https://fake.example/listing/new-1",
+            "https://fake.example/listing/new-2",
+            "https://fake.example/listing/new-2",
+        ]
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+
+        run_scrape_job(job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=job, slug="fake-pipeline")
+        self.assertEqual(job_source.total_discovered, 2)
+        self.assertEqual(job_source.total_to_process, 0)
+        self.assertEqual(job_source.processed, 0)
+        source_payload = serialize_job(job)["sources"][0]
+        self.assertEqual(source_payload["percent"], 100)
+        self.assertEqual(source_payload["discovery_seen"], 2)
+        self.assertEqual(source_payload["discovery_new"], 2)
+        self.assertEqual(source_payload["discovery_existing"], 0)
+        self.assertIn("Discovery parcial: 1 URLs", job_source.logs)
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [])
+        self.assertEqual(
+            list(job_source.snapshot_listings.order_by("position").values_list("external_id", "status")),
+            [
+                ("new-1", ScrapeJobListing.Status.NEW_PENDING),
+                ("new-2", ScrapeJobListing.Status.NEW_PENDING),
+            ],
+        )
+        identity = ListingIdentity.objects.get(source=job_source.source, external_id="new-1")
+        self.assertEqual(identity.last_seen_reason, "discovery")
+
+    def test_repeated_discover_only_keeps_unprocessed_urls_as_new(self):
+        self.FakePipelineScraper.urls = [
+            "https://fake.example/listing/new-1",
+            "https://fake.example/listing/new-2",
+        ]
+        first_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(first_job.pk)
+        second_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+
+        run_scrape_job(second_job.pk)
+
+        second_source = ScrapeJobSource.objects.get(job=second_job, slug="fake-pipeline")
+        self.assertEqual(
+            list(second_source.snapshot_listings.order_by("position").values_list("external_id", "status")),
+            [
+                ("new-1", ScrapeJobListing.Status.NEW_PENDING),
+                ("new-2", ScrapeJobListing.Status.NEW_PENDING),
+            ],
+        )
+        second_payload = serialize_job(second_job)["sources"][0]
+        self.assertEqual(second_payload["discovery_new"], 2)
+        self.assertEqual(second_payload["discovery_existing"], 0)
+
+    def test_discovery_identity_resolver_marks_xintel_urls_as_existing(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        for external_id in ("4310", "3945"):
+            ingest_listing(
+                source,
+                {
+                    "external_id": external_id,
+                    "url": f"https://fake.example/casa-en-venta-ficha-gpa{external_id}",
+                    "title": f"Casa {external_id}",
+                    "locality": "Hurlingham",
+                    "address": f"Fake {external_id}",
+                    "currency": "USD",
+                    "price": 100000,
+                    "covered_area": 80,
+                },
+            )
+        existing_4310 = "https://fake.example/casa-en-venta-ficha-gpa4310"
+        existing_3945 = "https://fake.example/casa-en-venta-ficha-gpa3945"
+        new_4500 = "https://fake.example/casa-en-venta-ficha-gpa4500"
+        self.FakePipelineScraper.urls = [existing_4310, existing_3945, new_4500]
+        self.FakePipelineScraper.identity_overrides = {
+            existing_4310: "4310",
+            existing_3945: "3945",
+            new_4500: "4500",
+        }
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+
+        run_scrape_job(job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=job, slug="fake-pipeline")
+        self.assertEqual(
+            list(job_source.snapshot_listings.order_by("position").values_list("external_id", "status")),
+            [
+                ("4310", ScrapeJobListing.Status.EXISTING_PENDING),
+                ("3945", ScrapeJobListing.Status.EXISTING_PENDING),
+                ("4500", ScrapeJobListing.Status.NEW_PENDING),
+            ],
+        )
+        source_payload = serialize_job(job)["sources"][0]
+        self.assertEqual(source_payload["discovery_new"], 1)
+        self.assertEqual(source_payload["discovery_existing"], 2)
+
+    def test_discovering_serialization_includes_partial_snapshot_counts(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "existing-1",
+                "url": "https://fake.example/listing/existing-1",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 100",
+                "currency": "USD",
+                "price": 120000,
+                "covered_area": 90,
+            },
+        )
+        now = timezone.now()
+        complete_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.SUCCESS,
+            selected_sources=["fake-pipeline"],
+            worker_config={"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+            started_at=now - timedelta(hours=3),
+            finished_at=now - timedelta(hours=2),
+        )
+        ScrapeJobSource.objects.create(
+            job=complete_job,
+            source=source,
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            status=ScrapeJobSource.Status.SUCCESS,
+            workers=1,
+            total_discovered=7,
+            started_at=now - timedelta(hours=3),
+            discovery_started_at=now - timedelta(hours=3),
+            discovery_finished_at=now - timedelta(hours=2, minutes=50),
+            finished_at=now - timedelta(hours=2),
+        )
+        partial_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.PARTIAL,
+            selected_sources=["fake-pipeline"],
+            worker_config={"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+            started_at=now - timedelta(hours=1),
+            finished_at=now - timedelta(minutes=30),
+        )
+        ScrapeJobSource.objects.create(
+            job=partial_job,
+            source=source,
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            status=ScrapeJobSource.Status.PARTIAL,
+            workers=1,
+            total_discovered=4,
+            started_at=now - timedelta(hours=1),
+            discovery_started_at=now - timedelta(hours=1),
+            discovery_finished_at=now - timedelta(minutes=45),
+            finished_at=now - timedelta(minutes=30),
+        )
+        job = ScrapeJob.objects.create(
+            selected_sources=["fake-pipeline"],
+            worker_config={"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+            started_at=now,
+        )
+        job_source = ScrapeJobSource.objects.create(
+            job=job,
+            source=source,
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            status=ScrapeJobSource.Status.DISCOVERING,
+            workers=1,
+            total_discovered=1,
+            current_url="https://fake.example/listing/existing-1",
+            started_at=now,
+            discovery_started_at=now,
+        )
+        ScrapeJobListing.objects.create(
+            job_source=job_source,
+            source=source,
+            external_id="new-1",
+            url="https://fake.example/listing/new-1",
+            position=1,
+            status=ScrapeJobListing.Status.NEW_PENDING,
+        )
+        ScrapeJobListing.objects.create(
+            job_source=job_source,
+            source=source,
+            listing=existing,
+            external_id="existing-1",
+            url=existing.url,
+            position=2,
+            status=ScrapeJobListing.Status.EXISTING_PENDING,
+        )
+
+        source_payload = serialize_job(job)["sources"][0]
+
+        self.assertEqual(source_payload["discovery_seen"], 2)
+        self.assertEqual(source_payload["discovery_new"], 1)
+        self.assertEqual(source_payload["discovery_existing"], 1)
+        self.assertEqual(source_payload["discovery_reference_total"], 7)
+        self.assertEqual(source_payload["discovery_reference_source"], "last_discovery")
+        self.assertEqual(
+            source_payload["discovery_reference_finished_at"],
+            (now - timedelta(hours=2, minutes=50)).isoformat(),
+        )
+
+    def test_loading_snapshot_serialization_is_not_discovery(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        now = timezone.now()
+        job = ScrapeJob.objects.create(
+            selected_sources=["fake-pipeline"],
+            worker_config={"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+            from_latest_discovery=True,
+            started_at=now,
+        )
+        ScrapeJobSource.objects.create(
+            job=job,
+            source=source,
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            status=ScrapeJobSource.Status.RUNNING,
+            workers=1,
+            total_discovered=3,
+            started_at=now,
+        )
+
+        source_payload = serialize_job(job)["sources"][0]
+
+        self.assertTrue(source_payload["loading_snapshot"])
+        self.assertEqual(source_payload["status"], ScrapeJobSource.Status.RUNNING)
+        self.assertIsNone(source_payload["discovery_started_at"])
+        self.assertIsNone(source_payload["discovery_finished_at"])
+        self.assertIsNone(source_payload["discovery_reference_total"])
+
+    def test_process_new_skips_existing_and_marks_missing_from_snapshot(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "existing-1",
+                "url": "https://fake.example/listing/existing-1",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 100",
+                "currency": "USD",
+                "price": 120000,
+                "covered_area": 90,
+            },
+        )
+        stale, _ = ingest_listing(
+            source,
+            {
+                "external_id": "stale-1",
+                "url": "https://fake.example/listing/stale-1",
+                "title": "Casa ausente",
+                "locality": "Hurlingham",
+                "address": "Fake 200",
+                "currency": "USD",
+                "price": 130000,
+                "covered_area": 95,
+            },
+        )
+        self.FakePipelineScraper.urls = [
+            existing.url,
+            "https://fake.example/listing/new-1",
+        ]
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER, ScrapeJob.Phase.PROCESS_NEW],
+            mark_missing=True,
+            scrape_mode=ScrapeJob.Mode.COMPLETE,
+        )
+
+        run_scrape_job(job.pk)
+
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, ["https://fake.example/listing/new-1"])
+        job_source = ScrapeJobSource.objects.get(job=job, slug="fake-pipeline")
+        self.assertEqual(job_source.processed, 2)
+        self.assertEqual(job_source.skipped, 1)
+        self.assertEqual(job_source.errors, 0)
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="existing-1").status,
+            ScrapeJobListing.Status.SKIPPED_EXISTING,
+        )
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="new-1").status,
+            ScrapeJobListing.Status.PROCESSED,
+        )
+        stale.refresh_from_db()
+        self.assertEqual(stale.missing_runs, 1)
+        self.assertTrue(stale.active)
+
+    def test_process_new_without_discover_infers_latest_discovery_flag(self):
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+        )
+
+        self.assertTrue(job.from_latest_discovery)
+        self.assertEqual(job.phases, [ScrapeJob.Phase.PROCESS_NEW])
+
+    def test_process_new_without_discover_copies_latest_snapshot(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "existing-1",
+                "url": "https://fake.example/listing/existing-1",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 100",
+                "currency": "USD",
+                "price": 120000,
+                "covered_area": 90,
+            },
+        )
+        new_url = "https://fake.example/listing/new-1"
+        self.FakePipelineScraper.urls = [existing.url, new_url]
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(discovery_job.pk)
+        self.FakePipelineScraper.urls = []
+        self.FakePipelineScraper.parsed_urls = []
+        process_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+            mark_missing=False,
+        )
+
+        run_scrape_job(process_job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=process_job, slug="fake-pipeline")
+        self.assertTrue(process_job.from_latest_discovery)
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [new_url])
+        self.assertEqual(job_source.total_discovered, 2)
+        self.assertEqual(job_source.total_to_process, 2)
+        self.assertEqual(job_source.processed, 2)
+        self.assertEqual(job_source.skipped, 1)
+        self.assertEqual(job_source.errors, 0)
+        self.assertEqual(job_source.status, ScrapeJobSource.Status.SUCCESS)
+        self.assertIsNone(job_source.discovery_started_at)
+        self.assertIsNone(job_source.discovery_finished_at)
+        self.assertIn("Cargando snapshot previo...", job_source.logs)
+        self.assertIn("Snapshot local:", job_source.logs)
+        self.assertIn("2 URLs del snapshot: 1 nuevas y 1 existentes; 2 acciones planificadas.", job_source.logs)
+        self.assertNotIn("Discovery parcial:", job_source.logs)
+        self.assertNotIn("Descubriendo URLs...", job_source.logs)
+        self.assertNotIn("2 descubiertas:", job_source.logs)
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="existing-1").status,
+            ScrapeJobListing.Status.SKIPPED_EXISTING,
+        )
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="new-1").status,
+            ScrapeJobListing.Status.PROCESSED,
+        )
+
+    def test_reprocess_existing_without_process_new_reports_new_snapshot_items_out_of_phase(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "existing-1",
+                "url": "https://fake.example/listing/existing-1",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 100",
+                "currency": "USD",
+                "price": 120000,
+                "covered_area": 90,
+            },
+        )
+        new_url = "https://fake.example/listing/new-1"
+        self.FakePipelineScraper.urls = [existing.url, new_url]
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(discovery_job.pk)
+        self.FakePipelineScraper.urls = []
+        self.FakePipelineScraper.parsed_urls = []
+        reprocess_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.REPROCESS_EXISTING],
+            reprocess_mode=ScrapeJob.ReprocessMode.INCOMPLETE,
+            mark_missing=False,
+        )
+
+        run_scrape_job(reprocess_job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=reprocess_job, slug="fake-pipeline")
+        source_payload = serialize_job(reprocess_job)["sources"][0]
+        self.assertTrue(reprocess_job.from_latest_discovery)
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [])
+        self.assertEqual(job_source.total_discovered, 2)
+        self.assertEqual(job_source.total_to_process, 0)
+        self.assertEqual(job_source.processed, 0)
+        self.assertEqual(source_payload["discovery_new"], 0)
+        self.assertEqual(source_payload["discovery_existing"], 1)
+        self.assertEqual(source_payload["snapshot_out_of_phase"], 1)
+        self.assertIn("Snapshot local: 1 URLs (0 fuera de fase, 1 existentes).", job_source.logs)
+        self.assertIn(
+            "2 URLs del snapshot: 1 existentes, 1 fuera de fase; 0 acciones planificadas.",
+            job_source.logs,
+        )
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="existing-1").status,
+            ScrapeJobListing.Status.EXISTING_PENDING,
+        )
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="new-1").status,
+            ScrapeJobListing.Status.NEW_PENDING,
+        )
+
+    def test_snapshot_identity_uses_existing_listing_url_when_resolver_returns_slug(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        existing_url = "https://fake.example/listing/slug-only"
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "canonical-1",
+                "url": existing_url,
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 100",
+                "currency": "USD",
+                "price": 120000,
+                "covered_area": 90,
+            },
+        )
+        self.FakePipelineScraper.urls = [existing_url]
+        self.FakePipelineScraper.identity_overrides = {existing_url: "slug-only"}
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(discovery_job.pk)
+        discovery_source = ScrapeJobSource.objects.get(job=discovery_job, slug="fake-pipeline")
+
+        discovery_item = ScrapeJobListing.objects.get(job_source=discovery_source)
+        self.assertEqual(discovery_item.external_id, "canonical-1")
+        self.assertEqual(discovery_item.listing, existing)
+        self.assertEqual(discovery_item.status, ScrapeJobListing.Status.EXISTING_PENDING)
+
+        self.FakePipelineScraper.parsed_urls = []
+        process_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+            mark_missing=False,
+        )
+        run_scrape_job(process_job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=process_job, slug="fake-pipeline")
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [])
+        self.assertEqual(job_source.updated, 0)
+        self.assertEqual(job_source.skipped, 1)
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="canonical-1").status,
+            ScrapeJobListing.Status.SKIPPED_EXISTING,
+        )
+
+    def test_process_new_without_discover_preserves_snapshot_external_ids(self):
+        Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        url = "https://fake.example/listing/slug-1"
+        self.FakePipelineScraper.urls = [url]
+        self.FakePipelineScraper.identity_overrides = {url: "api-1"}
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(discovery_job.pk)
+        discovery_source = ScrapeJobSource.objects.get(job=discovery_job, slug="fake-pipeline")
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=discovery_source).external_id,
+            "api-1",
+        )
+
+        self.FakePipelineScraper.urls = []
+        self.FakePipelineScraper.parsed_urls = []
+        process_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+            mark_missing=False,
+        )
+        run_scrape_job(process_job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=process_job, slug="fake-pipeline")
+        item = ScrapeJobListing.objects.get(job_source=job_source)
+        self.assertEqual(item.external_id, "api-1")
+        self.assertEqual(item.status, ScrapeJobListing.Status.PROCESSED)
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [url])
+        self.assertEqual(job_source.updated, 1)
+        self.assertEqual(job_source.skipped, 0)
+
+    def test_snapshot_identity_uses_listing_identity_url_when_listing_url_changed(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        snapshot_url = "https://fake.example/listing/old-slug"
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "canonical-2",
+                "url": "https://fake.example/listing/current-slug",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 200",
+                "currency": "USD",
+                "price": 130000,
+                "covered_area": 95,
+            },
+        )
+        ListingIdentity.objects.update_or_create(
+            source=source,
+            external_id=existing.external_id,
+            defaults={"url": snapshot_url, "last_seen_reason": "test"},
+        )
+        self.FakePipelineScraper.urls = [snapshot_url]
+        self.FakePipelineScraper.identity_overrides = {snapshot_url: "old-slug"}
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+
+        run_scrape_job(discovery_job.pk)
+
+        discovery_source = ScrapeJobSource.objects.get(job=discovery_job, slug="fake-pipeline")
+        discovery_item = ScrapeJobListing.objects.get(job_source=discovery_source)
+        self.assertEqual(discovery_item.external_id, "canonical-2")
+        self.assertEqual(discovery_item.listing, existing)
+        self.assertEqual(discovery_item.status, ScrapeJobListing.Status.EXISTING_PENDING)
+
+    def test_process_new_without_discover_allows_empty_latest_snapshot(self):
+        self.FakePipelineScraper.urls = []
+        discovery_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+        )
+        run_scrape_job(discovery_job.pk)
+        process_job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.PROCESS_NEW],
+            mark_missing=False,
+        )
+
+        run_scrape_job(process_job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=process_job, slug="fake-pipeline")
+        self.assertEqual(job_source.status, ScrapeJobSource.Status.SUCCESS)
+        self.assertEqual(job_source.total_discovered, 0)
+        self.assertEqual(job_source.total_to_process, 0)
+        self.assertEqual(job_source.processed, 0)
+        self.assertEqual(job_source.errors, 0)
+        self.assertIsNone(job_source.discovery_started_at)
+        self.assertIsNone(job_source.discovery_finished_at)
+        self.assertIn(
+            f"Snapshot copiado desde ScrapeJob #{discovery_job.pk}: 0 URLs.",
+            job_source.logs,
+        )
+
+    def test_reprocess_existing_incomplete_only_parses_incomplete_listing(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        complete, _ = ingest_listing(
+            source,
+            {
+                "external_id": "complete-1",
+                "url": "https://fake.example/listing/complete-1",
+                "title": "Casa completa",
+                "locality": "Hurlingham",
+                "address": "Fake 300",
+                "currency": "USD",
+                "price": 150000,
+                "covered_area": 100,
+            },
+        )
+        incomplete, _ = ingest_listing(
+            source,
+            {
+                "external_id": "incomplete-1",
+                "url": "https://fake.example/listing/incomplete-1",
+                "title": "Casa incompleta",
+                "locality": "Hurlingham",
+                "address": "Fake 400",
+            },
+        )
+        self.FakePipelineScraper.urls = [complete.url, incomplete.url]
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER, ScrapeJob.Phase.REPROCESS_EXISTING],
+            reprocess_mode=ScrapeJob.ReprocessMode.INCOMPLETE,
+        )
+
+        run_scrape_job(job.pk)
+
+        self.assertEqual(self.FakePipelineScraper.parsed_urls, [incomplete.url])
+        job_source = ScrapeJobSource.objects.get(job=job, slug="fake-pipeline")
+        self.assertEqual(job_source.total_to_process, 1)
+        self.assertEqual(job_source.processed, 1)
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="complete-1").status,
+            ScrapeJobListing.Status.EXISTING_PENDING,
+        )
+        self.assertEqual(
+            ScrapeJobListing.objects.get(job_source=job_source, external_id="incomplete-1").status,
+            ScrapeJobListing.Status.PROCESSED,
+        )
 
 
 class ScraperParserTests(TestCase):
@@ -5007,6 +5756,61 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["latitude"], -34.59)
         self.assertEqual(data["longitude"], -58.627)
         self.assertIn("Gimnasio", data["features"])
+
+    def test_century21_parser_falls_back_to_search_payload_when_detail_json_is_empty(self):
+        scraper = Century21Scraper()
+        detail_url = "https://century21.com.ar/propiedad/90596_venta-de-dos-casas-6-ambientes-hurlingham"
+
+        class FakeResponse:
+            def __init__(self, payload):
+                self.payload = payload
+
+            def json(self):
+                return self.payload
+
+        def fake_get(url):
+            if url == scraper._detail_json_url(detail_url):
+                return FakeResponse({"code": 500, "message": "No se encuentra propiedad"})
+            if url == scraper._json_url():
+                return FakeResponse(
+                    {
+                        "results": [
+                            {
+                                "urlCorrectaPropiedad": "/propiedad/90596_venta-de-dos-casas-6-ambientes-hurlingham",
+                                "id": "90596",
+                                "encabezado": "Venta de Dos Casas 6 Ambientes, Hurlingham",
+                                "tipoOperacionTxt": "en venta",
+                                "tipoPropiedad": "casa",
+                                "moneda": "USD",
+                                "precio": "177000",
+                                "m2T": 370,
+                                "m2C": 235,
+                                "recamaras": 5,
+                                "banos": 3,
+                                "calle": "Recagno",
+                                "municipio": "Hurlingham",
+                                "lat": -34.57607907430388,
+                                "lon": -58.64046777289086,
+                            }
+                        ]
+                    }
+                )
+            raise AssertionError(url)
+
+        scraper.get = fake_get
+        data = scraper.parse(detail_url)
+
+        self.assertEqual(data["external_id"], "90596_venta-de-dos-casas-6-ambientes-hurlingham")
+        self.assertEqual(data["title"], "Venta de Dos Casas 6 Ambientes, Hurlingham")
+        self.assertEqual(data["property_type"], Property.Type.HOUSE)
+        self.assertEqual(data["currency"], "USD")
+        self.assertEqual(data["price"], Decimal("177000"))
+        self.assertEqual(data["bedrooms"], 5)
+        self.assertEqual(data["bathrooms"], Decimal("3"))
+        self.assertEqual(data["total_area"], Decimal("370"))
+        self.assertEqual(data["covered_area"], Decimal("235"))
+        self.assertEqual(data["latitude"], -34.57607907430388)
+        self.assertEqual(data["longitude"], -58.64046777289086)
 
     def test_zonaprop_detail_extracts_price_address_type_and_currency_rule(self):
         cases = [
@@ -6155,7 +6959,9 @@ class ScraperParserTests(TestCase):
             """,
             "lxml",
         )
-        data = scraper.parse("https://www.valentipropiedades.com.ar/propiedad-chalet-venta-barrio-ingles-143-16")
+        url = "https://www.valentipropiedades.com.ar/propiedad-chalet-venta-barrio-ingles-143-16"
+        self.assertEqual(scraper.discovery_external_id_from_url(url), "143-16")
+        data = scraper.parse(url)
         self.assertEqual(data["external_id"], "143-16")
         self.assertEqual(data["agency"], "VALENTI PROPIEDADES")
         self.assertEqual(data["price"], Decimal("350000"))
@@ -6221,6 +7027,7 @@ class ScraperParserTests(TestCase):
         urls = list(scraper.discover())
         self.assertEqual(urls, ["https://gabrielparis.com.ar/casa-en-venta-en-villa-tesei-ficha-gpa4383"])
         self.assertEqual(scraper.discovery_stats["declared_total"], 1)
+        self.assertEqual(scraper.discovery_external_id_from_url(urls[0]), "4383")
         data = scraper.parse(urls[0])
         self.assertEqual(data["external_id"], "4383")
         self.assertEqual(data["locality"], "Villa Tesei")
@@ -6252,7 +7059,9 @@ class ScraperParserTests(TestCase):
             """,
             "lxml",
         )
-        data = scraper.parse("https://mudafy.com.ar/propiedades/av-roca-oficina-en-venta-334867")
+        url = "https://mudafy.com.ar/propiedades/av-roca-oficina-en-venta-334867"
+        self.assertEqual(scraper.discovery_external_id_from_url(url), "334867")
+        data = scraper.parse(url)
         self.assertEqual(data["external_id"], "334867")
         self.assertEqual(data["price"], Decimal("215000"))
         self.assertEqual(data["address"], "Av. Tte. Gral. Julio Argentino Roca 1200")
@@ -6372,12 +7181,47 @@ class ScraperParserTests(TestCase):
         self.assertEqual(list(scraper.discover()), ["https://century21.com.ar/propiedad/casa-1"])
         self.assertEqual(scraper.discovery_stats["declared_total"], 76)
 
+    def test_fincas_discovery_filters_out_of_target_listing_cards(self):
+        scraper = FincasScraper(max_pages=1)
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <article><a href="/propiedad-chalet-venta-merlo-sur-301-1150">Chalet en Venta en Merlo Sur</a></article>
+              <article><a href="/propiedad-casa-venta-hurlingham-301-1001">Casa en Venta en Hurlingham</a></article>
+            </body></html>
+            """,
+            "lxml",
+        )
+
+        self.assertEqual(
+            list(scraper.discover()),
+            ["https://www.haurie.argencasas.com/propiedad-casa-venta-hurlingham-301-1001"],
+        )
+
+    def test_oscar_dahbar_discovery_filters_out_of_target_listing_cards(self):
+        scraper = OscarDahbarScraper(max_pages=1)
+        scraper.soup = lambda _url: BeautifulSoup(
+            """
+            <html><body>
+              <article><a href="/ad/hermoso-departamento-en-caseros">Hermoso departamento en Caseros</a></article>
+              <article><a href="/ad/casa-en-hurlingham">Casa en Hurlingham</a></article>
+            </body></html>
+            """,
+            "lxml",
+        )
+
+        self.assertEqual(
+            list(scraper.discover()),
+            ["https://oscardahbarpropiedades.com.ar/ad/casa-en-hurlingham"],
+        )
+
     def test_remax_argentina_discovers_and_parses_public_api(self):
         scraper = RemaxArgentinaScraper()
 
         def fake_find_all(page):
             items = [
                 {
+                    "id": f"uuid-{page}",
                     "slug": f"venta-casa-{page}",
                     "operation": {"value": "sale"},
                     "geoLabel": "Hurlingham, Buenos Aires",
@@ -6396,10 +7240,11 @@ class ScraperParserTests(TestCase):
         )
         self.assertEqual(scraper.discovery_stats["declared_total"], 2)
         self.assertEqual(scraper.discovery_stats["coverage_ratio"], 100.0)
+        self.assertEqual(scraper.discovery_external_id_from_url(urls[0]), "uuid-0")
 
         detail = {
             "data": {
-                "id": "uuid-1",
+                "id": "uuid-0",
                 "title": "Casa en venta en William Morris",
                 "slug": "venta-casa-0",
                 "description": "Casa con galpon y parque",
@@ -6425,7 +7270,7 @@ class ScraperParserTests(TestCase):
         }
         scraper._api_get = lambda path, **params: detail
         data = scraper.parse(urls[0])
-        self.assertEqual(data["external_id"], "uuid-1")
+        self.assertEqual(data["external_id"], "uuid-0")
         self.assertEqual(data["locality"], "William C. Morris")
         self.assertEqual(data["neighborhood"], "william morris")
         self.assertEqual(data["agency"], "REMAX Desafio II")
@@ -6433,6 +7278,47 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["land_area"], Decimal("857"))
         self.assertEqual(data["latitude"], -34.57)
         self.assertIn("Apto credito", data["features"])
+
+    def test_remax_argentina_parses_entrepreneurship_from_search_payload_when_slug_detail_is_empty(self):
+        scraper = RemaxArgentinaScraper()
+        url = "https://www.remax.com.ar/listings/preventa-deptos-en-hurlingham"
+        search_item = {
+            "id": 588383,
+            "slug": "preventa-deptos-en-hurlingham",
+            "entrepreneurship": True,
+            "operation": {"value": "sale"},
+            "type": {"value": "departamento_estandar"},
+            "currency": {"value": "USD"},
+            "price": 100138,
+            "title": "Preventa Deptos en Hurlingham.",
+            "displayAddress": "Doctor Nicolas Repetto 929, Hurlingham",
+            "geoLabel": "Hurlingham, Buenos Aires",
+            "associate": {"officeName": "REMAX Data Work"},
+            "location": {"coordinates": [-58.6597227, -34.6250864]},
+            "totalRooms": 3,
+            "bedrooms": 2,
+            "bathrooms": 1,
+            "dimensionTotalBuilt": 82.7,
+            "dimensionCovered": 60.9,
+            "photos": [{"rawValue": "entrepreneurships/abc/photo.jpg"}],
+        }
+
+        def fake_api_get(path, **params):
+            if path == "listings/findBySlug/preventa-deptos-en-hurlingham":
+                return {"data": None, "code": 500, "message": "No se encuentra propiedad"}
+            if path == "listings/findAllWithEntrepreneurships":
+                return {"data": {"data": [search_item], "totalPages": 1, "totalItems": 1}}
+            raise AssertionError(path)
+
+        scraper._api_get = fake_api_get
+        data = scraper.parse(url)
+
+        self.assertEqual(data["external_id"], 588383)
+        self.assertEqual(data["title"], "Preventa Deptos en Hurlingham.")
+        self.assertEqual(data["property_type"], Property.Type.APARTMENT)
+        self.assertEqual(data["price"], Decimal("100138"))
+        self.assertAlmostEqual(data["latitude"], -34.6250864)
+        self.assertTrue(data["images"][0].startswith("https://d1acdg20u0pmxj.cloudfront.net/entrepreneurships/"))
 
     def test_phase_two_portal_parsers_capture_agency_and_metrics(self):
         for scraper_cls in (
@@ -7504,6 +8390,68 @@ class ScrapeCommandTests(TransactionTestCase):
         self.assertEqual(last_run["max_pages"], 2)
         self.assertFalse(last_run["mark_missing"])
 
+    def test_scraping_sources_api_refreshes_phase_catalog(self):
+        source = Source.objects.create(
+            slug="zonaprop",
+            name="Zonaprop",
+            base_url="https://www.zonaprop.com.ar",
+        )
+        failed_at = timezone.now() - timedelta(hours=2)
+        failed_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.PARTIAL,
+            selected_sources=["zonaprop"],
+            worker_config={"zonaprop": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+            started_at=failed_at,
+            finished_at=failed_at + timedelta(minutes=5),
+        )
+        ScrapeJobSource.objects.create(
+            job=failed_job,
+            source=source,
+            slug="zonaprop",
+            name="Zonaprop",
+            status=ScrapeJobSource.Status.FAILED,
+            workers=1,
+            total_discovered=0,
+            errors=1,
+            started_at=failed_at,
+            discovery_started_at=failed_at,
+            discovery_finished_at=failed_at + timedelta(minutes=5),
+            finished_at=failed_at + timedelta(minutes=5),
+        )
+        success_at = timezone.now() - timedelta(minutes=30)
+        success_job = ScrapeJob.objects.create(
+            status=ScrapeJob.Status.SUCCESS,
+            selected_sources=["zonaprop"],
+            worker_config={"zonaprop": 1},
+            phases=[ScrapeJob.Phase.DISCOVER],
+            started_at=success_at,
+            finished_at=success_at + timedelta(minutes=10),
+        )
+        ScrapeJobSource.objects.create(
+            job=success_job,
+            source=source,
+            slug="zonaprop",
+            name="Zonaprop",
+            status=ScrapeJobSource.Status.SUCCESS,
+            workers=1,
+            total_discovered=756,
+            started_at=success_at,
+            discovery_started_at=success_at,
+            discovery_finished_at=success_at + timedelta(minutes=10),
+            finished_at=success_at + timedelta(minutes=10),
+        )
+
+        response = self.client.get("/api/scraping/sources/")
+
+        self.assertEqual(response.status_code, 200)
+        catalog = {item["slug"]: item for item in response.json()}
+        zonaprop_discover = catalog["zonaprop"]["last_runs_by_phase"]["discover"]
+        self.assertEqual(zonaprop_discover["job_id"], success_job.pk)
+        self.assertEqual(zonaprop_discover["status"], ScrapeJobSource.Status.SUCCESS)
+        self.assertEqual(zonaprop_discover["total_discovered"], 756)
+        self.assertEqual(zonaprop_discover["errors"], 0)
+
     def test_early_source_failure_does_not_leave_pending_or_success_job(self):
         Path(".scrape.lock").unlink(missing_ok=True)
 
@@ -7595,6 +8543,7 @@ class ScrapeCommandTests(TransactionTestCase):
                 self.max_pages = max_pages
                 self.discovery_stats = {
                     "declared_total": 100,
+                    "broad_declared_total": 300,
                     "pages_seen": 4,
                     "urls_discovered": 10,
                     "coverage_ratio": 10.0,
@@ -7622,6 +8571,7 @@ class ScrapeCommandTests(TransactionTestCase):
         source = job.sources.get(slug="fake")
         self.assertEqual(source.status, ScrapeJobSource.Status.PARTIAL)
         self.assertIn("Cobertura discovery: 10/100", source.logs)
+        self.assertIn("Portal declara 100, API entrego 10 fichas materializables.", source.logs)
 
     def test_incomplete_discovery_does_not_mark_missing(self):
         Path(".scrape.lock").unlink(missing_ok=True)

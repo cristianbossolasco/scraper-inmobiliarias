@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "education_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Abiertos PBA - Establecimientos educativos",
@@ -28,7 +28,7 @@
         "education_access_score": 59.54,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -295,7 +295,7 @@
         "education_access_score": 72.44,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -538,7 +538,7 @@
         "education_access_score": 67.03,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -701,7 +701,7 @@
         "education_access_score": 54.8,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -836,7 +836,7 @@
         "education_access_score": 100.0,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -983,7 +983,7 @@
         "education_access_score": 57.77,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1158,7 +1158,7 @@
         "education_access_score": 62.55,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1433,7 +1433,7 @@
         "education_access_score": 54.55,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1572,7 +1572,7 @@
         "education_access_score": 59.56,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1743,7 +1743,7 @@
         "education_access_score": 65.6,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2042,7 +2042,7 @@
         "education_access_score": 57.71,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2273,7 +2273,7 @@
         "education_access_score": 68.3,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2540,7 +2540,7 @@
         "education_access_score": 53.7,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2667,7 +2667,7 @@
         "education_access_score": 52.76,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -2769,7 +2769,7 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
         "schools_count": 22,
         "schools_per_km2": 17.4813,
@@ -2782,7 +2782,7 @@
         "education_access_score": 70.61,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3225,7 +3225,7 @@
         "education_access_score": 68.39,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3480,7 +3480,7 @@
         "education_access_score": 53.29,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3739,7 +3739,7 @@
         "education_access_score": 56.97,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -3914,7 +3914,7 @@
         "education_access_score": 62.76,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4121,7 +4121,7 @@
         "education_access_score": 58.04,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4267,6 +4267,65 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "schools_count": 4,
+        "schools_per_km2": 49.1845,
+        "public_schools_count": 0,
+        "private_schools_count": 4,
+        "nearest_school_m": 0.0,
+        "nearest_kindergarten_m": 0.0,
+        "nearest_primary_school_m": 0.0,
+        "nearest_secondary_school_m": 0.0,
+        "education_access_score": 98.92,
+        "source_name": "Datos Abiertos PBA - Establecimientos educativos",
+        "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
+        "data_confidence": "high"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
         "schools_count": 0,
@@ -4280,7 +4339,7 @@
         "education_access_score": 48.89,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4387,7 +4446,7 @@
         "education_access_score": 58.72,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4630,7 +4689,7 @@
         "education_access_score": 75.16,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4813,7 +4872,7 @@
         "education_access_score": 60.23,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5132,7 +5191,7 @@
         "education_access_score": 54.28,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5331,7 +5390,7 @@
         "education_access_score": 48.69,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5578,7 +5637,7 @@
         "education_access_score": 58.29,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5913,7 +5972,7 @@
         "education_access_score": 59.87,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6296,7 +6355,7 @@
         "education_access_score": 54.21,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6511,7 +6570,7 @@
         "education_access_score": 57.83,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6686,7 +6745,7 @@
         "education_access_score": 49.15,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -6801,7 +6860,7 @@
         "education_access_score": 66.34,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7056,7 +7115,7 @@
         "education_access_score": 62.63,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7283,29 +7342,25 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
+        "area_km2": 0.1904,
         "schools_count": 0,
         "schools_per_km2": 0.0,
         "public_schools_count": 0,
         "private_schools_count": 0,
-        "nearest_school_m": 15.42,
-        "nearest_kindergarten_m": 17.94,
-        "nearest_primary_school_m": 17.9,
-        "nearest_secondary_school_m": 15.42,
-        "education_access_score": 54.66,
+        "nearest_school_m": 16.51,
+        "nearest_kindergarten_m": 19.09,
+        "nearest_primary_school_m": 19.03,
+        "nearest_secondary_school_m": 16.51,
+        "education_access_score": 54.64,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7327,32 +7382,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7401,6 +7432,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7422,7 +7457,7 @@
         "education_access_score": 58.92,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7681,7 +7716,7 @@
         "education_access_score": 53.63,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7832,7 +7867,7 @@
         "education_access_score": 68.14,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8027,7 +8062,7 @@
         "education_access_score": 61.56,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8222,7 +8257,7 @@
         "education_access_score": 62.08,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8401,7 +8436,7 @@
         "education_access_score": 61.82,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -8752,7 +8787,7 @@
         "education_access_score": 63.66,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -9163,7 +9198,7 @@
         "education_access_score": 53.54,
         "source_name": "Datos Abiertos PBA - Establecimientos educativos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-educativos",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {

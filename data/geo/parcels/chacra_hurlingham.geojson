@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "arba_chacra_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -26,8 +26,9 @@
     "assigned_zone_counts": {
       "Curapaytí": 1,
       "La Leonor": 3,
+      "Los Troncos": 1,
       "San Alberto": 1,
-      "Santa Leonor": 2,
+      "Santa Leonor": 1,
       "Virgen Esperanza": 2
     }
   },
@@ -44,7 +45,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Virgen Esperanza",
         "data_confidence": "high"
       },
@@ -104,7 +105,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Santa Leonor",
         "data_confidence": "high"
       },
@@ -378,8 +379,8 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Santa Leonor",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Los Troncos",
         "data_confidence": "high"
       },
       "geometry": {
@@ -608,7 +609,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Virgen Esperanza",
         "data_confidence": "high"
       },
@@ -702,7 +703,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "high"
       },
@@ -1008,7 +1009,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "high"
       },
@@ -1118,7 +1119,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "high"
       },
@@ -1274,7 +1275,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "San Alberto",
         "data_confidence": "high"
       },
@@ -1384,7 +1385,7 @@
         "source_archive": "135_chacra.tar.gz",
         "wfs_type": "idera:Chacra",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Curapaytí",
         "data_confidence": "high"
       },

@@ -17,6 +17,32 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--source", action="append", dest="sources")
         parser.add_argument("--all", action="store_true", dest="all_sources")
+        parser.add_argument(
+            "--phase",
+            action="append",
+            dest="phases",
+            choices=[
+                ScrapeJob.Phase.DISCOVER,
+                ScrapeJob.Phase.PROCESS_NEW,
+                ScrapeJob.Phase.REPROCESS_EXISTING,
+            ],
+            help="Fase a ejecutar. Repetible. Sin este flag conserva el scrape completo compatible.",
+        )
+        parser.add_argument(
+            "--from-latest-discovery",
+            action="store_true",
+            help="Procesa usando el ultimo snapshot completo de discovery de cada fuente.",
+        )
+        parser.add_argument(
+            "--reprocess-mode",
+            choices=[
+                ScrapeJob.ReprocessMode.INCOMPLETE,
+                ScrapeJob.ReprocessMode.STALE,
+                ScrapeJob.ReprocessMode.ALL,
+            ],
+            default=None,
+        )
+        parser.add_argument("--reprocess-stale-days", type=int, default=30)
         parser.add_argument("--max-pages", type=int, default=None)
         parser.add_argument("--start-page", type=int, default=None)
         parser.add_argument("--max-listings", type=int, default=None)
@@ -65,6 +91,10 @@ class Command(BaseCommand):
                 scrape_mode=options["mode"],
                 request_timeout_seconds=options["request_timeout"],
                 max_errors_per_source=options["max_errors"],
+                phases=options["phases"],
+                reprocess_mode=options["reprocess_mode"],
+                reprocess_stale_days=options["reprocess_stale_days"],
+                from_latest_discovery=options["from_latest_discovery"],
                 runner=ScrapeJob.Runner.COMMAND,
             )
             self.stdout.write(f"Iniciando job #{job.pk}...")

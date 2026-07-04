@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "waterways_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "OpenStreetMap Overpass API",
@@ -36,7 +36,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino"
       },
@@ -65,7 +65,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania"
       },
@@ -94,7 +94,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -123,7 +123,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -152,7 +152,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle"
       },
@@ -181,7 +181,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -210,7 +210,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle"
       },
@@ -239,7 +239,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle"
       },
@@ -268,7 +268,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián"
       },
@@ -297,7 +297,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -326,7 +326,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -355,7 +355,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle"
       },
@@ -384,7 +384,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -413,7 +413,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -442,7 +442,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club"
       },
@@ -471,7 +471,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano"
       },
@@ -500,7 +500,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Asunción"
       },
@@ -529,7 +529,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Palanco"
       },
@@ -558,7 +558,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Juanita"
       },
@@ -587,7 +587,7 @@
         "public_transport": null,
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Nuevo Parque Quirno"
       },

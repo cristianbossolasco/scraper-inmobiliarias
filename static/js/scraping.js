@@ -11,7 +11,7 @@
   const jobsList = document.getElementById("jobs-list");
   const initialOperations = readJsonScript("initial-operation-jobs", []);
   const initialScrapes = readJsonScript("initial-scrape-jobs", []);
-  const sourceCatalog = readJsonScript("source-catalog", []);
+  let sourceCatalog = readJsonScript("source-catalog", []);
   const stepLabels = {
     scrape: "Scraping",
     geocode: "Geocoding",
@@ -41,6 +41,9 @@
     note: "Nota",
     planned_sources: "Fuentes planificadas",
     processed: "Procesadas",
+    phases: "Fases",
+    reprocess_mode: "Reproceso",
+    reprocess_stale_days: "Dias antiguas",
     scrape_job_id: "ScrapeJob",
     scrape_status: "Estado scrape",
     skipped: "Omitidas",
@@ -101,6 +104,11 @@
   });
 
   document.getElementById("safe-preset").addEventListener("click", () => {
+    document.getElementById("phase-discover").checked = true;
+    document.getElementById("phase-process-new").checked = true;
+    document.getElementById("phase-reprocess-existing").checked = false;
+    document.getElementById("reprocess-mode").value = "incomplete";
+    document.getElementById("reprocess-stale-days").value = "30";
     document.getElementById("scrape-mode").value = "complete";
     document.getElementById("max-pages").value = "";
     document.getElementById("start-page").value = "";
@@ -135,6 +143,13 @@
       return;
     }
     const sources = selected.map((item) => item.value);
+    const phases = selectedPhases();
+    if (!phases.length) {
+      alert("Seleccione al menos una fase.");
+      return;
+    }
+    const fromLatestDiscovery = !phases.includes("discover")
+      && (phases.includes("process_new") || phases.includes("reprocess_existing"));
     const workers = {};
     selected.forEach((item) => {
       const input = document.querySelector(`[data-workers-for="${cssEscape(item.value)}"]`);
@@ -150,6 +165,7 @@
         params: {
           sources,
           workers,
+          phases,
           scrape_mode: valueOf("scrape-mode"),
           max_pages: optionalInt(valueOf("max-pages")),
           start_page: optionalInt(valueOf("start-page")),
@@ -158,6 +174,9 @@
           request_timeout_seconds: optionalInt(valueOf("request-timeout")),
           max_errors_per_source: optionalInt(valueOf("max-errors")),
           mark_missing: checked("mark-missing"),
+          reprocess_mode: valueOf("reprocess-mode"),
+          reprocess_stale_days: optionalInt(valueOf("reprocess-stale-days")) ?? 30,
+          from_latest_discovery: fromLatestDiscovery,
         },
       }],
     });
@@ -304,6 +323,7 @@
       return;
     }
     renderOperationJob(data, action !== "cancel");
+    if (!isActive(data)) refreshSourceCatalog();
     if (action !== "cancel") scheduleOperationPoll(data);
   }
 
@@ -323,6 +343,7 @@
       return;
     }
     renderLegacyScrapeJob(data, action !== "cancel");
+    if (!isActive(data)) refreshSourceCatalog();
     if (action !== "cancel") scheduleLegacyPoll(data);
   }
 
@@ -370,6 +391,7 @@
     if (!isActive(job) && timers.has(job.id)) {
       clearInterval(timers.get(job.id));
       timers.delete(job.id);
+      refreshSourceCatalog();
     }
   }
 
@@ -377,8 +399,44 @@
     const sourceBySlug = new Map(sourceCatalog.map((source) => [source.slug, source]));
     document.querySelectorAll("[data-source-last-run]").forEach((node) => {
       const source = sourceBySlug.get(node.dataset.sourceLastRun);
-      node.innerHTML = renderSourceLastRun(source ? source.last_run : null);
+      node.innerHTML = renderSourcePhaseRuns(source);
     });
+  }
+
+  async function refreshSourceCatalog() {
+    const response = await fetch("/api/scraping/sources/");
+    if (!response.ok) return;
+    sourceCatalog = await readJson(response);
+    renderSourceLastRuns();
+  }
+
+  function renderSourcePhaseRuns(source) {
+    if (!source) return renderSourceLastRun(null);
+    const runs = source.last_runs_by_phase || {};
+    return `
+      <span class="source-phase-runs">
+        ${renderSourcePhaseRun("Discover", runs.discover, "discover", runs.discover)}
+        ${renderSourcePhaseRun("Nuevas+bajas", runs.process_new, "process_new", runs.discover)}
+        ${renderSourcePhaseRun("Reproceso", runs.reprocess_existing, "reprocess_existing", runs.discover)}
+      </span>
+    `;
+  }
+
+  function renderSourcePhaseRun(label, run, key, latestDiscover) {
+    if (!run) return `<span class="source-phase-run"><strong>${escapeHtml(label)}</strong>: nunca</span>`;
+    const when = run.finished_at || run.started_at;
+    const date = when ? new Date(when).toLocaleString() : "sin fecha";
+    const total = Number(run.total_discovered || run.total_to_process || 0);
+    const pending = key === "process_new" && latestDiscover && run.finished_at && latestDiscover.finished_at
+      && new Date(latestDiscover.finished_at) > new Date(run.finished_at);
+    const suffix = pending ? " · pendiente desde ultimo discover" : "";
+    return `
+      <span class="source-phase-run">
+        <strong>${escapeHtml(label)}</strong>: ${escapeHtml(date)}
+        <span class="status-pill ${escapeAttribute(run.status || "")}">${escapeHtml(run.status_label || run.status || "")}</span>
+        <span>${Number(run.processed || 0)}/${total} · ${Number(run.created || 0)} nuevas · ${Number(run.updated || 0)} act. · ${Number(run.errors || 0)} err.${escapeHtml(suffix)}</span>
+      </span>
+    `;
   }
 
   function renderSourceLastRun(run) {
@@ -517,43 +575,145 @@
     if (!isActive(job) && legacyTimers.has(job.id)) {
       clearInterval(legacyTimers.get(job.id));
       legacyTimers.delete(job.id);
+      refreshSourceCatalog();
     }
   }
 
   function renderLegacySource(source) {
     const errors = Array.isArray(source.error_urls) ? source.error_urls : [];
+    const meta = sourceProgressMeta(source);
+    const loadingSnapshot = isLoadingSnapshot(source);
+    const discovered = Number(source.discovery_seen || source.total_discovered || 0);
+    const discoveryReference = Number(source.discovery_reference_total || 0);
+    const progressPercent = source.status === "discovering" && !loadingSnapshot && !Number(source.total_to_process || 0)
+      ? (
+        discoveryReference
+          ? Math.min((discovered / discoveryReference) * 100, 100)
+          : (discovered ? Math.max(Number(source.percent || 0), 8) : 0)
+      )
+      : Number(source.percent || 0);
+    const currentUrlLabel = loadingSnapshot
+      ? "Ultima URL copiada: "
+      : (source.status === "discovering" ? "Ultima URL descubierta: " : "");
+    const statusLabel = loadingSnapshot ? "Cargando snapshot" : source.status_label;
+    const statusClass = loadingSnapshot ? "running" : source.status;
     return `
       <div class="job-source">
         <div class="job-source-top">
           <div>
             <strong>${escapeHtml(source.name)}</strong>
-            <span class="status-pill ${source.status}">${escapeHtml(source.status_label)}</span>
+            <span class="status-pill ${statusClass}">${escapeHtml(statusLabel)}</span>
           </div>
           <small>${source.workers} worker${source.workers === 1 ? "" : "s"} · ${formatDuration(source.elapsed_seconds)}</small>
         </div>
-        <div class="progress-bar"><span style="width:${source.percent}%"></span></div>
-        <div class="job-meta">${source.processed}/${source.total_to_process || 0} procesadas · ${source.created} nuevas · ${source.updated} actualizadas · ${Number(source.skipped || 0)} retiradas · ${source.errors} errores</div>
+        <div class="progress-bar"><span style="width:${progressPercent}%"></span></div>
+        <div class="job-meta">${meta}</div>
         ${source.geocode_pending ? `<div class="job-meta">Geocodificacion: ${source.geocoded}/${source.geocode_pending} ubicadas · ${source.geocode_failed} sin resultado/error</div>` : ""}
-        ${source.current_url ? `<div class="current-url">${escapeHtml(source.current_url)}</div>` : ""}
+        ${source.current_url ? `<div class="current-url">${escapeHtml(currentUrlLabel)}${escapeHtml(source.current_url)}</div>` : ""}
         ${errors.length ? renderSourceErrors(errors) : ""}
         ${source.logs ? `<pre class="job-log">${escapeHtml(source.logs)}</pre>` : ""}
       </div>
     `;
   }
 
+  function isLoadingSnapshot(source) {
+    const phases = Array.isArray(source.phases) ? source.phases : [];
+    return Boolean(
+      source.loading_snapshot
+      || (
+        source.from_latest_discovery
+        && !phases.includes("discover")
+        && source.status === "discovering"
+      )
+    );
+  }
+
+  function usesSnapshotWithoutDiscover(source) {
+    const phases = Array.isArray(source.phases) ? source.phases : [];
+    return Boolean(source.from_latest_discovery && !phases.includes("discover"));
+  }
+
+  function sourceProgressMeta(source) {
+    const processed = Number(source.processed || 0);
+    const toProcess = Number(source.total_to_process || 0);
+    const discovered = Number(source.total_discovered || 0);
+    const snapshotOnly = usesSnapshotWithoutDiscover(source);
+    const outOfPhase = Number(source.snapshot_out_of_phase || 0);
+    const pieces = [];
+    if (isLoadingSnapshot(source)) {
+      pieces.push(`${Number(source.discovery_seen || discovered || 0)} URLs copiadas del snapshot`);
+      pieces.push(`${Number(source.errors || 0)} errores`);
+      return pieces.map(escapeHtml).join(" · ");
+    }
+    if (source.status === "discovering") {
+      const discoverySeen = Number(source.discovery_seen || discovered || 0);
+      const discoveryReference = Number(source.discovery_reference_total || 0);
+      pieces.push(
+        discoveryReference
+          ? `${discoverySeen} descubiertas de ~${discoveryReference}`
+          : `${discoverySeen} descubiertas hasta ahora`
+      );
+      if (outOfPhase) {
+        pieces.push(`${outOfPhase} fuera de fase`);
+      } else {
+        pieces.push(`${Number(source.discovery_new || 0)} nuevas`);
+      }
+      pieces.push(`${Number(source.discovery_existing || 0)} existentes`);
+      pieces.push(`${Number(source.errors || 0)} errores`);
+      return pieces.map(escapeHtml).join(" · ");
+    }
+    if (!toProcess && discovered && Number(source.discovery_seen || 0)) {
+      pieces.push(
+        snapshotOnly
+          ? `${Number(source.discovery_seen || discovered)} URLs del snapshot`
+          : `${Number(source.discovery_seen || discovered)} descubiertas`
+      );
+      if (outOfPhase) {
+        pieces.push(`${outOfPhase} fuera de fase`);
+      } else {
+        pieces.push(`${Number(source.discovery_new || 0)} nuevas`);
+      }
+      pieces.push(`${Number(source.discovery_existing || 0)} existentes`);
+      pieces.push(`${Number(source.total_to_process || 0)} acciones planificadas`);
+      pieces.push(`${Number(source.errors || 0)} errores`);
+      return pieces.map(escapeHtml).join(" · ");
+    }
+    if (toProcess) {
+      pieces.push(`${processed}/${toProcess} procesadas`);
+      if (discovered && discovered !== toProcess) {
+        pieces.push(snapshotOnly ? `${discovered} URLs del snapshot` : `${discovered} descubiertas`);
+      }
+    } else if (discovered) {
+      pieces.push(snapshotOnly ? `${discovered} URLs del snapshot` : `${discovered} descubiertas`);
+    } else {
+      pieces.push(`${processed}/0 procesadas`);
+    }
+    pieces.push(`${Number(source.created || 0)} nuevas`);
+    pieces.push(`${Number(source.updated || 0)} actualizadas`);
+    pieces.push(`${Number(source.skipped || 0)} omitidas`);
+    pieces.push(`${Number(source.errors || 0)} errores`);
+    return pieces.map(escapeHtml).join(" · ");
+  }
+
   function renderNestedScrapeJob(job) {
     const sources = Array.isArray(job.sources) ? job.sources : [];
     const processed = sources.reduce((total, source) => total + Number(source.processed || 0), 0);
     const total = sources.reduce((sum, source) => sum + Number(source.total_to_process || 0), 0);
+    const discovered = sources.reduce((sum, source) => sum + Number(source.total_discovered || 0), 0);
     const created = sources.reduce((sum, source) => sum + Number(source.created || 0), 0);
     const updated = sources.reduce((sum, source) => sum + Number(source.updated || 0), 0);
     const errors = sources.reduce((sum, source) => sum + Number(source.errors || 0), 0);
+    const phases = Array.isArray(job.phases) ? job.phases : [];
+    const snapshotOnly = Boolean(job.from_latest_discovery && !phases.includes("discover"));
+    const progressText = total
+      ? `${processed}/${total} procesadas`
+      : (snapshotOnly ? `${discovered} URLs del snapshot` : `${discovered} descubiertas`);
     return `
       <div class="nested-scrape-job">
         <div class="job-meta nested-scrape-meta">
           <span>ScrapeJob #${job.id}</span>
           <span class="status-pill ${job.status}">${escapeHtml(job.status_label || job.status || "")}</span>
-          <span>${processed}/${total || 0} procesadas · ${created + updated} cambios · ${errors} errores · ${formatDuration(job.elapsed_seconds)}</span>
+          <span>${progressText} · ${created + updated} cambios · ${errors} errores · ${formatDuration(job.elapsed_seconds)}</span>
         </div>
         <div class="job-source-list nested-scrape-source-list">
           ${sources.map(renderLegacySource).join("")}
@@ -665,11 +825,15 @@
       const params = steps.find((step) => step.kind === "scrape").params || {};
       const maxWorker = Math.max(1, ...Object.values(params.workers || {}).map((value) => Number(value || 1)));
       summary.push(`Fuentes: ${formatList(params.sources) || "ninguna"}`);
+      summary.push(`Fases: ${formatList(params.phases) || "compatibles"}`);
       summary.push(`Tipo: ${params.scrape_mode === "trial" ? "prueba" : "completo liviano"}`);
       summary.push(`Paginas: ${params.max_pages || "sin limite"} desde ${params.start_page || 1}`);
       summary.push(`Listings: ${params.max_listings || "sin limite"}`);
       summary.push(`Geocoding: ${Number(params.geocode_limit || 0) > 0 ? `hasta ${params.geocode_limit}` : "no, scrape liviano"}`);
       summary.push(`Marcar ausentes: ${yesNo(params.mark_missing)}`);
+      if ((params.phases || []).includes("reprocess_existing")) {
+        summary.push(`Reproceso: ${params.reprocess_mode || "incomplete"} (${params.reprocess_stale_days || 30} dias)`);
+      }
       summary.push(`Workers: hasta ${maxWorker} por fuente`);
     }
 
@@ -903,6 +1067,7 @@
     if (!isActive(job) && nestedTimers.has(id)) {
       clearInterval(nestedTimers.get(id));
       nestedTimers.delete(id);
+      refreshSourceCatalog();
     }
   }
 
@@ -1020,6 +1185,14 @@
 
   function checked(id) {
     return document.getElementById(id).checked;
+  }
+
+  function selectedPhases() {
+    return [
+      ["phase-discover", "discover"],
+      ["phase-process-new", "process_new"],
+      ["phase-reprocess-existing", "reprocess_existing"],
+    ].filter(([id]) => checked(id)).map(([, phase]) => phase);
   }
 
   function optionalInt(value) {

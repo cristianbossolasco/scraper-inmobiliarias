@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "census_tracts_2022_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
@@ -32,7 +32,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -146,7 +146,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -256,7 +256,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -386,7 +386,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -472,7 +472,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -578,7 +578,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -688,7 +688,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -802,7 +802,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -900,7 +900,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -998,7 +998,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1128,7 +1128,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1842,7 +1842,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1992,7 +1992,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2130,7 +2130,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2268,7 +2268,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2390,7 +2390,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2580,7 +2580,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2748,13 +2748,13 @@
         "tipo": "U",
         "link": "064081106",
         "assigned_zone_name": "Santa Leonor",
-        "hurlingham_overlap_m2": 126514.61,
+        "hurlingham_overlap_m2": 205348.04,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2980,7 +2980,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3098,7 +3098,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3200,7 +3200,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3366,7 +3366,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3512,7 +3512,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3618,7 +3618,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3760,7 +3760,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3902,7 +3902,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4012,7 +4012,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4106,7 +4106,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4204,7 +4204,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4370,7 +4370,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4548,7 +4548,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4702,7 +4702,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4844,7 +4844,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5062,7 +5062,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5164,7 +5164,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5286,7 +5286,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5372,7 +5372,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5502,7 +5502,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5620,7 +5620,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5718,7 +5718,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5888,7 +5888,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6022,7 +6022,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6128,7 +6128,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6250,7 +6250,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6376,7 +6376,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6622,7 +6622,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6768,7 +6768,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6926,7 +6926,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7064,7 +7064,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7158,7 +7158,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7272,7 +7272,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7430,7 +7430,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7540,7 +7540,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7658,7 +7658,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7900,7 +7900,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8006,7 +8006,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8120,7 +8120,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8242,7 +8242,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8340,7 +8340,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8518,7 +8518,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8649,14 +8649,14 @@
         "radio": "03",
         "tipo": "U",
         "link": "064080603",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "hurlingham_overlap_m2": 241607.4,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8802,7 +8802,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8910,13 +8910,13 @@
         "tipo": "U",
         "link": "064081111",
         "assigned_zone_name": "San Alberto",
-        "hurlingham_overlap_m2": 177391.97,
+        "hurlingham_overlap_m2": 179540.51,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9126,7 +9126,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9256,7 +9256,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9358,7 +9358,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9468,7 +9468,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9618,7 +9618,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9748,7 +9748,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9902,7 +9902,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10060,7 +10060,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10210,7 +10210,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10356,7 +10356,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10490,7 +10490,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10580,7 +10580,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10706,7 +10706,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10832,7 +10832,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10942,7 +10942,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11060,7 +11060,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11182,7 +11182,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11396,7 +11396,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11542,7 +11542,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11768,7 +11768,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -11886,7 +11886,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12072,7 +12072,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12290,7 +12290,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12404,7 +12404,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12642,7 +12642,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12748,7 +12748,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12862,7 +12862,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -12980,7 +12980,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13154,7 +13154,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13276,7 +13276,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13382,7 +13382,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13576,7 +13576,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13690,7 +13690,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13816,7 +13816,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13954,7 +13954,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14204,7 +14204,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14418,7 +14418,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14552,7 +14552,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14658,7 +14658,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14788,7 +14788,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14902,7 +14902,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15008,7 +15008,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15102,7 +15102,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15252,7 +15252,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15466,7 +15466,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15628,7 +15628,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15758,7 +15758,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15892,7 +15892,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15995,14 +15995,14 @@
         "radio": "02",
         "tipo": "U",
         "link": "064080602",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "hurlingham_overlap_m2": 263377.9,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16152,7 +16152,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16298,7 +16298,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16404,7 +16404,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16554,7 +16554,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16736,7 +16736,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -16910,7 +16910,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17052,7 +17052,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17194,7 +17194,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17320,7 +17320,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17454,7 +17454,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17612,7 +17612,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17758,7 +17758,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17912,7 +17912,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18035,14 +18035,14 @@
         "radio": "04",
         "tipo": "U",
         "link": "064081604",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "hurlingham_overlap_m2": 191441.96,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18172,7 +18172,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18278,7 +18278,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18396,7 +18396,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18538,7 +18538,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18660,7 +18660,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18810,7 +18810,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18928,7 +18928,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19086,7 +19086,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19240,7 +19240,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19366,7 +19366,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19464,7 +19464,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19622,7 +19622,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19760,7 +19760,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -19866,7 +19866,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20000,7 +20000,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20114,7 +20114,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20212,7 +20212,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20318,7 +20318,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20560,7 +20560,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20714,7 +20714,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20832,7 +20832,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20950,7 +20950,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -21192,7 +21192,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -21298,7 +21298,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -21976,7 +21976,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -22142,7 +22142,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -22452,7 +22452,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -22602,7 +22602,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -22716,7 +22716,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -22878,7 +22878,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -23156,7 +23156,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -23326,7 +23326,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -23448,7 +23448,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -23564,13 +23564,13 @@
         "tipo": "U",
         "link": "064081201",
         "assigned_zone_name": "Rimoldi",
-        "hurlingham_overlap_m2": 119204.4,
+        "hurlingham_overlap_m2": 119229.62,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24444,7 +24444,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24566,7 +24566,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24644,7 +24644,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24746,7 +24746,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24840,7 +24840,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -24974,7 +24974,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25092,7 +25092,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25238,7 +25238,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25340,7 +25340,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25448,13 +25448,13 @@
         "tipo": "U",
         "link": "064081011",
         "assigned_zone_name": "Luna",
-        "hurlingham_overlap_m2": 56619.66,
+        "hurlingham_overlap_m2": 56676.48,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25556,7 +25556,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25714,7 +25714,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25824,7 +25824,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25994,7 +25994,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26100,7 +26100,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26194,7 +26194,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26300,7 +26300,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26414,7 +26414,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26516,7 +26516,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26622,7 +26622,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26928,7 +26928,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27010,7 +27010,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27116,7 +27116,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27230,7 +27230,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27332,7 +27332,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27450,7 +27450,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27580,7 +27580,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27746,7 +27746,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -27876,7 +27876,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -28502,7 +28502,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -28605,14 +28605,14 @@
         "radio": "05",
         "tipo": "U",
         "link": "064081605",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "hurlingham_overlap_m2": 313279.8,
         "population_total": null,
         "households_total": null,
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -28842,7 +28842,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -28980,7 +28980,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29086,7 +29086,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29192,7 +29192,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29306,7 +29306,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29412,7 +29412,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29522,7 +29522,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29628,7 +29628,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29738,7 +29738,7 @@
         "source_note": "PBA 2022 radio resource provides geometry and radio codes; no population/housing counts were present in the downloaded resource.",
         "source_name": "Datos Abiertos PBA / INDEC - Radios censales 2022",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/radios-censales",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {

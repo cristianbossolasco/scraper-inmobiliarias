@@ -586,6 +586,7 @@ class GeoHierarchyBuilder:
             ("parque quirno", "Parque Quirno", "Parque Quirno", "Hurlingham", "zona", ""),
             ("cartero", "Cartero", "Cartero", "Hurlingham", "zona", ""),
             ("los patitos", "Los Patitos", "Los Patitos", "William C. Morris", "zona", ""),
+            ("los troncos", "Los Troncos", "Los Troncos", "William C. Morris", "zona", "Poligono manual operativo pendiente de revision oficial."),
         ]
         by_key = {}
         for row in raw_rows:
@@ -690,7 +691,7 @@ Generated at: {self.generated_at}
 
 - Barrio Ingles is no longer exported as a microzone.
 - Federal remains a zone.
-- Cartero and Los Patitos are retained from the existing canonical repo layer.
+- Cartero, Los Patitos and Los Troncos are retained from the existing canonical repo layer.
 """
         (docs_dir / "geo_hierarchy_usage.md").write_text(usage.rstrip() + "\n", encoding="utf-8")
         (docs_dir / "pending_manual_review.md").write_text(pending.rstrip() + "\n", encoding="utf-8")

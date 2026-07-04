@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "arba_circunscripcion_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -23,7 +23,7 @@
       "Polygon": 1
     },
     "assigned_zone_counts": {
-      "Villa Club": 1
+      "Los Troncos": 1
     }
   },
   "features": [
@@ -39,8 +39,8 @@
         "source_archive": "135_circunscripcion.tar.gz",
         "wfs_type": "idera:Circunscripcion",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Villa Club",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Los Troncos",
         "data_confidence": "high"
       },
       "geometry": {

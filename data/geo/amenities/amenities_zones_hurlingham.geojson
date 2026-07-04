@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "amenities_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "OpenStreetMap Overpass API",
@@ -15,7 +15,7 @@
       "properties": {
         "zone_name": "Asunción",
         "area_km2": 0.3938,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 24.05,
         "commercial_pois_count": 2,
         "commercial_pois_per_km2": 5.0791,
@@ -282,7 +282,7 @@
       "properties": {
         "zone_name": "Atepam Italia",
         "area_km2": 0.1536,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 63.81,
         "commercial_pois_count": 3,
         "commercial_pois_per_km2": 19.5265,
@@ -525,7 +525,7 @@
       "properties": {
         "zone_name": "Belgrano",
         "area_km2": 0.297,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 44.22,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -688,7 +688,7 @@
       "properties": {
         "zone_name": "Carola Lorenzini",
         "area_km2": 0.3936,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 31.51,
         "commercial_pois_count": 1,
         "commercial_pois_per_km2": 2.5409,
@@ -823,7 +823,7 @@
       "properties": {
         "zone_name": "Cartero",
         "area_km2": 0.0794,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 33.17,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -970,7 +970,7 @@
       "properties": {
         "zone_name": "Cosmopolita",
         "area_km2": 0.3223,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 46.39,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -1145,7 +1145,7 @@
       "properties": {
         "zone_name": "Curapaytí",
         "area_km2": 0.7093,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 57.22,
         "commercial_pois_count": 2,
         "commercial_pois_per_km2": 2.8197,
@@ -1420,7 +1420,7 @@
       "properties": {
         "zone_name": "Dos de Abril",
         "area_km2": 0.4137,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 18.45,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -1559,7 +1559,7 @@
       "properties": {
         "zone_name": "El Destino",
         "area_km2": 0.5872,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 22.83,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -1730,7 +1730,7 @@
       "properties": {
         "zone_name": "El Libertador",
         "area_km2": 0.6741,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 42.49,
         "commercial_pois_count": 5,
         "commercial_pois_per_km2": 7.4176,
@@ -2029,7 +2029,7 @@
       "properties": {
         "zone_name": "El Palanco",
         "area_km2": 0.6597,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 21.98,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -2260,7 +2260,7 @@
       "properties": {
         "zone_name": "El Porvenir",
         "area_km2": 0.5371,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 21.29,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -2527,7 +2527,7 @@
       "properties": {
         "zone_name": "El Progreso",
         "area_km2": 0.1572,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 20.53,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -2654,7 +2654,7 @@
       "properties": {
         "zone_name": "Federal",
         "area_km2": 0.1577,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 17.36,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -2767,9 +2767,9 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 94.76,
         "commercial_pois_count": 22,
         "commercial_pois_per_km2": 17.4813,
@@ -3212,7 +3212,7 @@
       "properties": {
         "zone_name": "Jorge Newbery",
         "area_km2": 0.4669,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 87.84,
         "commercial_pois_count": 7,
         "commercial_pois_per_km2": 14.9929,
@@ -3467,7 +3467,7 @@
       "properties": {
         "zone_name": "Juan B. de Lasalle",
         "area_km2": 0.3488,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 91.86,
         "commercial_pois_count": 6,
         "commercial_pois_per_km2": 17.2022,
@@ -3726,7 +3726,7 @@
       "properties": {
         "zone_name": "La Juanita",
         "area_km2": 0.4522,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 22.03,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -3901,7 +3901,7 @@
       "properties": {
         "zone_name": "La Leonor",
         "area_km2": 0.6904,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 40.06,
         "commercial_pois_count": 1,
         "commercial_pois_per_km2": 1.4484,
@@ -4108,7 +4108,7 @@
       "properties": {
         "zone_name": "Los Patitos",
         "area_km2": 0.2937,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 15.3,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -4265,9 +4265,68 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "amenity_density_score": 13.49,
+        "commercial_pois_count": 0,
+        "commercial_pois_per_km2": 0.0,
+        "green_access_score": 26.46,
+        "green_area_m2": 0.0,
+        "green_area_pct": 0.0,
+        "nearest_park_m": 677.23,
+        "nearest_pharmacy_m": 1490.59,
+        "nearest_supermarket_m": 1430.47,
+        "pharmacies_count": 0,
+        "supermarkets_count": 0,
+        "walkability_proxy_score": 38.36
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 18.97,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -4374,7 +4433,7 @@
       "properties": {
         "zone_name": "Luna",
         "area_km2": 0.7198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 34.34,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -4617,7 +4676,7 @@
       "properties": {
         "zone_name": "Militar",
         "area_km2": 0.1772,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 33.02,
         "commercial_pois_count": 1,
         "commercial_pois_per_km2": 5.6443,
@@ -4800,7 +4859,7 @@
       "properties": {
         "zone_name": "Mitre",
         "area_km2": 1.5379,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 23.85,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -5119,7 +5178,7 @@
       "properties": {
         "zone_name": "Nueve de Julio",
         "area_km2": 0.4924,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 52.6,
         "commercial_pois_count": 1,
         "commercial_pois_per_km2": 2.0308,
@@ -5318,7 +5377,7 @@
       "properties": {
         "zone_name": "Nuevo Parque Quirno",
         "area_km2": 0.1848,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 41.1,
         "commercial_pois_count": 1,
         "commercial_pois_per_km2": 5.4101,
@@ -5565,7 +5624,7 @@
       "properties": {
         "zone_name": "Parque Jhonston",
         "area_km2": 1.3584,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 66.84,
         "commercial_pois_count": 9,
         "commercial_pois_per_km2": 6.6253,
@@ -5900,7 +5959,7 @@
       "properties": {
         "zone_name": "Parque Quirno",
         "area_km2": 1.1008,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 59.11,
         "commercial_pois_count": 6,
         "commercial_pois_per_km2": 5.4504,
@@ -6283,7 +6342,7 @@
       "properties": {
         "zone_name": "Prensa",
         "area_km2": 0.2243,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 19.33,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -6498,7 +6557,7 @@
       "properties": {
         "zone_name": "Primero de Mayo",
         "area_km2": 0.3157,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 35.02,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -6673,7 +6732,7 @@
       "properties": {
         "zone_name": "Rimoldi",
         "area_km2": 0.1004,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 13.91,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -6788,7 +6847,7 @@
       "properties": {
         "zone_name": "Roca 1",
         "area_km2": 0.5515,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 63.93,
         "commercial_pois_count": 3,
         "commercial_pois_per_km2": 5.44,
@@ -7043,7 +7102,7 @@
       "properties": {
         "zone_name": "Roca 2",
         "area_km2": 0.8198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 56.02,
         "commercial_pois_count": 2,
         "commercial_pois_per_km2": 2.4395,
@@ -7281,29 +7340,25 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "amenity_density_score": 10.49,
+        "area_km2": 0.1904,
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "amenity_density_score": 10.47,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
-        "green_access_score": 22.14,
+        "green_access_score": 22.13,
         "green_area_m2": 0.0,
         "green_area_pct": 0.0,
-        "nearest_park_m": 892.85,
-        "nearest_pharmacy_m": 1664.68,
+        "nearest_park_m": 893.28,
+        "nearest_pharmacy_m": 1666.22,
         "nearest_supermarket_m": 1496.01,
         "pharmacies_count": 0,
         "supermarkets_count": 0,
-        "walkability_proxy_score": 35.78
+        "walkability_proxy_score": 35.77
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7325,32 +7380,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7399,6 +7430,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7409,7 +7444,7 @@
       "properties": {
         "zone_name": "San Damián",
         "area_km2": 0.9102,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 40.16,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -7668,7 +7703,7 @@
       "properties": {
         "zone_name": "Santa Clara",
         "area_km2": 0.4501,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 44.21,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -7819,7 +7854,7 @@
       "properties": {
         "zone_name": "Santa Leonor",
         "area_km2": 0.4076,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 24.53,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -8014,7 +8049,7 @@
       "properties": {
         "zone_name": "Scholnik",
         "area_km2": 0.5449,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 19.82,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,
@@ -8209,7 +8244,7 @@
       "properties": {
         "zone_name": "Villa Alemania",
         "area_km2": 0.5048,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 55.86,
         "commercial_pois_count": 2,
         "commercial_pois_per_km2": 3.9617,
@@ -8388,7 +8423,7 @@
       "properties": {
         "zone_name": "Villa Club",
         "area_km2": 2.6183,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 52.83,
         "commercial_pois_count": 5,
         "commercial_pois_per_km2": 1.9096,
@@ -8739,7 +8774,7 @@
       "properties": {
         "zone_name": "Villa Tesei Centro",
         "area_km2": 1.856,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 46.34,
         "commercial_pois_count": 5,
         "commercial_pois_per_km2": 2.694,
@@ -9150,7 +9185,7 @@
       "properties": {
         "zone_name": "Virgen Esperanza",
         "area_km2": 0.2668,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "amenity_density_score": 28.11,
         "commercial_pois_count": 0,
         "commercial_pois_per_km2": 0.0,

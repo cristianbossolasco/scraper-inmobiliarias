@@ -1,6 +1,6 @@
 # Location Intelligence Data Quality Report
 
-Generated at: 2026-06-13T03:29:55.160836+00:00
+Generated at: 2026-06-29T00:26:36.704147+00:00
 
 ## Summary
 
@@ -12,16 +12,16 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\integrated_location_value_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\zones\zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\security\security_points_hurlingham.geojson`
@@ -54,30 +54,30 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\parcels\parcels_hurlingham.geojson`
 
-- Features: 42554
+- Features: 42611
 - CRS: EPSG:4326
-- Geometry types: Polygon:42554
+- Geometry types: Polygon:42611
 - Bounds: [-58.684299, -34.6323446, -58.6168255, -34.5677947]
 
 ### OK `data\geo\parcels\blocks_hurlingham.geojson`
 
-- Features: 1767
+- Features: 1771
 - CRS: EPSG:4326
-- Geometry types: MultiPolygon:9, Polygon:1758
+- Geometry types: MultiPolygon:9, Polygon:1762
 - Bounds: [-58.6724399, -34.6323446, -58.6168255, -34.5689493]
 
 ### OK `data\geo\parcels\cadastral_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\parcels\parcel_side_measure_points_hurlingham.geojson`
 
-- Features: 175728
+- Features: 175941
 - CRS: EPSG:4326
-- Geometry types: Point:175728
+- Geometry types: Point:175941
 - Bounds: [-58.672427, -34.6323316, -58.6169162, -34.5689213]
 
 ### OK `data\geo\census\census_tracts_2022_hurlingham.geojson`
@@ -89,9 +89,9 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\census\census_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\renabap\renabap_hurlingham.geojson`
@@ -103,16 +103,16 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\renabap\renabap_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\transport\transport_stops_hurlingham.geojson`
 
-- Features: 265
+- Features: 266
 - CRS: EPSG:4326
-- Geometry types: Point:265
+- Geometry types: Point:266
 - Bounds: [-58.6737388, -34.632413, -58.6198817, -34.5701108]
 
 ### OK `data\geo\transport\transport_routes_hurlingham.geojson`
@@ -131,16 +131,16 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\transport\transport_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\amenities\amenities_osm_hurlingham.geojson`
 
-- Features: 148
+- Features: 149
 - CRS: EPSG:4326
-- Geometry types: Point:148
+- Geometry types: Point:149
 - Bounds: [-58.6682312, -34.6323453, -58.6199853, -34.5711932]
 
 ### OK `data\geo\amenities\green_spaces_hurlingham.geojson`
@@ -152,9 +152,9 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\amenities\amenities_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\education\education_points_hurlingham.geojson`
@@ -166,9 +166,9 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\education\education_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\health\health_points_hurlingham.geojson`
@@ -180,9 +180,9 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\health\health_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\flood\flood_risk_hurlingham.geojson`
@@ -201,28 +201,28 @@ Generated at: 2026-06-13T03:29:55.160836+00:00
 
 ### OK `data\geo\flood\flood_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\externalities\externalities_hurlingham.geojson`
 
-- Features: 398
+- Features: 399
 - CRS: EPSG:4326
-- Geometry types: Point:398
+- Geometry types: Point:399
 - Bounds: [-58.6698004, -34.6324246, -58.6177722, -34.5673521]
 
 ### OK `data\geo\externalities\externalities_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]
 
 ### OK `data\geo\utilities\utilities_zones_hurlingham.geojson`
 
-- Features: 42
+- Features: 43
 - CRS: EPSG:4326
-- Geometry types: Polygon:42
+- Geometry types: Polygon:43
 - Bounds: [-58.6739688, -34.6324307, -58.6164103, -34.5671712]

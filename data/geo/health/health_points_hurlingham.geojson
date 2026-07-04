@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "health_points_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
@@ -42,7 +42,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -81,7 +81,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -120,7 +120,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -159,7 +159,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -198,7 +198,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -237,7 +237,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -276,7 +276,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -315,7 +315,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -354,7 +354,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -393,7 +393,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -432,7 +432,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -471,7 +471,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -510,7 +510,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -549,7 +549,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -588,7 +588,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -627,7 +627,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {
@@ -666,7 +666,7 @@
         "source_name": "Datos Abiertos PBA - Establecimientos de salud publicos",
         "source_url": "https://catalogo.datos.gba.gob.ar/dataset/establecimientos-salud",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "high"
       },
       "geometry": {

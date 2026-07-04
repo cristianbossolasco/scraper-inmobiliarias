@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "arba_subparcela_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -42,7 +42,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -94,7 +94,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -138,7 +138,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -202,7 +202,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -274,7 +274,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -338,7 +338,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -398,7 +398,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -442,7 +442,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -486,7 +486,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -534,7 +534,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -578,7 +578,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -626,7 +626,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -670,7 +670,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -714,7 +714,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -774,7 +774,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -858,7 +858,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -906,7 +906,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -950,7 +950,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -994,7 +994,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1038,7 +1038,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1086,7 +1086,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1130,7 +1130,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1174,7 +1174,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1218,7 +1218,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1262,7 +1262,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1306,7 +1306,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1350,7 +1350,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1394,7 +1394,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "La Leonor",
         "data_confidence": "medium"
       },
@@ -1442,7 +1442,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -1510,7 +1510,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1554,7 +1554,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1606,7 +1606,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1666,7 +1666,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1710,7 +1710,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1770,7 +1770,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1814,7 +1814,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1874,7 +1874,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1926,7 +1926,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -1986,7 +1986,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2038,7 +2038,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2082,7 +2082,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2134,7 +2134,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2178,7 +2178,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2222,7 +2222,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2266,7 +2266,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2318,7 +2318,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2362,7 +2362,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2406,7 +2406,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2454,7 +2454,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2498,7 +2498,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2542,7 +2542,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2586,7 +2586,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2630,7 +2630,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2674,7 +2674,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2718,7 +2718,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2762,7 +2762,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2806,7 +2806,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2850,7 +2850,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2894,7 +2894,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2938,7 +2938,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -2982,7 +2982,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3038,7 +3038,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3090,7 +3090,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3134,7 +3134,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3178,7 +3178,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3222,7 +3222,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3266,7 +3266,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3310,7 +3310,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3354,7 +3354,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3446,7 +3446,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3518,7 +3518,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3598,7 +3598,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3666,7 +3666,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3738,7 +3738,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3802,7 +3802,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3878,7 +3878,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -3970,7 +3970,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4086,7 +4086,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4158,7 +4158,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4222,7 +4222,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4286,7 +4286,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4346,7 +4346,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4414,7 +4414,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4482,7 +4482,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "medium"
       },
@@ -4574,7 +4574,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4618,7 +4618,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4742,7 +4742,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4786,7 +4786,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4838,7 +4838,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4882,7 +4882,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -4926,7 +4926,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5046,7 +5046,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5170,7 +5170,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5222,7 +5222,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5270,7 +5270,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5314,7 +5314,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5366,7 +5366,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5410,7 +5410,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5462,7 +5462,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5514,7 +5514,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5558,7 +5558,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5614,7 +5614,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5738,7 +5738,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5862,7 +5862,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5910,7 +5910,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -5958,7 +5958,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6006,7 +6006,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6050,7 +6050,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6094,7 +6094,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6138,7 +6138,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6182,7 +6182,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6230,7 +6230,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6274,7 +6274,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6326,7 +6326,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6374,7 +6374,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6418,7 +6418,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6462,7 +6462,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6510,7 +6510,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6554,7 +6554,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6602,7 +6602,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6650,7 +6650,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6722,7 +6722,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6770,7 +6770,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6814,7 +6814,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6894,7 +6894,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -6974,7 +6974,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -7054,7 +7054,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Dos de Abril",
         "data_confidence": "medium"
       },
@@ -7106,7 +7106,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7174,7 +7174,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7274,7 +7274,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7358,7 +7358,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7462,7 +7462,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7570,7 +7570,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7666,7 +7666,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7778,7 +7778,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -7886,7 +7886,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -8038,7 +8038,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -8170,7 +8170,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },
@@ -8266,7 +8266,7 @@
         "source_archive": "135_subparcela.tar.gz",
         "wfs_type": "idera:Subparcela",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "medium"
       },

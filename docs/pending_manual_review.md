@@ -12,11 +12,18 @@ Generated at: 2026-06-15T02:04:23.824601+00:00
 ## Zone Gaps
 
 - Diagnostic gap features: 16.
-- Total gap area: 10.441 km2.
+- Total gap area: 10.360 km2.
 - Action: inspect gaps in `/territorio/` and decide whether to refine OSM/manual polygons.
+
+## Los Troncos
+
+- Current level: zona.
+- Canonical name: Los Troncos.
+- Locality: William C. Morris.
+- Action: review the manually digitized operational polygon if an official or OSM boundary becomes available.
 
 ## Source Notes
 
 - Barrio Ingles is no longer exported as a microzone.
 - Federal remains a zone.
-- Cartero and Los Patitos are retained from the existing canonical repo layer.
+- Cartero, Los Patitos and Los Troncos are retained from the existing canonical repo layer.

@@ -6,6 +6,7 @@ from .models import (
     Property,
     PropertyLocation,
     ScrapeJob,
+    ScrapeJobListing,
     ScrapeJobSource,
     ScrapeRun,
     Source,
@@ -46,3 +47,4 @@ admin.site.register(PropertyLocation)
 admin.site.register(ScrapeRun)
 admin.site.register(ScrapeJob)
 admin.site.register(ScrapeJobSource)
+admin.site.register(ScrapeJobListing)

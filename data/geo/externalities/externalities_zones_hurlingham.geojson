@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "externalities_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "OpenStreetMap Overpass API",
@@ -15,7 +15,7 @@
       "properties": {
         "zone_name": "Asunción",
         "area_km2": 0.3938,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3124.6,
         "environmental_penalty_score": 70.0,
@@ -275,7 +275,7 @@
       "properties": {
         "zone_name": "Atepam Italia",
         "area_km2": 0.1536,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3391.91,
         "environmental_penalty_score": 70.0,
@@ -511,7 +511,7 @@
       "properties": {
         "zone_name": "Belgrano",
         "area_km2": 0.297,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1.65,
         "environmental_penalty_score": 70.0,
@@ -667,7 +667,7 @@
       "properties": {
         "zone_name": "Carola Lorenzini",
         "area_km2": 0.3936,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3929.91,
         "environmental_penalty_score": 70.0,
@@ -795,7 +795,7 @@
       "properties": {
         "zone_name": "Cartero",
         "area_km2": 0.0794,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 814.41,
         "environmental_penalty_score": 70.0,
@@ -935,7 +935,7 @@
       "properties": {
         "zone_name": "Cosmopolita",
         "area_km2": 0.3223,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -1103,7 +1103,7 @@
       "properties": {
         "zone_name": "Curapaytí",
         "area_km2": 0.7093,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.01,
         "environmental_penalty_score": 70.0,
@@ -1371,7 +1371,7 @@
       "properties": {
         "zone_name": "Dos de Abril",
         "area_km2": 0.4137,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3782.14,
         "environmental_penalty_score": 70.0,
@@ -1503,7 +1503,7 @@
       "properties": {
         "zone_name": "El Destino",
         "area_km2": 0.5872,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1542.07,
         "environmental_penalty_score": 70.0,
@@ -1667,7 +1667,7 @@
       "properties": {
         "zone_name": "El Libertador",
         "area_km2": 0.6741,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3800.11,
         "environmental_penalty_score": 70.0,
@@ -1959,7 +1959,7 @@
       "properties": {
         "zone_name": "El Palanco",
         "area_km2": 0.6597,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 2562.75,
         "environmental_penalty_score": 70.0,
@@ -2183,7 +2183,7 @@
       "properties": {
         "zone_name": "El Porvenir",
         "area_km2": 0.5371,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3195.74,
         "environmental_penalty_score": 70.0,
@@ -2443,7 +2443,7 @@
       "properties": {
         "zone_name": "El Progreso",
         "area_km2": 0.1572,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3235.91,
         "environmental_penalty_score": 70.0,
@@ -2563,7 +2563,7 @@
       "properties": {
         "zone_name": "Federal",
         "area_km2": 0.1577,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 448.46,
         "distance_to_railway_m": 3491.99,
         "environmental_penalty_score": 38.61,
@@ -2669,9 +2669,9 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -3107,7 +3107,7 @@
       "properties": {
         "zone_name": "Jorge Newbery",
         "area_km2": 0.4669,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -3355,7 +3355,7 @@
       "properties": {
         "zone_name": "Juan B. de Lasalle",
         "area_km2": 0.3488,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -3607,7 +3607,7 @@
       "properties": {
         "zone_name": "La Juanita",
         "area_km2": 0.4522,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 2221.81,
         "environmental_penalty_score": 70.0,
@@ -3775,7 +3775,7 @@
       "properties": {
         "zone_name": "La Leonor",
         "area_km2": 0.6904,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 770.38,
         "environmental_penalty_score": 70.0,
@@ -3975,7 +3975,7 @@
       "properties": {
         "zone_name": "Los Patitos",
         "area_km2": 0.2937,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1766.77,
         "environmental_penalty_score": 70.0,
@@ -4125,9 +4125,61 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "distance_to_externality_m": 0.0,
+        "distance_to_railway_m": 1638.5,
+        "environmental_penalty_score": 70.0,
+        "industrial_area_m2": 0.0,
+        "industrial_area_pct": 0.0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 2042.1,
         "environmental_penalty_score": 70.0,
@@ -4227,7 +4279,7 @@
       "properties": {
         "zone_name": "Luna",
         "area_km2": 0.7198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1335.76,
         "environmental_penalty_score": 70.0,
@@ -4463,7 +4515,7 @@
       "properties": {
         "zone_name": "Militar",
         "area_km2": 0.1772,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3123.96,
         "environmental_penalty_score": 70.0,
@@ -4639,7 +4691,7 @@
       "properties": {
         "zone_name": "Mitre",
         "area_km2": 1.5379,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 2147.52,
         "environmental_penalty_score": 70.0,
@@ -4951,7 +5003,7 @@
       "properties": {
         "zone_name": "Nueve de Julio",
         "area_km2": 0.4924,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -5143,7 +5195,7 @@
       "properties": {
         "zone_name": "Nuevo Parque Quirno",
         "area_km2": 0.1848,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 762.9,
         "environmental_penalty_score": 70.0,
@@ -5383,7 +5435,7 @@
       "properties": {
         "zone_name": "Parque Jhonston",
         "area_km2": 1.3584,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -5711,7 +5763,7 @@
       "properties": {
         "zone_name": "Parque Quirno",
         "area_km2": 1.1008,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 535.74,
         "environmental_penalty_score": 70.0,
@@ -6087,7 +6139,7 @@
       "properties": {
         "zone_name": "Prensa",
         "area_km2": 0.2243,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 3181.17,
         "environmental_penalty_score": 70.0,
@@ -6295,7 +6347,7 @@
       "properties": {
         "zone_name": "Primero de Mayo",
         "area_km2": 0.3157,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 453.77,
         "environmental_penalty_score": 70.0,
@@ -6463,7 +6515,7 @@
       "properties": {
         "zone_name": "Rimoldi",
         "area_km2": 0.1004,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 179.53,
         "distance_to_railway_m": 2221.88,
         "environmental_penalty_score": 57.43,
@@ -6571,7 +6623,7 @@
       "properties": {
         "zone_name": "Roca 1",
         "area_km2": 0.5515,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -6819,7 +6871,7 @@
       "properties": {
         "zone_name": "Roca 2",
         "area_km2": 0.8198,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -7050,11 +7102,11 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "distance_to_externality_m": 0.0,
+        "area_km2": 0.1904,
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "distance_to_externality_m": 0.84,
         "distance_to_railway_m": 1854.99,
-        "environmental_penalty_score": 70.0,
+        "environmental_penalty_score": 69.94,
         "industrial_area_m2": 0.0,
         "industrial_area_pct": 0.0
       },
@@ -7062,10 +7114,6 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7087,32 +7135,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7161,6 +7185,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7171,7 +7199,7 @@
       "properties": {
         "zone_name": "San Damián",
         "area_km2": 0.9102,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 405.1,
         "environmental_penalty_score": 70.0,
@@ -7423,7 +7451,7 @@
       "properties": {
         "zone_name": "Santa Clara",
         "area_km2": 0.4501,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1.05,
         "environmental_penalty_score": 70.0,
@@ -7567,7 +7595,7 @@
       "properties": {
         "zone_name": "Santa Leonor",
         "area_km2": 0.4076,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1235.82,
         "environmental_penalty_score": 70.0,
@@ -7755,7 +7783,7 @@
       "properties": {
         "zone_name": "Scholnik",
         "area_km2": 0.5449,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1608.09,
         "environmental_penalty_score": 70.0,
@@ -7943,7 +7971,7 @@
       "properties": {
         "zone_name": "Villa Alemania",
         "area_km2": 0.5048,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 24.03,
         "environmental_penalty_score": 70.0,
@@ -8115,7 +8143,7 @@
       "properties": {
         "zone_name": "Villa Club",
         "area_km2": 2.6183,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 0.0,
         "environmental_penalty_score": 70.0,
@@ -8459,7 +8487,7 @@
       "properties": {
         "zone_name": "Villa Tesei Centro",
         "area_km2": 1.856,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 1415.95,
         "environmental_penalty_score": 70.0,
@@ -8863,7 +8891,7 @@
       "properties": {
         "zone_name": "Virgen Esperanza",
         "area_km2": 0.2668,
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "distance_to_externality_m": 0.0,
         "distance_to_railway_m": 964.03,
         "environmental_penalty_score": 70.0,

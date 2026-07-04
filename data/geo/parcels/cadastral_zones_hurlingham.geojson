@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "cadastral_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -26,7 +26,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -292,7 +292,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -534,7 +534,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -696,7 +696,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -830,7 +830,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -976,7 +976,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1150,7 +1150,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1424,7 +1424,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1562,7 +1562,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -1732,7 +1732,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2030,7 +2030,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2260,7 +2260,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2526,7 +2526,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2652,7 +2652,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -2753,7 +2753,7 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
         "parcel_count": 1632,
         "parcels_per_km2": 1296.7979,
@@ -2766,7 +2766,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3208,7 +3208,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3462,7 +3462,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3720,7 +3720,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -3894,7 +3894,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4100,7 +4100,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4245,6 +4245,64 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "parcel_count": 57,
+        "parcels_per_km2": 700.8787,
+        "parcel_area_m2_mean": 1461.53,
+        "parcel_area_m2_median": 224.0,
+        "parcel_area_m2_p25": 216.5,
+        "parcel_area_m2_p75": 232.5,
+        "block_count": 4,
+        "block_area_m2_median": 4076.87,
+        "cadastral_data_confidence": "high",
+        "source_name": "ARBA GeoARBA",
+        "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
         "parcel_count": 138,
@@ -4258,7 +4316,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4364,7 +4422,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4606,7 +4664,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -4788,7 +4846,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5106,7 +5164,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5304,7 +5362,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5550,7 +5608,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -5884,7 +5942,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6266,7 +6324,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6480,7 +6538,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6654,7 +6712,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -6768,7 +6826,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7022,7 +7080,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7248,9 +7306,9 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
+        "area_km2": 0.1904,
         "parcel_count": 323,
-        "parcels_per_km2": 1694.3555,
+        "parcels_per_km2": 1696.6912,
         "parcel_area_m2_mean": 435.02,
         "parcel_area_m2_median": 292.0,
         "parcel_area_m2_p25": 213.39,
@@ -7260,16 +7318,12 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7291,32 +7345,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7365,6 +7395,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7386,7 +7420,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7644,7 +7678,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7794,7 +7828,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -7988,7 +8022,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8182,7 +8216,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8360,7 +8394,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -8710,7 +8744,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",
@@ -9120,7 +9154,7 @@
         "cadastral_data_confidence": "high",
         "source_name": "ARBA GeoARBA",
         "source_url": "https://www.arba.gov.ar/geoarba/inicio.asp",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00"
+        "generated_at": "2026-06-29T00:09:48.931378+00:00"
       },
       "geometry": {
         "type": "Polygon",

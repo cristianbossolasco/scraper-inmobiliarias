@@ -39,8 +39,8 @@
   <section class="scraping-panel operation-panel active" data-tab-panel="scraping">
     <div class="section-heading">
       <div>
-        <h1>Scrape liviano</h1>
-        <p>Descubre, parsea e ingiere. Geocoding, zonas, seguridad y reparaciones corren como steps separados.</p>
+        <h1>Pipeline de scraping</h1>
+        <p>Descubre URLs, procesa novedades y refresca existentes en fases separadas.</p>
       </div>
       <button class="secondary-button" type="button" id="safe-preset">
         <i data-lucide="shield-check"></i> Scrape liviano seguro
@@ -60,6 +60,24 @@
       </div>
       <p class="button-help"><strong>Scrape liviano seguro</strong> carga una muestra chica. <strong>Iniciar scraping</strong> ejecuta con la parametría actual.</p>
     </details>
+
+    <div class="phase-options" aria-label="Fases de scraping">
+      <label class="checkbox-field phase-option">
+        <input id="phase-discover" type="checkbox" value="discover" checked>
+        <span>Discover</span>
+        <small class="field-help">Lee paginas de resultados y guarda el snapshot de URLs.</small>
+      </label>
+      <label class="checkbox-field phase-option">
+        <input id="phase-process-new" type="checkbox" value="process_new" checked>
+        <span>Procesar nuevas y bajas</span>
+        <small class="field-help">Parsea URLs nuevas y usa el snapshot para ausentes si esta habilitado.</small>
+      </label>
+      <label class="checkbox-field phase-option">
+        <input id="phase-reprocess-existing" type="checkbox" value="reprocess_existing">
+        <span>Reprocesar existentes</span>
+        <small class="field-help">Refresca fichas ya conocidas segun el modo elegido.</small>
+      </label>
+    </div>
 
     <div class="run-options">
       <label>
@@ -89,6 +107,20 @@
         Timeout ficha
         <input id="request-timeout" type="number" min="1" placeholder="25">
         <small class="field-help">Segundos máximos para cargar una ficha antes de contar error.</small>
+      </label>
+      <label>
+        Reproceso existentes
+        <select id="reprocess-mode">
+          <option value="incomplete">Incompletas</option>
+          <option value="stale">Antiguas</option>
+          <option value="all">Todas</option>
+        </select>
+        <small class="field-help">Aplica solo si activas Reprocesar existentes.</small>
+      </label>
+      <label>
+        Dias antiguas
+        <input id="reprocess-stale-days" type="number" min="1" value="30">
+        <small class="field-help">Umbral para el modo Antiguas.</small>
       </label>
       <label>
         Max. errores

@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "sube_points_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Transporte / SUBE - Puntos de carga",
@@ -35,11 +35,11 @@
         "CP": "1686",
         "Latitud": -34.59146,
         "Longitud": -58.63237,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -77,7 +77,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -115,7 +115,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -149,11 +149,11 @@
         "CP": "1686",
         "Latitud": -34.59064,
         "Longitud": -58.63399,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -191,7 +191,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -229,7 +229,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -267,7 +267,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -305,7 +305,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -339,11 +339,11 @@
         "CP": "1686",
         "Latitud": -34.5916,
         "Longitud": -58.63467,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -381,7 +381,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -419,7 +419,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -457,7 +457,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -495,7 +495,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -533,7 +533,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -571,7 +571,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -609,7 +609,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -647,7 +647,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -685,7 +685,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -719,11 +719,11 @@
         "CP": "B1686",
         "Latitud": -34.5926,
         "Longitud": -58.63611,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -761,7 +761,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -799,7 +799,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -837,7 +837,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -871,11 +871,11 @@
         "CP": "B1686LQS",
         "Latitud": -34.59103,
         "Longitud": -58.626,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -913,7 +913,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -947,11 +947,11 @@
         "CP": "1686",
         "Latitud": -34.58841,
         "Longitud": -58.62917,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -985,11 +985,11 @@
         "CP": "1686",
         "Latitud": -34.5899,
         "Longitud": -58.63297,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1027,7 +1027,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1065,7 +1065,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1099,11 +1099,11 @@
         "CP": "B1686FCA",
         "Latitud": -34.5879,
         "Longitud": -58.63085,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1141,7 +1141,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1175,11 +1175,11 @@
         "CP": "B1686FDG",
         "Latitud": -34.59253,
         "Longitud": -58.63621,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1217,7 +1217,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1255,7 +1255,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1293,7 +1293,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1331,7 +1331,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1369,7 +1369,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1407,7 +1407,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1445,7 +1445,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1483,7 +1483,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1521,7 +1521,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1559,7 +1559,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1597,7 +1597,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1635,7 +1635,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1669,11 +1669,11 @@
         "CP": "1686",
         "Latitud": -34.58853,
         "Longitud": -58.62922,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1711,7 +1711,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1749,7 +1749,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1783,11 +1783,11 @@
         "CP": "1686",
         "Latitud": -34.59137,
         "Longitud": -58.63439,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1825,7 +1825,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1863,7 +1863,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1901,7 +1901,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1939,7 +1939,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1977,7 +1977,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2015,7 +2015,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2053,7 +2053,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2091,7 +2091,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2129,7 +2129,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2167,7 +2167,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2205,7 +2205,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2243,7 +2243,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2281,7 +2281,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2319,7 +2319,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2357,7 +2357,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2395,7 +2395,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2433,7 +2433,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2471,7 +2471,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2509,7 +2509,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2547,7 +2547,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2585,7 +2585,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2623,7 +2623,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2661,7 +2661,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2699,7 +2699,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2737,7 +2737,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2775,7 +2775,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2813,7 +2813,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2851,7 +2851,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2889,7 +2889,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2927,7 +2927,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2961,11 +2961,11 @@
         "CP": "1686",
         "Latitud": -34.58816,
         "Longitud": -58.63121,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3003,7 +3003,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3041,7 +3041,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3079,7 +3079,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3117,7 +3117,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3155,7 +3155,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3193,7 +3193,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3231,7 +3231,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3269,7 +3269,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3307,7 +3307,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3345,7 +3345,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3383,7 +3383,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3417,11 +3417,11 @@
         "CP": "1686",
         "Latitud": -34.59915,
         "Longitud": -58.65494,
-        "assigned_zone_name": null,
+        "assigned_zone_name": "Los Troncos",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3459,7 +3459,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3497,7 +3497,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3535,7 +3535,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3573,7 +3573,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3611,7 +3611,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3649,7 +3649,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3687,7 +3687,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3725,7 +3725,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3763,7 +3763,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3801,7 +3801,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3839,7 +3839,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3877,7 +3877,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3915,7 +3915,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3953,7 +3953,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3991,7 +3991,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4029,7 +4029,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4067,7 +4067,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4105,7 +4105,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4143,7 +4143,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4181,7 +4181,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4219,7 +4219,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4257,7 +4257,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4295,7 +4295,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4333,7 +4333,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4371,7 +4371,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4409,7 +4409,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4447,7 +4447,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4485,7 +4485,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4523,7 +4523,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4561,7 +4561,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4599,7 +4599,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4637,7 +4637,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4675,7 +4675,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4713,7 +4713,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4751,7 +4751,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4789,7 +4789,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4827,7 +4827,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4865,7 +4865,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4903,7 +4903,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4941,7 +4941,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4979,7 +4979,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5017,7 +5017,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5055,7 +5055,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5093,7 +5093,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5131,7 +5131,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5169,7 +5169,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5203,11 +5203,11 @@
         "CP": "B1686FCB",
         "Latitud": -34.58815,
         "Longitud": -58.63082,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5245,7 +5245,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5283,7 +5283,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5321,7 +5321,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5355,11 +5355,11 @@
         "CP": "B1686",
         "Latitud": -34.59104,
         "Longitud": -58.63434,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5393,11 +5393,11 @@
         "CP": "B1686FCE",
         "Latitud": -34.58961,
         "Longitud": -58.6328,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5435,7 +5435,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5469,11 +5469,11 @@
         "CP": "B1686FCE",
         "Latitud": -34.58967,
         "Longitud": -58.63278,
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5511,7 +5511,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5549,7 +5549,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5587,7 +5587,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5625,7 +5625,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5663,7 +5663,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5701,7 +5701,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5739,7 +5739,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5777,7 +5777,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5815,7 +5815,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5853,7 +5853,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5891,7 +5891,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5929,7 +5929,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5967,7 +5967,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6005,7 +6005,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6043,7 +6043,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6081,7 +6081,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6119,7 +6119,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6157,7 +6157,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6195,7 +6195,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6233,7 +6233,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6271,7 +6271,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6309,7 +6309,7 @@
         "source_name": "Datos Transporte / SUBE - Puntos de carga",
         "source_url": "https://datos.transporte.gob.ar/dataset/puntos-carga-sube",
         "license": "No especificada",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {

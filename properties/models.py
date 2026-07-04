@@ -474,6 +474,16 @@ class ScrapeRun(models.Model):
 
 
 class ScrapeJob(models.Model):
+    class Phase(models.TextChoices):
+        DISCOVER = "discover", "Discover"
+        PROCESS_NEW = "process_new", "Procesar nuevas y bajas"
+        REPROCESS_EXISTING = "reprocess_existing", "Reprocesar existentes"
+
+    class ReprocessMode(models.TextChoices):
+        INCOMPLETE = "incomplete", "Incompletas"
+        STALE = "stale", "Antiguas"
+        ALL = "all", "Todas"
+
     class Runner(models.TextChoices):
         WEB = "web", "Web"
         COMMAND = "command", "Consola"
@@ -508,6 +518,12 @@ class ScrapeJob(models.Model):
     request_timeout_seconds = models.PositiveIntegerField(null=True, blank=True)
     max_errors_per_source = models.PositiveIntegerField(null=True, blank=True)
     retry_urls = models.JSONField(default=dict, blank=True)
+    phases = models.JSONField(default=list, blank=True)
+    reprocess_mode = models.CharField(
+        max_length=20, choices=ReprocessMode.choices, default=ReprocessMode.ALL
+    )
+    reprocess_stale_days = models.PositiveIntegerField(default=30)
+    from_latest_discovery = models.BooleanField(default=False)
     cancel_requested = models.BooleanField(default=False)
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
@@ -568,6 +584,53 @@ class ScrapeJobSource(models.Model):
                 fields=["job", "slug"], name="unique_job_source"
             )
         ]
+
+
+class ScrapeJobListing(models.Model):
+    class Status(models.TextChoices):
+        DISCOVERED = "discovered", "Descubierta"
+        NEW_PENDING = "new_pending", "Nueva pendiente"
+        EXISTING_PENDING = "existing_pending", "Existente pendiente"
+        PROCESSED = "processed", "Procesada"
+        SKIPPED_EXISTING = "skipped_existing", "Existente omitida"
+        GONE = "gone", "Retirada"
+        ERROR = "error", "Error"
+
+    job_source = models.ForeignKey(
+        ScrapeJobSource, related_name="snapshot_listings", on_delete=models.CASCADE
+    )
+    source = models.ForeignKey(Source, related_name="scrape_job_listings", on_delete=models.PROTECT)
+    listing = models.ForeignKey(
+        Listing,
+        related_name="scrape_job_items",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    external_id = models.CharField(max_length=160)
+    url = models.URLField(max_length=1000)
+    position = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=24, choices=Status.choices, default=Status.DISCOVERED, db_index=True
+    )
+    discovered_at = models.DateTimeField(default=timezone.now, db_index=True)
+    processed_at = models.DateTimeField(null=True, blank=True)
+    error = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["job_source_id", "position", "id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["job_source", "external_id"], name="unique_scrape_job_listing"
+            )
+        ]
+        indexes = [
+            models.Index(fields=["source", "status"], name="scrape_item_src_status_idx"),
+            models.Index(fields=["job_source", "status"], name="scrape_item_job_status_idx"),
+        ]
+
+    def __str__(self):
+        return f"{self.job_source_id}: {self.external_id}"
 
 
 class GeocodeCache(models.Model):

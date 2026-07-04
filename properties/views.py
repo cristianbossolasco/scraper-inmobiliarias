@@ -3778,6 +3778,12 @@ def create_scrape_job_api(request):
         max_errors = _optional_positive_int(
             payload.get("max_errors_per_source"), "max_errors_per_source"
         )
+        phases = payload.get("phases")
+        reprocess_mode = payload.get("reprocess_mode") or ScrapeJob.ReprocessMode.ALL
+        reprocess_stale_days = _optional_positive_int(
+            payload.get("reprocess_stale_days"), "reprocess_stale_days"
+        ) or 30
+        from_latest_discovery = _payload_bool(payload, "from_latest_discovery", False)
         job = create_scrape_job(
             sources,
             workers,
@@ -3789,6 +3795,10 @@ def create_scrape_job_api(request):
             scrape_mode=scrape_mode,
             request_timeout_seconds=request_timeout,
             max_errors_per_source=max_errors,
+            phases=phases,
+            reprocess_mode=reprocess_mode,
+            reprocess_stale_days=reprocess_stale_days,
+            from_latest_discovery=from_latest_discovery,
             enforce_single_active=True,
         )
         start_scrape_job(job)
@@ -3806,6 +3816,12 @@ def scrape_job_status_api(request, pk):
     mark_stale_running_jobs()
     job = get_object_or_404(ScrapeJob.objects.prefetch_related("sources"), pk=pk)
     return JsonResponse(serialize_job(job))
+
+
+@require_GET
+def scraping_sources_api(request):
+    mark_stale_running_jobs()
+    return JsonResponse(source_catalog(include_disabled=True), safe=False)
 
 
 @require_POST

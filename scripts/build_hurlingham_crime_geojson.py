@@ -569,8 +569,8 @@ def load_zones(path: Path) -> dict[str, Any]:
     if payload.get("type") != "FeatureCollection":
         raise ValueError(f"Zones file is not a FeatureCollection: {path}")
     features = payload.get("features") or []
-    if len(features) != 42:
-        raise ValueError(f"Expected 42 zone features, got {len(features)}")
+    if not features:
+        raise ValueError(f"Expected at least one zone feature, got {len(features)}")
     bad = [
         (feature.get("properties") or {}).get("zone_name")
         for feature in features
@@ -827,8 +827,8 @@ def validate_outputs(
     if zone_geojson.get("type") != "FeatureCollection":
         raise ValueError("crime_zones_hurlingham.geojson must be a FeatureCollection")
     features = zone_geojson.get("features") or []
-    if len(features) != 42:
-        raise ValueError(f"Expected 42 crime zone features, got {len(features)}")
+    if not features:
+        raise ValueError(f"Expected at least one crime zone feature, got {len(features)}")
     for feature in features:
         geometry_type = (feature.get("geometry") or {}).get("type")
         props = feature.get("properties") or {}

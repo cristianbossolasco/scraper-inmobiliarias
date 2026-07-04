@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "arba_seccion_catastral_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -47,7 +47,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Mitre",
         "data_confidence": "high"
       },
@@ -577,7 +577,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Virgen Esperanza",
         "data_confidence": "high"
       },
@@ -1097,7 +1097,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Villa Club",
         "data_confidence": "high"
       },
@@ -1169,7 +1169,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 1",
         "data_confidence": "high"
       },
@@ -1619,7 +1619,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Jorge Newbery",
         "data_confidence": "high"
       },
@@ -1707,7 +1707,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Palanco",
         "data_confidence": "high"
       },
@@ -1977,7 +1977,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "high"
       },
@@ -2137,7 +2137,7 @@
         "source_archive": "135_seccion_catastral.tar.gz",
         "wfs_type": "idera:Seccion_Catastral",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Carola Lorenzini",
         "data_confidence": "high"
       },

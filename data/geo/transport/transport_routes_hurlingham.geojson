@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "transport_routes_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
@@ -20,11 +20,11 @@
         "Sentido": "IDA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2081,11 +2081,11 @@
         "Sentido": "VUELTA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4086,11 +4086,11 @@
         "Sentido": "IDA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6463,11 +6463,11 @@
         "Sentido": "VUELTA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8776,11 +8776,11 @@
         "Sentido": "IDA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -10989,11 +10989,11 @@
         "Sentido": "VUELTA",
         "Razon_soci": "LINEA 213 SA DE TRANSPORTE",
         "Jurisdicci": "NACIONAL",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -13218,7 +13218,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -14271,7 +14271,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -15868,7 +15868,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -17521,7 +17521,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -18810,7 +18810,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -20147,7 +20147,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -21620,7 +21620,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -23361,7 +23361,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -25354,7 +25354,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -26971,7 +26971,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -28232,7 +28232,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -29889,7 +29889,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -31698,7 +31698,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -33523,7 +33523,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -35208,7 +35208,7 @@
         "source_name": "Datos Transporte - Recorridos de servicios de colectivos AMBA",
         "source_url": "https://datos.transporte.gob.ar/dataset/recorridos-de-servicios-de-colectivos-amba",
         "license": "Creative Commons Attribution 4.0",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {

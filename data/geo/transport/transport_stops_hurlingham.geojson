@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "transport_stops_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "OpenStreetMap Overpass API",
@@ -36,7 +36,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano",
         "source_geometry_type": "Point"
@@ -66,7 +66,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -96,7 +96,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -126,9 +126,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -156,7 +156,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -186,7 +186,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -216,7 +216,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -246,7 +246,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -276,9 +276,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -306,7 +306,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 1",
         "source_geometry_type": "Point"
@@ -336,7 +336,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -366,7 +366,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -396,7 +396,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -426,7 +426,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -456,9 +456,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -486,9 +486,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -516,7 +516,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -546,9 +546,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -576,7 +576,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -606,7 +606,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -636,9 +636,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -666,9 +666,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -696,7 +696,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Quirno",
         "source_geometry_type": "Point"
@@ -726,7 +726,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Quirno",
         "source_geometry_type": "Point"
@@ -756,9 +756,9 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -786,7 +786,7 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 1",
         "source_geometry_type": "Point"
@@ -816,7 +816,7 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -846,7 +846,7 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -876,7 +876,7 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -906,7 +906,7 @@
         "public_transport": "station",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -936,9 +936,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -966,7 +966,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -996,7 +996,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -1026,9 +1026,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1056,9 +1056,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1086,9 +1086,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1116,9 +1116,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1146,9 +1146,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1176,9 +1176,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1206,7 +1206,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -1236,7 +1236,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -1266,7 +1266,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -1296,7 +1296,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -1326,9 +1326,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1356,9 +1356,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1386,9 +1386,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1416,9 +1416,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1446,9 +1446,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1476,9 +1476,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1506,9 +1506,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1536,9 +1536,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1566,9 +1566,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1596,9 +1596,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1626,9 +1626,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1656,9 +1656,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1686,9 +1686,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1716,9 +1716,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1746,9 +1746,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1776,9 +1776,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1806,9 +1806,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1836,7 +1836,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -1866,7 +1866,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -1896,7 +1896,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -1926,9 +1926,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -1956,7 +1956,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -1986,7 +1986,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Quirno",
         "source_geometry_type": "Point"
@@ -2016,7 +2016,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -2046,7 +2046,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2076,7 +2076,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2106,7 +2106,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2136,7 +2136,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2166,9 +2166,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -2196,7 +2196,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -2226,7 +2226,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Quirno",
         "source_geometry_type": "Point"
@@ -2256,7 +2256,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -2286,7 +2286,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2316,7 +2316,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2346,7 +2346,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2376,7 +2376,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2406,7 +2406,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Palanco",
         "source_geometry_type": "Point"
@@ -2436,7 +2436,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2466,7 +2466,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2496,7 +2496,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -2526,7 +2526,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Militar",
         "source_geometry_type": "Point"
@@ -2556,7 +2556,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Prensa",
         "source_geometry_type": "Point"
@@ -2586,7 +2586,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -2616,7 +2616,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Prensa",
         "source_geometry_type": "Point"
@@ -2646,7 +2646,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -2676,7 +2676,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Prensa",
         "source_geometry_type": "Point"
@@ -2706,7 +2706,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -2736,7 +2736,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -2766,7 +2766,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -2796,7 +2796,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -2826,9 +2826,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -2856,7 +2856,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -2886,7 +2886,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -2916,7 +2916,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -2946,7 +2946,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -2976,7 +2976,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -3006,7 +3006,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3036,7 +3036,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -3066,7 +3066,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3096,7 +3096,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3126,7 +3126,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3156,7 +3156,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -3186,7 +3186,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -3216,7 +3216,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Carola Lorenzini",
         "source_geometry_type": "Point"
@@ -3246,7 +3246,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -3276,7 +3276,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -3306,7 +3306,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Porvenir",
         "source_geometry_type": "Point"
@@ -3336,7 +3336,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -3366,9 +3366,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -3396,7 +3396,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -3426,7 +3426,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -3456,7 +3456,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Asunción",
         "source_geometry_type": "Point"
@@ -3486,7 +3486,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Asunción",
         "source_geometry_type": "Point"
@@ -3516,7 +3516,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -3546,7 +3546,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3576,7 +3576,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3606,7 +3606,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3636,7 +3636,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3666,7 +3666,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3696,7 +3696,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3726,7 +3726,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3756,7 +3756,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3786,7 +3786,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3816,7 +3816,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3846,7 +3846,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3876,7 +3876,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3906,7 +3906,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -3936,9 +3936,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -3966,9 +3966,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -3996,9 +3996,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -4026,9 +4026,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -4056,9 +4056,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -4086,7 +4086,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4116,7 +4116,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4146,7 +4146,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4176,7 +4176,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4206,7 +4206,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4236,7 +4236,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4266,7 +4266,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Palanco",
         "source_geometry_type": "Point"
@@ -4296,7 +4296,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Palanco",
         "source_geometry_type": "Point"
@@ -4326,7 +4326,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Militar",
         "source_geometry_type": "Point"
@@ -4356,7 +4356,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Militar",
         "source_geometry_type": "Point"
@@ -4386,7 +4386,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -4416,7 +4416,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Atepam Italia",
         "source_geometry_type": "Point"
@@ -4446,7 +4446,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 2",
         "source_geometry_type": "Point"
@@ -4476,7 +4476,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -4506,7 +4506,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 2",
         "source_geometry_type": "Point"
@@ -4536,7 +4536,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -4566,7 +4566,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 2",
         "source_geometry_type": "Point"
@@ -4596,7 +4596,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -4626,7 +4626,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 2",
         "source_geometry_type": "Point"
@@ -4656,7 +4656,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -4686,7 +4686,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 1",
         "source_geometry_type": "Point"
@@ -4716,7 +4716,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -4746,7 +4746,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 1",
         "source_geometry_type": "Point"
@@ -4776,7 +4776,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -4806,7 +4806,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -4836,7 +4836,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -4866,7 +4866,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -4896,7 +4896,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Porvenir",
         "source_geometry_type": "Point"
@@ -4926,7 +4926,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4956,7 +4956,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -4986,7 +4986,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -5016,7 +5016,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5046,7 +5046,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5076,7 +5076,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5106,7 +5106,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5136,7 +5136,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5146,6 +5146,36 @@
         "coordinates": [
           -58.6518587,
           -34.601613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "osm_node_11090815665",
+        "osm_type": "node",
+        "osm_id": 11090815665,
+        "name": "Stepinac",
+        "amenity": null,
+        "shop": null,
+        "leisure": null,
+        "landuse": null,
+        "highway": "bus_stop",
+        "railway": null,
+        "waterway": null,
+        "public_transport": "platform",
+        "source_name": "OpenStreetMap Overpass API",
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "data_confidence": "medium",
+        "assigned_zone_name": "Los Troncos",
+        "source_geometry_type": "Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.6538101,
+          -34.6000535
         ]
       }
     },
@@ -5166,7 +5196,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Leonor",
         "source_geometry_type": "Point"
@@ -5196,7 +5226,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Leonor",
         "source_geometry_type": "Point"
@@ -5226,7 +5256,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Leonor",
         "source_geometry_type": "Point"
@@ -5256,7 +5286,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -5286,7 +5316,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -5316,7 +5346,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -5346,7 +5376,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"
@@ -5376,7 +5406,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"
@@ -5406,7 +5436,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -5436,9 +5466,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -5466,7 +5496,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -5496,9 +5526,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -5526,9 +5556,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -5556,7 +5586,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -5586,7 +5616,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -5616,7 +5646,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Juan B. de Lasalle",
         "source_geometry_type": "Point"
@@ -5646,7 +5676,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Roca 2",
         "source_geometry_type": "Point"
@@ -5676,7 +5706,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -5706,9 +5736,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -5736,7 +5766,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -5766,7 +5796,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Alemania",
         "source_geometry_type": "Point"
@@ -5796,7 +5826,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -5826,7 +5856,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Mitre",
         "source_geometry_type": "Point"
@@ -5856,7 +5886,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Los Pinos",
         "source_geometry_type": "Point"
@@ -5886,7 +5916,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5916,7 +5946,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5946,7 +5976,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -5976,7 +6006,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Alberto",
         "source_geometry_type": "Point"
@@ -6006,7 +6036,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Los Patitos",
         "source_geometry_type": "Point"
@@ -6036,7 +6066,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Los Patitos",
         "source_geometry_type": "Point"
@@ -6066,7 +6096,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino",
         "source_geometry_type": "Point"
@@ -6096,7 +6126,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -6126,7 +6156,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -6156,7 +6186,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Mitre",
         "source_geometry_type": "Point"
@@ -6186,7 +6216,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Mitre",
         "source_geometry_type": "Point"
@@ -6216,7 +6246,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -6246,7 +6276,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -6276,7 +6306,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cartero",
         "source_geometry_type": "Point"
@@ -6306,7 +6336,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Virgen Esperanza",
         "source_geometry_type": "Point"
@@ -6336,7 +6366,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Curapaytí",
         "source_geometry_type": "Point"
@@ -6366,7 +6396,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6396,7 +6426,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Primero de Mayo",
         "source_geometry_type": "Point"
@@ -6426,7 +6456,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6456,7 +6486,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6486,7 +6516,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Primero de Mayo",
         "source_geometry_type": "Point"
@@ -6516,7 +6546,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"
@@ -6546,7 +6576,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"
@@ -6576,7 +6606,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Curapaytí",
         "source_geometry_type": "Point"
@@ -6606,7 +6636,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Clara",
         "source_geometry_type": "Point"
@@ -6636,7 +6666,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Clara",
         "source_geometry_type": "Point"
@@ -6666,7 +6696,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Cosmopolita",
         "source_geometry_type": "Point"
@@ -6696,7 +6726,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6726,7 +6756,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6756,7 +6786,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Luna",
         "source_geometry_type": "Point"
@@ -6786,7 +6816,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Santa Clara",
         "source_geometry_type": "Point"
@@ -6816,7 +6846,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino",
         "source_geometry_type": "Point"
@@ -6846,7 +6876,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino",
         "source_geometry_type": "Point"
@@ -6876,7 +6906,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "La Leonor",
         "source_geometry_type": "Point"
@@ -6906,7 +6936,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino",
         "source_geometry_type": "Point"
@@ -6936,7 +6966,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Destino",
         "source_geometry_type": "Point"
@@ -6966,7 +6996,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Los Pinos",
         "source_geometry_type": "Point"
@@ -6996,7 +7026,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Mitre",
         "source_geometry_type": "Point"
@@ -7026,7 +7056,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Mitre",
         "source_geometry_type": "Point"
@@ -7056,7 +7086,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -7086,7 +7116,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Tesei Centro",
         "source_geometry_type": "Point"
@@ -7116,9 +7146,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7146,7 +7176,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -7176,7 +7206,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "El Libertador",
         "source_geometry_type": "Point"
@@ -7206,9 +7236,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7236,9 +7266,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7266,9 +7296,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7296,9 +7326,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7326,9 +7356,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7356,7 +7386,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano",
         "source_geometry_type": "Point"
@@ -7386,7 +7416,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano",
         "source_geometry_type": "Point"
@@ -7416,7 +7446,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano",
         "source_geometry_type": "Point"
@@ -7446,7 +7476,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Belgrano",
         "source_geometry_type": "Point"
@@ -7476,7 +7506,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Jorge Newbery",
         "source_geometry_type": "Point"
@@ -7506,9 +7536,9 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7536,7 +7566,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -7566,7 +7596,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -7596,7 +7626,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Parque Jhonston",
         "source_geometry_type": "Point"
@@ -7626,7 +7656,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7656,7 +7686,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7686,7 +7716,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7716,7 +7746,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7746,7 +7776,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7776,7 +7806,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7806,7 +7836,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7836,7 +7866,7 @@
         "public_transport": "platform",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "Villa Club",
         "source_geometry_type": "Point"
@@ -7866,9 +7896,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7896,9 +7926,9 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
-        "assigned_zone_name": "Hurlingham Centro",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "source_geometry_type": "Point"
       },
       "geometry": {
@@ -7926,7 +7956,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"
@@ -7956,7 +7986,7 @@
         "public_transport": "stop_position",
         "source_name": "OpenStreetMap Overpass API",
         "source_url": "https://overpass-api.de/api/interpreter",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "data_confidence": "medium",
         "assigned_zone_name": "San Damián",
         "source_geometry_type": "Point"

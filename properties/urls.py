@@ -31,6 +31,7 @@ urlpatterns = [
         name="location_intelligence_layers",
     ),
     path("api/scraping/jobs/", views.create_scrape_job_api, name="scrape_job_create"),
+    path("api/scraping/sources/", views.scraping_sources_api, name="scrape_sources"),
     path("api/scraping/jobs/<int:pk>/", views.scrape_job_status_api, name="scrape_job_status"),
     path(
         "api/scraping/jobs/<int:pk>/cancel/",

@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "transport_zones_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T02:11:01.209890+00:00",
+    "generated_at": "2026-06-29T00:24:57.845820+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "Datos Transporte / SUBE",
@@ -26,7 +26,7 @@
         "transport_access_score": 58.89,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -291,7 +291,7 @@
         "transport_access_score": 82.22,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -532,7 +532,7 @@
         "transport_access_score": 23.09,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -693,7 +693,7 @@
         "transport_access_score": 16.11,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -826,7 +826,7 @@
         "transport_access_score": 23.27,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -971,7 +971,7 @@
         "transport_access_score": 41.06,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1144,7 +1144,7 @@
         "transport_access_score": 36.2,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1417,7 +1417,7 @@
         "transport_access_score": 17.22,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1554,7 +1554,7 @@
         "transport_access_score": 62.22,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -1723,7 +1723,7 @@
         "transport_access_score": 31.75,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2020,7 +2020,7 @@
         "transport_access_score": 54.44,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2249,7 +2249,7 @@
         "transport_access_score": 44.1,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2514,7 +2514,7 @@
         "transport_access_score": 28.77,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2639,7 +2639,7 @@
         "transport_access_score": 17.22,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -2741,7 +2741,7 @@
     {
       "type": "Feature",
       "properties": {
-        "zone_name": "Hurlingham Centro",
+        "zone_name": "Hurlingham Centro (Barrio Ingles)",
         "area_km2": 1.2585,
         "official_bus_route_count": 10,
         "official_bus_lines_count": 2,
@@ -2752,7 +2752,7 @@
         "transport_access_score": 84.44,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3193,7 +3193,7 @@
         "transport_access_score": 68.89,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3446,7 +3446,7 @@
         "transport_access_score": 68.89,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3703,7 +3703,7 @@
         "transport_access_score": 56.67,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -3876,7 +3876,7 @@
         "transport_access_score": 58.89,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4081,7 +4081,7 @@
         "transport_access_score": 39.57,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4227,6 +4227,63 @@
     {
       "type": "Feature",
       "properties": {
+        "zone_name": "Los Troncos",
+        "area_km2": 0.0813,
+        "official_bus_route_count": 4,
+        "official_bus_lines_count": 1,
+        "official_bus_lines": "163",
+        "sube_points_count": 1,
+        "nearest_official_bus_route_m": 0.0,
+        "nearest_sube_point_m": 0.0,
+        "transport_access_score": 54.44,
+        "source_name": "Datos Transporte / SUBE",
+        "source_url": "https://datos.transporte.gob.ar/",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
+        "data_confidence": "medium"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.6540381,
+              -34.5972125
+            ],
+            [
+              -58.6519366,
+              -34.5988945
+            ],
+            [
+              -58.6517397,
+              -34.6013543
+            ],
+            [
+              -58.6519961,
+              -34.6015722
+            ],
+            [
+              -58.6517028,
+              -34.6018145
+            ],
+            [
+              -58.6517,
+              -34.60185
+            ],
+            [
+              -58.6554802,
+              -34.5987577
+            ],
+            [
+              -58.6540381,
+              -34.5972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "zone_name": "Los Pinos",
         "area_km2": 0.0885,
         "official_bus_route_count": 0,
@@ -4238,7 +4295,7 @@
         "transport_access_score": 39.94,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4343,7 +4400,7 @@
         "transport_access_score": 63.33,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4584,7 +4641,7 @@
         "transport_access_score": 53.28,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -4765,7 +4822,7 @@
         "transport_access_score": 66.67,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5082,7 +5139,7 @@
         "transport_access_score": 40.03,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5279,7 +5336,7 @@
         "transport_access_score": 24.41,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5524,7 +5581,7 @@
         "transport_access_score": 43.76,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -5857,7 +5914,7 @@
         "transport_access_score": 27.16,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6238,7 +6295,7 @@
         "transport_access_score": 67.78,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6451,7 +6508,7 @@
         "transport_access_score": 25.53,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6624,7 +6681,7 @@
         "transport_access_score": 35.11,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6737,7 +6794,7 @@
         "transport_access_score": 44.41,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -6990,7 +7047,7 @@
         "transport_access_score": 46.62,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7217,27 +7274,23 @@
       "type": "Feature",
       "properties": {
         "zone_name": "San Alberto",
-        "area_km2": 0.1906,
+        "area_km2": 0.1904,
         "official_bus_route_count": 0,
         "official_bus_lines_count": 0,
         "official_bus_lines": "",
         "sube_points_count": 0,
-        "nearest_official_bus_route_m": 3.54,
-        "nearest_sube_point_m": 3.57,
+        "nearest_official_bus_route_m": 3.7,
+        "nearest_sube_point_m": 3.91,
         "transport_access_score": 39.9,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              -58.6597902,
-              -34.6024623
-            ],
             [
               -58.6592066,
               -34.6019764
@@ -7259,32 +7312,8 @@
               -34.5987577
             ],
             [
-              -58.6550158,
-              -34.5991338
-            ],
-            [
-              -58.6547924,
-              -34.5993143
-            ],
-            [
-              -58.6540574,
-              -34.5999083
-            ],
-            [
-              -58.6538851,
-              -34.6000498
-            ],
-            [
-              -58.6533273,
-              -34.6005017
-            ],
-            [
-              -58.6531844,
-              -34.6006174
-            ],
-            [
-              -58.6529958,
-              -34.6007689
+              -58.6530093,
+              -34.600779
             ],
             [
               -58.6545335,
@@ -7333,6 +7362,10 @@
             [
               -58.6597902,
               -34.6024623
+            ],
+            [
+              -58.6592066,
+              -34.6019764
             ]
           ]
         ]
@@ -7352,7 +7385,7 @@
         "transport_access_score": 73.33,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7609,7 +7642,7 @@
         "transport_access_score": 31.57,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7758,7 +7791,7 @@
         "transport_access_score": 54.44,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -7951,7 +7984,7 @@
         "transport_access_score": 36.36,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8144,7 +8177,7 @@
         "transport_access_score": 68.89,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8321,7 +8354,7 @@
         "transport_access_score": 86.67,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -8670,7 +8703,7 @@
         "transport_access_score": 72.22,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {
@@ -9079,7 +9112,7 @@
         "transport_access_score": 32.76,
         "source_name": "Datos Transporte / SUBE",
         "source_url": "https://datos.transporte.gob.ar/",
-        "generated_at": "2026-06-13T02:11:01.209890+00:00",
+        "generated_at": "2026-06-29T00:24:57.845820+00:00",
         "data_confidence": "medium"
       },
       "geometry": {

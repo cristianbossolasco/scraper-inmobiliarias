@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "name": "arba_quinta_hurlingham",
   "metadata": {
-    "generated_at": "2026-06-13T00:57:25.261787+00:00",
+    "generated_at": "2026-06-29T00:09:48.931378+00:00",
     "crs": "EPSG:4326",
     "scope": "Partido de Hurlingham, Buenos Aires, Argentina",
     "source_name": "ARBA GeoARBA",
@@ -25,7 +25,7 @@
     },
     "assigned_zone_counts": {
       "El Libertador": 16,
-      "Hurlingham Centro": 6,
+      "Hurlingham Centro (Barrio Ingles)": 6,
       "Juan B. de Lasalle": 1,
       "Nueve de Julio": 1,
       "Parque Jhonston": 3,
@@ -49,8 +49,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -209,7 +209,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 2",
         "data_confidence": "high"
       },
@@ -469,7 +469,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Nueve de Julio",
         "data_confidence": "high"
       },
@@ -769,8 +769,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -1021,7 +1021,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -1229,7 +1229,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Quirno",
         "data_confidence": "high"
       },
@@ -1325,7 +1325,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -1533,7 +1533,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -1685,7 +1685,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Jhonston",
         "data_confidence": "high"
       },
@@ -1799,7 +1799,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -1939,7 +1939,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -2055,7 +2055,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 2",
         "data_confidence": "high"
       },
@@ -2379,7 +2379,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 1",
         "data_confidence": "high"
       },
@@ -2659,7 +2659,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 1",
         "data_confidence": "high"
       },
@@ -2831,7 +2831,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 1",
         "data_confidence": "high"
       },
@@ -2947,7 +2947,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 2",
         "data_confidence": "high"
       },
@@ -3165,7 +3165,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -3337,7 +3337,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 2",
         "data_confidence": "high"
       },
@@ -3657,7 +3657,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -3757,7 +3757,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -3985,7 +3985,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Villa Tesei Centro",
         "data_confidence": "high"
       },
@@ -4209,7 +4209,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Villa Club",
         "data_confidence": "high"
       },
@@ -4417,8 +4417,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -4693,7 +4693,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -4893,7 +4893,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -5045,7 +5045,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Juan B. de Lasalle",
         "data_confidence": "high"
       },
@@ -5089,7 +5089,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -5177,7 +5177,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Villa Club",
         "data_confidence": "high"
       },
@@ -5261,7 +5261,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -5605,8 +5605,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -5821,7 +5821,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -5997,7 +5997,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -6301,7 +6301,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Jhonston",
         "data_confidence": "high"
       },
@@ -6449,7 +6449,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Roca 2",
         "data_confidence": "high"
       },
@@ -6717,7 +6717,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },
@@ -6897,8 +6897,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7205,8 +7205,8 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
-        "assigned_zone_name": "Hurlingham Centro",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
+        "assigned_zone_name": "Hurlingham Centro (Barrio Ingles)",
         "data_confidence": "high"
       },
       "geometry": {
@@ -7389,7 +7389,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "Parque Jhonston",
         "data_confidence": "high"
       },
@@ -7571,7 +7571,7 @@
         "source_archive": "135_quinta.tar.gz",
         "wfs_type": "idera:Quinta",
         "input_crs": "EPSG:5347",
-        "generated_at": "2026-06-13T00:57:25.261787+00:00",
+        "generated_at": "2026-06-29T00:09:48.931378+00:00",
         "assigned_zone_name": "El Libertador",
         "data_confidence": "high"
       },

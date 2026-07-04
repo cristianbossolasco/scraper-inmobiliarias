@@ -779,6 +779,10 @@ def _run_scrape_step(step):
         request_timeout_seconds=_optional_int(params.get("request_timeout_seconds")),
         max_errors_per_source=_optional_int(params.get("max_errors_per_source")),
         runner=ScrapeJob.Runner.WEB,
+        phases=params.get("phases"),
+        reprocess_mode=params.get("reprocess_mode"),
+        reprocess_stale_days=_optional_int(params.get("reprocess_stale_days"), 30),
+        from_latest_discovery=_bool_param(params, "from_latest_discovery", False),
         enforce_single_active=True,
     )
     step.result_summary = {"scrape_job_id": scrape_job.pk}
