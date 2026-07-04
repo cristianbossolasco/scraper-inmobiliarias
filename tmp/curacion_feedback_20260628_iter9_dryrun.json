@@ -1,0 +1,555 @@
+{
+  "script": "curacion_feedback_20260628_iter9",
+  "mode": "dry_run",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-28_feedback_iter8.xlsx",
+  "output_excel": "",
+  "feedback": {
+    "rows": 170,
+    "decision_counts": {
+      "VACIO": 164,
+      "RECHAZADO": 3,
+      "APROBADO": 3
+    },
+    "decisions": {
+      "956": "RECHAZADO",
+      "1024": "APROBADO",
+      "2118": "APROBADO",
+      "3960": "APROBADO",
+      "5606": "RECHAZADO",
+      "5866": "RECHAZADO"
+    },
+    "notes": {
+      "956": "Eliminar, esta es de Palomar",
+      "1024": "Que no vuelva a aparecer en el excel, no hay datos suficientes en la publicacion para determinar la direccion",
+      "2118": "Direccion curada: \"German Argerich 1848\", Hurlingham, Provincia de Buenos Aires",
+      "3960": "Mergear con 2118, son la misma casa",
+      "5606": "Eliminar, esto es Villa Udaondo",
+      "5866": "Eliminar, esta es de Martin Coronado"
+    }
+  },
+  "before": {
+    "active_visible": 4269,
+    "sin_zona_operativa": 55,
+    "sin_direccion_util": 149
+  },
+  "decision_sets": {
+    "APPROVED_IDS": [
+      1024,
+      2118,
+      3960
+    ],
+    "REJECTED_REMOVE_IDS": [
+      956,
+      5606,
+      5866
+    ],
+    "NO_ACTION_IDS": [
+      1024
+    ],
+    "MAP_ONLY_IDS": []
+  },
+  "approved_found": [
+    1024,
+    2118,
+    3960
+  ],
+  "rejected_found": [
+    956,
+    5606,
+    5866
+  ],
+  "unexpected_approved": [],
+  "unexpected_rejected": [],
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "duplicate_url_tail_report": {
+    "total_groups": 174,
+    "target_groups": [
+      {
+        "tail": "7f6eb62fe7c453d30aaa48c93183f777",
+        "property_ids": [
+          2118,
+          3960
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      }
+    ],
+    "skipped_groups_count": 173,
+    "skipped_groups_sample": [
+      {
+        "tail": "5083a3184261092198d1eea78f0e0a24",
+        "property_ids": [
+          10,
+          3053
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "7a603f881cb35a9a68f50c026a7d1e32",
+        "property_ids": [
+          11,
+          3059
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "2d41d7a3633fe3bcef4664de884fd36a",
+        "property_ids": [
+          12,
+          3065
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "f30b1ee011debaa241c44e6b951a2b3e",
+        "property_ids": [
+          13,
+          3074
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "d04239ed9ac6306429080c4e5cd45f55",
+        "property_ids": [
+          14,
+          3111
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "556ed24374e8c55fc3c02d882ef3ead0",
+        "property_ids": [
+          15,
+          3119
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "a7938720746e63c5ff27ff566fa06265",
+        "property_ids": [
+          16,
+          3124
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "43682a5e36a92edf135743dbca41d377",
+        "property_ids": [
+          17,
+          3131
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "40a53c3e820c1bed6e2188e704b9be9a",
+        "property_ids": [
+          20,
+          3180
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "a22b2aaa5858f1f39ad16f33e0ae4b65",
+        "property_ids": [
+          21,
+          3188
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "dd8a8d9ceb65a5bb76481301ff480dc2",
+        "property_ids": [
+          1868,
+          2084
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "a3f35890affa5763f02cce8bdafa5fc9",
+        "property_ids": [
+          1894,
+          3136
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "9691864ea78af9f1e7dc450f5e35310d",
+        "property_ids": [
+          1896,
+          3174
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "f6c2b6cad0670e0c92a33393548e6034",
+        "property_ids": [
+          1899,
+          3195
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "0f42e873f9bef85fb6fb9c101a9cef2c",
+        "property_ids": [
+          1903,
+          3240
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "09deff435f300f9cd5836d8678bfcaac",
+        "property_ids": [
+          1907,
+          3180
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "3340ae519a892b810dab736ec1a34276",
+        "property_ids": [
+          1909,
+          3259
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "988cd0d1daff63030ae03910d6af8a90",
+        "property_ids": [
+          1915,
+          3308
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "cce84c2411d087645439c763bf959c5d",
+        "property_ids": [
+          1918,
+          3320
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "2bbee01cb7c4efac1db3b99081887840",
+        "property_ids": [
+          1921,
+          3326
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "9d371fbadc362e0a87506e5aef89892a",
+        "property_ids": [
+          1923,
+          3364
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "f0b3bf67c2aa0324d8f031e34b29451d",
+        "property_ids": [
+          1925,
+          3373
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "137b08bbba57aae3fcbd1178915937b2",
+        "property_ids": [
+          1928,
+          3380
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "6f52f4a4762ab9cccc98372ca4881b35",
+        "property_ids": [
+          1928,
+          3380
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      },
+      {
+        "tail": "8c0b30dada783c137cb3e9adc7eaa434",
+        "property_ids": [
+          1930,
+          3388
+        ],
+        "sources": [
+          "mapaprop",
+          "patagonprop"
+        ]
+      }
+    ]
+  },
+  "removed": [
+    {
+      "id": 956,
+      "title": "Casa en Venta en Hurlingham, Partido de Hurlingham - Argenprop",
+      "reason": "feedback RECHAZADO: Eliminar, esta es de Palomar",
+      "active_listing_ids": [
+        1013,
+        1887
+      ]
+    },
+    {
+      "id": 5606,
+      "title": "Venta de Casa 4 Ambientes en Hurlingham, Hurlingham. Gba Oeste - Zonaprop",
+      "reason": "feedback RECHAZADO: Eliminar, esto es Villa Udaondo",
+      "active_listing_ids": [
+        7023
+      ]
+    },
+    {
+      "id": 5866,
+      "title": "Melian al 7700",
+      "reason": "feedback RECHAZADO: Eliminar, esta es de Martin Coronado",
+      "active_listing_ids": [
+        7313
+      ]
+    }
+  ],
+  "reviewed_no_action": [
+    {
+      "id": 1024,
+      "note": "Que no vuelva a aparecer en el excel, no hay datos suficientes en la publicacion para determinar la direccion"
+    }
+  ],
+  "address_updates": [
+    {
+      "id": 2118,
+      "address": "German Argerich 1848",
+      "old_address": "Aegerich 1848",
+      "old_locality": "Hurlingham"
+    }
+  ],
+  "geocode_cache_local_miss": [
+    {
+      "id": 2118,
+      "address": "German Argerich 1848"
+    }
+  ],
+  "geocode_location": [
+    {
+      "id": 2118,
+      "method": "api_allowed",
+      "address": "German Argerich 1848"
+    }
+  ],
+  "geocoding_required": [
+    {
+      "id": 2118,
+      "address": "German Argerich 1848",
+      "reason": "sin coordenada cacheada en dry-run; API permitida solo en apply"
+    }
+  ],
+  "zone_skipped": [
+    {
+      "id": 2118,
+      "reason": "dry-run sin coordenadas nuevas"
+    }
+  ],
+  "merged": [
+    {
+      "component": [
+        2118,
+        3960
+      ],
+      "canonical_id": 2118,
+      "dry_run": true,
+      "output": [
+        "Componentes a procesar: 1; propiedades involucradas: 2",
+        "[dry-run] componente [2118, 3960]: 2118 absorbe [3960]",
+        "  [dry-run] 2118 absorbe 3960: 1 listings, 0 campos rellenados, favorita=False, oculta_final=False, mueve_ubicacion=False",
+        "Merge manual dry-run: 1 componentes procesados."
+      ]
+    }
+  ],
+  "after": {
+    "active_visible": 4269,
+    "sin_zona_operativa": 55,
+    "sin_direccion_util": 149
+  },
+  "sample": {
+    "956": {
+      "id": 956,
+      "status": "active",
+      "is_hidden": false,
+      "address": "NEUQUEN 1000",
+      "detected_address": "NEUQUEN 1000",
+      "locality": "",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.61307151426648,
+      "longitude": -58.586473012193736,
+      "provider": "manual",
+      "manual_location": true,
+      "sources": [
+        "argenprop",
+        "inmuebles-clarin"
+      ]
+    },
+    "1024": {
+      "id": 1024,
+      "status": "active",
+      "is_hidden": false,
+      "address": "VERAGUA - (Hur) 100",
+      "detected_address": "VERAGUA - (Hur) 100",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.628678581669526,
+      "longitude": -58.666469080749465,
+      "provider": "manual",
+      "manual_location": true,
+      "sources": [
+        "argenprop",
+        "inmuebles-clarin"
+      ]
+    },
+    "2118": {
+      "id": 2118,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Aegerich 1848",
+      "detected_address": "Aegerich 1848",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.613719,
+      "longitude": -58.48173430000001,
+      "provider": "mapaprop",
+      "manual_location": false,
+      "sources": [
+        "mapaprop"
+      ]
+    },
+    "3960": {
+      "id": 3960,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Aegerich 1848",
+      "detected_address": "Aegerich 1848",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.613719,
+      "longitude": -58.48173430000001,
+      "provider": "local_reference",
+      "manual_location": false,
+      "sources": [
+        "patagonprop"
+      ]
+    },
+    "5606": {
+      "id": 5606,
+      "status": "active",
+      "is_hidden": false,
+      "address": "en",
+      "detected_address": "en",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.6095112,
+      "longitude": -58.6689412,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "zonaprop"
+      ]
+    },
+    "5866": {
+      "id": 5866,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Melian 7700",
+      "detected_address": "Melian 7700",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.58687976689494,
+      "longitude": -58.60106274292221,
+      "provider": "mudafy",
+      "manual_location": false,
+      "sources": [
+        "mudafy"
+      ]
+    }
+  },
+  "excel": null,
+  "excel_validation": null
+}

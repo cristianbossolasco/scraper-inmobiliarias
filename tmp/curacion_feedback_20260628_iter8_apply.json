@@ -1,0 +1,1732 @@
+{
+  "script": "curacion_feedback_20260628_iter8",
+  "input_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-28_feedback_iter7.xlsx",
+  "output_excel": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-28_feedback_iter8.xlsx",
+  "feedback": {
+    "rows": 248,
+    "decision_counts": {
+      "VACIO": 247,
+      "RECHAZADO": 1
+    },
+    "decisions": {
+      "5867": "RECHAZADO"
+    },
+    "notes": {
+      "5867": "Eliminar, es de Palomar"
+    }
+  },
+  "before": {
+    "active_visible": 4269,
+    "sin_zona_operativa": 57,
+    "sin_direccion_util": 150
+  },
+  "approved_found": [],
+  "rejected_found": [
+    5867
+  ],
+  "unexpected_approved": [],
+  "unexpected_rejected": [],
+  "missing_expected_approved": [],
+  "missing_expected_rejected": [],
+  "backup": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\db.sqlite3.backup_curacion_feedback_20260628_iter8",
+    "created": false,
+    "reason": "already_exists"
+  },
+  "removed": [
+    {
+      "id": 5867,
+      "title": "Peña Aeronautica al 2200",
+      "reason": "feedback RECHAZADO: fuera de Palomar/Hurlingham"
+    }
+  ],
+  "geocode_location": [
+    {
+      "id": 6123,
+      "method": "cache",
+      "query": "Gurruchaga 2210, Hurlingham, Buenos Aires, Argentina"
+    },
+    {
+      "id": 6145,
+      "method": "cache",
+      "query": "J.Bustamante 2200, Hurlingham, Buenos Aires, Argentina"
+    },
+    {
+      "id": 6135,
+      "method": "cache",
+      "query": "Einstein 200, Villa Tesei, Buenos Aires, Argentina"
+    },
+    {
+      "id": 6144,
+      "method": "cache",
+      "query": "Conscripto Bernardi 1985, Hurlingham, Buenos Aires, Argentina"
+    },
+    {
+      "id": 6218,
+      "method": "cache",
+      "query": "Conscripto Bernardi 1900, Hurlingham, Buenos Aires, Argentina"
+    },
+    {
+      "id": 6213,
+      "method": "api_allowed",
+      "address": "Sgto. Jose Mariano Gomez 1500"
+    }
+  ],
+  "zone_applied": [
+    {
+      "id": 6123,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordenada Mapaprop previa fuera de zona; usar cache de Gurruchaga 2210",
+      "lat": -34.5888358,
+      "lon": -58.6442935,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6145,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordenada Mapaprop previa fuera de zona; usar cache de J.Bustamante/J.Eva Perón 2200",
+      "lat": -34.5912946,
+      "lon": -58.6521276,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6135,
+      "zone": "El Palanco",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "address_fix_titulo/fuente_iter8",
+      "lat": -34.6229074,
+      "lon": -58.6262369,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6144,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "address_fix_titulo/fuente_iter8",
+      "lat": -34.6011571,
+      "lon": -58.6289891,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6218,
+      "zone": "Villa Alemania",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "address_fix_correccion typo_iter8",
+      "lat": -34.5931051,
+      "lon": -58.6197993,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6213,
+      "zone": "Villa Club",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "variant_geocode_Sgto. Jose Mariano Gomez 1500_iter8",
+      "lat": -34.5863452,
+      "lon": -58.6321719,
+      "provider": "local_reference"
+    },
+    {
+      "id": 6136,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.589,
+      "lon": -58.629,
+      "provider": "century21-hurlingham"
+    },
+    {
+      "id": 6137,
+      "zone": "Scholnik",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.615777,
+      "lon": -58.6297974,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6138,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6024817,
+      "lon": -58.6328336,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6139,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5941756,
+      "lon": -58.6431337,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6140,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5967791,
+      "lon": -58.6391455,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6141,
+      "zone": "Rimoldi",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.607,
+      "lon": -58.651,
+      "provider": "century21-hurlingham"
+    },
+    {
+      "id": 6142,
+      "zone": "Villa Tesei Centro",
+      "locality": "Villa Tesei",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6157745,
+      "lon": -58.6342767,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6143,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.599401673951,
+      "lon": -58.628519210173,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6146,
+      "zone": "El Libertador",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6294946,
+      "lon": -58.6504112,
+      "provider": "remax"
+    },
+    {
+      "id": 6147,
+      "zone": "Prensa",
+      "locality": "Villa Tesei",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6314016,
+      "lon": -58.6323877,
+      "provider": "remax"
+    },
+    {
+      "id": 6148,
+      "zone": "Carola Lorenzini",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6250864,
+      "lon": -58.6597227,
+      "provider": "remax"
+    },
+    {
+      "id": 6149,
+      "zone": "Carola Lorenzini",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6250864,
+      "lon": -58.6597227,
+      "provider": "remax"
+    },
+    {
+      "id": 6150,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.60198142632637,
+      "lon": -58.62991838332826,
+      "provider": "mapaprop"
+    },
+    {
+      "id": 6151,
+      "zone": "Carola Lorenzini",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6250864,
+      "lon": -58.6597227,
+      "provider": "remax"
+    },
+    {
+      "id": 6152,
+      "zone": "San Damián",
+      "locality": "William C. Morris",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5869748,
+      "lon": -58.6681289,
+      "provider": "remax"
+    },
+    {
+      "id": 6153,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5918902,
+      "lon": -58.6386198,
+      "provider": "remax"
+    },
+    {
+      "id": 6154,
+      "zone": "Villa Club",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5760286,
+      "lon": -58.63551,
+      "provider": "remax"
+    },
+    {
+      "id": 6155,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.594868911741344,
+      "lon": -58.631221943864126,
+      "provider": "guarnieri"
+    },
+    {
+      "id": 6157,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5912946,
+      "lon": -58.6521276,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6159,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.599373028387,
+      "lon": -58.635835463233,
+      "provider": "guarnieri"
+    },
+    {
+      "id": 6161,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.589728069401,
+      "lon": -58.64254117012,
+      "provider": "guarnieri"
+    },
+    {
+      "id": 6162,
+      "zone": "Mitre",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.613585263038,
+      "lon": -58.642773629108,
+      "provider": "remax"
+    },
+    {
+      "id": 6164,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6011571,
+      "lon": -58.6289891,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6165,
+      "zone": "El Palanco",
+      "locality": "Villa Tesei",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6211642,
+      "lon": -58.6254717,
+      "provider": "remax"
+    },
+    {
+      "id": 6166,
+      "zone": "Roca 2",
+      "locality": "William C. Morris",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5788153,
+      "lon": -58.6508575,
+      "provider": "remax"
+    },
+    {
+      "id": 6167,
+      "zone": "Luna",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5971553,
+      "lon": -58.6485945,
+      "provider": "remax"
+    },
+    {
+      "id": 6168,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.598134483439,
+      "lon": -58.642417091046,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6169,
+      "zone": "Roca 1",
+      "locality": "William C. Morris",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5766793,
+      "lon": -58.658978,
+      "provider": "remax"
+    },
+    {
+      "id": 6170,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5888358,
+      "lon": -58.6442935,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6172,
+      "zone": "El Libertador",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6289687,
+      "lon": -58.6385209,
+      "provider": "remax"
+    },
+    {
+      "id": 6173,
+      "zone": "Villa Tesei Centro",
+      "locality": "Villa Tesei",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6067698,
+      "lon": -58.6350469,
+      "provider": "remax"
+    },
+    {
+      "id": 6175,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.60214603232,
+      "lon": -58.636736665267,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6176,
+      "zone": "Villa Club",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5808585,
+      "lon": -58.6383451,
+      "provider": "remax"
+    },
+    {
+      "id": 6177,
+      "zone": "Jorge Newbery",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5840555,
+      "lon": -58.6212209,
+      "provider": "becerra"
+    },
+    {
+      "id": 6178,
+      "zone": "Jorge Newbery",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5840555,
+      "lon": -58.6212209,
+      "provider": "becerra"
+    },
+    {
+      "id": 6179,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5941756,
+      "lon": -58.6431337,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6180,
+      "zone": "El Destino",
+      "locality": "William C. Morris",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.59329168555,
+      "lon": -58.669369007549,
+      "provider": "valenti"
+    },
+    {
+      "id": 6181,
+      "zone": "Jorge Newbery",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5840555,
+      "lon": -58.6212209,
+      "provider": "becerra"
+    },
+    {
+      "id": 6182,
+      "zone": "El Progreso",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6220891,
+      "lon": -58.6413753,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6183,
+      "zone": "Villa Club",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5805351,
+      "lon": -58.639703,
+      "provider": "guarnieri"
+    },
+    {
+      "id": 6184,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5887999,
+      "lon": -58.638758,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6185,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5946807,
+      "lon": -58.6351905,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6186,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5891483,
+      "lon": -58.6321221,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6187,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6010901,
+      "lon": -58.6395395,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6188,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5955158,
+      "lon": -58.6361119,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6190,
+      "zone": "Cosmopolita",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.579763206057,
+      "lon": -58.640863674646,
+      "provider": "argencasas"
+    },
+    {
+      "id": 6191,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.590841399999995,
+      "lon": -58.64658120000001,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6192,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.59094238,
+      "lon": -58.63221359,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6193,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.589,
+      "lon": -58.629,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6194,
+      "zone": "Villa Tesei Centro",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6157745,
+      "lon": -58.6342767,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6195,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5941756,
+      "lon": -58.6431337,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6196,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.6024817,
+      "lon": -58.6328336,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6198,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5912946,
+      "lon": -58.6521276,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6199,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5983764,
+      "lon": -58.642902299999996,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6200,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5878625,
+      "lon": -58.630480399999996,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6201,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.597463399999995,
+      "lon": -58.647172899999994,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6204,
+      "zone": "Luna",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.598313999999995,
+      "lon": -58.648077699999995,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6205,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5892825,
+      "lon": -58.6376348,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6207,
+      "zone": "Hurlingham Centro (Barrio Ingles)",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.59,
+      "lon": -58.628,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6208,
+      "zone": "Los Patitos",
+      "locality": "William C. Morris",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5983677,
+      "lon": -58.6565603,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6210,
+      "zone": "Dos de Abril",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6210346,
+      "lon": -58.6617827,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6211,
+      "zone": "Curapaytí",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5888354,
+      "lon": -58.6420646,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6212,
+      "zone": "Santa Clara",
+      "locality": "William C. Morris",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.5825867,
+      "lon": -58.6536325,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6214,
+      "zone": "Villa Tesei Centro",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6052794,
+      "lon": -58.6359292,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6215,
+      "zone": "Villa Club",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.5777679,
+      "lon": -58.6329083,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6216,
+      "zone": "Parque Johnston",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "coordinate_polygon_clear_iter8",
+      "lat": -34.59386,
+      "lon": -58.6410078,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6217,
+      "zone": "Prensa",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6309214,
+      "lon": -58.6325912,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6219,
+      "zone": "El Libertador",
+      "locality": "Villa Tesei",
+      "needs_review": true,
+      "reason": "explicit_user_requested_zone_inference_iter8",
+      "lat": -34.6288129,
+      "lon": -58.6500726,
+      "provider": "nominatim"
+    },
+    {
+      "id": 6171,
+      "zone": "Jorge Newbery",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "already_had_zone_validation",
+      "lat": -34.5840555,
+      "lon": -58.6212209,
+      "provider": "becerra"
+    },
+    {
+      "id": 6206,
+      "zone": "Parque Quirno",
+      "locality": "Hurlingham",
+      "needs_review": false,
+      "reason": "already_had_zone_validation",
+      "lat": -34.5991861,
+      "lon": -58.62820389999999,
+      "provider": "zonaprop"
+    },
+    {
+      "id": 6209,
+      "zone": "Villa Alemania",
+      "locality": "Hurlingham",
+      "needs_review": true,
+      "reason": "already_had_zone_validation",
+      "lat": -34.59609947225264,
+      "lon": -58.620600700378425,
+      "provider": "zonaprop"
+    }
+  ],
+  "location_intelligence_updated": [
+    {
+      "id": 6123,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6145,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6135,
+      "zone_name": "El Palanco",
+      "method": "coordinates"
+    },
+    {
+      "id": 6144,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6218,
+      "zone_name": "Villa Alemania",
+      "method": "coordinates"
+    },
+    {
+      "id": 6213,
+      "zone_name": "Villa Club",
+      "method": "coordinates"
+    },
+    {
+      "id": 6136,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6137,
+      "zone_name": "Scholnik",
+      "method": "coordinates"
+    },
+    {
+      "id": 6138,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6139,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6140,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6141,
+      "zone_name": "Rimoldi",
+      "method": "coordinates"
+    },
+    {
+      "id": 6142,
+      "zone_name": "Villa Tesei Centro",
+      "method": "coordinates"
+    },
+    {
+      "id": 6143,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6146,
+      "zone_name": "El Libertador",
+      "method": "coordinates"
+    },
+    {
+      "id": 6147,
+      "zone_name": "Prensa",
+      "method": "coordinates"
+    },
+    {
+      "id": 6148,
+      "zone_name": "Carola Lorenzini",
+      "method": "coordinates"
+    },
+    {
+      "id": 6149,
+      "zone_name": "Carola Lorenzini",
+      "method": "coordinates"
+    },
+    {
+      "id": 6150,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6151,
+      "zone_name": "Carola Lorenzini",
+      "method": "coordinates"
+    },
+    {
+      "id": 6152,
+      "zone_name": "San Damián",
+      "method": "coordinates"
+    },
+    {
+      "id": 6153,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6154,
+      "zone_name": "Villa Club",
+      "method": "coordinates"
+    },
+    {
+      "id": 6155,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6157,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6159,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6161,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6162,
+      "zone_name": "Mitre",
+      "method": "coordinates"
+    },
+    {
+      "id": 6164,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6165,
+      "zone_name": "El Palanco",
+      "method": "coordinates"
+    },
+    {
+      "id": 6166,
+      "zone_name": "Roca 2",
+      "method": "coordinates"
+    },
+    {
+      "id": 6167,
+      "zone_name": "Luna",
+      "method": "coordinates"
+    },
+    {
+      "id": 6168,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6169,
+      "zone_name": "Roca 1",
+      "method": "coordinates"
+    },
+    {
+      "id": 6170,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6172,
+      "zone_name": "El Libertador",
+      "method": "coordinates"
+    },
+    {
+      "id": 6173,
+      "zone_name": "Villa Tesei Centro",
+      "method": "coordinates"
+    },
+    {
+      "id": 6175,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6176,
+      "zone_name": "Villa Club",
+      "method": "coordinates"
+    },
+    {
+      "id": 6177,
+      "zone_name": "Jorge Newbery",
+      "method": "coordinates"
+    },
+    {
+      "id": 6178,
+      "zone_name": "Jorge Newbery",
+      "method": "coordinates"
+    },
+    {
+      "id": 6179,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6180,
+      "zone_name": "El Destino",
+      "method": "coordinates"
+    },
+    {
+      "id": 6181,
+      "zone_name": "Jorge Newbery",
+      "method": "coordinates"
+    },
+    {
+      "id": 6182,
+      "zone_name": "El Progreso",
+      "method": "coordinates"
+    },
+    {
+      "id": 6183,
+      "zone_name": "Villa Club",
+      "method": "coordinates"
+    },
+    {
+      "id": 6184,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6185,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6186,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6187,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6188,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6190,
+      "zone_name": "Cosmopolita",
+      "method": "coordinates"
+    },
+    {
+      "id": 6191,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6192,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6193,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6194,
+      "zone_name": "Villa Tesei Centro",
+      "method": "coordinates"
+    },
+    {
+      "id": 6195,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6196,
+      "zone_name": "Parque Quirno",
+      "method": "coordinates"
+    },
+    {
+      "id": 6198,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6199,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6200,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6201,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6204,
+      "zone_name": "Luna",
+      "method": "coordinates"
+    },
+    {
+      "id": 6205,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6207,
+      "zone_name": "Hurlingham Centro (Barrio Ingles)",
+      "method": "coordinates"
+    },
+    {
+      "id": 6208,
+      "zone_name": "Los Patitos",
+      "method": "coordinates"
+    },
+    {
+      "id": 6210,
+      "zone_name": "Dos de Abril",
+      "method": "coordinates"
+    },
+    {
+      "id": 6211,
+      "zone_name": "Curapaytí",
+      "method": "coordinates"
+    },
+    {
+      "id": 6212,
+      "zone_name": "Santa Clara",
+      "method": "coordinates"
+    },
+    {
+      "id": 6214,
+      "zone_name": "Villa Tesei Centro",
+      "method": "coordinates"
+    },
+    {
+      "id": 6215,
+      "zone_name": "Villa Club",
+      "method": "coordinates"
+    },
+    {
+      "id": 6216,
+      "zone_name": "Parque Johnston",
+      "method": "coordinates"
+    },
+    {
+      "id": 6217,
+      "zone_name": "Prensa",
+      "method": "coordinates"
+    },
+    {
+      "id": 6219,
+      "zone_name": "El Libertador",
+      "method": "coordinates"
+    }
+  ],
+  "geocode_cache_local_miss": [
+    {
+      "id": 6213,
+      "address": "Sgto. Jose Mariano Gomez 1500"
+    }
+  ],
+  "already_has_zone_validated": [
+    {
+      "id": 6171,
+      "current_zone": "Jorge Newbery",
+      "dry_zone": "Jorge Newbery",
+      "needs_review": true
+    },
+    {
+      "id": 6206,
+      "current_zone": "Parque Quirno",
+      "dry_zone": "Parque Quirno",
+      "needs_review": false
+    },
+    {
+      "id": 6209,
+      "current_zone": "Villa Alemania",
+      "dry_zone": "Villa Alemania",
+      "needs_review": true
+    }
+  ],
+  "after": {
+    "active_visible": 4269,
+    "sin_zona_operativa": 56,
+    "sin_direccion_util": 150
+  },
+  "sample": {
+    "5867": {
+      "id": 5867,
+      "status": "removed",
+      "is_hidden": true,
+      "address": "Peña Aeronautica 2200",
+      "detected_address": "Peña Aeronautica 2200",
+      "locality": "Hurlingham",
+      "inferred_zone": "",
+      "intelligence_zone": "",
+      "latitude": -34.5896616,
+      "longitude": -58.5997209,
+      "provider": "mudafy",
+      "manual_location": false,
+      "sources": [
+        "mudafy"
+      ]
+    },
+    "6123": {
+      "id": 6123,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Gurruchaga 2210",
+      "detected_address": "Gurruchaga 2210",
+      "locality": "Hurlingham",
+      "inferred_zone": "Curapaytí",
+      "intelligence_zone": "Curapaytí",
+      "latitude": -34.5888358,
+      "longitude": -58.6442935,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "mapaprop"
+      ]
+    },
+    "6135": {
+      "id": 6135,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Einstein 200",
+      "detected_address": "",
+      "locality": "Villa Tesei",
+      "inferred_zone": "El Palanco",
+      "intelligence_zone": "El Palanco",
+      "latitude": -34.6229074,
+      "longitude": -58.6262369,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "lopez-comba"
+      ]
+    },
+    "6144": {
+      "id": 6144,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Conscripto Bernardi 1985",
+      "detected_address": "",
+      "locality": "Hurlingham",
+      "inferred_zone": "Parque Quirno",
+      "intelligence_zone": "Parque Quirno",
+      "latitude": -34.6011571,
+      "longitude": -58.6289891,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "riquelme"
+      ]
+    },
+    "6145": {
+      "id": 6145,
+      "status": "active",
+      "is_hidden": false,
+      "address": "J.Bustamante 2200",
+      "detected_address": "J.Eva Perón 2200",
+      "locality": "Hurlingham",
+      "inferred_zone": "Curapaytí",
+      "intelligence_zone": "Curapaytí",
+      "latitude": -34.5912946,
+      "longitude": -58.6521276,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "mapaprop"
+      ]
+    },
+    "6146": {
+      "id": 6146,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Las Tunas 5000",
+      "detected_address": "Las Tunas 5000",
+      "locality": "Villa Tesei",
+      "inferred_zone": "El Libertador",
+      "intelligence_zone": "El Libertador",
+      "latitude": -34.6294946,
+      "longitude": -58.6504112,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6147": {
+      "id": 6147,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Lima 4700",
+      "detected_address": "Lima 4700",
+      "locality": "Villa Tesei",
+      "inferred_zone": "Prensa",
+      "intelligence_zone": "Prensa",
+      "latitude": -34.6314016,
+      "longitude": -58.6323877,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6148": {
+      "id": 6148,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Doctor Nicolás Repetto 900",
+      "detected_address": "Doctor Nicolás Repetto 900",
+      "locality": "Hurlingham",
+      "inferred_zone": "Carola Lorenzini",
+      "intelligence_zone": "Carola Lorenzini",
+      "latitude": -34.6250864,
+      "longitude": -58.6597227,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6149": {
+      "id": 6149,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Doctor Nicolás Repetto 900",
+      "detected_address": "Doctor Nicolás Repetto 900",
+      "locality": "Hurlingham",
+      "inferred_zone": "Carola Lorenzini",
+      "intelligence_zone": "Carola Lorenzini",
+      "latitude": -34.6250864,
+      "longitude": -58.6597227,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6150": {
+      "id": 6150,
+      "status": "active",
+      "is_hidden": false,
+      "address": "CONSCRIPTO BERNARDI 1985",
+      "detected_address": "Conscripto Bernardi 1985",
+      "locality": "Hurlingham",
+      "inferred_zone": "Parque Quirno",
+      "intelligence_zone": "Parque Quirno",
+      "latitude": -34.60198142632637,
+      "longitude": -58.62991838332826,
+      "provider": "mapaprop",
+      "manual_location": false,
+      "sources": [
+        "mapaprop"
+      ]
+    },
+    "6151": {
+      "id": 6151,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Doctor Nicolás Repetto 900",
+      "detected_address": "Doctor Nicolás Repetto 900",
+      "locality": "Hurlingham",
+      "inferred_zone": "Carola Lorenzini",
+      "intelligence_zone": "Carola Lorenzini",
+      "latitude": -34.6250864,
+      "longitude": -58.6597227,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6152": {
+      "id": 6152,
+      "status": "active",
+      "is_hidden": false,
+      "address": "José de Andonaegui 3500",
+      "detected_address": "José de Andonaegui 3500",
+      "locality": "William C. Morris",
+      "inferred_zone": "San Damián",
+      "intelligence_zone": "San Damián",
+      "latitude": -34.5869748,
+      "longitude": -58.6681289,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6153": {
+      "id": 6153,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Julián Aguirre 1600",
+      "detected_address": "Julián Aguirre 1600",
+      "locality": "Hurlingham",
+      "inferred_zone": "Parque Johnston",
+      "intelligence_zone": "Parque Johnston",
+      "latitude": -34.5918902,
+      "longitude": -58.6386198,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6154": {
+      "id": 6154,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Los Patos 2000",
+      "detected_address": "Los Patos 2000",
+      "locality": "Hurlingham",
+      "inferred_zone": "Villa Club",
+      "intelligence_zone": "Villa Club",
+      "latitude": -34.5760286,
+      "longitude": -58.63551,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "remax"
+      ]
+    },
+    "6155": {
+      "id": 6155,
+      "status": "active",
+      "is_hidden": false,
+      "address": "General Bernardo O'Higgins",
+      "detected_address": "General Bernardo O'Higgins",
+      "locality": "Hurlingham",
+      "inferred_zone": "Hurlingham Centro (Barrio Ingles)",
+      "intelligence_zone": "Hurlingham Centro (Barrio Ingles)",
+      "latitude": -34.594868911741344,
+      "longitude": -58.631221943864126,
+      "provider": "guarnieri",
+      "manual_location": false,
+      "sources": [
+        "guarnieri"
+      ]
+    },
+    "6161": {
+      "id": 6161,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Gral. Simón Bolívar",
+      "detected_address": "Gral. Simón Bolívar",
+      "locality": "Hurlingham",
+      "inferred_zone": "Parque Johnston",
+      "intelligence_zone": "Parque Johnston",
+      "latitude": -34.589728069401,
+      "longitude": -58.64254117012,
+      "provider": "guarnieri",
+      "manual_location": false,
+      "sources": [
+        "guarnieri"
+      ]
+    },
+    "6162": {
+      "id": 6162,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Gluck 3500",
+      "detected_address": "Gluck 3500",
+      "locality": "Villa Tesei",
+      "inferred_zone": "Mitre",
+      "intelligence_zone": "Mitre",
+      "latitude": -34.613585263038,
+      "longitude": -58.642773629108,
+      "provider": "remax",
+      "manual_location": false,
+      "sources": [
+        "argenprop",
+        "remax"
+      ]
+    },
+    "6171": {
+      "id": 6171,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Combate de Pavón 1200",
+      "detected_address": "Combate de Pavón 1200",
+      "locality": "Hurlingham",
+      "inferred_zone": "Jorge Newbery",
+      "intelligence_zone": "Jorge Newbery",
+      "latitude": -34.5840555,
+      "longitude": -58.6212209,
+      "provider": "becerra",
+      "manual_location": false,
+      "sources": [
+        "becerra"
+      ]
+    },
+    "6206": {
+      "id": 6206,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Handel 1634",
+      "detected_address": "Handel 1634",
+      "locality": "Hurlingham",
+      "inferred_zone": "Parque Quirno",
+      "intelligence_zone": "Parque Quirno",
+      "latitude": -34.5991861,
+      "longitude": -58.62820389999999,
+      "provider": "zonaprop",
+      "manual_location": false,
+      "sources": [
+        "zonaprop"
+      ]
+    },
+    "6209": {
+      "id": 6209,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Gral. Martín Güemes 1253",
+      "detected_address": "Gral. Martín Güemes 1253",
+      "locality": "Hurlingham",
+      "inferred_zone": "Villa Alemania",
+      "intelligence_zone": "Villa Alemania",
+      "latitude": -34.59609947225264,
+      "longitude": -58.620600700378425,
+      "provider": "zonaprop",
+      "manual_location": false,
+      "sources": [
+        "zonaprop"
+      ]
+    },
+    "6211": {
+      "id": 6211,
+      "status": "active",
+      "is_hidden": false,
+      "address": "General Simón Bolívar 2800",
+      "detected_address": "Gral. Simón Bolívar 2800",
+      "locality": "Hurlingham",
+      "inferred_zone": "Curapaytí",
+      "intelligence_zone": "Curapaytí",
+      "latitude": -34.5888354,
+      "longitude": -58.6420646,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "argenprop"
+      ]
+    },
+    "6212": {
+      "id": 6212,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Paso Morales 1500",
+      "detected_address": "Paso Morales 1500",
+      "locality": "William C. Morris",
+      "inferred_zone": "Santa Clara",
+      "intelligence_zone": "Santa Clara",
+      "latitude": -34.5825867,
+      "longitude": -58.6536325,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "argenprop"
+      ]
+    },
+    "6213": {
+      "id": 6213,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Sgto. Jose Mariano Gomez 1500",
+      "detected_address": "Sgto Gomez 1500",
+      "locality": "Hurlingham",
+      "inferred_zone": "Villa Club",
+      "intelligence_zone": "Villa Club",
+      "latitude": -34.5863452,
+      "longitude": -58.6321719,
+      "provider": "local_reference",
+      "manual_location": false,
+      "sources": [
+        "argenprop"
+      ]
+    },
+    "6218": {
+      "id": 6218,
+      "status": "active",
+      "is_hidden": false,
+      "address": "Conscripto Bernardi 1900",
+      "detected_address": "inscripto Conscripto Bernardi 1900",
+      "locality": "Hurlingham",
+      "inferred_zone": "Villa Alemania",
+      "intelligence_zone": "Villa Alemania",
+      "latitude": -34.5931051,
+      "longitude": -58.6197993,
+      "provider": "nominatim",
+      "manual_location": false,
+      "sources": [
+        "argenprop"
+      ]
+    }
+  },
+  "excel": {
+    "path": "C:\\Users\\corebi\\Documents\\Scraper Inmobiliarias\\tmp\\curacion_zonas_pendientes_2026-06-28_feedback_iter8.xlsx",
+    "pending_rows": 170,
+    "columns": [
+      "id_propiedad",
+      "titulo",
+      "descripcion_resumen",
+      "domicilio_actual",
+      "direccion_detectada",
+      "direccion_sugerida",
+      "direccion_normalizada",
+      "localidad_actual",
+      "localidad_detectada",
+      "barrio_actual",
+      "barrio_detectado",
+      "zona_actual",
+      "zona_sugerida",
+      "zona_inteligencia",
+      "confianza",
+      "motivo",
+      "estado",
+      "latitud",
+      "longitud",
+      "fuente_coordenadas",
+      "fuente",
+      "inmobiliaria",
+      "url_publicacion",
+      "motivo_url",
+      "estado_publicacion",
+      "tipo_propiedad",
+      "operacion",
+      "moneda",
+      "precio",
+      "ambientes",
+      "dormitorios",
+      "banos",
+      "superficie_cubierta",
+      "superficie_total",
+      "fecha_ultima_vista",
+      "motivo_pendiente",
+      "evidencia",
+      "decision_manual",
+      "notas_manual"
+    ]
+  },
+  "excel_validation": {
+    "sheets": [
+      "Pendientes",
+      "Resumen"
+    ],
+    "rows": 170,
+    "auto_filter": "A1:AM171",
+    "tables": [
+      "PendientesFeedback20260628Iter8"
+    ],
+    "freeze_panes": "A2",
+    "price_types": {
+      "int": 139,
+      "NoneType": 31
+    },
+    "nonblank_decisions": 0,
+    "nonblank_notes": 0,
+    "validations": [
+      {
+        "type": "list",
+        "formula1": "\"APROBADO,RECHAZADO\"",
+        "sqref": "AL2:AL171"
+      }
+    ],
+    "missing_columns": []
+  }
+}
