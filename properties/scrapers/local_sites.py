@@ -1,13 +1,10 @@
 import re
-from math import ceil
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlencode, urlparse
 
 from properties.models import Property
 from .base import BaseScraper, SourceDefinition
 from .paginated import (
     ajax_paginated_discover,
-    declared_total_from_text,
-    max_page_from_markup,
     paginated_discover,
 )
 from .parsing import basic_html_data, clean_text, first_map_coordinate, text_value
@@ -17,7 +14,6 @@ from properties.services.normalization import (
     classify_address_precision,
     infer_property_type,
     known_neighborhood_name,
-    normalize_currency,
     parse_decimal,
     parse_int,
 )
@@ -198,43 +194,63 @@ class AliagaScraper(LinkDetailScraper):
 
 
 class FaellaScraper(BaseScraper):
+    api_base_url = "https://crm.faellainmuebles.com.ar"
+    list_limit = 12
+    city_filter = "Hurlingham"
+    operation_filter = "sale"
+    category_filters = ("MLA401685", "MLA401686", "MLA1473")
+    category_type_map = {
+        "MLA401685": Property.Type.HOUSE,
+        "MLA401686": Property.Type.APARTMENT,
+        "MLA1473": Property.Type.APARTMENT,
+    }
     definition = SourceDefinition(
         slug="faella",
         name="Faella Propiedades",
         base_url="https://faellainmuebles.com.ar",
-        search_url="https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham",
+        search_url="https://faellainmuebles.com.ar/propiedades",
         crawl_delay=2,
         enabled=True,
         notes=(
-            "Vidriera publica de ventas en Hurlingham; se parsean tarjetas propias "
-            "y se conserva el permalink externo de MercadoLibre sin consultar MercadoLibre."
+            "Frontend Next.js con API publica del CRM; se descubren ventas en Hurlingham "
+            "filtradas a casas y departamentos."
         ),
     )
 
-    def _page_url(self, page):
-        if page <= 1:
-            return self.definition.search_url
-        return f"{self.definition.search_url}&page={page}"
+    def _api_url(self, path, params=None):
+        url = f"{self.api_base_url}{path}"
+        if params:
+            query = urlencode(params, doseq=True)
+            return f"{url}?{query}"
+        return url
 
-    def _meli_id(self, value):
-        match = re.search(r"\bMLA-?(\d+)\b", value or "", re.I)
-        return f"MLA{match.group(1)}" if match else ""
+    def _list_params(self, page):
+        return {
+            "page": page,
+            "limit": self.list_limit,
+            "city": self.city_filter,
+            "operation": self.operation_filter,
+            "categoryId": list(self.category_filters),
+        }
 
-    def _synthetic_url(self, page, href):
-        meli_id = self._meli_id(href)
-        return f"{self._page_url(page)}#{meli_id}" if meli_id else ""
+    def _list_url(self, page):
+        return self._api_url("/api/public/properties", self._list_params(page))
 
-    def _listing_urls(self, soup, page):
-        for card in soup.select(".card"):
-            anchor = card.select_one("a.card-link[href]")
-            if not anchor:
-                continue
-            text = clean_text(card.get_text(" ", strip=True))
-            if re.search(r"\balquiler\b", text, re.I) and not re.search(r"\bventa\b", text, re.I):
-                continue
-            url = self._synthetic_url(page, anchor.get("href", ""))
-            if url:
-                yield url
+    def _detail_url(self, external_id):
+        return self._api_url(f"/api/public/properties/{external_id}")
+
+    def _public_url(self, external_id):
+        return f"{self.definition.search_url}/{external_id}"
+
+    def json_payload(self, url):
+        return self.get(url).json()
+
+    def _external_id_from_url(self, url):
+        parsed = urlparse(url)
+        external_id = parsed.path.rstrip("/").rsplit("/", 1)[-1]
+        if not external_id or external_id == "propiedades":
+            raise ValueError(f"URL Faella sin ID CRM: {url}")
+        return external_id
 
     def _set_discovery_stats(
         self,
@@ -270,19 +286,12 @@ class FaellaScraper(BaseScraper):
             self._set_discovery_stats(None, 0, 0, limited_by_max_pages, cancelled=True, limited_run=limited_run)
             return
 
-        first_soup = self.soup(self._page_url(start_page))
-        first_urls = list(dict.fromkeys(self._listing_urls(first_soup, start_page)))
-        declared_total = declared_total_from_text(first_soup.get_text(" ", strip=True))
-
-        if self.max_pages is not None:
-            max_page = start_page + self.max_pages - 1
-        else:
-            markup_max_page = max_page_from_markup(str(first_soup))
-            declared_max_page = ceil(declared_total / len(first_urls)) if declared_total and first_urls else None
-            max_page = max(page for page in (markup_max_page, declared_max_page, start_page) if page)
-
+        first_payload = self.json_payload(self._list_url(start_page))
+        pagination = first_payload.get("pagination") or {}
+        declared_total = pagination.get("total")
+        total_pages = pagination.get("totalPages") or start_page
+        max_page = start_page + self.max_pages - 1 if self.max_pages is not None else total_pages
         pages_seen = 0
-        empty_pages = 0
         for page in range(start_page, max_page + 1):
             if self.should_cancel():
                 self._set_discovery_stats(
@@ -294,11 +303,20 @@ class FaellaScraper(BaseScraper):
                     limited_run=limited_run,
                 )
                 return
-            soup = first_soup if page == start_page else self.soup(self._page_url(page))
+            payload = first_payload if page == start_page else self.json_payload(self._list_url(page))
             pages_seen += 1
             page_new = 0
-            urls = first_urls if page == start_page else self._listing_urls(soup, page)
-            for url in urls:
+            for item in payload.get("data") or []:
+                if item.get("operation") != self.operation_filter:
+                    continue
+                if item.get("city") != self.city_filter:
+                    continue
+                if item.get("categoryId") not in self.category_filters:
+                    continue
+                external_id = str(item.get("id") or "")
+                if not external_id:
+                    continue
+                url = self._public_url(external_id)
                 if url in seen:
                     continue
                 seen.add(url)
@@ -314,12 +332,8 @@ class FaellaScraper(BaseScraper):
                         limited_run=True,
                     )
                     return
-            if page_new:
-                empty_pages = 0
-            else:
-                empty_pages += 1
-                if self.max_pages is None and empty_pages >= 2:
-                    break
+            if not page_new and self.max_pages is None and page >= total_pages:
+                break
 
         self._set_discovery_stats(
             declared_total,
@@ -329,22 +343,6 @@ class FaellaScraper(BaseScraper):
             limited_run=limited_run,
         )
 
-    def _card_for_url(self, url):
-        parsed = urlparse(url)
-        meli_id = self._meli_id(parsed.fragment or url)
-        if not meli_id:
-            raise ValueError(f"URL Faella sin ID MLA: {url}")
-        try:
-            page = int((parse_qs(parsed.query).get("page") or ["1"])[0] or 1)
-        except ValueError:
-            page = 1
-        soup = self.soup(self._page_url(page))
-        for card in soup.select(".card"):
-            anchor = card.select_one("a.card-link[href]")
-            if anchor and self._meli_id(anchor.get("href", "")) == meli_id:
-                return page, card, anchor
-        raise ValueError(f"No se encontro tarjeta Faella para {meli_id}")
-
     def _locality_from_text(self, text):
         if re.search(r"william\s+(?:c\.\s*)?morris", text, re.I):
             return "William C. Morris"
@@ -352,8 +350,15 @@ class FaellaScraper(BaseScraper):
             return "Villa Tesei"
         return "Hurlingham"
 
-    def _address_from_location_text(self, text):
-        candidate = clean_detected_address(text or "")
+    def _address_from_location(self, location):
+        if not isinstance(location, dict):
+            return ""
+        text = ", ".join(
+            clean_text(location.get(key) or "")
+            for key in ("address", "city", "state")
+            if location.get(key)
+        )
+        candidate = clean_detected_address(location.get("address") or "")
         if not candidate or not re.search(r"\d{2,5}\b", candidate):
             return ""
         if not re.search(r"\b(Hurlingham|Villa\s+Tesei|William\s+(?:C\.?\s*)?Morris)\b", text or "", re.I):
@@ -361,70 +366,75 @@ class FaellaScraper(BaseScraper):
         address = canonical_address_alias(candidate)
         return address[:250] if address and not ADDRESS_NOISE_RE.search(address) else ""
 
+    def _property_type(self, payload):
+        return self.category_type_map.get(payload.get("categoryId")) or infer_property_type(
+            payload.get("title"), payload.get("description")
+        )
+
     def parse(self, url):
-        page, card, anchor = self._card_for_url(url)
-        href = anchor.get("href", "")
-        title_node = card.select_one(".card-title")
-        price_node = card.select_one(".card-price")
-        location_node = card.select_one(".card-location")
-        title = clean_text(title_node.get_text(" ", strip=True) if title_node else anchor.get_text(" ", strip=True))
-        price_text = clean_text(price_node.get_text(" ", strip=True) if price_node else "")
-        location_text = clean_text(location_node.get_text(" ", strip=True) if location_node else "")
-        feature_texts = [clean_text(item.get_text(" ", strip=True)) for item in card.select(".feature")]
-
-        currency_match = re.search(r"(USD|U\$S|US\$|ARS|\$)\s*([\d.,]+)", price_text, re.I)
-        total_area = None
-        bedrooms = None
-        bathrooms = None
-        for feature in feature_texts:
-            if total_area is None and re.search(r"\bm", feature, re.I):
-                total_area = text_value(feature, [r"([\d.,]+)\s*m"], parse_decimal)
-            if bedrooms is None and re.search(r"\bdorm", feature, re.I):
-                bedrooms = text_value(feature, [r"(\d+)\s*dorm"], parse_int)
-            if bathrooms is None and re.search(r"\bba", feature, re.I):
-                bathrooms = text_value(feature, [r"(\d+(?:[.,]\d+)?)\s*ba"], parse_decimal)
-
-        image_urls = []
-        for image in card.select("img[src]"):
-            src = image.get("src", "")
-            if src and not src.startswith("data:"):
-                image_urls.append(self.absolute(src))
+        external_id = self._external_id_from_url(url)
+        detail_endpoint = self._detail_url(external_id)
+        payload = self.json_payload(detail_endpoint).get("property") or {}
+        if not payload:
+            raise ValueError(f"No se encontro propiedad Faella {external_id}")
+        if payload.get("operation") and payload.get("operation") != self.operation_filter:
+            return None
+        if payload.get("city") and payload.get("city") != self.city_filter:
+            return None
+        if payload.get("categoryId") and payload.get("categoryId") not in self.category_filters:
+            return None
+        title = clean_text(payload.get("title") or "")
+        description = clean_text(payload.get("description") or "")
+        location = payload.get("location") or {}
+        address = self._address_from_location(location)
+        location_text = ", ".join(
+            clean_text(location.get(key) or "")
+            for key in ("address", "city", "state")
+            if location.get(key)
+        )
+        images = []
+        for photo in sorted(payload.get("photos") or [], key=lambda item: item.get("order", 0)):
+            image_url = photo.get("url")
+            if image_url:
+                images.append(image_url)
+        if payload.get("thumbnail"):
+            images.insert(0, payload["thumbnail"])
 
         neighborhood = known_neighborhood_name(title)
-        locality = self._locality_from_text(f"{title} {location_text}")
+        locality = self._locality_from_text(f"{title} {location_text} {payload.get('city') or ''}")
         if neighborhood == locality or neighborhood == "Hurlingham":
             neighborhood = ""
-        address = self._address_from_location_text(location_text)
 
         data = {
-            "external_id": self._meli_id(href),
-            "url": href,
+            "external_id": external_id,
+            "url": self._public_url(external_id),
             "title": title or "Propiedad Faella",
-            "description": "",
+            "description": description,
             "address": address,
             "detected_address": address,
             "agency": self.definition.name,
-            "property_type": infer_property_type(title),
-            "operation": "sale",
+            "property_type": self._property_type(payload),
+            "operation": payload.get("operation") or self.operation_filter,
             "locality": locality,
             "neighborhood": neighborhood,
-            "currency": normalize_currency(currency_match.group(1)) if currency_match else "",
-            "price": parse_decimal(currency_match.group(2)) if currency_match else None,
+            "currency": payload.get("currency") or "",
+            "price": parse_decimal(payload.get("price")),
             "rooms": text_value(title, [r"(\d+)\s*amb"], parse_int),
-            "bedrooms": bedrooms,
-            "bathrooms": bathrooms,
-            "total_area": total_area,
-            "features": [],
-            "images": list(dict.fromkeys(image_urls))[:30],
+            "bedrooms": parse_int(payload.get("bedrooms")),
+            "bathrooms": parse_decimal(payload.get("bathrooms")),
+            "total_area": parse_decimal(payload.get("surfaceTotal")),
+            "features": payload.get("amenities") or [],
+            "images": list(dict.fromkeys(images))[:30],
             "status": Property.Status.ACTIVE,
             "location_precision": classify_address_precision(address),
             "raw_data": {
-                "faella_page": self._page_url(page),
-                "faella_synthetic_url": url,
-                "mercadolibre_permalink": href,
+                "faella_detail_endpoint": detail_endpoint,
+                "faella_public_url": self._public_url(external_id),
+                "faella_filters": self._list_params(1),
+                "category_id": payload.get("categoryId"),
+                "property_type": payload.get("propertyType"),
                 "location_text": location_text,
-                "feature_texts": feature_texts,
-                "price_text": price_text,
+                "payload": payload,
             },
         }
         return data

@@ -8,6 +8,7 @@ from io import StringIO
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlparse
 
 from bs4 import BeautifulSoup
 from django.core.management import call_command
@@ -131,6 +132,10 @@ FIXTURES = Path(__file__).resolve().parent / "test_fixtures"
 
 def fixture_soup(name):
     return BeautifulSoup((FIXTURES / name).read_text(encoding="utf-8"), "lxml")
+
+
+def fixture_json(name):
+    return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
 
 
 class NormalizationTests(TestCase):
@@ -5992,113 +5997,106 @@ class ScraperParserTests(TestCase):
         self.assertEqual(data["latitude"], -34.590339)
         self.assertEqual(data["longitude"], -58.638686)
 
-    def test_faella_discovery_uses_public_card_pagination(self):
+    def test_faella_discovery_uses_crm_api_filters_and_pagination(self):
         scraper = FaellaScraper(max_pages=2)
         calls = []
 
-        def fake_soup(url):
+        def fake_json_payload(url):
             calls.append(url)
-            if "page=2" in url:
-                return BeautifulSoup(
-                    """
-                    <html><body>
-                      <span class="results-count"><strong>36</strong> propiedades encontradas</span>
-                      <div class="card">
-                        <a class="card-link" href="https://casa.mercadolibre.com.ar/MLA-222-venta-casa-hurlingham-_JM">
-                          <div class="card-price">U$S 100.000</div>
-                          <h3 class="card-title">Venta Casa Hurlingham</h3>
-                          <span class="feature">100 m2</span>
-                          <div class="card-location">Hurlingham, Bs.As. G.B.A. Oeste</div>
-                        </a>
-                      </div>
-                    </body></html>
-                    """,
-                    "lxml",
-                )
-            return fixture_soup("faella_listing.html")
+            query = parse_qs(urlparse(url).query)
+            if query.get("page") == ["2"]:
+                return fixture_json("faella_properties_page2.json")
+            return fixture_json("faella_properties_page1.json")
 
-        scraper.soup = fake_soup
+        scraper.json_payload = fake_json_payload
         urls = list(scraper.discover())
         self.assertEqual(
             urls,
             [
-                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219",
-                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA3243981582",
-                "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham&page=2#MLA222",
+                "https://faellainmuebles.com.ar/propiedades/crm-house-1",
+                "https://faellainmuebles.com.ar/propiedades/crm-apartment-1",
+                "https://faellainmuebles.com.ar/propiedades/crm-apartment-2",
             ],
         )
-        self.assertEqual(scraper.discovery_stats["declared_total"], 36)
+        first_query = parse_qs(urlparse(calls[0]).query)
+        self.assertEqual(first_query["operation"], ["sale"])
+        self.assertEqual(first_query["city"], ["Hurlingham"])
+        self.assertEqual(first_query["categoryId"], list(FaellaScraper.category_filters))
+        self.assertEqual(first_query["limit"], ["12"])
+        self.assertEqual(scraper.discovery_stats["declared_total"], 42)
         self.assertEqual(scraper.discovery_stats["pages_seen"], 2)
         self.assertTrue(scraper.discovery_stats["limited_by_max_pages"])
         self.assertTrue(any("page=2" in url for url in calls))
 
     def test_faella_discovery_respects_max_listings(self):
         scraper = FaellaScraper(max_listings=1)
-        scraper.soup = lambda _url: fixture_soup("faella_listing.html")
+        scraper.json_payload = lambda _url: fixture_json("faella_properties_page1.json")
         urls = list(scraper.discover())
         self.assertEqual(
             urls,
-            ["https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219"],
+            ["https://faellainmuebles.com.ar/propiedades/crm-house-1"],
         )
-        self.assertEqual(scraper.discovery_stats["declared_total"], 36)
+        self.assertEqual(scraper.discovery_stats["declared_total"], 42)
         self.assertTrue(scraper.discovery_stats["limited_by_max_listings"])
 
-    def test_faella_parser_reads_listing_card(self):
-        data = self.parse_with_fixture(
-            FaellaScraper,
-            "faella_listing.html",
-            "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA1831365219",
-        )
-        self.assertEqual(data["external_id"], "MLA1831365219")
-        self.assertEqual(
-            data["url"],
-            "https://casa.mercadolibre.com.ar/MLA-1831365219-venta-casa-hurlingham-parque-johnston-lote-jardin-pileta-_JM",
-        )
+    def test_faella_parser_reads_crm_house_detail(self):
+        scraper = FaellaScraper()
+        calls = []
+        scraper.json_payload = lambda url: calls.append(url) or fixture_json("faella_detail_house.json")
+        data = scraper.parse("https://faellainmuebles.com.ar/propiedades/crm-house-1")
+
+        self.assertEqual(calls, [scraper._detail_url("crm-house-1")])
+        self.assertEqual(data["external_id"], "crm-house-1")
+        self.assertEqual(data["url"], "https://faellainmuebles.com.ar/propiedades/crm-house-1")
         self.assertEqual(data["agency"], "Faella Propiedades")
         self.assertEqual(data["currency"], "USD")
-        self.assertEqual(data["price"], Decimal("220000"))
-        self.assertEqual(data["title"], "Venta Casa Hurlingham Parque Johnston Lote Jardin Pileta")
+        self.assertEqual(data["price"], Decimal("185000"))
+        self.assertEqual(data["title"], "Venta Casa Hurlingham Johnston 3 Dormitorios Jardin")
         self.assertEqual(data["property_type"], Property.Type.HOUSE)
-        self.assertEqual(data["total_area"], Decimal("295"))
+        self.assertEqual(data["total_area"], Decimal("333"))
         self.assertEqual(data["bedrooms"], 3)
         self.assertEqual(data["bathrooms"], Decimal("2"))
         self.assertEqual(data["locality"], "Hurlingham")
         self.assertEqual(data["neighborhood"], "Parque Johnston")
+        self.assertEqual(data["address"], "Schumann 1833")
         self.assertEqual(
             data["images"],
-            ["https://http2.mlstatic.com/D_831095-MLA111917360290_062026-O.jpg"],
+            [
+                "https://http2.mlstatic.com/D_house_cover.jpg",
+                "https://http2.mlstatic.com/D_house_kitchen.webp",
+            ],
         )
-        self.assertEqual(data["raw_data"]["faella_page"], FaellaScraper.definition.search_url)
-        self.assertIn("295 m2", data["raw_data"]["feature_texts"])
-
-        tesei = self.parse_with_fixture(
-            FaellaScraper,
-            "faella_listing.html",
-            "https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA3243981582",
+        self.assertEqual(data["raw_data"]["category_id"], "MLA401685")
+        self.assertEqual(data["raw_data"]["faella_filters"]["operation"], "sale")
+        self.assertEqual(data["raw_data"]["faella_filters"]["city"], "Hurlingham")
+        self.assertEqual(
+            data["raw_data"]["faella_filters"]["categoryId"],
+            list(FaellaScraper.category_filters),
         )
-        self.assertEqual(tesei["locality"], "Villa Tesei")
 
-    def test_faella_parser_keeps_public_card_address(self):
+    def test_faella_parser_reads_crm_apartment_detail(self):
         scraper = FaellaScraper()
-        scraper.soup = lambda _url: BeautifulSoup(
-            """
-            <html><body>
-              <div class="card">
-                <a class="card-link" href="https://casa.mercadolibre.com.ar/MLA-111-venta-casa-_JM">
-                  <div class="card-price">U$S 100.000</div>
-                  <h3 class="card-title">Venta Casa Hurlingham</h3>
-                  <span class="feature">100 m2</span>
-                  <div class="card-location">Acassuso 1925, Hurlingham, Hurlingham</div>
-                </a>
-              </div>
-            </body></html>
-            """,
-            "lxml",
-        )
-        data = scraper.parse("https://faellainmuebles.com.ar/?operation=venta&city=Hurlingham#MLA111")
-        self.assertEqual(data["address"], "Acassuso 1925")
-        self.assertEqual(data["detected_address"], "Acassuso 1925")
+        scraper.json_payload = lambda _url: fixture_json("faella_detail_apartment.json")
+        data = scraper.parse("https://faellainmuebles.com.ar/propiedades/crm-apartment-2")
+
+        self.assertEqual(data["external_id"], "crm-apartment-2")
+        self.assertEqual(data["property_type"], Property.Type.APARTMENT)
+        self.assertEqual(data["rooms"], 3)
+        self.assertEqual(data["bedrooms"], 2)
+        self.assertEqual(data["bathrooms"], Decimal("1"))
+        self.assertEqual(data["total_area"], Decimal("85"))
+        self.assertEqual(data["address"], "Granaderos 462")
+        self.assertEqual(data["detected_address"], "Granaderos 462")
+        self.assertEqual(data["features"], ["ascensor"])
         self.assertEqual(data["location_precision"], "exact")
+
+    def test_faella_parser_skips_unsupported_crm_detail(self):
+        scraper = FaellaScraper()
+        payload = fixture_json("faella_detail_apartment.json")
+        payload["property"]["operation"] = "rent"
+        scraper.json_payload = lambda _url: payload
+
+        self.assertIsNone(scraper.parse("https://faellainmuebles.com.ar/propiedades/crm-apartment-2"))
 
     def test_local_parsers_fixture(self):
         miglierini = self.parse_with_fixture(

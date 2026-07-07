@@ -1,0 +1,35 @@
+{
+  "property": {
+    "id": "crm-house-1",
+    "title": "Venta Casa Hurlingham Johnston 3 Dormitorios Jardin",
+    "price": 185000,
+    "currency": "USD",
+    "operation": "sale",
+    "propertyType": "MLA-INDIVIDUAL_HOUSES_FOR_SALE",
+    "categoryId": "MLA401685",
+    "city": "Hurlingham",
+    "thumbnail": "https://http2.mlstatic.com/D_house_cover.jpg",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "surfaceTotal": 333,
+    "description": "Casa con jardin y cochera.",
+    "photos": [
+      {
+        "url": "https://http2.mlstatic.com/D_house_cover.jpg",
+        "order": 0,
+        "isCover": true
+      },
+      {
+        "url": "https://http2.mlstatic.com/D_house_kitchen.webp",
+        "order": 1,
+        "isCover": false
+      }
+    ],
+    "amenities": ["jardin", "cochera"],
+    "location": {
+      "address": "Schumann 1833, Hurlingham",
+      "city": "Hurlingham",
+      "state": "Bs.As. G.B.A. Oeste"
+    }
+  }
+}

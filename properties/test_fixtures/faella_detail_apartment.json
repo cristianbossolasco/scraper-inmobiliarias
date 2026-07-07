@@ -1,0 +1,35 @@
+{
+  "property": {
+    "id": "crm-apartment-2",
+    "title": "Venta Departamento Hurlingham Centro 3 Ambientes",
+    "price": 99900,
+    "currency": "USD",
+    "operation": "sale",
+    "propertyType": "MLA-APARTMENTS_FOR_SALE",
+    "categoryId": "MLA1473",
+    "city": "Hurlingham",
+    "thumbnail": "https://http2.mlstatic.com/D_apartment_2_cover.jpg",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "surfaceTotal": 85,
+    "description": "Departamento luminoso en Hurlingham.",
+    "photos": [
+      {
+        "url": "https://http2.mlstatic.com/D_apartment_2_cover.jpg",
+        "order": 0,
+        "isCover": true
+      },
+      {
+        "url": "https://http2.mlstatic.com/D_apartment_2_balcony.jpg",
+        "order": 1,
+        "isCover": false
+      }
+    ],
+    "amenities": ["ascensor"],
+    "location": {
+      "address": "Granaderos 462, Hurlingham",
+      "city": "Hurlingham",
+      "state": "Bs.As. G.B.A. Oeste"
+    }
+  }
+}
