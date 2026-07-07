@@ -1,7 +1,7 @@
 import re
 from urllib.parse import urlencode, urlparse
 
-from properties.models import Property
+from properties.models import Listing, Property
 from .base import BaseScraper, SourceDefinition
 from .paginated import (
     ajax_paginated_discover,
@@ -14,6 +14,7 @@ from properties.services.normalization import (
     classify_address_precision,
     infer_property_type,
     known_neighborhood_name,
+    normalize_address,
     parse_decimal,
     parse_int,
 )
@@ -245,6 +246,15 @@ class FaellaScraper(BaseScraper):
     def json_payload(self, url):
         return self.get(url).json()
 
+    def _detail_payload(self, external_id):
+        if not hasattr(self, "_detail_payload_cache"):
+            self._detail_payload_cache = {}
+        external_id = str(external_id)
+        if external_id not in self._detail_payload_cache:
+            payload = self.json_payload(self._detail_url(external_id)).get("property") or {}
+            self._detail_payload_cache[external_id] = payload
+        return self._detail_payload_cache[external_id]
+
     def _external_id_from_url(self, url):
         parsed = urlparse(url)
         external_id = parsed.path.rstrip("/").rsplit("/", 1)[-1]
@@ -371,10 +381,56 @@ class FaellaScraper(BaseScraper):
             payload.get("title"), payload.get("description")
         )
 
+    def _legacy_listing_for_payload(self, payload, crm_external_id):
+        address = self._address_from_location(payload.get("location") or {})
+        normalized_address = normalize_address(address) if address else ""
+        price = parse_decimal(payload.get("price"))
+        property_type = self._property_type(payload)
+        if not normalized_address or price is None or not property_type:
+            return None
+        candidates = (
+            Listing.objects.select_related("property")
+            .filter(
+                source__slug=self.definition.slug,
+                active=True,
+                property__property_type=property_type,
+                property__price=price,
+            )
+            .exclude(external_id=str(crm_external_id))
+        )
+        currency = payload.get("currency") or ""
+        if currency:
+            candidates = candidates.filter(property__currency=currency)
+        locality = self._locality_from_text(
+            " ".join(
+                str(value or "")
+                for value in (
+                    payload.get("title"),
+                    address,
+                    payload.get("city"),
+                )
+            )
+        )
+        if locality:
+            candidates = candidates.filter(property__locality=locality)
+        matches = [
+            listing
+            for listing in candidates
+            if normalize_address(listing.property.address or listing.property.detected_address)
+            == normalized_address
+        ]
+        return matches[0] if len(matches) == 1 else None
+
+    def discovery_external_id_from_url(self, url):
+        crm_external_id = self._external_id_from_url(url)
+        payload = self._detail_payload(crm_external_id)
+        legacy_listing = self._legacy_listing_for_payload(payload, crm_external_id)
+        return legacy_listing.external_id if legacy_listing else crm_external_id
+
     def parse(self, url):
         external_id = self._external_id_from_url(url)
         detail_endpoint = self._detail_url(external_id)
-        payload = self.json_payload(detail_endpoint).get("property") or {}
+        payload = self._detail_payload(external_id)
         if not payload:
             raise ValueError(f"No se encontro propiedad Faella {external_id}")
         if payload.get("operation") and payload.get("operation") != self.operation_filter:
@@ -430,6 +486,7 @@ class FaellaScraper(BaseScraper):
             "raw_data": {
                 "faella_detail_endpoint": detail_endpoint,
                 "faella_public_url": self._public_url(external_id),
+                "crm_external_id": payload.get("id") or external_id,
                 "faella_filters": self._list_params(1),
                 "category_id": payload.get("categoryId"),
                 "property_type": payload.get("propertyType"),

@@ -4397,6 +4397,7 @@ class ScrapePipelinePhaseTests(TransactionTestCase):
         urls = []
         parsed_urls = []
         identity_overrides = {}
+        parse_identity_overrides = {}
 
         def discover(self):
             yield from self.urls
@@ -4406,7 +4407,10 @@ class ScrapePipelinePhaseTests(TransactionTestCase):
 
         def parse(self, url):
             self.parsed_urls.append(url)
-            external_id = self.identity_overrides.get(url, url.rstrip("/").rsplit("/", 1)[-1])
+            external_id = self.parse_identity_overrides.get(
+                url,
+                self.identity_overrides.get(url, url.rstrip("/").rsplit("/", 1)[-1]),
+            )
             return {
                 "external_id": external_id,
                 "url": url,
@@ -4428,6 +4432,7 @@ class ScrapePipelinePhaseTests(TransactionTestCase):
         self.FakePipelineScraper.urls = []
         self.FakePipelineScraper.parsed_urls = []
         self.FakePipelineScraper.identity_overrides = {}
+        self.FakePipelineScraper.parse_identity_overrides = {}
 
     def tearDown(self):
         if self.original_adapter is None:
@@ -5026,6 +5031,54 @@ class ScrapePipelinePhaseTests(TransactionTestCase):
         self.assertEqual(discovery_item.external_id, "canonical-2")
         self.assertEqual(discovery_item.listing, existing)
         self.assertEqual(discovery_item.status, ScrapeJobListing.Status.EXISTING_PENDING)
+
+    def test_processing_existing_snapshot_preserves_canonical_external_id(self):
+        source = Source.objects.create(
+            slug="fake-pipeline",
+            name="Fake Pipeline",
+            base_url="https://fake.example",
+        )
+        url = "https://fake.example/listing/new-api-id"
+        existing, _ = ingest_listing(
+            source,
+            {
+                "external_id": "old-api-id",
+                "url": "https://fake.example/listing/old-api-id",
+                "title": "Casa existente",
+                "locality": "Hurlingham",
+                "address": "Fake 300",
+                "currency": "USD",
+                "price": 150000,
+                "covered_area": 100,
+            },
+        )
+        self.FakePipelineScraper.urls = [url]
+        self.FakePipelineScraper.identity_overrides = {url: "old-api-id"}
+        self.FakePipelineScraper.parse_identity_overrides = {url: "new-api-id"}
+        job = create_scrape_job(
+            ["fake-pipeline"],
+            {"fake-pipeline": 1},
+            phases=[ScrapeJob.Phase.DISCOVER, ScrapeJob.Phase.REPROCESS_EXISTING],
+            reprocess_mode=ScrapeJob.ReprocessMode.ALL,
+            mark_missing=False,
+        )
+
+        run_scrape_job(job.pk)
+
+        job_source = ScrapeJobSource.objects.get(job=job, slug="fake-pipeline")
+        item = ScrapeJobListing.objects.get(job_source=job_source)
+        self.assertEqual(item.external_id, "old-api-id")
+        self.assertEqual(item.listing_id, existing.pk)
+        self.assertEqual(item.status, ScrapeJobListing.Status.PROCESSED)
+        self.assertEqual(Listing.objects.filter(source=source).count(), 1)
+        self.assertFalse(Listing.objects.filter(source=source, external_id="new-api-id").exists())
+        existing.refresh_from_db()
+        self.assertEqual(existing.external_id, "old-api-id")
+        self.assertEqual(existing.url, url)
+        self.assertEqual(existing.raw_data["parsed_external_id"], "new-api-id")
+        self.assertEqual(existing.raw_data["canonical_snapshot_external_id"], "old-api-id")
+        self.assertEqual(job_source.created, 0)
+        self.assertEqual(job_source.updated, 1)
 
     def test_process_new_without_discover_allows_empty_latest_snapshot(self):
         self.FakePipelineScraper.urls = []
@@ -6097,6 +6150,74 @@ class ScraperParserTests(TestCase):
         scraper.json_payload = lambda _url: payload
 
         self.assertIsNone(scraper.parse("https://faellainmuebles.com.ar/propiedades/crm-apartment-2"))
+
+    def test_faella_discovery_identity_resolver_matches_legacy_listing(self):
+        source = Source.objects.create(
+            slug="faella",
+            name="Faella Propiedades",
+            base_url="https://faellainmuebles.com.ar",
+        )
+        ingest_listing(
+            source,
+            {
+                "external_id": "MLA-old-house",
+                "url": "https://casa.mercadolibre.com.ar/MLA-old-house",
+                "title": "Venta Casa Hurlingham Johnston",
+                "property_type": Property.Type.HOUSE,
+                "operation": "sale",
+                "locality": "Hurlingham",
+                "address": "Schumann 1833",
+                "currency": "USD",
+                "price": 185000,
+                "total_area": 211,
+            },
+        )
+        scraper = FaellaScraper()
+        scraper.json_payload = lambda _url: fixture_json("faella_detail_house.json")
+
+        self.assertEqual(
+            scraper.discovery_external_id_from_url("https://faellainmuebles.com.ar/propiedades/crm-house-1"),
+            "MLA-old-house",
+        )
+
+    def test_faella_discovery_identity_resolver_keeps_crm_id_without_match(self):
+        scraper = FaellaScraper()
+        scraper.json_payload = lambda _url: fixture_json("faella_detail_house.json")
+
+        self.assertEqual(
+            scraper.discovery_external_id_from_url("https://faellainmuebles.com.ar/propiedades/crm-house-1"),
+            "crm-house-1",
+        )
+
+    def test_faella_discovery_identity_resolver_keeps_crm_id_on_ambiguous_match(self):
+        source = Source.objects.create(
+            slug="faella",
+            name="Faella Propiedades",
+            base_url="https://faellainmuebles.com.ar",
+        )
+        for external_id, area in (("MLA-old-a", 210), ("MLA-old-b", 211)):
+            ingest_listing(
+                source,
+                {
+                    "external_id": external_id,
+                    "url": f"https://casa.mercadolibre.com.ar/{external_id}",
+                    "title": f"Venta Casa Hurlingham Johnston {external_id}",
+                    "property_type": Property.Type.HOUSE,
+                    "operation": "sale",
+                    "locality": "Hurlingham",
+                    "address": "Schumann 1833",
+                    "currency": "USD",
+                    "price": 185000,
+                    "total_area": area,
+                },
+            )
+        scraper = FaellaScraper()
+        scraper.json_payload = lambda _url: fixture_json("faella_detail_house.json")
+
+        self.assertEqual(
+            scraper.discovery_external_id_from_url("https://faellainmuebles.com.ar/propiedades/crm-house-1"),
+            "crm-house-1",
+        )
 
     def test_local_parsers_fixture(self):
         miglierini = self.parse_with_fixture(

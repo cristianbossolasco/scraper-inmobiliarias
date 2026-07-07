@@ -1405,6 +1405,14 @@ def run_scrape_job_source(job_id, slug):
                                 job_source.skipped += 1
                                 append_source_log(job_source, f"Omitida: {url}")
                             else:
+                                if item.listing_id and data.get("external_id") != item.external_id:
+                                    parsed_external_id = data.get("external_id")
+                                    data = dict(data)
+                                    raw_data = dict(data.get("raw_data") or {})
+                                    raw_data.setdefault("parsed_external_id", parsed_external_id)
+                                    raw_data["canonical_snapshot_external_id"] = item.external_id
+                                    data["external_id"] = item.external_id
+                                    data["raw_data"] = raw_data
                                 listing, created = db_write(lambda: ingest_listing(source, data))
                                 item.status = ScrapeJobListing.Status.PROCESSED
                                 item.listing = listing
