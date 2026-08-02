@@ -85,8 +85,8 @@ class OdriozolaScraper(BaseScraper):
         base_url="https://odriozolapropiedades.com.ar",
         search_url="https://odriozolapropiedades.com.ar/inmobiliaria/busqueda-avanzada?keyword=&location%5B%5D=hurlingham&currency=&min-price=&max-price=&label%5B%5D=",
         crawl_delay=3,
-        enabled=False,
-        notes="Sitio local con fichas y coordenadas embebidas. Deshabilitado hasta fixtures completos.",
+        enabled=True,
+        notes="Sitio local con fichas y coordenadas embebidas; trial productivo validado el 2026-08-02.",
     )
 
     def discover(self):

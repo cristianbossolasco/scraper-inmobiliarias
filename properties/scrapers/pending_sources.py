@@ -682,7 +682,7 @@ class AnaliaFernandezScraper(TokkoSearchScraper):
         base_url="https://www.fernandezpropiedades.com.ar",
         search_url="https://www.fernandezpropiedades.com.ar/Buscar-propiedades-en-Venta-en-Hurlingham-25973",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Motor Tokko publico para ventas en Hurlingham; primera pagina HTML y resto por AJAX p=N.",
     )
     detail_patterns = (r"/p/\d+-",)
@@ -882,8 +882,8 @@ class HollmannArielScraper(PixelAdScraper):
             "&shortBy=null&min_price=&max_price="
         ),
         crawl_delay=3,
-        enabled=False,
-        notes="Motor publico Pixel con fichas /ad para ventas en Hurlingham; deshabilitado hasta trial limitado.",
+        enabled=True,
+        notes="Motor publico Pixel con fichas /ad para ventas en Hurlingham; trial productivo validado el 2026-08-02.",
     )
     fallback_max_pages = 5
 
@@ -899,7 +899,7 @@ class OscarDahbarScraper(PixelAdScraper):
             "&shortBy=null&min_price=&max_price=&page=1"
         ),
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Motor publico Pixel con unas 9 paginas de ventas; se filtra a Hurlingham/Villa Tesei/Morris.",
     )
     fallback_max_pages = 12
@@ -1348,7 +1348,7 @@ class MatiasSzpiraScraper(BaseScraper):
             "&moneda=0&ordenar=preciomenor&rppagina=15&page=0"
         ),
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Astro/Tokko con endpoints publicos /api/results.json y /api/property.json para 15 ventas Hurlingham.",
     )
     api_page_size = 15
@@ -1461,7 +1461,7 @@ class MatiasBarbieriScraper(CommonDetailScraper):
         base_url="https://barbieripropiedades.com.ar",
         search_url="https://barbieripropiedades.com.ar/busqueda-propiedades/?location=hurlingham&status=venta",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="WordPress/RealHomes con 4 resultados; fichas con '- NO DISPONIBLE -' se marcan suspendidas.",
     )
     detail_patterns = (r"/propiedad/[^/]+/$",)
@@ -1544,7 +1544,7 @@ class NerinaAlloScraper(AnaliaFernandezScraper):
         base_url="https://www.allopropiedades.com.ar",
         search_url="https://www.allopropiedades.com.ar/Buscar?operation=1&locations=25973&o=2,2&1=1",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Motor Tokko publico con 6 resultados de venta en Hurlingham/Villa Santos Tesei.",
     )
     detail_patterns = (r"/p/\d+-",)
@@ -1568,7 +1568,7 @@ class MarceloRussoScraper(CommonDetailScraper):
         base_url="https://marcelorussoprop.com.ar",
         search_url="https://marcelorussoprop.com.ar/venta/",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="WordPress/RealHomes local con fichas /property/ y datos completos.",
     )
     detail_patterns = (r"/property/[^/]+/?$",)
@@ -1670,7 +1670,7 @@ class LopezCombaScraper(TokkoSearchScraper):
         base_url="https://www.lopezcomba.ar",
         search_url="https://www.lopezcomba.ar/Buscar?operation=1&locations=25973&o=2,2&1=1",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Motor Tokko publico para ventas en Hurlingham; primera pagina HTML y resto por AJAX p=N.",
     )
     detail_patterns = (r"/p/\d+-",)
@@ -1919,7 +1919,7 @@ class GuarnieriScraper(MultiSearchScraper):
         base_url="https://guarnieripropiedades.com.ar",
         search_url="https://guarnieripropiedades.com.ar/inmobiliaria/busqueda-avanzada?keyword=&status%5B%5D=en-venta&location%5B%5D=hurlingham&bathrooms=&garage=&min-area=&property_id=&max-area=&bedrooms=&currency=&min-price=&max-price=&nc2ba-de-plantas=&ambientes=&antigc3bcedad=",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Busqueda avanzada publica de ventas en Hurlingham con paginacion /page/N.",
     )
     detail_patterns = (r"/inmobiliaria/propiedad/",)
@@ -2666,8 +2666,8 @@ class PaulaFossatiScraper(CommonDetailScraper):
         base_url="https://www.paulafossati.com.ar",
         search_url="https://www.paulafossati.com.ar/site/properties/sale",
         crawl_delay=4,
-        enabled=False,
-        notes="Fuente parcial encontrada por fichas aisladas en Villa Tesei.",
+        enabled=True,
+        notes="Fuente de fichas publicas en Villa Tesei; trial productivo validado el 2026-08-02.",
     )
     detail_patterns = (r"/site/properties/\d+/",)
     require_target_text = True
@@ -2784,7 +2784,7 @@ class RemaxArgentinaScraper(BaseScraper):
             "&landingPath=comprar-propiedades&filterCount=0&viewMode=listViewMode"
         ),
         crawl_delay=4,
-        enabled=False,
+        enabled=True,
         notes="Portal nacional RE/MAX Argentina; API publica usada por la pagina de resultados.",
     )
     api_base = "https://api-ar.redremax.com/remaxweb-ar/api"
@@ -3023,7 +3023,7 @@ class Century21Scraper(CommonDetailScraper):
         base_url="https://century21.com.ar",
         search_url="https://century21.com.ar/v/resultados/operacion_venta/en-pais_argentina/en-estado_gba-oeste/en-municipio_gba-oeste-hurlingham",
         crawl_delay=5,
-        enabled=False,
+        enabled=True,
         notes="Red/franquicia; discovery desde JSON publico ?json=true de la pagina de resultados.",
     )
     detail_patterns = (r"/propiedad/", r"/ficha/", r"/detalle/")

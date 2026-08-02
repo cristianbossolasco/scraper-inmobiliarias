@@ -16,7 +16,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("--source", action="append", dest="sources")
-        parser.add_argument("--all", action="store_true", dest="all_sources")
+        parser.add_argument(
+            "--all",
+            action="store_true",
+            dest="all_sources",
+            help="Procesa todas las fuentes habilitadas y validadas para produccion.",
+        )
         parser.add_argument(
             "--phase",
             action="append",

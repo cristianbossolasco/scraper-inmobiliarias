@@ -57,7 +57,7 @@ class BecerraScraper(LinkDetailScraper):
         base_url="https://becerrapropiedades.com",
         search_url="https://becerrapropiedades.com/buscador?ubicaciones=Hurlingham&operaciones=Venta&moneda=USD",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Busqueda publica con paginacion page=N para ventas en Hurlingham.",
     )
     link_pattern = 'a[href*="/ficha/"]'
@@ -166,7 +166,7 @@ class AliagaScraper(LinkDetailScraper):
         base_url="https://www.aliagapropiedades.com",
         search_url="https://www.aliagapropiedades.com/Buscar?operation=1&locations=25973&o=2,2&1=1",
         crawl_delay=3,
-        enabled=False,
+        enabled=True,
         notes="Motor Tokko publico para ventas en Hurlingham; primera pagina HTML y resto por AJAX p=N.",
     )
     link_pattern = 'a[href*="/p/"]'

@@ -2,6 +2,23 @@
 
 Fecha: 6 de junio de 2026.
 
+## Seleccion productiva de `scrape --all`
+
+Actualizada el 2 de agosto de 2026. `--all` procesa las fuentes con
+`SourceDefinition.enabled=True`. La seleccion productiva quedo en 20 fuentes:
+
+- Portales base: Mapaprop, Argencasas / SIBA, Argenprop y MercadoProp.
+- Inmobiliarias y redes validadas: Faella, Becerra, Aliaga, Odriozola,
+  Analía Fernández, Marcelo Russo, Lopez Comba, Guarnieri, Paula Fossati,
+  RE/MAX Argentina, Century 21 Hurlingham, Hollmann Ariel, Oscar Dahbar,
+  Matias Szpira, Matias Barbieri y Nerina Allo.
+
+Las 15 fuentes incorporadas en esta revision pasaron discovery limitado y un
+trial de una ficha sin errores. Se mantienen fuera las fuentes duplicadas o
+sindicadas, bloqueadas, vacias/incompletas, dependientes de credenciales y las
+que requieren ignorar `robots.txt`. Las fuentes excluidas siguen disponibles
+para auditoria o ejecucion manual con `--source` cuando sea seguro.
+
 | Fuente | Cobertura observada | Estructura | Restricciones | Decision |
 |---|---:|---|---|---|
 | Mapaprop | Mas de 200 casas y oferta residencial adicional | HTML renderizado, enlaces estables, direccion, campos y coordenadas embebidas | `/api/` prohibida; paginas publicas permitidas | Habilitada |
@@ -9,21 +26,21 @@ Fecha: 6 de junio de 2026.
 | Argenprop | Busqueda publica muestra mas de 1.000 casas en el partido | Listados HTML y fichas con JSON-LD `House`; sin coordenadas nativas | Paginacion publica permitida; el scraper toma el maximo publicado por el HTML | Habilitada |
 | MercadoProp | Sitemap AR contiene unas 45 URLs con Hurlingham/Villa Tesei/William Morris | JSON-LD `RealEstateListing`, proveedor, direccion, imagenes y coordenadas frecuentes | `robots.txt` permite el sitio y declara sitemap | Habilitada |
 | Faella Propiedades | 42 ventas publicas en Hurlingham filtradas a casas y departamentos | Frontend Next.js con API publica del CRM; se consulta `api/public/properties` con `operation=sale`, `city=Hurlingham` y categorias casas/departamentos | `robots.txt` permite `/`; no se consulta MercadoLibre | Habilitada |
-| Hollmann Ariel Propiedades | Busqueda publica de ventas en Hurlingham | Motor Pixel con listado `/listing` y fichas `/ad/` con codigo, precio, direccion y metricas visibles | `robots.txt` permite; sin login ni captcha observado | Adaptador incluido, deshabilitado |
+| Hollmann Ariel Propiedades | Busqueda publica de ventas en Hurlingham | Motor Pixel con listado `/listing` y fichas `/ad/` con codigo, precio, direccion y metricas visibles | `robots.txt` permite; sin login ni captcha observado | Habilitada |
 | Valenti Propiedades | 111 casas en el partido; Hurlingham, Villa Tesei y Morris con zonas internas | Argencasas/SIBA propio, JSON-LD en ficha y paginacion publica `/motor/props.php?page=N` | `Crawl-delay: 2`; bypass explicito de `robots.txt` para `/motor/props.php` decidido para completar la ingesta publica | Adaptador incluido, deshabilitado |
-| Oscar Dahbar Propiedades | Ventas locales en 9 paginas observadas | Motor Pixel con listado `/listing?page=N` y fichas `/ad/`; se filtra a zonas objetivo | `robots.txt` permite; sin login ni captcha observado | Adaptador incluido, deshabilitado |
+| Oscar Dahbar Propiedades | Ventas locales en 9 paginas observadas | Motor Pixel con listado `/listing?page=N` y fichas `/ad/`; se filtra a zonas objetivo | `robots.txt` permite; sin login ni captcha observado | Habilitada |
 | Gabriel Paris | 3 ventas Hurlingham/Villa Tesei observadas | Sitio Xintel; detalle por endpoint publico embebido `fichas.propiedades` | API publica embebida en la pagina; discovery filtra payload amplio por localidad | Adaptador incluido, deshabilitado |
 | H. Granelli | 4 ventas Hurlingham observadas | Sitio Xintel; detalle por endpoint publico embebido `fichas.propiedades` | API publica embebida en la pagina; discovery filtra payload amplio por localidad | Adaptador incluido, deshabilitado |
 | Mudafy | 24 propiedades en Hurlingham | Next.js con HTML inicial, enlaces `/propiedades/...` y JSON-LD `Product` en ficha | `robots.txt` permite; alto riesgo de duplicados de portal | Adaptador incluido, deshabilitado |
-| Matias Szpira | 15 ventas Hurlingham por endpoint publico | Astro/Tokko con `/api/results.json` y `/api/property.json` | `robots.txt` ausente/404; endpoints publicos del sitio | Adaptador incluido, deshabilitado |
-| Matias Barbieri | 4 ventas Hurlingham; 2 marcadas no disponibles | WordPress/RealHomes con fichas HTML y mapa embebido | `robots.txt` permite; `NO DISPONIBLE` se guarda como suspendida | Adaptador incluido, deshabilitado |
-| Nerina Allo | 6 ventas Hurlingham/Villa Santos Tesei | Motor Tokko publico `/Buscar` y fichas `/p/` con tablas de detalle | `robots.txt` ausente/404; paginas publicas sin login | Adaptador incluido, deshabilitado |
+| Matias Szpira | 15 ventas Hurlingham por endpoint publico | Astro/Tokko con `/api/results.json` y `/api/property.json` | `robots.txt` ausente/404; endpoints publicos del sitio | Habilitada |
+| Matias Barbieri | 4 ventas Hurlingham; 2 marcadas no disponibles | WordPress/RealHomes con fichas HTML y mapa embebido | `robots.txt` permite; `NO DISPONIBLE` se guarda como suspendida | Habilitada |
+| Nerina Allo | 6 ventas Hurlingham/Villa Santos Tesei | Motor Tokko publico `/Buscar` y fichas `/p/` con tablas de detalle | `robots.txt` ausente/404; paginas publicas sin login | Habilitada |
 | Coldwell Banker | 10 ventas Hurlingham y 13 Villa Santos Tesei reportadas | Busqueda publica visible en navegador; sitemap disponible | Devuelve `403 Forbidden` al User-Agent identificable del proyecto | Diferida hasta tener via publica compatible |
 | Miglierini | Listado local con varias casas de Hurlingham, Villa Club y Villa Tesei | WordPress con enlaces `/propiedad/` y sitemap propio | `Crawl-delay: 10` | Adaptador incluido, deshabilitado |
-| Odriozola | Listado local con 20+ fichas residenciales | HTML de fichas y coordenadas embebidas en varias publicaciones | Robots intermitente; requiere fixtures mas completos | Adaptador incluido, deshabilitado |
+| Odriozola | Listado local con 20+ fichas residenciales | HTML de fichas y coordenadas embebidas en varias publicaciones | Robots intermitente; trial limitado correcto | Habilitada |
 | Beaudroit | Inmobiliaria local de Hurlingham | Home grande, fichas no expuestas de forma directa en auditoria inicial | Permitido por `robots.txt` | Auditoria profunda pendiente |
-| Becerra Propiedades | Catalogo local de alta calidad | Fichas con campos separados | Respuestas HTTP 500 intermitentes a clientes automatizados | Adaptador incluido, deshabilitado |
-| Aliaga Propiedades | Fichas detalladas con superficies y caracteristicas | HTML claro y referencias estables | Falta confirmar listado publico estable por zona | Adaptador incluido, deshabilitado |
+| Becerra Propiedades | Catalogo local de alta calidad | Fichas con campos separados | Respuestas HTTP 500 intermitentes a clientes automatizados | Habilitada tras trial correcto |
+| Aliaga Propiedades | Fichas detalladas con superficies y caracteristicas | HTML claro y referencias estables | Listado publico validado por zona | Habilitada |
 | Fincas Bienes Raices | Oferta local | El buscador deriva a Argencasas | Se evita duplicar consulta | Cubierta por Argencasas |
 | Riquelme Propiedades | Amplia oferta local | Sindicada en Mapaprop | Sitio propio pendiente de estabilidad | Cubierta por Mapaprop |
 | Aurellana | Oferta local | Sindicada en Mapaprop | Sitio propio pendiente de estabilidad | Cubierta por Mapaprop |

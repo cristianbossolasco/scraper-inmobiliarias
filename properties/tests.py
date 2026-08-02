@@ -7797,30 +7797,75 @@ class ScraperParserTests(TestCase):
         self.assertIn("faella", slugs)
         self.assertTrue(get_adapter("faella").definition.enabled)
 
-    def test_pending_sources_are_registered_disabled_by_default(self):
+    def test_production_sources_are_registered_enabled(self):
         slugs = {adapter.definition.slug for adapter in get_adapter_classes()}
         for slug in {
             "analia-fernandez",
             "marcelo-russo",
             "lopez-comba",
-            "riquelme",
-            "fincas",
             "guarnieri",
-            "inmuebles-clarin",
-            "patagonprop",
             "remax",
             "century21-hurlingham",
-            "mercadolibre",
-            "zonaprop",
             "hollmann-ariel",
-            "valenti",
             "oscar-dahbar",
-            "gabriel-paris",
-            "hgranelli",
-            "mudafy",
             "matias-szpira",
             "matias-barbieri",
             "nerina-allo",
+            "becerra",
+            "aliaga",
+            "odriozola",
+            "paula-fossati",
+        }:
+            self.assertIn(slug, slugs)
+            self.assertTrue(get_adapter(slug).definition.enabled)
+
+    def test_all_source_selection_matches_validated_production_set(self):
+        enabled_slugs = {
+            adapter.definition.slug
+            for adapter in get_adapter_classes(enabled_only=True)
+        }
+        self.assertEqual(
+            enabled_slugs,
+            {
+                "mapaprop",
+                "argencasas",
+                "argenprop",
+                "mercadoprop",
+                "faella",
+                "becerra",
+                "aliaga",
+                "odriozola",
+                "analia-fernandez",
+                "marcelo-russo",
+                "lopez-comba",
+                "guarnieri",
+                "paula-fossati",
+                "remax",
+                "century21-hurlingham",
+                "hollmann-ariel",
+                "oscar-dahbar",
+                "matias-szpira",
+                "matias-barbieri",
+                "nerina-allo",
+            },
+        )
+
+    def test_excluded_sources_are_registered_disabled(self):
+        slugs = {adapter.definition.slug for adapter in get_adapter_classes()}
+        for slug in {
+            "riquelme",
+            "fincas",
+            "inmuebles-clarin",
+            "patagonprop",
+            "mercadolibre",
+            "zonaprop",
+            "valenti",
+            "gabriel-paris",
+            "hgranelli",
+            "mudafy",
+            "miglierini",
+            "ga-bienes",
+            "remax-datawork",
         }:
             self.assertIn(slug, slugs)
             self.assertFalse(get_adapter(slug).definition.enabled)
