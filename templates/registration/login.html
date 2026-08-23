@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ingresar · Radar Inmobiliario</title>
+  <link href="{% static 'css/drive-mode.css' %}" rel="stylesheet">
+</head>
+<body class="drive-auth-body">
+  <main class="drive-login-card">
+    <div class="drive-logo" aria-hidden="true"><span></span><i></i></div>
+    <p class="drive-eyebrow">Acceso privado</p>
+    <h1>Radar Inmobiliario</h1>
+    <p>Ingresá antes de comenzar el recorrido. Este acceso protege la base que permanece en tu PC.</p>
+    {% if form.errors %}
+      <div class="drive-form-error" role="alert">Usuario o contraseña incorrectos.</div>
+    {% endif %}
+    <form method="post" class="drive-login-form">
+      {% csrf_token %}
+      <label for="id_username">Usuario</label>
+      <input id="id_username" name="username" type="text" autocomplete="username" required autofocus>
+      <label for="id_password">Contraseña</label>
+      <input id="id_password" name="password" type="password" autocomplete="current-password" required>
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <button type="submit">Ingresar al recorrido</button>
+    </form>
+  </main>
+</body>
+</html>
+

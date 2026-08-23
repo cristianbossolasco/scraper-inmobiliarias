@@ -67,6 +67,13 @@ node --check static\js\search-map.js
 node --check static\js\detail-map.js
 ```
 
+## Modo Recorrido móvil
+
+El desarrollo del acceso móvil aislado se documenta en
+[`docs/modo_recorrido_desarrollo.md`](docs/modo_recorrido_desarrollo.md). La base
+SQLite permanece en esta PC y el futuro túnel apuntará solamente al proceso móvil
+restringido, nunca al Radar administrativo completo.
+
 La base local usa SQLite, FTS5 para texto y RTree para prefiltrar búsquedas espaciales.
 ## Analisis, ubicacion y exportacion
 

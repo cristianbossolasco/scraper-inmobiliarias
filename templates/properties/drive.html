@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#061d38">
+  <title>Modo Recorrido · Radar Inmobiliario</title>
+  <link href="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css" rel="stylesheet">
+  <link href="{% static 'css/drive-mode.css' %}" rel="stylesheet">
+</head>
+<body class="drive-app">
+  <main class="drive-shell">
+    <div id="drive-map" class="drive-map" aria-label="Mapa de propiedades cercanas"></div>
+
+    <header class="drive-header">
+      <div class="drive-brand">
+        <div class="drive-logo compact" aria-hidden="true"><span></span><i></i></div>
+        <strong>Radar Inmobiliario</strong>
+      </div>
+      <form method="post" action="/accounts/logout/">
+        {% csrf_token %}
+        <button class="drive-icon-button" type="submit" aria-label="Cerrar sesión" title="Cerrar sesión">↪</button>
+      </form>
+    </header>
+
+    <section class="drive-status-stack" aria-live="polite">
+      <div id="drive-status" class="drive-status-pill"><i></i><span>Listo para comenzar</span></div>
+      <div id="drive-count" class="drive-count-pill" hidden>0 propiedades cerca</div>
+    </section>
+
+    <section id="drive-start-panel" class="drive-start-panel">
+      <div class="drive-start-icon" aria-hidden="true">⌖</div>
+      <p class="drive-eyebrow">Modo Recorrido</p>
+      <h1>Casas y precios mientras recorrés</h1>
+      <p>El GPS se activa únicamente al iniciar. Las coordenadas del recorrido no se guardan en tu PC.</p>
+      <div class="drive-safety-note">Configurá los filtros antes de manejar. Durante la prueba, usá la pantalla con acompañante.</div>
+      <button id="drive-start" class="drive-primary-button" type="button">Iniciar recorrido</button>
+    </section>
+
+    <button id="drive-recenter" class="drive-recenter" type="button" aria-label="Volver a centrar" hidden>⌖</button>
+
+    <section id="drive-property-card" class="drive-property-card" hidden>
+      <button id="drive-card-close" class="drive-card-close" type="button" aria-label="Cerrar">×</button>
+      <p id="drive-card-distance" class="drive-eyebrow"></p>
+      <h2 id="drive-card-price"></h2>
+      <p id="drive-card-facts"></p>
+      <p id="drive-card-location" class="drive-location-note"></p>
+      <button id="drive-favorite" class="drive-favorite-button" type="button">♡ Guardar</button>
+    </section>
+
+    <section id="drive-controls" class="drive-controls" hidden>
+      <label>
+        <span>Tipo</span>
+        <select id="drive-property-type">
+          <option value="">Todas</option>
+          {% for value, label in property_types %}<option value="{{ value }}"{% if value == "house" %} selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>
+        <span>Radio</span>
+        <select id="drive-radius">
+          <option value="200">200 m</option>
+          <option value="350" selected>350 m</option>
+          <option value="500">500 m</option>
+          <option value="800">800 m</option>
+        </select>
+      </label>
+      <button id="drive-stop" class="drive-stop-button" type="button">Finalizar recorrido</button>
+    </section>
+  </main>
+
+  {{ map_config|json_script:"drive-map-config" }}
+  <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script>
+  <script src="{% static 'js/drive-mode.js' %}"></script>
+</body>
+</html>
+
