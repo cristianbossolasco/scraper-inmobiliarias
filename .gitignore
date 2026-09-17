@@ -10,3 +10,5 @@ db.sqlite3*
 staticfiles/
 .tools/
 .scrape.lock
+/.codex-remote-attachments/
+/tmp/

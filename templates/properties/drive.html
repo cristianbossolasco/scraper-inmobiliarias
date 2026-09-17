@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#061d38">
   <title>Modo Recorrido · Radar Inmobiliario</title>
-  <link href="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css" rel="stylesheet">
+  <link href="{% static 'vendor/maplibre/maplibre-gl.css' %}" rel="stylesheet">
   <link href="{% static 'css/drive-mode.css' %}" rel="stylesheet">
 </head>
 <body class="drive-app">
@@ -18,7 +18,7 @@
         <div class="drive-logo compact" aria-hidden="true"><span></span><i></i></div>
         <strong>Radar Inmobiliario</strong>
       </div>
-      <form method="post" action="/accounts/logout/">
+      <form id="drive-logout-form" method="post" action="/accounts/logout/">
         {% csrf_token %}
         <button class="drive-icon-button" type="submit" aria-label="Cerrar sesión" title="Cerrar sesión">↪</button>
       </form>
@@ -30,49 +30,216 @@
     </section>
 
     <section id="drive-start-panel" class="drive-start-panel">
-      <div class="drive-start-icon" aria-hidden="true">⌖</div>
-      <p class="drive-eyebrow">Modo Recorrido</p>
-      <h1>Casas y precios mientras recorrés</h1>
-      <p>El GPS se activa únicamente al iniciar. Las coordenadas del recorrido no se guardan en tu PC.</p>
-      <div class="drive-safety-note">Configurá los filtros antes de manejar. Durante la prueba, usá la pantalla con acompañante.</div>
-      <button id="drive-start" class="drive-primary-button" type="button">Iniciar recorrido</button>
+      <div id="drive-start-content">
+        <div class="drive-start-icon" aria-hidden="true">⌖</div>
+        <p class="drive-eyebrow">Modo Recorrido</p>
+        <h1>Casas y precios mientras recorrés</h1>
+        <p>El GPS se activa únicamente al iniciar. La traza queda temporalmente en este teléfono y no se guarda en tu PC.</p>
+        <div class="drive-start-filters">
+          <fieldset class="drive-filter-fieldset drive-filter-wide">
+            <legend>Tipo de propiedad</legend>
+            <div class="drive-chip-options" id="drive-property-types">
+              {% for value, label in property_types %}
+                <label class="drive-filter-chip">
+                  <input type="checkbox" name="drive-property-type" value="{{ value }}"{% if value == "house" %} checked{% endif %}>
+                  <span>{{ label }}</span>
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+          <fieldset class="drive-filter-fieldset drive-filter-wide">
+            <legend>Dormitorios mínimos</legend>
+            <div class="drive-chip-options drive-bedroom-options">
+              <label class="drive-filter-chip"><input type="radio" name="drive-bedrooms" value="" checked><span>Todos</span></label>
+              {% for amount in "12345" %}<label class="drive-filter-chip"><input type="radio" name="drive-bedrooms" value="{{ amount }}"><span>{{ amount }}+</span></label>{% endfor %}
+            </div>
+          </fieldset>
+          <label class="drive-filter-field">
+            <span>Radio</span>
+            <select id="drive-radius">
+              <option value="200">200 m</option>
+              <option value="350" selected>350 m</option>
+              <option value="500">500 m</option>
+              <option value="800">800 m</option>
+              <option value="1000">1 km</option>
+              <option value="1500">1,5 km</option>
+            </select>
+          </label>
+          <details class="drive-advanced-filters drive-filter-wide">
+            <summary>Más filtros</summary>
+            <div class="drive-advanced-grid">
+              <label class="drive-filter-field">
+                <span>Precio mínimo (USD)</span>
+                <input id="drive-price-min" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej. 100.000">
+              </label>
+              <label class="drive-filter-field">
+                <span>Precio máximo (USD)</span>
+                <input id="drive-price-max" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej. 250.000">
+              </label>
+              <label class="drive-filter-field">
+                <span>Superficie cubierta mín.</span>
+                <input id="drive-covered-min" type="text" inputmode="numeric" autocomplete="off" placeholder="m²">
+              </label>
+              <label class="drive-filter-field">
+                <span>Terreno mínimo</span>
+                <input id="drive-land-min" type="text" inputmode="numeric" autocomplete="off" placeholder="m²">
+              </label>
+            </div>
+          </details>
+        </div>
+        <p id="drive-filter-error" class="drive-filter-error" role="alert" hidden></p>
+        <p id="drive-start-filter-summary" class="drive-start-filter-summary"></p>
+        <label class="drive-toggle"><input id="drive-audio" type="checkbox"> Avisos de voz breves, sin repetir</label>
+        <label class="drive-toggle"><input id="drive-memory" type="checkbox"> Ver trazas de mis últimas 10 salidas</label>
+        <p id="drive-memory-status" class="drive-storage-note" role="status"></p>
+        <div class="drive-safety-note">Configurá los filtros antes de manejar. Durante la prueba, usá la pantalla con acompañante.</div>
+        <button id="drive-start" class="drive-primary-button" type="button">Iniciar recorrido</button>
+        <button id="drive-history-open" class="drive-secondary-button" type="button">Mis recorridos</button>
+        <button id="drive-notebook-open" class="drive-secondary-button" type="button">Cuaderno y pendientes</button>
+        <p class="drive-storage-note">Al finalizar, el recorrido se guarda en tu PC para consultarlo después.</p>
+      </div>
+      <div id="drive-recovery" class="drive-recovery" hidden>
+        <div class="drive-start-icon" aria-hidden="true">↻</div>
+        <p class="drive-eyebrow">Recorrido interrumpido</p>
+        <h1>Encontramos una sesión reciente</h1>
+        <p>Podés continuar desde la traza guardada en este teléfono o descartarla.</p>
+        <button id="drive-resume" class="drive-primary-button" type="button">Continuar recorrido</button>
+        <button id="drive-recovery-summary" class="drive-secondary-button" type="button">Finalizar y ver resumen</button>
+        <button id="drive-recovery-delete" class="drive-text-button danger" type="button">Borrar recorrido</button>
+      </div>
     </section>
 
-    <button id="drive-recenter" class="drive-recenter" type="button" aria-label="Volver a centrar" hidden>⌖</button>
+    <div id="drive-follow-controls" class="drive-follow-controls" hidden>
+      <span id="drive-follow-status" class="drive-follow-status" aria-live="polite">Seguimiento activo</span>
+      <button id="drive-recenter" class="drive-recenter" type="button" aria-label="Seguir auto">⌖ <span>Seguir auto</span></button>
+      <button id="drive-field-open" class="drive-field-button" type="button">＋ Nota / cartel</button>
+      <button id="drive-audio-toggle" class="drive-field-button" type="button" aria-pressed="false">Voz apagada</button>
+    </div>
 
+    <button id="drive-map-back" class="drive-field-button drive-map-back" type="button" hidden>Volver al cuaderno</button>
     <section id="drive-property-card" class="drive-property-card" hidden>
       <button id="drive-card-close" class="drive-card-close" type="button" aria-label="Cerrar">×</button>
-      <p id="drive-card-distance" class="drive-eyebrow"></p>
-      <h2 id="drive-card-price"></h2>
-      <p id="drive-card-facts"></p>
+      <div class="drive-property-main">
+        <div class="drive-property-media">
+          <img id="drive-card-image" alt="" width="116" height="96" decoding="async" fetchpriority="high" referrerpolicy="no-referrer" hidden>
+          <div id="drive-card-image-fallback" class="drive-property-image-fallback" aria-hidden="true">⌂</div>
+          <span id="drive-card-image-label">Foto del aviso</span>
+        </div>
+        <div class="drive-property-copy">
+          <p id="drive-card-distance" class="drive-eyebrow"></p>
+          <p id="drive-card-group" class="drive-card-group" hidden></p>
+          <h2 id="drive-card-address">Dirección no publicada</h2>
+          <p id="drive-card-price" class="drive-card-price"></p>
+          <p id="drive-card-facts"></p>
+        </div>
+      </div>
+      <p id="drive-card-address-note" class="drive-address-note"></p>
       <p id="drive-card-location" class="drive-location-note"></p>
-      <button id="drive-favorite" class="drive-favorite-button" type="button">♡ Guardar</button>
+      <div id="drive-card-group-nav" class="drive-card-group-nav" hidden>
+        <button id="drive-card-prev" type="button">‹ Anterior</button>
+        <span id="drive-card-index"></span>
+        <button id="drive-card-next" type="button">Siguiente ›</button>
+      </div>
+      <div class="drive-card-actions">
+        <button id="drive-favorite" class="drive-favorite-button" type="button">♡ Guardar</button>
+        <button id="drive-property-note" class="drive-secondary-button" type="button">Observación / pendiente</button>
+        <a id="drive-original-link" class="drive-original-link" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer" hidden>Ver publicación original ↗</a>
+      </div>
     </section>
 
     <section id="drive-controls" class="drive-controls" hidden>
-      <label>
-        <span>Tipo</span>
-        <select id="drive-property-type">
-          <option value="">Todas</option>
-          {% for value, label in property_types %}<option value="{{ value }}"{% if value == "house" %} selected{% endif %}>{{ label }}</option>{% endfor %}
-        </select>
-      </label>
-      <label>
-        <span>Radio</span>
-        <select id="drive-radius">
-          <option value="200">200 m</option>
-          <option value="350" selected>350 m</option>
-          <option value="500">500 m</option>
-          <option value="800">800 m</option>
-        </select>
-      </label>
+      <p id="drive-discovery-warning" role="status" hidden></p>
+      <div id="drive-filter-summary" class="drive-filter-summary">Casa · 350 m</div>
       <button id="drive-stop" class="drive-stop-button" type="button">Finalizar recorrido</button>
+    </section>
+
+    <section id="drive-summary" class="drive-summary" tabindex="-1" hidden>
+      <div class="drive-summary-heading">
+        <div class="drive-summary-check" aria-hidden="true">✓</div>
+        <div>
+          <p class="drive-eyebrow">Trayecto recorrido</p>
+          <h1 id="drive-summary-title">Recorrido finalizado</h1>
+        </div>
+      </div>
+      <div class="drive-summary-metrics">
+        <div><strong id="drive-summary-duration">0 min</strong><span>Duración</span></div>
+        <div><strong id="drive-summary-distance">0 km</strong><span>Distancia aprox.</span></div>
+        <div><strong id="drive-summary-encounters">0</strong><span>Propiedades descubiertas</span></div>
+        <div><strong id="drive-summary-favorites">0</strong><span>Favoritas</span></div>
+      </div>
+      <p id="drive-summary-filters" class="drive-summary-filters"></p>
+      <p id="drive-sync-status" class="drive-sync-status" role="status"></p>
+      <button id="drive-sync-retry" class="drive-secondary-button" type="button" hidden>Reintentar guardado</button>
+      <p id="drive-next-steps" class="drive-summary-filters"></p>
+      <button id="drive-summary-notebook" class="drive-secondary-button" type="button">Ver notas y pendientes de esta salida</button>
+      <div id="drive-summary-list-section" class="drive-summary-list-section" hidden>
+        <h2>Propiedades guardadas</h2>
+        <div id="drive-summary-list" class="drive-summary-list"></div>
+      </div>
+      <details id="drive-encounters-section" class="drive-encounters-section" open hidden>
+        <summary>Descubrimientos de la salida</summary>
+        <label class="drive-filter-field"><span>Mostrar en lista y mapa</span><select id="drive-discovery-filter">
+          <option value="all">Todas</option><option value="new">Nuevas para mí</option>
+          <option value="close">Pasé cerca</option><option value="favorites">Favoritas</option>
+          <option value="pending">Con pendientes</option>
+        </select></label>
+        <p id="drive-discovery-help" class="drive-storage-note"></p>
+        <div id="drive-encounters-list" class="drive-summary-list"></div>
+        <button id="drive-discovery-more" class="drive-secondary-button" type="button" hidden>Ver más casas</button>
+      </details>
+      <button id="drive-summary-history" class="drive-secondary-button" type="button">Mis recorridos</button>
+      <button id="drive-new-session" class="drive-primary-button" type="button">Iniciar nuevo recorrido</button>
+      <button id="drive-delete-session" class="drive-text-button danger" type="button">Eliminar copia de este teléfono</button>
+      <button id="drive-delete-history" class="drive-secondary-button danger" type="button" hidden>Eliminar del historial de la PC</button>
+    </section>
+    <dialog id="drive-notebook" class="drive-dialog" aria-labelledby="drive-notebook-title">
+      <div class="drive-dialog-heading"><h2 id="drive-notebook-title">Cuaderno de campo</h2><button id="drive-notebook-close" type="button" aria-label="Cerrar cuaderno">×</button></div>
+      <p>Observaciones personales y próximos pasos. No cambian los datos del aviso.</p>
+      <p id="drive-notebook-status" role="status"></p>
+      <div class="drive-dialog-actions"><button id="drive-notebook-refresh" type="button">Actualizar y sincronizar</button><button id="drive-notebook-all" type="button">Todas las salidas</button></div>
+      <label class="drive-toggle"><input id="drive-notebook-pending" type="checkbox"> Solo pendientes</label>
+      <div id="drive-notebook-list" class="drive-summary-list"></div>
+      <button id="drive-notebook-more" class="drive-secondary-button" type="button" hidden>Ver más notas</button>
+    </dialog>
+    <dialog id="drive-note-editor" class="drive-dialog" aria-labelledby="drive-note-title">
+      <form id="drive-note-form">
+        <div class="drive-dialog-heading"><h2 id="drive-note-title">Observación de campo</h2><button id="drive-note-close" type="button" aria-label="Cerrar nota">×</button></div>
+        <p id="drive-note-context"></p>
+        <label class="drive-filter-field"><span>Tipo de registro</span><select id="drive-note-kind"><option value="property">Sobre esta propiedad</option><option value="place">Sobre este lugar</option><option value="sign">Encontré un cartel</option></select></label>
+        <fieldset class="drive-note-tags"><legend>Observaciones rápidas</legend>
+          <label><input type="checkbox" value="quiet"> Calle tranquila</label><label><input type="checkbox" value="noisy"> Ruido</label>
+          <label><input type="checkbox" value="liked_block"> Me gustó la cuadra</label><label><input type="checkbox" value="poor_front"> Fachada deteriorada</label>
+          <label><input type="checkbox" value="wrong_location"> Ubicación a revisar</label>
+        </fieldset>
+        <label class="drive-filter-field"><span>Nota</span><textarea id="drive-note-text" maxlength="2000" rows="3" placeholder="Lo que viste, datos del cartel o motivo para volver"></textarea></label>
+        <button id="drive-note-dictate" class="drive-secondary-button" type="button" hidden>Dictar nota</button>
+        <p id="drive-dictation-hint" class="drive-storage-note" hidden>El dictado usa el servicio de voz del navegador. Revisá el texto antes de guardarlo.</p>
+        <label class="drive-filter-field"><span>Próximo paso</span><select id="drive-note-action"><option value="none">Sin pendiente</option><option value="review">Revisar con más tiempo</option><option value="revisit">Volver a visitar</option><option value="daylight">Volver de día</option><option value="contact">Consultar al anunciante</option></select></label>
+        <label class="drive-filter-field"><span>Foto opcional, estando detenido</span><input id="drive-note-photo" type="file" accept="image/*" capture="environment"></label>
+        <p id="drive-note-error" role="status"></p>
+        <button id="drive-note-save" class="drive-primary-button" type="submit">Guardar en mi cuaderno</button>
+      </form>
+    </dialog>
+    <section id="drive-history-panel" class="drive-history-panel" aria-labelledby="drive-history-title" hidden>
+      <div class="drive-history-heading">
+        <div><p class="drive-eyebrow">Tus zonas exploradas</p><h1 id="drive-history-title" tabindex="-1">Mis recorridos</h1></div>
+        <button id="drive-history-close" class="drive-secondary-button" type="button">Volver</button>
+      </div>
+      <p id="drive-history-message" role="status"></p>
+      <button id="drive-history-refresh" class="drive-secondary-button" type="button">Actualizar y sincronizar</button>
+      <div id="drive-history-list" class="drive-history-list"></div>
+      <button id="drive-history-more" class="drive-secondary-button" type="button" hidden>Ver más recorridos</button>
     </section>
   </main>
 
   {{ map_config|json_script:"drive-map-config" }}
-  <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script>
+  <script src="{% static 'vendor/maplibre/maplibre-gl.js' %}"></script>
+  <script src="{% static 'js/drive-utils.js' %}"></script>
+  <script src="{% static 'js/drive-navigation.js' %}"></script>
+  <script src="{% static 'js/drive-history.js' %}"></script>
+  <script src="{% static 'js/drive-discovery.js' %}"></script>
+  <script src="{% static 'js/drive-notebook.js' %}"></script>
+  <script src="{% static 'js/drive-field-ui.js' %}"></script>
   <script src="{% static 'js/drive-mode.js' %}"></script>
 </body>
 </html>
-

@@ -1,4 +1,5 @@
 import json
+import time
 from functools import wraps
 
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.views.decorators.http import require_GET, require_POST
 from properties.models import Property
 from properties.services.drive_mode import (
     DriveModeValidationError,
+    drive_property_card,
     nearby_drive_properties,
 )
 
@@ -20,6 +22,18 @@ def _no_store(response):
     response["Cache-Control"] = "private, no-store"
     response["Pragma"] = "no-cache"
     return response
+
+
+def _timed_json_response(payload, service_started_at, *, status=200):
+    service_ms = (time.perf_counter() - service_started_at) * 1000
+    serialize_started_at = time.perf_counter()
+    response = JsonResponse(payload, status=status)
+    serialize_ms = (time.perf_counter() - serialize_started_at) * 1000
+    response["Server-Timing"] = (
+        f"drive;dur={service_ms:.1f};desc=Radar, "
+        f"serialize;dur={serialize_ms:.1f};desc=JSON"
+    )
+    return _no_store(response)
 
 
 def mobile_api_login_required(view_func):
@@ -47,6 +61,7 @@ def drive_mode(request):
         "bounds": settings.HURLINGHAM_BOUNDS,
         "center": [-58.641, -34.606],
         "zoom": 12,
+        "user_id": request.user.pk,
     }
     response = render(
         request,
@@ -55,6 +70,19 @@ def drive_mode(request):
             "map_config": map_config,
             "property_types": Property.Type.choices,
         },
+    )
+    response["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: blob: https:; "
+        "connect-src 'self' https:; "
+        "font-src 'self' data:; "
+        "worker-src 'self' blob:; "
+        "child-src 'self' blob:; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "frame-ancestors 'none'"
     )
     return _no_store(response)
 
@@ -69,11 +97,22 @@ def nearby_drive_properties_api(request):
     except json.JSONDecodeError:
         return _no_store(JsonResponse({"error": "JSON invalido."}, status=400))
     try:
+        service_started_at = time.perf_counter()
         result = nearby_drive_properties(payload)
     except DriveModeValidationError as exc:
         return _no_store(JsonResponse({"error": str(exc)}, status=400))
     result["generated_at"] = timezone.now().isoformat()
-    return _no_store(JsonResponse(result))
+    return _timed_json_response(result, service_started_at)
+
+
+@require_GET
+@mobile_api_login_required
+def drive_property_card_api(request, pk):
+    service_started_at = time.perf_counter()
+    result = drive_property_card(pk)
+    if result is None:
+        return _no_store(JsonResponse({"error": "Propiedad no disponible."}, status=404))
+    return _timed_json_response(result, service_started_at)
 
 
 @require_POST
@@ -111,4 +150,3 @@ def drive_favorite_api(request, pk):
 @require_GET
 def mobile_health(request):
     return _no_store(JsonResponse({"ok": True, "service": "radar-mobile"}))
-

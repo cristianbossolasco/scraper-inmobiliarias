@@ -28,7 +28,10 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 CSRF_TRUSTED_ORIGINS = []
 if mobile_host:
     ALLOWED_HOSTS.append(mobile_host)
-    CSRF_TRUSTED_ORIGINS.append(f"https://{mobile_host}")
+    if mobile_host.startswith("."):
+        CSRF_TRUSTED_ORIGINS.append(f"https://*{mobile_host}")
+    else:
+        CSRF_TRUSTED_ORIGINS.append(f"https://{mobile_host}")
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = mobile_strict
@@ -47,10 +50,12 @@ LOGIN_REDIRECT_URL = "/recorrido/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"  # noqa: F405
+DATA_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
 
 MIDDLEWARE = list(MIDDLEWARE)  # noqa: F405
 security_index = MIDDLEWARE.index("django.middleware.security.SecurityMiddleware")
 MIDDLEWARE.insert(security_index + 1, "whitenoise.middleware.WhiteNoiseMiddleware")
+MIDDLEWARE.insert(security_index + 2, "django.middleware.gzip.GZipMiddleware")
 
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
@@ -58,4 +63,3 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
     },
 }
-

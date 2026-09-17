@@ -8,3 +8,4 @@ pyproj==3.7.2
 pyshp==3.0.12
 waitress==3.0.2
 whitenoise==6.12.0
+Pillow==12.3.0

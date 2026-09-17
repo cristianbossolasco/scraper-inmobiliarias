@@ -70,9 +70,20 @@ node --check static\js\detail-map.js
 ## Modo Recorrido móvil
 
 El desarrollo del acceso móvil aislado se documenta en
-[`docs/modo_recorrido_desarrollo.md`](docs/modo_recorrido_desarrollo.md). La base
-SQLite permanece en esta PC y el futuro túnel apuntará solamente al proceso móvil
-restringido, nunca al Radar administrativo completo.
+[`docs/modo_recorrido_desarrollo.md`](docs/modo_recorrido_desarrollo.md), el
+bloque de reconocimiento ya implementado en
+[`docs/plan_modo_recorrido_bloque_2.md`](docs/plan_modo_recorrido_bloque_2.md) y
+el bloque implementado de filtros, enlaces y rendimiento en
+[`docs/plan_modo_recorrido_bloque_3.md`](docs/plan_modo_recorrido_bloque_3.md).
+La base SQLite permanece en esta PC y el futuro túnel apuntará solamente al
+proceso móvil restringido, nunca al Radar administrativo completo.
+
+El modo de descubrimiento permite radios de hasta 1,5 km, conserva las propiedades
+detectadas durante toda la salida y las muestra en el historial. Incluye cuaderno
+de campo con notas, fotos de carteles y pendientes, memoria entre salidas y avisos
+de voz opcionales. El uso y las comprobaciones están en el quinto bloque de la
+documentación de Modo Recorrido. Aplicar las migraciones y regenerar los estáticos
+antes de reiniciar el proceso móvil después de actualizar.
 
 La base local usa SQLite, FTS5 para texto y RTree para prefiltrar búsquedas espaciales.
 ## Analisis, ubicacion y exportacion

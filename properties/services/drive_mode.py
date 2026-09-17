@@ -2,19 +2,24 @@ import math
 import re
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
-from django.db.models import Exists, OuterRef, Q
+from django.db.models import Exists, OuterRef, Q, Subquery
 
-from properties.models import Listing, Property, PropertyLocation
+from properties.models import Listing, ListingImage, Property, PropertyLocation
 from properties.services.data_quality import USD_PRICE_RANGE
 from properties.services.spatial import haversine_km, radius_bbox, rtree_property_ids
 
 
 DEFAULT_RADIUS_M = 350
 MIN_RADIUS_M = 200
-MAX_RADIUS_M = 1000
+MAX_RADIUS_M = 1500
 MAX_RESULTS = 250
 ALERT_GROUP_THRESHOLD = 5
+MAX_IMAGE_URL_LENGTH = 2000
+MAX_AREA_M2 = Decimal("100000")
+MAX_BEDROOMS = 12
+PROPERTY_TYPE_LABELS = dict(Property.Type.choices)
 
 
 class DriveModeValidationError(ValueError):
@@ -53,6 +58,22 @@ def _decimal(payload, key):
     return number
 
 
+def _bounded_decimal(payload, key, maximum):
+    number = _decimal(payload, key)
+    if number is not None and number > maximum:
+        raise DriveModeValidationError(f"{key} esta fuera de rango.")
+    return number
+
+
+def _bounded_integer(payload, key, maximum):
+    number = _decimal(payload, key)
+    if number is None:
+        return None
+    if number != number.to_integral_value() or number > maximum:
+        raise DriveModeValidationError(f"{key} debe ser un entero entre 0 y {maximum}.")
+    return int(number)
+
+
 def parse_drive_query(payload):
     if not isinstance(payload, dict):
         raise DriveModeValidationError("El cuerpo JSON debe ser un objeto.")
@@ -89,18 +110,38 @@ def parse_drive_query(payload):
             f"Tipos de propiedad invalidos: {', '.join(invalid_types)}."
         )
 
-    price_min = _decimal(payload, "price_min")
-    price_max = _decimal(payload, "price_max")
+    price_min = _bounded_decimal(payload, "price_min", USD_PRICE_RANGE[1])
+    price_max = _bounded_decimal(payload, "price_max", USD_PRICE_RANGE[1])
     if price_min is not None and price_max is not None and price_min > price_max:
         raise DriveModeValidationError("price_min no puede ser mayor que price_max.")
+
+    price_currency = str(payload.get("price_currency") or "USD").strip().upper()
+    if price_currency != "USD":
+        raise DriveModeValidationError("price_currency debe ser USD.")
+
+    bedrooms_min = _bounded_integer(payload, "bedrooms_min", MAX_BEDROOMS)
+    covered_area_min_m2 = _bounded_decimal(
+        payload,
+        "covered_area_min_m2",
+        MAX_AREA_M2,
+    )
+    land_area_min_m2 = _bounded_decimal(
+        payload,
+        "land_area_min_m2",
+        MAX_AREA_M2,
+    )
 
     return {
         "latitude": latitude,
         "longitude": longitude,
         "radius_m": radius_m,
         "property_types": property_types,
+        "price_currency": price_currency,
         "price_min": price_min,
         "price_max": price_max,
+        "bedrooms_min": bedrooms_min,
+        "covered_area_min_m2": covered_area_min_m2,
+        "land_area_min_m2": land_area_min_m2,
     }
 
 
@@ -143,9 +184,101 @@ def _location_reliability(property_obj):
     return "published"
 
 
+def _location_label(reliability):
+    return {
+        "confirmed": "Ubicación confirmada manualmente",
+        "address": "Ubicación calculada por dirección",
+        "published": "Ubicación publicada; puede ser aproximada",
+    }[reliability]
+
+
+def _address_payload(property_obj):
+    canonical = (property_obj.address or "").strip()
+    detected = (property_obj.detected_address or "").strip()
+    manual_overrides = property_obj.manual_overrides or {}
+    if canonical:
+        reliability = "confirmed" if "address" in manual_overrides else "published"
+        text = canonical
+    elif detected:
+        reliability = "detected"
+        text = detected
+    else:
+        reliability = "unavailable"
+        text = ""
+    labels = {
+        "confirmed": "Dirección confirmada manualmente",
+        "published": "Dirección publicada; puede ser aproximada",
+        "detected": "Dirección detectada en el aviso; puede ser aproximada",
+        "unavailable": "Dirección no publicada",
+    }
+    return {
+        "address_text": text,
+        "address_reliability": reliability,
+        "address_label": labels[reliability],
+    }
+
+
+def _safe_https_url(absolute):
+    absolute = (absolute or "").strip()
+    if len(absolute) > MAX_IMAGE_URL_LENGTH:
+        return ""
+    try:
+        parsed = urlsplit(absolute)
+        port = parsed.port
+    except ValueError:
+        return ""
+    if (
+        parsed.scheme.lower() != "https"
+        or not parsed.hostname
+        or parsed.username
+        or parsed.password
+        or (port is not None and not 1 <= port <= 65535)
+    ):
+        return ""
+    netloc = parsed.hostname
+    if ":" in netloc:
+        netloc = f"[{netloc}]"
+    if port is not None and port != 443:
+        netloc = f"{netloc}:{port}"
+    return urlunsplit(("https", netloc, parsed.path or "/", parsed.query, ""))
+
+
+def _safe_image_url(raw_url, listing_url):
+    raw_url = (raw_url or "").strip()
+    listing_url = (listing_url or "").strip()
+    if not raw_url:
+        return ""
+    return _safe_https_url(urljoin(listing_url, raw_url))
+
+
 def _area_m2(property_obj):
     value = property_obj.covered_area or property_obj.total_area or property_obj.land_area
     return float(value) if value is not None else None
+
+
+def _truncate_grouped_properties(group_items, limit=MAX_RESULTS):
+    selected = []
+    truncated = False
+    for items in group_items:
+        remaining = limit - len(selected)
+        if remaining <= 0:
+            truncated = True
+            break
+        if len(items) <= remaining:
+            selected.extend(items)
+            continue
+        truncated = True
+        if len(items) >= ALERT_GROUP_THRESHOLD and not selected:
+            selected.extend(items[:remaining])
+        break
+    returned_counts = defaultdict(int)
+    for item in selected:
+        returned_counts[item["group_id"]] += 1
+    for item in selected:
+        returned = returned_counts[item["group_id"]]
+        item["group_returned_count"] = returned
+        item["group_truncated"] = returned < item["group_count"]
+    return selected, truncated
 
 
 def _eligible_queryset(candidate_ids, query):
@@ -174,12 +307,83 @@ def _eligible_queryset(candidate_ids, query):
         )
         .filter(valid_price_filter)
         .filter(confidence_filter)
-        .annotate(has_active_listing=Exists(active_listing))
-        .filter(has_active_listing=True)
+        .filter(Exists(active_listing))
+        .order_by("pk")
+    )
+    if query["property_types"]:
+        queryset = queryset.filter(property_type__in=query["property_types"])
+    if query["price_min"] is not None:
+        queryset = queryset.filter(
+            currency=query["price_currency"],
+            price__gte=query["price_min"],
+        )
+    if query["price_max"] is not None:
+        queryset = queryset.filter(
+            currency=query["price_currency"],
+            price__lte=query["price_max"],
+        )
+    if query["bedrooms_min"] is not None:
+        queryset = queryset.filter(bedrooms__gte=query["bedrooms_min"])
+    if query["covered_area_min_m2"] is not None:
+        queryset = queryset.filter(covered_area__gte=query["covered_area_min_m2"])
+    if query["land_area_min_m2"] is not None:
+        queryset = queryset.filter(land_area__gte=query["land_area_min_m2"])
+    return queryset
+
+
+def _with_card_image(queryset):
+    image_queryset = ListingImage.objects.filter(
+        listing__property_id=OuterRef("pk"),
+        listing__active=True,
+    ).exclude(
+        url__istartswith="http://",
+    ).exclude(
+        url__istartswith="javascript:",
+    ).exclude(
+        url__istartswith="data:",
+    ).exclude(
+        url__istartswith="file:",
+    ).exclude(
+        url__istartswith="ftp:",
+    ).order_by(
+        "-listing__last_seen_at",
+        "listing_id",
+        "position",
+        "pk",
+    )
+    fallback_listing = Listing.objects.filter(
+        property_id=OuterRef("pk"),
+        active=True,
+        url__istartswith="https://",
+    ).order_by("-last_seen_at", "pk")
+    return queryset.annotate(
+        drive_image_raw=Subquery(image_queryset.values("url")[:1]),
+        drive_image_listing_url=Subquery(image_queryset.values("listing__url")[:1]),
+        drive_image_source_name=Subquery(
+            image_queryset.values("listing__source__name")[:1]
+        ),
+        drive_fallback_listing_url=Subquery(fallback_listing.values("url")[:1]),
+        drive_fallback_source_name=Subquery(
+            fallback_listing.values("source__name")[:1]
+        ),
+    )
+
+
+def drive_property_card(property_id):
+    query = {
+        "property_types": [],
+        "price_currency": "USD",
+        "price_min": None,
+        "price_max": None,
+        "bedrooms_min": None,
+        "covered_area_min_m2": None,
+        "land_area_min_m2": None,
+    }
+    property_obj = _with_card_image(
+        _eligible_queryset([property_id], query)
         .select_related("location")
         .only(
             "id",
-            "title",
             "property_type",
             "currency",
             "price",
@@ -190,24 +394,59 @@ def _eligible_queryset(candidate_ids, query):
             "land_area",
             "address",
             "detected_address",
-            "location_confidence",
+            "manual_overrides",
             "is_favorite",
-            "location__latitude",
-            "location__longitude",
             "location__precision",
             "location__provider",
             "location__query",
             "location__manually_corrected",
         )
-        .order_by("pk")
-    )
-    if query["property_types"]:
-        queryset = queryset.filter(property_type__in=query["property_types"])
-    if query["price_min"] is not None:
-        queryset = queryset.filter(price__gte=query["price_min"])
-    if query["price_max"] is not None:
-        queryset = queryset.filter(price__lte=query["price_max"])
-    return queryset
+    ).first()
+    if property_obj is None:
+        return None
+    location_reliability = _location_reliability(property_obj)
+    preferred_original_url = _safe_https_url(property_obj.drive_image_listing_url)
+    if preferred_original_url:
+        original_url = preferred_original_url
+        original_source_name = property_obj.drive_image_source_name or ""
+    else:
+        original_url = _safe_https_url(property_obj.drive_fallback_listing_url)
+        original_source_name = property_obj.drive_fallback_source_name or ""
+    result = {
+        "id": property_obj.pk,
+        "price_short": _price_short(property_obj.currency, property_obj.price),
+        "type": property_obj.property_type,
+        "type_label": property_obj.get_property_type_display(),
+        "bedrooms": property_obj.bedrooms,
+        "bathrooms": (
+            float(property_obj.bathrooms)
+            if property_obj.bathrooms is not None
+            else None
+        ),
+        "area_m2": _area_m2(property_obj),
+        "covered_area_m2": (
+            float(property_obj.covered_area)
+            if property_obj.covered_area is not None
+            else None
+        ),
+        "land_area_m2": (
+            float(property_obj.land_area)
+            if property_obj.land_area is not None
+            else None
+        ),
+        "location_reliability": location_reliability,
+        "location_label": _location_label(location_reliability),
+        "image_url": _safe_image_url(
+            property_obj.drive_image_raw,
+            property_obj.drive_image_listing_url,
+        ),
+        "original_url": original_url,
+        "original_host": urlsplit(original_url).hostname if original_url else "",
+        "original_source_name": original_source_name,
+        "is_favorite": property_obj.is_favorite,
+    }
+    result.update(_address_payload(property_obj))
+    return result
 
 
 def nearby_drive_properties(payload):
@@ -217,38 +456,43 @@ def nearby_drive_properties(payload):
         *radius_bbox(query["latitude"], query["longitude"], radius_km)
     )
     properties = []
-    for property_obj in _eligible_queryset(candidate_ids, query):
+    nearby_rows = _eligible_queryset(candidate_ids, query).values(
+        "id",
+        "property_type",
+        "currency",
+        "price",
+        "location__latitude",
+        "location__longitude",
+    )
+    for row in nearby_rows:
+        latitude = row["location__latitude"]
+        longitude = row["location__longitude"]
         distance_m = round(
             haversine_km(
                 query["latitude"],
                 query["longitude"],
-                property_obj.location.latitude,
-                property_obj.location.longitude,
+                latitude,
+                longitude,
             )
             * 1000
         )
         if distance_m > query["radius_m"]:
             continue
-        group_id = (
-            f"{property_obj.location.latitude:.6f},"
-            f"{property_obj.location.longitude:.6f}"
-        )
+        group_id = f"{latitude:.6f},{longitude:.6f}"
         properties.append(
             {
-                "id": property_obj.pk,
-                "latitude": property_obj.location.latitude,
-                "longitude": property_obj.location.longitude,
+                "id": row["id"],
+                "latitude": latitude,
+                "longitude": longitude,
                 "distance_m": distance_m,
-                "currency": property_obj.currency,
-                "price": float(property_obj.price),
-                "price_short": _price_short(property_obj.currency, property_obj.price),
-                "type": property_obj.property_type,
-                "type_label": property_obj.get_property_type_display(),
-                "bedrooms": property_obj.bedrooms,
-                "bathrooms": float(property_obj.bathrooms) if property_obj.bathrooms is not None else None,
-                "area_m2": _area_m2(property_obj),
-                "location_reliability": _location_reliability(property_obj),
-                "is_favorite": property_obj.is_favorite,
+                "currency": row["currency"],
+                "price": float(row["price"]),
+                "price_short": _price_short(row["currency"], row["price"]),
+                "type": row["property_type"],
+                "type_label": PROPERTY_TYPE_LABELS.get(
+                    row["property_type"],
+                    "Otro",
+                ),
                 "group_id": group_id,
             }
         )
@@ -270,14 +514,30 @@ def nearby_drive_properties(payload):
             item["group_suspicious"] = group_suspicious
             item["group_price_short"] = group_price_short
 
-    truncated = len(properties) > MAX_RESULTS
-    properties = properties[:MAX_RESULTS]
+    properties, truncated = _truncate_grouped_properties(list(groups.values()))
     return {
         "center": {
             "latitude": query["latitude"],
             "longitude": query["longitude"],
         },
         "radius_m": query["radius_m"],
+        "applied_filters": {
+            "property_types": query["property_types"],
+            "price_currency": query["price_currency"],
+            "price_min": float(query["price_min"]) if query["price_min"] is not None else None,
+            "price_max": float(query["price_max"]) if query["price_max"] is not None else None,
+            "bedrooms_min": query["bedrooms_min"],
+            "covered_area_min_m2": (
+                float(query["covered_area_min_m2"])
+                if query["covered_area_min_m2"] is not None
+                else None
+            ),
+            "land_area_min_m2": (
+                float(query["land_area_min_m2"])
+                if query["land_area_min_m2"] is not None
+                else None
+            ),
+        },
         "count": len(properties),
         "truncated": truncated,
         "properties": properties,

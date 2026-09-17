@@ -1,8 +1,60 @@
 import builtins
+import uuid
 from decimal import Decimal
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
+
+
+class DriveHistory(models.Model):
+    """An immutable completed trip, privately owned by the signed-in user."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="drive_history"
+    )
+    client_session_id = models.CharField(max_length=100)
+    started_at = models.DateTimeField()
+    ended_at = models.DateTimeField()
+    distance_m = models.FloatField(default=0)
+    point_count = models.PositiveIntegerField(default=0)
+    encounter_count = models.PositiveIntegerField(default=0)
+    favorite_count = models.PositiveIntegerField(default=0)
+    filters = models.JSONField(default=dict)
+    session = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-started_at", "-id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["owner", "client_session_id"], name="unique_owner_drive_session"
+            )
+        ]
+        indexes = [
+            models.Index(fields=["owner", "-started_at"], name="drive_owner_started_idx")
+        ]
+
+
+class DriveFieldNote(models.Model):
+    """Private field observations, independent from canonical property data."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="drive_field_notes")
+    client_session_id = models.CharField(max_length=100, db_index=True)
+    data = models.JSONField(default=dict)
+    photo = models.BinaryField(null=True, blank=True)
+    revision = models.PositiveIntegerField(default=1)
+    mutation_id = models.UUIDField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at", "-id"]
+        indexes = [models.Index(fields=["owner", "client_session_id"], name="drive_note_owner_trip_idx")]
 
 
 class Agency(models.Model):
