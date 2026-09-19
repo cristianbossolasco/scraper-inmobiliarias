@@ -10,5 +10,7 @@ db.sqlite3*
 staticfiles/
 .tools/
 .scrape.lock
+.link-audit.lock
+/logs/link-audit-*.jsonl
 /.codex-remote-attachments/
 /tmp/

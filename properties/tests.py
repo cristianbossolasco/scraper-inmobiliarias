@@ -2899,6 +2899,16 @@ class ViewTests(TestCase):
         payload = response.json()
         self.assertEqual(len(payload["features"]), 1)
 
+    def test_map_pages_allow_cross_origin_tile_referrer(self):
+        for path in ("/", "/estadisticas/", "/territorio/"):
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response.headers["Referrer-Policy"],
+                    "strict-origin-when-cross-origin",
+                )
+
     def test_search_renders_property_preview_modal(self):
         response = self.client.get("/")
 

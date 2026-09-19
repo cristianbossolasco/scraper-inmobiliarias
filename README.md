@@ -36,7 +36,7 @@ Las fuentes habilitadas inicialmente son Mapaprop y Argencasas. Las inmobiliaria
 locales sindicadas en esos portales se conservan como agencias del aviso, evitando
 consultas duplicadas.
 
-## Automatización semanal
+## Automatización nocturna
 
 Ejecutar PowerShell como el usuario que utilizará la aplicación:
 
@@ -44,8 +44,16 @@ Ejecutar PowerShell como el usuario que utilizará la aplicación:
 .\scripts\install_scheduled_task.ps1
 ```
 
-Por defecto se crea una tarea para los domingos a las 09:00. La PC debe estar
+Por defecto se crea una tarea día por medio a las 03:00. La PC debe estar
 encendida; la opción `StartWhenAvailable` permite recuperar una ejecución omitida.
+
+El barrido de enlaces se ejecuta con `python manage.py audit_listing_links --apply`
+(sin `--apply` solo informa). Recorre todas las publicaciones guardadas, incluso
+inactivas, y registra cada resultado en `logs/link-audit-*.jsonl`. Solo marca bajas
+confirmadas; errores, bloqueos y páginas sin estado reconocible quedan pendientes.
+Conserva las correcciones manuales y no elimina registros. La tarea de Windows
+`Radar - Barrido full de enlaces` ejecuta `scripts/run_link_audit.ps1` los domingos
+a la 01:00.
 
 ## Geolocalización
 

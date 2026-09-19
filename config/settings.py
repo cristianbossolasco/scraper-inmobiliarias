@@ -22,6 +22,9 @@ CSRF_TRUSTED_ORIGINS = [
     ],
 ]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# OSM requires a Referer for browser tile requests. Send only the origin
+# cross-origin, keeping search filters and property paths private.
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
