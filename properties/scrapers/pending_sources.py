@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import threading
 from math import ceil
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
@@ -2791,6 +2792,19 @@ class RemaxArgentinaScraper(BaseScraper):
     page_size = 24
     image_base = "https://d1acdg20u0pmxj.cloudfront.net"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # One public search snapshot per adapter/run, shared by detail workers.
+        self._search_payload_pages = {}
+        self._search_payload_lock = threading.Lock()
+
+    def _cached_search_page(self, page):
+        with self._search_payload_lock:
+            if page not in self._search_payload_pages:
+                # Failed requests are not cached as empty results.
+                self._search_payload_pages[page] = self._find_all(page)
+            return self._search_payload_pages[page]
+
     def _api_get(self, path, **params):
         self.throttle()
         response = self.session.get(
@@ -2920,7 +2934,7 @@ class RemaxArgentinaScraper(BaseScraper):
         total_pages = None
         page = 0
         while total_pages is None or page < total_pages:
-            payload = self._find_all(page)
+            payload = self._cached_search_page(page)
             data = payload.get("data") or {}
             items = data.get("data") or []
             if total_pages is None:

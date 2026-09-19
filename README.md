@@ -55,6 +55,11 @@ Conserva las correcciones manuales y no elimina registros. La tarea de Windows
 `Radar - Barrido full de enlaces` ejecuta `scripts/run_link_audit.ps1` los domingos
 a la 01:00.
 
+Para continuar un barrido interrumpido, usar
+`python manage.py audit_listing_links --apply --resume --report logs/link-audit-FECHA.jsonl`.
+Conserva el informe y omite los pares ID/URL ya registrados, incluidos errores e
+inciertos. RE/MAX reutiliza las páginas de búsqueda dentro de cada ejecución.
+
 ## Geolocalización
 
 - Las coordenadas publicadas por la fuente tienen prioridad.
