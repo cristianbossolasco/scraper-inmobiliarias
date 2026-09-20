@@ -60,6 +60,10 @@ Para continuar un barrido interrumpido, usar
 Conserva el informe y omite los pares ID/URL ya registrados, incluidos errores e
 inciertos. RE/MAX reutiliza las páginas de búsqueda dentro de cada ejecución.
 
+El barrido respeta `BLOCKED_SOURCE_SLUGS`, igual que la interfaz y el scraping:
+Inmuebles Clarín queda excluido por duplicar Argenprop, incluso al reanudar.
+Sus publicaciones históricas se conservan y no se vuelven a consultar.
+
 ## Geolocalización
 
 - Las coordenadas publicadas por la fuente tienen prioridad.

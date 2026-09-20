@@ -9,7 +9,7 @@ from django.utils import timezone
 from properties.models import Listing, Property
 from properties.scrapers.registry import get_adapter
 from properties.services.ingestion import manual_override_fields
-from properties.services.scraping import is_listing_gone_error
+from properties.services.scraping import BLOCKED_SOURCE_SLUGS, is_listing_gone_error
 
 
 @transaction.atomic
@@ -62,7 +62,10 @@ class Command(BaseCommand):
                     if key not in completed:
                         counts[result] += 1
                         completed.add(key)
-            ids = list(Listing.objects.order_by('source_id', 'id').values_list('pk', flat=True))
+            ids = list(
+                Listing.objects.exclude(source__slug__in=BLOCKED_SOURCE_SLUGS)
+                .order_by('source_id', 'id').values_list('pk', flat=True)
+            )
             if options['limit'] is not None:
                 ids = ids[:options['limit']]
             self.stdout.write(f"{'APPLY' if options['apply'] else 'DRY-RUN'}: {len(ids)} enlaces; informe {report}")

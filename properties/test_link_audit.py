@@ -31,6 +31,22 @@ class LinkAuditTests(TestCase):
         self.run_audit({'status': 'removed'}, apply=False)
         self.assertTrue(self.listing.active)
 
+    def test_blocked_clarin_is_excluded_from_fresh_and_resumed_audits(self):
+        source = Source.objects.create(slug='inmuebles-clarin', name='Clarin')
+        blocked = Listing.objects.create(source=source, property=self.prop, external_id='blocked', url='https://www.inmuebles.clarin.com/blocked')
+        for resume in (False, True):
+            with self.subTest(resume=resume), tempfile.TemporaryDirectory() as folder, chdir(folder), patch('properties.management.commands.audit_listing_links.get_adapter') as adapter:
+                report = Path('report.jsonl')
+                if resume:
+                    report.write_text('', encoding='utf-8')
+                adapter.return_value.parse.return_value = {'status': 'active'}
+                call_command('audit_listing_links', apply=True, resume=resume, report=str(report))
+                adapter.assert_called_once_with('sample', request_timeout=25)
+                adapter.return_value.parse.assert_called_once_with(self.listing.url)
+                self.assertEqual(len(report.read_text(encoding='utf-8').splitlines()), 1)
+        blocked.refresh_from_db()
+        self.assertTrue(blocked.active)
+
     def test_confirmed_gone_preserves_manual_address(self):
         response = requests.Response()
         response.status_code = 410

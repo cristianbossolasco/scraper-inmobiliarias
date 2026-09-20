@@ -2400,7 +2400,7 @@ class InmueblesClarinScraper(CommonDetailScraper):
         search_url="https://www.inmuebles.clarin.com/casas/venta/hurlingham-hurlingham",
         crawl_delay=4,
         enabled=False,
-        notes="Duplicado de Argenprop, no recomendado. Mantener fuera de scrape --all; usar solo manualmente para contrastar cobertura.",
+        notes="Duplicado de Argenprop. Oculto y excluido del scraping y del barrido de enlaces; se conserva solo el historial.",
     )
     detail_patterns = (r"/(?:casa|departamento|ph|terreno)-en-venta", r"/\d+--")
 
