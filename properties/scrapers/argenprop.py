@@ -59,6 +59,10 @@ class ArgenpropScraper(BaseScraper):
 
     def parse(self, url):
         soup = self.soup(url)
+        return self.parse_soup(soup, url)
+
+    def parse_soup(self, soup, url):
+        """Parse either downloaded HTML or a browser-rendered public page."""
         text = repair_mojibake_text(soup.get_text(" ", strip=True))
         data = basic_html_data(soup, url)
         payload = first_json_ld(soup, {"House", "Apartment", "SingleFamilyResidence", "Product"})

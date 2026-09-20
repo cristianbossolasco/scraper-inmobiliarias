@@ -64,6 +64,23 @@ El barrido respeta `BLOCKED_SOURCE_SLUGS`, igual que la interfaz y el scraping:
 Inmuebles Clarín queda excluido por duplicar Argenprop, incluso al reanudar.
 Sus publicaciones históricas se conservan y no se vuelven a consultar.
 
+### Argenprop con navegador (experimental, pendiente de acceso)
+
+Instalar `requirements-browser.txt` y ejecutar `python -m playwright install chromium`.
+Prueba sin modificar datos:
+
+```powershell
+python manage.py scrape_argenprop_browser --state tmp/argenprop-prueba.json --max-pages 1 --max-listings 3
+```
+
+Para una corrida completa, usar otro archivo `--state` y `--apply`, sin límites.
+Repetir exactamente el comando reanuda el checkpoint. Las corridas completas
+incluyen enlaces históricos y solo retiran respuestas 404/410 confirmadas.
+El navegador es aislado, sin perfiles personales. Se detiene ante bloqueos o
+robots inaccesible. El 20/09/2026 el navegador autónomo recibió 403 en robots.txt;
+la prueba no modificó datos. No está activado en los jobs programados hasta que
+pase una prueba real de lectura e importación.
+
 ## Geolocalización
 
 - Las coordenadas publicadas por la fuente tienen prioridad.
